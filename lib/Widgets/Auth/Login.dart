@@ -8,7 +8,6 @@ class MyWidget extends StatelessWidget {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          
           body:  Center(
 
           ),
