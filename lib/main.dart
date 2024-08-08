@@ -10,10 +10,17 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'i transit',
       home: Scaffold( 
         appBar: AppBar(
-          title: const Text('i transit'),
+          backgroundColor: Colors.blueGrey,
+          title: const Text('Home',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 30,
+            ),
+          ),
         ),
       ),
     );
