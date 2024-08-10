@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class Buttonns extends StatefulWidget {
@@ -5,7 +6,12 @@ class Buttonns extends StatefulWidget {
   late final Color initialColor;
   late final String textDisplay;
 
-  Buttonns({required this.text, this.initialColor = Colors.green, required this.textDisplay});
+  Buttonns({
+    Key? key,
+    required this.text,
+    required this.initialColor,
+    required this.textDisplay,
+  }) : super(key: key);
   @override
   State<Buttonns> createState() => _ButtonnsState();
 
@@ -37,7 +43,7 @@ class _ButtonnsState extends State<Buttonns> {
         backgroundColor: Colors.yellowAccent,
       ),
       onPressed: setter, 
-      child: Text(widget.text)
+      child: Text(buttontext),
       );
   }
 }
