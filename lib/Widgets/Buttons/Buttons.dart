@@ -22,12 +22,14 @@ class _ButtonnsState extends State<Buttonns> {
   void setter() {
     setState(() {
       haha = haha ==  Colors.green ? Colors.red : Colors.green;
+      print('button pressed');
     });
   }
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: , 
-      child: Text(widget.text));
+      onPressed: setter, 
+      child: Text(widget.text)
+      );
   }
 }

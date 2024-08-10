@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Widgets/Buttons/Buttons.dart';
 void main() {
   runApp(const MainApp());
 }
@@ -20,6 +21,13 @@ class MainApp extends StatelessWidget {
             color: Colors.black,
             fontSize: 30,
             ),
+          ),
+        ),
+        body: Container(
+          margin: ,
+          child: Buttonns(
+            text: 'Click me baby' ,
+            initialColor: Colors.black54,
           ),
         ),
       ),
