@@ -24,7 +24,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
         body: Container(
-          margin: ,
+          margin: const EdgeInsets.all(10),
           child: Buttonns(
             text: 'Click me baby' ,
             initialColor: Colors.black54,
