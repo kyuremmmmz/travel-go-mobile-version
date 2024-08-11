@@ -17,10 +17,12 @@ class _WelcomePageState extends State<WelcomePage> {
       backgroundColor: const Color.fromARGB(31, 2, 0, 0),
       body: Column(
         children: <Widget>[
-          Center(
+          Align(
+                alignment: Alignment.center,
                 child: Container(
                 width: 100,
                 height: 100,
+                padding: const EdgeInsets.all(50) ,
                 margin: const EdgeInsets.all(10),
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(221, 0, 0, 0),
@@ -28,14 +30,12 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ),
             ),
-            Container(
-              child: const Text('Travel go Pangasinan',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
+            const Text('Travel go Pangasinan',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 0, 0, 0),
               ),
             )
           ],
