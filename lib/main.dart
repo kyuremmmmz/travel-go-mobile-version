@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -20,8 +18,9 @@ class _WelcomePageState extends State<WelcomePage> {
               child: Container(
                 width: 100.0,
                 height: 100.0,
+                margin: const EdgeInsets.all(100.00),
                 decoration: const BoxDecoration(
-                  color: Color.fromARGB(221, 51, 51, 51),
+                  color: Color.fromARGB(221, 88, 87, 87),
                   shape: BoxShape.circle
                 ),
                 child: const Text(
@@ -34,12 +33,12 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                 ),
               ),
-          )
-        ],
-      ),
-    );
+            )
+          ],
+        ),
+      );
+    }
   }
-}
 
 
 void main() {
