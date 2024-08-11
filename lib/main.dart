@@ -10,35 +10,40 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black12,
+    return MaterialApp(
+      title: 'Travel go',
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+      backgroundColor: const Color.fromARGB(31, 2, 0, 0),
       body: Column(
         children: <Widget>[
-        Center(
-              child: Container(
-                width: 100.0,
-                height: 100.0,
-                margin: const EdgeInsets.all(100.00),
+          Center(
+                child: Container(
+                width: 100,
+                height: 100,
+                margin: const EdgeInsets.all(10),
                 decoration: const BoxDecoration(
-                  color: Color.fromARGB(221, 88, 87, 87),
+                  color: Color.fromARGB(221, 0, 0, 0),
                   shape: BoxShape.circle
                 ),
-                child: const Text(
-                  'Travel Go Pangasinan',
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 2.0,
-                  ),
+              ),
+            ),
+            Container(
+              child: const Text('Travel go Pangasinan',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 0, 0, 0),
                 ),
               ),
             )
           ],
         ),
-      );
-    }
+      ),
+    );
   }
+}
 
 
 void main() {
