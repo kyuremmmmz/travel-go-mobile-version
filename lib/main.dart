@@ -14,7 +14,7 @@ class _WelcomePageState extends State<WelcomePage> {
       title: 'Travel go',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-      backgroundColor: const Color.fromARGB(31, 2, 0, 0),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
         children: <Widget>[
           Align(
@@ -22,7 +22,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: Container(
                 width: 100,
                 height: 100,
-                padding: const EdgeInsets.all(50) ,
+                padding: const EdgeInsets.all(50),
                 margin: const EdgeInsets.all(10),
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(221, 0, 0, 0),
