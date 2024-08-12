@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class RedButton extends StatefulWidget {
   final String text;
-  final Color color;
+  late Color color;
 
-   const RedButton({
+    RedButton({
     super.key, 
     required this.text, 
     required this.color
@@ -24,7 +25,7 @@ class _RedButtonState extends State<RedButton> {
     return  ElevatedButton(
       onPressed: function('button pressed'),
       style: ElevatedButton.styleFrom(
-        backgroundColor: widget.color,
+        backgroundColor: widget.color=Colors.red,
         shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
         ),
