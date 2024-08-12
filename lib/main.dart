@@ -64,6 +64,16 @@ class _WelcomePageState extends State<WelcomePage> {
             Bluebottle(
               color: Colors.blue, 
               text: 'Log in'
+            ),
+            const Text(
+              'or'
+            ),
+            const SizedBox(
+              height: 100
+            ),
+            Greenbutton(
+              text: 'Create Account', 
+              color: Colors.green
             )
           ],
         ),
