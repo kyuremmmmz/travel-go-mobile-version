@@ -17,26 +17,43 @@ class _WelcomePageState extends State<WelcomePage> {
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
         children: <Widget>[
-          Align(
-                alignment: Alignment.center,
+          Padding(
+                padding: const EdgeInsets.only(
+                  top: 100
+                ),
                 child: Container(
-                width: 100,
-                height: 100,
-                padding: const EdgeInsets.all(50),
-                margin: const EdgeInsets.all(10),
+                alignment: Alignment.bottomCenter,
+                width: 500,
+                height: 150,
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(221, 0, 0, 0),
                   shape: BoxShape.circle
                 ),
+                child: const Text(
+                  'Tite',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
-            const Text('Travel go Pangasinan',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 0, 0, 0),
+            const Padding( 
+              padding: EdgeInsets.only(
+                top: 250
               ),
+              child: Text(
+                'Travel Go Pangasinan',
+                textAlign: TextAlign.center,
+                softWrap: true,
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+              )
             )
           ],
         ),
