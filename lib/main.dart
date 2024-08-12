@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import './Widgets/Buttons/BlueButton.dart';
+import './Widgets/Buttons/GreenButton.dart';
+
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -54,6 +57,13 @@ class _WelcomePageState extends State<WelcomePage> {
                   color: Color.fromARGB(255, 0, 0, 0),
                 ),
               )
+            ),
+            const SizedBox(
+              height: 200,
+            ),
+            Bluebottle(
+              color: Colors.blue, 
+              text: 'Log in'
             )
           ],
         ),
