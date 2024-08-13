@@ -1,14 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
 
-
 class Greenbutton extends StatefulWidget {
   late String text;
   late Color color;
   Greenbutton({
     super.key,
     required this.text,
-    required this.color,
+    this.color = const Color(0xFF66BB6A),
   });
 
   @override
@@ -19,18 +18,18 @@ class _GreenbuttonState extends State<Greenbutton> {
   
   // ignore: non_constant_identifier_names
   void RouteTo(String route){
-        Navigator.push(
+        Navigator.pushNamed(
           context, 
-          route as Route<Object?>
+          route
         );
   }
   @override
   Widget build(BuildContext context) {
     return  ElevatedButton(
-      onPressed:()=>RouteTo('./../Auth/Signup.dart'),
+      onPressed:()=>RouteTo('../Screens/Auth/Signup.dart'),
       style: ElevatedButton.styleFrom(
         minimumSize:const Size(300, 40),
-        backgroundColor: widget.color = Colors.greenAccent[400]!,
+        backgroundColor: widget.color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10)
         )
