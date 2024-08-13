@@ -29,6 +29,7 @@ class _GreenbuttonState extends State<Greenbutton> {
     return  ElevatedButton(
       onPressed:()=>RouteTo('./../Auth/Signup.dart'),
       style: ElevatedButton.styleFrom(
+        minimumSize:const Size(300, 40),
         backgroundColor: widget.color = Colors.greenAccent[400]!,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10)

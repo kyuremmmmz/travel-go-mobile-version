@@ -28,21 +28,21 @@ class _BluebottleState extends State<Bluebottle> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: ()=>setter('../Auth/Login.dart') ,
+      onPressed: ()=>setter('../Auth/Login.dart'),
       style: ElevatedButton.styleFrom(
+        minimumSize:const Size(300, 40),
         backgroundColor: widget.color = Colors.blue,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
       child: Text(
         widget.text,
         style: const TextStyle(
-          fontSize: 40,
-          color: Colors.black,
           fontWeight: FontWeight.bold,
-          fontFamily: 'Pacifico',
+          color: Colors.black
         ),
+        
       ),
     );
   }

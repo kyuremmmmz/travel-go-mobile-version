@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import './Widgets/Buttons/BlueButton.dart';
 import './Widgets/Buttons/GreenButton.dart';
 
@@ -45,35 +46,38 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             const Padding( 
               padding: EdgeInsets.only(
-                top: 250
+                top: 200
               ),
               child: Text(
                 'Travel Go Pangasinan',
-                textAlign: TextAlign.center,
-                softWrap: true,
+                textAlign: TextAlign.center,              
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                   color: Color.fromARGB(255, 0, 0, 0),
                 ),
-              )
+              ),
             ),
-            const SizedBox(
-              height: 200,
-            ),
-            Bluebottle(
-              color: Colors.blue, 
-              text: 'Log in'
-            ),
-            const Text(
-              'or'
-            ),
-            const SizedBox(
-              height: 100
-            ),
-            Greenbutton(
-              text: 'Create Account', 
-              color: Colors.green
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.only(
+                top: 200
+              ),
+              child: Column(
+                children: <Widget>[
+                  Bluebottle(
+                    color: Colors.blue, 
+                    text: 'Log in'
+                  ),
+                  const Text(
+                    'or'
+                  ),
+                  Greenbutton(
+                    text: 'Create Account', 
+                    color: Colors.green
+                  )
+                ],
+              ),
             )
           ],
         ),
