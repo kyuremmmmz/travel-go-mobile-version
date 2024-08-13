@@ -20,7 +20,7 @@ class _BluebottleState extends State<Bluebottle> {
   
   //Reminder: ito is dapat practice na may setters here
   void setter(String routeName){
-      Navigator.push(context, routeName as Route<Object?>);
+      Navigator.pushNamed(context, routeName);
   }
 
   
