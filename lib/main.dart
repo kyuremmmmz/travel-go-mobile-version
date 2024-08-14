@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import './Widgets/Buttons/BlueButton.dart';
-import './Widgets/Buttons/GreenButton.dart';
+import 'Widgets/Buttons/WithMethodButtons/BlueButton.dart';
+import 'Widgets/Buttons/WithMethodButtons/GreenButton.dart';
 
 
 class WelcomePage extends StatefulWidget {
