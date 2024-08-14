@@ -42,7 +42,6 @@ class _BluebottleState extends State<Bluebottle> {
           fontWeight: FontWeight.bold,
           color: Colors.black
         ),
-        
       ),
     );
   }
