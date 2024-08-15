@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+
+import './../../Screens/Auth/Login.dart';
 //import '../Auth/Login.dart';
 class Bluebottle extends StatefulWidget {
   late Color color;
@@ -18,8 +20,11 @@ class Bluebottle extends StatefulWidget {
 class _BluebottleState extends State<Bluebottle> {
   
   //Reminder: ito is dapat practice na may setters here
-  void setter(String routeName){
-      Navigator.pushNamed(context, routeName);
+  void setter(Widget routeName){
+      Navigator.push(context,
+      MaterialPageRoute(builder: 
+      (context) => routeName,
+    ));
   }
 
   
@@ -27,7 +32,7 @@ class _BluebottleState extends State<Bluebottle> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: ()=>setter('../Auth/Login.dart'),
+      onPressed: ()=>setter(const LoginScreen()),
       style: ElevatedButton.styleFrom(
         minimumSize:const Size(300, 40),
         backgroundColor: widget.color = Colors.blue,
