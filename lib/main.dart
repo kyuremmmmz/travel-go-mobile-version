@@ -33,15 +33,18 @@ class _WelcomePageState extends State<WelcomePage> {
                   color: Color.fromARGB(221, 0, 0, 0),
                   shape: BoxShape.circle
                 ),
-                child: const Text(
-                  'Tite',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                child: const Center(
+                  child: Text(
+                    'Travel go pangasinan',
+                    softWrap: true,
+                    overflow: ,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
                   ),
-                ),
+                )
               ),
             ),
             const Padding( 
