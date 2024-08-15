@@ -34,7 +34,11 @@ class _GreenbuttonState extends State<Greenbutton> {
           borderRadius: BorderRadius.circular(10)
         )
       ),
-      child:  Text(widget.text),
+      child:  Text(widget.text, 
+      style: const TextStyle(
+        color: Colors.black
+      ),
+      ),
     );
   }
 }

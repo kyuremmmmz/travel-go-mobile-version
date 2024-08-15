@@ -46,7 +46,7 @@ class _WelcomePageState extends State<WelcomePage> {
             ),
             const Padding( 
               padding: EdgeInsets.only(
-                top: 200
+                top: 10
               ),
               child: Text(
                 'Travel Go Pangasinan',
