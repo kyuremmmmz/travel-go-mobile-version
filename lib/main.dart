@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 
-import 'Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import './../Routes/Routes.dart';
 import 'Widgets/Buttons/WithMethodButtons/BlueButton.dart';
-
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -86,16 +86,17 @@ class _WelcomePageState extends State<WelcomePage> {
                   const Text(
                     'or'
                   ),
-                  BlueButtonWithoutMethod(
+                  
+                  GreenButtonWithoutMethod(
                     text: 'Click me', 
-                    color: Colors.green
-                  )
+                    color: Colors.green)
                 ],
               ),
             )
           ],
         ),
       ),
+      onGenerateRoute: AppRoutes.geneRateRoutes,
     );
   }
 }

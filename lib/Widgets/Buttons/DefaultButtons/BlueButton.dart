@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class BlueButtonWithoutMethod extends StatefulWidget {
+class GreenButtonWithoutMethod extends StatefulWidget {
   late String text;
   late Color color;
-  BlueButtonWithoutMethod
-    ({
-      super.key,
-      required this.text,
-      required this.color,
-    });
-    
+  GreenButtonWithoutMethod
+  ({
+    super.key,
+    required this.text,
+    required this.color,
+  });
 
   @override
-  State<BlueButtonWithoutMethod> createState() => _BlueButtonWithoutMethodState();
+  State<GreenButtonWithoutMethod> createState() => _GreenButtonWithoutMethodState();
 }
 
-class _BlueButtonWithoutMethodState extends State<BlueButtonWithoutMethod> {
-  void func(){
-      print('Click me');
-    }
+class _GreenButtonWithoutMethodState extends State<GreenButtonWithoutMethod> {
+  void funct(){
+    print('hello christian');
+  }
   @override
   Widget build(BuildContext context) {
     return  ElevatedButton(
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size(30, 30),
         backgroundColor: widget.color,
+        shape: RoundedRectangleBorder(
+          borderRadius:  BorderRadius.circular(30),
+        )
       ),
-      onPressed: ()=>func(),//Lambda Expression
-      child: Text(
-        widget.text
+      onPressed: ()=>funct(),
+      child:  Text(
+        widget.text,
       ),
     );
   }

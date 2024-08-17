@@ -28,6 +28,7 @@ class _signupState extends State<signupScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
             title: const Text('Signup'),
@@ -52,8 +53,7 @@ class _signupState extends State<signupScreen> {
               ),
             ],
           ),
-        )
-      
+        ),
     );
   }
 }

@@ -20,7 +20,10 @@ class _GreenbuttonState extends State<Greenbutton> {
   @override
   Widget build(BuildContext context) {
     return  ElevatedButton(
-      onPressed:()=> AppRoutes.navigateTosignUp(context),
+      onPressed: ()
+      {
+        AppRoutes.navigateTosignUp(context);
+      },
       style: ElevatedButton.styleFrom(
         minimumSize:const Size(300, 40),
         backgroundColor: widget.color,
@@ -31,7 +34,7 @@ class _GreenbuttonState extends State<Greenbutton> {
       child:  Text(widget.text, 
       style: const TextStyle(
         color: Colors.black
-      ),
+        ),
       ),
     );
   }
