@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
 
-// ignore: camel_case_types, must_be_immutable
-class numbers extends StatefulWidget {
-  late String text;
-  numbers
+// ignore: camel_case_types
+class numberTextField extends StatefulWidget {
+  final String? text;
+
+    const numberTextField
     ({
       super.key,
-      required this.text
+      required this.text,
     });
 
   @override
-  State<numbers> createState() => _numbersState();
+  State<numberTextField> createState() => _numberTextFieldState();
 }
 
+
 // ignore: camel_case_types
-class _numbersState extends State<numbers> {
+class _numberTextFieldState extends State<numberTextField> {
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-      border: const UnderlineInputBorder(),
-      labelText: widget.text,
+    return TextFormField(
+      controller: _controller,
+      decoration:  InputDecoration(
+          labelText: widget.text,
+          border: const UnderlineInputBorder(),
       ),
+      keyboardType: TextInputType.number,
     );
   }
 }

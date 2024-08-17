@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
-class plainTextField extends StatefulWidget {
+class numberTextField extends StatefulWidget {
   final String? text;
 
-    const plainTextField
+    const numberTextField
     ({
       super.key,
       required this.text,
     });
 
   @override
-  State<plainTextField> createState() => _numberTextFieldState();
+  State<numberTextField> createState() => _numberTextFieldState();
 }
 
 
 // ignore: camel_case_types
-class _numberTextFieldState extends State<plainTextField> {
+class _numberTextFieldState extends State<numberTextField> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class _numberTextFieldState extends State<plainTextField> {
           labelText: widget.text,
           border: const UnderlineInputBorder(),
       ),
+      keyboardType: TextInputType.phone,
     );
   }
 }
