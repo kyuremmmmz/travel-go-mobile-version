@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import '../Widgets/Screens/Auth/Forgot.dart';
-import '../Widgets/Screens/Auth/Signup.dart';
+
 import '../Widgets/Screens/Auth/Login.dart';
+import '../Widgets/Screens/Auth/Signup.dart';
 class AppRoutes {
     static const String login = "../Widgets/Screens/Auth/Login.dart";
     static const String forgotPassword = "../Widgets/Screens/Auth/Forgot.dart";
@@ -25,6 +24,14 @@ class AppRoutes {
     }
 
     static void navigateTosignUp(BuildContext route){
-        Navigator.push(context, route);
+        Navigator.pushNamed(route, signup);
+    }
+
+    static void navigateToLogin(BuildContext route){
+        Navigator.pushNamed(route, login);
+    }
+
+    static void navigateToForgotPassword(BuildContext route){
+        Navigator.pushNamed(route, forgotPassword);
     }
 }

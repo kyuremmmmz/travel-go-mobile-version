@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'Widgets/Buttons/WithMethodButtons/BlueButton.dart';
-import 'Widgets/Buttons/WithMethodButtons/GreenButton.dart';
-
 
 
 class WelcomePage extends StatefulWidget {
@@ -87,8 +86,8 @@ class _WelcomePageState extends State<WelcomePage> {
                   const Text(
                     'or'
                   ),
-                  Greenbutton(
-                    text: 'Create Account', 
+                  BlueButtonWithoutMethod(
+                    text: 'Click me', 
                     color: Colors.green
                   )
                 ],
