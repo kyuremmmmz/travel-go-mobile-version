@@ -17,7 +17,7 @@ class Signup {
     }
   );
 
-  Future<Map<String, dynamic>> signUp() async {
+  Future<Map<String, dynamic>> sign() async {
     final supabase = Supabase.instance.client;
     try {
         final AuthResponse response = await supabase.auth.signUp(
@@ -26,15 +26,30 @@ class Signup {
         );
           final Session? session = response.session;
           final User? user = response.user;
-        if (email != null && user != null) {
+        if (session != null && user != null) 
+        {
           return {
             'status': 200,
             'message': 'success',
             'data': {
               'user': user.email,
               'id': user.id,
-              'adminOrNot': user.role == 'admin'? "you're in admin mode" : "you're in user mode"
+              'adminOrNot': user.role == 'admin'? "you're in admin mode" : "you're in user mode",
+              'phone': user.phone,
+            },
+            'session':{
+              'token': session.accessToken,
+              'refresherToken': session.refreshToken,
+              'expiresIn': session.expiresIn,
+              'expiresAfter': session.expiresAt
             }
+          };
+        }
+        else
+        {
+          return {
+            'statusCode': '401',
+            'response': 'not authorized',
           };
         }
     // ignore: empty_catches
