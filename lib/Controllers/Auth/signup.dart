@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+//JUST A TEST MUNA ITONG JSON
 class Signup {
   late final String? lastName;
   late final String? firstName;
@@ -54,7 +54,11 @@ class Signup {
         }
     // ignore: empty_catches
     } catch (error) {
-      
+      return {
+        'statusCode': '500',
+       'response': 'internal server error',
+        'error': error.toString(),
+      };
     }
   }
 }
