@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itransit/Widgets/Textfield/passwordField.dart';
 
 import '../../Textfield/plainTextField.dart';
 void main(){
@@ -15,12 +16,16 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      body: Column(
+      body:  SingleChildScrollView(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(
-              top: 40
+              top: 30
             ),
             child: Container(
                 constraints: const BoxConstraints(
@@ -29,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   minHeight: 100,
                   minWidth: 200
                 ),
-                height: 350,
+                height: 250,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(
@@ -40,10 +45,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Container(
                   padding: const EdgeInsets.only(
-                    top: 100,
+                    top: 80,
                   ),
                   margin: const EdgeInsets.only(
-                    left: 10
+                    left: 20
                   ),
                   child: const Text(
                   'TRAVEL AND GET MORE EXPERIENCE IN BALUNGAO PANGASINAN!',
@@ -58,16 +63,31 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Container(
             padding: const EdgeInsets.only(
-              top: 10
+              top: 0
             ),
-            child: Container(
-              child:  plainTextField(text: 'Enter your email address'),
-              
-              
+            child: const Column(
+                children: [
+                  
+                  plainTextField(
+                    text: 'Enter your email address'
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  passwordTextField(
+                    text: 'Enter your password'
+                )
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(
+              top: 20,
             ),
           )
         ],
       ),
-    );
-  }
+    )
+  );
+}
 }
