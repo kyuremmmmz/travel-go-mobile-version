@@ -7,7 +7,7 @@ import './../../Textfield/passwordField.dart';
 
 
 void main(){
-  runApp(const MyApp());
+  runApp(const signupScreen());
 }
  @override
 Widget build(BuildContext context) {
@@ -27,11 +27,11 @@ class signupScreen extends StatefulWidget {
 class _signupState extends State<signupScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-        home: Scaffold(
+    return Scaffold(
           appBar: AppBar(
-            title: const Text('Signup'),
+            title: const Text(
+              'Sign up',
+            ),
           ),
           body: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +53,6 @@ class _signupState extends State<signupScreen> {
               ),
             ],
           ),
-        ),
-    );
-  }
-}
+        );
+      }
+    }
