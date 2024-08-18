@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Textfield/passwordField.dart';
 
 import '../../Textfield/plainTextField.dart';
+import './../../Buttons/DefaultButtons/BlueButton.dart';
 void main(){
   runApp(const LoginScreen());
 }
@@ -34,21 +35,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   minHeight: 100,
                   minWidth: 200
                 ),
-                height: 250,
+                height: 220,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(
-                      150
+                      130
                     )
                   ),
                   color: Colors.blue,
+                  
                 ),
                 child: Container(
                   padding: const EdgeInsets.only(
                     top: 80,
                   ),
                   margin: const EdgeInsets.only(
-                    left: 20
+                    left: 30
                   ),
                   child: const Text(
                   'TRAVEL AND GET MORE EXPERIENCE IN BALUNGAO PANGASINAN!',
@@ -63,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           Container(
             padding: const EdgeInsets.only(
-              top: 0
+              top: 30
             ),
             child: const Column(
                 children: [
@@ -80,10 +82,18 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
+          const SizedBox(
+            height: 30,
+          ),
           Container(
             padding: const EdgeInsets.only(
               top: 20,
             ),
+            width: 400,
+            child: BlueButtonWithoutFunction(
+              text: 'PROCEED', 
+              color: const Color.fromARGB(255, 61, 62, 63)
+              ),
           )
         ],
       ),
