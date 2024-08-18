@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../Textfield/plainTextField.dart';
 void main(){
   runApp(const LoginScreen());
 }
@@ -27,11 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   minHeight: 100,
                   minWidth: 200
                 ),
-                height: 300,
+                height: 350,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(
-                      100
+                      150
                     )
                   ),
                   color: Colors.blue,
@@ -52,6 +54,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               )
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(
+              top: 10
+            ),
+            child: Container(
+              child:  plainTextField(text: 'Enter your email address'),
+              
+              
             ),
           )
         ],
