@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '';
 void main(){
   runApp(const LoginScreen());
 }
@@ -13,17 +12,48 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(32),
-            child:  Image(image: './../../../../assets/Images/OIP.png'),
-            
-            
-           )
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 40
+            ),
+            child: Container(
+                constraints: const BoxConstraints(
+                  maxHeight: 300,
+                  maxWidth: 359,
+                  minHeight: 100,
+                  minWidth: 200
+                ),
+                height: 300,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(
+                      100
+                    )
+                  ),
+                  color: Colors.blue,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.only(
+                    top: 100,
+                  ),
+                  margin: const EdgeInsets.only(
+                    left: 10
+                  ),
+                  child: const Text(
+                  'TRAVEL AND GET MORE EXPERIENCE IN BALUNGAO PANGASINAN!',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ),
+          )
         ],
       ),
     );

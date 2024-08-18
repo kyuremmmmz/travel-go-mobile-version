@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-
+import './../../../Routes/Routes.dart';
 import './../../Screens/Auth/Login.dart';
 //import '../Auth/Login.dart';
 class Bluebottle extends StatefulWidget {
@@ -20,19 +20,14 @@ class Bluebottle extends StatefulWidget {
 class _BluebottleState extends State<Bluebottle> {
   
   //Reminder: ito is dapat practice na may setters here
-  void setter(Widget routeName){
-      Navigator.push(context,
-      MaterialPageRoute(builder: 
-      (context) => routeName,
-    ));
-  }
+
 
   
   
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: ()=>setter(const LoginScreen()),
+      onPressed:()=> AppRoutes.navigateToLogin(context),
       style: ElevatedButton.styleFrom(
         minimumSize:const Size(300, 40),
         backgroundColor: widget.color = Colors.blue,
