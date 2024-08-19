@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BlueButtonWithoutFunction extends StatefulWidget {
   late String text;
   late Color color;
+  late Function onpress;
    BlueButtonWithoutFunction
   ({
     super.key,
     required this.text,
     required this.color,
+    required this.onpress,
 
 
   });
@@ -20,7 +23,7 @@ class _BlueButtonWithoutFunctionState extends State<BlueButtonWithoutFunction> {
   @override
   Widget build(BuildContext context) {
     return  ElevatedButton(
-      onPressed: ()=> print('Hello!') ,
+      onPressed: ()=> widget.onpress ,
       style: ElevatedButton.styleFrom(
         textStyle: const TextStyle(
           fontWeight: FontWeight.bold,

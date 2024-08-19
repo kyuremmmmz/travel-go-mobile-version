@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Textfield/passwordField.dart';
 
 import '../../Textfield/plainTextField.dart';
+import './../../../Controllers/Auth/login.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';
 void main(){
   runApp(const LoginScreen());
@@ -14,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -67,17 +70,18 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.only(
               top: 30
             ),
-            child: const Column(
+            child: Column(
                 children: [
-                  
                   plainTextField(
-                    text: 'Enter your email address'
+                    text: 'Enter your email address',
+                    controller: _emailController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   passwordTextField(
-                    text: 'Enter your password'
+                    text: 'Enter your password',
+                    password: _passwordController,
                 )
               ],
             ),
@@ -92,7 +96,12 @@ class _LoginScreenState extends State<LoginScreen> {
             width: 400,
             child: BlueButtonWithoutFunction(
               text: 'PROCEED', 
-              color: const Color.fromARGB(255, 61, 62, 63)
+              color: const Color.fromARGB(255, 61, 62, 63),
+              onpress: ()=> Login
+              (
+                email: _emailController.text, 
+                password: _passwordController.text
+              ).loginUser(),
               ),
           )
         ],

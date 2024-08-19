@@ -1,5 +1,5 @@
+/*
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/Auth/Login.dart';
 
 import '../../Textfield/phoneNumber.dart';
 import '../../Textfield/plainTextField.dart';
@@ -25,6 +25,7 @@ class signupScreen extends StatefulWidget {
 
 // ignore: camel_case_types
 class _signupState extends State<signupScreen> {
+  final _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,21 +34,24 @@ class _signupState extends State<signupScreen> {
               'Sign up',
             ),
           ),
-          body: const Column(
+          body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 100,
                 ),
                 child:  Column(
                   children: <Widget>[
-                    plainTextField(text: 'Enter your name...'),
-                    SizedBox(height: 10),
-                    passwordTextField(text: 'Enter your password...'),
-                    SizedBox(height: 10),
-                    PhonenumberTextField(text: 'Enter your phone number...'),
+                    plainTextField
+                    ( text: 'Enter your name...', 
+                      controller: _controller,
+                    ),
+                    const SizedBox(height: 10),
+                    const passwordTextField(text: 'Enter your password...'),
+                    const SizedBox(height: 10),
+                    const PhonenumberTextField(text: 'Enter your phone number...'),
                   ],
                 ),
               ),
@@ -55,4 +59,4 @@ class _signupState extends State<signupScreen> {
           ),
         );
       }
-    }
+    */

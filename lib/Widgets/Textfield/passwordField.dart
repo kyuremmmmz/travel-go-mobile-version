@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 // ignore: camel_case_types
 class passwordTextField extends StatefulWidget {
   final String? text;
-
+  final TextEditingController? password;
     const passwordTextField
     ({
       super.key,
       required this.text,
+      required this.password,
     });
 
   @override
