@@ -53,6 +53,7 @@ class _numberTextFieldState extends State<plainTextField> {
         fontSize: 12,
         color: Colors.black,
       ),
+      keyboardType: TextInputType.emailAddress,
     );
   }
 }
