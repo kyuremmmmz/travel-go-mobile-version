@@ -1,9 +1,15 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../Supabase/key.dart';
 class Login {
   Future<Map <String, String>> loginUser(String email, String password) async {
+    void main()async{
+      await database().supabase();
+    }
     final SupabaseClient supabase = Supabase.instance.client;
-
-    final response = await supabase.auth.signInWithPassword(
+    
+    final response = await supabase.auth.signInWithPassword
+    (
       password: password,
       email: email,
     );
@@ -33,12 +39,5 @@ class Login {
         'error': 'User not found $e'
       };
     }
-  }
-
-  Future <dynamic> setUser(String email, String password) async
-  {
-      await loginUser(email, password);
-      print(email);
-      print(password);
   }
 }

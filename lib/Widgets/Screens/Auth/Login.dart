@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Textfield/passwordField.dart';
 
+import '../../../Controllers/Supabase/key.dart';
 import '../../Textfield/plainTextField.dart';
 import './../../../Controllers/Auth/login.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';
-void main(){
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await database().supabase();
   runApp(const LoginScreen());
 }
 class LoginScreen extends StatefulWidget {
@@ -19,9 +22,18 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void set()async{
-    final ewanko = await login.loginUser(_emailController.text, _passwordController.text);
-    print(ewanko);
+  Future<Map <dynamic, dynamic>> set(String email)async{
+    String regEx  =  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+    RegExp regx = RegExp(regEx);
+    if (regx.hasMatch(email)) {
+        return await login.loginUser(_emailController.text, _passwordController.text);
+    }else{
+      print('password must be a valid email');
+    }
+    return{
+      'status': '404 | NOT FOUND'
+    };
+    
   }
   @override
   Widget build(BuildContext context) {
@@ -108,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(10)
                   )
               ),
-              oppressed: ()=> {set()},
+              oppressed: ()=> {set(_emailController.text)},
             ),
           )
         ],
