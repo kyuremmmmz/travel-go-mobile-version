@@ -1,4 +1,4 @@
-/*
+
 import 'package:flutter/material.dart';
 
 import '../../Textfield/phoneNumber.dart';
@@ -49,7 +49,10 @@ class _signupState extends State<signupScreen> {
                       controller: _controller,
                     ),
                     const SizedBox(height: 10),
-                    const passwordTextField(text: 'Enter your password...'),
+                    passwordTextField(
+                      text: 'Enter your password...',
+                      password: _controller,
+                    ),
                     const SizedBox(height: 10),
                     const PhonenumberTextField(text: 'Enter your phone number...'),
                   ],
@@ -59,4 +62,4 @@ class _signupState extends State<signupScreen> {
           ),
         );
       }
-    */
+}

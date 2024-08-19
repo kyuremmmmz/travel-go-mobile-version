@@ -15,8 +15,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final Login login = Login();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  void set()async{
+    final ewanko = await login.loginUser(_emailController.text, _passwordController.text);
+    print(ewanko);
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -96,13 +102,14 @@ class _LoginScreenState extends State<LoginScreen> {
             width: 400,
             child: BlueButtonWithoutFunction(
               text: 'PROCEED', 
-              color: const Color.fromARGB(255, 61, 62, 63),
-              onpress: ()=> Login
-              (
-                email: _emailController.text, 
-                password: _passwordController.text
-              ).loginUser(),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 31, 31, 31),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)
+                  )
               ),
+              oppressed: ()=> {set()},
+            ),
           )
         ],
       ),
