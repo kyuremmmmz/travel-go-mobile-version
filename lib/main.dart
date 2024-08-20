@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'Widgets/Buttons/WithMethodButtons/BlueButton.dart';
 import 'Widgets/Buttons/WithMethodButtons/GreenButton.dart';
@@ -10,6 +11,7 @@ class WelcomePage extends StatefulWidget {
   @override
   State<WelcomePage> createState() => _WelcomePageState();
 }
+
 
 class _WelcomePageState extends State<WelcomePage> {
   @override
@@ -33,20 +35,34 @@ class _WelcomePageState extends State<WelcomePage> {
                   color: Color.fromARGB(221, 0, 0, 0),
                   shape: BoxShape.circle
                 ),
-                child: const Text(
-                  'Tite',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Travel Go',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      'Pangasinan',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold
+                      ),
+                    )
+                  ],
+                )
               ),
             ),
             const Padding( 
               padding: EdgeInsets.only(
-                top: 200
+                top: 10
               ),
               child: Text(
                 'Travel Go Pangasinan',
@@ -86,7 +102,19 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 }
 
+const url1 = 'https://cdfmtahwfxugtjaplfjt.supabase.co';
+const apikey1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkZm10YWh3Znh1Z3RqYXBsZmp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQxNDA4NTQsImV4cCI6MjAzOTcxNjg1NH0.t2RxCaEhF3yAuuf2Chug2uGz6Vf_VND1AuoO9wqU_8s';
+// ignore: camel_case_types
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Supabase
+  await Supabase.initialize(
+    url: url1,
+    anonKey: apikey1,
+  );
+  
+
   runApp(const WelcomePage());
 }
