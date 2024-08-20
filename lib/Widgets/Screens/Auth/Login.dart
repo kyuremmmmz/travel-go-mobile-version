@@ -112,7 +112,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   password: 'example-password',
                 );
               }
-              
             ),
           )
         ],
