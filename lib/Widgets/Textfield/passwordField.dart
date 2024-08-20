@@ -18,7 +18,6 @@ class passwordTextField extends StatefulWidget {
 
 // ignore: camel_case_types
 class _numberTextFieldState extends State<passwordTextField> {
-  final TextEditingController _controller = TextEditingController();
   // ignore: non_constant_identifier_names
   bool _IsObsucure = true;
 
@@ -26,7 +25,7 @@ class _numberTextFieldState extends State<passwordTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _controller,
+      controller: widget.password,
       decoration:  InputDecoration(
           labelText: widget.text,
           suffixIcon: IconButton(

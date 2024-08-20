@@ -1,4 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../Supabase/key.dart';
+import './../../Routes/Routes.dart';
 //JUST A TEST MUNA ITONG JSON
 class Signup {
   late final String? lastName;
@@ -17,6 +20,7 @@ class Signup {
   );
 
   Future<Map<String, dynamic>> sign() async {
+    await Supabase.initialize(url: url, anonKey: apikey);
     final supabase = Supabase.instance.client;
     try {
         final AuthResponse response = await supabase.auth.signUp(
@@ -27,6 +31,7 @@ class Signup {
           final User? user = response.user;
         if (session != null && user != null) 
         {
+          (context)=>AppRoutes.navigateToLogin(context);
           return {
             'status': 200,
             'message': 'success',
@@ -43,6 +48,7 @@ class Signup {
               'expiresAfter': session.expiresAt
             }
           };
+          
         }
         else
         {

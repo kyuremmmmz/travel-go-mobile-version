@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:itransit/Controllers/Auth/login.dart';
 import 'package:itransit/Widgets/Textfield/passwordField.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../Controllers/Supabase/key.dart';
 import '../../Textfield/plainTextField.dart';
-import './../../../Controllers/Auth/login.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await database().supabase();
-  runApp(const LoginScreen());
+  runApp(const Loginscreen());
 }
+
+class Loginscreen extends StatelessWidget {
+  const Loginscreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Loginscreen',
+      home: LoginScreen(),
+    );
+  }
+}
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -21,60 +32,63 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body:  SingleChildScrollView(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
+    return Scaffold(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(
+          top: 1,
         ),
         child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 30
-            ),
-            child: Container(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 30,
+              ),
+              child: Container(
                 constraints: const BoxConstraints(
                   maxHeight: 300,
                   maxWidth: 359,
                   minHeight: 100,
-                  minWidth: 200
+                  minWidth: 200,
                 ),
                 height: 220,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(
-                      130
-                    )
+                    bottomLeft: Radius.circular(130),
                   ),
                   color: Colors.blue,
-                  
                 ),
                 child: Container(
                   padding: const EdgeInsets.only(
                     top: 80,
                   ),
-                  margin: const EdgeInsets.only(
-                    left: 30
-                  ),
+                  margin: const EdgeInsets.only(left: 30),
                   child: const Text(
-                  'TRAVEL AND GET MORE EXPERIENCE IN BALUNGAO PANGASINAN!',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                    'TRAVEL AND GET MORE EXPERIENCE IN BALUNGAO PANGASINAN!',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              )
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(
-              top: 30
-            ),
-            child: Column(
+            Container(
+              padding: const EdgeInsets.only(
+                top: 30,
+              ),
+              child: Column(
                 children: [
                   plainTextField(
                     text: 'Enter your email address',
@@ -86,37 +100,37 @@ class _LoginScreenState extends State<LoginScreen> {
                   passwordTextField(
                     text: 'Enter your password',
                     password: _passwordController,
-                )
-              ],
+                  )
+                ],
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          Container(
-            padding: const EdgeInsets.only(
-              top: 20,
+            const SizedBox(
+              height: 30,
             ),
-            width: 400,
-            child: BlueButtonWithoutFunction(
-              text: 'PROCEED', 
-              style: ElevatedButton.styleFrom(
+            Container(
+              padding: const EdgeInsets.only(
+                top: 20,
+              ),
+              width: 400,
+              child: BlueButtonWithoutFunction(
+                text: 'PROCEED',
+                style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 31, 31, 31),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)
-                  )
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                oppressed: () async {
+                    Login(
+                      email: _emailController.text.trim(), 
+                      password: _passwordController.text.trim())
+                      .loginUser();
+                },
               ),
-              oppressed: () async{
-                final  res = await (
-                  email: 'example@email.com',
-                  password: 'example-password',
-                );
-              }
             ),
-          )
-        ],
+          ],
+        ),
       ),
-    )
-  );
-}
+    );
+  }
 }

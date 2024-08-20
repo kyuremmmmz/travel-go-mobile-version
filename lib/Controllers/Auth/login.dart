@@ -1,8 +1,6 @@
 
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../Supabase/key.dart';
-import './../../Routes/Routes.dart';
 class Login {
   late final String email;
   late final String password;
@@ -10,7 +8,6 @@ class Login {
   Login({required this.email, required this.password});
   Future<void> loginUser() async {
     
-    Supabase.initialize(url: url, anonKey: apikey);
     final SupabaseClient supabase = Supabase.instance.client;
     
     final AuthResponse response = await supabase.auth.signInWithPassword
@@ -18,11 +15,15 @@ class Login {
       password: password,
       email: email,
     );
-    final Session? session = response.session;
-    final User? user = response.user;
     
-    if (session!= null && user!= null) {
-      (context)=> AppRoutes.navigateToHome(context);
+    // ignore: unrelated_type_equality_checks
+    (BuildContext context)=> {
+          ScaffoldMessenger
+          .of(context)
+          .showSnackBar(
+            SnackBar(content: Text('Logged in as ${response.user?.email}'))
+          )
+      };
     }
+    
   }
-}

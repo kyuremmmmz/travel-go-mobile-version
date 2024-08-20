@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-import './../Routes/Routes.dart';
 import 'Widgets/Buttons/WithMethodButtons/BlueButton.dart';
 import 'Widgets/Buttons/WithMethodButtons/GreenButton.dart';
+
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -10,6 +11,7 @@ class WelcomePage extends StatefulWidget {
   @override
   State<WelcomePage> createState() => _WelcomePageState();
 }
+
 
 class _WelcomePageState extends State<WelcomePage> {
   @override
@@ -100,7 +102,19 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 }
 
+const url1 = 'https://cdfmtahwfxugtjaplfjt.supabase.co';
+const apikey1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkZm10YWh3Znh1Z3RqYXBsZmp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQxNDA4NTQsImV4cCI6MjAzOTcxNjg1NH0.t2RxCaEhF3yAuuf2Chug2uGz6Vf_VND1AuoO9wqU_8s';
+// ignore: camel_case_types
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Supabase
+  await Supabase.initialize(
+    url: url1,
+    anonKey: apikey1,
+  );
+  
+
   runApp(const WelcomePage());
 }
