@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Textfield/passwordField.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../Controllers/Supabase/key.dart';
 import '../../Textfield/plainTextField.dart';
@@ -18,23 +19,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final Login login = Login();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
-  Future<Map <dynamic, dynamic>> set(String email)async{
-    String regEx  =  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
-    RegExp regx = RegExp(regEx);
-    if (regx.hasMatch(email)) {
-        return await login.loginUser(_emailController.text, _passwordController.text);
-    }else{
-      print('password must be a valid email');
-    }
-    return{
-      'status': '404 | NOT FOUND'
-    };
-    
-  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -120,7 +106,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(10)
                   )
               ),
-              oppressed: ()=> {set(_emailController.text)},
+              oppressed: () async{
+                final  res = await (
+                  email: 'example@email.com',
+                  password: 'example-password',
+                );
+              }
+              
             ),
           )
         ],
