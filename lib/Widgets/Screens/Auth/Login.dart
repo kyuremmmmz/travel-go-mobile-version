@@ -17,6 +17,7 @@ class Loginscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Loginscreen',
+      debugShowCheckedModeBanner: false,
       home: LoginScreen(),
     );
   }

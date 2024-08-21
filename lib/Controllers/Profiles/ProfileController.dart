@@ -1,15 +1,22 @@
-import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class ProfileController extends StatefulWidget {
-  const ProfileController({super.key});
+class Usersss {
+  late User? user;
+  SupabaseClient supabase = Supabase.instance.client;
 
-  @override
-  State<ProfileController> createState() => _ProfileControllerState();
-}
+  void signOut() async {
+    await supabase.auth.signOut();
+    user = null;
+  }
 
-class _ProfileControllerState extends State<ProfileController> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+  Future <dynamic> fetchUser() async {
+    user =  supabase.auth.currentUser;
+
+    if (user == null) {
+        return null;
+    }
+    else {
+      return user?.email;
+    }
   }
 }

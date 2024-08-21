@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/GreenButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueButton.dart';
+import 'package:itransit/Widgets/Buttons/WithMethodButtons/GreenButton.dart';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();

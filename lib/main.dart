@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/Auth/Login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'Widgets/Screens/App/home.dart';
+import 'Widgets/Screens/Auth/Choose.dart';
 
 
 class WelcomePage extends StatefulWidget {
@@ -17,10 +17,10 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Travel go',
       debugShowCheckedModeBanner: false,
+      title: 'Travel go',
       home: supabase.auth.currentSession == null 
-      ? const Loginscreen()
+      ? const Welcomepage()
       : const Home()
     );
   }
