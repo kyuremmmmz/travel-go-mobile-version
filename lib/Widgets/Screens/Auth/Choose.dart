@@ -13,6 +13,7 @@ class Welcomepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Welcome Page',
       home: WelcomePage(),
     );
@@ -31,8 +32,8 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Travel go',
       debugShowCheckedModeBanner: false,
+      title: 'Travel go',
       home: Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(

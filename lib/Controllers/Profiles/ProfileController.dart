@@ -1,12 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:itransit/Widgets/Screens/Auth/Choose.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 class Usersss {
   late User? user;
   SupabaseClient supabase = Supabase.instance.client;
 
-  void signOut() async {
+  Future <void> signout(BuildContext context) async {
     await supabase.auth.signOut();
-    user = null;
+    supabase.auth.currentSession == null ? const Welcomepage() : null;
   }
 
   Future <dynamic> fetchUser() async {
