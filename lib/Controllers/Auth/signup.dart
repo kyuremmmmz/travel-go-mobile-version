@@ -1,69 +1,67 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../Supabase/key.dart';
 import './../../Routes/Routes.dart';
 //JUST A TEST MUNA ITONG JSON
+
 class Signup {
   late final String? lastName;
   late final String? firstName;
   late final int? phoneNumber;
   late final int? age;
   late final String? address;
-  late final String? email;
-  late final String? password;
+  late final String email;
+  late final String password;
+  late final Text error;
+
+  
 
   Signup(
     {
       required this.email,
       required this.password,
+      required this.error,
     }
   );
 
-  Future<Map<String, dynamic>> sign() async {
-    await Supabase.initialize(url: url, anonKey: apikey);
+  Future<void> sign(BuildContext context) async {
     final supabase = Supabase.instance.client;
     try {
         final AuthResponse response = await supabase.auth.signUp(
-          email: email!,
-          password: password!,
+          email: email,
+          password: password,
+          emailRedirectTo: kIsWeb ? null : "io.supabase.flutterquickstart://login-callback/",
         );
           final Session? session = response.session;
           final User? user = response.user;
         if (session != null && user != null) 
         {
-          (context)=>AppRoutes.navigateToLogin(context);
-          return {
-            'status': 200,
-            'message': 'success',
-            'data': {
-              'user': user.email,
-              'id': user.id,
-              'adminOrNot': user.role == 'admin'? "you're in admin mode" : "you're in user mode",
-              'phone': user.phone,
-            },
-            'session':{
-              'token': session.accessToken,
-              'refresherToken': session.refreshToken,
-              'expiresIn': session.expiresIn,
-              'expiresAfter': session.expiresAt
-            }
-          };
+          // ignore: use_build_context_synchronously
+          AppRoutes.navigateToLogin(context);
           
         }
         else
         {
-          return {
-            'statusCode': '401',
-            'response': 'not authorized',
-          };
+          ScaffoldMessenger
+          // ignore: use_build_context_synchronously
+          .of(context).showSnackBar(
+            const SnackBar(
+              content:
+              Text('Error'),
+            ),
+          );
         }
     // ignore: empty_catches
     } catch (error) {
-      return {
-        'statusCode': '500',
-       'response': 'internal server error',
-        'error': error.toString(),
-      };
+      ScaffoldMessenger
+      // ignore: use_build_context_synchronously
+      .of(context).showSnackBar(
+        SnackBar(
+          content:
+          Text('Error: $error'),
+        ),
+      );
     }
   }
 }

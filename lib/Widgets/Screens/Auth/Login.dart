@@ -17,6 +17,7 @@ class Loginscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Loginscreen',
+      debugShowCheckedModeBanner: false,
       home: LoginScreen(),
     );
   }
@@ -123,8 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 oppressed: () async {
                     Login(
                       email: _emailController.text.trim(), 
-                      password: _passwordController.text.trim())
-                      .loginUser();
+                      password: _passwordController.text.trim()
+                      )
+                      .loginUser(context);
                 },
               ),
             ),

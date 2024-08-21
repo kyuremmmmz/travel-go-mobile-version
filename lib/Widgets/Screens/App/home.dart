@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Widgets/Buttons/DefaultButtons/RedButton.dart';
 class Home extends StatefulWidget {
   void main(){
     runApp(const Home());
   }
   const Home({super.key});
-
   @override
   State<Home> createState() => _HomeState();
 }
@@ -26,6 +26,20 @@ class _HomeState extends State<Home> {
               Container(
                 alignment: Alignment.center,
                 child: const Text('Welcome user!'),
+              ),
+              Container(
+                  padding: const EdgeInsets.only(
+                    top:0,
+                  ),
+                  child: RedButton(
+                    callbackAction: (){
+                      Usersss().signOut();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red
+                    ),
+                    text: const Text('LOG OUT')
+                ),
               )
             ],
           ),
