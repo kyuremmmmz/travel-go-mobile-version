@@ -11,6 +11,23 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String? email;
+  late Usersss users = Usersss();
+  
+  @override
+  void initState(){
+    super.initState();
+    emailFetching();
+  }
+
+  Future <void> emailFetching() async{
+      final useremail = await users.fetchUser();
+      setState(() {
+        email = useremail;
+      });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,9 +40,17 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                child: const Text('Welcome user!'),
+              Center(
+                child: 
+                Text(
+                  email != null 
+                  ? 'Welcome $email' 
+                  : 'Hacked himala e',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Container(
                   padding: const EdgeInsets.only(
@@ -33,7 +58,7 @@ class _HomeState extends State<Home> {
                   ),
                   child: RedButton(
                     callbackAction: (){
-                      Usersss().signOut();
+                      Usersss().signout(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red
