@@ -10,14 +10,8 @@ class Usersss {
     supabase.auth.currentSession == null ? const Welcomepage() : null;
   }
 
-  Future <dynamic> fetchUser() async {
+  Future <String?> fetchUser() async {
     user =  supabase.auth.currentUser;
-
-    if (user == null) {
-        return null;
-    }
-    else {
-      return user?.email;
-    }
+    return user?.email;
   }
 }
