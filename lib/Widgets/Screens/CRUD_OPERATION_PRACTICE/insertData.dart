@@ -14,7 +14,6 @@ class _InsertdataState extends State<Insertdata> {
       appBar: AppBar(
           title: const Text('Insert data'),
       ),
-      
     );
   }
 }
