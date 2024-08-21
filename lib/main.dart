@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:itransit/Widgets/Screens/Auth/Login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'Widgets/Buttons/WithMethodButtons/BlueButton.dart';
-import 'Widgets/Buttons/WithMethodButtons/GreenButton.dart';
+import 'Widgets/Screens/App/home.dart';
 
 
 class WelcomePage extends StatefulWidget {
@@ -19,94 +19,18 @@ class _WelcomePageState extends State<WelcomePage> {
     return MaterialApp(
       title: 'Travel go',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      body: Column(
-        children: <Widget>[
-          Padding(
-                padding: const EdgeInsets.only(
-                  top: 100
-                ),
-                child: Container(
-                alignment: Alignment.bottomCenter,
-                width: 500,
-                height: 150,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(221, 0, 0, 0),
-                  shape: BoxShape.circle
-                ),
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Travel Go',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      'Pangasinan',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold
-                      ),
-                    )
-                  ],
-                )
-              ),
-            ),
-            const Padding( 
-              padding: EdgeInsets.only(
-                top: 10
-              ),
-              child: Text(
-                'Travel Go Pangasinan',
-                textAlign: TextAlign.center,              
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.only(
-                top: 200
-              ),
-              child: Column(
-                children: <Widget>[
-                  Bluebottle(
-                    color: Colors.blue, 
-                    text: 'Log in'
-                  ),
-                  const Text(
-                    'or'
-                  ),
-                  Greenbutton(
-                    text: 'Create Account', 
-                    color: Colors.green
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+      home: supabase.auth.currentSession == null 
+      ? const Loginscreen()
+      : const Home()
     );
   }
 }
 
-const url1 = 'https://cdfmtahwfxugtjaplfjt.supabase.co';
-const apikey1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNkZm10YWh3Znh1Z3RqYXBsZmp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQxNDA4NTQsImV4cCI6MjAzOTcxNjg1NH0.t2RxCaEhF3yAuuf2Chug2uGz6Vf_VND1AuoO9wqU_8s';
+const url1 = 'https://nvscibwjxhrctgfhrgyn.supabase.co';
+const apikey1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52c2NpYndqeGhyY3RnZmhyZ3luIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQyMTI0NDQsImV4cCI6MjAzOTc4ODQ0NH0.PLKN-tw8vMLxgwnunGotYP_U6AM2_A2dN-ATeykj7bI';
 // ignore: camel_case_types
 
-void main() async {
+Future <void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize Supabase
@@ -114,7 +38,6 @@ void main() async {
     url: url1,
     anonKey: apikey1,
   );
-  
-
   runApp(const WelcomePage());
 }
+final supabase = Supabase.instance.client;
