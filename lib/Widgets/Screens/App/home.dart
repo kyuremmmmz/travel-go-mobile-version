@@ -52,11 +52,14 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              Container(
-                  padding: const EdgeInsets.only(
+              Container
+              (
+                  padding: const EdgeInsets.only
+                  (
                     top:0,
                   ),
-                  child: RedButton(
+                  child: RedButton
+                  (
                     callbackAction: (){
                       if (!mounted) return;
                           Usersss().signout(context);
@@ -64,12 +67,15 @@ class _HomeState extends State<Home> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red
                     ),
-                    text: const Text('LOG OUT')
-                ),
-              )
-            ],
-          ),
-          ),
-        );
+                text: const Text
+                (
+                  'LOG OUT'
+                )
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
