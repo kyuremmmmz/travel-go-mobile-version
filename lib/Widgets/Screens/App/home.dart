@@ -58,8 +58,9 @@ class _HomeState extends State<Home> {
                   ),
                   child: RedButton(
                     callbackAction: (){
-                      Usersss().signout(context);
-                    },
+                      if (!mounted) return;
+                          Usersss().signout(context);
+                      },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red
                     ),

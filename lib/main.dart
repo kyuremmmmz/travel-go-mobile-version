@@ -19,7 +19,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel go',
-      home: supabase.auth.currentSession == null 
+      home: supabase.auth.currentSession == null
       ? const Welcomepage()
       : const Home()
     );

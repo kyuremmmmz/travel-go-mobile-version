@@ -22,9 +22,9 @@ class _RedButtonState extends State<RedButton> {
   Widget build(BuildContext context) {
     return ElevatedButton
     (
-      onPressed: widget.callbackAction, 
+      onPressed: widget.callbackAction,
+      style: widget.style, 
       child: widget.text,
-      style: widget.style,
     );
   }
 }
