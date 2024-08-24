@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
                   (
                     callbackAction: (){
                       if (!mounted) return;
-                          Usersss().signout(context);
+                          Usersss().signout();
                       },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red
