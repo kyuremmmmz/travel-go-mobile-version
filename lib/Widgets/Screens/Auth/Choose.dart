@@ -35,14 +35,25 @@ class _WelcomePageState extends State<WelcomePage> {
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Stack(
         children: <Widget>[
-            Positioned.fill(
+            Positioned(
+              top: -90,
+              right: -20,
+              left: -20,
               child: Align(
-                  alignment: Alignment.topCenter,
+                child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(1), 
+                  BlendMode.dstATop,),
                   child: Image.asset(
-                    'assets/images/Background.png'
+                    alignment: Alignment.center,
+                    'assets/images/Background.png',
+                    height: 450,
+                    width: 400,
+                    fit: BoxFit.cover,
                   ),
-                )
+                ),
               ),
+            ),
             Positioned(
               bottom: 0,
               right: 0,
@@ -53,17 +64,41 @@ class _WelcomePageState extends State<WelcomePage> {
                 padding: const EdgeInsets.only(
                   top: 300
                   ),
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50)
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      spreadRadius: 5,
+                      blurRadius: 8,
+                      offset: const Offset(0, 10)
+                    )
+                  ],
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(60),
+                    topRight: Radius.circular(60)
                   )
                 ),
                 child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                    SizedBox(
-                        width: 300,
+                    Container(
+                      padding: const EdgeInsets.only(
+                        top: 0,
+                      ),
+                      decoration:  BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 4)
+                          )
+                        ]
+                      ),
+                      width: 300,
+                      height: 40,
                           child: Bluebottle(
                             color: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue.shade400
@@ -80,8 +115,23 @@ class _WelcomePageState extends State<WelcomePage> {
                     const Text(
                       'or'
                     ),
-                    SizedBox(
+                    Container(
+                      padding: const EdgeInsets.only(
+                        top: 0,
+                      ),
+                      decoration:  BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 4)
+                          )
+                        ]
+                      ),
                       width: 300,
+                      height: 40,
                       child: Greenbutton(
                       text: 'Sign Up', 
                       color: ElevatedButton.styleFrom(
