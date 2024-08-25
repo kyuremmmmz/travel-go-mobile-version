@@ -36,22 +36,25 @@ class _WelcomePageState extends State<WelcomePage> {
       body: Stack(
         children: <Widget>[
             Positioned.fill(
-              child: Image.asset(
-                'assets/images/Background.png',
-                fit: BoxFit.cover,
+              child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Image.asset(
+                    'assets/images/Background.png'
+                  ),
+                )
               ),
-            ),
             Positioned(
               bottom: 0,
+              right: 0,
               left: 0,
               height: 450,
               child: Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.only(
-                  top: 20
+                  top: 300
                   ),
                 decoration: const BoxDecoration(
-                  color: Colors.amber,
+                  color: Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50)
@@ -77,9 +80,14 @@ class _WelcomePageState extends State<WelcomePage> {
                     const Text(
                       'or'
                     ),
-                    Greenbutton(
-                      text: 'Create Account', 
-                      color: const Color.fromARGB(255, 226, 222, 222)
+                    SizedBox(
+                      width: 300,
+                      child: Greenbutton(
+                      text: 'Sign Up', 
+                      color: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueGrey.shade100,
+                        )
+                      ),
                     )
                   ],
                 ),

@@ -1,13 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
+
 import './../../../Routes/Routes.dart';
 class Greenbutton extends StatefulWidget {
   late String text;
-  late Color color;
+  late ButtonStyle color;
   Greenbutton({
     super.key,
     required this.text,
-    this.color = const Color(0xFF66BB6A),
+    required this.color,
   });
 
   @override
@@ -24,13 +25,7 @@ class _GreenbuttonState extends State<Greenbutton> {
       {
         AppRoutes.navigateTosignUp(context);
       },
-      style: ElevatedButton.styleFrom(
-        minimumSize:const Size(300, 40),
-        backgroundColor: widget.color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10)
-        )
-      ),
+      style: widget.color,
       child:  Text(widget.text, 
       style: const TextStyle(
         color: Colors.black
