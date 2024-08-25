@@ -6,8 +6,6 @@ class Usersss {
   Future<void> signout() async 
   {
     await supabase.auth.signOut();
-    AuthResponse res  = await supabase.auth.refreshSession();
-    res.session;
   }
 
   Future <String?> fetchUser() async {

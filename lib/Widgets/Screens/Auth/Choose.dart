@@ -81,7 +81,7 @@ class _WelcomePageState extends State<WelcomePage> {
               ),
               child: Text(
                 'Travel Go Pangasinan',
-                textAlign: TextAlign.center,              
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
