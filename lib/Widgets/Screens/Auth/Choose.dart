@@ -38,74 +38,45 @@ class _WelcomePageState extends State<WelcomePage> {
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
         children: <Widget>[
-          Padding(
-                padding: const EdgeInsets.only(
-                  top: 100
-                ),
-                child: Container(
-                alignment: Alignment.bottomCenter,
-                width: 500,
-                height: 150,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(221, 0, 0, 0),
-                  shape: BoxShape.circle
-                ),
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'Travel Go',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      'Pangasinan',
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold
-                      ),
-                    )
-                  ],
-                )
-              ),
+          Container(
+            height: 12,
+            padding: const EdgeInsets.only(
+              top: 500
             ),
-            const Padding( 
-              padding: EdgeInsets.only(
-                top: 10
-              ),
-              child: Text(
-                'Travel Go Pangasinan',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
-              ),
-            ),
+          ),
             Container(
+              height: 20,
+              color: Colors.amber,
               alignment: Alignment.center,
+              margin: const EdgeInsets.only(
+                top: 300
+              ),
               padding: const EdgeInsets.only(
-                top: 200
+                
               ),
               child: Column(
                 children: <Widget>[
-                  Bluebottle(
-                    color: Colors.blue, 
-                    text: 'Log in'
-                  ),
+                  SizedBox(
+                      width: 300,
+                        child: Bluebottle(
+                          color: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue.shade400
+                            ),
+                          text: const Text('Log in',
+                          style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold
+                            ),
+                          )
+                        ),
+                      ),
                   const Text(
                     'or'
                   ),
                   Greenbutton(
                     text: 'Create Account', 
-                    color: Colors.green
+                    color: const Color.fromARGB(255, 226, 222, 222)
                   )
                 ],
               ),

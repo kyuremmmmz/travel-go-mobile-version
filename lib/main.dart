@@ -20,7 +20,7 @@ class _WelcomePageState extends State<WelcomePage> {
       debugShowCheckedModeBanner: false,
       title: 'Travel go',
       home: supabase.auth.currentSession == null
-      ? const Welcomepage()
+      ? const Welcomepage() 
       : const Home()
     );
   }

@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:itransit/Routes/Routes.dart';
+import 'package:itransit/Widgets/Screens/App/home.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 class Login {
   late final String email;
@@ -17,10 +17,15 @@ class Login {
       email: email,
     );
       final User? user = response.user;
-
-      if (user != null) {
-        // ignore: use_build_context_synchronously
-        AppRoutes.navigateToHome(context);
+      final Session? session = response.session;
+      if (user != null && session != null) 
+      {
+          await Future.delayed(
+            const Duration(
+              seconds: 2,
+            )
+          );
+          const Home();
       }
       else {
         ScaffoldMessenger

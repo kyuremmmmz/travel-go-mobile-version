@@ -33,6 +33,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final Login state = Login(email: '', password: '');
 
   @override
   void dispose() {
@@ -40,6 +41,12 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordController.dispose();
     super.dispose();
   }
+
+  @override
+  void initState(){
+    super.initState();
+  }
+  
 
   @override
   Widget build(BuildContext context) {

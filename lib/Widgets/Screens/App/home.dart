@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/RedButton.dart';
-import 'package:itransit/Widgets/Screens/Auth/Choose.dart';
-import 'package:itransit/main.dart';
 class Home extends StatefulWidget {
   void main(){
     runApp(const Home());
@@ -20,6 +18,13 @@ class _HomeState extends State<Home> {
   void initState(){
     super.initState();
     emailFetching();
+    signOut();
+  }
+
+  Future <void> signOut() async{
+      setState(() {
+          users.signout();
+      });
   }
 
   Future <void> emailFetching() async{
@@ -63,10 +68,7 @@ class _HomeState extends State<Home> {
                   child: RedButton
                   (
                     callbackAction: (){
-                      Usersss().signout();
-                      if (supabase.auth.currentSession == null) {
-                        const Welcomepage();
-                      }
+                      signOut();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.amber

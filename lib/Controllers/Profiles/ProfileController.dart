@@ -5,6 +5,9 @@ class Usersss {
 
   Future<void> signout() async 
   {
+    Future.delayed(
+      Duration.zero
+    );
     await supabase.auth.signOut();
   }
 
