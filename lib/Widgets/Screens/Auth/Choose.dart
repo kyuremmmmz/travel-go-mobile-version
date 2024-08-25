@@ -31,59 +31,62 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Travel go',
-      home: Scaffold(
+    return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      body: Column(
+      body: Stack(
         children: <Widget>[
-          Container(
-            height: 12,
-            padding: const EdgeInsets.only(
-              top: 500
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/Background.png',
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-            Container(
-              height: 20,
-              color: Colors.amber,
-              alignment: Alignment.center,
-              margin: const EdgeInsets.only(
-                top: 300
-              ),
-              padding: const EdgeInsets.only(
-                
-              ),
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                      width: 300,
-                        child: Bluebottle(
-                          color: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue.shade400
-                            ),
-                          text: const Text('Log in',
-                          style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold
-                            ),
-                          )
-                        ),
-                      ),
-                  const Text(
-                    'or'
+            Positioned(
+              bottom: 0,
+              left: 0,
+              height: 450,
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(
+                  top: 20
                   ),
-                  Greenbutton(
-                    text: 'Create Account', 
-                    color: const Color.fromARGB(255, 226, 222, 222)
+                decoration: const BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50)
                   )
-                ],
+                ),
+                child: Column(
+                    children: <Widget>[
+                    SizedBox(
+                        width: 300,
+                          child: Bluebottle(
+                            color: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue.shade400
+                              ),
+                            text: const Text('Log in',
+                            style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            )
+                          ),
+                        ),
+                    const Text(
+                      'or'
+                    ),
+                    Greenbutton(
+                      text: 'Create Account', 
+                      color: const Color.fromARGB(255, 226, 222, 222)
+                    )
+                  ],
+                ),
               ),
             )
           ],
         ),
-      ),
-    );
+      );
   }
 }
