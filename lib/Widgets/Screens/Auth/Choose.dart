@@ -82,26 +82,36 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.only(
+                  Container(
+                    padding: const EdgeInsets.only(
                       bottom: 200,
                       right: 80
                     ),
-                    child: Text(
+                    child:   Column(
+                      children: <Widget>[
+                      const Text(
                       'Welcome to',
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.w900,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                      top: 0,
-                    ),
-                    child: const Text(
-                      'Travel go Pangasinan!'
+                        ),
+                          textAlign: TextAlign.left,
+                        ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                          top: 0,
+                          left: 30
+                        ),
+                        child: const Text(
+                          'Travel Go Pangasinan!',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold
+                          ),
+                        )
+                      )
+                      ],
                     ),
                   ),
                     const SizedBox(
