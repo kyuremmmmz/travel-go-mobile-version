@@ -29,6 +29,14 @@ class WelcomePage extends StatefulWidget {
 
 
 class _WelcomePageState extends State<WelcomePage> {
+  final LinearGradient gradient = 
+    const LinearGradient(colors: [
+      Colors.blueAccent,
+      Color.fromARGB(255, 24, 24, 24)
+    ],
+    begin: Alignment.topCenter,
+    end: Alignment.centerLeft
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +92,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     children: <Widget>[
                   Container(
                     padding: const EdgeInsets.only(
-                      bottom: 200,
+                      bottom: 100,
                       right: 80
                     ),
                     child:   Column(
@@ -100,20 +108,27 @@ class _WelcomePageState extends State<WelcomePage> {
                       Container(
                         padding: const EdgeInsets.only(
                           top: 0,
-                          left: 30
+                          left: 0
                         ),
-                        child: const Text(
-                          'Travel Go Pangasinan!',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold
+                        child: ShaderMask(
+                          shaderCallback: (bounds) {
+                            return gradient.createShader(
+                              Rect.fromLTWH(0, 0, bounds.width, bounds.height)
+                            );
+                          },
+                            child: const Text(
+                              'Travel Go Pangasinan!',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                    fontSize: 20,
+                                      fontWeight: FontWeight.w900
+                                    ),
+                                  )
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      )
-                      ],
-                    ),
-                  ),
+                        ),
                     const SizedBox(
                       height: 0,
                     ),
