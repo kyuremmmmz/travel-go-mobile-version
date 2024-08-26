@@ -88,27 +88,35 @@ class _WelcomePageState extends State<WelcomePage> {
                   )
                 ),
                 child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                   Container(
                     padding: const EdgeInsets.only(
-                      bottom: 100,
-                      right: 80
+                      bottom: 20,
+                      right: 90
                     ),
                     child:   Column(
                       children: <Widget>[
-                      const Text(
-                      'Welcome to',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w900,
-                        ),
+                      Container(
+                          padding: const EdgeInsets.only(
+                            right: 20
+                          ),
+                          child: const Text(
+                            'Welcome to',
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w900,
+                          ),
                           textAlign: TextAlign.left,
                         ),
+                      ),
                       Container(
                         padding: const EdgeInsets.only(
-                          top: 0,
-                          left: 0
+                          right: 60
+                        ),
+                        constraints: const BoxConstraints(
+                          maxHeight: 200
                         ),
                         child: ShaderMask(
                           shaderCallback: (bounds) {
@@ -117,21 +125,22 @@ class _WelcomePageState extends State<WelcomePage> {
                             );
                           },
                             child: const Text(
-                              'Travel Go Pangasinan!',
+                              'TRAVEL GO',
                                 style: TextStyle(
-                                  color: Colors.blue,
+                                  color: Colors.lightBlue,
                                     fontSize: 20,
                                       fontWeight: FontWeight.w900
                                     ),
+                                    textAlign: TextAlign.left,
                                   )
                                 ),
                               )
                             ],
                           ),
                         ),
-                    const SizedBox(
-                      height: 0,
-                    ),
+                      const SizedBox(
+                        height: 130,
+                      ),
                     Container(
                       padding: const EdgeInsets.only(
                         top: 0,
@@ -151,7 +160,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       height: 40,
                           child: Bluebottle(
                             color: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue.shade400
+                              backgroundColor: Colors.lightBlue
                               ),
                             text: const Text('Sign In',
                             style: TextStyle(
@@ -162,9 +171,9 @@ class _WelcomePageState extends State<WelcomePage> {
                             )
                           ),
                         ),
-                    const Text(
-                      'or'
-                    ),
+                        const SizedBox(
+                            height: 30,
+                        ),
                     Container(
                       padding: const EdgeInsets.only(
                         top: 0,
