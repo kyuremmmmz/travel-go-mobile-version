@@ -96,6 +96,14 @@ class _WelcomePageState extends State<WelcomePage> {
                       textAlign: TextAlign.left,
                     ),
                   ),
+                  Container(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                    ),
+                    child: const Text(
+                      'Travel go Pangasinan!'
+                    ),
+                  ),
                     const SizedBox(
                       height: 0,
                     ),
