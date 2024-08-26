@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import './../../../Routes/Routes.dart';
 class Greenbutton extends StatefulWidget {
-  late String text;
+  late Text text;
   late ButtonStyle color;
   Greenbutton({
     super.key,
@@ -26,11 +26,7 @@ class _GreenbuttonState extends State<Greenbutton> {
         AppRoutes.navigateTosignUp(context);
       },
       style: widget.color,
-      child:  Text(widget.text, 
-      style: const TextStyle(
-        color: Colors.black
-        ),
-      ),
-    );
+      child:  widget.text,
+      );
   }
 }

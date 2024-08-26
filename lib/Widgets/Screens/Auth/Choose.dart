@@ -62,7 +62,7 @@ class _WelcomePageState extends State<WelcomePage> {
               child: Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.only(
-                  top: 300
+                  top: 40
                   ),
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 255, 255, 255),
@@ -82,6 +82,12 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                    const Text(
+                        'Welcome to'
+                    ),
+                    const SizedBox(
+                      height: 160,
+                    ),
                     Container(
                       padding: const EdgeInsets.only(
                         top: 0,
@@ -103,7 +109,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             color: ElevatedButton.styleFrom(
                               backgroundColor: Colors.blue.shade400
                               ),
-                            text: const Text('Log in',
+                            text: const Text('Sign In',
                             style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
@@ -133,7 +139,12 @@ class _WelcomePageState extends State<WelcomePage> {
                       width: 300,
                       height: 40,
                       child: Greenbutton(
-                      text: 'Sign Up', 
+                      text: const Text('Sign Up', 
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
                       color: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueGrey.shade100,
                         )
