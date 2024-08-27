@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../Controllers/Supabase/key.dart';
 import '../../Textfield/plainTextField.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const signupScreen());
@@ -21,6 +22,7 @@ class SignupScreen extends StatelessWidget {
     );
   }
 }
+
 // ignore: camel_case_types
 class signupScreen extends StatefulWidget {
   const signupScreen({super.key});
@@ -35,77 +37,65 @@ class _signupScreenState extends State<signupScreen> {
   final _passwordController = TextEditingController();
 
   @override
-  void dispose(){
+  void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      body:  SingleChildScrollView(
-        padding: const EdgeInsets.only(
-          bottom: 100,
-        ),
-        child: Column(
+    return Scaffold(
+        body: SingleChildScrollView(
+      padding: const EdgeInsets.only(
+        bottom: 100,
+      ),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(
-              top: 30
-            ),
+            padding: const EdgeInsets.only(top: 30),
             child: Container(
                 constraints: const BoxConstraints(
-                  maxHeight: 300,
-                  maxWidth: 359,
-                  minHeight: 100,
-                  minWidth: 200
-                ),
+                    maxHeight: 300,
+                    maxWidth: 359,
+                    minHeight: 100,
+                    minWidth: 200),
                 height: 220,
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(
-                      130
-                    )
-                  ),
+                  borderRadius:
+                      BorderRadius.only(bottomLeft: Radius.circular(130)),
                   color: Colors.blue,
-                  
                 ),
                 child: Container(
                   padding: const EdgeInsets.only(
                     top: 80,
                   ),
-                  margin: const EdgeInsets.only(
-                    left: 30
-                  ),
+                  margin: const EdgeInsets.only(left: 30),
                   child: const Text(
-                  'TRAVEL AND GET MORE EXPERIENCE IN BALUNGAO PANGASINAN!',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                    'TRAVEL AND GET MORE EXPERIENCE IN BALUNGAO PANGASINAN!',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              )
-            ),
+                )),
           ),
           Container(
-            padding: const EdgeInsets.only(
-              top: 30
-            ),
+            padding: const EdgeInsets.only(top: 30),
             child: Column(
-                children: [
-                  plainTextField(
-                    text: 'Enter your email address',
-                    controller: _emailController,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  passwordTextField(
-                    text: 'Enter your password',
-                    password: _passwordController,
+              children: [
+                plainTextField(
+                  text: 'Enter your email address',
+                  controller: _emailController,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                passwordTextField(
+                  text: 'Enter your password',
+                  password: _passwordController,
                 )
               ],
             ),
@@ -119,46 +109,40 @@ class _signupScreenState extends State<signupScreen> {
             ),
             width: 400,
             child: BlueButtonWithoutFunction(
-              text: const Text(
-                'Sign Up',
-                style: TextStyle(
-                  color: Colors.white
+                text: const Text(
+                  'Sign Up',
+                  style: TextStyle(color: Colors.black),
                 ),
-              ),
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 31, 31, 31),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)
-                  )
-              ),
-              oppressed:  () async{
-                try {
-                  final database db = database();
-                  final supa = db.superbase;
-                  final email = _emailController.text.trim();
-                  final password = _passwordController.text.trim();
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 31, 31, 31),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10))),
+                oppressed: () async {
+                  try {
+                    final database db = database();
+                    final supa = db.superbase;
+                    final email = _emailController.text.trim();
+                    final password = _passwordController.text.trim();
 
-                  final AuthResponse result = await supa.auth.signUp(
-                    password: password, 
-                    email: email,
-                  );
-
-                  final User? user = result.user;
-                  if (mounted) {
-                    // ignore: use_build_context_synchronously
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Welcome $user')),
+                    final AuthResponse result = await supa.auth.signUp(
+                      password: password,
+                      email: email,
                     );
+
+                    final User? user = result.user;
+                    if (mounted) {
+                      // ignore: use_build_context_synchronously
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Welcome $user')),
+                      );
+                    }
+                  } catch (e) {
+                    print(e);
                   }
-                } catch (e) {
-                  print(e);
-                }
-              }
-            ),
+                }),
           )
         ],
       ),
-    )
-  );
-}
+    ));
+  }
 }
