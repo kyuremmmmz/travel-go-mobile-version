@@ -50,47 +50,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.only(
-          top: 1,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 30,
-              ),
-              child: Container(
-                constraints: const BoxConstraints(
-                  maxHeight: 300,
-                  maxWidth: 359,
-                  minHeight: 100,
-                  minWidth: 200,
-                ),
-                height: 220,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(130),
-                  ),
-                  color: Colors.blue,
-                ),
-                child: Container(
-                  padding: const EdgeInsets.only(
-                    top: 80,
-                  ),
-                  margin: const EdgeInsets.only(left: 30),
-                  child: const Text(
-                    'TRAVEL AND GET MORE EXPERIENCE IN BALUNGAO PANGASINAN!',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+      body: Stack(
+            children: <Widget> [
+              
             Container(
               padding: const EdgeInsets.only(
                 top: 30,
@@ -134,15 +96,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 oppressed: () async {
                   Login(
-                          email: _emailController.text.trim(),
-                          password: _passwordController.text.trim())
-                      .loginUser(context);
+                        email: _emailController.text.trim(),
+                        password: _passwordController.text.trim())
+                        .loginUser(context);
                 },
               ),
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }
