@@ -31,6 +31,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _isLoading = false;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final Login state = Login(email: '', password: '');
@@ -42,9 +43,39 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  Future<void> _signIn() async {
+    try {
+      
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text(e.toString()),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
+    }
+    setState(() {
+      _isLoading = true;
+    });
+    await Login(
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim())
+        .loginUser(context);
+  }
+
   @override
   void initState() {
     super.initState();
+    _signIn();
   }
 
   @override
@@ -122,9 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: BlueButtonWithoutFunction(
                 text: const Text(
                   'Sign In',
-                  style: TextStyle(
-                    color: Colors.white
-                  ),
+                  style: TextStyle(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 31, 31, 31),
@@ -132,12 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                oppressed: () async {
-                  Login(
-                          email: _emailController.text.trim(),
-                          password: _passwordController.text.trim())
-                      .loginUser(context);
-                },
+                oppressed: () async {},
               ),
             ),
           ],
