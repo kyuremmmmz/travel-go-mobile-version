@@ -89,12 +89,15 @@ class _WelcomePageState extends State<WelcomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.only(bottom: 40, right: 90),
+                      padding: const EdgeInsets.only(
+                        bottom: 20,
+                        right: 90
+                        ),
                       child: Column(
                         children: <Widget>[
                           Container(
                             padding: const EdgeInsets.only(
-                              right: 20, 
+                              right: 20,
                             ),
                             child: const Text(
                               'Welcome to',
