@@ -119,7 +119,12 @@ class _signupScreenState extends State<signupScreen> {
             ),
             width: 400,
             child: BlueButtonWithoutFunction(
-              text: 'PROCEED', 
+              text: const Text(
+                'Sign Up',
+                style: TextStyle(
+                  color: Colors.white
+                ),
+              ),
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 31, 31, 31),
                   shape: RoundedRectangleBorder(
