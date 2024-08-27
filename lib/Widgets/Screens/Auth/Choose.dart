@@ -89,10 +89,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.only(
-                        bottom: 20,
-                        right: 90
-                        ),
+                      padding: const EdgeInsets.only(bottom: 20, right: 90),
                       child: Column(
                         children: <Widget>[
                           Container(
@@ -127,7 +124,8 @@ class _WelcomePageState extends State<WelcomePage> {
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.only(top: 0, left: 20),
+                            padding: const EdgeInsets.only(top: 0, left: 30),
+                            width: 600,
                             child: const Text(
                               'Travel and get more experience here in Pangasinan! \n \n Explore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
                               textAlign: TextAlign.justify,
@@ -140,8 +138,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(
-                          bottom:100), 
+                      padding: const EdgeInsets.only(bottom: 100),
                       child: Column(
                         children: [
                           Padding(
