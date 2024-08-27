@@ -78,125 +78,126 @@ class _WelcomePageState extends State<WelcomePage> {
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(60),
                         topRight: Radius.circular(60))),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 90, right: 90),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              padding: const EdgeInsets.only(
-                                right: 20,
-                              ),
-                              child: const Text(
-                                'Welcome to',
-                                style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.only(right: 60),
-                              child: ShaderMask(
-                                shaderCallback: (bounds) {
-                                  return gradient.createShader(Rect.fromLTWH(
-                                      0, 0, bounds.width, bounds.height));
-                                },
-                                child: const Text(
-                                  'TRAVEL GO',
-                                  style: TextStyle(
-                                      color: Colors.lightBlue,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w900),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.only(top: 0, left: 20),
-                              child: const Text(
-                                'Travel and get more experience here in Pangasinan! \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable. ',
-                                textAlign: TextAlign.justify,
-                                style: TextStyle(
-                                  fontSize: 9,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(top: 0, right: 20),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 4,
-                                  offset: const Offset(0, 4))
-                            ]),
-                            width: 270,
-                            height: 40,
-                            child: Bluebottle(
-                                color: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        const Color.fromARGB(255, 50, 190, 255)),
-                                        text: const Text(
-                                          'Sign In',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                          ),
-                                        )
-                                      ),
-                                    ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
                                 Container(
-                                  padding: const EdgeInsets.only(
-                                    top: 0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.black.withOpacity(0.2),
-                                            spreadRadius: 2,
-                                            blurRadius: 4,
-                                            offset: const Offset(0, 4))
-                                      ]
-                                    ),
-                                  width: 270,
-                                  height: 40,
-                                  child: Greenbutton(
-                                      text: const Text(
-                                        'Sign Up',
-                                        style: TextStyle(
-                                          color: Colors.black,
+                                  padding: const EdgeInsets.only(bottom: 20, right: 90),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          right: 20,
+                                        ),
+                                        child: const Text(
+                                          'Welcome to',
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w900,
+                                          ),
+                                          textAlign: TextAlign.left,
                                         ),
                                       ),
-                                      color: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.blueGrey.shade100,
-                                    )
+                                      Container(
+                                        padding: const EdgeInsets.only(right: 60),
+                                        child: ShaderMask(
+                                          shaderCallback: (bounds) {
+                                            return gradient.createShader(Rect.fromLTWH(
+                                                0, 0, bounds.width, bounds.height));
+                                          },
+                                          child: const Text(
+                                            'TRAVEL GO',
+                                            style: TextStyle(
+                                                color: Colors.lightBlue,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w900),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                        ),
+                                      ),
+                                        Container(
+                                          padding: const EdgeInsets.only(top: 0, left: 20),
+                                          child: const Text(
+                                            'Travel and get more experience here in Pangasinan! \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable. ',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize: 9,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                    Positioned(
+                                      top: 100,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(50),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.black.withOpacity(0.2),
+                                                  spreadRadius: 2,
+                                                  blurRadius: 4,
+                                                  offset: const Offset(0, 4))
+                                            ]),
+                                              width: 270,
+                                              height: 40,
+                                              child: Bluebottle(
+                                                  color: ElevatedButton.styleFrom(
+                                                      backgroundColor:
+                                                          const Color.fromARGB(255, 50, 190, 255)),
+                                                  text: const Text(
+                                                    'Sign In',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15,
+                                                    ),
+                                                  )
+                                                ),
+                                              ),
+                                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Positioned(
+                              top: 10,
+                              child: Container(
+                                padding: const EdgeInsets.only(
+                                  top: 0,
                                 ),
-                              )
-                            ],
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 4,
+                                          offset: const Offset(0, 4))
+                                    ]),
+                                width: 270,
+                                height: 40,
+                                child: Greenbutton(
+                                    text: const Text(
+                                      'Sign Up',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    color: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blueGrey.shade100,
+                                      )
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
+                        )
                       )
-                    )
-                  ],
-                ),
-              );
+                    ],
+                  ),
+                );
+              }
             }
-          }
