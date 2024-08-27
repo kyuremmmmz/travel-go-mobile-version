@@ -122,9 +122,9 @@ class _signupScreenState extends State<signupScreen> {
               text: const Text(
                 'Sign Up',
                 style: TextStyle(
-                  color: Colors.black
+                  color: Colors.white
                 ),
-              ), 
+              ),
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 31, 31, 31),
                   shape: RoundedRectangleBorder(

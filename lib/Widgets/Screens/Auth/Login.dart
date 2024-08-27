@@ -122,7 +122,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: BlueButtonWithoutFunction(
                 text: const Text(
                   'Sign In',
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(
+                    color: Colors.white
+                    ),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 31, 31, 31),
