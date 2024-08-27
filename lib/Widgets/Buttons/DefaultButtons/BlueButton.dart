@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class BlueButtonWithoutFunction extends StatefulWidget {
-  late String text;
+  late Text text;
   late ButtonStyle style;
   late VoidCallback oppressed;
-   BlueButtonWithoutFunction
+  BlueButtonWithoutFunction
   ({
     super.key,
     required this.text,
@@ -23,14 +23,7 @@ class _BlueButtonWithoutFunctionState extends State<BlueButtonWithoutFunction> {
     return  ElevatedButton(
       onPressed: widget.oppressed,
       style: widget.style,
-      child: Text
-      (
-        widget.text, 
-        style: const TextStyle(
-          fontSize: 15,
-          color: Colors.white,
-        ),
-      ),
+      child: widget.text
     );
   }
 }

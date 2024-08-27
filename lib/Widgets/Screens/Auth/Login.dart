@@ -43,10 +43,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +120,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               width: 400,
               child: BlueButtonWithoutFunction(
-                text: 'PROCEED',
+                text: const Text(
+                  'Sign In',
+                  style: TextStyle(
+                    color: Colors.white
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 31, 31, 31),
                   shape: RoundedRectangleBorder(
@@ -129,10 +133,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 oppressed: () async {
-                    Login(
-                      email: _emailController.text.trim(), 
-                      password: _passwordController.text.trim()
-                      )
+                  Login(
+                          email: _emailController.text.trim(),
+                          password: _passwordController.text.trim())
                       .loginUser(context);
                 },
               ),
