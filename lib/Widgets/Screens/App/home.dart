@@ -18,6 +18,13 @@ class _HomeState extends State<Home> {
   void initState(){
     super.initState();
     emailFetching();
+    signOut();
+  }
+
+  Future <void> signOut() async{
+      setState(() {
+          users.signout();
+      });
   }
 
   Future <void> emailFetching() async{
@@ -52,23 +59,32 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              Container(
-                  padding: const EdgeInsets.only(
+              Container
+              (
+                  padding: const EdgeInsets.only
+                  (
                     top:0,
                   ),
-                  child: RedButton(
+                  child: RedButton
+                  (
                     callbackAction: (){
-                      Usersss().signout(context);
+                      signOut();
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red
+                      backgroundColor: Colors.amber
                     ),
-                    text: const Text('LOG OUT')
-                ),
-              )
-            ],
-          ),
-          ),
-        );
+                text: const Text
+                (
+                  'LOG OUT', 
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 0, 0, 0)
+                  ),
+                )
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
