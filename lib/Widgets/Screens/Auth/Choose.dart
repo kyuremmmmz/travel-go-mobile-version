@@ -52,7 +52,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 child: Image.asset(
                   alignment: Alignment.center,
-                  'assets/images/background.png',
+                  'assets/images/Background.png',
                   height: 450,
                   width: 400,
                   fit: BoxFit.cover,

@@ -33,7 +33,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final Login state = Login(email: '', password: '');
+
 
   @override
   void dispose() {
@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 400,
                   width: 400,
                 ),
-              )
+              ),
             ),
           Positioned(
             bottom: -500,
@@ -80,9 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: const BoxDecoration(color: Colors.white),
               child: Column(
                 children: [
-                  plainTextField(
+                  Container(
+                    padding: const EdgeInsets.only(
+                      top: 0
+                    ),
+                    child: plainTextField(
                     text: 'Enter your email address',
                     controller: _emailController,
+                    ),
                   ),
                   const SizedBox(
                     height: 30,
@@ -116,14 +121,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   email: _emailController.text.trim(),
                                   password: _passwordController.text.trim())
                               .loginUser(context);
-                        },
-                      ))
-                ],
-              ),
+                            },
+                          )
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
-    );
-  }
-}
+          );
+        }
+      }
