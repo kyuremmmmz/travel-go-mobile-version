@@ -50,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Positioned(
@@ -66,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           Positioned(
-            bottom: -400,
+            bottom: -350,
             right: 0,
             left: 0,
             height: 800,
@@ -81,12 +82,12 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Container(
-                    width: 300,
+                    width: 500,
                     padding: const EdgeInsets.only(
                       top: 0
                     ),
                     child: plainTextField(
-                    text: 'Enter your email address',
+                    text: 'Email',
                     controller: _emailController,
                     ),
                   ),
@@ -94,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 30,
                   ),
                   passwordTextField(
-                    text: 'Enter your password',
+                    text: 'Password',
                     password: _passwordController,
                   ),
                   Container(
@@ -120,6 +121,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                       padding: null,
                       width: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(0, 5),
+                          )
+                        ]
+                      ),
                       child: BlueButtonWithoutFunction(
                         text: const Text(
                           'Sign In',
