@@ -37,10 +37,11 @@ class _numberTextFieldState extends State<passwordTextField> {
             icon: Icon(
               _IsObsucure ? Icons.visibility : Icons.visibility_off,
               color: Colors.black,
+              size: 25,
             )
             ),
           labelStyle: const TextStyle(
-            fontSize: 12
+            fontSize: 9
           ),
           border: const UnderlineInputBorder(),
       ),
