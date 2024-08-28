@@ -49,36 +49,53 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: -90,
+            top: -85,
             right: -20,
             left: -20,
-            child: Align(
-              child: Image.asset(
-                'assets/images/Background.png',
-                fit: BoxFit.cover,
-                height: 400,
-                width: 400,
-              ),
+            child: Stack(
+              children:[
+                Align(
+                  child: Image.asset(
+                    'assets/images/Background.png',
+                    fit: BoxFit.cover,
+                    height: 470,
+                    width: 400,
+                  ),
+                ),
+                Container(
+                  height: 470,
+                  width: 400,
+                  color: Colors.black.withOpacity(0.3),
+                )
+              ]
             ),
           ),
           const Positioned(
-            top: 12,
+            top: 100,
+            right: 80,
             child: Text(
               textAlign: TextAlign.center,
               'TRAVEL GO',
               style: TextStyle(
-                fontSize: 36,
+                fontSize: 25,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
+                shadows: [
+                  Shadow(
+                    offset:  Offset(5.0, 5.0), // Shadow position
+                    blurRadius: 12.0, 
+                    color: Colors.black, 
+                  )
+                ]
               ),
               )
             ),
           Positioned(
-            bottom: -350,
+            bottom: -420,
             right: 0,
             left: 0,
             height: 800,
@@ -89,7 +106,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 bottom: 0,
                 right: 0,
               ),
-              decoration: const BoxDecoration(color: Colors.white),
+              decoration: const BoxDecoration(
+                color: Colors.white
+              ),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
