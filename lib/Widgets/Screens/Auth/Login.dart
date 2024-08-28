@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Positioned(
@@ -65,6 +65,18 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
+          const Positioned(
+            top: 12,
+            child: Text(
+              textAlign: TextAlign.center,
+              'TRAVEL GO',
+              style: TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              )
+            ),
           Positioned(
             bottom: -350,
             right: 0,
@@ -97,12 +109,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       password: _passwordController,
                     ),
                     Container(
-                      padding: const EdgeInsets.only(top: 0, left: 250),
+                      padding: const EdgeInsets.only(
+                        top: 20, 
+                        left: 250
+                        ),
                       child: GestureDetector(
-                        onTap: () => {print('ewan basta pinindot ko')},
+                        onTap: () => {
+                          print('ewan basta pinindot ko')
+                          },
                         child: const Text(
                           'Forgot password?',
-                          style: TextStyle(fontSize: 8),
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: Colors.grey
+                            ),
                         ),
                       ),
                     ),
