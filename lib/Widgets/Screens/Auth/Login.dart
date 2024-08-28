@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           Positioned(
-            bottom: -500,
+            bottom: -400,
             right: 0,
             left: 0,
             height: 800,
@@ -81,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   Container(
+                    width: 300,
                     padding: const EdgeInsets.only(
                       top: 0
                     ),
@@ -96,8 +97,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: 'Enter your password',
                     password: _passwordController,
                   ),
+                  Container(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      left: 250
+                    ),
+                    child: GestureDetector(
+                        onTap: () => {
+                          print('ewan basta pinindot ko')
+                        },
+                        child: const Text(
+                          'Forgot password?',
+                          style: TextStyle(
+                            fontSize: 8
+                          ),
+                        ),
+                    ),
+                  ),
                   const SizedBox(
-                    height: 30,
+                    height: 70,
                   ),
                   Container(
                       padding: null,
