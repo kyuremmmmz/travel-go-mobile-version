@@ -54,17 +54,17 @@ class _WelcomePageState extends State<WelcomePage> {
                   alignment: Alignment.center,
                   'assets/images/Background.png',
                   height: 450,
-                  width: 400,
+                  width: 450,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
           ),
           Positioned(
-            bottom: 0,
+            top: 300,
             right: 0,
             left: 0,
-            height: 450,
+            height: 550,
             child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.only(top: 20),
@@ -93,20 +93,18 @@ class _WelcomePageState extends State<WelcomePage> {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            padding: const EdgeInsets.only(
-                              right: 20,
-                            ),
+                            padding: const EdgeInsets.only(right: 95),
                             child: const Text(
                               'Welcome to',
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 30,
                                 fontWeight: FontWeight.w900,
                               ),
                               textAlign: TextAlign.left,
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.only(right: 60),
+                            padding: const EdgeInsets.only(right: 120),
                             child: ShaderMask(
                               shaderCallback: (bounds) {
                                 return gradient.createShader(Rect.fromLTWH(
@@ -116,7 +114,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                 'TRAVEL GO',
                                 style: TextStyle(
                                   color: Colors.lightBlue,
-                                  fontSize: 20,
+                                  fontSize: 25,
                                   fontWeight: FontWeight.w900,
                                 ),
                                 textAlign: TextAlign.left,
@@ -124,13 +122,13 @@ class _WelcomePageState extends State<WelcomePage> {
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.only(top: 0, left: 30),
-                            width: 600,
+                            padding: const EdgeInsets.only(top: 0, left: 40),
+                            width: 700,
                             child: const Text(
                               'Travel and get more experience here in Pangasinan! \n \n Explore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
                               textAlign: TextAlign.justify,
                               style: TextStyle(
-                                fontSize: 8,
+                                fontSize: 12,
                               ),
                             ),
                           ),
