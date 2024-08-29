@@ -37,6 +37,8 @@ class _numberTextFieldState extends State<passwordTextField> {
                 size: 25,
               )),
           labelStyle: const TextStyle(fontSize: 15),
+          alignLabelWithHint: true,
+          contentPadding: EdgeInsets.symmetric(horizontal: 5.0),
           border: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black)),
           focusedBorder:
