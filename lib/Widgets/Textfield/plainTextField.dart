@@ -40,13 +40,18 @@ class _numberTextFieldState extends State<plainTextField> {
     return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
-        labelText: widget.text,
-        labelStyle: const TextStyle(
-          fontSize: 15,
-        ),
-        border: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.black)),
-      ),
+          labelText: widget.text,
+          alignLabelWithHint: true,
+          contentPadding: EdgeInsets.symmetric(horizontal: 5.0),
+          labelStyle: const TextStyle(
+            fontSize: 15,
+          ),
+          border: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black)),
+          focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.blue,
+          ))),
       focusNode: _focusNode,
       style: const TextStyle(
         fontSize: 12,
