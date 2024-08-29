@@ -68,27 +68,36 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 height: 470,
                 width: 500,
-                color: Colors.black.withOpacity(0.3),
+                color: Colors.black.withOpacity(0.5),
               )
             ]),
           ),
           const Positioned(
-              top: 100,
-              right: 95,
+            top: 100,
+            right: 95,
+            child: Text(
+              textAlign: TextAlign.center,
+              'TRAVEL GO',
+              style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      offset: Offset(5.0, 5.0), // Shadow position
+                      blurRadius: 12.0,
+                      color: Colors.black,
+                    )
+                  ]),
+            ),
+          ),
+          Positioned(
+              top: 150,
+              right: 20,
               child: Text(
+                'Travel and get more experience here in Pangasinan!',
                 textAlign: TextAlign.center,
-                'TRAVEL GO',
-                style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    shadows: [
-                      Shadow(
-                        offset: Offset(5.0, 5.0), // Shadow position
-                        blurRadius: 12.0,
-                        color: Colors.black,
-                      )
-                    ]),
+                style: TextStyle(color: Colors.white, fontSize: 15),
               )),
           Positioned(
             bottom: -320,
