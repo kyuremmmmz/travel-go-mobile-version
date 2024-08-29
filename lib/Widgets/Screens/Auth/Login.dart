@@ -74,12 +74,12 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           const Positioned(
               top: 100,
-              right: 80,
+              right: 95,
               child: Text(
                 textAlign: TextAlign.center,
                 'TRAVEL GO',
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 40,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     shadows: [
@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ]),
               )),
           Positioned(
-            bottom: -420,
+            bottom: -320,
             right: 0,
             left: 0,
             height: 800,
@@ -106,6 +106,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    const SizedBox(
+                      height: 50,
+                    ),
                     Container(
                       width: 500,
                       padding: const EdgeInsets.only(top: 0),
@@ -127,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () => {print('ewan basta pinindot ko')},
                         child: const Text(
                           'Forgot password?',
-                          style: TextStyle(fontSize: 8, color: Colors.grey),
+                          style: TextStyle(fontSize: 15, color: Colors.grey),
                         ),
                       ),
                     ),
