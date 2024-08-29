@@ -45,7 +45,7 @@ class _numberTextFieldState extends State<plainTextField> {
       decoration:  InputDecoration(
           labelText: widget.text,
           labelStyle: const TextStyle(
-            fontSize: 12,
+            fontSize: 9,
           ),
           border: const UnderlineInputBorder(),
       ),

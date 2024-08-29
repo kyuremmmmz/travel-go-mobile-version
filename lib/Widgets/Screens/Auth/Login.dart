@@ -33,7 +33,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final Login state = Login(email: '', password: '');
 
   @override
   void dispose() {
@@ -50,23 +49,53 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Stack(
         children: <Widget>[
           Positioned(
-              top: -90,
-              right: -20,
-              left: -20,
-              child: Align(
-                child: Image.asset(
-                  'assets/images/Background.png',
-                  fit: BoxFit.cover,
-                  height: 400,
-                  width: 400,
+            top: -85,
+            right: -20,
+            left: -20,
+            child: Stack(
+              children:[
+                Align(
+                  child: Image.asset(
+                    'assets/images/Background.png',
+                    fit: BoxFit.cover,
+                    height: 470,
+                    width: 400,
+                  ),
                 ),
+                Container(
+                  height: 470,
+                  width: 400,
+                  color: Colors.black.withOpacity(0.3),
+                )
+              ]
+            ),
+          ),
+          const Positioned(
+            top: 100,
+            right: 80,
+            child: Text(
+              textAlign: TextAlign.center,
+              'TRAVEL GO',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    offset:  Offset(5.0, 5.0), // Shadow position
+                    blurRadius: 12.0, 
+                    color: Colors.black, 
+                  )
+                ]
+              ),
               )
             ),
           Positioned(
-            bottom: -500,
+            bottom: -420,
             right: 0,
             left: 0,
             height: 800,
@@ -77,48 +106,84 @@ class _LoginScreenState extends State<LoginScreen> {
                 bottom: 0,
                 right: 0,
               ),
-              decoration: const BoxDecoration(color: Colors.white),
-              child: Column(
-                children: [
-                  plainTextField(
-                    text: 'Enter your email address',
-                    controller: _emailController,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  passwordTextField(
-                    text: 'Enter your password',
-                    password: _passwordController,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                      padding: null,
-                      width: 300,
-                      child: BlueButtonWithoutFunction(
-                        text: const Text(
-                          'Sign In',
+              decoration: const BoxDecoration(
+                color: Colors.white
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      width: 500,
+                      padding: const EdgeInsets.only(top: 0),
+                      child: plainTextField(
+                        text: 'Email',
+                        controller: _emailController,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    passwordTextField(
+                      text: 'Password',
+                      password: _passwordController,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        top: 20, 
+                        left: 250
+                        ),
+                      child: GestureDetector(
+                        onTap: () => {
+                          print('ewan basta pinindot ko')
+                          },
+                        child: const Text(
+                          'Forgot password?',
                           style: TextStyle(
-                            color: Colors.white,
-                          ),
+                            fontSize: 8,
+                            color: Colors.grey
+                            ),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 26, 219, 245),
-                          shape: RoundedRectangleBorder(
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 70,
+                    ),
+                    Container(
+                        padding: null,
+                        width: 300,
+                        decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: const Offset(0, 5),
+                              )
+                            ]),
+                        child: BlueButtonWithoutFunction(
+                          text: const Text(
+                            'Sign In',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        oppressed: () async {
-                          Login(
-                                  email: _emailController.text.trim(),
-                                  password: _passwordController.text.trim())
-                              .loginUser(context);
-                        },
-                      ))
-                ],
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 26, 219, 245),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          oppressed: () async {
+                            Login(
+                                    email: _emailController.text.trim(),
+                                    password: _passwordController.text.trim())
+                                .loginUser(context);
+                          },
+                        ))
+                  ],
+                ),
               ),
             ),
           )
