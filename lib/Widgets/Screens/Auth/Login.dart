@@ -54,48 +54,44 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Positioned(
             top: -85,
-            right: -20,
-            left: -20,
-            child: Stack(
-              children:[
-                Align(
-                  child: Image.asset(
-                    'assets/images/Background.png',
-                    fit: BoxFit.cover,
-                    height: 470,
-                    width: 400,
-                  ),
-                ),
-                Container(
+            right: -30,
+            left: -30,
+            child: Stack(children: [
+              Align(
+                child: Image.asset(
+                  'assets/images/Background.png',
+                  fit: BoxFit.cover,
                   height: 470,
-                  width: 400,
-                  color: Colors.black.withOpacity(0.3),
-                )
-              ]
-            ),
+                  width: 500,
+                ),
+              ),
+              Container(
+                height: 470,
+                width: 500,
+                color: Colors.black.withOpacity(0.3),
+              )
+            ]),
           ),
           const Positioned(
-            top: 100,
-            right: 80,
-            child: Text(
-              textAlign: TextAlign.center,
-              'TRAVEL GO',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    offset:  Offset(5.0, 5.0), // Shadow position
-                    blurRadius: 12.0, 
-                    color: Colors.black, 
-                  )
-                ]
-              ),
-              )
-            ),
+              top: 100,
+              right: 95,
+              child: Text(
+                textAlign: TextAlign.center,
+                'TRAVEL GO',
+                style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        offset: Offset(5.0, 5.0), // Shadow position
+                        blurRadius: 12.0,
+                        color: Colors.black,
+                      )
+                    ]),
+              )),
           Positioned(
-            bottom: -420,
+            bottom: -320,
             right: 0,
             left: 0,
             height: 800,
@@ -106,12 +102,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 bottom: 0,
                 right: 0,
               ),
-              decoration: const BoxDecoration(
-                color: Colors.white
-              ),
+              decoration: const BoxDecoration(color: Colors.white),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    const SizedBox(
+                      height: 50,
+                    ),
                     Container(
                       width: 500,
                       padding: const EdgeInsets.only(top: 0),
@@ -128,20 +125,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       password: _passwordController,
                     ),
                     Container(
-                      padding: const EdgeInsets.only(
-                        top: 20, 
-                        left: 250
-                        ),
+                      padding: const EdgeInsets.only(top: 20, left: 250),
                       child: GestureDetector(
-                        onTap: () => {
-                          print('ewan basta pinindot ko')
-                          },
+                        onTap: () => {print('ewan basta pinindot ko')},
                         child: const Text(
                           'Forgot password?',
-                          style: TextStyle(
-                            fontSize: 8,
-                            color: Colors.grey
-                            ),
+                          style: TextStyle(fontSize: 15, color: Colors.grey),
                         ),
                       ),
                     ),
