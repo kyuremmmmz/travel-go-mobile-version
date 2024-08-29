@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 50,
                     ),
                     Container(
-                      width: 500,
+                      width: 400,
                       padding: const EdgeInsets.only(top: 0),
                       child: plainTextField(
                         text: 'Email',
@@ -120,12 +120,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    passwordTextField(
-                      text: 'Password',
-                      password: _passwordController,
+                    Container(
+                      width: 400,
+                      child: passwordTextField(
+                        text: 'Password',
+                        password: _passwordController,
+                      ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(top: 20, left: 250),
+                      padding: const EdgeInsets.only(top: 20, left: 280),
                       child: GestureDetector(
                         onTap: () => {print('ewan basta pinindot ko')},
                         child: const Text(
