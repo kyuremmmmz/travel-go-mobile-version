@@ -138,8 +138,11 @@ class _WelcomePageState extends State<WelcomePage> {
                         ],
                       ),
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Container(
-                      padding: const EdgeInsets.only(bottom: 200),
+                      padding: const EdgeInsets.only(bottom: 300),
                       child: Column(
                         children: [
                           Padding(
