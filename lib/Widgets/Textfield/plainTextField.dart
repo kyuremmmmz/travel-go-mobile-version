@@ -44,7 +44,8 @@ class _numberTextFieldState extends State<plainTextField> {
         labelStyle: const TextStyle(
           fontSize: 15,
         ),
-        border: const UnderlineInputBorder(),
+        border: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black)),
       ),
       focusNode: _focusNode,
       style: const TextStyle(

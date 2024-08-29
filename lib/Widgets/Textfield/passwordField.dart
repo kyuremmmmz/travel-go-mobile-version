@@ -24,21 +24,23 @@ class _numberTextFieldState extends State<passwordTextField> {
     return TextFormField(
       controller: widget.password,
       decoration: InputDecoration(
-        labelText: widget.text,
-        suffixIcon: IconButton(
-            onPressed: () {
-              setState(() {
-                _IsObsucure = !_IsObsucure;
-              });
-            },
-            icon: Icon(
-              _IsObsucure ? Icons.visibility : Icons.visibility_off,
-              color: Colors.black,
-              size: 25,
-            )),
-        labelStyle: const TextStyle(fontSize: 15),
-        border: const UnderlineInputBorder(),
-      ),
+          labelText: widget.text,
+          suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  _IsObsucure = !_IsObsucure;
+                });
+              },
+              icon: Icon(
+                _IsObsucure ? Icons.visibility : Icons.visibility_off,
+                color: Colors.black,
+                size: 25,
+              )),
+          labelStyle: const TextStyle(fontSize: 15),
+          border: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black)),
+          focusedBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: Colors.blue))),
       style: const TextStyle(
         fontSize: 15,
         color: Colors.black,
