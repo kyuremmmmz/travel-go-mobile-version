@@ -42,23 +42,23 @@ class _WelcomePageState extends State<WelcomePage> {
         children: <Widget>[
           Positioned(
             top: -90,
-            right: -20,
-            left: -20,
-            child: Align(
-              child: ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(1),
-                  BlendMode.dstATop,
-                ),
+            right: -30,
+            left: -30,
+            child: Stack(children: <Widget>[
+              Align(
                 child: Image.asset(
-                  alignment: Alignment.center,
                   'assets/images/Background.png',
-                  height: 450,
-                  width: 450,
                   fit: BoxFit.cover,
+                  height: 470,
+                  width: 510,
                 ),
               ),
-            ),
+              Container(
+                height: 470,
+                width: 510,
+                color: Colors.black.withOpacity(0.2),
+              )
+            ]),
           ),
           Positioned(
             top: 300,
@@ -121,6 +121,9 @@ class _WelcomePageState extends State<WelcomePage> {
                               ),
                             ),
                           ),
+                          const SizedBox(
+                            height: 15,
+                          ),
                           Container(
                             padding: const EdgeInsets.only(top: 0, left: 40),
                             width: 700,
@@ -136,11 +139,11 @@ class _WelcomePageState extends State<WelcomePage> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(bottom: 100),
+                      padding: const EdgeInsets.only(bottom: 200),
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.only(bottom: 20),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
