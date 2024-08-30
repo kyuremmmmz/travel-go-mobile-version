@@ -5,17 +5,15 @@ class plainTextField extends StatefulWidget {
   final String? text;
   final TextEditingController? controller;
 
-    const plainTextField
-    ({
-      super.key,
-      required this.text,
-      required this.controller,
-    });
+  const plainTextField({
+    super.key,
+    required this.text,
+    required this.controller,
+  });
 
   @override
   State<plainTextField> createState() => _numberTextFieldState();
 }
-
 
 // ignore: camel_case_types
 class _numberTextFieldState extends State<plainTextField> {
@@ -24,31 +22,36 @@ class _numberTextFieldState extends State<plainTextField> {
   @override
   void initState() {
     super.initState();
-    _focusNode.addListener((){
-          if (!_focusNode.hasFocus) {
-            FocusScope.of(context).unfocus();
-          }
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        FocusScope.of(context).unfocus();
+      }
     });
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _focusNode.dispose();
     super.dispose();
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      decoration:  InputDecoration(
+      decoration: InputDecoration(
           labelText: widget.text,
+          alignLabelWithHint: true,
+          contentPadding: EdgeInsets.symmetric(horizontal: 5.0),
           labelStyle: const TextStyle(
-            fontSize: 9,
+            fontSize: 15,
           ),
-          border: const UnderlineInputBorder(),
-      ),
+          border: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.black)),
+          focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.blue,
+          ))),
       focusNode: _focusNode,
       style: const TextStyle(
         fontSize: 12,
