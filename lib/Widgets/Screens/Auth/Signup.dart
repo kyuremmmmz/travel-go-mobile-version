@@ -93,7 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ]),
             ),
           ),
-          Positioned(
+          const Positioned(
               top: 150,
               right: 20,
               child: Text(
@@ -131,7 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Container(
+                    SizedBox(
                       width: 400,
                       child: passwordTextField(
                         text: 'Password',
@@ -171,15 +171,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     email: _emailController.text.trim(),
                                     password: _passwordController.text.trim())
                                 .sign(context);
-                          },
-                        ))
-                  ],
+                            },
+                          )
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
+              )
+            ],
+          ),
+        );
+      }
+    }
