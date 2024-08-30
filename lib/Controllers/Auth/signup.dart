@@ -21,27 +21,17 @@ class Signup {
   Future<void> sign(BuildContext context) async {
     final supabase = Supabase.instance.client;
     try {
-      final AuthResponse response = await supabase.auth.signUp(
+      await supabase.auth.signUp(
         email: email,
         password: password,
         emailRedirectTo:
             kIsWeb ? null : "io.supabase.flutterquickstart://login-callback/",
       );
-      final Session? session = response.session;
-      final User? user = response.user;
-      if (session != null && user != null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: const Text('Signed up Successfully check your email')));
-      } else {
-        ScaffoldMessenger
-                // ignore: use_build_context_synchronously
-                .of(context)
-            .showSnackBar(
-          const SnackBar(
-            content: Text('Error'),
-          ),
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Signed up Successfully check your email')
+          )
         );
-      }
       // ignore: empty_catches
     } catch (error) {
       ScaffoldMessenger
