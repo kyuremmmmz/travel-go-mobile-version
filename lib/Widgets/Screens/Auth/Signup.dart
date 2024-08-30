@@ -164,7 +164,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ]),
                         child: BlueButtonWithoutFunction(
                           text: const Text(
-                            'Sign In',
+                            'Sign Up',
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                           style: ElevatedButton.styleFrom(
