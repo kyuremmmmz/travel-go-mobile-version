@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
+
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/home.dart';
@@ -37,6 +38,6 @@ class AppRoutes {
 
   static void searchScreenNavigator(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+        context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
   }
 }

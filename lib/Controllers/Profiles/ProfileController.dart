@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Usersss {
   late User? user;
   SupabaseClient supabase = Supabase.instance.client;
 
-  Future<void> signout() async {
+  Future<void> signout(BuildContext context) async {
     Future.delayed(Duration.zero);
     await supabase.auth.signOut();
   }
