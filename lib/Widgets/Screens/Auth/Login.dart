@@ -175,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           oppressed: () async {
-                            await Login(
+                            Login(
                                     email: _emailController.text.trim(),
                                     password: _passwordController.text.trim())
                                 .loginUser(context);

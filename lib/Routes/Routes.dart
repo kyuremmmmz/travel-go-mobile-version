@@ -34,4 +34,9 @@ class AppRoutes {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) => const Forgotpassword()));
   }
+
+  static void searchScreenNavigator(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SignUpScreen()));
+  }
 }

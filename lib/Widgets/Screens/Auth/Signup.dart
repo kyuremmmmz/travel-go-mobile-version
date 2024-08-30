@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/Auth/login.dart';
+import 'package:itransit/Controllers/Auth/signup.dart';
 import 'package:itransit/Widgets/Textfield/passwordField.dart';
 
 import '../../Textfield/plainTextField.dart';
@@ -33,10 +33,12 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
+    _nameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -136,16 +138,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         password: _passwordController,
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(top: 20, left: 280),
-                      child: GestureDetector(
-                        onTap: () => {print('ewan basta pinindot ko')},
-                        child: const Text(
-                          'Forgot password?',
-                          style: TextStyle(fontSize: 15, color: Colors.grey),
-                        ),
-                      ),
-                    ),
                     const SizedBox(
                       height: 70,
                     ),
@@ -164,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ]),
                         child: BlueButtonWithoutFunction(
                           text: const Text(
-                            'Sign In',
+                            'Sign Up',
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                           style: ElevatedButton.styleFrom(
@@ -175,10 +167,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           oppressed: () async {
-                            await Login(
+                            await Signup(
                                     email: _emailController.text.trim(),
                                     password: _passwordController.text.trim())
-                                .loginUser(context);
+                                .sign(context);
                           },
                         ))
                   ],

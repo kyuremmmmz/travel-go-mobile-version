@@ -23,9 +23,9 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 }
 
-const url1 = 'https://nvscibwjxhrctgfhrgyn.supabase.co ';
+const url1 = 'https://nvscibwjxhrctgfhrgyn.supabase.co';
 const apikey1 =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52c2NpYndqeGhyY3RnZmhyZ3luIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyNDIxMjQ0NCwiZXhwIjoyMDM5Nzg4NDQ0fQ.j9DwqISPiCQLIj-NLMe6MNsOetMb7bfr1oumyZq6g5g.PLKN-tw8vMLxgwnunGotYP_U6AM2_A2dN-ATeykj7bI';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52c2NpYndqeGhyY3RnZmhyZ3luIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQyMTI0NDQsImV4cCI6MjAzOTc4ODQ0NH0.PLKN-tw8vMLxgwnunGotYP_U6AM2_A2dN-ATeykj7bI';
 // ignore: camel_case_types
 
 Future<void> main() async {
