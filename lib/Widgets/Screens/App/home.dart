@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/RedButton.dart';
+
 class Home extends StatefulWidget {
-  void main(){
+  void main() {
     runApp(const Home());
   }
+
   const Home({super.key});
   @override
   State<Home> createState() => _HomeState();
@@ -13,74 +15,55 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String? email;
   late Usersss users = Usersss();
-  
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     emailFetching();
-    signOut();
   }
 
-  Future <void> signOut() async{
-      setState(() {
-          users.signout();
-      });
+  Future<void> emailFetching() async {
+    final useremail = await users.fetchUser();
+    setState(() {
+      email = useremail;
+    });
   }
-
-  Future <void> emailFetching() async{
-      final useremail = await users.fetchUser();
-      setState(() {
-        email = useremail;
-      });
-  }
-
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Home'),
-          ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Center(
-                child: 
-                Text(
-                  email != null 
-                  ? 'Welcome $email' 
-                  : 'Hacked himala e',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Home'),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Center(
+              child: Text(
+                email != null ? 'Welcome $email' : 'Hacked himala e',
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Container
-              (
-                  padding: const EdgeInsets.only
-                  (
-                    top:0,
-                  ),
-                  child: RedButton
-                  (
-                    callbackAction: (){
-                      signOut();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber
-                    ),
-                text: const Text
-                (
-                  'LOG OUT', 
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0)
-                  ),
-                )
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                top: 0,
               ),
+              child: RedButton(
+                  callbackAction: () {
+                    Usersss().signout(context);
+                  },
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+                  text: const Text(
+                    'LOG OUT',
+                    style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                  )),
             )
           ],
         ),

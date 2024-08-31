@@ -42,29 +42,29 @@ class _WelcomePageState extends State<WelcomePage> {
         children: <Widget>[
           Positioned(
             top: -90,
-            right: -20,
-            left: -20,
-            child: Align(
-              child: ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(1),
-                  BlendMode.dstATop,
-                ),
+            right: -30,
+            left: -30,
+            child: Stack(children: <Widget>[
+              Align(
                 child: Image.asset(
-                  alignment: Alignment.center,
-                  'assets/images/background.png',
-                  height: 450,
-                  width: 400,
+                  'assets/images/Background.png',
                   fit: BoxFit.cover,
+                  height: 470,
+                  width: 510,
                 ),
               ),
-            ),
+              Container(
+                height: 470,
+                width: 510,
+                color: Colors.black.withOpacity(0.2),
+              )
+            ]),
           ),
           Positioned(
-            bottom: 0,
+            top: 300,
             right: 0,
             left: 0,
-            height: 450,
+            height: 550,
             child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.only(top: 20),
@@ -93,20 +93,18 @@ class _WelcomePageState extends State<WelcomePage> {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            padding: const EdgeInsets.only(
-                              right: 20,
-                            ),
+                            padding: const EdgeInsets.only(right: 50, top: 50),
                             child: const Text(
                               'Welcome to',
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 35,
                                 fontWeight: FontWeight.w900,
                               ),
                               textAlign: TextAlign.left,
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.only(right: 60),
+                            padding: const EdgeInsets.only(right: 95),
                             child: ShaderMask(
                               shaderCallback: (bounds) {
                                 return gradient.createShader(Rect.fromLTWH(
@@ -116,33 +114,39 @@ class _WelcomePageState extends State<WelcomePage> {
                                 'TRAVEL GO',
                                 style: TextStyle(
                                   color: Colors.lightBlue,
-                                  fontSize: 20,
+                                  fontSize: 25,
                                   fontWeight: FontWeight.w900,
                                 ),
                                 textAlign: TextAlign.left,
                               ),
                             ),
                           ),
+                          const SizedBox(
+                            height: 15,
+                          ),
                           Container(
-                            padding: const EdgeInsets.only(top: 0, left: 30),
-                            width: 600,
+                            padding: const EdgeInsets.only(top: 5, left: 50),
+                            width: 700,
                             child: const Text(
-                              'Travel and get more experience here in Pangasinan! \n \n Explore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
-                              textAlign: TextAlign.justify,
+                              'Travel and get more experience here in Pangasinan! \n \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
+                              textAlign: TextAlign.left,
                               style: TextStyle(
-                                fontSize: 8,
+                                fontSize: 13,
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Container(
-                      padding: const EdgeInsets.only(bottom: 100),
+                      padding: const EdgeInsets.only(bottom: 300),
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.only(bottom: 20),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),

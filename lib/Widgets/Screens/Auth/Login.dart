@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Auth/login.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/passwordField.dart';
 
 import '../../Textfield/plainTextField.dart';
@@ -33,7 +34,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final Login state = Login(email: '', password: '');
 
   @override
   void dispose() {
@@ -50,23 +50,58 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Positioned(
-              top: -90,
-              right: -20,
-              left: -20,
-              child: Align(
+            top: -85,
+            right: -30,
+            left: -30,
+            child: Stack(children: [
+              Align(
                 child: Image.asset(
                   'assets/images/Background.png',
                   fit: BoxFit.cover,
-                  height: 400,
-                  width: 400,
+                  height: 470,
+                  width: 500,
                 ),
+              ),
+              Container(
+                height: 470,
+                width: 500,
+                color: Colors.black.withOpacity(0.5),
               )
+            ]),
+          ),
+          const Positioned(
+            top: 100,
+            right: 95,
+            child: Text(
+              textAlign: TextAlign.center,
+              'TRAVEL GO',
+              style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      offset: Offset(5.0, 5.0), // Shadow position
+                      blurRadius: 12.0,
+                      color: Colors.black,
+                    )
+                  ]),
             ),
+          ),
+          const Positioned(
+              top: 150,
+              right: 20,
+              child: Text(
+                'Travel and get more experience here in Pangasinan!',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              )),
           Positioned(
-            bottom: -500,
+            bottom: -320,
             right: 0,
             left: 0,
             height: 800,
@@ -78,47 +113,79 @@ class _LoginScreenState extends State<LoginScreen> {
                 right: 0,
               ),
               decoration: const BoxDecoration(color: Colors.white),
-              child: Column(
-                children: [
-                  plainTextField(
-                    text: 'Enter your email address',
-                    controller: _emailController,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  passwordTextField(
-                    text: 'Enter your password',
-                    password: _passwordController,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                      padding: null,
-                      width: 300,
-                      child: BlueButtonWithoutFunction(
-                        text: const Text(
-                          'Sign In',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 26, 219, 245),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        oppressed: () async {
-                          Login(
-                                  email: _emailController.text.trim(),
-                                  password: _passwordController.text.trim())
-                              .loginUser(context);
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      width: 400,
+                      padding: const EdgeInsets.only(top: 0),
+                      child: plainTextField(
+                        text: 'Email',
+                        controller: _emailController,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: 400,
+                      child: passwordTextField(
+                        text: 'Password',
+                        password: _passwordController,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 20, left: 280),
+                      child: GestureDetector(
+                        onTap: () => {
+                          AppRoutes.navigateToForgotPassword(context)
                         },
-                      ))
-                ],
+                        child: const Text(
+                          'Forgot password?',
+                          style: TextStyle(fontSize: 15, color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 70,
+                    ),
+                    Container(
+                        padding: null,
+                        width: 300,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: const Offset(0, 5),
+                              )
+                            ]),
+                        child: BlueButtonWithoutFunction(
+                          text: const Text(
+                            'Sign In',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 26, 219, 245),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          oppressed: () async {
+                            Login(
+                                    email: _emailController.text.trim(),
+                                    password: _passwordController.text.trim())
+                                .loginUser(context);
+                          },
+                        ))
+                  ],
+                ),
               ),
             ),
           )
