@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:itransit/Widgets/Textfield/searchField.dart';
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
 
@@ -8,6 +8,14 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final TextEditingController _emailController = TextEditingController();
+
+  @override
+  void dispose(){
+    _emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -55,6 +63,22 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   topLeft: Radius.circular(50),
                   topRight: Radius.circular(50)
                 )
+              ),
+              child:  Column(
+                children: [
+
+                  Search(
+                    controller: _emailController, 
+                    style: const InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: Colors.black
+                      ),
+                      hintText: "Enter your email",
+                      filled: true,
+                      fillColor: Colors.white,
+                    )
+                  )
+                ],
               ),
             )
           )

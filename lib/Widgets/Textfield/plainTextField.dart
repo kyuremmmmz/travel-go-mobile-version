@@ -42,7 +42,7 @@ class _numberTextFieldState extends State<plainTextField> {
       decoration: InputDecoration(
           labelText: widget.text,
           alignLabelWithHint: true,
-          contentPadding: EdgeInsets.symmetric(horizontal: 5.0),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
           labelStyle: const TextStyle(
             fontSize: 15,
           ),
@@ -51,7 +51,9 @@ class _numberTextFieldState extends State<plainTextField> {
           focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
             color: Colors.blue,
-          ))),
+          )
+        )
+      ),
       focusNode: _focusNode,
       style: const TextStyle(
         fontSize: 12,
