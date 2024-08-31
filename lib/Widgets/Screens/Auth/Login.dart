@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Auth/login.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/passwordField.dart';
 
 import '../../Textfield/plainTextField.dart';
@@ -91,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ]),
             ),
           ),
-          Positioned(
+          const Positioned(
               top: 150,
               right: 20,
               child: Text(
@@ -139,7 +140,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       padding: const EdgeInsets.only(top: 20, left: 280),
                       child: GestureDetector(
-                        onTap: () => {print('ewan basta pinindot ko')},
+                        onTap: () => {
+                          AppRoutes.navigateToForgotPassword(context)
+                        },
                         child: const Text(
                           'Forgot password?',
                           style: TextStyle(fontSize: 15, color: Colors.grey),

@@ -12,7 +12,7 @@ class _InsertdataState extends State<Insertdata> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Insert data'),
+        title: const Text('Insert data'),
       ),
     );
   }
