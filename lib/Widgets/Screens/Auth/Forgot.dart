@@ -14,7 +14,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: 150,
+            top: 130,
             right: 50,
             child: Column(
               children: [
@@ -28,12 +28,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       color: Colors.black),
                   ),
                 ),
+                const SizedBox(
+                  height: 30,
+                ),
                 Container(
                   child: const Text(
                     textAlign: TextAlign.center,
                     "Enter the email associated with your account \n and we'll send an email with instructions \n to reset your password. ",
                     style: TextStyle(
-                      fontSize: 13
+                      fontSize: 13,
+                      color: Colors.black54
                     ),
                   ),
                 )
@@ -43,7 +47,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           Positioned(
             bottom: 0,
             child: Container(
-              height: 400,
+              height: 500,
               width: 410,
               decoration: const BoxDecoration(
                 color: Colors.blue,
