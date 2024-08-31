@@ -19,6 +19,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Positioned(
@@ -66,24 +67,34 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
               child:  Column(
                 children: [
-
-                  Search(
-                    controller: _emailController, 
-                    style: const InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: Colors.black
-                      ),
-                      hintText: "Enter your email",
-                      filled: true,
-                      fillColor: Colors.white,
-                    )
-                  )
-                ],
-              ),
-            )
-          )
-        ],
-      ),
-    );
-  }
-}
+                  const SizedBox(
+                    height: 60,
+                  ),
+                  Container(
+                    width: 400,
+                    child: Search(
+                          controller: _emailController,
+                          style: const InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(50)
+                              ),
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
+                            hintText: "Enter your email",
+                            filled: true,
+                            fillColor: Colors.white,
+                          )
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              )
+            ],
+          ),
+        );
+      }
+    }
