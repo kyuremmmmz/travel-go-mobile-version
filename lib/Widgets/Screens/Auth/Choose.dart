@@ -93,18 +93,18 @@ class _WelcomePageState extends State<WelcomePage> {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            padding: const EdgeInsets.only(right: 95),
+                            padding: const EdgeInsets.only(right: 50, top: 50),
                             child: const Text(
                               'Welcome to',
                               style: TextStyle(
-                                fontSize: 30,
+                                fontSize: 35,
                                 fontWeight: FontWeight.w900,
                               ),
                               textAlign: TextAlign.left,
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.only(right: 120),
+                            padding: const EdgeInsets.only(right: 95),
                             child: ShaderMask(
                               shaderCallback: (bounds) {
                                 return gradient.createShader(Rect.fromLTWH(
@@ -125,13 +125,13 @@ class _WelcomePageState extends State<WelcomePage> {
                             height: 15,
                           ),
                           Container(
-                            padding: const EdgeInsets.only(top: 0, left: 40),
+                            padding: const EdgeInsets.only(top: 5, left: 50),
                             width: 700,
                             child: const Text(
-                              'Travel and get more experience here in Pangasinan! \n \n Explore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
-                              textAlign: TextAlign.justify,
+                              'Travel and get more experience here in Pangasinan! \n \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
+                              textAlign: TextAlign.left,
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 13,
                               ),
                             ),
                           ),
