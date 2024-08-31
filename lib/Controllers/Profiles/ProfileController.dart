@@ -22,7 +22,7 @@ class Usersss {
   Future<void> sendVerificationCode(String? email, BuildContext context) async {
     await supabase.auth.resetPasswordForEmail(email!);
 
-    
-      AppRoutes.navigateToEmailScreen(context);
+    // ignore: use_build_context_synchronously
+    AppRoutes.navigateToEmailScreen(context);
   }
 }

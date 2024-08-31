@@ -83,9 +83,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black,
-                          spreadRadius: 0.3,
-                          blurRadius: 12.0,
-                          offset: Offset(0, 6.0)
+                          spreadRadius: 0.15,
+                          blurRadius:20,
+                          offset: Offset(0, 9.0)
                         )
                       ]
                     ),
@@ -111,23 +111,43 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 150,
+                        height: 50,
                       ),
-                      BlueButtonWithoutFunction(
-                        text: const Text('Send Instructions'), 
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white
+                      Container(
+                        width: 300,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(50)
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black,
+                              spreadRadius: 0.15,
+                              blurRadius: 20,
+                              offset: Offset(0, 8.0)
+                            )
+                          ]
                         ),
-                        oppressed: ()=> Usersss().sendVerificationCode(
-                              _emailController.text.trim(), context 
+                        child: BlueButtonWithoutFunction(
+                          text: const Text(
+                            'Send Instructions',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white),
+                              oppressed: () => Usersss().sendVerificationCode(
+                              _emailController.text.trim(), context)
+                          ),
                         )
-                      )
-                    ],
-                  ),
+                      ],
+                    ),
+                  )
                 )
-              )
-            ],
-          ),
-        );
+              ],
+            ),
+          );
+        }
       }
-    }
