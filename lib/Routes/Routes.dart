@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 
 import '../Widgets/Screens/Auth/Login.dart';
@@ -39,5 +40,10 @@ class AppRoutes {
   static void searchScreenNavigator(BuildContext context) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+  }
+
+  static void navigateToEmailScreen(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const email()));
   }
 }

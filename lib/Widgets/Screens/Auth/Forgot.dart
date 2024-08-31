@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Textfield/searchField.dart';
 class ForgotPasswordScreen extends StatefulWidget {
@@ -117,7 +118,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white
                         ),
-                        oppressed: oppressed)
+                        oppressed: ()=> Usersss().sendVerificationCode(
+                              _emailController.text.trim(), context 
+                        )
+                      )
                     ],
                   ),
                 )
