@@ -111,6 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 top: 0,
                 left: 0,
                 bottom: 0,
+                
                 right: 0,
               ),
               decoration: const BoxDecoration(color: Colors.white),
