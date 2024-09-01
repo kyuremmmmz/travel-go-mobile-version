@@ -33,4 +33,17 @@ class Usersss {
       }
     }
   }
+
+  Future<dynamic> resetPasssword(
+      String? token, String? email, String? password) async {
+    try {
+      await supabase.auth
+          .verifyOTP(email: email, token: token, type: OtpType.recovery);
+
+      await supabase.auth.updateUser(UserAttributes(password: password));
+      const SnackBar(content: Text('Password rest successfully'));
+    } catch (e) {
+      SnackBar(content: Text('error: $e'));
+    }
+  }
 }

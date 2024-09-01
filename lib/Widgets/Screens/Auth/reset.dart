@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Textfield/passwordField.dart';
 import 'package:itransit/Widgets/Textfield/number.dart';
 import 'package:itransit/Widgets/Textfield/plainTextField.dart';
+import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -15,10 +15,12 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
+  final _resetTokenController = TextEditingController();
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _resetTokenController.dispose();
     super.dispose();
   }
 
@@ -36,6 +38,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     height: 150,
                   ),
                   Container(
+                    padding: null,
                     child: const Text(
                       'Create New Password',
                       style:
@@ -43,6 +46,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ),
                   ),
                   Container(
+                    padding: null,
                     child: const Text(
                         textAlign: TextAlign.justify,
                         'Your new password must be different from \nprevious used passwords.'),
@@ -54,6 +58,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               left: -1,
               right: -1,
               child: Container(
+                padding: null,
                 child: Column(
                   children: [
                     Container(
@@ -70,13 +75,18 @@ class _ResetPasswordState extends State<ResetPassword> {
                             height: 50,
                           ),
                           Container(
+                            padding: null,
                             width: 390,
-                            child: const numberTextField(text: 'Reset Token'),
+                            child: numberTextField(
+                              text: 'Reset Token',
+                              controller: _resetTokenController,
+                            ),
                           ),
                           const SizedBox(
                             height: 30,
                           ),
                           Container(
+                            padding: null,
                             width: 390,
                             child: plainTextField(
                               colorr: Colors.black,
@@ -88,6 +98,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             height: 30,
                           ),
                           Container(
+                            padding: null,
                             width: 390,
                             child: passwordTextField(
                               text: 'Password',
@@ -98,6 +109,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             height: 50,
                           ),
                           Container(
+                            padding: null,
                             width: 300,
                             child: BlueButtonWithoutFunction(
                                 text: const Text(
@@ -106,7 +118,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 ),
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white),
-                                oppressed: () => print('test')),
+                                oppressed: () => Usersss().resetPasssword(
+                                    _resetTokenController.text.trim(),
+                                    _emailController.text.trim(),
+                                    _passwordController.text.trim())),
                           )
                         ],
                       ),

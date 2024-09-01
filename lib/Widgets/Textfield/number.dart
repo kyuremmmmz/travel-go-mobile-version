@@ -16,11 +16,10 @@ class numberTextField extends StatefulWidget {
 
 // ignore: camel_case_types
 class _numberTextFieldState extends State<numberTextField> {
-  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _controller,
+      controller: widget.controller,
       decoration: InputDecoration(
         labelText: widget.text,
         alignLabelWithHint: true,
