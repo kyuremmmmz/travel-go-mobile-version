@@ -123,6 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 400,
                       padding: const EdgeInsets.only(top: 0),
                       child: plainTextField(
+                        colorr: Colors.black,
                         text: 'Email',
                         controller: _emailController,
                       ),
@@ -140,9 +141,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       padding: const EdgeInsets.only(top: 20, left: 280),
                       child: GestureDetector(
-                        onTap: () => {
-                          AppRoutes.navigateToForgotPassword(context)
-                        },
+                        onTap: () =>
+                            {AppRoutes.navigateToForgotPassword(context)},
                         child: const Text(
                           'Forgot password?',
                           style: TextStyle(fontSize: 15, color: Colors.grey),
