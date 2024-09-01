@@ -73,7 +73,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     Container(
                       width: 350,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
                           boxShadow: [
                             BoxShadow(
                                 color: Colors.black.withOpacity(0.5),
@@ -96,11 +97,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           filled: true,
                           fillColor: Colors.white,
                         ),
-                        validator: (value) {
-                          if (value.toString().isEmpty) {
-                            return 'Hoy empty';
-                          }
-                        },
                       ),
                     ),
                     const SizedBox(
@@ -116,7 +112,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 color: Colors.black.withOpacity(0.2),
                                 spreadRadius: 1,
                                 blurRadius: 5,
-                                offset: Offset(0, 5))
+                                offset: const Offset(0, 5))
                           ]),
                       child: BlueButtonWithoutFunction(
                           text: const Text(
