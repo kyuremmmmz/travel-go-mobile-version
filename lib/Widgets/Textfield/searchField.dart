@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class Search extends StatefulWidget {
   final TextEditingController controller;
   final InputDecoration style;
+  final FormFieldValidator<String> validator;
   const Search({
     super.key,
     required this.controller,
     required this.style,
+    required this.validator,
   });
 
   @override
@@ -20,6 +22,7 @@ class _SearchState extends State<Search> {
     return TextFormField(
       controller: widget.controller,
       decoration: widget.style,
+      validator: widget.validator,
     );
   }
 }

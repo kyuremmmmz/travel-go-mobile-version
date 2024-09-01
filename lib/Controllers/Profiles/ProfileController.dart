@@ -19,10 +19,18 @@ class Usersss {
     return user?.email;
   }
 
-  Future<void> sendVerificationCode(String? email, BuildContext context) async {
-    await supabase.auth.resetPasswordForEmail(email!);
+  Future<dynamic> sendVerificationCode(
+      String? email, BuildContext context) async {
+    try {
+      await supabase.auth.resetPasswordForEmail(email!);
 
-    // ignore: use_build_context_synchronously
-    AppRoutes.navigateToEmailScreen(context);
+      // ignore: use_build_context_synchronously
+      AppRoutes.navigateToEmailScreen(context);
+    } catch (e) {
+      if (email.toString().isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Please fill your email')));
+      }
+    }
   }
 }

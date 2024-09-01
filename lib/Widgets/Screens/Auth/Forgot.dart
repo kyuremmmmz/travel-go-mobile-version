@@ -82,21 +82,26 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 offset: const Offset(0, 5))
                           ]),
                       child: Search(
-                          controller: _emailController,
-                          style: const InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                        controller: _emailController,
+                        style: const InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50))),
-                            hintText: "Email Address",
-                            filled: true,
-                            fillColor: Colors.white,
-                          )),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50))),
+                          hintText: "Email Address",
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        validator: (value) {
+                          if (value.toString().isEmpty) {
+                            return 'Hoy empty';
+                          }
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 50,
