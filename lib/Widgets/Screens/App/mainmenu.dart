@@ -48,7 +48,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                     fontWeight: FontWeight.bold,
                     shadows: [
                       Shadow(
-                        offset:const Offset(3.0, 3.0),
+                        offset: const Offset(3.0, 3.0),
                         blurRadius: 4.0,
                         color: Colors.black.withOpacity(0.5),
                       ),
@@ -259,17 +259,21 @@ class _DismissableFindMoreLocationState
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Align(
-                              alignment: Alignment.bottomLeft,
+                              alignment: Alignment.centerLeft,
                               child: Text(
-                                'Find more location \naround you',
-                                style: TextStyle(fontSize: 20),
+                                '  Find more location\n  around you',
+                                style: TextStyle(
+                                    fontSize: 25, color: Colors.white),
                               ),
+                            ),
+                            SizedBox(
+                              height: 12,
                             ),
                             Align(
                               alignment: Alignment.bottomLeft,
                               child: Text(
-                                'Find your next adventure around Pangasinan \nand create unforgettable memories!',
-                                style: TextStyle(fontSize: 10),
+                                '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
+                                style: TextStyle(fontSize: 12),
                               ),
                             ),
                           ],
