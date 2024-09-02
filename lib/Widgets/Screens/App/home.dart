@@ -16,17 +16,17 @@ class _HomeState extends State<Home> {
   String? email;
   late Usersss users = Usersss();
 
+  Future<void> emailFetching() async {
+    final useremail = await users.fetchUser();
+    setState(() {
+      email = useremail.toString();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     emailFetching();
-  }
-
-  Future<void> emailFetching() async {
-    final useremail = await users.fetchUser();
-    setState(() {
-      email = useremail;
-    });
   }
 
   @override
