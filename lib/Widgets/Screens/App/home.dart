@@ -24,8 +24,16 @@ class _HomeState extends State<Home> {
         setState(() {
           email = useremail[0]['full_name'].toString();
         });
-      } else {}
-    } catch (e) {}
+      } else {
+        setState(() {
+          email = "Anonymous User";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        email = "error: $e";
+      });
+    }
   }
 
   @override
