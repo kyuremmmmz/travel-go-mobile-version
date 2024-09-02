@@ -252,13 +252,13 @@ class _DismissableFindMoreLocationState
                 children: <Widget>[
                   Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         flex: 2,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Align(
+                            const Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 '  Find more location\n  around you',
@@ -266,16 +266,44 @@ class _DismissableFindMoreLocationState
                                     fontSize: 25, color: Colors.white),
                               ),
                             ),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            Align(
+                            const Align(
                               alignment: Alignment.bottomLeft,
                               child: Text(
                                 '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
-                                style: TextStyle(fontSize: 12),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.white),
                               ),
                             ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: GestureDetector(
+                                onTap: () => print('test'),
+                                child: Stack(
+                                  children: [
+                                    const Text(
+                                      '    Explore now',
+                                      style:  TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        decoration: TextDecoration.none, // Disable the default underline
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      left: 10,
+                                      right: 0,
+                                      child: Container(
+                                        height: 2, 
+                                        color: Colors.white, 
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),
