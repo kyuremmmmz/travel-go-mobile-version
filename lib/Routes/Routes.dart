@@ -55,6 +55,6 @@ class AppRoutes {
 
   static void navigateToMainMenu(BuildContext route) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (route) => const Mainmenu()));
+        route, MaterialPageRoute(builder: (route) => const MainMenuScreen()));
   }
 }
