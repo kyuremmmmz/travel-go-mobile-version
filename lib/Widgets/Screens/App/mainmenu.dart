@@ -13,7 +13,7 @@ class MainMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  MainMenuScreen(),
+      home: MainMenuScreen(),
     );
   }
 }
@@ -34,151 +34,168 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 50),
-        child: Column(
-          children: <Widget>[
-            const Column(
-              children: [
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Column(
+              children: <Widget>[
+                const SizedBox(height: 50),
                 Text(
                   'TRAVEL GO',
-                ),
-                Text("Northwestern part of Luzon Island, Phillippines"),
-              ],
-            ),
-            Expanded(
-              child: Scrollbar(
-                thumbVisibility: true,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Column(
-                    children: <Widget>[
-                      const DismissableFindMoreLocation(),
-                      CategorySelect(
-                        label: "Categories",
-                        oppressed: () => print('Categories clicked'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              BlueIconButtonDefault(
-                                image: beachIcon,
-                                oppressed: () => print('Hotels clicked'),
-                              ),
-                              const CategoryLabel(label: 'Hotels'),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              BlueIconButtonDefault(
-                                image: foodIcon,
-                                oppressed: () => print('Food Place clicked'),
-                              ),
-                              const CategoryLabel(label: 'Food Place'),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              BlueIconButtonDefault(
-                                image: beachIcon,
-                                oppressed: () => print('Beaches clicked'),
-                              ),
-                              const CategoryLabel(label: 'Beaches'),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              BlueIconButtonDefault(
-                                image: hotelIcon,
-                                oppressed: () => print('Festivals clicked'),
-                              ),
-                              const CategoryLabel(
-                                  label: 'Festivals and \nEvents'),
-                            ],
-                          ),
-                        ],
-                      ),
-                      CategorySelect(
-                        label: "Popular Places",
-                        oppressed: () => print('Popular Places clicked'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(hundredIsland).image,
-                            oppressed: () => print('Popular Place clicked'),
-                          ),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(hundredIsland).image,
-                            oppressed: () => print('Popular Place clicked'),
-                          ),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(hundredIsland).image,
-                            oppressed: () => print('Popular Place clicked'),
-                          ),
-                        ],
-                      ),
-                      CategorySelect(
-                        label: "Food Places",
-                        oppressed: () => print('Food Places clicked'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(hundredIsland).image,
-                            oppressed: () => print('Food Place clicked'),
-                          ),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(hundredIsland).image,
-                            oppressed: () => print('Food Place clicked'),
-                          ),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(hundredIsland).image,
-                            oppressed: () => print('Food Place clicked'),
-                          ),
-                        ],
-                      ),
-                      CategorySelect(
-                        label: "Festival and Events",
-                        oppressed: () => print('Festival and Events clicked'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(hundredIsland).image,
-                            oppressed: () => print('Event clicked'),
-                          ),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(hundredIsland).image,
-                            oppressed: () => print('Event clicked'),
-                          ),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(hundredIsland).image,
-                            oppressed: () => print('Event clicked'),
-                          ),
-                        ],
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    shadows: [
+                      Shadow(
+                        offset:const Offset(3.0, 3.0),
+                        blurRadius: 4.0,
+                        color: Colors.black.withOpacity(0.5),
                       ),
                     ],
                   ),
                 ),
-              ),
+                const Text(
+                  "Northwestern part of Luzon Island, Philippines",
+                  style: TextStyle(fontSize: 16), // Adjust text style as needed
+                ),
+                Expanded(
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Column(
+                        children: <Widget>[
+                          const DismissableFindMoreLocation(),
+                          CategorySelect(
+                            label: "Categories",
+                            oppressed: () => print('Categories clicked'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  BlueIconButtonDefault(
+                                    image: beachIcon,
+                                    oppressed: () => print('Hotels clicked'),
+                                  ),
+                                  const CategoryLabel(label: 'Hotels'),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  BlueIconButtonDefault(
+                                    image: foodIcon,
+                                    oppressed: () =>
+                                        print('Food Place clicked'),
+                                  ),
+                                  const CategoryLabel(label: 'Food Place'),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  BlueIconButtonDefault(
+                                    image: beachIcon,
+                                    oppressed: () => print('Beaches clicked'),
+                                  ),
+                                  const CategoryLabel(label: 'Beaches'),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  BlueIconButtonDefault(
+                                    image: hotelIcon,
+                                    oppressed: () => print('Festivals clicked'),
+                                  ),
+                                  const CategoryLabel(
+                                      label: 'Festivals and \nEvents'),
+                                ],
+                              ),
+                            ],
+                          ),
+                          CategorySelect(
+                            label: "Popular Places",
+                            oppressed: () => print('Popular Places clicked'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Popular Place clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Popular Place clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Popular Place clicked'),
+                              ),
+                            ],
+                          ),
+                          CategorySelect(
+                            label: "Food Places",
+                            oppressed: () => print('Food Places clicked'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                            ],
+                          ),
+                          CategorySelect(
+                            label: "Festival and Events",
+                            oppressed: () =>
+                                print('Festival and Events clicked'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Event clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Event clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Event clicked'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -229,6 +246,7 @@ class _DismissableFindMoreLocationState
               width: 380,
               decoration: const BoxDecoration(
                 color: Colors.blue,
+                borderRadius: BorderRadius.all(Radius.circular(30)),
               ),
               child: Column(
                 children: <Widget>[
@@ -271,10 +289,10 @@ class _DismissableFindMoreLocationState
                                   width: 20,
                                   child: Image.asset(xButtonIcon),
                                 ),
-                                onPressed: () => {
+                                onPressed: () {
                                   setState(() {
                                     _isVisible = false;
-                                  }),
+                                  });
                                 },
                               ),
                             ),
@@ -282,10 +300,10 @@ class _DismissableFindMoreLocationState
                               height: 80,
                               width: 80,
                               child: Image.asset(adventureIcon),
-                            )
+                            ),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -310,9 +328,7 @@ class CategorySelect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 30,
-        ),
+        const SizedBox(height: 30),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -325,15 +341,14 @@ class CategorySelect extends StatelessWidget {
               child: const Text(
                 'View all',
                 style: TextStyle(
-                    color: Color.fromRGBO(33, 150, 243, 100),
-                    fontWeight: FontWeight.bold),
+                  color: Color.fromRGBO(33, 150, 243, 100),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
         ),
-        const SizedBox(
-          height: 20,
-        )
+        const SizedBox(height: 20),
       ],
     );
   }
