@@ -16,7 +16,7 @@ class Usersss {
 
   Future<PostgrestList> fetchUser() async {
     user = supabase.auth.currentUser;
-    late var name = user?.id;
+    late String? name = user?.id;
     return await supabase
         .from('profiles')
         .select('full_name')

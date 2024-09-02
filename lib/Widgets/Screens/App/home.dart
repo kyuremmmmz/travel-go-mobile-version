@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/RedButton.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Home extends StatefulWidget {
   void main() {
@@ -17,10 +18,14 @@ class _HomeState extends State<Home> {
   late Usersss users = Usersss();
 
   Future<void> emailFetching() async {
-    final useremail = await users.fetchUser();
-    setState(() {
-      email = useremail.toString();
-    });
+    try {
+      final PostgrestList useremail = await users.fetchUser();
+      if (useremail.isNotEmpty) {
+        setState(() {
+          email = useremail[0]['full_name'].toString();
+        });
+      } else {}
+    } catch (e) {}
   }
 
   @override
