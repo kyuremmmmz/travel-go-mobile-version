@@ -4,8 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 //JUST A TEST MUNA ITONG JSON
 
 class Signup {
-  late final String? lastName;
-  late final String? firstName;
+  late final String? fullName;
   late final int? phoneNumber;
   late final int? age;
   late final String? address;
@@ -15,6 +14,7 @@ class Signup {
 
   Signup({
     required this.email,
+    required this.fullName,
     required this.password,
   });
 
@@ -22,16 +22,14 @@ class Signup {
     final supabase = Supabase.instance.client;
     try {
       await supabase.auth.signUp(
-        email: email,
-        password: password,
-        emailRedirectTo:
-            kIsWeb ? null : "io.supabase.flutterquickstart://login-callback/",
-      );
+          email: email,
+          password: password,
+          emailRedirectTo:
+              kIsWeb ? null : "io.supabase.flutterquickstart://login-callback/",
+          data: {'full_name': fullName});
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Signed up Successfully check your email')
-          )
-        );
+          content: Text('Signed up Successfully check your email')));
       // ignore: empty_catches
     } catch (error) {
       ScaffoldMessenger

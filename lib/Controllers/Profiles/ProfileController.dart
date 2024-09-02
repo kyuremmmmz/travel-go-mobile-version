@@ -14,9 +14,13 @@ class Usersss {
     await supabase.auth.signOut();
   }
 
-  Future<String?> fetchUser() async {
+  Future<PostgrestList> fetchUser() async {
     user = supabase.auth.currentUser;
-    return user?.email;
+    late String? name = user?.id;
+    return await supabase
+        .from('profiles')
+        .select('full_name')
+        .eq('id', name.toString());
   }
 
   Future<dynamic> sendVerificationCode(
@@ -41,7 +45,7 @@ class Usersss {
           .verifyOTP(email: email, token: token, type: OtpType.recovery);
 
       await supabase.auth.updateUser(UserAttributes(password: password));
-      const SnackBar(content: Text('Password rest successfully'));
+      const SnackBar(content: Text('Password reset successfully'));
     } catch (e) {
       SnackBar(content: Text('error: $e'));
     }

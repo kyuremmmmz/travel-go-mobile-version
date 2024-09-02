@@ -102,7 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: TextStyle(color: Colors.white, fontSize: 15),
               )),
           Positioned(
-            bottom: -320,
+            bottom: -290,
             right: 0,
             left: 0,
             height: 800,
@@ -118,7 +118,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 50,
+                      height: 10,
                     ),
                     Container(
                       width: 400,
@@ -127,6 +127,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         colorr: Colors.black,
                         text: 'Email',
                         controller: _emailController,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: 400,
+                      padding: const EdgeInsets.only(top: 0),
+                      child: plainTextField(
+                        colorr: Colors.black,
+                        text: 'Full name',
+                        controller: _nameController,
                       ),
                     ),
                     const SizedBox(
@@ -170,6 +182,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           oppressed: () async {
                             await Signup(
                                     email: _emailController.text.trim(),
+                                    fullName: _nameController.text.trim(),
                                     password: _passwordController.text.trim())
                                 .sign(context);
                           },
