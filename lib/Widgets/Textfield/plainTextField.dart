@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class plainTextField extends StatefulWidget {
   final String? text;
   final TextEditingController? controller;
+  final Color? colorr;
 
   const plainTextField({
     super.key,
     required this.text,
     required this.controller,
+    required this.colorr,
   });
 
   @override
@@ -42,20 +44,18 @@ class _numberTextFieldState extends State<plainTextField> {
       decoration: InputDecoration(
           labelText: widget.text,
           alignLabelWithHint: true,
-          contentPadding: EdgeInsets.symmetric(horizontal: 5.0),
-          labelStyle: const TextStyle(
-            fontSize: 15,
-          ),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
+          labelStyle: const TextStyle(fontSize: 15, color: Colors.black),
           border: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black)),
           focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
-            color: Colors.blue,
+            color: Colors.black,
           ))),
       focusNode: _focusNode,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 12,
-        color: Colors.black,
+        color: widget.colorr,
       ),
       keyboardType: TextInputType.emailAddress,
     );

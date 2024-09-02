@@ -111,7 +111,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 top: 0,
                 left: 0,
                 bottom: 0,
-                
                 right: 0,
               ),
               decoration: const BoxDecoration(color: Colors.white),
@@ -125,6 +124,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       width: 400,
                       padding: const EdgeInsets.only(top: 0),
                       child: plainTextField(
+                        colorr: Colors.black,
                         text: 'Email',
                         controller: _emailController,
                       ),
@@ -172,16 +172,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     email: _emailController.text.trim(),
                                     password: _passwordController.text.trim())
                                 .sign(context);
-                            },
-                          )
-                        )
-                      ],
-                    ),
-                  ),
+                          },
+                        ))
+                  ],
                 ),
-              )
-            ],
-          ),
-        );
-      }
-    }
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
