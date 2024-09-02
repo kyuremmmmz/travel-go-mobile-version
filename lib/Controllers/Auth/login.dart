@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/App/home.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Login {
@@ -9,14 +8,15 @@ class Login {
   Login({required this.email, required this.password});
   Future<void> loginUser(BuildContext context) async {
     final SupabaseClient supabase = Supabase.instance.client;
-
-    await supabase.auth.signInWithPassword(
-      password: password,
-      email: email,
-    );
-
     try {
-      if (password == true) {}
-    } catch (e) {}
+      await supabase.auth.signInWithPassword(
+        password: password,
+        email: email,
+      );
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
+    }
   }
 }
