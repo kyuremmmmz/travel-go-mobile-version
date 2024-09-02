@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
+import 'package:itransit/Widgets/Textfield/searchField.dart';
 
 void main() {
   runApp(const MainMenu());
@@ -30,6 +31,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   final String foodIcon = "assets/images/icon/food.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
+  final _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +66,50 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 const Text(
                   "Northwestern part of Luzon Island, Philippines",
                   style: TextStyle(fontSize: 16), // Adjust text style as needed
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  height: 40,
+                  width: 400,
+                  child: Search(
+                    controller: _searchController,
+                    style: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 0,
+                        horizontal: 10
+                        ),
+                      hintStyle: TextStyle(
+                        color: Colors.black54
+                      ),
+                      hintText: 'Search Destination',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(
+                            50
+                            )
+                          ),
+                        borderSide: BorderSide(
+                          color: Colors.black54
+                        )
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black54
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(
+                          50
+                          )
+                        )
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
                 Expanded(
                   child: Scrollbar(
@@ -285,10 +337,11 @@ class _DismissableFindMoreLocationState
                                   children: [
                                     const Text(
                                       '    Explore now',
-                                      style:  TextStyle(
+                                      style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.white,
-                                        decoration: TextDecoration.none, // Disable the default underline
+                                        decoration: TextDecoration
+                                            .none, // Disable the default underline
                                       ),
                                     ),
                                     Positioned(
@@ -296,8 +349,8 @@ class _DismissableFindMoreLocationState
                                       left: 10,
                                       right: 0,
                                       child: Container(
-                                        height: 2, 
-                                        color: Colors.white, 
+                                        height: 2,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ],
