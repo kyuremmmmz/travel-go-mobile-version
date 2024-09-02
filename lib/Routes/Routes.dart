@@ -5,6 +5,7 @@ import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/home.dart';
+import '../Widgets/Screens/App/mainmenu.dart';
 
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
@@ -50,5 +51,10 @@ class AppRoutes {
   static void navigateToResetScreen(BuildContext route) {
     Navigator.push(
         route, MaterialPageRoute(builder: (route) => const Resetpassword()));
+  }
+
+  static void navigateToMainMenu(BuildContext route) {
+    Navigator.push(
+        route, MaterialPageRoute(builder: (route) => const Mainmenu()));
   }
 }
