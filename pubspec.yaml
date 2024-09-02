@@ -31,6 +31,8 @@ flutter:
     - assets/images/icon/beach.png
     - assets/images/icon/food.png
     - assets/images/icon/hotel.png
+    - assets/images/icon/ButtonX.png
+    - assets/images/icon/adventure.png
     - assets/images/places/EnchantedCave.jpg
     - assets/images/places/HundredIsland.jpeg
     - assets/images/places/Manaoag.jpg

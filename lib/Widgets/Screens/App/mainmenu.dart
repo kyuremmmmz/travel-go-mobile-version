@@ -45,160 +45,109 @@ class _MainmenuState extends State<Mainmenu> {
                   ),
                 ],),
               ),
-              
               //!-------------------<Scrollable Part(?) with Collapsable Widget>-----------------------!
-              Expanded(
-                child:
-                Scrollbar(
-                  thumbVisibility: true,
-                  child: SingleChildScrollView(  
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                      left: 25,
-                      right: 25,
+          Expanded(
+            child:
+            Scrollbar(
+              thumbVisibility: true,
+              child: SingleChildScrollView(  
+              child: Container(
+                padding: const EdgeInsets.only(
+                  left: 25,
+                  right: 25,
+                ),
+                child: 
+                Column(children: <Widget>[
+                  DismissableFindMoreLocation(),
+                  CategorySelect(label: "Categories", 
+                  oppressed: ()=> print('')
+                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(children: [
+                          BlueIconButtonDefault(image: widget.beachIcon, 
+                          oppressed: ()=> print('test')
+                          ),
+                          CategoryLabel(label: 'Hotels'),
+                        ],),
+                        Column(children: [
+                          BlueIconButtonDefault(image: widget.beachIcon, 
+                          oppressed: ()=> print('test')
+                          ),
+                          CategoryLabel(label: 'Food Place'),
+                        ],),
+                        Column(children: [
+                          BlueIconButtonDefault(image: widget.beachIcon, 
+                          oppressed: ()=> print('test')
+                          ),
+                          CategoryLabel(label: 'Beaches'),
+                        ],),
+                        Column(children: [
+                          BlueIconButtonDefault(image: widget.beachIcon, 
+                          oppressed: ()=> print('test')
+                          ),
+                          CategoryLabel(label: 'Festivals and \nEvents'),
+                        ],),
+                    ],),
+
+                  CategorySelect(label: "Popular Places", 
+                    oppressed: ()=> print('')
                     ),
-                    child: 
-                    Column(children: <Widget>[
-                      DismissableFindMoreLocation(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('Categories', style: TextStyle(fontWeight: FontWeight.bold),),
-                          GestureDetector(
-                                onTap: () =>
-                                    print("test"), // Add route or change this widget
-                                child: const Text(
-                                  'View all',
-                                  style: TextStyle(color: Color.fromRGBO(33, 150, 243, 100), fontWeight: FontWeight.bold),
-                                ),),
-                        ],),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(children: [
-                              BlueIconButtonDefault(image: widget.beachIcon, 
-                              oppressed: ()=> print('test')
-                              ),
-                              CategoryLabel(label: 'Hotels'),
-                            ],),
-                            Column(children: [
-                              BlueIconButtonDefault(image: widget.beachIcon, 
-                              oppressed: ()=> print('test')
-                              ),
-                              CategoryLabel(label: 'Food Place'),
-                            ],),
-                            Column(children: [
-                              BlueIconButtonDefault(image: widget.beachIcon, 
-                              oppressed: ()=> print('test')
-                              ),
-                              CategoryLabel(label: 'Beaches'),
-                            ],),
-                            Column(children: [
-                              BlueIconButtonDefault(image: widget.beachIcon, 
-                              oppressed: ()=> print('test')
-                              ),
-                              CategoryLabel(label: 'Festivals and \nEvents'),
-                            ],),
-                        ],),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                      ],),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                      ],),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                      ],),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                      ],),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                      ],),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                          PlaceButtonSquare(
-                            place: 'Hundred Island',
-                            image: Image.asset(widget.hundredIsland).image, 
-                            oppressed: () => print(''),),
-                      ],),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      PlaceButtonSquare(
+                        place: 'Hundred Island',
+                        image: Image.asset(widget.hundredIsland).image, 
+                        oppressed: () => print(''),),
+                      PlaceButtonSquare(
+                        place: 'Hundred Island',
+                        image: Image.asset(widget.hundredIsland).image, 
+                        oppressed: () => print(''),),
+                      PlaceButtonSquare(
+                        place: 'Hundred Island',
+                        image: Image.asset(widget.hundredIsland).image, 
+                        oppressed: () => print(''),),
+                  ],),
+                  CategorySelect(label: "Food Places", 
+                    oppressed: ()=> print('')
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      PlaceButtonSquare(
+                        place: 'Hundred Island',
+                        image: Image.asset(widget.hundredIsland).image, 
+                        oppressed: () => print(''),),
+                      PlaceButtonSquare(
+                        place: 'Hundred Island',
+                        image: Image.asset(widget.hundredIsland).image, 
+                        oppressed: () => print(''),),
+                      PlaceButtonSquare(
+                        place: 'Hundred Island',
+                        image: Image.asset(widget.hundredIsland).image, 
+                        oppressed: () => print(''),),
+                  ],),
+                  CategorySelect(label: "Festival and Events", 
+                    oppressed: ()=> print('')
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      PlaceButtonSquare(
+                        place: 'Hundred Island',
+                        image: Image.asset(widget.hundredIsland).image, 
+                        oppressed: () => print(''),),
+                      PlaceButtonSquare(
+                        place: 'Hundred Island',
+                        image: Image.asset(widget.hundredIsland).image, 
+                        oppressed: () => print(''),),
+                      PlaceButtonSquare(
+                        place: 'Hundred Island',
+                        image: Image.asset(widget.hundredIsland).image, 
+                        oppressed: () => print(''),),
+                  ],),
                  ],)
               ),),),),
           ],),
@@ -228,7 +177,11 @@ class CategoryLabel extends StatelessWidget{
 }
 
 // Working in progress
+// Class for the removable section
 class DismissableFindMoreLocation extends StatefulWidget{
+  final String xButtonIcon = "assets/images/icon/ButtonX.png";
+  final String adventureIcon = "assets/images/icon/adventure.png";
+
   @override
   // ignore: library_private_types_in_public_api
   _DismissableFindMoreLocationState createState() => _DismissableFindMoreLocationState();
@@ -242,21 +195,93 @@ class _DismissableFindMoreLocationState extends State<DismissableFindMoreLocatio
     return _isVisible
     ? Center(
       child:Container(
-      height: 200,
+      height: 180,
       width: 380,
       decoration: const BoxDecoration(
         color: Colors.blue,
       ),
-      child: Padding(
-        padding: EdgeInsets.all(30),
-        child: Row (children: [
-        Column(
+      child: Column(children: <Widget>[
+        Row (children: [
+        const Expanded(
+          flex: 2,
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Test'),
-            Text('Test')
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text('Find more location \naround you',
+              style: TextStyle(fontSize: 20),
+             ),),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Text('Find your next adventure around Pangasinan \nand create unforgettable memories!',
+              style: TextStyle(fontSize: 10),
+            ),),
+        ],),),
+        SizedBox(
+          height: 180,
+          width: 100,
+          child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child:  IconButton(
+              iconSize: 20,
+              icon: SizedBox(
+                height: 20,
+                width: 20,
+                child: Image.asset(widget.xButtonIcon),
+              ),
+              onPressed: ()=> {
+                setState(() {_isVisible = false;}
+                ),
+              },
+            ),),
+           
+            Positioned(
+              
+              child: SizedBox(
+              height: 80,
+              width: 80,
+              child: Image.asset(widget.adventureIcon),
+            ))
+        ],),)
         ],),
-      ],)
-    ,) ,) ): Container();
+      ],),)) : Container();
   }
+}
 
+class CategorySelect extends StatelessWidget{
+  final String label;
+  final VoidCallback oppressed;
+
+  CategorySelect({
+    required this.label,
+    required this.oppressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 30,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(label, style: const TextStyle(fontWeight: FontWeight.bold),),
+            GestureDetector(
+            onTap: oppressed,
+            child: const Text(
+            'View all',
+            style: TextStyle(color: Color.fromRGBO(33, 150, 243, 100), fontWeight: FontWeight.bold),
+          ),),
+        ],),
+        const SizedBox(
+          height: 20,
+        )
+      ],);
+  }
 }
