@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
 import 'package:itransit/Widgets/Textfield/searchField.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
@@ -170,7 +171,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                Container(
+                SizedBox(
                   height: 40,
                   width: 400,
                   child: Search(
@@ -415,7 +416,7 @@ class _DismissableFindMoreLocationState
                             Align(
                               alignment: Alignment.bottomLeft,
                               child: GestureDetector(
-                                onTap: () => print('test'),
+                                onTap: () => AppRoutes.navigateToExploreNowScreen(context),
                                 child: Stack(
                                   children: [
                                     const Text(
