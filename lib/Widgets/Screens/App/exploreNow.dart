@@ -5,6 +5,7 @@ import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 
 class Explorenow extends StatefulWidget {
   const Explorenow({super.key});
@@ -22,11 +23,22 @@ class _ExplorenowState extends State<Explorenow> {
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
+  late Data data = Data();
+  List<Map<String, dynamic>> place = [];
+
+  Future<void> places() async {
+    final datas = await data.fetchImageandText();
+
+    setState(() {
+      place = datas;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     emailFetching();
+    places();
   }
 
   @override
@@ -57,80 +69,79 @@ class _ExplorenowState extends State<Explorenow> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 40,
-        leading: Builder(
-          builder: (BuildContext context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+        appBar: AppBar(
+          toolbarHeight: 40,
+          leading: Builder(
+            builder: (BuildContext context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            ),
           ),
         ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/icon/beach.png'),
-                    radius: 40,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    email ?? 'Hacked himala e',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/icon/beach.png'),
+                      radius: 40,
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    Text(
+                      email ?? 'Hacked himala e',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-                AppRoutes.navigateToMainMenu(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.search),
-              title: const Text('Search'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pop(context);
-                Usersss().signout(context);
-
-              },
-            ),
-          ],
+              ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
+                onTap: () {
+                  Navigator.pop(context);
+                  AppRoutes.navigateToMainMenu(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.search),
+                title: const Text('Search'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text('Settings'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Logout'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Usersss().signout(context);
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-      body: Stack(
-        children: [
+        body: Stack(children: [
           Positioned.fill(
               child: Column(children: <Widget>[
             Text(
@@ -209,7 +220,7 @@ class _ExplorenowState extends State<Explorenow> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => print('Hotels clicked'),
+                                    oppressed: () => Data().fetchImageandText(),
                                   ),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
@@ -249,67 +260,41 @@ class _ExplorenowState extends State<Explorenow> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Column(children: [
-                            Container(
-                                height: 150,
-                                width: 600,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(hundredIsland)),
-                                  color: Colors.blue,
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                ),
-                                child: Container(
-                                    padding: const EdgeInsets.only(top: 120),
-                                    child: const Text(
-                                      '    Hundred island',
-                                      style: TextStyle(
+                          Column(
+                            children: place.map((place) {
+                              final imageUrl = place['image_url'];
+                              final text = place['place_name'] ?? 'Unknown';
+                              return Column(
+                                children: [
+                                  Container(
+                                    height: 150,
+                                    width: 600,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(imageUrl),
+                                      ),
+                                      color: Colors.blue,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(30),
+                                      ),
+                                    ),
+                                    child: Container(
+                                      padding: const EdgeInsets.only(top: 120),
+                                      child: Text(
+                                        '    $text',
+                                        style: const TextStyle(
                                           fontSize: 18,
                                           color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  )
-                                ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                                height: 150,
-                                width: 600,
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
-                                      spreadRadius: 2,
-                                      blurRadius: 6,
-                                      offset: const Offset(0, 0),
-                                    )
-                                  ],
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(manaoag)),
-                                  color: Colors.blue,
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(30),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                )),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                                height: 150,
-                                width: 600,
-                                decoration: const BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                )
-                              ),
-                            ]
+                                  const SizedBox(height: 20),
+                                ],
+                              );
+                            }).toList(),
                           ),
                         ]
                       )
@@ -319,8 +304,8 @@ class _ExplorenowState extends State<Explorenow> {
               ]
             )
           )
-        ],
-      ),
+        ]
+      )
     );
   }
 }

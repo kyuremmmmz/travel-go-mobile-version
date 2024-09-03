@@ -8,7 +8,7 @@ import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/home.dart';
-
+import 'package:itransit/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
   static const String forgotPassword = "../Widgets/Screens/Auth/Forgot.dart";
@@ -63,5 +63,10 @@ class AppRoutes {
   static void navigateToExploreNowScreen(BuildContext route) {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) => const explore()));
+  }
+
+  static void navigateToTesting(BuildContext route) {
+    Navigator.push(
+        route, MaterialPageRoute(builder: (context) => Testing()));
   }
 }
