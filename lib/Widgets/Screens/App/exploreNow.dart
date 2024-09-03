@@ -1,7 +1,8 @@
-import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/SearchController/searchController.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -99,6 +100,7 @@ class _ExplorenowState extends State<Explorenow> {
               title: const Text('Home'),
               onTap: () {
                 Navigator.pop(context);
+                AppRoutes.navigateToMainMenu(context);
               },
             ),
             ListTile(
@@ -121,6 +123,7 @@ class _ExplorenowState extends State<Explorenow> {
               onTap: () {
                 Navigator.pop(context);
                 Usersss().signout(context);
+
               },
             ),
           ],
@@ -267,9 +270,9 @@ class _ExplorenowState extends State<Explorenow> {
                                           fontSize: 18,
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
-                                        )
-                                      )
-                                    ),
+                                    )
+                                  )
+                                ),
                             const SizedBox(
                               height: 20,
                             ),
@@ -303,16 +306,16 @@ class _ExplorenowState extends State<Explorenow> {
                                   color: Colors.blue,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(30),
-                                    ),
-                                  )
-                                ),
-                              ]
-                            ),
-                          ]
-                        )
+                                  ),
+                                )
+                              ),
+                            ]
+                          ),
+                        ]
                       )
                     )
                   )
+                )
               ]
             )
           )
