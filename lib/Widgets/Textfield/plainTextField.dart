@@ -11,6 +11,7 @@ class plainTextField extends StatefulWidget {
     required this.text,
     required this.controller,
     required this.colorr,
+    required InputDecoration style,
   });
 
   @override
