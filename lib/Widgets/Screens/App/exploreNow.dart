@@ -15,7 +15,8 @@ class _ExplorenowState extends State<Explorenow> {
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
-  final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
+  late String hundredIsland = "assets/images/places/HundredIsland.jpeg";
+  late String manaoag = "assets/images/places/Manaoag.jpg";
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
@@ -232,14 +233,90 @@ class _ExplorenowState extends State<Explorenow> {
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                height: 150,
+                                width: 600,
+                                decoration:   BoxDecoration(
+                                  image: DecorationImage(
+                                    fit:BoxFit.cover,
+                                    image: AssetImage(
+                                        hundredIsland
+                                      )
+                                    ),
+                                    
+                                  color: Colors.blue,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                ),
+                                child: Container(
+                                  padding: const EdgeInsets.only(
+                                    top: 120
+                                  ),
+                                  child: const Text(
+                                  '    Hundred island',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                )
+                              ),
+                              const SizedBox(
+                              height: 20,
+                            ),
+                              Container(
+                                height: 150,
+                                width: 600,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 2,
+                                      blurRadius: 6,
+                                      offset: const Offset(0, 0),
+                                    )
+                                  ],
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(
+                                      manaoag
+                                    )
+                                  ),
+                                  color: Colors.blue,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                  )
+                                ),
+                              const SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                                height: 150,
+                                width: 600,
+                                decoration: const BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                )),
+                            ]
+                          ),
+                        ]
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
         ],
       ),
     );

@@ -7,6 +7,8 @@ class explore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: Explorenow());
+        debugShowCheckedModeBanner: false, 
+        home: Explorenow()
+    );
   }
 }
