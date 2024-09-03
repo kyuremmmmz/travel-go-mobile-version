@@ -218,7 +218,9 @@ class _ExplorenowState extends State<Explorenow> {
                       );
                     },
                     onSuggestionSelected: (dynamic suggestion) {
-                      print('Selected: ${suggestion['title']}');
+                      _searchController.text =
+                          suggestion['title'] ?? 'No title';
+                      FocusScope.of(context).unfocus();
                     },
                   ),
                 ),
