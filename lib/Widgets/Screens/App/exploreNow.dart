@@ -1,11 +1,10 @@
-import 'dart:convert';
 
+import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:http/http.dart' as http;
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
-import 'package:supabase_flutter/supabase_flutter.dart'; // Update this path if needed
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Explorenow extends StatefulWidget {
   const Explorenow({super.key});
@@ -23,8 +22,6 @@ class _ExplorenowState extends State<Explorenow> {
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
-  List<dynamic> _searchResults = [];
-  bool _isLoading = false;
 
   @override
   void initState() {
@@ -56,37 +53,6 @@ class _ExplorenowState extends State<Explorenow> {
       });
     }
   }
-
-  Future<List<dynamic>> _fetchSuggestions(String query) async {
-    final headers = {
-      'X-API-KEY': '2ed3f8f207ac5be7669b246d2924381911403f34',
-      'Content-Type': 'application/json',
-    };
-
-    try {
-      final response = await http.post(
-        Uri.parse('https://google.serper.dev/places'),
-        headers: headers,
-        body: json.encode({
-          "q": query,
-          "location": "Philippines", 
-          "gl": "ph"
-          }),
-      );
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body) as Map<String, dynamic>;
-        final places = data['places'] as List<dynamic>;
-        return places;
-      } else {
-        throw Exception('Failed to load suggestions');
-      }
-    } catch (e) {
-      print('Error: $e');
-      return [];
-    }
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +175,7 @@ class _ExplorenowState extends State<Explorenow> {
                       ),
                     ),
                     suggestionsCallback: (pattern) async {
-                      return await _fetchSuggestions(pattern);
+                      return await Searchcontroller().fetchSuggestions(pattern);
                     },
                     itemBuilder: (context, dynamic suggestion) {
                       return ListTile(
