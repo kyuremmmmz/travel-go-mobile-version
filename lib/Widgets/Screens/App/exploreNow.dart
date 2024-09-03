@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:http/http.dart' as http;
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
-import 'package:itransit/Widgets/Textfield/searchField.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart'; // Update this path if needed
 
 class Explorenow extends StatefulWidget {
   const Explorenow({super.key});
@@ -20,6 +23,20 @@ class _ExplorenowState extends State<Explorenow> {
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
+  List<dynamic> _searchResults = [];
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    emailFetching();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   Future<void> emailFetching() async {
     try {
@@ -40,17 +57,36 @@ class _ExplorenowState extends State<Explorenow> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    emailFetching();
+  Future<List<dynamic>> _fetchSuggestions(String query) async {
+    final headers = {
+      'X-API-KEY': '2ed3f8f207ac5be7669b246d2924381911403f34',
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse('https://google.serper.dev/places'),
+        headers: headers,
+        body: json.encode({
+          "q": query,
+          "location": "Philippines", 
+          "gl": "ph"
+          }),
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body) as Map<String, dynamic>;
+        final places = data['places'] as List<dynamic>;
+        return places;
+      } else {
+        throw Exception('Failed to load suggestions');
+      }
+    } catch (e) {
+      print('Error: $e');
+      return [];
+    }
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,14 +114,12 @@ class _ExplorenowState extends State<Explorenow> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const CircleAvatar(
-                    backgroundImage: AssetImage(
-                        'assets/images/icon/beach.png'), // Replace with your own profile image
+                    backgroundImage: AssetImage('assets/images/icon/beach.png'),
                     radius: 40,
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    // ignore: unnecessary_null_comparison
-                    email != null ? '$email' : 'Hacked himala e',
+                    email ?? 'Hacked himala e',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -149,35 +183,46 @@ class _ExplorenowState extends State<Explorenow> {
                 ),
                 const Text(
                   "Northwestern part of Luzon Island, Philippines",
-                  style: TextStyle(fontSize: 16), // Adjust text style as needed
+                  style: TextStyle(fontSize: 16),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  height: 40,
-                  width: 400,
-                  child: Search(
-                    controller: _searchController,
-                    style: const InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                      hintStyle: TextStyle(color: Colors.black54),
-                      hintText: 'Search Destination',
-                      border: OutlineInputBorder(
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: TypeAheadField(
+                    textFieldConfiguration: TextFieldConfiguration(
+                      controller: _searchController,
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        hintStyle: TextStyle(color: Colors.black54),
+                        hintText: 'Search Destination',
+                        border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide(color: Colors.black54)),
-                      focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black54),
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      filled: true,
-                      fillColor: Colors.white,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black54),
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
                     ),
+                    suggestionsCallback: (pattern) async {
+                      return await _fetchSuggestions(pattern);
+                    },
+                    itemBuilder: (context, dynamic suggestion) {
+                      return ListTile(
+                        title: Text(suggestion['title'] ?? 'No title'),
+                        subtitle: Text(suggestion['address'] ?? 'No address'),
+                      );
+                    },
+                    onSuggestionSelected: (dynamic suggestion) {
+                      print('Selected: ${suggestion['title']}');
+                    },
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 Expanded(
                   child: Scrollbar(
                     thumbVisibility: true,
@@ -229,94 +274,20 @@ class _ExplorenowState extends State<Explorenow> {
                                   ),
                                   const CategoryLabel(
                                       label: 'Festivals and \nEvents'),
-                                  ],
+                                ],
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: 150,
-                                width: 600,
-                                decoration:   BoxDecoration(
-                                  image: DecorationImage(
-                                    fit:BoxFit.cover,
-                                    image: AssetImage(
-                                        hundredIsland
-                                      )
-                                    ),
-                                    
-                                  color: Colors.blue,
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                ),
-                                child: Container(
-                                  padding: const EdgeInsets.only(
-                                    top: 120
-                                  ),
-                                  child: const Text(
-                                  '    Hundred island',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold
-                                    ),
-                                  )
-                                )
-                              ),
-                              const SizedBox(
-                              height: 20,
-                            ),
-                              Container(
-                                height: 150,
-                                width: 600,
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
-                                      spreadRadius: 2,
-                                      blurRadius: 6,
-                                      offset: const Offset(0, 0),
-                                    )
-                                  ],
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(
-                                      manaoag
-                                    )
-                                  ),
-                                  color: Colors.blue,
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                  )
-                                ),
-                              const SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                                height: 150,
-                                width: 600,
-                                decoration: const BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                )),
-                            ]
-                          ),
-                        ]
-                      )
-                    )
-                  )
-                )
-              ]
-            )
-          )
+                          const SizedBox(height: 20),
+                          // Add your containers or widgets for displaying other content here
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -355,7 +326,6 @@ class DismissableFindMoreLocation extends StatefulWidget {
 
 class _DismissableFindMoreLocationState
     extends State<DismissableFindMoreLocation> {
-
   @override
   Widget build(BuildContext context) {
     return Center();
