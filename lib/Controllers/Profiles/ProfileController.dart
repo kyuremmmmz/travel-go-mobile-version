@@ -32,6 +32,7 @@ class Usersss {
       AppRoutes.navigateToEmailScreen(context);
     } catch (e) {
       if (email.toString().isEmpty) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Please fill your email')));
       }

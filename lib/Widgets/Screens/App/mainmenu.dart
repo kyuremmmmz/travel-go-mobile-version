@@ -167,7 +167,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 ),
                 const Text(
                   "Northwestern part of Luzon Island, Philippines",
-                  style: TextStyle(fontSize: 16), // Adjust text style as needed
+                  style: TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 30),
                 Padding(

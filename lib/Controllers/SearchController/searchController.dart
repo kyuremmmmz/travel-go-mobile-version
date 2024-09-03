@@ -23,6 +23,7 @@ class Searchcontroller {
         throw Exception('Failed to load suggestions');
       }
     } catch (e) {
+      // ignore: avoid_print
       print('Error: $e');
       return [];
     }
