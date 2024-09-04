@@ -15,12 +15,6 @@ class Explorenow extends StatefulWidget {
   State<Explorenow> createState() => _ExplorenowState();
 }
 
-class Object {
-  final String name;
-  final BuildContext context;
-  Object({required this.name, required this.context});
-}
-
 class _ExplorenowState extends State<Explorenow> {
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food.png";
@@ -277,9 +271,10 @@ class _ExplorenowState extends State<Explorenow> {
                                     onTap: () async {
                                       final placeData = await Data()
                                           .fetchSpecificDataInSingle(
-                                              place['place_name']);
+                                          place['place_name']);
                                       if (placeData != null) {
                                         Navigator.push(
+                                          // ignore: use_build_context_synchronously
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>

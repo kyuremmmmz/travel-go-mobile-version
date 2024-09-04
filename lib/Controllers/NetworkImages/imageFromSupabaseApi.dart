@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/Stateless/informationStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Data {
@@ -13,8 +11,7 @@ class Data {
       return [];
     }
 
-    List<Map<String, dynamic>> places =
-        List<Map<String, dynamic>>.from(response as List);
+    List<Map<String, dynamic>> places = List<Map<String, dynamic>>.from(response as List);
     for (var place in places) {
       var text = place['place_name'];
       var image = place['image'];
@@ -71,4 +68,3 @@ class Data {
     }
   }
 }
-
