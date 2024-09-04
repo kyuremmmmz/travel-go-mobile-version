@@ -1,17 +1,23 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:http/http.dart' as http;
+import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/SearchController/searchController.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
-import 'package:supabase_flutter/supabase_flutter.dart'; // Update this path if needed
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Explorenow extends StatefulWidget {
   const Explorenow({super.key});
 
   @override
   State<Explorenow> createState() => _ExplorenowState();
+}
+
+class Object {
+  final String name;
+  final BuildContext context;
+  Object({required this.name, required this.context});
 }
 
 class _ExplorenowState extends State<Explorenow> {
@@ -23,13 +29,21 @@ class _ExplorenowState extends State<Explorenow> {
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
-  List<dynamic> _searchResults = [];
-  bool _isLoading = false;
+  late Data data = Data();
+  List<Map<String, dynamic>> place = [];
+
+  Future<void> places() async {
+    final datas = await data.fetchImageandText();
+    setState(() {
+      place = datas;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     emailFetching();
+    places();
   }
 
   @override
@@ -37,6 +51,7 @@ class _ExplorenowState extends State<Explorenow> {
     _searchController.dispose();
     super.dispose();
   }
+
 
   Future<void> emailFetching() async {
     try {
@@ -57,179 +72,148 @@ class _ExplorenowState extends State<Explorenow> {
     }
   }
 
-  Future<List<dynamic>> _fetchSuggestions(String query) async {
-    final headers = {
-      'X-API-KEY': '2ed3f8f207ac5be7669b246d2924381911403f34',
-      'Content-Type': 'application/json',
-    };
-
-    try {
-      final response = await http.post(
-        Uri.parse('https://google.serper.dev/places'),
-        headers: headers,
-        body: json.encode({
-          "q": query,
-          "location": "Philippines", 
-          "gl": "ph"
-          }),
-      );
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body) as Map<String, dynamic>;
-        final places = data['places'] as List<dynamic>;
-        return places;
-      } else {
-        throw Exception('Failed to load suggestions');
-      }
-    } catch (e) {
-      print('Error: $e');
-      return [];
-    }
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 40,
-        leading: Builder(
-          builder: (BuildContext context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+        appBar: AppBar(
+          toolbarHeight: 40,
+          leading: Builder(
+            builder: (BuildContext context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            ),
           ),
         ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/icon/beach.png'),
-                    radius: 40,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    email ?? 'Hacked himala e',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/icon/beach.png'),
+                      radius: 40,
                     ),
+                    const SizedBox(height: 10),
+                    Text(
+                      email ?? 'Hacked himala e',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
+                onTap: () {
+                  Navigator.pop(context);
+                  AppRoutes.navigateToMainMenu(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.search),
+                title: const Text('Search'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text('Settings'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Logout'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Usersss().signout(context);
+                },
+              ),
+            ],
+          ),
+        ),
+        body: Stack(children: [
+          Positioned.fill(
+              child: Column(children: <Widget>[
+            Text(
+              'TRAVEL GO',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+                shadows: [
+                  Shadow(
+                    offset: const Offset(3.0, 3.0),
+                    blurRadius: 4.0,
+                    color: Colors.black.withOpacity(0.5),
                   ),
                 ],
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-              },
+            const Text(
+              "Northwestern part of Luzon Island, Philippines",
+              style: TextStyle(fontSize: 16),
             ),
-            ListTile(
-              leading: const Icon(Icons.search),
-              title: const Text('Search'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pop(context);
-                Usersss().signout(context);
-              },
-            ),
-          ],
-        ),
-      ),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'TRAVEL GO',
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        offset: const Offset(3.0, 3.0),
-                        blurRadius: 4.0,
-                        color: Colors.black.withOpacity(0.5),
-                      ),
-                    ],
-                  ),
-                ),
-                const Text(
-                  "Northwestern part of Luzon Island, Philippines",
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 30),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: TypeAheadField(
-                    textFieldConfiguration: TextFieldConfiguration(
-                      controller: _searchController,
-                      decoration: const InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                        hintStyle: TextStyle(color: Colors.black54),
-                        hintText: 'Search Destination',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide(color: Colors.black54),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black54),
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                      ),
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: TypeAheadField(
+                textFieldConfiguration: TextFieldConfiguration(
+                  controller: _searchController,
+                  decoration: const InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    hintStyle: TextStyle(color: Colors.black54),
+                    hintText: 'Search Destination',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      borderSide: BorderSide(color: Colors.black54),
                     ),
-                    suggestionsCallback: (pattern) async {
-                      return await _fetchSuggestions(pattern);
-                    },
-                    itemBuilder: (context, dynamic suggestion) {
-                      return ListTile(
-                        title: Text(suggestion['title'] ?? 'No title'),
-                        subtitle: Text(suggestion['address'] ?? 'No address'),
-                      );
-                    },
-                    onSuggestionSelected: (dynamic suggestion) {
-                      print('Selected: ${suggestion['title']}');
-                    },
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black54),
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 30),
-                Expanded(
-                  child: Scrollbar(
+                suggestionsCallback: (pattern) async {
+                  return await Searchcontroller().fetchSuggestions(pattern);
+                },
+                itemBuilder: (context, dynamic suggestion) {
+                  return ListTile(
+                    title: Text(suggestion['title'] ?? 'No title'),
+                    subtitle: Text(suggestion['address'] ?? 'No address'),
+                  );
+                },
+                onSuggestionSelected: (dynamic suggestion) {
+                  _searchController.text = suggestion['title'] ?? 'No title';
+                  FocusScope.of(context).unfocus();
+                },
+              ),
+            ),
+            const SizedBox(height: 30),
+            Expanded(
+                child: Scrollbar(
                     thumbVisibility: true,
                     child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Column(
-                        children: <Widget>[
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Column(children: <Widget>[
                           const DismissableFindMoreLocation(),
                           CategorySelect(
                             label: "Categories",
@@ -242,7 +226,9 @@ class _ExplorenowState extends State<Explorenow> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => print('Hotels clicked'),
+                                    oppressed: () => Data()
+                                        .fetchSpecificDataInSingle(context,
+                                            'Hundred Islands'), //NOTE: THIS IS JUST A TEST
                                   ),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
@@ -279,17 +265,62 @@ class _ExplorenowState extends State<Explorenow> {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          // Add your containers or widgets for displaying other content here
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                            children: place.map((place) {
+                              final imageUrl = place['image_url'];
+                              final text = place['place_name'] ?? 'Unknown';
+                              return Column(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Data().fetchSpecificDataInSingle(
+                                          context, place['place_name']);
+                                    },
+                                    child: Container(
+                                      height: 150,
+                                      width: 600,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(imageUrl),
+                                        ),
+                                        color: Colors.blue,
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(30),
+                                        ),
+                                      ),
+                                      child: Container(
+                                        padding:
+                                            const EdgeInsets.only(top: 120),
+                                        child: Text(
+                                          '    $text',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                        ]
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
     );
   }
 }
