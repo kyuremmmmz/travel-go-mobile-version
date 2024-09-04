@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
+import 'package:itransit/Widgets/Textfield/dropdownField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
@@ -35,6 +36,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _destinationController = TextEditingController();
   final _departureController = TextEditingController();
   final _originController = TextEditingController();
+  final _paymentMethodController = TextEditingController();
   final _vehicleTypeController = TextEditingController();
   final _specialReqController = TextEditingController();
   String? email;
@@ -48,6 +50,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     _destinationController.dispose();
     _departureController.dispose();
     _originController.dispose();
+    _paymentMethodController.dispose();
     _vehicleTypeController.dispose();
     _specialReqController.dispose();
     super.dispose();
@@ -321,21 +324,26 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 25),
-                                    child:
-                                        DropdownButtonFormField(items: const [
-                                      DropdownMenuItem(
-                                        value: "-1",
-                                        child: Text("Payment Method"),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: "1",
-                                        child: Text("Paypal"),
-                                      ),
-                                      DropdownMenuItem(
-                                        value: "2",
-                                        child: Text("GCash"),
-                                      ),
-                                    ], onChanged: (value) {})),
+                                    child: dropdownField(
+                                      items: const [
+                                        DropdownMenuItem(
+                                          value: "-1",
+                                          child: Text("Payment Method"),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: "1",
+                                          child: Text("Paypal"),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: "2",
+                                          child: Text("GCash"),
+                                        ),
+                                      ],
+                                      onChanged: (value) {},
+                                      colorr: Colors.black,
+                                      text: 'Payment Method',
+                                      controller: _paymentMethodController,
+                                    )),
                               ),
                               const SizedBox(
                                 height: 10,

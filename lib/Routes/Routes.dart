@@ -5,6 +5,7 @@ import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
 import 'package:itransit/Widgets/Screens/Stateless/informationStateless.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
+import 'package:itransit/Widgets/Screens/App/bookingArea.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/home.dart';
@@ -38,7 +39,7 @@ class AppRoutes {
 
   static void navigateToForgotPassword(BuildContext route) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) => const Forgotpassword()));
+        route, MaterialPageRoute(builder: (context) => const BookingArea()));
   }
 
   static void searchScreenNavigator(BuildContext context) {
