@@ -27,8 +27,7 @@ class Data {
 
   Future<String> getter(String imageUrl) async {
     try {
-      final response =
-          supabase.storage.from('places_url').getPublicUrl(imageUrl);
+      final response = supabase.storage.from('places_url').getPublicUrl(imageUrl);
       if (response.isEmpty) {
         return 'Null';
       }
@@ -56,7 +55,7 @@ class Data {
         return {
           'place_name': text,
           'description': datas['description'] ?? 'No description available',
-          'image_url': imageUrl,
+          'image': imageUrl,
         };
       } else {
         print('No data found for $name');

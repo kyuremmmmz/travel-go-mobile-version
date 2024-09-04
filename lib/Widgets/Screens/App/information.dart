@@ -1,19 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/SearchController/searchController.dart';
+
+import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 
 class InformationScreen extends StatefulWidget {
   final String text;
   final String description;
-
+  final String imageUrl;
   const InformationScreen({
     super.key,
     required this.text,
     required this.description,
+    required this.imageUrl,
   });
 
   @override
@@ -25,6 +28,8 @@ class _InformationScreenState extends State<InformationScreen> {
   String? email;
   String? description;
   String? text;
+  bool? hasCar;
+  String? imageUrl;
   final data = Data();
   late Usersss users = Usersss();
 
@@ -52,6 +57,8 @@ class _InformationScreenState extends State<InformationScreen> {
         setState(() {
           description = dataList['description'];
           text = dataList['place_name'];
+          imageUrl = dataList['image'];
+          hasCar = dataList['car_availability'];
         });
       }
     } catch (e) {
@@ -165,13 +172,13 @@ class _InformationScreenState extends State<InformationScreen> {
         body: FutureBuilder(
             future: _isRedirecting(),
             builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                final error = snapshot.error;
-                return Text('Error: $error');
-              } else if (snapshot.connectionState == ConnectionState.waiting) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
+              } else if (snapshot.hasError) {
+                final error = snapshot.error;
+                return Text('Error: $error');
               } else if (snapshot.hasData) {
                 return Stack(
                   children: [
@@ -246,6 +253,33 @@ class _InformationScreenState extends State<InformationScreen> {
                         ],
                       ),
                     ),
+                    Positioned(
+                      bottom: 100,
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(imageUrl.toString()))),
+                      ),
+                    ),
+
+                    Positioned(
+                      bottom: 100,
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        decoration: hasCar == true ? const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/icon/hotel.png')
+                            )
+                        ) : const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/icon/hotel.png')
+                            )
+                        )
+                        ),
+                      ),
                     Positioned(
                       bottom: 100,
                       left: 20,

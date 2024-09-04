@@ -6,11 +6,12 @@ import 'package:itransit/Widgets/Screens/App/information.dart';
 class InformationStateless extends StatelessWidget {
   final String text;
   final String description;
-
+  final String imageUrl;
   const InformationStateless({
     super.key,
     required this.text,
     required this.description,
+    required this.imageUrl,
   });
 
   @override
@@ -24,7 +25,8 @@ class InformationStateless extends StatelessWidget {
               ? const Welcomepage()
               : InformationScreen(
                   text: text,
-                  description: description,
+                  description: description, 
+                  imageUrl: imageUrl,
                 );
         },
       ),
