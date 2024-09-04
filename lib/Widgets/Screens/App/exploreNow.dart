@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 
 class Explorenow extends StatefulWidget {
   const Explorenow({super.key});
@@ -269,7 +269,7 @@ class _ExplorenowState extends State<Explorenow> {
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      print('test');
+                                      AppRoutes.navigateToInformationalScreen(context);
                                     },
                                     child: Container(
                                     height: 150,

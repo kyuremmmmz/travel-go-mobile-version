@@ -3,12 +3,13 @@ import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
-
+import 'package:itransit/Widgets/Screens/Stateless/informationStateless.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/home.dart';
 import 'package:itransit/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
+
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
   static const String forgotPassword = "../Widgets/Screens/Auth/Forgot.dart";
@@ -66,7 +67,11 @@ class AppRoutes {
   }
 
   static void navigateToTesting(BuildContext route) {
-    Navigator.push(
-        route, MaterialPageRoute(builder: (context) => Testing()));
+    Navigator.push(route, MaterialPageRoute(builder: (context) => const Testing()));
+  }
+
+  static void navigateToInformationalScreen(BuildContext route) {
+    Navigator.push(route,
+        MaterialPageRoute(builder: (route) => const InformationStateless()));
   }
 }
