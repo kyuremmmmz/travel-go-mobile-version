@@ -313,25 +313,30 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 height: 10,
                               ),
                               Container(
-                                  width: 350,
-                                  decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                  ),
-                                  child: DropdownButtonFormField(items: const [
-                                    DropdownMenuItem(
-                                      value: "-1",
-                                      child: Text("Payment Method"),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: "1",
-                                      child: Text("Paypal"),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: "2",
-                                      child: Text("GCash"),
-                                    ),
-                                  ], onChanged: (value) {})),
+                                width: 350,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50)),
+                                ),
+                                child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                    child:
+                                        DropdownButtonFormField(items: const [
+                                      DropdownMenuItem(
+                                        value: "-1",
+                                        child: Text("Payment Method"),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: "1",
+                                        child: Text("Paypal"),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: "2",
+                                        child: Text("GCash"),
+                                      ),
+                                    ], onChanged: (value) {})),
+                              ),
                               const SizedBox(
                                 height: 10,
                               ),
