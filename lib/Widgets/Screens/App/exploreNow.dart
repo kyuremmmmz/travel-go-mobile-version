@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 
 class Explorenow extends StatefulWidget {
   const Explorenow({super.key});
 
   @override
   State<Explorenow> createState() => _ExplorenowState();
+}
+
+class Object {
+  final String name;
+  final BuildContext context;
+  Object({required this.name, required this.context});
 }
 
 class _ExplorenowState extends State<Explorenow> {
@@ -28,7 +34,6 @@ class _ExplorenowState extends State<Explorenow> {
 
   Future<void> places() async {
     final datas = await data.fetchImageandText();
-
     setState(() {
       place = datas;
     });
@@ -46,6 +51,7 @@ class _ExplorenowState extends State<Explorenow> {
     _searchController.dispose();
     super.dispose();
   }
+
 
   Future<void> emailFetching() async {
     try {
@@ -220,7 +226,9 @@ class _ExplorenowState extends State<Explorenow> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => Data().fetchImageandText(),
+                                    oppressed: () => Data()
+                                        .fetchSpecificDataInSingle(context,
+                                            'Hundred Islands'), //NOTE: THIS IS JUST A TEST
                                   ),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
@@ -266,27 +274,34 @@ class _ExplorenowState extends State<Explorenow> {
                               final text = place['place_name'] ?? 'Unknown';
                               return Column(
                                 children: [
-                                  Container(
-                                    height: 150,
-                                    width: 600,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(imageUrl),
-                                      ),
-                                      color: Colors.blue,
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(30),
-                                      ),
-                                    ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Data().fetchSpecificDataInSingle(
+                                          context, place['place_name']);
+                                    },
                                     child: Container(
-                                      padding: const EdgeInsets.only(top: 120),
-                                      child: Text(
-                                        '    $text',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                      height: 150,
+                                      width: 600,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(imageUrl),
+                                        ),
+                                        color: Colors.blue,
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(30),
+                                        ),
+                                      ),
+                                      child: Container(
+                                        padding:
+                                            const EdgeInsets.only(top: 120),
+                                        child: Text(
+                                          '    $text',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),

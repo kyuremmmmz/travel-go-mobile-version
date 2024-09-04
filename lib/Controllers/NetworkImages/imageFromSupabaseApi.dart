@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:itransit/Routes/Routes.dart';
 
 class Data {
   final supabase = Supabase.instance.client;
@@ -37,6 +39,32 @@ class Data {
     } catch (e) {
       print('Error getting image URL: $e');
       return 'Error';
+    }
+  }
+
+  Future<void> fetchSpecificDataInSingle(BuildContext context, String name) async {
+    final responses = await supabase
+        .from('places')
+        .select('*')
+        .eq('place_name', name)
+        .single();
+    if (responses.isEmpty) {
+      print('Error fetching data: ${responses.toString()}');
+    } else {
+      final datas = responses;
+      var text = datas['place_name'];
+      var image = datas['image'];
+      var description = datas['description'];
+      var price = datas['price'];
+      final imageUrl = await getter(image);
+      datas['image_url'] = imageUrl;
+      print(image);
+      print(text);
+      print(imageUrl);
+      print(description);
+      print(price);
+      // ignore: use_build_context_synchronously
+      AppRoutes.navigateToInformationalScreen(context);
     }
   }
 }
