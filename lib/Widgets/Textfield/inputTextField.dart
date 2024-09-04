@@ -42,17 +42,24 @@ class _numberTextFieldState extends State<inputTextField> {
     return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
+          filled: true,
           fillColor: Colors.white,
           labelText: widget.text,
           alignLabelWithHint: true,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
-          labelStyle: const TextStyle(fontSize: 15, color: Colors.black),
-          border: const UnderlineInputBorder(
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          labelStyle: const TextStyle(
+            fontSize: 20,
+            color: Colors.black,
+          ),
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
               borderSide: BorderSide(color: Colors.white)),
-          focusedBorder: const UnderlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
               borderSide: BorderSide(
-            color: Colors.white,
-          ))),
+                color: Colors.white,
+              ))),
       focusNode: _focusNode,
       style: TextStyle(
         fontSize: 12,
