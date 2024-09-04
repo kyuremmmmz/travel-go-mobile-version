@@ -266,27 +266,33 @@ class _ExplorenowState extends State<Explorenow> {
                               final text = place['place_name'] ?? 'Unknown';
                               return Column(
                                 children: [
-                                  Container(
-                                    height: 150,
-                                    width: 600,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(imageUrl),
-                                      ),
-                                      color: Colors.blue,
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(30),
-                                      ),
-                                    ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      print('test');
+                                    },
                                     child: Container(
-                                      padding: const EdgeInsets.only(top: 120),
-                                      child: Text(
-                                        '    $text',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                      height: 150,
+                                      width: 600,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(imageUrl),
+                                        ),
+                                        color: Colors.blue,
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(30),
+                                        ),
+                                      ),
+                                      child: Container(
+                                        padding:
+                                            const EdgeInsets.only(top: 120),
+                                        child: Text(
+                                          '    $text',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -296,17 +302,9 @@ class _ExplorenowState extends State<Explorenow> {
                               );
                             }).toList(),
                           ),
-                        ]
-                      )
-                    )
-                  )
-                )
-              ]
-            )
-          )
-        ]
-      )
-    );
+                        ]))))
+          ]))
+        ]));
   }
 }
 
