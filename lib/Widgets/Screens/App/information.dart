@@ -28,7 +28,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? email;
   String? description;
   String? text;
-  bool? hasCar;
+  String? hasCar;
   String? imageUrl;
   final data = Data();
   late Usersss users = Usersss();
@@ -57,7 +57,7 @@ class _InformationScreenState extends State<InformationScreen> {
         setState(() {
           description = dataList['description'];
           text = dataList['place_name'];
-          imageUrl = dataList['image'];
+          imageUrl = dataList['image'].toString();
           hasCar = dataList['car_availability'];
         });
       }
@@ -260,26 +260,13 @@ class _InformationScreenState extends State<InformationScreen> {
                         width: 100,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: NetworkImage(imageUrl.toString()))),
-                      ),
-                    ),
-
-                    Positioned(
-                      bottom: 100,
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: hasCar == true ? const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/icon/hotel.png')
-                            )
-                        ) : const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/icon/hotel.png')
-                            )
-                        )
+                                image:imageUrl!=null && imageUrl!.isNotEmpty ? 
+                                NetworkImage(imageUrl!)
+                                : const AssetImage('assets/images/places/PangasinanProvincialCapitol.jpg')
+                              )
+                            ),
+                          ),
                         ),
-                      ),
                     Positioned(
                       bottom: 100,
                       left: 20,
@@ -305,6 +292,8 @@ class _InformationScreenState extends State<InformationScreen> {
               } else {
                 return const CircularProgressIndicator();
               }
-            }));
-  }
-}
+            }
+          )
+        );
+      }
+    }
