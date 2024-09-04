@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:itransit/Routes/Routes.dart';
 
 class Data {
   final supabase = Supabase.instance.client;
@@ -40,7 +42,7 @@ class Data {
     }
   }
 
-  Future<void> fetchSpecificDataInSingle(String name) async {
+  Future<void> fetchSpecificDataInSingle(BuildContext context, String name) async {
     final responses = await supabase
         .from('places')
         .select('*')
@@ -61,6 +63,8 @@ class Data {
       print(imageUrl);
       print(description);
       print(price);
+      // ignore: use_build_context_synchronously
+      AppRoutes.navigateToInformationalScreen(context);
     }
   }
 }

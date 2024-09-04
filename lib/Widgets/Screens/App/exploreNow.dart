@@ -14,6 +14,12 @@ class Explorenow extends StatefulWidget {
   State<Explorenow> createState() => _ExplorenowState();
 }
 
+class Object {
+  final String name;
+  final BuildContext context;
+  Object({required this.name, required this.context});
+}
+
 class _ExplorenowState extends State<Explorenow> {
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food.png";
@@ -45,6 +51,7 @@ class _ExplorenowState extends State<Explorenow> {
     _searchController.dispose();
     super.dispose();
   }
+
 
   Future<void> emailFetching() async {
     try {
@@ -142,23 +149,22 @@ class _ExplorenowState extends State<Explorenow> {
         ),
         body: Stack(children: [
           Positioned.fill(
-              child: Column(
-                children: <Widget>[
-              Text(
-                'TRAVEL GO',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    Shadow(
-                      offset: const Offset(3.0, 3.0),
-                      blurRadius: 4.0,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                  ],
-                ),
+              child: Column(children: <Widget>[
+            Text(
+              'TRAVEL GO',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+                shadows: [
+                  Shadow(
+                    offset: const Offset(3.0, 3.0),
+                    blurRadius: 4.0,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                ],
               ),
+            ),
             const Text(
               "Northwestern part of Luzon Island, Philippines",
               style: TextStyle(fontSize: 16),
@@ -220,7 +226,9 @@ class _ExplorenowState extends State<Explorenow> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => Data().fetchSpecificDataInSingle('Hundred Islands'),
+                                    oppressed: () => Data()
+                                        .fetchSpecificDataInSingle(context,
+                                            'Hundred Islands'), //NOTE: THIS IS JUST A TEST
                                   ),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
@@ -267,52 +275,54 @@ class _ExplorenowState extends State<Explorenow> {
                               return Column(
                                 children: [
                                   GestureDetector(
-                                    onTap: (){
-                                      AppRoutes.navigateToInformationalScreen(context);
+                                    onTap: () {
+                                      Data().fetchSpecificDataInSingle(
+                                          context, place['place_name']);
                                     },
                                     child: Container(
-                                    height: 150,
-                                    width: 600,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(imageUrl),
+                                      height: 150,
+                                      width: 600,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(imageUrl),
+                                        ),
+                                        color: Colors.blue,
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(30),
+                                        ),
                                       ),
-                                      color: Colors.blue,
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(30),
-                                      ),
-                                    ),
-                                    child: Container(
-                                      padding: const EdgeInsets.only(top: 120),
-                                      child: Text(
-                                        '    $text',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                      child: Container(
+                                        padding:
+                                            const EdgeInsets.only(top: 120),
+                                        child: Text(
+                                          '    $text',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   const SizedBox(height: 20),
-                              ],
-                            );
-                          }).toList(),
-                        ),
-                      ]
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                        ]
+                      )
                     )
                   )
                 )
-              )
-            ]
+              ]
+            )
           )
-        )
-      ]
-    )
-  );
-}
+        ]
+      )
+    );
+  }
 }
 
 class CategoryLabel extends StatelessWidget {
