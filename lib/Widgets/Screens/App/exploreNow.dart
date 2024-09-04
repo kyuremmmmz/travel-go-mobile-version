@@ -28,7 +28,6 @@ class _ExplorenowState extends State<Explorenow> {
 
   Future<void> places() async {
     final datas = await data.fetchImageandText();
-
     setState(() {
       place = datas;
     });
@@ -221,7 +220,7 @@ class _ExplorenowState extends State<Explorenow> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => Data().fetchImageandText(),
+                                    oppressed: () => Data().fetchSpecificDataInSingle('Hundred Islands'),
                                   ),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],

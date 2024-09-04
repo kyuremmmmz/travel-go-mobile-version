@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
@@ -15,7 +16,10 @@ class InformationScreen extends StatefulWidget {
 class _InformationScreenState extends State<InformationScreen> {
   final _searchController = TextEditingController();
   String? email;
+  String? datas;
+  final data = Data();
   late Usersss users = Usersss();
+
 
   @override
   void initState() {
@@ -51,7 +55,7 @@ class _InformationScreenState extends State<InformationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
           toolbarHeight: 40,
           leading: Builder(
             builder: (BuildContext context) => IconButton(
@@ -123,25 +127,24 @@ class _InformationScreenState extends State<InformationScreen> {
             ],
           ),
         ),
-      body: Stack(children: [
+        body: Stack(children: [
           Positioned.fill(
-              child: Column(
-                children: <Widget>[
-              Text(
-                'TRAVEL GO',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    Shadow(
-                      offset: const Offset(3.0, 3.0),
-                      blurRadius: 4.0,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                  ],
-                ),
+              child: Column(children: <Widget>[
+            Text(
+              'TRAVEL GO',
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+                shadows: [
+                  Shadow(
+                    offset: const Offset(3.0, 3.0),
+                    blurRadius: 4.0,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                ],
               ),
+            ),
             const Text(
               "Northwestern part of Luzon Island, Philippines",
               style: TextStyle(fontSize: 16),
@@ -178,9 +181,9 @@ class _InformationScreenState extends State<InformationScreen> {
                     subtitle: Text(suggestion['address'] ?? 'No address'),
                   );
                 },
-                onSuggestionSelected: (dynamic suggestion) {
-                  _searchController.text = suggestion['title'] ?? 'No title';
-                  FocusScope.of(context).unfocus();
+                    onSuggestionSelected: (dynamic suggestion) {
+                      _searchController.text = suggestion['title'] ?? 'No title';
+                      FocusScope.of(context).unfocus();
                     },
                   ),
                 ),
