@@ -195,7 +195,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Booking Confirmed!',                                          
+                                          'Booking Confirmed!',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontSize: 15,

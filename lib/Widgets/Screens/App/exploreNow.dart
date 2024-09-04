@@ -5,6 +5,7 @@ import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:itransit/Widgets/Screens/Stateless/informationStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Explorenow extends StatefulWidget {
@@ -226,9 +227,7 @@ class _ExplorenowState extends State<Explorenow> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => Data()
-                                        .fetchSpecificDataInSingle(context,
-                                            'Hundred Islands'), //NOTE: THIS IS JUST A TEST
+                                    oppressed: () => print('helo')
                                   ),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
@@ -275,10 +274,25 @@ class _ExplorenowState extends State<Explorenow> {
                               return Column(
                                 children: [
                                   GestureDetector(
-                                    onTap: () {
-                                      Data().fetchSpecificDataInSingle(
-                                          context, place['place_name']);
+                                    onTap: () async {
+                                      final placeData = await Data()
+                                          .fetchSpecificDataInSingle(
+                                              place['place_name']);
+                                      if (placeData != null) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                InformationStateless(
+                                              text: place['place_name'],
+                                              description:
+                                                  place['place_name'],
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     },
+
                                     child: Container(
                                       height: 150,
                                       width: 600,
