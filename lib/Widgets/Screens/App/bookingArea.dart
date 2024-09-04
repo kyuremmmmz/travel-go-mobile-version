@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Textfield/plainTextField.dart';
+import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
@@ -31,7 +31,7 @@ class BookingAreaScreen extends StatefulWidget {
 class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _emailController = TextEditingController();
   final _nameController = TextEditingController();
-  final _plainTextController = TextEditingController();
+  final _inputTextController = TextEditingController();
   final _numberController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
@@ -40,7 +40,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   void dispose() {
     _emailController.dispose();
     _nameController.dispose();
-    _plainTextController.dispose();
+    _inputTextController.dispose();
     _numberController.dispose();
     super.dispose();
   }
@@ -203,10 +203,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25),
-                              child: plainTextField(
+                              child: inputTextField(
                                 colorr: Colors.black,
                                 text: 'Full Name',
-                                controller: _emailController,
+                                controller: _inputTextController,
                               ),
                             ),
                           ),
@@ -228,7 +228,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25),
-                              child: plainTextField(
+                              child: inputTextField(
                                 colorr: Colors.black,
                                 text: 'Email Address',
                                 controller: _emailController,
@@ -253,10 +253,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25),
-                              child: plainTextField(
+                              child: inputTextField(
                                 colorr: Colors.black,
                                 text: 'Phone Number',
-                                controller: _emailController,
+                                controller: _inputTextController,
                               ),
                             ),
                           ),
@@ -278,10 +278,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25),
-                              child: plainTextField(
+                              child: inputTextField(
                                 colorr: Colors.black,
                                 text: 'Destination',
-                                controller: _emailController,
+                                controller: _inputTextController,
                               ),
                             ),
                           ),
@@ -303,10 +303,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25),
-                              child: plainTextField(
+                              child: inputTextField(
                                 colorr: Colors.black,
                                 text: 'Departure Date',
-                                controller: _emailController,
+                                controller: _inputTextController,
                               ),
                             ),
                           ),
@@ -328,10 +328,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25),
-                              child: plainTextField(
+                              child: inputTextField(
                                 colorr: Colors.black,
                                 text: 'Origin',
-                                controller: _emailController,
+                                controller: _inputTextController,
                               ),
                             ),
                           ),
@@ -382,10 +382,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25),
-                              child: plainTextField(
+                              child: inputTextField(
                                 colorr: Colors.black,
                                 text: 'Vehicle Type: (Optional)',
-                                controller: _emailController,
+                                controller: _inputTextController,
                               ),
                             ),
                           ),
@@ -407,10 +407,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 25),
-                              child: plainTextField(
+                              child: inputTextField(
                                 colorr: Colors.black,
                                 text: 'Special Requests: (Optional)',
-                                controller: _emailController,
+                                controller: _inputTextController,
                               ),
                             ),
                           ),
