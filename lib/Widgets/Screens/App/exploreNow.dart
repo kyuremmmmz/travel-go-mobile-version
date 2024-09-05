@@ -310,9 +310,6 @@ class _ExplorenowState extends State<Explorenow> {
                                                     builder: (context) =>
                                                         InformationStateless(
                                                       text: place['place_name'],
-                                                      description:
-                                                          place['place_name'],
-                                                      imageUrl: place['image'],
                                                     ),
                                                   ),
                                                 );
