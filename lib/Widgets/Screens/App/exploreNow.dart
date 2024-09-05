@@ -292,8 +292,7 @@ class _ExplorenowState extends State<Explorenow> {
                                   Column(
                                     children: place.map((place) {
                                       final imageUrl = place['image_url'];
-                                      final text =
-                                          place['place_name'] ?? 'Unknown';
+                                      final text = place['place_name'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(
