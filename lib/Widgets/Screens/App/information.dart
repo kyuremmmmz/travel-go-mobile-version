@@ -5,6 +5,8 @@ import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
+import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InformationScreen extends StatefulWidget {
@@ -272,156 +274,127 @@ class _InformationScreenState extends State<InformationScreen> {
                                             imageUrl!.isNotEmpty
                                         ? NetworkImage(imageUrl!)
                                         : const AssetImage(
-                                            'assets/images/places/PangasinanProvincialCapitol.jpg'))),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          height: 390,
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 0, top: 30),
-                            width: 500,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                topRight: Radius.circular(50),
-                              ),
-                            ),
-                            child: Scrollbar(
-                              thumbVisibility: true,
-                              child: SingleChildScrollView(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 0),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30, right: 30
+                                            'assets/images/places/PangasinanProvincialCapitol.jpg')
+                                          )
                                         ),
-                                        child: Text(
-                                          text ?? 'No data available',
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        const SizedBox(height: 20),
+                                      ),
+                                    ),
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            height: 390,
+                            child: Container(
+                              padding: const EdgeInsets.only(left: 0, top: 30),
+                              width: 500,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(50),
+                                  topRight: Radius.circular(50),
+                                ),
+                              ),
+                              child: Scrollbar(
+                                thumbVisibility: true,
+                                child: SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 0),
+                                    child: Column(
+                                      children: [
                                         Container(
-                                          padding:
-                                              const EdgeInsets.only(right: 300),
-                                          child: const Text(
-                                            'About',
-                                            style: TextStyle(
-                                                fontSize: 20,
+                                          padding: const EdgeInsets.only(
+                                              left: 30, right: 30
+                                          ),
+                                          child: Text(
+                                            text ?? 'No data available',
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 25,
                                                 fontWeight: FontWeight.bold),
                                               ),
                                             ),
-                                      Container(
-                                        padding:
-                                            const EdgeInsets.only(left: 30),
-                                        child: Text(
-                                          description ?? 'No Description',
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 30,
-                                        ),
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            children: <Widget>[
-                                              Container(
-                                                width: 80,
-                                                height: 80,
-                                                decoration: BoxDecoration(
-                                                  
-                                                  color: Colors.amber,
-                                                        borderRadius: BorderRadius.circular(
-                                                          20
-                                                  )
+                                          const SizedBox(height: 20),
+                                          Container(
+                                            padding:
+                                                const EdgeInsets.only(right: 300),
+                                            child: const Text(
+                                              'About',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
                                                 ),
-                                                child: Image.asset(
-                                                  'assets/images/icon/bus.png',
-                                                  height: 40,
-                                                  width: 40,
+                                              ),
+                                        Container(
+                                          padding:
+                                              const EdgeInsets.only(left: 30),
+                                          child: Text(
+                                            description ?? 'No Description',
+                                            textAlign: TextAlign.left,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 30,
+                                          ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: <Widget>[
+                                                Column(
+                                                children: [
+                                                  BlueIconButtonDefault(
+                                                    image: '',
+                                                    oppressed: () => print('Hotels clicked'),
                                                   ),
+                                                  const CategoryLabel(label: 'Tricycle'),
+                                                ],
                                               ),
-                                              const SizedBox(
-                                                width: 10,
+                                              Column(
+                                                children: [
+                                        BlueIconButtonDefault(
+                                              image: '',
+                                                    oppressed: () =>
+                                                        print('Food Place clicked'),
+                                                  ),
+                                                  const CategoryLabel(label: 'Motorcycle'),
+                                                ],
                                               ),
-                                              Container(
-                                              width: 80,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                  image: const DecorationImage(
-                                                      image: AssetImage(
-                                                          'assets/images/icon/bus.png')),
-                                                  color: Colors.amber,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20)),
-                                              child: const Center(
-                                                  child: Text('1')),
-                                            ),
-                                              const SizedBox(
-                                              width: 10,
-                                            ),
-                                              Container(
-                                              width: 80,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                  image: const DecorationImage(
-                                                      image: AssetImage(
-                                                          'assets/images/icon/bus.png')),
-                                                  color: Colors.amber,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20)),
-                                              child: const Center(
-                                                  child: Text('1')),
-                                            ),
-                                              const SizedBox(
-                                              width: 10,
-                                            ),
-                                              Container(
-                                              width: 80,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                  image: const DecorationImage(
-                                                      image: AssetImage(
-                                                          'assets/images/icon/bus.png')),
-                                                  color: Colors.amber,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20)),
-                                              child: const Center(
-                                                  child: Text('1')),
-                                            ),
-                                              const SizedBox(
-                                              width: 10,
-                                            ),
+                                              Column(
+                                                children: [
+                                                  BlueIconButtonDefault(
+                                                    image: '',
+                                                    oppressed: () => print('Beaches clicked'),
+                                                  ),
+                                                  const CategoryLabel(label: 'Bus or Van'),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  BlueIconButtonDefault(
+                                                    image: '',
+                                                    oppressed: () => print('Festivals clicked'),
+                                                  ),
+                                                  const CategoryLabel(
+                                                      label: 'Bus or Van'),
+                                                ],
+                                              )
                                             ],
                                           ),
-                                        
-                                      )
-                                    ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                  ],
-                );
+                        ],
+                      )
+                    ],
+                  );
+                }
               }
-            }));
-  }
-}
+            )
+          );
+        }
+      }
