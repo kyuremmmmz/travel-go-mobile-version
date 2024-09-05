@@ -444,6 +444,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                           ],
                                         ),
                                       ),
+                        
                                       Container(
                                                 padding: const EdgeInsets.only(
                                                   right: 60
@@ -470,71 +471,85 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   )
                                                 )
                                               ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
                                               Row(
-                                                mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: beachIcon,
-                                                oppressed: () =>
-                                                    print('Hotels clicked'),
+                                                
+                                                children: [
+                                                  const SizedBox(
+                                                    width: 30,
+                                                  ),
+                                                  Column(
+                                                    children: [
+                                                      BlueIconButtonDefault(
+                                                        image: beachIcon,
+                                                        oppressed: () =>
+                                                            print('Hotels clicked'),
+                                                      ),
+                                                      const CategoryLabel(
+                                                          label: 'Hotels'),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Column(
+                                                    children: [
+                                                      BlueIconButtonDefault(
+                                                        image: foodIcon,
+                                                        oppressed: () =>
+                                                            print('Food Place clicked'),
+                                                      ),
+                                                      const CategoryLabel(
+                                                          label: 'Food Place'),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Column(
+                                                    children: [
+                                                      BlueIconButtonDefault(
+                                                        image: beachIcon,
+                                                        oppressed: () =>
+                                                            print('Beaches clicked'),
+                                                      ),
+                                                      const CategoryLabel(
+                                                          label: 'Beaches'),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Column(
+                                                    children: [
+                                                      BlueIconButtonDefault(
+                                                        image: hotelIcon,
+                                                        oppressed: () =>
+                                                            print('Festivals clicked'),
+                                                      ),
+                                                      const CategoryLabel(
+                                                          label:
+                                                              'Festivals and \nEvents'),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
                                               ),
-                                              const CategoryLabel(
-                                                  label: 'Hotels'),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: foodIcon,
-                                                oppressed: () =>
-                                                    print('Food Place clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label: 'Food Place'),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: beachIcon,
-                                                oppressed: () =>
-                                                    print('Beaches clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label: 'Beaches'),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: hotelIcon,
-                                                oppressed: () =>
-                                                    print('Festivals clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label:
-                                                      'Festivals and \nEvents'),
-                                            ],
-                                          ),
-                                        ],
-                                              )
-                                            ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        );
-                      }
+                                    ],
+                                  )
+                                ],
+                              );
+                            }
+                          }
+                        )
+                      );
                     }
-                  )
-                );
-              }
-            }
+                  }
