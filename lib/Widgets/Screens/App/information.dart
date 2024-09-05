@@ -1,12 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InformationScreen extends StatefulWidget {
   final String text;
@@ -57,7 +56,7 @@ class _InformationScreenState extends State<InformationScreen> {
           description = dataList['description'];
           text = dataList['place_name'];
           imageUrl = dataList['image'].toString();
-          hasCar = dataList['car_availability'];
+          hasCar = dataList['car_availability'].toString();
         });
       }
     } catch (e) {
@@ -272,72 +271,75 @@ class _InformationScreenState extends State<InformationScreen> {
                                     fit: BoxFit.cover,
                                     image: imageUrl != null &&
                                             imageUrl!.isNotEmpty
-                                          ? NetworkImage(imageUrl!)
-                                          : const AssetImage(
+                                        ? NetworkImage(imageUrl!)
+                                        : const AssetImage(
                                             'assets/images/places/PangasinanProvincialCapitol.jpg'))),
-                                          ),
-                                        ),
-                                        Positioned(
-                                            bottom: 0,
-                                            left: 0,
-                                            right: 0,
-                                            height: 390,
-                                              child: Container(
-                                                padding: const EdgeInsets.only(
-                                                  left: 0,
-                                                  top: 30
-                                                ),
-                                                width: 500,
-                                                decoration: 
-                                                const BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(50),
-                                                    topRight: Radius.circular(50)
-                                                  )
-                                                ),
-                                                // ignore: avoid_unnecessary_containers
-                                                child: Container(
-                                                  child: Column(
-                                                    children: [
-                                                      // ignore: avoid_unnecessary_containers
-                                                      Container(
-                                                        child: Text(
-                                                            text ?? 'No data available',
-                                                            style: const TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 25,
-                                                              fontWeight: FontWeight.bold
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        height: 20,
-                                                      ),
-                                                      Container(
-                                                        padding: const EdgeInsets.only(
-                                                          right: 300
-                                                        ),
-                                                        child: const Text(
-                                                          'About',
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight: FontWeight.bold
-                                                          ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                )
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  );
-                                }
-                              }
-                            )
-                          );
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          height: 390,
+                          child: Container(
+                              padding: const EdgeInsets.only(left: 0, top: 30),
+                              width: 500,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      topRight: Radius.circular(50))),
+                              // ignore: avoid_unnecessary_containers
+                              child: Container(
+                                child: Column(
+                                  children: [
+                                    // ignore: avoid_unnecessary_containers
+                                    Container(
+                                      child: Text(
+                                        text ?? 'No data available',
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Container(
+                                      padding:
+                                          const EdgeInsets.only(right: 300),
+                                      child: const Text(
+                                        'About',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: Text(
+                                        description ?? 'No Description',
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: Text(
+                                        hasCar == "true" ? 'Has cars' : 'false',
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ),
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              }
+            }));
   }
 }
