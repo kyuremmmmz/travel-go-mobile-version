@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/TextWidgets/rowDetails.dart';
-import 'package:path/path.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {

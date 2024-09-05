@@ -5,8 +5,6 @@ import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -444,7 +442,6 @@ class _InformationScreenState extends State<InformationScreen> {
                                           ],
                                         ),
                                       ),
-                        
                                       Container(
                                                 padding: const EdgeInsets.only(
                                                   right: 60
@@ -534,6 +531,13 @@ class _InformationScreenState extends State<InformationScreen> {
                                                               'Festivals and \nEvents'),
                                                           ],
                                                         ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          'PHP'
+                                                        )
                                                       ],
                                                     )
                                                   ],

@@ -11,8 +11,7 @@ class Data {
       return [];
     }
 
-    List<Map<String, dynamic>> places =
-        List<Map<String, dynamic>>.from(response as List);
+    List<Map<String, dynamic>> places = List<Map<String, dynamic>>.from(response as List);
     for (var place in places) {
       var text = place['place_name'];
       var image = place['image'];

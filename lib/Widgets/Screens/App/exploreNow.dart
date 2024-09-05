@@ -6,7 +6,6 @@ import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Screens/App/information.dart';
-import 'package:itransit/Widgets/Screens/Stateless/informationStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Explorenow extends StatefulWidget {
@@ -235,7 +234,6 @@ class _ExplorenowState extends State<Explorenow> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 25),
                                 child: Column(children: <Widget>[
-                                  const DismissableFindMoreLocation(),
                                   CategorySelect(
                                     label: "Categories",
                                     oppressed: () =>
@@ -402,21 +400,6 @@ class CategoryLabel extends StatelessWidget {
   }
 }
 
-class DismissableFindMoreLocation extends StatefulWidget {
-  const DismissableFindMoreLocation({super.key});
-
-  @override
-  _DismissableFindMoreLocationState createState() =>
-      _DismissableFindMoreLocationState();
-}
-
-class _DismissableFindMoreLocationState
-    extends State<DismissableFindMoreLocation> {
-  @override
-  Widget build(BuildContext context) {
-    return Center();
-  }
-}
 
 class CategorySelect extends StatelessWidget {
   final String label;
