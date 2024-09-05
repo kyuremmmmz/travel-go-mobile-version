@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
@@ -40,6 +41,8 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _specialReqController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
+  final String xButtonIcon = "assets/images/icon/ButtonX.png";
+  bool isChecked = false;
 
   @override
   void dispose() {
@@ -189,7 +192,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                       child: Positioned(
                           bottom: 0,
                           child: Container(
-                            height: 1000,
+                            height: 900,
                             width: 410,
                             decoration: const BoxDecoration(
                                 color: Colors.blue,
@@ -198,9 +201,21 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                     topRight: Radius.circular(50))),
                             child: Column(
                               children: [
-                                const SizedBox(
-                                  height: 30,
-                                ),
+                                Align(
+                                    alignment: Alignment.topRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 8, right: 10),
+                                      child: IconButton(
+                                        iconSize: 20,
+                                        icon: SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: Image.asset(xButtonIcon),
+                                        ),
+                                        onPressed: () {},
+                                      ),
+                                    )),
                                 Text(
                                   'Flight Booking Form',
                                   style: TextStyle(
@@ -423,7 +438,25 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 30,
+                                ),
+                                RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(children: <TextSpan>[
+                                    const TextSpan(
+                                        text:
+                                            "I have reviewed my booking details and agree to \nthe ",
+                                        style: TextStyle(color: Colors.black)),
+                                    TextSpan(
+                                        text: "Terms of Service.",
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () => AppRoutes
+                                              .navigateToForgotPassword(
+                                                  context) // Add Route for trying email address or change
+                                        )
+                                  ]),
                                 ),
                               ],
                             ),
@@ -437,154 +470,5 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
         ],
       ),
     );
-  }
-}
-
-class CategoryLabel extends StatelessWidget {
-  final String label;
-  const CategoryLabel({
-    super.key,
-    required this.label,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: SizedBox(
-        height: 50,
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-}
-
-class DismissableFindMoreLocation extends StatefulWidget {
-  const DismissableFindMoreLocation({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _DismissableFindMoreLocationState createState() =>
-      _DismissableFindMoreLocationState();
-}
-
-class _DismissableFindMoreLocationState
-    extends State<DismissableFindMoreLocation> {
-  bool _isVisible = true;
-  final String xButtonIcon = "assets/images/icon/ButtonX.png";
-  final String adventureIcon = "assets/images/icon/adventure.png";
-
-  @override
-  Widget build(BuildContext context) {
-    return _isVisible
-        ? Center(
-            child: Container(
-              height: 180,
-              width: 380,
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-              ),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                '  Find more location\n  around you',
-                                style: TextStyle(
-                                    fontSize: 25, color: Colors.white),
-                              ),
-                            ),
-                            const Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Text(
-                                '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: GestureDetector(
-                                onTap: () =>
-                                    AppRoutes.navigateToExploreNowScreen(
-                                        context),
-                                child: Stack(
-                                  children: [
-                                    const Text(
-                                      '    Explore now',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        decoration: TextDecoration
-                                            .none, // Disable the default underline
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: 0,
-                                      left: 10,
-                                      right: 0,
-                                      child: Container(
-                                        height: 2,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 180,
-                        width: 100,
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: IconButton(
-                                iconSize: 20,
-                                icon: SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: Image.asset(xButtonIcon),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    _isVisible = false;
-                                  });
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: 80,
-                              width: 80,
-                              child: Image.asset(adventureIcon),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          )
-        : Container();
   }
 }
