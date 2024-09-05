@@ -9,6 +9,7 @@ import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:itransit/Controllers/paymentIntegration/paypal.dart';
 
 class InformationScreen extends StatefulWidget {
   final String text;
@@ -38,6 +39,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? price;
   final data = Data();
   late Usersss users = Usersss();
+  final payment = Paypal();
 
   @override
   void initState() {
@@ -534,7 +536,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                           RichText(
                                               text: TextSpan(children: [
                                             TextSpan(
-                                                text: 'PHP ${price.toString()} - 6,000',
+                                                text:
+                                                    'PHP ${price.toString()} - 6,000',
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 20)),
@@ -542,45 +545,41 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 text: '\nEstimated Expenses',
                                                 style: TextStyle(
                                                     color: Colors.blue,
-                                                    fontSize: 15)
-                                                  )
+                                                    fontSize: 15))
                                           ])),
                                           Container(
                                             padding: const EdgeInsets.only(
-                                              left: 100
-                                            ),
+                                                left: 100),
                                             child: BlueButtonWithoutFunction(
-                                                text: const Text('Book now',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold
+                                                text: const Text(
+                                                  'Book now',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
-                                              ),
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
                                                 ),
                                                 oppressed: () {
-                                                  print('test');
-                                                  }
-                                                ),
-                                              )
-                                            ],
+                                                  payment.pay(context);
+                                                }),
                                           )
                                         ],
-                                      ),
-                                    ),
+                                      )
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        )
+                          ),
+                        ),
                       ],
-                    );
-                  }
-                }
-              )
-            );
-          }
-        }
+                    )
+                  ],
+                );
+              }
+            }));
+  }
+}
