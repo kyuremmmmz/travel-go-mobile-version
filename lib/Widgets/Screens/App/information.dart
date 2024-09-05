@@ -25,6 +25,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? text;
   String? hasCar;
   String? imageUrl;
+  String? hasMotor;
   final data = Data();
   late Usersss users = Usersss();
 
@@ -53,6 +54,7 @@ class _InformationScreenState extends State<InformationScreen> {
           text = dataList['place_name'];
           imageUrl = dataList['image'].toString();
           hasCar = dataList['car_availability'].toString();
+          hasMotor = dataList['motorcycle_availability'].toString();
         });
       }
     } catch (e) {
@@ -270,94 +272,156 @@ class _InformationScreenState extends State<InformationScreen> {
                                             imageUrl!.isNotEmpty
                                         ? NetworkImage(imageUrl!)
                                         : const AssetImage(
-                                            'assets/images/places/PangasinanProvincialCapitol.jpg')
-                                            )
+                                            'assets/images/places/PangasinanProvincialCapitol.jpg'))),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          height: 390,
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 0, top: 30),
+                            width: 500,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(50),
+                                topRight: Radius.circular(50),
+                              ),
+                            ),
+                            child: Scrollbar(
+                              thumbVisibility: true,
+                              child: SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                            left: 30, right: 30
+                                        ),
+                                        child: Text(
+                                          text ?? 'No data available',
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold),
+                                            ),
                                           ),
+                                        const SizedBox(height: 20),
+                                        Container(
+                                          padding:
+                                              const EdgeInsets.only(right: 300),
+                                          child: const Text(
+                                            'About',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.only(left: 30),
+                                        child: Text(
+                                          description ?? 'No Description',
+                                          textAlign: TextAlign.left,
                                         ),
                                       ),
-                                        Positioned(
-                                          bottom: 0,
-                                          left: 0,
-                                          right: 0,
-                                          height: 390,
-                                          child: Container(
-                                            padding: const EdgeInsets.only(left: 0, top: 30),
-                                            width: 500,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(50),
-                                                topRight: Radius.circular(50),
-                                              ),
-                                            ),
-                                            child: Scrollbar(
-                                              thumbVisibility: true, 
-                                              child: SingleChildScrollView( 
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(right: 0),
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        padding: const EdgeInsets.only(
-                                                          left: 30,
-                                                          right: 30
-                                                        ),
-                                                        child: Text(
-                                                          text ?? 'No data available',
-                                                          style: const TextStyle(
-                                                              color: Colors.black,
-                                                              fontSize: 25,
-                                                              fontWeight: FontWeight.bold),
-                                                        ),
-                                                      ),
-                                                      const SizedBox(height: 20),
-                                                      Container(
-                                                        padding: const EdgeInsets.only(right: 300),
-                                                        child: const Text(
-                                                          'About',
-                                                          style: TextStyle(
-                                                              fontSize: 20,
-                                                              fontWeight: FontWeight.bold),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        padding: const EdgeInsets.only(left: 30),
-                                                        child: Text(
-                                                          description ?? 'No Description',
-                                                          textAlign: TextAlign.left,
-                                                        ),
-                                                      ),
-
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                        children: [
-                                                          Container(
-                                                              padding: const EdgeInsets.only(
-                                                                left: 30
-                                                                ),
-                                                              child: Text(
-                                                                hasCar == "true"
-                                                                    ? 'Has cars'
-                                                                    : 'No cars available',
-                                                                textAlign: TextAlign.left,
-                                                              ),
-                                                            ),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
+                                      const SizedBox(
+                                        height: 30,
                                         ),
-                                      ],
-                                    )
-                                  ],
-                                );
-                              }
-                            }
-                          )
-                        );
-                      }
-                    }
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: <Widget>[
+                                              Container(
+                                                width: 80,
+                                                height: 80,
+                                                decoration: BoxDecoration(
+                                                  
+                                                  color: Colors.amber,
+                                                        borderRadius: BorderRadius.circular(
+                                                          20
+                                                  )
+                                                ),
+                                                child: Image.asset(
+                                                  'assets/images/icon/bus.png',
+                                                  height: 40,
+                                                  width: 40,
+                                                  ),
+                                              ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Container(
+                                              width: 80,
+                                              height: 80,
+                                              decoration: BoxDecoration(
+                                                  image: const DecorationImage(
+                                                      image: AssetImage(
+                                                          'assets/images/icon/bus.png')),
+                                                  color: Colors.amber,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              child: const Center(
+                                                  child: Text('1')),
+                                            ),
+                                              const SizedBox(
+                                              width: 10,
+                                            ),
+                                              Container(
+                                              width: 80,
+                                              height: 80,
+                                              decoration: BoxDecoration(
+                                                  image: const DecorationImage(
+                                                      image: AssetImage(
+                                                          'assets/images/icon/bus.png')),
+                                                  color: Colors.amber,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              child: const Center(
+                                                  child: Text('1')),
+                                            ),
+                                              const SizedBox(
+                                              width: 10,
+                                            ),
+                                              Container(
+                                              width: 80,
+                                              height: 80,
+                                              decoration: BoxDecoration(
+                                                  image: const DecorationImage(
+                                                      image: AssetImage(
+                                                          'assets/images/icon/bus.png')),
+                                                  color: Colors.amber,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                              child: const Center(
+                                                  child: Text('1')),
+                                            ),
+                                              const SizedBox(
+                                              width: 10,
+                                            ),
+                                            ],
+                                          ),
+                                        
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              }
+            }));
+  }
+}
