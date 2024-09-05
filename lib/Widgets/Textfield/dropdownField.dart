@@ -16,11 +16,11 @@ class dropdownField extends StatefulWidget {
   });
 
   @override
-  State<DropdownButtonFormField> createState() => _dropdownField();
+  State<dropdownField> createState() => _dropdownField();
 }
 
 // ignore: camel_case_types
-class _dropdownField extends State<DropdownButtonFormField> {
+class _dropdownField extends State<dropdownField> {
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -63,8 +63,11 @@ class _dropdownField extends State<DropdownButtonFormField> {
       style: const TextStyle(
         fontSize: 12,
       ),
-      items: [],
-      onChanged: (value) {},
+      items: const [
+        DropdownMenuItem(),
+        DropdownMenuItem(),
+      ],
+      onChanged: (String? value) {},
     );
   }
 }

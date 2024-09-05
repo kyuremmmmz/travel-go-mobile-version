@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
-import 'package:itransit/Widgets/Textfield/dropdownField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
@@ -185,212 +184,253 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                 ),
                 Expanded(
                   child: Scrollbar(
-                    child: Positioned(
-                        bottom: 0,
-                        child: Container(
-                          height: 500,
-                          width: 410,
-                          decoration: const BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50))),
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              // ignore: sized_box_for_whitespace
-                              Container(
-                                width: 350,
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
+                    thumbVisibility: true,
+                    child: SingleChildScrollView(
+                      child: Positioned(
+                          bottom: 0,
+                          child: Container(
+                            height: 1000,
+                            width: 410,
+                            decoration: const BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50))),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 30,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
+                                Text(
+                                  'Flight Booking Form',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [
+                                      Shadow(
+                                        offset: const Offset(3.0, 3.0),
+                                        blurRadius: 4.0,
+                                        color: Colors.black.withOpacity(0.5),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Text(
+                                  "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize:
+                                          16), // Adjust text style as needed
+                                ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                // ignore: sized_box_for_whitespace
+                                Container(
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ]),
                                   child: inputTextField(
                                     colorr: Colors.black,
-                                    text: 'Full Name',
+                                    text: 'Full Name:',
                                     controller: _nameController,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: 350,
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
+                                Container(
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ]),
                                   child: inputTextField(
                                     colorr: Colors.black,
-                                    text: 'Email Address',
+                                    text: 'Email Address:',
                                     controller: _emailController,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: 350,
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
+                                Container(
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ]),
                                   child: inputTextField(
                                     colorr: Colors.black,
-                                    text: 'Phone Number',
+                                    text: 'Phone Number:',
                                     controller: _numberController,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: 350,
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
+                                Container(
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ]),
                                   child: inputTextField(
                                     colorr: Colors.black,
-                                    text: 'Destination',
+                                    text: 'Destination:',
                                     controller: _destinationController,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: 350,
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
+                                Container(
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ]),
                                   child: inputTextField(
                                     colorr: Colors.black,
-                                    text: 'Departure Date',
+                                    text: 'Departure Date:',
                                     controller: _departureController,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: 350,
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
+                                Container(
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ]),
                                   child: inputTextField(
                                     colorr: Colors.black,
-                                    text: 'Origin',
+                                    text: 'Origin:',
                                     controller: _originController,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: 350,
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 25),
-                                    child: dropdownField(
-                                      items: const [
-                                        DropdownMenuItem(
-                                          value: "-1",
-                                          child: Text("Payment Method"),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: "1",
-                                          child: Text("Paypal"),
-                                        ),
-                                        DropdownMenuItem(
-                                          value: "2",
-                                          child: Text("GCash"),
-                                        ),
-                                      ],
-                                      onChanged: (value) {},
-                                      colorr: Colors.black,
-                                      text: 'Payment Method',
-                                      controller: _paymentMethodController,
-                                    )),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: 350,
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
+                                Container(
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ]),
+                                  child: inputTextField(
+                                    colorr: Colors.black,
+                                    text: 'Payment Method:',
+                                    controller: _paymentMethodController,
+                                  ),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ]),
                                   child: inputTextField(
                                     colorr: Colors.black,
                                     text: 'Vehicle Type: (Optional)',
                                     controller: _vehicleTypeController,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: 350,
-                                decoration: const BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 25),
+                                Container(
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ]),
                                   child: inputTextField(
                                     colorr: Colors.black,
                                     text: 'Special Requests: (Optional)',
-                                    controller: _specialReqController,
+                                    controller: _originController,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                        )),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                          )),
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -426,6 +466,7 @@ class DismissableFindMoreLocation extends StatefulWidget {
   const DismissableFindMoreLocation({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _DismissableFindMoreLocationState createState() =>
       _DismissableFindMoreLocationState();
 }
