@@ -40,9 +40,8 @@ class _InformationScreenState extends State<InformationScreen> {
     fetchSpecificData(widget.text);
   }
 
-  Future<bool> _isRedirecting() async {
+  Future<void> _isRedirecting() async {
     Future.delayed(const Duration(seconds: 7));
-    return true;
   }
 
   Future<void> fetchSpecificData(String name) async {
@@ -179,10 +178,18 @@ class _InformationScreenState extends State<InformationScreen> {
               } else if (snapshot.hasError) {
                 final error = snapshot.error;
                 return Text('Error: $error');
-              } else if (snapshot.hasData) {
+              } else if (snapshot.connectionState == ConnectionState.none) {
+                return const Center(
+                  child: Text(
+                    'No connection to the server',
+                    style: TextStyle(fontSize: 20, color: Colors.red),
+                    textAlign: TextAlign.center,
+                  ),
+                );
+              } else {
                 return Stack(
                   children: [
-                    Positioned.fill(
+                    Positioned(
                       child: Column(
                         children: <Widget>[
                           Text(
@@ -253,47 +260,84 @@ class _InformationScreenState extends State<InformationScreen> {
                         ],
                       ),
                     ),
-                    Positioned(
-                      bottom: 100,
-                      child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image:imageUrl!=null && imageUrl!.isNotEmpty ? 
-                                NetworkImage(imageUrl!)
-                                : const AssetImage('assets/images/places/PangasinanProvincialCapitol.jpg')
-                              )
-                            ),
-                          ),
-                        ),
-                    Positioned(
-                      bottom: 100,
-                      left: 20,
-                      right: 20,
-                      child: Text(
-                        description ?? 'No data available',
-                        style: const TextStyle(fontSize: 18),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 20,
-                      right: 20,
-                      child: Text(
-                        text ?? 'No data available',
-                        style: const TextStyle(fontSize: 18),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
-            }
-          )
-        );
-      }
-    }
+                    Stack(
+                      children: [
+                        Positioned(
+                          top: 160,
+                          child: Container(
+                            height: 300,
+                            width: 500,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: imageUrl != null &&
+                                            imageUrl!.isNotEmpty
+                                          ? NetworkImage(imageUrl!)
+                                          : const AssetImage(
+                                            'assets/images/places/PangasinanProvincialCapitol.jpg'))),
+                                          ),
+                                        ),
+                                        Positioned(
+                                            bottom: 0,
+                                            left: 0,
+                                            right: 0,
+                                            height: 390,
+                                              child: Container(
+                                                padding: const EdgeInsets.only(
+                                                  left: 0,
+                                                  top: 30
+                                                ),
+                                                width: 500,
+                                                decoration: 
+                                                const BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(50),
+                                                    topRight: Radius.circular(50)
+                                                  )
+                                                ),
+                                                // ignore: avoid_unnecessary_containers
+                                                child: Container(
+                                                  child: Column(
+                                                    children: [
+                                                      // ignore: avoid_unnecessary_containers
+                                                      Container(
+                                                        child: Text(
+                                                            text ?? 'No data available',
+                                                            style: const TextStyle(
+                                                              color: Colors.black,
+                                                              fontSize: 25,
+                                                              fontWeight: FontWeight.bold
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      Container(
+                                                        padding: const EdgeInsets.only(
+                                                          right: 300
+                                                        ),
+                                                        child: const Text(
+                                                          'About',
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                            fontWeight: FontWeight.bold
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                )
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  );
+                                }
+                              }
+                            )
+                          );
+  }
+}

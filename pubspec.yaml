@@ -17,6 +17,7 @@ dependencies:
   flutter_paypal_payment: ^1.0.6
   supabase_auth_ui: ^0.5.1
   flutter_map: ^7.0.2
+  flutter_paypal: ^0.2.1
 
 dev_dependencies:
   flutter_test:

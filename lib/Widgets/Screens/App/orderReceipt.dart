@@ -182,7 +182,10 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                             height: 600,
                             width: 320,
                             decoration: BoxDecoration(
-                              image: DecorationImage(image: Image.asset(receiptBackground).image, fit: BoxFit.fill),
+                              image: DecorationImage(
+                                image: Image.asset(receiptBackground).image, 
+                                fit: BoxFit.fill
+                              ),
                             ),
                             padding: const EdgeInsets.all(20),
                             child: Column(
