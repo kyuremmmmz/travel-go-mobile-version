@@ -11,7 +11,8 @@ class Data {
       return [];
     }
 
-    List<Map<String, dynamic>> places = List<Map<String, dynamic>>.from(response as List);
+    List<Map<String, dynamic>> places =
+        List<Map<String, dynamic>>.from(response as List);
     for (var place in places) {
       var text = place['place_name'];
       var image = place['image'];
@@ -52,6 +53,7 @@ class Data {
         var text = datas['place_name'];
         var image = datas['image'];
         var cars = datas['car_availability'];
+        var tricycleAvailability = datas['tricycle_availability'];
         final imageUrl = await getter(image);
         datas['image_url'] = imageUrl;
         print(cars);
@@ -59,7 +61,8 @@ class Data {
           'place_name': text,
           'description': datas['description'] ?? 'No description available',
           'image': imageUrl,
-          'car_availability': cars
+          'car_availability': cars,
+          'tricycle_availability': tricycleAvailability
         };
       } else {
         print('No data found for $name');

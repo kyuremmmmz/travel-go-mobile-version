@@ -56,7 +56,7 @@ class _InformationScreenState extends State<InformationScreen> {
           text = dataList['place_name'];
           imageUrl = dataList['image'].toString();
           hasCar = dataList['car_availability'].toString();
-          hasMotor = dataList['motorcycle_availability'].toString();
+          hasMotor = dataList['tricycle_availability'].toString();
         });
       }
     } catch (e) {
@@ -343,39 +343,49 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 Column(
                                                 children: [
                                                   BlueIconButtonDefault(
-                                                    image: '',
+                                                    image: 'assets/images/icon/tricycle.png',
                                                     oppressed: () => print('Hotels clicked'),
                                                   ),
                                                   const CategoryLabel(label: 'Tricycle'),
                                                 ],
                                               ),
+                                              const SizedBox(
+                                              width: 20,
+                                              ),
                                               Column(
                                                 children: [
-                                        BlueIconButtonDefault(
-                                              image: '',
+                                            BlueIconButtonDefault(
+                                              image: 'assets/images/icon/motorbike.png',
                                                     oppressed: () =>
                                                         print('Food Place clicked'),
                                                   ),
-                                                  const CategoryLabel(label: 'Motorcycle'),
+                                                  CategoryLabel(label: hasMotor == "true" ? 'Motorcycle' : 'Unavailable'),
                                                 ],
+                                              ),
+                                              const SizedBox(
+                                              width: 20,
                                               ),
                                               Column(
                                                 children: [
                                                   BlueIconButtonDefault(
-                                                    image: '',
+                                                    image: 'assets/images/icon/plane.png',
                                                     oppressed: () => print('Beaches clicked'),
                                                   ),
-                                                  const CategoryLabel(label: 'Bus or Van'),
+                                                  const CategoryLabel(label: 'Planes'),
                                                 ],
+                                              ),
+                                              const SizedBox(
+                                                width: 20,
                                               ),
                                               Column(
                                                 children: [
                                                   BlueIconButtonDefault(
-                                                    image: '',
+                                                    image: 'assets/images/icon/bus.png',
                                                     oppressed: () => print('Festivals clicked'),
                                                   ),
-                                                  const CategoryLabel(
-                                                      label: 'Bus or Van'),
+                                                  CategoryLabel(
+                                                      label: hasCar == "true" ? "Bus or Van" : "No van or bus available"
+                                                  ),
                                                 ],
                                               )
                                             ],
