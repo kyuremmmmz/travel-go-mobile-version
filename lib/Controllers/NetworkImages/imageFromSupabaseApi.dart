@@ -55,6 +55,7 @@ class Data {
         var cars = datas['car_availability'];
         var tricycleAvailability = datas['tricycle_availability'];
         var located = datas['locatedIn'];
+        var availability = datas['availability'];
         final imageUrl = await getter(image);
         datas['image_url'] = imageUrl;
         print(cars);
@@ -64,7 +65,8 @@ class Data {
           'image': imageUrl,
           'car_availability': cars,
           'tricycle_availability': tricycleAvailability,
-          'locatedIn' : located
+          'locatedIn' : located,
+          'availability' : availability
         };
       } else {
         print('No data found for $name');

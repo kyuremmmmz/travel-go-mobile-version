@@ -24,6 +24,10 @@ class InformationScreen extends StatefulWidget {
 
 class _InformationScreenState extends State<InformationScreen> {
   final _searchController = TextEditingController();
+  final String beachIcon = "assets/images/icon/beach.png";
+  final String foodIcon = "assets/images/icon/food.png";
+  final String hotelIcon = "assets/images/icon/hotel.png";
+  final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   String? email;
   String? description;
   String? text;
@@ -31,6 +35,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? imageUrl;
   String? hasMotor;
   String? located;
+  String? availability;
   final data = Data();
   late Usersss users = Usersss();
 
@@ -61,6 +66,7 @@ class _InformationScreenState extends State<InformationScreen> {
           hasCar = dataList['car_availability'].toString();
           hasMotor = dataList['tricycle_availability'].toString();
           located = dataList['locatedIn'];
+          availability = dataList['availability'];
         });
       }
     } catch (e) {
@@ -345,31 +351,24 @@ class _InformationScreenState extends State<InformationScreen> {
                                           textAlign: TextAlign.left,
                                         ),
                                       ),
-                                      Row(
-                                        children: [
-                                          const SizedBox(height: 50 ,),
-                                          Container(
-                                            padding: const EdgeInsets.only(
-                                              left: 30
-                                            ),
-                                            child: const Text('Available: ',
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            ),
-                                          ),
-                                          ),
-                                          Container(
-                                            child: const Text('Test',
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.blue
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
                                       const SizedBox(
-                                        height: 30,
+                                        height: 20,
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          right: 170
+                                        ),
+                                        child: const Text(
+                                          'Vehicle Availability',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold
+                                          ),
+                                        ),
+                                      ),
+                                      
+                                      const SizedBox(
+                                        height: 10,
                                       ),
                                       SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
@@ -436,23 +435,106 @@ class _InformationScreenState extends State<InformationScreen> {
                                                     label: hasCar == "true"
                                                         ? "Bus or Van"
                                                         : "No van or bus available"),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
                                               ],
-                                            )
+                                            ),
+                                            
                                           ],
                                         ),
-                                      )
-                                    ],
+                                      ),
+                                      Container(
+                                                padding: const EdgeInsets.only(
+                                                  right: 60
+                                                ),
+                                                child: RichText(
+                                                  text: const TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: 'Explore Local Highlights: ',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 15,
+                                                          fontWeight: FontWeight.bold
+                                                        )
+                                                      ),
+                                                      TextSpan(
+                                                        text: 'Nearby Hotels,\nRestaurants, and Events',
+                                                        style: TextStyle(
+                                                          color: Colors.blue,
+                                                          fontSize: 15,
+                                                        )
+                                                      )
+                                                    ]
+                                                  )
+                                                )
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              BlueIconButtonDefault(
+                                                image: beachIcon,
+                                                oppressed: () =>
+                                                    print('Hotels clicked'),
+                                              ),
+                                              const CategoryLabel(
+                                                  label: 'Hotels'),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              BlueIconButtonDefault(
+                                                image: foodIcon,
+                                                oppressed: () =>
+                                                    print('Food Place clicked'),
+                                              ),
+                                              const CategoryLabel(
+                                                  label: 'Food Place'),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              BlueIconButtonDefault(
+                                                image: beachIcon,
+                                                oppressed: () =>
+                                                    print('Beaches clicked'),
+                                              ),
+                                              const CategoryLabel(
+                                                  label: 'Beaches'),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              BlueIconButtonDefault(
+                                                image: hotelIcon,
+                                                oppressed: () =>
+                                                    print('Festivals clicked'),
+                                              ),
+                                              const CategoryLabel(
+                                                  label:
+                                                      'Festivals and \nEvents'),
+                                            ],
+                                          ),
+                                        ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
+                              ],
+                            )
+                          ],
+                        );
+                      }
+                    }
+                  )
                 );
               }
-            }));
-  }
-}
+            }
