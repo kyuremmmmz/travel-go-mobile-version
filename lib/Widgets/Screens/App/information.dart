@@ -293,12 +293,15 @@ class _InformationScreenState extends State<InformationScreen> {
                                             child: Scrollbar(
                                               thumbVisibility: true, 
                                               child: SingleChildScrollView( 
-                                                keyboardDismissBehavior:ScrollViewKeyboardDismissBehavior.onDrag,
                                                 child: Padding(
                                                   padding: const EdgeInsets.only(right: 0),
                                                   child: Column(
                                                     children: [
                                                       Container(
+                                                        padding: const EdgeInsets.only(
+                                                          left: 30,
+                                                          right: 30
+                                                        ),
                                                         child: Text(
                                                           text ?? 'No data available',
                                                           style: const TextStyle(
@@ -324,13 +327,23 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           textAlign: TextAlign.left,
                                                         ),
                                                       ),
-                                                      Container(
-                                                        padding: const EdgeInsets.only(left: 30),
-                                                        child: Text(
-                                                          hasCar == "true" ? 'Has cars' : 'No cars available',
-                                                          textAlign: TextAlign.left,
-                                                        ),
-                                                      ),
+
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                        children: [
+                                                          Container(
+                                                              padding: const EdgeInsets.only(
+                                                                left: 30
+                                                                ),
+                                                              child: Text(
+                                                                hasCar == "true"
+                                                                    ? 'Has cars'
+                                                                    : 'No cars available',
+                                                                textAlign: TextAlign.left,
+                                                              ),
+                                                            ),
+                                                        ],
+                                                      )
                                                     ],
                                                   ),
                                                 ),

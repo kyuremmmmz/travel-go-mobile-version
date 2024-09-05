@@ -5,6 +5,7 @@ import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:itransit/Widgets/Screens/App/information.dart';
 import 'package:itransit/Widgets/Screens/Stateless/informationStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -308,7 +309,7 @@ class _ExplorenowState extends State<Explorenow> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        InformationStateless(
+                                                      InformationScreen(
                                                       text: place['place_name'],
                                                     ),
                                                   ),

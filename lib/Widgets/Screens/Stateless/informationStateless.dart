@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itransit/Widgets/Screens/App/mainmenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Widgets/Screens/Auth/Choose.dart';
 import 'package:itransit/Widgets/Screens/App/information.dart';
@@ -20,9 +21,7 @@ class InformationStateless extends StatelessWidget {
           final session = snapshot.data?.session;
           return session == null
               ? const Welcomepage()
-              : InformationScreen(
-                  text: text,
-                );
+              : const MainMenu();
         },
       ),
     );
