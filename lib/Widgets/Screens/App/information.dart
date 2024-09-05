@@ -5,6 +5,8 @@ import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
+import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -277,160 +279,180 @@ class _InformationScreenState extends State<InformationScreen> {
                                         ? NetworkImage(imageUrl!)
                                         : const AssetImage(
                                             'assets/images/places/PangasinanProvincialCapitol.jpg'))),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          height: 390,
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 0, top: 30),
+                            width: 500,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(50),
+                                topRight: Radius.circular(50),
                               ),
                             ),
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              height: 390,
-                              child: Container(
-                                padding: const EdgeInsets.only(left: 0, top: 30),
-                                width: 500,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(50),
-                                    topRight: Radius.circular(50),
-                                  ),
-                                ),
-                                child: Scrollbar(
-                                  thumbVisibility: true,
-                                  child: SingleChildScrollView(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 0),
-                                      child: Column(
+                            child: Scrollbar(
+                              thumbVisibility: true,
+                              child: SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 0),
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                            left: 30, right: 30),
+                                        child: Text(
+                                          text ?? 'No data available',
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Row(
                                         children: [
+                                          const SizedBox(
+                                            width: 25,
+                                          ),
+                                          const Icon(
+                                            Icons.location_on,
+                                            color: Colors.red,
+                                          ),
+                                          Text(located ?? 'I cant locate it')
+                                        ],
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.only(right: 300),
+                                        child: const Text(
+                                          'About',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.only(left: 30),
+                                        child: Text(
+                                          description ?? 'No Description',
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          const SizedBox(height: 50 ,),
                                           Container(
                                             padding: const EdgeInsets.only(
-                                                left: 30, right: 30),
-                                            child: Text(
-                                              text ?? 'No data available',
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold),
+                                              left: 30
+                                            ),
+                                            child: const Text('Available: ',
+                                          style: TextStyle(
+                                            fontSize: 18,
                                             ),
                                           ),
-                                          Row(
-                                            children: [
-                                              const SizedBox(
-                                                width: 25,
-                                              ),
-                                              const Icon(
-                                                Icons.location_on,
-                                                color: Colors.red,
-                                              ),
-                                              Text(located ?? 'I cant locate it')
-                                            ],
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Container(
-                                            padding:
-                                                const EdgeInsets.only(right: 300),
-                                            child: const Text(
-                                              'About',
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
                                           ),
                                           Container(
-                                            padding:
-                                                const EdgeInsets.only(left: 30),
-                                            child: Text(
-                                              description ?? 'No Description',
-                                              textAlign: TextAlign.left,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 30,
-                                          ),
-                                          SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: <Widget>[
-                                                Column(
-                                                  children: [
-                                                    BlueIconButtonDefault(
-                                                      image:
-                                                          'assets/images/icon/tricycle.png',
-                                                      oppressed: () =>
-                                                          print('Hotels clicked'),
-                                                    ),
-                                                    const CategoryLabel(
-                                                        label: 'Tricycle'
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Column(
-                                                  children: [
-                                                    BlueIconButtonDefault(
-                                                      image:
-                                                          'assets/images/icon/motorbike.png',
-                                                      oppressed: () => print(
-                                                          'Food Place clicked'),
-                                                    ),
-                                                    CategoryLabel(
-                                                        label: hasMotor == "true"
-                                                            ? 'Motorcycle'
-                                                            : 'Unavailable'),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Column(
-                                                  children: [
-                                                    BlueIconButtonDefault(
-                                                      image:
-                                                          'assets/images/icon/plane.png',
-                                                      oppressed: () =>
-                                                          print('Beaches clicked'),
-                                                    ),
-                                                    const CategoryLabel(
-                                                        label: 'Planes'),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Column(
-                                                  children: [
-                                                    BlueIconButtonDefault(
-                                                      image:
-                                                          'assets/images/icon/bus.png',
-                                                      oppressed: () => print(
-                                                          'Festivals clicked'),
-                                                    ),
-                                                    CategoryLabel(
-                                                        label: hasCar == "true"
-                                                            ? "Bus or Van"
-                                                            : "No van or bus available"),
-                                                  ],
-                                                )
-                                              ],
+                                            child: const Text('Test',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.blue
+                                              ),
                                             ),
                                           )
                                         ],
                                       ),
-                                    ),
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Column(
+                                              children: [
+                                                BlueIconButtonDefault(
+                                                  image:
+                                                      'assets/images/icon/tricycle.png',
+                                                  oppressed: () =>
+                                                      print('Hotels clicked'),
+                                                ),
+                                                const CategoryLabel(
+                                                    label: 'Tricycle'),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            Column(
+                                              children: [
+                                                BlueIconButtonDefault(
+                                                  image:
+                                                      'assets/images/icon/motorbike.png',
+                                                  oppressed: () => print(
+                                                      'Food Place clicked'),
+                                                ),
+                                                CategoryLabel(
+                                                    label: hasMotor == "true"
+                                                        ? 'Motorcycle'
+                                                        : 'Unavailable'),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            Column(
+                                              children: [
+                                                BlueIconButtonDefault(
+                                                  image:
+                                                      'assets/images/icon/plane.png',
+                                                  oppressed: () =>
+                                                      print('Beaches clicked'),
+                                                ),
+                                                const CategoryLabel(
+                                                    label: 'Planes'),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            Column(
+                                              children: [
+                                                BlueIconButtonDefault(
+                                                  image:
+                                                      'assets/images/icon/bus.png',
+                                                  oppressed: () => print(
+                                                      'Festivals clicked'),
+                                                ),
+                                                CategoryLabel(
+                                                    label: hasCar == "true"
+                                                        ? "Bus or Van"
+                                                        : "No van or bus available"),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
-                          ],
-                        )
+                          ),
+                        ),
                       ],
-                    );
-                  }
-                }
-              )
-            );
-          }
-        }
+                    )
+                  ],
+                );
+              }
+            }));
+  }
+}
