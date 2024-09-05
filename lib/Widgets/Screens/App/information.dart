@@ -28,6 +28,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? hasCar;
   String? imageUrl;
   String? hasMotor;
+  String? located;
   final data = Data();
   late Usersss users = Usersss();
 
@@ -57,6 +58,7 @@ class _InformationScreenState extends State<InformationScreen> {
           imageUrl = dataList['image'].toString();
           hasCar = dataList['car_availability'].toString();
           hasMotor = dataList['tricycle_availability'].toString();
+          located = dataList['locatedIn'];
         });
       }
     } catch (e) {
@@ -274,45 +276,54 @@ class _InformationScreenState extends State<InformationScreen> {
                                             imageUrl!.isNotEmpty
                                         ? NetworkImage(imageUrl!)
                                         : const AssetImage(
-                                            'assets/images/places/PangasinanProvincialCapitol.jpg')
-                                          )
-                                        ),
-                                      ),
-                                    ),
-                          Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 390,
-                            child: Container(
-                              padding: const EdgeInsets.only(left: 0, top: 30),
-                              width: 500,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50),
-                                ),
+                                            'assets/images/places/PangasinanProvincialCapitol.jpg'))),
                               ),
-                              child: Scrollbar(
-                                thumbVisibility: true,
-                                child: SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 0),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                              left: 30, right: 30
-                                          ),
-                                          child: Text(
-                                            text ?? 'No data available',
-                                            style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 25,
-                                                fontWeight: FontWeight.bold),
-                                              ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              height: 390,
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 0, top: 30),
+                                width: 500,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(50),
+                                    topRight: Radius.circular(50),
+                                  ),
+                                ),
+                                child: Scrollbar(
+                                  thumbVisibility: true,
+                                  child: SingleChildScrollView(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 0),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 30, right: 30),
+                                            child: Text(
+                                              text ?? 'No data available',
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold),
                                             ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              const SizedBox(
+                                                width: 25,
+                                              ),
+                                              const Icon(
+                                                Icons.location_on,
+                                                color: Colors.red,
+                                              ),
+                                              Text(located ?? 'I cant locate it')
+                                            ],
+                                          ),
                                           const SizedBox(height: 20),
                                           Container(
                                             padding:
@@ -322,89 +333,101 @@ class _InformationScreenState extends State<InformationScreen> {
                                               style: TextStyle(
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.bold),
-                                                ),
-                                              ),
-                                        Container(
-                                          padding:
-                                              const EdgeInsets.only(left: 30),
-                                          child: Text(
-                                            description ?? 'No Description',
-                                            textAlign: TextAlign.left,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          height: 30,
+                                          Container(
+                                            padding:
+                                                const EdgeInsets.only(left: 30),
+                                            child: Text(
+                                              description ?? 'No Description',
+                                              textAlign: TextAlign.left,
+                                            ),
                                           ),
-                                        SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          const SizedBox(
+                                            height: 30,
+                                          ),
+                                          SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: <Widget>[
                                                 Column(
-                                                children: [
-                                                  BlueIconButtonDefault(
-                                                    image: 'assets/images/icon/tricycle.png',
-                                                    oppressed: () => print('Hotels clicked'),
-                                                  ),
-                                                  const CategoryLabel(label: 'Tricycle'),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                              width: 20,
-                                              ),
-                                              Column(
-                                                children: [
-                                            BlueIconButtonDefault(
-                                              image: 'assets/images/icon/motorbike.png',
-                                                    oppressed: () =>
-                                                        print('Food Place clicked'),
-                                                  ),
-                                                  CategoryLabel(label: hasMotor == "true" ? 'Motorcycle' : 'Unavailable'),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                              width: 20,
-                                              ),
-                                              Column(
-                                                children: [
-                                                  BlueIconButtonDefault(
-                                                    image: 'assets/images/icon/plane.png',
-                                                    oppressed: () => print('Beaches clicked'),
-                                                  ),
-                                                  const CategoryLabel(label: 'Planes'),
-                                                ],
-                                              ),
-                                              const SizedBox(
-                                                width: 20,
-                                              ),
-                                              Column(
-                                                children: [
-                                                  BlueIconButtonDefault(
-                                                    image: 'assets/images/icon/bus.png',
-                                                    oppressed: () => print('Festivals clicked'),
-                                                  ),
-                                                  CategoryLabel(
-                                                      label: hasCar == "true" ? "Bus or Van" : "No van or bus available"
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
+                                                  children: [
+                                                    BlueIconButtonDefault(
+                                                      image:
+                                                          'assets/images/icon/tricycle.png',
+                                                      oppressed: () =>
+                                                          print('Hotels clicked'),
+                                                    ),
+                                                    const CategoryLabel(
+                                                        label: 'Tricycle'),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    BlueIconButtonDefault(
+                                                      image:
+                                                          'assets/images/icon/motorbike.png',
+                                                      oppressed: () => print(
+                                                          'Food Place clicked'),
+                                                    ),
+                                                    CategoryLabel(
+                                                        label: hasMotor == "true"
+                                                            ? 'Motorcycle'
+                                                            : 'Unavailable'),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    BlueIconButtonDefault(
+                                                      image:
+                                                          'assets/images/icon/plane.png',
+                                                      oppressed: () =>
+                                                          print('Beaches clicked'),
+                                                    ),
+                                                    const CategoryLabel(
+                                                        label: 'Planes'),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    BlueIconButtonDefault(
+                                                      image:
+                                                          'assets/images/icon/bus.png',
+                                                      oppressed: () => print(
+                                                          'Festivals clicked'),
+                                                    ),
+                                                    CategoryLabel(
+                                                        label: hasCar == "true"
+                                                            ? "Bus or Van"
+                                                            : "No van or bus available"),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  );
-                }
-              }
-            )
-          );
-        }
+                          ],
+                        )
+                      ],
+                    );
+                  }
+                }));
       }
+    }
