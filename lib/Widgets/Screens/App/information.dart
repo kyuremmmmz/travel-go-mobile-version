@@ -361,7 +361,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           print('Hotels clicked'),
                                                     ),
                                                     const CategoryLabel(
-                                                        label: 'Tricycle'),
+                                                        label: 'Tricycle'
+                                                    ),
                                                   ],
                                                 ),
                                                 const SizedBox(
@@ -428,6 +429,8 @@ class _InformationScreenState extends State<InformationScreen> {
                       ],
                     );
                   }
-                }));
-      }
-    }
+                }
+              )
+            );
+          }
+        }
