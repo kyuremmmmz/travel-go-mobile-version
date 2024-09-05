@@ -5,6 +5,7 @@ import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
+import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -34,6 +35,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? hasMotor;
   String? located;
   String? availability;
+  String? price;
   final data = Data();
   late Usersss users = Usersss();
 
@@ -64,6 +66,7 @@ class _InformationScreenState extends State<InformationScreen> {
           hasCar = dataList['car_availability'].toString();
           hasMotor = dataList['tricycle_availability'].toString();
           located = dataList['locatedIn'];
+          price = dataList['price'];
           availability = dataList['availability'];
         });
       }
@@ -353,18 +356,15 @@ class _InformationScreenState extends State<InformationScreen> {
                                         height: 20,
                                       ),
                                       Container(
-                                        padding: const EdgeInsets.only(
-                                          right: 170
-                                        ),
+                                        padding:
+                                            const EdgeInsets.only(right: 170),
                                         child: const Text(
                                           'Vehicle Availability',
                                           style: TextStyle(
                                               fontSize: 20,
-                                              fontWeight: FontWeight.bold
-                                          ),
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      
                                       const SizedBox(
                                         height: 10,
                                       ),
@@ -433,127 +433,154 @@ class _InformationScreenState extends State<InformationScreen> {
                                                     label: hasCar == "true"
                                                         ? "Bus or Van"
                                                         : "No van or bus available"),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
                                               ],
                                             ),
-                                            
                                           ],
                                         ),
                                       ),
                                       Container(
-                                                padding: const EdgeInsets.only(
-                                                  right: 60
-                                                ),
-                                                child: RichText(
-                                                  text: const TextSpan(
-                                                    children: [
-                                                      TextSpan(
-                                                        text: 'Explore Local Highlights: ',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 15,
-                                                          fontWeight: FontWeight.bold
-                                                        )
-                                                      ),
-                                                      TextSpan(
-                                                        text: 'Nearby Hotels,\nRestaurants, and Events',
-                                                        style: TextStyle(
-                                                          color: Colors.blue,
-                                                          fontSize: 15,
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                )
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                
-                                                children: [
-                                                  const SizedBox(
-                                                    width: 30,
-                                                  ),
-                                                  Column(
-                                                    children: [
-                                                      BlueIconButtonDefault(
-                                                        image: beachIcon,
-                                                        oppressed: () =>
-                                                            print('Hotels clicked'),
-                                                      ),
-                                                      const CategoryLabel(
-                                                          label: 'Hotels'),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Column(
-                                                    children: [
-                                                      BlueIconButtonDefault(
-                                                        image: foodIcon,
-                                                        oppressed: () =>
-                                                            print('Food Place clicked'),
-                                                      ),
-                                                      const CategoryLabel(
-                                                          label: 'Food Place'),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Column(
-                                                    children: [
-                                                      BlueIconButtonDefault(
-                                                        image: beachIcon,
-                                                        oppressed: () =>
-                                                            print('Beaches clicked'),
-                                                      ),
-                                                      const CategoryLabel(
-                                                          label: 'Beaches'),
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Column(
-                                                    children: [
-                                                      BlueIconButtonDefault(
-                                                        image: hotelIcon,
-                                                        oppressed: () =>
-                                                            print('Festivals clicked'),
-                                                      ),
-                                                      const CategoryLabel(
-                                                          label:
-                                                              'Festivals and \nEvents'),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          'PHP'
-                                                        )
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                          padding:
+                                              const EdgeInsets.only(right: 60),
+                                          child: RichText(
+                                              text: const TextSpan(children: [
+                                            TextSpan(
+                                                text:
+                                                    'Explore Local Highlights: ',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            TextSpan(
+                                                text:
+                                                    'Nearby Hotels,\nRestaurants, and Events',
+                                                style: TextStyle(
+                                                  color: Colors.blue,
+                                                  fontSize: 15,
+                                                ))
+                                          ]))),
+                                      const SizedBox(
+                                        height: 10,
                                       ),
-                                    ],
-                                  )
-                                ],
-                              );
-                            }
-                          }
+                                      Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 30,
+                                          ),
+                                          Column(
+                                            children: [
+                                              BlueIconButtonDefault(
+                                                image: beachIcon,
+                                                oppressed: () =>
+                                                    print('Hotels clicked'),
+                                              ),
+                                              const CategoryLabel(
+                                                  label: 'Hotels'),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Column(
+                                            children: [
+                                              BlueIconButtonDefault(
+                                                image: foodIcon,
+                                                oppressed: () =>
+                                                    print('Food Place clicked'),
+                                              ),
+                                              const CategoryLabel(
+                                                  label: 'Food Place'),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Column(
+                                            children: [
+                                              BlueIconButtonDefault(
+                                                image: beachIcon,
+                                                oppressed: () =>
+                                                    print('Beaches clicked'),
+                                              ),
+                                              const CategoryLabel(
+                                                  label: 'Beaches'),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          Column(
+                                            children: [
+                                              BlueIconButtonDefault(
+                                                image: hotelIcon,
+                                                oppressed: () =>
+                                                    print('Festivals clicked'),
+                                              ),
+                                              const CategoryLabel(
+                                                  label:
+                                                      'Festivals and \nEvents'),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 30,
+                                          ),
+                                          RichText(
+                                              text: TextSpan(children: [
+                                            TextSpan(
+                                                text: 'PHP ${price.toString()} - 6,000',
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 20)),
+                                            const TextSpan(
+                                                text: '\nEstimated Expenses',
+                                                style: TextStyle(
+                                                    color: Colors.blue,
+                                                    fontSize: 15)
+                                                  )
+                                          ])),
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                              left: 100
+                                            ),
+                                            child: BlueButtonWithoutFunction(
+                                                text: const Text('Book now',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold
+                                                ),
+                                              ),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.blue,
+                                                ),
+                                                oppressed: () {
+                                                  print('test');
+                                                  }
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         )
-                      );
-                    }
+                      ],
+                    );
                   }
+                }
+              )
+            );
+          }
+        }
