@@ -40,9 +40,9 @@ class _numberTextFieldState extends State<passwordTextField> {
           alignLabelWithHint: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
           border: const UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.black)),
+          borderSide: BorderSide(color: Colors.black)),
           focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.black))),
+          borderSide: BorderSide(color: Colors.black))),
       style: const TextStyle(
         fontSize: 15,
         color: Colors.black,
