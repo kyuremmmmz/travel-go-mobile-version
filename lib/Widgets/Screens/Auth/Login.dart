@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Auth/login.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/passwordField.dart';
 
 import '../../Textfield/plainTextField.dart';
@@ -140,6 +141,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         password: _passwordController,
                       ),
                     ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 20, left: 280),
+                      child: GestureDetector(
+                        onTap: () =>
+                            {AppRoutes.navigateToForgotPassword(context)},
+                        child: const Text(
+                          'Forgot password?',
+                          style: TextStyle(fontSize: 15, color: Colors.grey),
+                        ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 70,
                     ),
@@ -174,8 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     password: _passwordController.text.trim())
                                 .loginUser(context);
                           },
-                        )
-                      )
+                        ))
                   ],
                 ),
               ),
