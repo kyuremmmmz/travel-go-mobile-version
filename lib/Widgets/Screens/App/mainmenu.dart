@@ -198,7 +198,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                     textFieldConfiguration: TextFieldConfiguration(
                       controller: _searchController,
                       decoration: InputDecoration(
-                        icon: IconButton(
+                        suffixIcon: IconButton(
                             onPressed: () async {
                               await data.fetchinSearch(
                                   _searchController.text.trim(), context);
