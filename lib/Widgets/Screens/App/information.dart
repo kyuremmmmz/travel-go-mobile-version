@@ -543,22 +543,25 @@ class _InformationScreenState extends State<InformationScreen> {
                                                     'PHP ${price.toString()} - 6,000',
                                                 style: const TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 20)),
+                                                    fontSize: 21,
+                                                    fontWeight: 
+                                                    FontWeight.bold)),
                                             const TextSpan(
                                                 text: '\nEstimated Expenses',
                                                 style: TextStyle(
                                                     color: Colors.blue,
-                                                    fontSize: 15))
+                                                    fontSize: 13))
                                           ])),
                                           Container(
+                                            width: 180,
                                             padding: const EdgeInsets.only(
-                                                left: 100),
+                                                left: 50),
                                             child: BlueButtonWithoutFunction(
                                                 text: const Text(
-                                                  'Book now',
+                                                  'Book Now',
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 15,
+                                                      fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
