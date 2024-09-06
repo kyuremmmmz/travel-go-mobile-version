@@ -49,7 +49,8 @@ class _numberTextFieldState extends State<inputTextField> {
           contentPadding:
               const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           labelStyle: const TextStyle(
-            fontSize: 20,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
           border: const OutlineInputBorder(

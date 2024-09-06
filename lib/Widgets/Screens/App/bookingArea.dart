@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
+import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -42,6 +43,9 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   String? email;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
+  final String adventureIcon = "assets/images/icon/adventure.png";
+  final String suitcaseIcon = "assets/images/icon/suitcase.png";
+  final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
   bool isChecked = false;
 
   @override
@@ -192,7 +196,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                       child: Positioned(
                           bottom: 0,
                           child: Container(
-                            height: 900,
+                            height: 950,
                             width: 410,
                             decoration: const BoxDecoration(
                                 color: Colors.blue,
@@ -213,14 +217,17 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                           width: 20,
                                           child: Image.asset(xButtonIcon),
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          AppRoutes.navigateToForgotPassword(
+                                              context);
+                                        }, //change routes to InformationScreen later
                                       ),
                                     )),
                                 Text(
                                   'Flight Booking Form',
                                   style: TextStyle(
                                     fontSize: 30,
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     shadows: [
                                       Shadow(
@@ -235,8 +242,9 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                   "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize:
-                                          16), // Adjust text style as needed
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ), // Adjust text style as needed
                                 ),
                                 const SizedBox(
                                   height: 30,
@@ -438,7 +446,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 30,
+                                  height: 80,
                                 ),
                                 RichText(
                                   textAlign: TextAlign.center,
@@ -458,6 +466,104 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                         )
                                   ]),
                                 ),
+                                const SizedBox(
+                                  height: 28,
+                                ),
+                                Container(
+                                    height: 100,
+                                    width: 410,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(50),
+                                            topRight: Radius.circular(50))),
+                                    child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, top: 30),
+                                        child: Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 50,
+                                                  child: Image.asset(
+                                                      adventureIcon),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 20,
+                                                  child:
+                                                      Image.asset(suitcaseIcon),
+                                                ),
+                                                SizedBox(
+                                                  height: 30,
+                                                  child: Image.asset(
+                                                      planeTicketIcon),
+                                                ),
+                                              ],
+                                            ),
+                                            const Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 10, right: 10),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          "Total Amount",
+                                                          textAlign:
+                                                              TextAlign.right,
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            color: Colors.green,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          'PHP 6,000.00',
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                )),
+                                            Column(children: [
+                                              SizedBox(
+                                                  width: 100,
+                                                  child:
+                                                      BlueButtonWithoutFunction(
+                                                    text: const Text(
+                                                      'Place Flight',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    style: const ButtonStyle(
+                                                      backgroundColor:
+                                                          WidgetStatePropertyAll(
+                                                              Colors.green),
+                                                    ),
+                                                    oppressed: () {},
+                                                  ))
+                                            ])
+                                          ],
+                                        ))),
                               ],
                             ),
                           )),
