@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class RowDetails extends StatelessWidget{
   String row1, row2;
-  RowDetails({
+  RowDetails({super.key, 
     required this.row1, 
     required this.row2,
   });

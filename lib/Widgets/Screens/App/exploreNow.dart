@@ -286,8 +286,21 @@ class _ExplorenowState extends State<Explorenow> {
                                     ],
                                   ),
                                   const SizedBox(height: 20),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                      right: 220
+                                    ),
+                                    child: const Text(
+                                      'Popular Places',
+                                      style: TextStyle(
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 49, 49, 49),
+                                      ),
+                                    ),
+                                  ),
                                   const SizedBox(
-                                    height: 20,
+                                    height: 15,
                                   ),
                                   Column(
                                     children: place.map((place) {
