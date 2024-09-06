@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/TextWidgets/rowDetails.dart';
-import 'package:path/path.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
@@ -182,7 +180,10 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                             height: 600,
                             width: 320,
                             decoration: BoxDecoration(
-                              image: DecorationImage(image: Image.asset(receiptBackground).image, fit: BoxFit.fill),
+                              image: DecorationImage(
+                                image: Image.asset(receiptBackground).image, 
+                                fit: BoxFit.fill
+                              ),
                             ),
                             padding: const EdgeInsets.all(20),
                             child: Column(
@@ -195,7 +196,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Booking Confirmed!',                                          
+                                          'Booking Confirmed!',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontSize: 15,

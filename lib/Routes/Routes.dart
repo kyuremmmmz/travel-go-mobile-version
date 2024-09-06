@@ -1,20 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
-import 'package:itransit/Widgets/Screens/Stateless/informationStateless.dart';
+import 'package:itransit/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
+
 import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/home.dart';
-import 'package:itransit/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
 
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
   static const String forgotPassword = "../Widgets/Screens/Auth/Forgot.dart";
   static const String signup = "../Widgets/Screens/Auth/Signup.dart";
-
   static void navigateTosignUp(BuildContext route) {
     Navigator.push(
         route,
@@ -67,11 +67,7 @@ class AppRoutes {
   }
 
   static void navigateToTesting(BuildContext route) {
-    Navigator.push(route, MaterialPageRoute(builder: (context) => const Testing()));
-  }
-
-  static void navigateToInformationalScreen(BuildContext route) {
-    Navigator.push(route,
-        MaterialPageRoute(builder: (route) => const InformationStateless()));
+    Navigator.push(
+        route, MaterialPageRoute(builder: (context) => const Testing()));
   }
 }
