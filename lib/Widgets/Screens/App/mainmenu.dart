@@ -69,8 +69,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
       place = datas.map((place) {
         if (place['place_name'] != null &&
             place['place_name'].toString().length > 18) {
-            place['place_name'] =
-            '${place['place_name'].toString().substring(0, 18)}...';
+          place['place_name'] =
+              '${place['place_name'].toString().substring(0, 18)}...';
         }
         return place;
       }).toList();
@@ -116,8 +116,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const CircleAvatar(
-                    backgroundImage: AssetImage(
-                        'assets/images/icon/beach.png'),
+                    backgroundImage: AssetImage('assets/images/icon/beach.png'),
                     radius: 40,
                   ),
                   const SizedBox(height: 10),
@@ -198,16 +197,24 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   child: TypeAheadField(
                     textFieldConfiguration: TextFieldConfiguration(
                       controller: _searchController,
-                      decoration: const InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                        hintStyle: TextStyle(color: Colors.black54),
+                      decoration: InputDecoration(
+                        icon: IconButton(
+                            onPressed: () async {
+                              await data.fetchinSearch(
+                                  _searchController.text.trim(), context);
+                            },
+                            icon: const Icon(
+                              Icons.search,
+                            )),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 10),
+                        hintStyle: const TextStyle(color: Colors.black54),
                         hintText: 'Search Destination',
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(50)),
                           borderSide: BorderSide(color: Colors.black54),
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black54),
                           borderRadius: BorderRadius.all(Radius.circular(50)),
                         ),
@@ -306,260 +313,258 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 InformationScreen(
-                                                    text: snapshot['id']
-                                                    )
-                                                  )
-                                                );
-                                              },
-                                            );
-                                          }).toList()),
-                                      CategorySelect(
-                                        label: "Food Places",
-                                        oppressed: () => print('Food Places clicked'),
+                                                  text: snapshot['id'],
+                                                )));
+                                  },
+                                );
+                              }).toList()),
+                          CategorySelect(
+                            label: "Food Places",
+                            oppressed: () => print('Food Places clicked'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                            ],
+                          ),
+                          CategorySelect(
+                            label: "Festival and Events",
+                            oppressed: () =>
+                                print('Festival and Events clicked'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Event clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Event clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Event clicked'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CategoryLabel extends StatelessWidget {
+  final String label;
+  const CategoryLabel({
+    super.key,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: SizedBox(
+        height: 50,
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+}
+
+class DismissableFindMoreLocation extends StatefulWidget {
+  const DismissableFindMoreLocation({super.key});
+
+  @override
+  _DismissableFindMoreLocationState createState() =>
+      _DismissableFindMoreLocationState();
+}
+
+class _DismissableFindMoreLocationState
+    extends State<DismissableFindMoreLocation> {
+  bool _isVisible = true;
+  final String xButtonIcon = "assets/images/icon/ButtonX.png";
+  final String adventureIcon = "assets/images/icon/adventure.png";
+
+  @override
+  Widget build(BuildContext context) {
+    return _isVisible
+        ? Center(
+            child: Container(
+              height: 180,
+              width: 380,
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.all(Radius.circular(30)),
+              ),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                '  Find more location\n  around you',
+                                style: TextStyle(
+                                    fontSize: 25, color: Colors.white),
+                              ),
+                            ),
+                            const Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Text(
+                                '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.white),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: GestureDetector(
+                                onTap: () =>
+                                    AppRoutes.navigateToExploreNowScreen(
+                                        context),
+                                child: Stack(
+                                  children: [
+                                    const Text(
+                                      '    Explore now',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        decoration: TextDecoration
+                                            .none, // Disable the default underline
                                       ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          PlaceButtonSquare(
-                                            place: 'Hundred Island',
-                                            image: Image.asset(hundredIsland).image,
-                                            oppressed: () => print('Food Place clicked'),
-                                          ),
-                                          PlaceButtonSquare(
-                                            place: 'Hundred Island',
-                                            image: Image.asset(hundredIsland).image,
-                                            oppressed: () => print('Food Place clicked'),
-                                          ),
-                                          PlaceButtonSquare(
-                                            place: 'Hundred Island',
-                                            image: Image.asset(hundredIsland).image,
-                                            oppressed: () => print('Food Place clicked'),
-                                          ),
-                                        ],
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      left: 10,
+                                      right: 0,
+                                      child: Container(
+                                        height: 2,
+                                        color: Colors.white,
                                       ),
-                                      CategorySelect(
-                                        label: "Festival and Events",
-                                        oppressed: () =>
-                                            print('Festival and Events clicked'),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          PlaceButtonSquare(
-                                            place: 'Hundred Island',
-                                            image: Image.asset(hundredIsland).image,
-                                            oppressed: () => print('Event clicked'),
-                                          ),
-                                          PlaceButtonSquare(
-                                            place: 'Hundred Island',
-                                            image: Image.asset(hundredIsland).image,
-                                            oppressed: () => print('Event clicked'),
-                                          ),
-                                          PlaceButtonSquare(
-                                            place: 'Hundred Island',
-                                            image: Image.asset(hundredIsland).image,
-                                            oppressed: () => print('Event clicked'),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 180,
+                        width: 100,
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                iconSize: 20,
+                                icon: SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: Image.asset(xButtonIcon),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _isVisible = false;
+                                  });
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 80,
+                              width: 80,
+                              child: Image.asset(adventureIcon),
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
-                );
-              }
-            }
+                ],
+              ),
+            ),
+          )
+        : Container();
+  }
+}
 
-            class CategoryLabel extends StatelessWidget {
-              final String label;
-              const CategoryLabel({
-                super.key,
-                required this.label,
-              });
+class CategorySelect extends StatelessWidget {
+  final String label;
+  final VoidCallback oppressed;
 
-              @override
-              Widget build(BuildContext context) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: SizedBox(
-                    height: 50,
-                    child: Text(
-                      label,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                );
-              }
-            }
+  const CategorySelect({
+    super.key,
+    required this.label,
+    required this.oppressed,
+  });
 
-            class DismissableFindMoreLocation extends StatefulWidget {
-              const DismissableFindMoreLocation({super.key});
-
-              @override
-              _DismissableFindMoreLocationState createState() =>
-                  _DismissableFindMoreLocationState();
-            }
-
-            class _DismissableFindMoreLocationState
-                extends State<DismissableFindMoreLocation> {
-              bool _isVisible = true;
-              final String xButtonIcon = "assets/images/icon/ButtonX.png";
-              final String adventureIcon = "assets/images/icon/adventure.png";
-
-              @override
-              Widget build(BuildContext context) {
-                return _isVisible
-                    ? Center(
-                        child: Container(
-                          height: 180,
-                          width: 380,
-                          decoration: const BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        const Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '  Find more location\n  around you',
-                                            style: TextStyle(
-                                                fontSize: 25, color: Colors.white),
-                                          ),
-                                        ),
-                                        const Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Text(
-                                            '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
-                                            style: TextStyle(
-                                                fontSize: 12, color: Colors.white),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: GestureDetector(
-                                            onTap: () =>
-                                                AppRoutes.navigateToExploreNowScreen(
-                                                    context),
-                                            child: Stack(
-                                              children: [
-                                                const Text(
-                                                  '    Explore now',
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.white,
-                                                    decoration: TextDecoration
-                                                        .none, // Disable the default underline
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  bottom: 0,
-                                                  left: 10,
-                                                  right: 0,
-                                                  child: Container(
-                                                    height: 2,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 180,
-                                    width: 100,
-                                    child: Column(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: IconButton(
-                                            iconSize: 20,
-                                            icon: SizedBox(
-                                              height: 20,
-                                              width: 20,
-                                              child: Image.asset(xButtonIcon),
-                                            ),
-                                            onPressed: () {
-                                              setState(() {
-                                                _isVisible = false;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 80,
-                                          width: 80,
-                                          child: Image.asset(adventureIcon),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    : Container();
-              }
-            }
-
-            class CategorySelect extends StatelessWidget {
-              final String label;
-              final VoidCallback oppressed;
-
-              const CategorySelect({
-                super.key,
-                required this.label,
-                required this.oppressed,
-              });
-
-              @override
-              Widget build(BuildContext context) {
-                return Column(
-                  children: [
-                    const SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          label,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        GestureDetector(
-                          onTap: oppressed,
-                          child: const Text(
-                            'View all',
-                            style: TextStyle(
-                              color: Color.fromRGBO(33, 150, 243, 100),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                );
-              }
-            }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            GestureDetector(
+              onTap: oppressed,
+              child: const Text(
+                'View all',
+                style: TextStyle(
+                  color: Color.fromRGBO(33, 150, 243, 100),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+}

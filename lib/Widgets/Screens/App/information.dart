@@ -1,21 +1,24 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
+import 'package:itransit/Controllers/paymentIntegration/paypal.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/paymentIntegration/paypal.dart';
 
 class InformationScreen extends StatefulWidget {
   final int text;
+  final String? name;
   const InformationScreen({
     super.key,
     required this.text,
+    this.name,
   });
 
   @override
