@@ -320,7 +320,7 @@ class _ExplorenowState extends State<Explorenow> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                       InformationScreen(
-                                                      text: place['place_name'],
+                                                      text: place['id'],
                                                     ),
                                                   ),
                                                 );
