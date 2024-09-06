@@ -12,7 +12,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/paymentIntegration/paypal.dart';
 
 class InformationScreen extends StatefulWidget {
-  final String text;
+  final int text;
   const InformationScreen({
     super.key,
     required this.text,
@@ -52,7 +52,7 @@ class _InformationScreenState extends State<InformationScreen> {
     Future.delayed(const Duration(seconds: 7));
   }
 
-  Future<void> fetchSpecificData(String name) async {
+  Future<void> fetchSpecificData(int name) async {
     try {
       final dataList = await data.fetchSpecificDataInSingle(name);
 

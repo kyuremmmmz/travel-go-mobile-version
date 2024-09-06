@@ -6,7 +6,6 @@ import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
 import 'package:itransit/Widgets/Screens/App/information.dart';
-import 'package:itransit/Widgets/Textfield/searchField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 
@@ -67,7 +66,14 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
     setState(() {
-      place = datas;
+      place = datas.map((place) {
+        if (place['place_name'] != null &&
+            place['place_name'].toString().length > 18) {
+            place['place_name'] =
+            '${place['place_name'].toString().substring(0, 18)}...';
+        }
+        return place;
+      }).toList();
     });
   }
 
@@ -283,7 +289,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           ),
                           CategorySelect(
                             label: "Popular Places",
-                            oppressed: () => AppRoutes.navigateToExploreNowScreen(context),
+                            oppressed: () =>
+                                AppRoutes.navigateToExploreNowScreen(context),
                           ),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -299,76 +306,72 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 InformationScreen(
-                                                    text: snapshot['place_name']
-                                                      )
-                                                    )
-                                                  );
-                                                },
-                                              );
-                                            }
-                                          ).toList()),
-                            CategorySelect(
-                              label: "Food Places",
-                              oppressed: () => print('Food Places clicked'),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                PlaceButtonSquare(
-                                  place: 'Hundred Island',
-                                  image: Image.asset(hundredIsland).image,
-                                  oppressed: () => print('Food Place clicked'),
-                                ),
-                                PlaceButtonSquare(
-                                  place: 'Hundred Island',
-                                  image: Image.asset(hundredIsland).image,
-                                  oppressed: () => print('Food Place clicked'),
-                                ),
-                                PlaceButtonSquare(
-                                  place: 'Hundred Island',
-                                  image: Image.asset(hundredIsland).image,
-                                  oppressed: () => print('Food Place clicked'),
-                                ),
-                              ],
-                            ),
-                            CategorySelect(
-                              label: "Festival and Events",
-                              oppressed: () =>
-                                  print('Festival and Events clicked'),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                PlaceButtonSquare(
-                                  place: 'Hundred Island',
-                                  image: Image.asset(hundredIsland).image,
-                                  oppressed: () => print('Event clicked'),
-                                ),
-                                PlaceButtonSquare(
-                                  place: 'Hundred Island',
-                                  image: Image.asset(hundredIsland).image,
-                                  oppressed: () => print('Event clicked'),
-                                ),
-                                PlaceButtonSquare(
-                                  place: 'Hundred Island',
-                                  image: Image.asset(hundredIsland).image,
-                                  oppressed: () => print('Event clicked'),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                                    text: snapshot['id'])));
+                                  },
+                                );
+                              }).toList()),
+                          CategorySelect(
+                            label: "Food Places",
+                            oppressed: () => print('Food Places clicked'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                            ],
+                          ),
+                          CategorySelect(
+                            label: "Festival and Events",
+                            oppressed: () =>
+                                print('Festival and Events clicked'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Event clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Event clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Event clicked'),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
-    }
+          ),
+        ],
+      ),
+    );
   }
+}
 
 class CategoryLabel extends StatelessWidget {
   final String label;

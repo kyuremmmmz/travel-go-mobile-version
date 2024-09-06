@@ -10,21 +10,17 @@ class Data {
     if (response.isEmpty) {
       print('Error fetching data: ${response.toString()}');
       return [];
+    }else{
+      List<Map<String, dynamic>> places = List<Map<String, dynamic>>.from(response as List);
+      for (var place in places) {
+        var text = place['place_name'];
+        var image = place['image'];
+        final imageUrl = await getter(image);
+        place['image_url'] = imageUrl;
+        place['place_name'] = text;
+      }
+      return places;
     }
-
-    List<Map<String, dynamic>> places =
-        List<Map<String, dynamic>>.from(response as List);
-    for (var place in places) {
-      var text = place['place_name'];
-      var image = place['image'];
-      final imageUrl = await getter(image);
-      place['image_url'] = imageUrl;
-      print(image);
-      print(text);
-      print(imageUrl);
-    }
-
-    return places;
   }
 
   Future<String> getter(String imageUrl) async {
@@ -41,12 +37,12 @@ class Data {
     }
   }
 
-  Future<Map<String, dynamic>?> fetchSpecificDataInSingle(String name) async {
+  Future<Map<String, dynamic>?> fetchSpecificDataInSingle(int id) async {
     try {
       final response = await supabase
           .from('places')
           .select('*')
-          .eq('place_name', name)
+          .eq('id', id)
           .single();
 
       if (response.isNotEmpty) {
@@ -73,7 +69,7 @@ class Data {
           'price': formattedPrice
         };
       } else {
-        print('No data found for $name');
+        print('No data found for $id');
         return null;
       }
     } catch (e) {
