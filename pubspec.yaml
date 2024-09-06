@@ -37,12 +37,16 @@ flutter:
     - assets/images/icon/ButtonX.png
     - assets/images/icon/adventure.png
     - assets/images/icon/motorbike.png
+    - assets/images/icon/bus.png
+    - assets/images/icon/plane.png
+    - assets/images/icon/tricycle.png
+    - assets/images/icon/gcash.png
+    - assets/images/icon/mastercard.png
+    - assets/images/icon/paypal.png
     - assets/images/places/EnchantedCave.jpg
     - assets/images/places/HundredIsland.jpeg
     - assets/images/places/Manaoag.jpg
     - assets/images/places/PangasinanProvincialCapitol.jpg
     - assets/images/backgrounds/Receipt.png
-    - assets/images/icon/bus.png
-    - assets/images/icon/plane.png
-    - assets/images/icon/tricycle.png
+    
     

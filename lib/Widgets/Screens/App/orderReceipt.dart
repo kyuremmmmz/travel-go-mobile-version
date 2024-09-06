@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/TextWidgets/rowDetails.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -84,66 +85,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
           ),
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/icon/beach.png'),
-                    radius: 40,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    // ignore: unnecessary_null_comparison
-                    email != null ? '$email' : 'Hacked himala e',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.search),
-              title: const Text('Search'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pop(context);
-                Usersss().signout(context);
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const DrawerMenuWidget(), 
       body: Stack(
         children: [
           Positioned.fill(

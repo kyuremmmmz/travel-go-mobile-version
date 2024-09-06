@@ -10,6 +10,7 @@ import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/home.dart';
+import './../Widgets/Screens/App/linkedBankAccount.dart';
 
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
@@ -64,6 +65,11 @@ class AppRoutes {
   static void navigateToExploreNowScreen(BuildContext route) {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) => const explore()));
+  }
+
+  static void navigateLinkedBankAccount(BuildContext route) {
+    Navigator.push(
+        route, MaterialPageRoute(builder: (context) => const LinkedBankScreen()));
   }
 
   static void navigateToTesting(BuildContext route) {
