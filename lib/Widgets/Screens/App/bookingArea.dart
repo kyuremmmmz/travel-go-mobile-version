@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:itransit/Widgets/Textfield/checkBoxFormField.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -46,7 +47,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final String adventureIcon = "assets/images/icon/adventure.png";
   final String suitcaseIcon = "assets/images/icon/suitcase.png";
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
-  bool isChecked = false;
+  final _formKey = GlobalKey<FormState>();
+  String agreeError = "";
+  bool agreeTerms = false;
+  bool isChanged = false;
 
   @override
   void dispose() {
@@ -163,6 +167,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
         ),
       ),
       body: Stack(
+        key: _formKey,
         children: [
           Positioned.fill(
             child: Column(
@@ -196,7 +201,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                       child: Positioned(
                           bottom: 0,
                           child: Container(
-                            height: 950,
+                            height: 860,
                             width: 410,
                             decoration: const BoxDecoration(
                                 color: Colors.blue,
@@ -217,10 +222,8 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                           width: 20,
                                           child: Image.asset(xButtonIcon),
                                         ),
-                                        onPressed: () {
-                                          AppRoutes.navigateToForgotPassword(
-                                              context);
-                                        }, //change routes to InformationScreen later
+                                        onPressed:
+                                            () {}, //change routes to InformationScreen later
                                       ),
                                     )),
                                 Text(
@@ -446,19 +449,20 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 80,
+                                  height: 30,
                                 ),
                                 RichText(
                                   textAlign: TextAlign.center,
                                   text: TextSpan(children: <TextSpan>[
                                     const TextSpan(
                                         text:
-                                            "I have reviewed my booking details and agree to \nthe ",
-                                        style: TextStyle(color: Colors.black)),
+                                            "I have reviewed my booking details and agree to the ",
+                                        style: TextStyle(
+                                            fontSize: 8, color: Colors.black)),
                                     TextSpan(
                                         text: "Terms of Service.",
                                         style: const TextStyle(
-                                            color: Colors.white),
+                                            fontSize: 8, color: Colors.white),
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () => AppRoutes
                                               .navigateToForgotPassword(
@@ -467,7 +471,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                   ]),
                                 ),
                                 const SizedBox(
-                                  height: 28,
+                                  height: 10,
                                 ),
                                 Container(
                                     height: 100,
@@ -559,7 +563,11 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                                           WidgetStatePropertyAll(
                                                               Colors.green),
                                                     ),
-                                                    oppressed: () {},
+                                                    oppressed: () {
+                                                      AppRoutes
+                                                          .navigateToOrderReceipt(
+                                                              context);
+                                                    },
                                                   ))
                                             ])
                                           ],

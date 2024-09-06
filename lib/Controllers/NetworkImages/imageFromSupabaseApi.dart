@@ -1,4 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:intl/intl.dart';
 
 class Data {
   final supabase = Supabase.instance.client;
@@ -11,7 +12,8 @@ class Data {
       return [];
     }
 
-    List<Map<String, dynamic>> places = List<Map<String, dynamic>>.from(response as List);
+    List<Map<String, dynamic>> places =
+        List<Map<String, dynamic>>.from(response as List);
     for (var place in places) {
       var text = place['place_name'];
       var image = place['image'];
@@ -27,7 +29,8 @@ class Data {
 
   Future<String> getter(String imageUrl) async {
     try {
-      final response = supabase.storage.from('places_url').getPublicUrl(imageUrl);
+      final response =
+          supabase.storage.from('places_url').getPublicUrl(imageUrl);
       if (response.isEmpty) {
         return 'Null';
       }
@@ -50,12 +53,24 @@ class Data {
         final datas = response;
         var text = datas['place_name'];
         var image = datas['image'];
+        var cars = datas['car_availability'];
+        var tricycleAvailability = datas['tricycle_availability'];
+        var located = datas['locatedIn'];
+        var price = datas['price'];
+        var priceQ = NumberFormat('#,###');
+        final formattedPrice = priceQ.format(price);
         final imageUrl = await getter(image);
         datas['image_url'] = imageUrl;
+        print(cars);
+        print(priceQ);
         return {
           'place_name': text,
           'description': datas['description'] ?? 'No description available',
           'image': imageUrl,
+          'car_availability': cars,
+          'tricycle_availability': tricycleAvailability,
+          'locatedIn': located,
+          'price': formattedPrice
         };
       } else {
         print('No data found for $name');

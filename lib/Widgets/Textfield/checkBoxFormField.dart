@@ -1,50 +1,72 @@
 import 'package:flutter/material.dart';
 
-// ignore: camel_case_types, must_be_immutable
-class checkBoxFormField extends StatefulWidget {
+// ignore: must_be_immutable
+class CheckBoxFormFieldWithErrorMessage extends FormField<bool> {
   final String labelText;
   final bool isChecked;
   String error;
   final void Function(bool?) onChanged;
 
-  checkBoxFormField({
+  CheckBoxFormFieldWithErrorMessage({
     super.key,
     required this.labelText,
     required this.isChecked,
     required this.onChanged,
-    required FormFieldValidator<bool>? validator,
+    required super.validator,
     required this.error,
-  });
-
-  @override
-  State<checkBoxFormField> createState() => _numberTextFieldState();
-}
-
-// ignore: camel_case_types
-class _numberTextFieldState extends State<checkBoxFormField> {
-  final FocusNode _focusNode = FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode.addListener(() {
-      if (!_focusNode.hasFocus) {
-        FocusScope.of(context).unfocus();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CheckboxListTile(
-      value: false,
-      onChanged: (bool? value) {},
-    );
-  }
+  }) : super(
+            initialValue: isChecked,
+            builder: (FormFieldState<bool> state) {
+              return Column(children: [
+                Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Checkbox(
+                              value: isChecked,
+                              onChanged: onChanged,
+                              isError: true,
+                            ),
+                            Expanded(
+                              child: Text(
+                                labelText,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.3,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              constraints:
+                                  const BoxConstraints(minHeight: 16.0),
+                              padding:
+                                  const EdgeInsets.only(left: 20, right: 10),
+                              child: Text(
+                                (error.isNotEmpty) ? ' * $error' : '',
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ))
+              ]);
+            });
 }

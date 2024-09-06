@@ -5,7 +5,7 @@ import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
-import 'package:itransit/Widgets/Screens/Stateless/informationStateless.dart';
+import 'package:itransit/Widgets/Screens/App/information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Explorenow extends StatefulWidget {
@@ -234,7 +234,6 @@ class _ExplorenowState extends State<Explorenow> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 25),
                                 child: Column(children: <Widget>[
-                                  const DismissableFindMoreLocation(),
                                   CategorySelect(
                                     label: "Categories",
                                     oppressed: () =>
@@ -287,14 +286,26 @@ class _ExplorenowState extends State<Explorenow> {
                                     ],
                                   ),
                                   const SizedBox(height: 20),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                      right: 220
+                                    ),
+                                    child: const Text(
+                                      'Popular Places',
+                                      style: TextStyle(
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 49, 49, 49),
+                                      ),
+                                    ),
+                                  ),
                                   const SizedBox(
-                                    height: 20,
+                                    height: 15,
                                   ),
                                   Column(
                                     children: place.map((place) {
                                       final imageUrl = place['image_url'];
-                                      final text =
-                                          place['place_name'] ?? 'Unknown';
+                                      final text = place['place_name'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(
@@ -308,11 +319,8 @@ class _ExplorenowState extends State<Explorenow> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        InformationStateless(
+                                                      InformationScreen(
                                                       text: place['place_name'],
-                                                      description:
-                                                          place['place_name'],
-                                                      imageUrl: place['image'],
                                                     ),
                                                   ),
                                                 );
@@ -404,21 +412,6 @@ class CategoryLabel extends StatelessWidget {
   }
 }
 
-class DismissableFindMoreLocation extends StatefulWidget {
-  const DismissableFindMoreLocation({super.key});
-
-  @override
-  _DismissableFindMoreLocationState createState() =>
-      _DismissableFindMoreLocationState();
-}
-
-class _DismissableFindMoreLocationState
-    extends State<DismissableFindMoreLocation> {
-  @override
-  Widget build(BuildContext context) {
-    return Center();
-  }
-}
 
 class CategorySelect extends StatelessWidget {
   final String label;

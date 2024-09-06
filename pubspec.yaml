@@ -17,6 +17,8 @@ dependencies:
   flutter_paypal_payment: ^1.0.6
   supabase_auth_ui: ^0.5.1
   flutter_map: ^7.0.2
+  flutter_paypal: ^0.2.1
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +36,7 @@ flutter:
     - assets/images/icon/hotel.png
     - assets/images/icon/ButtonX.png
     - assets/images/icon/adventure.png
+    - assets/images/icon/motorbike.png
     - assets/images/icon/suitcase.png
     - assets/images/icon/plane-ticket.png
     - assets/images/places/EnchantedCave.jpg
@@ -41,3 +44,7 @@ flutter:
     - assets/images/places/Manaoag.jpg
     - assets/images/places/PangasinanProvincialCapitol.jpg
     - assets/images/backgrounds/Receipt.png
+    - assets/images/icon/bus.png
+    - assets/images/icon/plane.png
+    - assets/images/icon/tricycle.png
+    
