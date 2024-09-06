@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
@@ -184,30 +186,46 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                SizedBox(
-                  height: 40,
-                  width: 400,
-                  child: Search(
-                    controller: _searchController,
-                    style: const InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                      hintStyle: TextStyle(color: Colors.black54),
-                      hintText: 'Search Destination',
-                      border: OutlineInputBorder(
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: TypeAheadField(
+                    textFieldConfiguration: TextFieldConfiguration(
+                      controller: _searchController,
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        hintStyle: TextStyle(color: Colors.black54),
+                        hintText: 'Search Destination',
+                        border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide(color: Colors.black54)),
-                      focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black54),
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      filled: true,
-                      fillColor: Colors.white,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black54),
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
                     ),
+                    suggestionsCallback: (pattern) async {
+                      return await Searchcontroller().fetchSuggestions(pattern);
+                    },
+                    itemBuilder: (context, dynamic suggestion) {
+                      return ListTile(
+                        title: Text(suggestion['title'] ?? 'No title'),
+                        subtitle: Text(suggestion['address'] ?? 'No address'),
+                      );
+                    },
+                    onSuggestionSelected: (dynamic suggestion) {
+                      _searchController.text =
+                          suggestion['title'] ?? 'No title';
+                      FocusScope.of(context).unfocus();
+                    },
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 Expanded(
                   child: Scrollbar(
                     thumbVisibility: true,
@@ -265,7 +283,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           ),
                           CategorySelect(
                             label: "Popular Places",
-                            oppressed: () => print('Popular Places clicked'),
+                            oppressed: () => AppRoutes.navigateToExploreNowScreen(context),
                           ),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
