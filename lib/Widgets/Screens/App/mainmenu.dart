@@ -117,7 +117,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 children: <Widget>[
                   const CircleAvatar(
                     backgroundImage: AssetImage(
-                        'assets/images/icon/beach.png'), // Replace with your own profile image
+                        'assets/images/icon/beach.png'),
                     radius: 40,
                   ),
                   const SizedBox(height: 10),

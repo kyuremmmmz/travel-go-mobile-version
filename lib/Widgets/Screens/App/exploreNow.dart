@@ -312,7 +312,7 @@ class _ExplorenowState extends State<Explorenow> {
                                             onTap: () async {
                                               final placeData = await Data()
                                                   .fetchSpecificDataInSingle(
-                                                      place['place_name']);
+                                                      place['id']);
                                               if (placeData != null) {
                                                 Navigator.push(
                                                   // ignore: use_build_context_synchronously

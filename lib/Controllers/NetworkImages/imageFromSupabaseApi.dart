@@ -45,7 +45,7 @@ class Data {
           .eq('id', id)
           .single();
 
-      if (response.isNotEmpty) {
+    if (response.isNotEmpty) {
         final datas = response;
         var text = datas['place_name'];
         var image = datas['image'];
@@ -56,18 +56,15 @@ class Data {
         var priceQ = NumberFormat('#,###');
         final formattedPrice = priceQ.format(price);
         final imageUrl = await getter(image);
-        datas['image_url'] = imageUrl;
+        datas['image'] = imageUrl;
+        datas['place_name'] = text;
+        datas['car_availability'] = cars;
+        datas['tricycle_availability'] = tricycleAvailability;
+        datas['locatedIn'] = located;
+        datas['price'] = formattedPrice;
         print(cars);
         print(priceQ);
-        return {
-          'place_name': text,
-          'description': datas['description'] ?? 'No description available',
-          'image': imageUrl,
-          'car_availability': cars,
-          'tricycle_availability': tricycleAvailability,
-          'locatedIn': located,
-          'price': formattedPrice
-        };
+        return datas;
       } else {
         print('No data found for $id');
         return null;
@@ -77,4 +74,6 @@ class Data {
       return null;
     }
   }
+
+
 }
