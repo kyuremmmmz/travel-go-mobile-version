@@ -68,6 +68,6 @@ class AppRoutes {
 
   static void navigateToTesting(BuildContext route) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) => const Testing()));
+        route, MaterialPageRoute(builder: (context) => const MapPage()));
   }
 }

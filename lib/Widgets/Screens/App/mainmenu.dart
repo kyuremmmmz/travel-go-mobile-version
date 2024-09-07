@@ -258,7 +258,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => print('Hotels clicked'),
+                                    oppressed: () => AppRoutes.navigateToTesting(context),
                                   ),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
