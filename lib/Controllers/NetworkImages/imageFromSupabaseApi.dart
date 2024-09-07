@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:itransit/Widgets/Screens/App/information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:intl/intl.dart';
 
 class Data {
   final supabase = Supabase.instance.client;
@@ -14,18 +13,23 @@ class Data {
       print('Error fetching data: ${response.toString()}');
       return [];
     } else {
-      List<Map<String, dynamic>> places =
-          List<Map<String, dynamic>>.from(response as List);
-      for (var place in places) {
-        var text = place['place_name'];
-        var image = place['image'];
+      var data = response;
+
+      List<Map<String, dynamic>> datas =
+          List<Map<String, dynamic>>.from(data as List<dynamic>);
+
+      for (var info in datas) {
+        var place = info['place_name'];
+        var image = info['image'];
         final imageUrl = await getter(image);
-        place['image_url'] = imageUrl;
-        place['place_name'] = text;
+        info['image'] = imageUrl;
+        info['place_name'] = place;
       }
-      return places;
+      return datas;
     }
+    
   }
+
 
   Future<String> getter(String imageUrl) async {
     try {
@@ -103,15 +107,14 @@ class Data {
         datas['locatedIn'] = located;
         datas['id'] = id;
         datas['price'] = formattedPrice;
-        Navigator.push(context,MaterialPageRoute(
-                builder: (context) => 
-                InformationScreen(
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => InformationScreen(
                       text: id,
                       name: text,
-                    )
-                  )
-                );
-                return datas;
+                    )));
+        return datas;
       } else {
         print('No data found for $name');
         return null;

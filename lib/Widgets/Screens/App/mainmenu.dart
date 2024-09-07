@@ -66,14 +66,15 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
     setState(() {
-      place = datas.map((place) {
-        if (place['place_name'] != null &&
-            place['place_name'].toString().length > 18) {
-          place['place_name'] =
-              '${place['place_name'].toString().substring(0, 18)}...';
-        }
-        return place;
-      }).toList();
+      place = datas.map(
+        (e) {
+          if (e['place_name'] != null &&
+              e['place_name'].toString().length > 18) {
+            e['place_name'] = e['place_name'].toString().substring(0, 18);
+          }
+          return e;
+        },
+      ).toList();
     });
   }
 
@@ -258,7 +259,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => AppRoutes.navigateToTesting(context),
+                                    oppressed: () =>
+                                        AppRoutes.navigateToTesting(context),
                                   ),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
@@ -301,23 +303,28 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           ),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: place.map((snapshot) {
-                                final image = snapshot['image_url'];
-                                final name = snapshot['place_name'];
+                              children: place.map((place) {
+                                final image = place['image'];
+                                final text = place['place_name'];
+                                final id = place['id'];
                                 return PlaceButtonSquare(
-                                  place: name,
-                                  image: Image.network(image).image,
-                                  oppressed: () async {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                InformationScreen(
-                                                  text: snapshot['id'],
-                                                )));
-                                  },
-                                );
-                              }).toList()),
+                                    place: place['place_name'],
+                                    image:
+                                        Image.network(place['image']).image,
+                                    oppressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  InformationScreen(
+                                                      text: id
+                                                        )
+                                                      )
+                                                    );
+                                                  }
+                                                );
+                                              }
+                                            ).toList()),
                           CategorySelect(
                             label: "Food Places",
                             oppressed: () => print('Food Places clicked'),
