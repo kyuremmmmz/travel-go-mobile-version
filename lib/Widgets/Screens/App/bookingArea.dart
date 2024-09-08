@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Textfield/checkBoxFormField.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -18,7 +17,7 @@ class BookingArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Travel',
+      title: 'Travel Go',
       home: BookingAreaScreen(),
     );
   }
@@ -47,10 +46,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final String adventureIcon = "assets/images/icon/adventure.png";
   final String suitcaseIcon = "assets/images/icon/suitcase.png";
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
-  final _formKey = GlobalKey<FormState>();
-  String agreeError = "";
-  bool agreeTerms = false;
-  bool isChanged = false;
+  bool value = false;
 
   @override
   void dispose() {
@@ -167,7 +163,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
         ),
       ),
       body: Stack(
-        key: _formKey,
         children: [
           Positioned.fill(
             child: Column(
@@ -201,7 +196,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                       child: Positioned(
                           bottom: 0,
                           child: Container(
-                            height: 860,
+                            height: 896, //Sakto lang sa bottom container
                             width: 410,
                             decoration: const BoxDecoration(
                                 color: Colors.blue,
@@ -451,27 +446,49 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 const SizedBox(
                                   height: 30,
                                 ),
-                                RichText(
-                                  textAlign: TextAlign.center,
-                                  text: TextSpan(children: <TextSpan>[
-                                    const TextSpan(
-                                        text:
-                                            "I have reviewed my booking details and agree to the ",
-                                        style: TextStyle(
-                                            fontSize: 8, color: Colors.black)),
-                                    TextSpan(
-                                        text: "Terms of Service.",
-                                        style: const TextStyle(
-                                            fontSize: 8, color: Colors.white),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () => AppRoutes
-                                              .navigateToForgotPassword(
-                                                  context) // Add Route for trying email address or change
-                                        )
-                                  ]),
-                                ),
-                                const SizedBox(
-                                  height: 10,
+                                Theme(
+                                  data: ThemeData(
+                                    checkboxTheme: const CheckboxThemeData(
+                                      shape: CircleBorder(),
+                                    ),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: ListTileTheme(
+                                      horizontalTitleGap: 0.0,
+                                      child: CheckboxListTile(
+                                        activeColor: Colors.green,
+                                        title: RichText(
+                                          text: TextSpan(children: <TextSpan>[
+                                            const TextSpan(
+                                                text:
+                                                    "I have reviewed my booking details and agree to the ",
+                                                style: TextStyle(
+                                                    fontSize: 9,
+                                                    color: Colors.black)),
+                                            TextSpan(
+                                                text: "Terms of Service.",
+                                                style: const TextStyle(
+                                                    fontSize: 9,
+                                                    color: Colors.white),
+                                                recognizer: TapGestureRecognizer()
+                                                  ..onTap = () => AppRoutes
+                                                      .navigateToForgotPassword(
+                                                          context) // Add Route for trying email address or change
+                                                )
+                                          ]),
+                                        ),
+                                        value: value,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            this.value = value!;
+                                          });
+                                        },
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 Container(
                                     height: 100,

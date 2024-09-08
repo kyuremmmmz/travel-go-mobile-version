@@ -6,7 +6,6 @@ import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
 import 'package:itransit/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
-import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
