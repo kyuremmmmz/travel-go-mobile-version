@@ -22,6 +22,8 @@ class InformationStateless extends StatelessWidget {
               ? const Welcomepage()
               : const MainMenu();
         },
+
+        }, 
       ),
     );
   }

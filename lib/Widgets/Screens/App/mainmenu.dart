@@ -6,7 +6,10 @@ import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
 import 'package:itransit/Widgets/Screens/App/information.dart';
+
 import 'package:itransit/Widgets/Textfield/searchField.dart';
+
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 
@@ -67,7 +70,17 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
     setState(() {
+
       place = datas;
+
+      place = datas.map(
+        (e) {
+          if (e['place_name'] != null &&
+              e['place_name'].toString().length > 18) {
+            e['place_name'] = e['place_name'].toString().substring(0, 18);
+          }
+          return e;
+        },
     });
   }
 
@@ -110,8 +123,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const CircleAvatar(
-                    backgroundImage: AssetImage(
-                        'assets/images/icon/beach.png'), // Replace with your own profile image
+                    backgroundImage: AssetImage('assets/images/icon/beach.png'),
                     radius: 40,
                   ),
                   const SizedBox(height: 10),
@@ -192,6 +204,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   child: TypeAheadField(
                     textFieldConfiguration: TextFieldConfiguration(
                       controller: _searchController,
+
                       decoration: const InputDecoration(
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -202,6 +215,25 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           borderSide: BorderSide(color: Colors.black54),
                         ),
                         focusedBorder: OutlineInputBorder(
+
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () async {
+                              await data.fetchinSearch(
+                                  _searchController.text.trim(), context);
+                            },
+                            icon: const Icon(
+                              Icons.search,
+                            )),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 10),
+                        hintStyle: const TextStyle(color: Colors.black54),
+                        hintText: 'Search Destination',
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          borderSide: BorderSide(color: Colors.black54),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black54),
                           borderRadius: BorderRadius.all(Radius.circular(50)),
                         ),
@@ -245,7 +277,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => print('Hotels clicked'),
+                                    oppressed: () =>
+                                        AppRoutes.navigateToTesting(context),
                                   ),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
@@ -284,6 +317,61 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           CategorySelect(
                             label: "Popular Places",
                             oppressed: () => AppRoutes.navigateToExploreNowScreen(context),
+                            oppressed: () =>
+                                AppRoutes.navigateToExploreNowScreen(context),
+                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: place.map((place) {
+                                final image = place['image'];
+                                final text = place['place_name'];
+                                final id = place['id'];
+                                return PlaceButtonSquare(
+                                    place: place['place_name'],
+                                    image:
+                                        Image.network(place['image']).image,
+                                    oppressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  InformationScreen(
+                                                      text: id
+                                                        )
+                                                      )
+                                                    );
+                                                  }
+                                                );
+                                              }
+                                            ).toList()),
+                          CategorySelect(
+                            label: "Food Places",
+                            oppressed: () => print('Food Places clicked'),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                              PlaceButtonSquare(
+                                place: 'Hundred Island',
+                                image: Image.asset(hundredIsland).image,
+                                oppressed: () => print('Food Place clicked'),
+                              ),
+                            ],
+                          ),
+                          CategorySelect(
+                            label: "Festival and Events",
+                            oppressed: () =>
+                                print('Festival and Events clicked'),
                           ),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -304,7 +304,11 @@ class _ExplorenowState extends State<Explorenow> {
                                   ),
                                   Column(
                                     children: place.map((place) {
+
                                       final imageUrl = place['image_url'];
+
+                                      final imageUrl = place['image'];
+
                                       final text = place['place_name'] ?? 'Unknown';
                                       return Column(
                                         children: [
@@ -312,7 +316,7 @@ class _ExplorenowState extends State<Explorenow> {
                                             onTap: () async {
                                               final placeData = await Data()
                                                   .fetchSpecificDataInSingle(
-                                                      place['place_name']);
+                                                      place['id']);
                                               if (placeData != null) {
                                                 Navigator.push(
                                                   // ignore: use_build_context_synchronously
@@ -320,7 +324,11 @@ class _ExplorenowState extends State<Explorenow> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                       InformationScreen(
+
                                                       text: place['place_name'],
+
+                                                      text: place['id'], 
+
                                                     ),
                                                   ),
                                                 );

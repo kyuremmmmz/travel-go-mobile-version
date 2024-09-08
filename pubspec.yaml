@@ -20,6 +20,10 @@ dependencies:
   flutter_paypal: ^0.2.1
   intl: ^0.18.0
 
+  flutter_osm_plugin: ^0.60.4
+  geocoding: ^3.0.0
+  baseflow_plugin_template: ^2.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -39,6 +43,7 @@ flutter:
     - assets/images/icon/motorbike.png
     - assets/images/icon/suitcase.png
     - assets/images/icon/plane-ticket.png
+
     - assets/images/places/EnchantedCave.jpg
     - assets/images/places/HundredIsland.jpeg
     - assets/images/places/Manaoag.jpg

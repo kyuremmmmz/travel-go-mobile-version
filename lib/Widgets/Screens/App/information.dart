@@ -4,10 +4,12 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
+import 'package:itransit/Controllers/paymentIntegration/paypal.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/paymentIntegration/paypal.dart';
 
@@ -16,6 +18,15 @@ class InformationScreen extends StatefulWidget {
   const InformationScreen({
     super.key,
     required this.text,
+
+
+class InformationScreen extends StatefulWidget {
+  final int text;
+  final String? name;
+  const InformationScreen({
+    super.key,
+    required this.text,
+    this.name,
   });
 
   @override
@@ -52,7 +63,7 @@ class _InformationScreenState extends State<InformationScreen> {
     Future.delayed(const Duration(seconds: 7));
   }
 
-  Future<void> fetchSpecificData(String name) async {
+  Future<void> fetchSpecificData(int name) async {
     try {
       final dataList = await data.fetchSpecificDataInSingle(name);
 
@@ -540,11 +551,18 @@ class _InformationScreenState extends State<InformationScreen> {
                                                     'PHP ${price.toString()} - 6,000',
                                                 style: const TextStyle(
                                                     color: Colors.black,
+
                                                     fontSize: 20)),
+
+                                                    fontSize: 21,
+                                                    fontWeight: 
+                                                    FontWeight.bold)),
+
                                             const TextSpan(
                                                 text: '\nEstimated Expenses',
                                                 style: TextStyle(
                                                     color: Colors.blue,
+
                                                     fontSize: 15))
                                           ])),
                                           Container(
@@ -556,6 +574,20 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 15,
+
+                                                    fontSize: 13))
+                                          ])),
+                                          Container(
+                                            width: 180,
+                                            padding: const EdgeInsets.only(
+                                                left: 50),
+                                            child: BlueButtonWithoutFunction(
+                                                text: const Text(
+                                                  'Book Now',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
