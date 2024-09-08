@@ -78,8 +78,8 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const OrderReceipt()));
   }
 
-  static void navigateToBookingArea(BuildContext route) {
+  static void navigateToBookingArea(BuildContext route, {required int id}) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) => const BookingArea()));
+        route, MaterialPageRoute(builder: (context) =>  BookingArea(id: id,)));
   }
 }

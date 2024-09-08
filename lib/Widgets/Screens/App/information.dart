@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
@@ -568,9 +569,12 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   backgroundColor: Colors.blue,
                                                 ),
                                                 oppressed: () {
+                                                  HotelBooking()
+                                                      .passtheData(widget.text);
                                                   AppRoutes
                                                       .navigateToBookingArea(
-                                                          context);
+                                                          context,
+                                                          id: widget.text);
                                                 }),
                                           )
                                         ],

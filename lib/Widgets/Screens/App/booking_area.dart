@@ -1,30 +1,34 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
-void main() {
-  runApp(const BookingArea());
-}
 
 class BookingArea extends StatelessWidget {
-  const BookingArea({super.key});
+  final int id;
+  const BookingArea({
+    super.key,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel Go',
-      home: BookingAreaScreen(),
+      home: BookingAreaScreen(id: id),
     );
   }
 }
 
 class BookingAreaScreen extends StatefulWidget {
-  const BookingAreaScreen({super.key});
+  final int id;
+  const BookingAreaScreen({super.key, required this.id});
 
   @override
   State<BookingAreaScreen> createState() => _BookingAreaScreenState();
@@ -41,13 +45,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _vehicleTypeController = TextEditingController();
   final _specialReqController = TextEditingController();
   String? email;
+  var amount;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
   final String adventureIcon = "assets/images/icon/adventure.png";
   final String suitcaseIcon = "assets/images/icon/suitcase.png";
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
   bool value = false;
-
+  HotelBooking booking = HotelBooking();
   @override
   void dispose() {
     _nameController.dispose();
@@ -66,6 +71,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   void initState() {
     super.initState();
     emailFetching();
+    fetchString(widget.id);
   }
 
   Future<void> emailFetching() async {
@@ -85,6 +91,13 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
         email = "error: $e";
       });
     }
+  }
+
+  Future<void> fetchString(int id) async {
+    final data = await booking.passtheData(id);
+    setState(() {
+      amount = data!['price'];
+    });
   }
 
   @override
@@ -166,7 +179,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
           children: [
             Column(
               children: <Widget>[
-              const Text(
+                const Text(
                   'TRAVEL GO',
                   style: TextStyle(
                     fontSize: 30,
@@ -447,12 +460,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                           text:
                                               "I have reviewed my booking details and agree to the ",
                                           style: TextStyle(
-                                              fontSize: 12, color: Colors.black),
+                                              fontSize: 12,
+                                              color: Colors.black),
                                         ),
                                         TextSpan(
                                           text: "Terms of Service.",
                                           style: const TextStyle(
-                                              fontSize: 12, color: Colors.white),
+                                              fontSize: 12,
+                                              color: Colors.white),
                                           recognizer: TapGestureRecognizer()
                                             ..onTap = () => AppRoutes
                                                 .navigateToForgotPassword(
@@ -510,29 +525,30 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                         ),
                                       ],
                                     ),
-                                    const Padding(
+                                    Padding(
                                       padding:
-                                          EdgeInsets.only(left: 10, right: 10),
+                                          const EdgeInsets.only(left: 10, right: 10),
                                       child: Column(
                                         children: [
-                                          Row(
+                                          const Row(
                                             children: [
                                               Text(
                                                 "Total Amount",
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Color.fromARGB(255, 26, 169, 235),
-                                                  fontWeight: FontWeight.w700
-                                                ),
+                                                    fontSize: 16,
+                                                    color: Color.fromARGB(
+                                                        255, 26, 169, 235),
+                                                    fontWeight:
+                                                        FontWeight.w700),
                                               ),
                                             ],
                                           ),
                                           Row(
                                             children: [
                                               Text(
-                                                'PHP 6,000.00',
-                                                style: TextStyle(
+                                                'PHP $amount',
+                                                style: const TextStyle(
                                                   fontSize: 20,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold,
@@ -546,7 +562,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                     Column(
                                       children: [
                                         SizedBox(
-                                          width:120,
+                                          width: 120,
                                           child: BlueButtonWithoutFunction(
                                             text: const Text(
                                               'Place Flight',
@@ -558,8 +574,9 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                               ),
                                             ),
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: const Color.fromARGB(255, 26, 169, 235)
-                                            ),
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 26, 169, 235)),
                                             oppressed: () {
                                               AppRoutes.navigateToOrderReceipt(
                                                   context);
