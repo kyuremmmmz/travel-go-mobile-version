@@ -54,10 +54,10 @@ class _numberTextFieldState extends State<inputTextField> {
             color: Colors.black,
           ),
           border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: Colors.white)),
               focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(
                 color: Colors.white,
               ))),

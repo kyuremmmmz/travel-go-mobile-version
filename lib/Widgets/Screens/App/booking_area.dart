@@ -249,10 +249,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             ),
                             // ignore: sized_box_for_whitespace
                             Container(
-                              width: 300,
+                              width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
+                                      Radius.circular(10)),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black.withOpacity(0.2),
@@ -271,7 +271,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               height: 10,
                             ),
                             Container(
-                              width: 300,
+                              width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(50)),
@@ -293,7 +293,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               height: 10,
                             ),
                             Container(
-                              width: 300,
+                              width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(50)),
@@ -315,7 +315,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               height: 10,
                             ),
                             Container(
-                              width: 300,
+                              width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(50)),
@@ -337,7 +337,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               height: 10,
                             ),
                             Container(
-                              width: 300,
+                              width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(50)),
@@ -359,7 +359,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               height: 10,
                             ),
                             Container(
-                              width: 300,
+                              width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(50)),
@@ -381,7 +381,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               height: 10,
                             ),
                             Container(
-                              width: 300,
+                              width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(50)),
@@ -403,7 +403,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               height: 10,
                             ),
                             Container(
-                              width: 300,
+                              width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(50)),
@@ -425,7 +425,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               height: 10,
                             ),
                             Container(
-                              width: 300,
+                              width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(50)),
