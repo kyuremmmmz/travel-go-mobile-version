@@ -44,7 +44,7 @@ class _numberTextFieldState extends State<inputTextField> {
       decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          labelText: widget.text,
+          hintText: widget.text,
           alignLabelWithHint: true,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -56,7 +56,7 @@ class _numberTextFieldState extends State<inputTextField> {
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(50)),
               borderSide: BorderSide(color: Colors.white)),
-          focusedBorder: const OutlineInputBorder(
+              focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(50)),
               borderSide: BorderSide(
                 color: Colors.white,

@@ -42,7 +42,6 @@ class _InformationScreenState extends State<InformationScreen> {
   String? price;
   final data = Data();
   late Usersss users = Usersss();
-  final payment = Paypal();
 
   @override
   void initState() {
@@ -544,8 +543,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 21,
-                                                    fontWeight: 
-                                                    FontWeight.bold)),
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                             const TextSpan(
                                                 text: '\nEstimated Expenses',
                                                 style: TextStyle(
@@ -554,8 +553,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                           ])),
                                           Container(
                                             width: 180,
-                                            padding: const EdgeInsets.only(
-                                                left: 50),
+                                            padding:
+                                                const EdgeInsets.only(left: 50),
                                             child: BlueButtonWithoutFunction(
                                                 text: const Text(
                                                   'Book Now',
@@ -569,7 +568,9 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   backgroundColor: Colors.blue,
                                                 ),
                                                 oppressed: () {
-                                                  payment.pay(context);
+                                                  AppRoutes
+                                                      .navigateToBookingArea(
+                                                          context);
                                                 }),
                                           )
                                         ],
