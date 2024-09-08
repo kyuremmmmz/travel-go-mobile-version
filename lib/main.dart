@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'Widgets/Buttons/WithMethodButtons/BlueButton.dart';
-import 'Widgets/Buttons/WithMethodButtons/GreenButton.dart';
-
+import 'Widgets/Screens/App/mainmenu.dart';
+import 'Widgets/Screens/Auth/Choose.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -15,78 +15,33 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Travel go',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      body: Column(
-        children: <Widget>[
-          Padding(
-                padding: const EdgeInsets.only(
-                  top: 100
-                ),
-                child: Container(
-                alignment: Alignment.bottomCenter,
-                width: 500,
-                height: 150,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(221, 0, 0, 0),
-                  shape: BoxShape.circle
-                ),
-                child: const Text(
-                  'Tite',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            const Padding( 
-              padding: EdgeInsets.only(
-                top: 200
-              ),
-              child: Text(
-                'Travel Go Pangasinan',
-                textAlign: TextAlign.center,              
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.only(
-                top: 200
-              ),
-              child: Column(
-                children: <Widget>[
-                  Bluebottle(
-                    color: Colors.blue, 
-                    text: 'Log in'
-                  ),
-                  const Text(
-                    'or'
-                  ),
-                  Greenbutton(
-                    text: 'Create Account', 
-                    color: Colors.green
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+      title: 'Travel go',
+      home: StreamBuilder<AuthState>(
+        stream: supabase.auth.onAuthStateChange,
+        builder: (context, snapshot) {
+          final session = snapshot.data?.session;
+          Future.delayed(const Duration(seconds: 4));
+          return session == null ? const Welcomepage() : const MainMenuScreen();
+        },
       ),
     );
   }
 }
 
+const url1 = 'https://nvscibwjxhrctgfhrgyn.supabase.co';
+const apikey1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52c2NpYndqeGhyY3RnZmhyZ3luIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQyMTI0NDQsImV4cCI6MjAzOTc4ODQ0NH0.PLKN-tw8vMLxgwnunGotYP_U6AM2_A2dN-ATeykj7bI';
+// ignore: camel_case_types
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Supabase
+  await Supabase.initialize(
+    url: url1,
+    anonKey: apikey1,
+  );
   runApp(const WelcomePage());
 }
+
+final supabase = Supabase.instance.client;
