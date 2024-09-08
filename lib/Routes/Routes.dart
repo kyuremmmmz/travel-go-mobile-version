@@ -5,7 +5,7 @@ import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
 import 'package:itransit/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
-
+import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
@@ -69,5 +69,10 @@ class AppRoutes {
   static void navigateToTesting(BuildContext route) {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) => const MapPage()));
+  }
+
+  static void navigateToOrderReceipt(BuildContext route) {
+    Navigator.push(
+        route, MaterialPageRoute(builder: (context) => const OrderReceipt()));
   }
 }
