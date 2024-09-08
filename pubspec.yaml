@@ -1,18 +1,27 @@
 name: itransit
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.4.4 <4.0.0'
+  sdk: ">=3.4.4 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_typeahead: ^4.0.0
   http: ^1.2.2
   path: ^1.9.0
   sqflite: ^2.3.3+1
-  supabase_flutter: ^2.5.11
+  supabase_flutter: ^2.0.0
+  flutter_paypal_payment: ^1.0.6
+  supabase_auth_ui: ^0.5.1
+  flutter_map: ^7.0.2
+  flutter_paypal: ^0.2.1
+  intl: ^0.18.0
+  flutter_osm_plugin: ^0.60.4
+  geocoding: ^3.0.0
+  baseflow_plugin_template: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +30,22 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/BG.png
+    - assets/images/Background.png
+    - assets/images/GmailLogo.png
+    - assets/images/icon/beach.png
+    - assets/images/icon/food.png
+    - assets/images/icon/hotel.png
+    - assets/images/icon/ButtonX.png
+    - assets/images/icon/adventure.png
+    - assets/images/icon/motorbike.png
+    - assets/images/places/EnchantedCave.jpg
+    - assets/images/places/HundredIsland.jpeg
+    - assets/images/places/Manaoag.jpg
+    - assets/images/places/PangasinanProvincialCapitol.jpg
+    - assets/images/backgrounds/Receipt.png
+    - assets/images/icon/bus.png
+    - assets/images/icon/plane.png
+    - assets/images/icon/tricycle.png
+    
