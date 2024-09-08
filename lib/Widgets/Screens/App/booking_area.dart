@@ -166,19 +166,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
           children: [
             Column(
               children: <Widget>[
-                Text(
+              const Text(
                   'TRAVEL GO',
                   style: TextStyle(
                     fontSize: 30,
                     color: Colors.blue,
                     fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        offset: const Offset(3.0, 3.0),
-                        blurRadius: 4.0,
-                        color: Colors.black.withOpacity(0.5),
-                      ),
-                    ],
                   ),
                 ),
                 const Text(
@@ -218,31 +211,21 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 ),
                               ),
                             ),
-                            Text(
+                            const Text(
                               'Flight Booking Form',
                               style: TextStyle(
                                 fontSize: 30,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                shadows: [
-                                  Shadow(
-                                    offset: const Offset(3.0, 3.0),
-                                    blurRadius: 4.0,
-                                    color: Colors.black.withOpacity(0.5),
-                                  ),
-                                ],
                               ),
                             ),
                             const Text(
                               "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
+                                fontSize: 14,
+                                color: Color.fromARGB(255, 82, 79, 79),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 30,
                             ),
                             const SizedBox(
                               height: 30,
