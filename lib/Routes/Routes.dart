@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
@@ -69,5 +70,9 @@ class AppRoutes {
   static void navigateToTesting(BuildContext route) {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) => const MapPage()));
+  }
+   static void navigateToOrderReceipt(BuildContext route) {
+    Navigator.push(
+        route, MaterialPageRoute(builder: (context) => const OrderReceipt()));
   }
 }
