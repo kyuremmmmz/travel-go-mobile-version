@@ -70,7 +70,7 @@ class AppRoutes {
 
   static void navigateToTesting(BuildContext route) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) => const MapPage()));
+        route, MaterialPageRoute(builder: (context) => const Map()));
   }
 
   static void navigateToOrderReceipt(BuildContext route) {

@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Screens/App/information.dart';
-import 'package:itransit/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelBooking {
   final supabase = Supabase.instance.client;
-  Future<Map<String, dynamic>?> passtheData(
-      int id) async {
+  Future<Map<String, dynamic>?> passtheData(int id) async {
     final response = await supabase
         .from('places')
         .select('id, place_name, price')
