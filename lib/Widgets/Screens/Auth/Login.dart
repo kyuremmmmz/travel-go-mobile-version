@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(color: Colors.white, fontSize: 15),
               )),
           Positioned(
-            bottom: -320,
+            bottom: -290,
             right: 0,
             left: 0,
             height: 800,
@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 50,
+                      height: 30,
                     ),
                     Container(
                       width: 400,
@@ -131,7 +131,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Container(
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    SizedBox(
                       width: 400,
                       child: passwordTextField(
                         text: 'Password',
@@ -178,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           oppressed: () async {
-                            Login(
+                            await Login(
                                     email: _emailController.text.trim(),
                                     password: _passwordController.text.trim())
                                 .loginUser(context);

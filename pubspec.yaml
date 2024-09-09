@@ -19,6 +19,11 @@ dependencies:
   flutter_map: ^7.0.2
   flutter_paypal: ^0.2.1
   intl: ^0.18.0
+  flutter_osm_plugin: ^0.60.4
+  geocoding: ^3.0.0
+  baseflow_plugin_template: ^2.2.0
+  latlong2: ^0.9.1
+  flutter_map_geojson: ^1.0.8
 
 dev_dependencies:
   flutter_test:
@@ -49,4 +54,6 @@ flutter:
     - assets/images/places/PangasinanProvincialCapitol.jpg
     - assets/images/backgrounds/Receipt.png
     
+    - assets/images/icon/suitcase.png
+    - assets/images/icon/plane-ticket.png
     
