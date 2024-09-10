@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/App/beachesAbout.dart';
 import 'package:itransit/Widgets/Screens/App/booking_area.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:itransit/Widgets/Screens/Stateless/beaches_stateless.dart';
@@ -95,14 +94,5 @@ class AppRoutes {
   static void navigateToBeachesScreen(BuildContext route) {
     Navigator.push(route,
         MaterialPageRoute(builder: (context) => const BeachesStateless()));
-  }
-
-  static void navigateToBeachesAbout(BuildContext route) {
-    Navigator.push(
-        route,
-        MaterialPageRoute(
-            builder: (context) => const BeachesAbout(
-                  text: 1,
-                )));
   }
 }

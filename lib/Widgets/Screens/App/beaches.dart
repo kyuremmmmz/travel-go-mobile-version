@@ -310,10 +310,7 @@ class _BeachesScreenState extends State<BeachesScreen> {
                                       return Column(
                                         children: [
                                           GestureDetector(
-                                            onTap: () async => {
-                                              AppRoutes.navigateToBeachesAbout(
-                                                  context)
-                                            },
+                                            onTap: () async => {},
                                             child: Stack(
                                               children: [
                                                 Container(
