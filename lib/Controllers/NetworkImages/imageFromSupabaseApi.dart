@@ -57,7 +57,7 @@ class Data {
         var cars = datas['car_availability'];
         var tricycleAvailability = datas['tricycle_availability'];
         var located = datas['locatedIn'];
-        var price = datas['price'];
+        int price = datas['price'];
         var priceQ = NumberFormat('#,###');
         final formattedPrice = priceQ.format(price);
         final imageUrl = await getter(image);
