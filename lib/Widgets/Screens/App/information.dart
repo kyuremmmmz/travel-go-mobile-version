@@ -27,7 +27,7 @@ class InformationScreen extends StatefulWidget {
 class _InformationScreenState extends State<InformationScreen> {
   final _searchController = TextEditingController();
   final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/plate.png";
+  final String foodIcon = "assets/images/icon/food_place.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
   final String festivalIcon = "assets/images/icon/food.png";
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";

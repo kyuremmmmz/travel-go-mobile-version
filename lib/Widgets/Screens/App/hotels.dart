@@ -16,7 +16,7 @@ class HotelScreen extends StatefulWidget {
 
 class _HotelScreenState extends State<HotelScreen> {
   final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/plate.png";
+  final String foodIcon = "assets/images/icon/food_place.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
   final String festivalIcon = "assets/images/icon/food.png";
   late String manaoag = "assets/images/places/Manaoag.jpg";
