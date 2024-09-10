@@ -56,6 +56,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     Future.delayed(const Duration(seconds: 7));
   }
 
+
   Future<void> fetchSpecificData(int id) async {
     try {
       final dataList = await data.fetchDataInSingle(id);
@@ -76,13 +77,13 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
           availability = dataList['availability'];
           for (var i = 1; i <= 20; i++) {
             final key = 'amenity$i';
-            final keyUrl = 'amenity${i}url';
-            final image = getter(keyUrl);
+            final keyUrl = 'amenity${i}Url';
             final value = dataList[key];
-            final imageUrlValue = dataList[image.toString()];
+            final imageUrlValue = dataList[keyUrl];
             if (value != null) {
               amenities[key] = value;
               imageUrlForAmenities[key] = imageUrlValue;
+              print(imageUrlForAmenities);
             }
           }
         });
@@ -94,11 +95,13 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
       print('Error in fetchSpecificData: $e');
     }
   }
+
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
   }
+  
   
   Future<String?> getter(String image) async {
     final response = supabase.storage.from('hotel_amenities_url').getPublicUrl(image);
@@ -107,6 +110,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     }
     return response;
   }
+  
+
   
   Future<void> emailFetching() async {
     try {
@@ -387,61 +392,66 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                         height: 20,
                                       ),
                                       Column(
-                                          children: imageUrlForAmenities.entries.map((entry) {
+                                          children: imageUrlForAmenities.entries
+                                          .map((entry) {
                                         return Column(
                                           children: [
                                             Container(
-                                              child:  Stack(
-                                              children: [
-                                                Container(
-                                                  height: 150,
-                                                  width: 600,
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: NetworkImage(
-                                                          entry.value ?? ''),
-                                                    ),
-                                                    color: Colors.blue,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                      Radius.circular(30),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  bottom: 0,
-                                                  left: 0,
-                                                  right: 0,
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
+                                              child: Stack(
+                                                children: [
+                                                  Container(
+                                                    height: 150,
+                                                    width: 600,
                                                     decoration: BoxDecoration(
-                                                      color: Colors.black
-                                                          .withOpacity(0.12),
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: NetworkImage(
+                                                            entry.value ?? ''),
+                                                      ),
+                                                      color: Colors.blue,
                                                       borderRadius:
                                                           const BorderRadius
-                                                              .only(
-                                                        bottomLeft:
-                                                            Radius.circular(30),
-                                                        bottomRight:
-                                                            Radius.circular(30),
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      amenities[entry.key] ?? '',
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                              .all(
+                                                        Radius.circular(30),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
+                                                  Positioned(
+                                                    bottom: 0,
+                                                    left: 0,
+                                                    right: 0,
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black
+                                                            .withOpacity(0.12),
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  30),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  30),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        amenities[entry.key] ??
+                                                            '',
+                                                        style: const TextStyle(
+                                                          fontSize: 18,
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             )
                                           ],
                                         );

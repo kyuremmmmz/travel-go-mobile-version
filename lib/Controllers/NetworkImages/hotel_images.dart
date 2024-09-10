@@ -50,18 +50,17 @@ class HotelImages {
 
       if (response.isNotEmpty) {
         final datas = response;
-        var amenities = <String, dynamic>{};
-        var imageUrlForAmenities = <String, dynamic>{};
         //NOTE: THIS IS THE TEXT
         for (var i = 1; i <= 20; i++) {
           final key = 'amenity$i';
-          final keyUrl = 'amenity${i}url';
-          final image = await getter(keyUrl);
+          final keyUrl = 'amenity${i}Url';
           final value = datas[key];
-          final imageUrlValue = datas[image];
+          final imageUrlValue = datas[keyUrl];
           if (value != null) {
-            amenities[key] = value;
-            imageUrlForAmenities[key] = imageUrlValue;
+            final imageUrl =  await getter(imageUrlValue);
+            datas[key] = value;
+            datas[keyUrl] = imageUrl;
+            print(imageUrl);
           }
         }
         var text = datas['hotel_name'];
@@ -76,8 +75,6 @@ class HotelImages {
         datas['hotel_located'] = located;
         datas['hotel_price'] = formattedPrice;
         print(priceQ);
-        datas['amenities'] = amenities;
-        datas['amenity_urls'] = imageUrlForAmenities;
         return datas;
       } else {
         print('No data found for $id');
