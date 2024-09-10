@@ -1,27 +1,25 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:itransit/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/NetworkImages/hotel_images.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
-import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
 
 class HotelInformationScreen extends StatefulWidget {
   final int text;
   final String? name;
   final int id;
   const HotelInformationScreen({
-    Key? key,
+    super.key,
     required this.text,
     this.name,
     required this.id,
-  }) : super(key: key);
+  });
 
   @override
   State<HotelInformationScreen> createState() => _HotelInformationScreenState();
@@ -42,10 +40,10 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
   String? located;
   String? availability;
   String? price;
+  var amenities = <String, dynamic>{};
+  var imageUrlForAmenities = <String, dynamic>{};
   final data = HotelImages();
   late Usersss users = Usersss();
-  List<String> amenities = [];
-  List<String> images = [];
 
   @override
   void initState() {
@@ -76,6 +74,17 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
           located = dataList['hotel_located'];
           price = dataList['hotel_price'];
           availability = dataList['availability'];
+          for (var i = 1; i <= 20; i++) {
+            final key = 'amenity$i';
+            final keyUrl = 'amenity${i}url';
+            final image = getter(keyUrl);
+            final value = dataList[key];
+            final imageUrlValue = dataList[image.toString()];
+            if (value != null) {
+              amenities[key] = value;
+              imageUrlForAmenities[key] = imageUrlValue;
+            }
+          }
         });
       }
     } catch (e) {
@@ -85,13 +94,20 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
       print('Error in fetchSpecificData: $e');
     }
   }
-
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
   }
-
+  
+  Future<String?> getter(String image) async {
+    final response = supabase.storage.from('hotel_amenities_url').getPublicUrl(image);
+    if (response.isEmpty) {
+      return 'null';
+    }
+    return response;
+  }
+  
   Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
@@ -370,6 +386,66 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                       const SizedBox(
                                         height: 20,
                                       ),
+                                      Column(
+                                          children: imageUrlForAmenities.entries.map((entry) {
+                                        return Column(
+                                          children: [
+                                            Container(
+                                              child:  Stack(
+                                              children: [
+                                                Container(
+                                                  height: 150,
+                                                  width: 600,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: NetworkImage(
+                                                          entry.value ?? ''),
+                                                    ),
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                      Radius.circular(30),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  bottom: 0,
+                                                  left: 0,
+                                                  right: 0,
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black
+                                                          .withOpacity(0.12),
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .only(
+                                                        bottomLeft:
+                                                            Radius.circular(30),
+                                                        bottomRight:
+                                                            Radius.circular(30),
+                                                      ),
+                                                    ),
+                                                    child: Text(
+                                                      amenities[entry.key] ?? '',
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            )
+                                          ],
+                                        );
+                                      }).toList()),
                                       Row(
                                         children: [
                                           const SizedBox(
