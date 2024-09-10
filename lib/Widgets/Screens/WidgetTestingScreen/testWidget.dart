@@ -5,7 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
-
+import 'package:geolocator/geolocator.dart';
 class Map extends StatelessWidget {
   const Map({super.key});
 
@@ -89,7 +89,7 @@ class _MapPageState extends State<MapPage> {
           ElevatedButton(
               onPressed: () async {
                 List<Location> startR =
-                    await locationFromAddress(start.text.trim());
+                await locationFromAddress(start.text.trim());
                 List<Location> endR =
                     await locationFromAddress(end.text.trim());
                 final v1 = startR[0].latitude;
@@ -110,8 +110,7 @@ class _MapPageState extends State<MapPage> {
                     reep = reep.replaceAll("]", "");
                     var l1 = reep.split(',');
                     var lng = reep.split(",");
-                    routePoints
-                        .add(LatLng(double.parse(l1[1]), double.parse(lng[0])));
+                    routePoints.add(LatLng(double.parse(l1[1]), double.parse(lng[0])));
                   }
                 });
                 _isVisible = !_isVisible;
@@ -127,7 +126,7 @@ class _MapPageState extends State<MapPage> {
                   child: FlutterMap(
                   options: MapOptions(
                     initialCenter: routePoints[0],
-                    initialZoom: 14,
+                    initialZoom: 10,
                   ),
                   children: [
                     const SimpleAttributionWidget(
