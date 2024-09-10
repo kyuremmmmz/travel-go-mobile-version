@@ -5,7 +5,7 @@ class HotelImages {
 
   Future<List<Map<String, dynamic>>> fetchHotels() async {
     try {
-      final response = await supabase.from('hotels').select('*').limit(3).order('hotel_ratings', ascending: true);
+      final response = await supabase.from('hotels').select('*').limit(1000).order('hotel_ratings', ascending: true);
       if (response.isEmpty) {
         print('no hotels found');
         return [];
