@@ -53,13 +53,12 @@ class HotelImages {
         //NOTE: THIS IS THE TEXT
         for (var i = 1; i <= 20; i++) {
           final key = 'amenity$i';
-          final keyUrl = 'amenity${i}Url';
           final value = datas[key];
-          final imageUrlValue = datas[keyUrl];
+          final imageUrlValue = datas['amenity${i}Url'];
           if (value != null) {
             final imageUrl =  await getter(imageUrlValue);
             datas[key] = value;
-            datas[keyUrl] = imageUrl;
+            datas['amenity${i}Url'] = imageUrl;
             print(imageUrl);
           }
         }

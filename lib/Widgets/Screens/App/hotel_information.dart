@@ -314,9 +314,11 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                             imageUrl!.isNotEmpty
                                         ? NetworkImage(imageUrl!)
                                         : const AssetImage(
-                                            'assets/images/places/PangasinanProvincialCapitol.jpg'))),
-                          ),
-                        ),
+                                            'assets/images/places/PangasinanProvincialCapitol.jpg')
+                                          )
+                                        ),
+                                      ),
+                                    ),
                         Positioned(
                           bottom: 0,
                           left: 0,
@@ -391,17 +393,33 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                       const SizedBox(
                                         height: 20,
                                       ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.only(right: 250),
+                                        child: const Text(
+                                          'Amenities',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                       Column(
                                           children: imageUrlForAmenities.entries
                                           .map((entry) {
                                         return Column(
                                           children: [
+                                          const SizedBox(
+                                              height: 20,
+                                          ),
                                             Container(
                                               child: Stack(
                                                 children: [
                                                   Container(
                                                     height: 150,
-                                                    width: 600,
+                                                    width: 350,
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                         fit: BoxFit.cover,
@@ -456,6 +474,9 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                           ],
                                         );
                                       }).toList()),
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
                                       Row(
                                         children: [
                                           const SizedBox(
@@ -478,12 +499,12 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                     fontSize: 13))
                                           ])),
                                           Container(
-                                            width: 180,
+                                            width: 200,
                                             padding:
                                                 const EdgeInsets.only(left: 50),
                                             child: BlueButtonWithoutFunction(
                                                 text: const Text(
-                                                  'Book Now',
+                                                  'Place Booking',
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 14,
