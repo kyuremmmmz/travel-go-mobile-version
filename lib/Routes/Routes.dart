@@ -12,6 +12,7 @@ import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/linkedBankAccount.dart';
+import '../Widgets/Screens/App/foodAreaAbout.dart';
 
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
@@ -63,7 +64,7 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const explore()));
   }
 
-  static void navigateLinkedBankAccount(BuildContext route) {
+  static void navigateToLinkedBankAccount(BuildContext route) {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) => const LinkedBankScreen()));
   }
@@ -87,4 +88,10 @@ class AppRoutes {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) => const HotelStateless()));
   }
+
+  static void navigateToFoodAreaAbout(BuildContext route) {
+    Navigator.push(
+        route, MaterialPageRoute(builder: (context) => const FoodAreaAbout()));
+  }
 }
+

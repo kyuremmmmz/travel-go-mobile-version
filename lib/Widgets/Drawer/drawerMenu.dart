@@ -17,7 +17,6 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
   final String foodIcon = "assets/images/icon/food.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
-  final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
   List<Map<String, dynamic>> place = [];
@@ -54,12 +53,6 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
     super.initState();
     emailFetching();
     fetchImage();
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
   }
 
   @override
@@ -129,7 +122,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
               onTap: () {
                 Navigator.pop(context);
                 // For testing screens
-                AppRoutes.navigateLinkedBankAccount(context);
+                AppRoutes.navigateToFoodAreaAbout(context);
               },
             ),
           ],
