@@ -334,7 +334,14 @@ class _InformationScreenState extends State<InformationScreen> {
                                             Icons.location_on,
                                             color: Colors.red,
                                           ),
-                                          Text(located ?? 'I cant locate it')
+                                          GestureDetector(
+                                              onTap: () {
+                                                AppRoutes.navigateToTesting(
+                                                    context, name: '$located');
+                                              },
+                                              child: Text(located ??
+                                                  'I cant locate it')
+                                            )
                                         ],
                                       ),
                                       const SizedBox(height: 20),
