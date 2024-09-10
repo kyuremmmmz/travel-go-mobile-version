@@ -366,13 +366,22 @@ class _HotelScreenState extends State<HotelScreen> {
                                       );
                                     }).toList(),
                                   ),
-                                ]))))
-                  ]))
-                ]);
-              }
-            }));
+                                ]
+                              )
+                            )
+                          )
+                        )
+                      ]
+                    )
+                  )
+                ]
+              );
+            }
+          }
+        )
+      );
+    }
   }
-}
 
 class CategoryLabel extends StatelessWidget {
   final String label;
