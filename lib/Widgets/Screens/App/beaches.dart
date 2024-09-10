@@ -16,8 +16,9 @@ class BeachesScreen extends StatefulWidget {
 
 class _BeachesScreenState extends State<BeachesScreen> {
   final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food.png";
+  final String foodIcon = "assets/images/icon/plate.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
+  final String festivalIcon = "assets/images/icon/food.png";
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
@@ -277,7 +278,7 @@ class _BeachesScreenState extends State<BeachesScreen> {
                                       Column(
                                         children: [
                                           BlueIconButtonDefault(
-                                            image: hotelIcon,
+                                            image: festivalIcon,
                                             oppressed: () =>
                                                 print('Festivals clicked'),
                                           ),

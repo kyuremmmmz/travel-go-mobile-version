@@ -16,9 +16,9 @@ class HotelScreen extends StatefulWidget {
 
 class _HotelScreenState extends State<HotelScreen> {
   final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food.png";
+  final String foodIcon = "assets/images/icon/plate.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
-  late String hundredIsland = "assets/images/places/HundredIsland.jpeg";
+  final String festivalIcon = "assets/images/icon/food.png";
   late String manaoag = "assets/images/places/Manaoag.jpg";
   final _searchController = TextEditingController();
   String? email;
@@ -273,7 +273,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                       Column(
                                         children: [
                                           BlueIconButtonDefault(
-                                            image: hotelIcon,
+                                            image: festivalIcon,
                                             oppressed: () =>
                                                 print('Festivals clicked'),
                                           ),
@@ -301,7 +301,8 @@ class _HotelScreenState extends State<HotelScreen> {
                                   Column(
                                     children: data.map((place) {
                                       final imageUrl = place['image'];
-                                      final text = place['hotel_name'] ?? 'Unknown';
+                                      final text =
+                                          place['hotel_name'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(
@@ -365,22 +366,13 @@ class _HotelScreenState extends State<HotelScreen> {
                                       );
                                     }).toList(),
                                   ),
-                                ]
-                              )
-                            )
-                          )
-                        )
-                      ]
-                    )
-                  )
-                ]
-              );
-            }
-          }
-        )
-      );
-    }
+                                ]))))
+                  ]))
+                ]);
+              }
+            }));
   }
+}
 
 class CategoryLabel extends StatelessWidget {
   final String label;
