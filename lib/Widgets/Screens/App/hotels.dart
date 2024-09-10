@@ -301,8 +301,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                   Column(
                                     children: data.map((place) {
                                       final imageUrl = place['image'];
-                                      final text =
-                                          place['hotel_name'] ?? 'Unknown';
+                                      final text = place['hotel_name'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(

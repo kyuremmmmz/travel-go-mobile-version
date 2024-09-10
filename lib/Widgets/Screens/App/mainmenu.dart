@@ -305,8 +305,6 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: place.map((place) {
-                                final image = place['image'];
-                                final text = place['place_name'];
                                 final id = place['id'];
                                 return PlaceButtonSquare(
                                     place: place['place_name'],
