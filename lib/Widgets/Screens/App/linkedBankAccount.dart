@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/AccountButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
