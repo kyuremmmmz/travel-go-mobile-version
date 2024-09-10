@@ -44,19 +44,20 @@ class _numberTextFieldState extends State<inputTextField> {
       decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          labelText: widget.text,
+          hintText: widget.text,
           alignLabelWithHint: true,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           labelStyle: const TextStyle(
-            fontSize: 20,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
           border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: Colors.white)),
           focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(
                 color: Colors.white,
               ))),

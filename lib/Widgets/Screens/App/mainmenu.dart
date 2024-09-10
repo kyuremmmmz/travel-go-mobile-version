@@ -67,12 +67,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     final datas = await data.fetchImageandText();
     setState(() {
       place = datas.map(
-        (e) {
-          if (e['place_name'] != null &&
-              e['place_name'].toString().length > 18) {
-            e['place_name'] = e['place_name'].toString().substring(0, 18);
+        (place) {
+          if (place['place_name'] != null &&
+              place['place_name'].toString().length > 18) {
+            place['place_name'] =
+                place['place_name'].toString().substring(0, 18);
           }
-          return e;
+          return place;
         },
       ).toList();
     });
@@ -258,10 +259,11 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                               Column(
                                 children: [
                                   BlueIconButtonDefault(
-                                    image: beachIcon,
-                                    oppressed: () =>
-                                        AppRoutes.navigateToTesting(context),
-                                  ),
+                                      image: hotelIcon,
+                                      oppressed: () => {
+                                            AppRoutes.navigateToHotelScreen(
+                                                context)
+                                          }),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
                               ),
@@ -279,7 +281,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => print('Beaches clicked'),
+                                    oppressed: () => {
+                                      AppRoutes.navigateToBeachesScreen(context)
+                                    },
                                   ),
                                   const CategoryLabel(label: 'Beaches'),
                                 ],
@@ -304,27 +308,18 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: place.map((place) {
-                                final image = place['image'];
-                                final text = place['place_name'];
                                 final id = place['id'];
                                 return PlaceButtonSquare(
                                     place: place['place_name'],
-                                    image:
-                                        Image.network(place['image']).image,
+                                    image: Image.network(place['image']).image,
                                     oppressed: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  InformationScreen(
-                                                      text: id
-                                                        )
-                                                      )
-                                                    );
-                                                  }
-                                                );
-                                              }
-                                            ).toList()),
+                                                  InformationScreen(text: id)));
+                                    });
+                              }).toList()),
                           CategorySelect(
                             label: "Food Places",
                             oppressed: () => print('Food Places clicked'),

@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
-import 'package:itransit/Controllers/paymentIntegration/paypal.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
@@ -42,7 +42,6 @@ class _InformationScreenState extends State<InformationScreen> {
   String? price;
   final data = Data();
   late Usersss users = Usersss();
-  final payment = Paypal();
 
   @override
   void initState() {
@@ -335,7 +334,14 @@ class _InformationScreenState extends State<InformationScreen> {
                                             Icons.location_on,
                                             color: Colors.red,
                                           ),
-                                          Text(located ?? 'I cant locate it')
+                                          GestureDetector(
+                                              onTap: () {
+                                                AppRoutes.navigateToTesting(
+                                                    context, name: '$located');
+                                              },
+                                              child: Text(located ??
+                                                  'I cant locate it')
+                                            )
                                         ],
                                       ),
                                       const SizedBox(height: 20),
@@ -544,8 +550,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 21,
-                                                    fontWeight: 
-                                                    FontWeight.bold)),
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                             const TextSpan(
                                                 text: '\nEstimated Expenses',
                                                 style: TextStyle(
@@ -554,8 +560,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                           ])),
                                           Container(
                                             width: 180,
-                                            padding: const EdgeInsets.only(
-                                                left: 50),
+                                            padding:
+                                                const EdgeInsets.only(left: 50),
                                             child: BlueButtonWithoutFunction(
                                                 text: const Text(
                                                   'Book Now',
@@ -569,7 +575,12 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   backgroundColor: Colors.blue,
                                                 ),
                                                 oppressed: () {
-                                                  payment.pay(context);
+                                                  HotelBooking()
+                                                      .passtheData(widget.text);
+                                                  AppRoutes
+                                                      .navigateToBookingArea(
+                                                          context,
+                                                          id: widget.text);
                                                 }),
                                           )
                                         ],
