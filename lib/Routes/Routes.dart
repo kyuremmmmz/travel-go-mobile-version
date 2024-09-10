@@ -5,13 +5,12 @@ import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
+import 'package:itransit/Widgets/Screens/Stateless/hotel_stateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
 import 'package:itransit/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
-
 import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
-import './../Widgets/Screens/App/home.dart';
 
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
@@ -31,11 +30,6 @@ class AppRoutes {
         MaterialPageRoute(
           builder: (context) => const LoginScreen(),
         ));
-  }
-
-  static void navigateToHome(BuildContext route) {
-    Navigator.push(
-        route, MaterialPageRoute(builder: (context) => const Home()));
   }
 
   static void navigateToForgotPassword(BuildContext route) {
@@ -68,9 +62,9 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const explore()));
   }
 
-  static void navigateToTesting(BuildContext route) {
+  static void navigateToTesting(BuildContext route, {required String name}) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) => const Map()));
+        route, MaterialPageRoute(builder: (context) =>  Map(location: name,)));
   }
 
   static void navigateToOrderReceipt(BuildContext route) {
@@ -81,5 +75,10 @@ class AppRoutes {
   static void navigateToBookingArea(BuildContext route, {required int id}) {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) =>  BookingArea(id: id,)));
+  }
+
+  static void navigateToHotelScreen(BuildContext route) {
+    Navigator.push(
+        route, MaterialPageRoute(builder: (context) => const HotelStateless()));
   }
 }
