@@ -43,7 +43,7 @@ class HotelImages {
     return response;
   }
 
-  Future<Map<String, dynamic>?> fetchDataInSingle(int id) async {
+  Future<PostgrestMap?> fetchDataInSingle(int id) async {
     try {
       final response =
           await supabase.from('hotels').select('*').eq('id', id).single();
@@ -52,14 +52,14 @@ class HotelImages {
         final datas = response;
         //NOTE: THIS IS THE TEXT
         for (var i = 1; i <= 20; i++) {
-          final key = 'amenity$i';
-          final value = datas[key];
-          final imageUrlValue = datas['amenity${i}Url'];
-          if (value != null) {
-            final imageUrl =  await getter(imageUrlValue);
-            datas[key] = value;
-            datas['amenity${i}Url'] = imageUrl;
-            print(imageUrl);
+          final amenity = 'amenity$i';
+          final amenityUrl = 'amenity${i}Url';
+          final amenityValue = datas[amenity];
+          final amenityUrlValue = datas[amenityUrl];
+          if (amenityValue != null && amenityUrlValue != null) {
+            final getters = await getter(amenityUrlValue);
+            datas['amenity$i'] = amenityValue;
+            datas['amenity${i}Url'] = getters;
           }
         }
         var text = datas['hotel_name'];
