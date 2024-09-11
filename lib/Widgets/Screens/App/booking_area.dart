@@ -2,8 +2,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
+import 'package:itransit/Widgets/Textfield/dropDownTextField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
@@ -41,10 +41,11 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _destinationController = TextEditingController();
   final _departureController = TextEditingController();
   final _originController = TextEditingController();
-  final _paymentMethodController = TextEditingController();
   final _vehicleTypeController = TextEditingController();
+  final _paymentMethodController = TextEditingController();
   final _specialReqController = TextEditingController();
   String? email;
+  // ignore: prefer_typing_uninitialized_variables
   var amount;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
@@ -53,6 +54,17 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
   bool value = false;
   HotelBooking booking = HotelBooking();
+
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(child: Text("Tricycle"), value: "Tricycle"),
+      const DropdownMenuItem(child: Text("Motorcycle"), value: "Motorcycle"),
+      const DropdownMenuItem(child: Text("Bus or Van"), value: "Bus or Van"),
+      const DropdownMenuItem(child: Text("Airplane"), value: "Airplane"),
+    ];
+    return menuItems;
+  }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -389,10 +401,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: inputTextField(
+                              child: dropDownTextField(
                                 colorr: Colors.black,
-                                text: 'Payment Method:',
-                                controller: _paymentMethodController,
+                                text: 'Vehicle Type:',
+                                controller: _vehicleTypeController,
+                                onChanged: (val) {},
+                                items: dropdownItems,
                               ),
                             ),
                             const SizedBox(
@@ -413,8 +427,8 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                   ]),
                               child: inputTextField(
                                 colorr: Colors.black,
-                                text: 'Vehicle Type: (Optional)',
-                                controller: _vehicleTypeController,
+                                text: 'Payment Method:',
+                                controller: _paymentMethodController,
                               ),
                             ),
                             const SizedBox(
@@ -526,8 +540,8 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       ],
                                     ),
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10, right: 10),
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
                                       child: Column(
                                         children: [
                                           const Row(
