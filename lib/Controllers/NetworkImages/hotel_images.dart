@@ -43,7 +43,7 @@ class HotelImages {
     return response;
   }
 
-  Future<PostgrestMap?> fetchDataInSingle(int id) async {
+  Future<Map<String, dynamic>?> fetchDataInSingle(int id) async {
     try {
       final response =
           await supabase.from('hotels').select('*').eq('id', id).single();
