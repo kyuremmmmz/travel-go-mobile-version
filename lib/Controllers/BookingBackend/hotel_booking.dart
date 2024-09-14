@@ -26,7 +26,18 @@ class HotelBooking {
     }
   }
 
-  Future<PostgrestResponse <dynamic>?> insertBooking()async{
-    
+  Future <PostgrestMap?> passTheHotelData(int id) async {
+    final response =
+        await supabase.from('hotels').select('id, hotel_name, hotel_price').eq('id', id).single();
+    try {
+      if (response.isEmpty) {
+      }else{
+        final data = response;
+        var hotel = data['hotel_name'];
+      }
+    } catch (e) {}
+    return null;
   }
+
+  Future<PostgrestResponse<dynamic>?> insertBooking() async {}
 }
