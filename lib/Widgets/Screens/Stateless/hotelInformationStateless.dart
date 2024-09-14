@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
-import 'package:itransit/Widgets/Screens/App/hotel_information.dart';
 import 'package:itransit/Widgets/Screens/App/mainmenu.dart';
 import 'package:itransit/Widgets/Screens/Auth/Choose.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

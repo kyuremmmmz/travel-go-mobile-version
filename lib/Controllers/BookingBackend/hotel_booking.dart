@@ -25,4 +25,8 @@ class HotelBooking {
       return data;
     }
   }
+
+  Future<PostgrestResponse <dynamic>?> insertBooking()async{
+    
+  }
 }

@@ -6,7 +6,6 @@ import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Screens/App/hotel_information.dart';
-import 'package:itransit/Widgets/Screens/Stateless/hotelInformationStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelScreen extends StatefulWidget {

@@ -5,12 +5,14 @@ class inputTextField extends StatefulWidget {
   final String? text;
   final TextEditingController? controller;
   final Color? colorr;
+  final FormFieldValidator? validator;
 
   const inputTextField({
     super.key,
     required this.text,
     required this.controller,
-    required this.colorr,
+    required this.colorr, 
+    this.validator,
   });
 
   @override
@@ -40,6 +42,7 @@ class _numberTextFieldState extends State<inputTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: widget.validator,
       controller: widget.controller,
       decoration: InputDecoration(
           filled: true,
