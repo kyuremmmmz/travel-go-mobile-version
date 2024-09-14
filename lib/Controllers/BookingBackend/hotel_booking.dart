@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -26,16 +27,29 @@ class HotelBooking {
     }
   }
 
-  Future <PostgrestMap?> passTheHotelData(int id) async {
-    final response =
-        await supabase.from('hotels').select('id, hotel_name, hotel_price').eq('id', id).single();
+  Future<PostgrestMap?> passTheHotelData(BuildContext context,int id) async {
+    final response = await supabase
+        .from('hotels')
+        .select('id, hotel_name, hotel_price')
+        .eq('id', id)
+        .single();
     try {
       if (response.isEmpty) {
-      }else{
+      } else {
         final data = response;
         var hotel = data['hotel_name'];
+        var hotelPrice = data['hotel_price'];
+        data['hotel_name'] = hotel;
+        data['hotel_price'] = hotelPrice;
       }
-    } catch (e) {}
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content:  Text(
+          'An error occurred while processing: $e'
+          )
+        )
+      );
+    }
     return null;
   }
 
