@@ -5,6 +5,7 @@ import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:itransit/Widgets/Screens/App/dropDown/drowpDown.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -399,11 +400,26 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     offset: const Offset(0, 5),
                                   )
                                 ]),
-                            child: inputTextField(
-                              colorr: Colors.black,
-                              text: 'Payment Method:',
-                              controller: _paymentMethodController,
-                            ),
+                            child: DropdownButtonFormField(
+                              items: const [
+                              DropdownMenuItem(
+                                  value: 'Paypal',
+                                  child: Text('Paypal'),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'Pay on Cash',
+                                  child: Text('Pay on Cash'),
+                                ),
+                                DropdownMenuItem(
+                                  value: 'Credit Card',
+                                  child: Text('Credit Card'),
+                                ),
+                              ], 
+                              onChanged: (setVal){
+                                setState(() {
+                                  
+                                });
+                              })
                           ),
                           const SizedBox(
                             height: 10,

@@ -65,7 +65,8 @@ class HotelBooking {
     String checkOut, 
     String paymentMethod,
     int numberOfAdult, 
-    int NumberOfChildrenm
+    int NumberOfChildren,
+    
     ) async {
 
   }
