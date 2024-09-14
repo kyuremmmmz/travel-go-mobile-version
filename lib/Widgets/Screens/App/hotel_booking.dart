@@ -10,17 +10,14 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelBookingArea extends StatelessWidget {
   final int id;
-  const HotelBookingArea({
-    super.key,
-    required this.id,
-  });
+  const HotelBookingArea({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel Go',
-      home: HotelBookingAreaScreen(id: id),
+      home: HotelBookingAreaScreen(id: id, ),
     );
   }
 }
@@ -94,9 +91,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   }
 
   Future<void> fetchString(int id) async {
-    final data = await booking.passtheData(id);
+    final data = await booking.passTheHotelData(id);
     setState(() {
-      amount = data!['price'];
+      amount = data!['hotel_price'];
     });
   }
 
@@ -258,7 +255,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 ]),
                             child: inputTextField(
                               validator: (value) {
-                                if (value == null || value.toString().isEmpty || value.length <= 5 ) {
+                                if (value == null ||
+                                    value.toString().isEmpty ||
+                                    value.length <= 5) {
                                   return 'please enter your name';
                                 }
                                 return null;
@@ -572,7 +571,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                         width: 120,
                                         child: BlueButtonWithoutFunction(
                                           text: const Text(
-                                            'Place Flight',
+                                            'Place Booking',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -585,10 +584,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                   const Color.fromARGB(
                                                       255, 26, 169, 235)),
                                           oppressed: () {
-                                              if (_validator.currentState!.validate()) {
-                                                 AppRoutes.navigateToOrderReceipt(
+                                            if (_validator.currentState!
+                                                .validate()) {
+                                              AppRoutes.navigateToOrderReceipt(
                                                   context);
-                                              }
+                                            }
                                           },
                                         ),
                                       ),

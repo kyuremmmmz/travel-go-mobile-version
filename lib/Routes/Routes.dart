@@ -96,7 +96,7 @@ class AppRoutes {
         route,
         MaterialPageRoute(
             builder: (route) =>  HotelBookingArea(
-                  id: id,
+                  id: id, 
                 )));
   }
 }

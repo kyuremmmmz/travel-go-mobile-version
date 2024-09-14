@@ -27,7 +27,7 @@ class HotelBooking {
     }
   }
 
-  Future<PostgrestMap?> passTheHotelData(BuildContext context,int id) async {
+  Future<Map<String, dynamic>?> passTheHotelData(int id) async {
     final response = await supabase
         .from('hotels')
         .select('id, hotel_name, hotel_price')
@@ -35,23 +35,38 @@ class HotelBooking {
         .single();
     try {
       if (response.isEmpty) {
+        print('no data found');
+        return null;
       } else {
         final data = response;
         var hotel = data['hotel_name'];
         var hotelPrice = data['hotel_price'];
+        final priceQ = NumberFormat('#,###');
+        final formatPrice = priceQ.format(hotelPrice);
         data['hotel_name'] = hotel;
-        data['hotel_price'] = hotelPrice;
+        data['hotel_price'] = formatPrice;
+        return data;
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content:  Text(
-          'An error occurred while processing: $e'
-          )
-        )
-      );
+      SnackBar(
+          content: Text('an error occurred while formatting the data: $e'));
     }
     return null;
   }
 
-  Future<PostgrestResponse<dynamic>?> insertBooking() async {}
+//TODO: implement this to upsert method
+  Future<PostgrestResponse<dynamic>?> insertBooking
+  (
+    String fullname, 
+    String emailAddress,  
+    int phoneNumber, 
+    String hotel, 
+    String checkIn, 
+    String checkOut, 
+    String paymentMethod,
+    int numberOfAdult, 
+    int NumberOfChildrenm
+    ) async {
+
+  }
 }

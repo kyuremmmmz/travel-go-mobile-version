@@ -1,14 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/main.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/NetworkImages/hotel_images.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:itransit/main.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelInformationScreen extends StatefulWidget {
   final int text;
@@ -56,7 +56,6 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     Future.delayed(const Duration(seconds: 7));
   }
 
-
   Future<void> fetchSpecificData(int id) async {
     try {
       final dataList = await data.fetchDataInSingle(id);
@@ -101,18 +100,16 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     _searchController.dispose();
     super.dispose();
   }
-  
-  
+
   Future<String?> getter(String image) async {
-    final response = supabase.storage.from('hotel_amenities_url').getPublicUrl(image);
+    final response =
+        supabase.storage.from('hotel_amenities_url').getPublicUrl(image);
     if (response.isEmpty) {
       return 'null';
     }
     return response;
   }
-  
 
-  
   Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
@@ -314,11 +311,9 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                             imageUrl!.isNotEmpty
                                         ? NetworkImage(imageUrl!)
                                         : const AssetImage(
-                                            'assets/images/places/PangasinanProvincialCapitol.jpg')
-                                          )
-                                        ),
-                                      ),
-                                    ),
+                                            'assets/images/places/PangasinanProvincialCapitol.jpg'))),
+                          ),
+                        ),
                         Positioned(
                           bottom: 0,
                           left: 0,
@@ -408,12 +403,12 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                       ),
                                       Column(
                                           children: imageUrlForAmenities.entries
-                                          .map((entry) {
+                                              .map((entry) {
                                         return Column(
                                           children: [
-                                          const SizedBox(
+                                            const SizedBox(
                                               height: 20,
-                                          ),
+                                            ),
                                             Container(
                                               child: Stack(
                                                 children: [
@@ -516,11 +511,12 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                 ),
                                                 oppressed: () {
                                                   HotelBooking()
-                                                      .passtheData(widget.id);
+                                                      .passTheHotelData(
+                                                          widget.text);
                                                   AppRoutes
-                                                      .navigateToBookingArea(
+                                                      .navigateToHotelBookingScreen(
                                                           context,
-                                                          id: widget.id);
+                                                          id: widget.text);
                                                 }),
                                           )
                                         ],
