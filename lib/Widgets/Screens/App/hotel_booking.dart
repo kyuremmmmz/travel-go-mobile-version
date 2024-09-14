@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Screens/App/dropDown/drowpDown.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -18,7 +18,9 @@ class HotelBookingArea extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel Go',
-      home: HotelBookingAreaScreen(id: id, ),
+      home: HotelBookingAreaScreen(
+        id: id,
+      ),
     );
   }
 }
@@ -91,11 +93,26 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     }
   }
 
-  Future<void> fetchString(int id) async {
+  Future<void> fetchString(
+    int id,
+  ) async {
     final data = await booking.passTheHotelData(id);
     setState(() {
       amount = data!['hotel_price'];
     });
+  }
+
+  Future<void> setter() async {
+    final picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(21000));
+        if (picked!=null) {
+          setState(() {
+            _checkInController.text = picked.toString().split(" ")[0];
+          });
+        }
   }
 
   @override
@@ -344,24 +361,44 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                             height: 10,
                           ),
                           Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              colorr: Colors.black,
-                              text: 'Check In:',
-                              controller: _checkInController,
-                            ),
-                          ),
+                              width: 380,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(50)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 5),
+                                    )
+                                  ]),
+                              child: TextField(
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
+                                controller: _checkInController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  hintText: 'Check In Date',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintStyle: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  prefixIcon:
+                                      Icon(Icons.calendar_today_outlined),
+                                ),
+                                readOnly: true,
+                                onTap: () {
+                                  setter();
+                                },
+                              )),
                           const SizedBox(
                             height: 10,
                           ),
@@ -400,26 +437,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     offset: const Offset(0, 5),
                                   )
                                 ]),
-                            child: DropdownButtonFormField(
-                              items: const [
-                              DropdownMenuItem(
-                                  value: 'Paypal',
-                                  child: Text('Paypal'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'Pay on Cash',
-                                  child: Text('Pay on Cash'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 'Credit Card',
-                                  child: Text('Credit Card'),
-                                ),
-                              ], 
-                              onChanged: (setVal){
-                                setState(() {
-                                  
-                                });
-                              })
+                            child: inputTextField(
+                              colorr: Colors.black,
+                              text: 'Payment Method:',
+                              controller: _paymentMethodController,
+                            ),
                           ),
                           const SizedBox(
                             height: 10,
