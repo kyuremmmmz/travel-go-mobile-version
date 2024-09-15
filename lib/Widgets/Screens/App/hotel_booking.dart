@@ -52,7 +52,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   String? email;
   final bool _isWaiting = true;
   var amount;
-  
+
   String? hotel;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
@@ -121,7 +121,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     final data = await booking.passTheHotelData(id);
     setState(() {
       hotel = data!['hotel_name'];
-      _hotel.text = hotel.toString().split(" ")[0];
+      _hotel.text = hotel ?? '';
     });
   }
 
@@ -897,38 +897,40 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                 ? () {
                                                     if (_validator.currentState!
                                                         .validate()) {
-                                                      HotelBooking().insertBooking(
-                                                          _nameController.text
-                                                              .trim(),
-                                                          _emailController.text
-                                                              .trim(),
-                                                          int.parse(
-                                                              _numberController
-                                                                  .text
-                                                                  .trim()),
-                                                          _hotel.text.trim(),
-                                                          _checkInController
-                                                              .text
-                                                              .trim(),
-                                                          _checkOutController
-                                                              .text
-                                                              .trim(),
-                                                          _paymentMethodController
-                                                              .text
-                                                              .trim(),
-                                                          _isWaiting
-                                                              ? "Not Paid"
-                                                              : "Paid",
-                                                          int.parse(
-                                                              _number_of_adult
-                                                                  .text
-                                                                  .trim()),
-                                                          int.parse(
-                                                              _number_of_children
-                                                                  .text
-                                                                  .trim()),
-                                                          int.parse(amount),
-                                                          );
+                                                      HotelBooking()
+                                                          .insertBooking(
+                                                        _nameController.text
+                                                            .trim(),
+                                                        _emailController.text
+                                                            .trim(),
+                                                        int.parse(
+                                                            _numberController
+                                                                .text
+                                                                .trim()),
+                                                        _hotel.text.trim(),
+                                                        _checkInController.text
+                                                            .trim(),
+                                                        _checkOutController.text
+                                                            .trim(),
+                                                        _paymentMethodController
+                                                            .text
+                                                            .trim(),
+                                                        _isWaiting
+                                                            ? "Not Paid"
+                                                            : "Paid",
+                                                        int.parse(
+                                                            _number_of_adult
+                                                                .text
+                                                                .trim()),
+                                                        int.parse(
+                                                            _number_of_children
+                                                                .text
+                                                                .trim()),
+                                                        int.parse(amount),
+                                                      );
+                                                      AppRoutes
+                                                          .navigateToOrderReceipt(
+                                                              context);
                                                     } else if (_validator
                                                             .currentState!
                                                             .validate() ||
