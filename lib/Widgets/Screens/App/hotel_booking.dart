@@ -5,6 +5,7 @@ import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
+import 'package:itransit/Widgets/Textfield/phoneNumber.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -43,6 +44,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final _vehicleTypeController = TextEditingController();
   final _specialReqController = TextEditingController();
   final _validator = GlobalKey<FormState>();
+  final _number = TextEditingController();
   String? email;
   var amount;
   late Usersss users = Usersss();
@@ -63,6 +65,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     _paymentMethodController.dispose();
     _vehicleTypeController.dispose();
     _specialReqController.dispose();
+    _number.dispose();
     super.dispose();
   }
 
@@ -185,7 +188,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   height: 20,
                 ),
                 ListTile(
-                  leading: const Icon(FontAwesomeIcons.medal, color: Colors.amber,),
+                  leading: const Icon(
+                    FontAwesomeIcons.medal,
+                    color: Colors.amber,
+                  ),
                   title: const Text('Deluxe Suite'),
                   onTap: () {
                     setState(() {
@@ -195,7 +201,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   },
                 ),
                 ListTile(
-                  leading:  const Icon(FontAwesomeIcons.crown, color: Colors.amber),
+                  leading:
+                      const Icon(FontAwesomeIcons.crown, color: Colors.amber),
                   title: const Text('Premiere Suite '),
                   onTap: () {
                     setState(() {
@@ -205,7 +212,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(FontAwesomeIcons.gem, color: Colors.green,),
+                  leading: const Icon(
+                    FontAwesomeIcons.gem,
+                    color: Colors.green,
+                  ),
                   title: const Text('Executive Suite '),
                   onTap: () {
                     setState(() {
@@ -215,7 +225,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(FontAwesomeIcons.diamond, color: Colors.blueAccent,),
+                  leading: const Icon(
+                    FontAwesomeIcons.diamond,
+                    color: Colors.blueAccent,
+                  ),
                   title: const Text('Presidential Suite'),
                   onTap: () {
                     setState(() {
@@ -329,7 +342,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                     child: Container(
                       width: double.infinity, // Adjust width as needed
                       decoration: const BoxDecoration(
-                        color: Colors.blue,
+                        color: Color.fromARGB(226, 63, 176, 241),
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(50),
                           topRight: Radius.circular(50),
@@ -395,6 +408,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 }
                                 return null;
                               },
+                              icon: const Icon(
+                                FontAwesomeIcons.person
+                              ),
                               colorr: Colors.black,
                               text: 'Full Name:',
                               controller: _nameController,
@@ -423,6 +439,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 }
                                 return null;
                               },
+                              icon: const Icon(FontAwesomeIcons.envelope),
                               colorr: Colors.black,
                               text: 'Email Address:',
                               controller: _emailController,
@@ -444,10 +461,12 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     offset: const Offset(0, 5),
                                   )
                                 ]),
-                            child: inputTextField(
-                              colorr: Colors.black,
+                            child: PhonenumberTextField(
                               text: 'Phone Number:',
                               controller: _numberController,
+                              icon: const Icon(
+                                FontAwesomeIcons.phone
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -470,6 +489,53 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               colorr: Colors.black,
                               text: 'Hotel:',
                               controller: _destinationController,
+                              icon: const Icon(
+                                FontAwesomeIcons.hotel
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(50)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: PhonenumberTextField(
+                              icon: const Icon(FontAwesomeIcons.children),
+                              controller: _number,
+                              text: 'Number of children:',
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(50)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: PhonenumberTextField(
+                              icon: const Icon(FontAwesomeIcons.peopleGroup),
+                              controller: _number,
+                              text: 'Number of Adults:',
                             ),
                           ),
                           const SizedBox(
