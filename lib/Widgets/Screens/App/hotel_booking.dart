@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/src/intl/date_format.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
@@ -39,14 +40,20 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final _numberController = TextEditingController();
   final _destinationController = TextEditingController();
   final _checkInController = TextEditingController();
+  final _checkOutController = TextEditingController();
   final _originController = TextEditingController();
   final _paymentMethodController = TextEditingController();
   final _vehicleTypeController = TextEditingController();
   final _specialReqController = TextEditingController();
   final _validator = GlobalKey<FormState>();
-  final _number = TextEditingController();
+  final _hotel = TextEditingController();
+  final _number_of_children = TextEditingController();
+  final _number_of_adult = TextEditingController();
   String? email;
+  final bool _isWaiting = true;
   var amount;
+  
+  String? hotel;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
   final String adventureIcon = "assets/images/icon/adventure.png";
@@ -65,7 +72,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     _paymentMethodController.dispose();
     _vehicleTypeController.dispose();
     _specialReqController.dispose();
-    _number.dispose();
+    _hotel.dispose();
+    _number_of_adult.dispose();
+    _number_of_children.dispose();
     super.dispose();
   }
 
@@ -74,6 +83,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     super.initState();
     emailFetching();
     fetchString(widget.id);
+    fethHotel(widget.id);
   }
 
   Future<void> emailFetching() async {
@@ -100,7 +110,18 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   ) async {
     final data = await booking.passTheHotelData(id);
     setState(() {
-      amount = data!['hotel_price'];
+      String datas = data!['hotel_price'];
+      amount = datas.replaceAll(',', '');
+    });
+  }
+
+  Future<void> fethHotel(
+    int id,
+  ) async {
+    final data = await booking.passTheHotelData(id);
+    setState(() {
+      hotel = data!['hotel_name'];
+      _hotel.text = hotel.toString().split(" ")[0];
     });
   }
 
@@ -113,6 +134,19 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     if (picked != null) {
       setState(() {
         _checkInController.text = picked.toString().split(" ")[0];
+      });
+    }
+  }
+
+  Future<void> checkout() async {
+    final picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(21000));
+    if (picked != null) {
+      setState(() {
+        _checkOutController.text = picked.toString().split(" ")[0];
       });
     }
   }
@@ -340,7 +374,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   thumbVisibility: true,
                   child: SingleChildScrollView(
                     child: Container(
-                      width: double.infinity, // Adjust width as needed
+                      width: double.infinity,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(226, 63, 176, 241),
                         borderRadius: BorderRadius.only(
@@ -408,9 +442,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 }
                                 return null;
                               },
-                              icon: const Icon(
-                                FontAwesomeIcons.person
-                              ),
+                              icon: const Icon(FontAwesomeIcons.person),
                               colorr: Colors.black,
                               text: 'Full Name:',
                               controller: _nameController,
@@ -464,9 +496,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                             child: PhonenumberTextField(
                               text: 'Phone Number:',
                               controller: _numberController,
-                              icon: const Icon(
-                                FontAwesomeIcons.phone
-                              ),
+                              icon: const Icon(FontAwesomeIcons.phone),
                             ),
                           ),
                           const SizedBox(
@@ -489,9 +519,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               colorr: Colors.black,
                               text: 'Hotel:',
                               controller: _destinationController,
-                              icon: const Icon(
-                                FontAwesomeIcons.hotel
-                              ),
+                              icon: const Icon(FontAwesomeIcons.hotel),
                             ),
                           ),
                           const SizedBox(
@@ -512,7 +540,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 ]),
                             child: PhonenumberTextField(
                               icon: const Icon(FontAwesomeIcons.children),
-                              controller: _number,
+                              controller: _number_of_children,
                               text: 'Number of children:',
                             ),
                           ),
@@ -534,7 +562,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 ]),
                             child: PhonenumberTextField(
                               icon: const Icon(FontAwesomeIcons.peopleGroup),
-                              controller: _number,
+                              controller: _number_of_adult,
                               text: 'Number of Adults:',
                             ),
                           ),
@@ -617,7 +645,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   fontSize: 12,
                                   color: Colors.black,
                                 ),
-                                controller: _originController,
+                                controller: _checkOutController,
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide.none),
@@ -635,7 +663,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 ),
                                 readOnly: true,
                                 onTap: () {
-                                  setter();
+                                  checkout();
                                 },
                               )),
                           const SizedBox(
@@ -743,7 +771,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                             ),
                           ),
                           const SizedBox(
-                            height: 30,
+                            height: 0,
                           ),
                           Theme(
                             data: ThemeData(
@@ -869,9 +897,47 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                 ? () {
                                                     if (_validator.currentState!
                                                         .validate()) {
-                                                      AppRoutes
-                                                          .navigateToOrderReceipt(
-                                                              context);
+                                                      HotelBooking().insertBooking(
+                                                          _nameController.text
+                                                              .trim(),
+                                                          _emailController.text
+                                                              .trim(),
+                                                          int.parse(
+                                                              _numberController
+                                                                  .text
+                                                                  .trim()),
+                                                          _hotel.text.trim(),
+                                                          _checkInController
+                                                              .text
+                                                              .trim(),
+                                                          _checkOutController
+                                                              .text
+                                                              .trim(),
+                                                          _paymentMethodController
+                                                              .text
+                                                              .trim(),
+                                                          _isWaiting
+                                                              ? "Not Paid"
+                                                              : "Paid",
+                                                          int.parse(
+                                                              _number_of_adult
+                                                                  .text
+                                                                  .trim()),
+                                                          int.parse(
+                                                              _number_of_children
+                                                                  .text
+                                                                  .trim()),
+                                                          int.parse(amount),
+                                                          );
+                                                    } else if (_validator
+                                                            .currentState!
+                                                            .validate() ||
+                                                        _paymentMethodController
+                                                                .text
+                                                                .trim() ==
+                                                            "Paypal") {
+                                                      print(
+                                                          'proceeding to payment');
                                                     }
                                                   }
                                                 : null,

@@ -8,6 +8,7 @@ class inputTextField extends StatefulWidget {
   final Color? colorr;
   final FormFieldValidator? validator;
   final Icon? icon;
+  final Function? callback;
 
   const inputTextField({
     super.key,
@@ -16,6 +17,7 @@ class inputTextField extends StatefulWidget {
     required this.colorr,
     this.validator,
     this.icon,
+    this.callback,
   });
 
   @override

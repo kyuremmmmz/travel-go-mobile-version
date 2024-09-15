@@ -55,19 +55,33 @@ class HotelBooking {
   }
 
 //TODO: implement this to upsert method
-  Future<PostgrestResponse<dynamic>?> insertBooking
-  (
-    String fullname, 
-    String emailAddress,  
-    int phoneNumber, 
-    String hotel, 
-    String checkIn, 
-    String checkOut, 
-    String paymentMethod,
-    int numberOfAdult, 
-    int NumberOfChildren,
-    
-    ) async {
-
+  Future<PostgrestResponse<dynamic>?> insertBooking(
+      String fullname,
+      String emailAddress,
+      int phoneNumber,
+      String hotel,
+      String checkIn,
+      String checkOut,
+      String paymentMethod,
+      String paymentStatus,
+      int numberOfAdult,
+      int numberOfChildren,
+      var price
+      ) async {
+    final user = supabase.auth.currentUser;
+    final response = await supabase.from('hotel_booking').insert({
+      'name': fullname,
+      'gmail': emailAddress,
+      'phone': phoneNumber,
+      'price': price,
+      'paymet_status': paymentStatus,
+      'hotel': hotel,
+      'booking_id' : user!.id,
+      'checkin': checkIn,
+      'checkout': checkOut,
+      'number_of_adults': numberOfAdult,
+      'number_of_children': numberOfChildren,
+    });
+    return response;
   }
 }
