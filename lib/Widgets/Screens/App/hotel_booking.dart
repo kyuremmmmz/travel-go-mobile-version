@@ -6,6 +6,7 @@ import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HotelBookingArea extends StatelessWidget {
   final int id;
@@ -166,14 +167,25 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         context: context,
         builder: (context) {
           return Container(
+            padding: null,
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 const SizedBox(
-                  height: 50,
+                  height: 30,
+                ),
+                Container(
+                  padding: null,
+                  child: const Text(
+                    'Room Type',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 ListTile(
-                  leading: const Icon(Icons.room_service),
+                  leading: const Icon(FontAwesomeIcons.medal, color: Colors.amber,),
                   title: const Text('Deluxe Suite'),
                   onTap: () {
                     setState(() {
@@ -183,7 +195,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.room_service),
+                  leading:  const Icon(FontAwesomeIcons.crown, color: Colors.amber),
                   title: const Text('Premiere Suite '),
                   onTap: () {
                     setState(() {
@@ -193,7 +205,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.room_service),
+                  leading: const Icon(FontAwesomeIcons.gem, color: Colors.green,),
                   title: const Text('Executive Suite '),
                   onTap: () {
                     setState(() {
@@ -203,7 +215,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.room_service),
+                  leading: const Icon(FontAwesomeIcons.diamond, color: Colors.blueAccent,),
                   title: const Text('Presidential Suite'),
                   onTap: () {
                     setState(() {
