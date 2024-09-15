@@ -118,11 +118,22 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         context: context,
         builder: (context) {
           return Container(
+            padding: null,
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 const SizedBox(
-                  height: 50,
+                  height: 30,
+                ),
+                Container(
+                  padding: null,
+                  child: const Text(
+                    'Payment Method',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 ListTile(
                   leading: const Icon(Icons.payment),
@@ -465,7 +476,15 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: TextField(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.toString().isEmpty ||
+                                      value.length <= 5) {
+                                    return 'Please select Check in Date';
+                                  }
+                                  return null;
+                                },
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,
@@ -507,7 +526,15 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: TextField(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.toString().isEmpty ||
+                                      value.length <= 5) {
+                                    return 'Please Select check out date';
+                                  }
+                                  return null;
+                                },
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,
@@ -759,16 +786,14 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                         width: 150,
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.blue
-                                                ),
+                                                backgroundColor: Colors.blue),
                                             onPressed: _value
                                                 ? () {
                                                     if (_validator.currentState!
                                                         .validate()) {
                                                       AppRoutes
-                                                        .navigateToOrderReceipt(
-                                                          context
-                                                      );
+                                                          .navigateToOrderReceipt(
+                                                              context);
                                                     }
                                                   }
                                                 : null,
@@ -778,24 +803,22 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 12),
-                                                )
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                            )),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              )
-            );
-          }
-        }
+              ),
+            ],
+          ),
+        ));
+  }
+}
