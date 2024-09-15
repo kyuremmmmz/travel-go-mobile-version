@@ -415,11 +415,32 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     offset: const Offset(0, 5),
                                   )
                                 ]),
-                            child: inputTextField(
-                              colorr: Colors.black,
-                              text: 'Origin:',
-                              controller: _originController,
-                            ),
+                            child: TextField(
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
+                                controller: _originController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  hintText: 'Check Out Date',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintStyle: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  prefixIcon:
+                                      Icon(Icons.calendar_today_outlined),
+                                ),
+                                readOnly: true,
+                                onTap: () {
+                                  setter();
+                                },
+                              )
                           ),
                           const SizedBox(
                             height: 10,
