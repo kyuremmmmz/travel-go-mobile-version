@@ -151,6 +151,63 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         });
   }
 
+  Future<void> niggaModalRoomType(BuildContext context) async {
+    await showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                const SizedBox(
+                  height: 50,
+                ),
+                ListTile(
+                  leading: const Icon(Icons.room_service),
+                  title: const Text('Deluxe Suite'),
+                  onTap: () {
+                    setState(() {
+                      _vehicleTypeController.text = "Deluxe Suite";
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.room_service),
+                  title: const Text('Premiere Suite '),
+                  onTap: () {
+                    setState(() {
+                      _vehicleTypeController.text = "Premiere Suite ";
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.room_service),
+                  title: const Text('Executive Suite '),
+                  onTap: () {
+                    setState(() {
+                      _paymentMethodController.text = "Executive Suite ";
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.room_service),
+                  title: const Text('Presidential Suite'),
+                  onTap: () {
+                    setState(() {
+                      _vehicleTypeController.text = "Presidential Suite";
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -534,11 +591,31 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     offset: const Offset(0, 5),
                                   )
                                 ]),
-                            child: inputTextField(
-                              colorr: Colors.black,
-                              text: 'Room Type',
-                              controller: _vehicleTypeController,
-                            ),
+                            child: TextField(
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
+                                controller: _vehicleTypeController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  hintText: 'Room Type',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintStyle: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  prefixIcon: Icon(Icons.room_outlined),
+                                ),
+                                readOnly: true,
+                                onTap: () {
+                                  niggaModalRoomType(context);
+                                },
+                              )
                           ),
                           const SizedBox(
                             height: 10,
