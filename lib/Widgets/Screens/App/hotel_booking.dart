@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
@@ -108,11 +107,48 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         initialDate: DateTime.now(),
         firstDate: DateTime(2000),
         lastDate: DateTime(21000));
-        if (picked!=null) {
-          setState(() {
-            _checkInController.text = picked.toString().split(" ")[0];
-          });
-        }
+    if (picked != null) {
+      setState(() {
+        _checkInController.text = picked.toString().split(" ")[0];
+      });
+    }
+  }
+
+  Future<void> niggaModal(BuildContext context) async {
+    await showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                const SizedBox(
+                  height: 50,
+                ),
+                ListTile(
+                  leading: const Icon(Icons.payment),
+                  title: const Text('Credit Card'),
+                  onTap: () {
+                    setState(() {
+                      _paymentMethodController.text = "Credit Card";
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.paypal),
+                  title: const Text('PayPal'),
+                  onTap: () {
+                    setState(() {
+                      _paymentMethodController.text = "Paypal";
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   @override
@@ -403,19 +439,19 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                             height: 10,
                           ),
                           Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: TextField(
+                              width: 380,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(50)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 5),
+                                    )
+                                  ]),
+                              child: TextField(
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,
@@ -440,8 +476,48 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 onTap: () {
                                   setter();
                                 },
-                              )
+                              )),
+                          const SizedBox(
+                            height: 10,
                           ),
+                          Container(
+                              width: 380,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(50)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 5),
+                                    )
+                                  ]),
+                              child: TextField(
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
+                                controller: _paymentMethodController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  hintText: 'Payment Method',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintStyle: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  prefixIcon: Icon(Icons.payment_rounded),
+                                ),
+                                readOnly: true,
+                                onTap: () {
+                                  niggaModal(context);
+                                },
+                              )),
                           const SizedBox(
                             height: 10,
                           ),
@@ -460,29 +536,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 ]),
                             child: inputTextField(
                               colorr: Colors.black,
-                              text: 'Payment Method:',
-                              controller: _paymentMethodController,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              colorr: Colors.black,
-                              text: 'Vehicle Type: (Optional)',
+                              text: 'Room Type',
                               controller: _vehicleTypeController,
                             ),
                           ),
