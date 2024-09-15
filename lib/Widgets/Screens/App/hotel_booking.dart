@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -50,7 +49,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final String adventureIcon = "assets/images/icon/adventure.png";
   final String suitcaseIcon = "assets/images/icon/suitcase.png";
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
-  bool value = false;
+  bool _value = false;
   HotelBooking booking = HotelBooking();
   @override
   void dispose() {
@@ -579,19 +578,19 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                             height: 10,
                           ),
                           Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: TextField(
+                              width: 380,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(50)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 5),
+                                    )
+                                  ]),
+                              child: TextField(
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,
@@ -615,8 +614,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 onTap: () {
                                   niggaModalRoomType(context);
                                 },
-                              )
-                          ),
+                              )),
                           const SizedBox(
                             height: 10,
                           ),
@@ -673,10 +671,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                       ),
                                     ]),
                                   ),
-                                  value: value,
-                                  onChanged: (value) {
+                                  value: _value,
+                                  onChanged: (bool? value) {
                                     setState(() {
-                                      this.value = value!;
+                                      _value = value ?? false;
                                     });
                                   },
                                   controlAffinity:
@@ -758,44 +756,46 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   Column(
                                     children: [
                                       SizedBox(
-                                        width: 120,
-                                        child: BlueButtonWithoutFunction(
-                                          text: const Text(
-                                            'Place Booking',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Colors.white,
+                                        width: 150,
+                                        child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.blue
+                                                ),
+                                            onPressed: _value
+                                                ? () {
+                                                    if (_validator.currentState!
+                                                        .validate()) {
+                                                      AppRoutes
+                                                        .navigateToOrderReceipt(
+                                                          context
+                                                      );
+                                                    }
+                                                  }
+                                                : null,
+                                            child: const Text(
+                                              'Place Booking',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                                )
+                                              ),
                                             ),
-                                          ),
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  const Color.fromARGB(
-                                                      255, 26, 169, 235)),
-                                          oppressed: () {
-                                            if (_validator.currentState!
-                                                .validate()) {
-                                              AppRoutes.navigateToOrderReceipt(
-                                                  context);
-                                            }
-                                          },
+                                          ],
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ));
-  }
-}
+              )
+            );
+          }
+        }
