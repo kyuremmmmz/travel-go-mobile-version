@@ -49,6 +49,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final _number_of_children = TextEditingController();
   final _number_of_adult = TextEditingController();
   String? email;
+  String? place;
   final bool _isWaiting = true;
   var amount;
 
@@ -83,6 +84,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     emailFetching();
     fetchString(widget.id);
     fethHotel(widget.id);
+    fetchEwan(widget.id);
   }
 
   Future<void> emailFetching() async {
@@ -121,6 +123,15 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     setState(() {
       hotel = data!['hotel_name'];
       _hotel.text = hotel ?? '';
+    });
+  }
+
+  Future<void> fetchEwan(
+    int id,
+  ) async {
+    final data = await booking.passTheHotelData(id);
+    setState(() {
+      place = data!['hotel_located'];
     });
   }
 
@@ -896,7 +907,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                             onPressed: _value
                                                 ? () {
                                                     if (_validator.currentState!
-                                                        .validate() || _paymentMethodController.text.trim() == "Pay Online") {
+                                                            .validate() ||
+                                                        _paymentMethodController
+                                                                .text
+                                                                .trim() ==
+                                                            "Pay Online") {
                                                       HotelBooking()
                                                           .insertBooking(
                                                         _nameController.text
@@ -928,19 +943,30 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                                 .trim()),
                                                         int.parse(amount),
                                                       );
-                                                      AppRoutes.navigateToLinkedBankAccount(
-                                                        context, 
-                                                        name: _nameController.text.trim(), 
-                                                        phone: int.parse(_numberController.text.trim()), 
-                                                        nameoftheplace: '', 
-                                                        price: int.parse(amount), 
-                                                        payment: int.parse(amount), );
-                                                    }else
-                                                    {
-                                                      AppRoutes.navigateToOrderReceipt(context);
+                                                      AppRoutes
+                                                          .navigateToLinkedBankAccount(
+                                                        context,
+                                                        name: _nameController
+                                                            .text
+                                                            .trim(),
+                                                        phone: int.parse(
+                                                            _numberController
+                                                                .text
+                                                                .trim()),
+                                                        nameoftheplace: '',
+                                                        price:
+                                                            int.parse(amount),
+                                                        payment:
+                                                            int.parse(amount),
+                                                        hotelorplace: place ?? '',
+                                                      );
+                                                    } else {
+                                                      AppRoutes
+                                                          .navigateToOrderReceipt(
+                                                              context);
                                                     }
-                                                    }
-                                                    : null,
+                                                  }
+                                                : null,
                                             child: const Text(
                                               'Place Booking',
                                               textAlign: TextAlign.center,

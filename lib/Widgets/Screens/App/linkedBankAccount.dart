@@ -17,6 +17,7 @@ class LinkedBankScreen extends StatefulWidget {
   final String nameoftheplace;
   final int price;
   final int payment;
+
   const LinkedBankScreen({
     super.key,
     required this.name,
@@ -152,7 +153,13 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                         color: const Color.fromRGBO(5, 103, 180, 1),
                         image: paypalIcon,
                         oppressed: () => Paypal().pay(
-                          context, widget.price, widget.
+                          context, 
+                          widget.price, 
+                          widget.hotelorplace, 
+                          widget.price, 
+                          widget.name,
+                          widget.phone,
+                          widget.nameoftheplace
                         ),
                       ),
                       AccountButton(

@@ -1,58 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
-import 'package:itransit/main.dart';
+import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:math';
 
 class Paypal {
-  Future<PostgrestResponse<dynamic>?> pay(
-      BuildContext context,
-      int total,
-      String placeorhotel,
-      int price,
-      String name,
-      int phone,
-      String place) async {
-    Navigator.of(context).push(MaterialPageRoute(
+  final supabase = Supabase.instance.client;
+  Future<void> pay(BuildContext context, int total, String placeorhotel,
+      int price, String name, int phone, String place) async {
+    Navigator.of(context).push(
+      MaterialPageRoute(
         builder: (BuildContext context) => UsePaypal(
             sandboxMode: true,
             clientId:
-                "ATnwIYaZ9cWqfItnNdbWUPwaSQ2p2Etw2VE8qFkFleha42r0-BeC8gY9A6BLbAUFjXLZs3PYRJMiRFs_",
+                "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
             secretKey:
-                "EJb4g4OByuupLnbAXwQuWdTETCA3WFjJWoKwNWfG_dR2IziBJckqrs1lpEqEQ86kpatpFYIfcjYbsIZ0",
+                "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
             returnURL: "https://samplesite.com/return",
             cancelURL: "https://samplesite.com/cancel",
-            transactions: [
+            transactions: const [
               {
                 "amount": {
-                  "total": '$total',
-                  "currency": "PHP",
+                  "total": '10.12',
+                  "currency": "USD",
                   "details": {
-                    "subtotal": '$total',
+                    "subtotal": '10.12',
                     "shipping": '0',
                     "shipping_discount": 0
                   }
                 },
                 "description": "The payment transaction description.",
-                "payment_options": const {
-                  "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
-                },
+                // "payment_options": {
+                //   "allowed_payment_method":
+                //       "INSTANT_FUNDING_SOURCE"
+                // },
                 "item_list": {
                   "items": [
                     {
-                      "name": placeorhotel,
+                      "name": "A demo product",
                       "quantity": 1,
-                      "price": price,
-                      "currency": "PHP"
+                      "price": '10.12',
+                      "currency": "USD"
                     }
                   ],
 
                   // shipping address is not required though
                   "shipping_address": {
-                    "recipient_name": name,
-                    "city": place,
-                    "country_code": "PH",
-                    "phone": phone,
+                    "recipient_name": "Jane Foster",
+                    "line1": "Travis County",
+                    "line2": "",
+                    "city": "Austin",
+                    "country_code": "US",
+                    "postal_code": "73301",
+                    "phone": "+00000000",
+                    "state": "Texas"
                   },
                 }
               }
@@ -61,7 +62,13 @@ class Paypal {
             onSuccess: (Map params) async {
               await supabase
                   .from('hotel_booking')
-                  .upsert({'payment_status': 'paid'});
+                  .update({'paymet_status': 'paid'}).eq('phone', phone);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const OrderReceipt()
+                      )
+                    );
               print("onSuccess: $params");
             },
             onError: (error) {
@@ -69,7 +76,9 @@ class Paypal {
             },
             onCancel: (params) {
               print('cancelled: $params');
-            })));
+            }),
+      ),
+    );
     final user = supabase.auth.currentUser;
     final timestamp = getter();
     final data = await supabase.from('payment_table').insert({
