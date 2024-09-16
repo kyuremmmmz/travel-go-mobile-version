@@ -26,8 +26,12 @@ dependencies:
   flutter_map_geojson: ^1.0.8
   geolocator: ^12.0.0
   flutter_map_location_marker: ^9.0.0
+<<<<<<< HEAD
   flutter_screenutil: ^5.9.3
 
+=======
+  font_awesome_flutter: ^10.3.0
+>>>>>>> a62e11995a1ffd0e6b7529ab7d118da92dc6e586
 dev_dependencies:
   flutter_test:
     sdk: flutter

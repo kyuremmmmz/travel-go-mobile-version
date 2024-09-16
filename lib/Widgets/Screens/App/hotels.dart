@@ -5,6 +5,7 @@ import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:itransit/Widgets/Screens/App/hotel_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelScreen extends StatefulWidget {
@@ -306,7 +307,20 @@ class _HotelScreenState extends State<HotelScreen> {
                                         children: [
                                           GestureDetector(
                                             onTap: () async {
-                                              print('test');
+                                              final placeData =
+                                                  await HotelImages()
+                                                      .fetchDataInSingle(
+                                                          place['id']);
+                                              if (placeData != null) {
+                                                Navigator.push(
+                                                  // ignore: use_build_context_synchronously
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HotelInformationScreen(text: place['id'], id: place['id'],)
+                                                  ),
+                                                );
+                                              }
                                             },
                                             child: Stack(
                                               children: [
@@ -365,22 +379,13 @@ class _HotelScreenState extends State<HotelScreen> {
                                       );
                                     }).toList(),
                                   ),
-                                ]
-                              )
-                            )
-                          )
-                        )
-                      ]
-                    )
-                  )
-                ]
-              );
-            }
-          }
-        )
-      );
-    }
+                                ]))))
+                  ]))
+                ]);
+              }
+            }));
   }
+}
 
 class CategoryLabel extends StatelessWidget {
   final String label;
