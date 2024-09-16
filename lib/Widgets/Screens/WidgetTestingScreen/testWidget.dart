@@ -10,9 +10,9 @@ import 'package:latlong2/latlong.dart';
 class Map extends StatelessWidget {
   final String? location;
   const Map({
-    Key? key,
+    super.key,
     required this.location,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
