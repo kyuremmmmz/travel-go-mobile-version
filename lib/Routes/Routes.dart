@@ -66,9 +66,24 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const explore()));
   }
 
-  static void navigateToLinkedBankAccount(BuildContext route) {
+  static void navigateToLinkedBankAccount(BuildContext route, {
+    required String name, 
+    required int phone, 
+    required String nameoftheplace,
+    required int price,
+    required int payment,
+    required String hotelorplace,
+   }) {
     Navigator.push(route,
-        MaterialPageRoute(builder: (context) => const LinkedBankScreen()));
+        MaterialPageRoute(builder: (context) =>  LinkedBankScreen(
+          name: name, 
+          phone: phone, 
+          nameoftheplace: nameoftheplace, 
+          price: price, 
+          payment: payment, 
+          hotelorplace: hotelorplace,)
+          )
+          );
   }
 
   static void navigateToTesting(BuildContext route, {required String name}) {

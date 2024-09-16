@@ -1,16 +1,31 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/paymentIntegration/paypal.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/AccountButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-
-
 
 class LinkedBankScreen extends StatefulWidget {
-  const LinkedBankScreen({super.key});
+  final String name;
+  final int phone;
+  final String hotelorplace;
+  final String nameoftheplace;
+  final int price;
+  final int payment;
+  const LinkedBankScreen({
+    super.key,
+    required this.name,
+    required this.phone,
+    required this.hotelorplace,
+    required this.nameoftheplace,
+    required this.price,
+    required this.payment,
+  });
 
   @override
   State<LinkedBankScreen> createState() => _LinkedBankScreenState();
@@ -67,7 +82,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
         leading: Builder(
@@ -117,34 +132,35 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                     fontSize: 25,
                   ),
                 ),
-                const SizedBox(
-                  height: 30
-                ),
+                const SizedBox(height: 30),
                 SizedBox(
                   height: 420,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AccountButton(
-                        header: "Master Cards", 
-                        details: "0193129031903", 
+                        header: "Master Cards",
+                        details: "0193129031903",
                         color: const Color.fromRGBO(39, 92, 135, 1),
-                        image: mastercardIcon, 
-                        oppressed: ()=> AppRoutes.navigateToCreditCard(context),
+                        image: mastercardIcon,
+                        oppressed: () =>
+                            AppRoutes.navigateToCreditCard(context),
                       ),
                       AccountButton(
-                        header: "PayPal", 
-                        details: "0193129031903", 
+                        header: "PayPal",
+                        details: "0193129031903",
                         color: const Color.fromRGBO(5, 103, 180, 1),
-                        image: paypalIcon, 
-                        oppressed: ()=> print('uwu'),
+                        image: paypalIcon,
+                        oppressed: () => Paypal().pay(
+                          context, widget.price, widget.
+                        ),
                       ),
                       AccountButton(
-                        header: "Gcash", 
-                        details: "0193129031903", 
+                        header: "Gcash",
+                        details: "0193129031903",
                         color: const Color.fromRGBO(57, 167, 255, 1),
-                        image: gcashIcon, 
-                        oppressed: ()=> print('uwu'),
+                        image: gcashIcon,
+                        oppressed: () => print('uwu'),
                       ),
                     ],
                   ),
@@ -154,34 +170,33 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color.fromARGB(94, 0, 0, 0),
-                        spreadRadius: -8,
-                        blurRadius: 10,
-                        offset: Offset(0, 10)
-                      )
-                    ]
-                  ),
-                child: BlueButtonWithoutFunction(
-                  text: const Text(
-                    'Next',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(40),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Color.fromARGB(94, 0, 0, 0),
+                            spreadRadius: -8,
+                            blurRadius: 10,
+                            offset: Offset(0, 10))
+                      ]),
+                  child: BlueButtonWithoutFunction(
+                    text: const Text(
+                      'Next',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
                     ),
-                  ), 
-                  style: const ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(68, 202, 249, 1)),
-                  ), 
-                  oppressed: ()=> print(''),
-                ),
-              )
-            ],
+                    style: const ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(
+                          Color.fromRGBO(68, 202, 249, 1)),
+                    ),
+                    oppressed: () => print(''),
+                  ),
+                )
+              ],
+            ),
           ),
-         ),
         ],
       ),
     );

@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
+import 'package:itransit/main.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'dart:math';
 
 class Paypal {
-  final int total;
-  final String currencyCode;
-  final double subtotal;
-  final int shipping;
-  final int discount;
-
-  const Paypal({
-    required this.total,
-    required this.currencyCode,
-    required this.subtotal,
-    required this.shipping,
-    required this.discount,
-  });
-
-  Future<void> pay(BuildContext context) async {
+  Future<PostgrestResponse<dynamic>?> pay(
+      BuildContext context,
+      int total,
+      String placeorhotel,
+      int price,
+      String name,
+      int phone,
+      String place) async {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (BuildContext context) => UsePaypal(
             sandboxMode: true,
@@ -26,47 +22,46 @@ class Paypal {
                 "EJb4g4OByuupLnbAXwQuWdTETCA3WFjJWoKwNWfG_dR2IziBJckqrs1lpEqEQ86kpatpFYIfcjYbsIZ0",
             returnURL: "https://samplesite.com/return",
             cancelURL: "https://samplesite.com/cancel",
-            transactions: const [
+            transactions: [
               {
                 "amount": {
-                  "total": '10.12',
-                  "currency": "USD",
+                  "total": '$total',
+                  "currency": "PHP",
                   "details": {
-                    "subtotal": '10.12',
+                    "subtotal": '$total',
                     "shipping": '0',
                     "shipping_discount": 0
                   }
                 },
                 "description": "The payment transaction description.",
-                "payment_options": {
+                "payment_options": const {
                   "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
                 },
                 "item_list": {
                   "items": [
                     {
-                      "name": "A demo product",
+                      "name": placeorhotel,
                       "quantity": 1,
-                      "price": '10.12',
-                      "currency": "USD"
+                      "price": price,
+                      "currency": "PHP"
                     }
                   ],
 
                   // shipping address is not required though
                   "shipping_address": {
-                    "recipient_name": "Jane Foster",
-                    "line1": "Travis County",
-                    "line2": "",
-                    "city": "Austin",
-                    "country_code": "US",
-                    "postal_code": "73301",
-                    "phone": "+00000000",
-                    "state": "Texas"
+                    "recipient_name": name,
+                    "city": place,
+                    "country_code": "PH",
+                    "phone": phone,
                   },
                 }
               }
             ],
             note: "Contact us for any questions on your order.",
             onSuccess: (Map params) async {
+              await supabase
+                  .from('hotel_booking')
+                  .upsert({'payment_status': 'paid'});
               print("onSuccess: $params");
             },
             onError: (error) {
@@ -75,5 +70,26 @@ class Paypal {
             onCancel: (params) {
               print('cancelled: $params');
             })));
+    final user = supabase.auth.currentUser;
+    final timestamp = getter();
+    final data = await supabase.from('payment_table').insert({
+      'payment_id': user!.id,
+      'payment': total,
+      'name_of_the_place': place,
+      'place': place,
+      'reference_number': timestamp,
+      'phone': phone,
+      'name': name,
+      'price': price,
+    });
+    return data;
+  }
+
+  String? getter() {
+    String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    Random random = Random();
+    int randomNumber = 1000 + random.nextInt(9000);
+    String referenceNumber = "REF-$timestamp-$randomNumber";
+    return referenceNumber;
   }
 }

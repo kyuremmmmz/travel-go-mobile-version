@@ -65,8 +65,7 @@ class HotelBooking {
       String paymentStatus,
       int numberOfAdult,
       int numberOfChildren,
-      var price
-      ) async {
+      var price) async {
     final user = supabase.auth.currentUser;
     final response = await supabase.from('hotel_booking').insert({
       'name': fullname,
@@ -75,12 +74,16 @@ class HotelBooking {
       'price': price,
       'paymet_status': paymentStatus,
       'hotel': hotel,
-      'booking_id' : user!.id,
+      'booking_id': user!.id,
       'checkin': checkIn,
       'checkout': checkOut,
       'number_of_adults': numberOfAdult,
       'number_of_children': numberOfChildren,
     });
     return response;
+  }
+
+  Future<PostgrestResponse<dynamic>?> paymentIntegration() async {
+    final user = supabase.from('payment_table').insert({});
   }
 }

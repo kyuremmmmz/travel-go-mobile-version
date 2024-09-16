@@ -928,7 +928,13 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                                 .trim()),
                                                         int.parse(amount),
                                                       );
-                                                      AppRoutes.navigateToLinkedBankAccount(context);
+                                                      AppRoutes.navigateToLinkedBankAccount(
+                                                        context, 
+                                                        name: _nameController.text.trim(), 
+                                                        phone: int.parse(_numberController.text.trim()), 
+                                                        nameoftheplace: '', 
+                                                        price: int.parse(amount), 
+                                                        payment: int.parse(amount), );
                                                     }else
                                                     {
                                                       AppRoutes.navigateToOrderReceipt(context);
