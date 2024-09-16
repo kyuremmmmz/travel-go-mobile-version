@@ -21,7 +21,7 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
               right: 50,
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: 300,
                     height: 200,
                     child: Image.asset('assets/images/GmailLogo.png'),

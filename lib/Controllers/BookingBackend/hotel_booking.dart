@@ -54,7 +54,6 @@ class HotelBooking {
     return null;
   }
 
-//TODO: implement this to upsert method
   Future<PostgrestResponse<dynamic>?> insertBooking(
       String fullname,
       String emailAddress,
