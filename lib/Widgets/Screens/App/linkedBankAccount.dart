@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/AccountButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
@@ -129,7 +130,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                         details: "0193129031903", 
                         color: const Color.fromRGBO(39, 92, 135, 1),
                         image: mastercardIcon, 
-                        oppressed: ()=> print('uwu'),
+                        oppressed: ()=> AppRoutes.navigateToCreditCard(context),
                       ),
                       AccountButton(
                         header: "PayPal", 

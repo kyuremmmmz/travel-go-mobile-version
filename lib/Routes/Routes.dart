@@ -116,6 +116,6 @@ class AppRoutes {
 
   static void navigateToCreditCard(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Creditcard()));
+        context, MaterialPageRoute(builder: (context) => const Creditcard()));
   }
 }
