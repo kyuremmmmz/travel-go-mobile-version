@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/src/intl/date_format.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
@@ -174,21 +173,21 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   height: 20,
                 ),
                 ListTile(
-                  leading: const Icon(Icons.payment),
-                  title: const Text('Credit Card'),
+                  leading: const Icon(Icons.mobile_friendly_rounded),
+                  title: const Text('Pay Online'),
                   onTap: () {
                     setState(() {
-                      _paymentMethodController.text = "Credit Card";
+                      _paymentMethodController.text = "Pay Online";
                       Navigator.pop(context);
                     });
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.paypal),
-                  title: const Text('PayPal'),
+                  leading: const Icon(Icons.share_arrival_time),
+                  title: const Text('Pay Upon Arrival'),
                   onTap: () {
                     setState(() {
-                      _paymentMethodController.text = "Paypal";
+                      _paymentMethodController.text = "Pay Upon Arrival";
                       Navigator.pop(context);
                     });
                   },
@@ -253,7 +252,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   title: const Text('Executive Suite '),
                   onTap: () {
                     setState(() {
-                      _paymentMethodController.text = "Executive Suite ";
+                      _vehicleTypeController.text = "Executive Suite ";
                       Navigator.pop(context);
                     });
                   },
@@ -267,6 +266,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Presidential Suite";
+
                       Navigator.pop(context);
                     });
                   },
@@ -896,7 +896,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                             onPressed: _value
                                                 ? () {
                                                     if (_validator.currentState!
-                                                        .validate()) {
+                                                        .validate() || _paymentMethodController.text.trim() == "Pay Online") {
                                                       HotelBooking()
                                                           .insertBooking(
                                                         _nameController.text
@@ -928,21 +928,13 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                                 .trim()),
                                                         int.parse(amount),
                                                       );
-                                                      AppRoutes
-                                                          .navigateToOrderReceipt(
-                                                              context);
-                                                    } else if (_validator
-                                                            .currentState!
-                                                            .validate() ||
-                                                        _paymentMethodController
-                                                                .text
-                                                                .trim() ==
-                                                            "Paypal") {
-                                                      print(
-                                                          'proceeding to payment');
+                                                      AppRoutes.navigateToLinkedBankAccount(context);
+                                                    }else
+                                                    {
+                                                      AppRoutes.navigateToOrderReceipt(context);
                                                     }
-                                                  }
-                                                : null,
+                                                    }
+                                                    : null,
                                             child: const Text(
                                               'Place Booking',
                                               textAlign: TextAlign.center,
