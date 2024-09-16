@@ -49,7 +49,6 @@ class Data {
     try {
       final response =
           await supabase.from('places').select('*').eq('id', id).single();
-
       if (response.isNotEmpty) {
         final datas = response;
         var text = datas['place_name'];

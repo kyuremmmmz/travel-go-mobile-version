@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Screens/App/booking_area.dart';
+import 'package:itransit/Widgets/Screens/App/hotel_booking.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
@@ -71,7 +72,11 @@ class AppRoutes {
 
   static void navigateToTesting(BuildContext route, {required String name}) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) =>  Map(location: name,)));
+        route,
+        MaterialPageRoute(
+            builder: (context) => Map(
+                  location: name,
+                )));
   }
 
   static void navigateToOrderReceipt(BuildContext route) {
@@ -81,7 +86,11 @@ class AppRoutes {
 
   static void navigateToBookingArea(BuildContext route, {required int id}) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) =>  BookingArea(id: id,)));
+        route,
+        MaterialPageRoute(
+            builder: (context) => BookingArea(
+                  id: id,
+                )));
   }
 
   static void navigateToHotelScreen(BuildContext route) {
@@ -89,9 +98,18 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const HotelStateless()));
   }
 
+
   static void navigateToFoodAreaAbout(BuildContext route) {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) => const FoodAreaAbout()));
+
+  static void navigateToHotelBookingScreen(BuildContext route, {required int id}) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+            builder: (route) =>  HotelBookingArea(
+                  id: id, 
+                )));
   }
 }
 
