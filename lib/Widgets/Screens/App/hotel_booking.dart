@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:itransit/Widgets/Textfield/phoneNumber.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HotelBookingArea extends StatelessWidget {
   final int id;
@@ -51,7 +51,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   String? email;
   String? place;
   final bool _isWaiting = true;
-  var amount;
+  final supabase = Supabase.instance.client;
+  var amount = 0;
 
   String? hotel;
   late Usersss users = Usersss();
@@ -106,14 +107,38 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     }
   }
 
-  Future<void> fetchString(
-    int id,
-  ) async {
+  Future<void> fetchString(int id) async {
     final data = await booking.passTheHotelData(id);
-    setState(() {
-      String datas = data!['hotel_price'];
-      amount = datas.replaceAll(',', '');
-    });
+    if (data == null) {
+      setState(() {
+        amount = 0;
+      });
+    } else {
+      int basePrice =
+          int.parse(data['hotel_price'].toString().replaceAll(',', ''));
+      int additionalCost = 0;
+
+      switch (_vehicleTypeController.text.trim()) {
+        case 'Deluxe Suite':
+          additionalCost = 6000;
+          break;
+        case 'Premiere Suite':
+          additionalCost = 8000;
+          break;
+        case 'Executive Suite':
+          additionalCost = 9000;
+          break;
+        case 'Presidential Suite':
+          additionalCost = 100000;
+          break;
+        default:
+          additionalCost = 0;
+      }
+
+      setState(() {
+        amount = basePrice + additionalCost;
+      });
+    }
   }
 
   Future<void> fethHotel(
@@ -240,6 +265,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Deluxe Suite";
+                      fetchString(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -251,6 +277,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Premiere Suite ";
+                      fetchString(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -264,6 +291,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Executive Suite ";
+                      fetchString(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -277,7 +305,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Presidential Suite";
-
+                      fetchString(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -869,18 +897,24 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                         left: 10, right: 10),
                                     child: Column(
                                       children: [
-                                        const Row(
-                                          children: [
-                                            Text(
-                                              "Total Amount",
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Color.fromARGB(
-                                                      255, 26, 169, 235),
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                          ],
+                                        GestureDetector(
+                                          onTap: () {
+                                            fetchString(widget.id);
+                                          },
+                                          child: const Row(
+                                            children: [
+                                              Text(
+                                                "Total Amount",
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color.fromARGB(
+                                                        255, 26, 169, 235),
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         Row(
                                           children: [
@@ -941,8 +975,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                             _number_of_children
                                                                 .text
                                                                 .trim()),
-                                                        _vehicleTypeController.text.trim(),
-                                                        int.parse(amount),
+                                                        _vehicleTypeController
+                                                            .text
+                                                            .trim(),
+                                                        amount,
                                                       );
                                                       AppRoutes
                                                           .navigateToLinkedBankAccount(
@@ -955,11 +991,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                                 .text
                                                                 .trim()),
                                                         nameoftheplace: '',
-                                                        price:
-                                                            int.parse(amount),
-                                                        payment:
-                                                            int.parse(amount),
-                                                        hotelorplace: place ?? '',
+                                                        price: amount,
+                                                        payment: amount,
+                                                        hotelorplace:
+                                                            place ?? '',
                                                       );
                                                     } else {
                                                       AppRoutes

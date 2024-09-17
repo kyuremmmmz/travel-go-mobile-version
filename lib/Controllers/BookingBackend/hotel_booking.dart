@@ -80,30 +80,8 @@ class HotelBooking {
       'checkout': checkOut,
       'number_of_adults': numberOfAdult,
       'number_of_children': numberOfChildren,
+      'room_type' : room
     });
-    switch (room) {
-      case 'Deluxe Suite':
-        await supabase
-            .from('payment_table')
-            .update({'payment': price += 5000}).eq('phone', phoneNumber);
-        break;
-      case 'Premiere Suite':
-      await supabase
-            .from('payment_table')
-            .update({'payment': price += 6000}).eq('phone', phoneNumber);
-      break;
-      case 'Executive Suite':
-      await supabase
-            .from('payment_table')
-            .update({'payment': price += 7000}).eq('phone', phoneNumber);
-      break;
-      case 'Presidential Suite':
-        await supabase
-            .from('payment_table')
-            .update({'payment': price += 10000}).eq('phone', phoneNumber);
-        break;
-      default:
-    }
     return response;
   }
 }
