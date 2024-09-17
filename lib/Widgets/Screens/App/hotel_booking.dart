@@ -941,6 +941,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                             _number_of_children
                                                                 .text
                                                                 .trim()),
+                                                        _vehicleTypeController.text.trim(),
                                                         int.parse(amount),
                                                       );
                                                       AppRoutes

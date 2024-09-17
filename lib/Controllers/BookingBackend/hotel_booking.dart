@@ -65,6 +65,7 @@ class HotelBooking {
       String paymentStatus,
       int numberOfAdult,
       int numberOfChildren,
+      String room,
       var price) async {
     final user = supabase.auth.currentUser;
     final response = await supabase.from('hotel_booking').insert({
@@ -80,10 +81,29 @@ class HotelBooking {
       'number_of_adults': numberOfAdult,
       'number_of_children': numberOfChildren,
     });
+    switch (room) {
+      case 'Deluxe Suite':
+        await supabase
+            .from('payment_table')
+            .update({'payment': price += 5000}).eq('phone', phoneNumber);
+        break;
+      case 'Premiere Suite':
+      await supabase
+            .from('payment_table')
+            .update({'payment': price += 6000}).eq('phone', phoneNumber);
+      break;
+      case 'Executive Suite':
+      await supabase
+            .from('payment_table')
+            .update({'payment': price += 7000}).eq('phone', phoneNumber);
+      break;
+      case 'Presidential Suite':
+        await supabase
+            .from('payment_table')
+            .update({'payment': price += 10000}).eq('phone', phoneNumber);
+        break;
+      default:
+    }
     return response;
-  }
-
-  Future<PostgrestResponse<dynamic>?> paymentIntegration() async {
-    final user = supabase.from('payment_table').insert({});
   }
 }

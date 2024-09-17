@@ -1,11 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
-import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'dart:math';
 
 class Paypal {
   final supabase = Supabase.instance.client;
+
   Future<void> pay(BuildContext context, int total, String placeorhotel,
       int price, String name, int phone, String place) async {
     Navigator.of(context).push(
@@ -21,10 +22,10 @@ class Paypal {
             transactions: [
               {
                 "amount": {
-                  "total": total.toString(), // Ensure this is a string
+                  "total": total.toString(),
                   "currency": "PHP",
                   "details": {
-                    "subtotal": total.toString(), // Ensure this is a string
+                    "subtotal": total.toString(),
                     "shipping": '0',
                     "shipping_discount": '0'
                   }
@@ -34,19 +35,19 @@ class Paypal {
                   "items": [
                     {
                       "name": placeorhotel,
-                      "quantity": '1', // PayPal expects string for quantity
-                      "price": price.toString(), // Ensure price is a string
+                      "quantity": '1',
+                      "price": price.toString(),
                       "currency": "PHP"
                     }
                   ],
                   "shipping_address": {
                     "recipient_name": name,
                     "line1": "Binday",
-                    "line2": "", // optional, if you have more address details
+                    "line2": "",
                     "city": "San Fabian",
-                    "state": "Pangasinan", // Use the province
-                    "country_code": "PH", // ISO code for the Philippines
-                    "postal_code": "2433", // San Fabian's postal code
+                    "state": "Pangasinan",
+                    "country_code": "PH",
+                    "postal_code": "2433",
                     "phone": phone.toString(),
                   },
                 }
@@ -54,33 +55,39 @@ class Paypal {
             ],
             note: "Contact us for any questions on your order.",
             onSuccess: (Map params) async {
-              await supabase.from('hotel_booking').update({
-                'paymet_status': 'paid',
-              }).eq('phone', phone);
-              print("onSuccess: $params");
+              if (context.mounted) {
+                await supabase.from('hotel_booking').update({
+                  'paymet_status': 'paid',
+                }).eq('phone', phone);
+                print("onSuccess: $params");
+
+                final user = supabase.auth.currentUser;
+                final timestamp = getter();
+                final data = await supabase.from('payment_table').insert({
+                  'payment_id': user!.id,
+                  'payment': total,
+                  'name_of_the_place': place,
+                  'place': place,
+                  'reference_number': timestamp,
+                  'phone': phone,
+                  'name': name,
+                  'price': price,
+                });
+                return data;
+              }
             },
             onError: (error) {
-              print("onError: $error");
+              if (context.mounted) {
+                print("onError: $error");
+              }
             },
             onCancel: (params) {
-              print('cancelled: $params');
+              if (context.mounted) {
+                print('cancelled: $params');
+              }
             }),
       ),
     );
-
-    final user = supabase.auth.currentUser;
-    final timestamp = getter();
-    final data = await supabase.from('payment_table').insert({
-      'payment_id': user!.id,
-      'payment': total,
-      'name_of_the_place': place,
-      'place': place,
-      'reference_number': timestamp,
-      'phone': phone,
-      'name': name,
-      'price': price,
-    });
-    return data;
   }
 
   String? getter() {
