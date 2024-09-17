@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
@@ -5,12 +6,18 @@ class inputTextField extends StatefulWidget {
   final String? text;
   final TextEditingController? controller;
   final Color? colorr;
+  final FormFieldValidator? validator;
+  final Icon? icon;
+  final Function? callback;
 
   const inputTextField({
     super.key,
     required this.text,
     required this.controller,
     required this.colorr,
+    this.validator,
+    this.icon,
+    this.callback,
   });
 
   @override
@@ -40,8 +47,10 @@ class _numberTextFieldState extends State<inputTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: widget.validator,
       controller: widget.controller,
       decoration: InputDecoration(
+          prefixIcon: widget.icon,
           filled: true,
           fillColor: Colors.white,
           hintText: widget.text,

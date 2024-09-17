@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
@@ -11,16 +12,14 @@ class dropDownTextField extends StatefulWidget {
     required this.text,
     required this.controller,
     required this.colorr,
-    required List<DropdownMenuItem<String>> items,
-    required Null Function(dynamic value) onChanged,
+    required Null Function(dynamic val) onChanged,
   });
 
   @override
-  State<DropdownButtonFormField> createState() => _dropDownTextField();
+  State<dropDownTextField> createState() => _DropDownFieldState();
 }
 
-// ignore: camel_case_types
-class _dropDownTextField extends State<DropdownButtonFormField> {
+class _DropDownFieldState extends State<dropDownTextField> {
   final FocusNode _focusNode = FocusNode();
 
   @override
@@ -41,21 +40,25 @@ class _dropDownTextField extends State<DropdownButtonFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField(
-      decoration: const InputDecoration(
+    var vehicleList = ["Tricycle", "Motorcycle", "Bus/Van", "Airplane"];
+    return DropdownButtonFormField<String>(
+      decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
+          hintText: widget.text,
           alignLabelWithHint: true,
-          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          labelStyle: TextStyle(
-            fontSize: 20,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          labelStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: Colors.white)),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+          focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(
                 color: Colors.white,
               ))),
@@ -63,8 +66,15 @@ class _dropDownTextField extends State<DropdownButtonFormField> {
       style: const TextStyle(
         fontSize: 12,
       ),
-      items: const [],
-      onChanged: (value) {},
+      onChanged: (String? val) {
+        setState(() {});
+      },
+      items: vehicleList.map<DropdownMenuItem<String>>((String vehicles) {
+        return DropdownMenuItem<String>(
+          value: vehicles,
+          child: Text(vehicles),
+        );
+      }).toList(),
     );
   }
 }

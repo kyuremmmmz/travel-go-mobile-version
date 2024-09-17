@@ -55,16 +55,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   bool value = false;
   HotelBooking booking = HotelBooking();
 
-  List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(child: Text("Tricycle"), value: "Tricycle"),
-      const DropdownMenuItem(child: Text("Motorcycle"), value: "Motorcycle"),
-      const DropdownMenuItem(child: Text("Bus or Van"), value: "Bus or Van"),
-      const DropdownMenuItem(child: Text("Airplane"), value: "Airplane"),
-    ];
-    return menuItems;
-  }
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -405,8 +395,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 colorr: Colors.black,
                                 text: 'Vehicle Type:',
                                 controller: _vehicleTypeController,
-                                onChanged: (val) {},
-                                items: dropdownItems,
+                                onChanged: (value) {},
                               ),
                             ),
                             const SizedBox(
@@ -450,7 +439,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               child: inputTextField(
                                 colorr: Colors.black,
                                 text: 'Special Requests: (Optional)',
-                                controller: _originController,
+                                controller: _specialReqController,
                               ),
                             ),
                             const SizedBox(

@@ -26,7 +26,8 @@ dependencies:
   flutter_map_geojson: ^1.0.8
   geolocator: ^12.0.0
   flutter_map_location_marker: ^9.0.0
-
+  font_awesome_flutter: ^10.3.0
+  flutter_credit_card: ^4.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -45,14 +46,17 @@ flutter:
     - assets/images/icon/ButtonX.png
     - assets/images/icon/adventure.png
     - assets/images/icon/motorbike.png
+    - assets/images/icon/bus.png
+    - assets/images/icon/plane.png
+    - assets/images/icon/tricycle.png
+    - assets/images/icon/gcash.png
+    - assets/images/icon/mastercard.png
+    - assets/images/icon/paypal.png
     - assets/images/places/EnchantedCave.jpg
     - assets/images/places/HundredIsland.jpeg
     - assets/images/places/Manaoag.jpg
     - assets/images/places/PangasinanProvincialCapitol.jpg
     - assets/images/backgrounds/Receipt.png
-    - assets/images/icon/bus.png
-    - assets/images/icon/plane.png
-    - assets/images/icon/tricycle.png
     - assets/images/icon/suitcase.png
     - assets/images/icon/plane-ticket.png
     
