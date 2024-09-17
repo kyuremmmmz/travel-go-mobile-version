@@ -18,57 +18,45 @@ class Paypal {
                 "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
             returnURL: "https://samplesite.com/return",
             cancelURL: "https://samplesite.com/cancel",
-            transactions: const [
+            transactions: [
               {
                 "amount": {
-                  "total": '10.12',
-                  "currency": "USD",
+                  "total": total.toString(), // Ensure this is a string
+                  "currency": "PHP",
                   "details": {
-                    "subtotal": '10.12',
+                    "subtotal": total.toString(), // Ensure this is a string
                     "shipping": '0',
-                    "shipping_discount": 0
+                    "shipping_discount": '0'
                   }
                 },
-                "description": "The payment transaction description.",
-                // "payment_options": {
-                //   "allowed_payment_method":
-                //       "INSTANT_FUNDING_SOURCE"
-                // },
+                "description": "The payment transaction for $placeorhotel.",
                 "item_list": {
                   "items": [
                     {
-                      "name": "A demo product",
-                      "quantity": 1,
-                      "price": '10.12',
-                      "currency": "USD"
+                      "name": placeorhotel,
+                      "quantity": '1', // PayPal expects string for quantity
+                      "price": price.toString(), // Ensure price is a string
+                      "currency": "PHP"
                     }
                   ],
-
-                  // shipping address is not required though
                   "shipping_address": {
-                    "recipient_name": "Jane Foster",
-                    "line1": "Travis County",
-                    "line2": "",
-                    "city": "Austin",
-                    "country_code": "US",
-                    "postal_code": "73301",
-                    "phone": "+00000000",
-                    "state": "Texas"
+                    "recipient_name": name,
+                    "line1": "Binday",
+                    "line2": "", // optional, if you have more address details
+                    "city": "San Fabian",
+                    "state": "Pangasinan", // Use the province
+                    "country_code": "PH", // ISO code for the Philippines
+                    "postal_code": "2433", // San Fabian's postal code
+                    "phone": phone.toString(),
                   },
                 }
               }
             ],
             note: "Contact us for any questions on your order.",
             onSuccess: (Map params) async {
-              await supabase
-                  .from('hotel_booking')
-                  .update({'paymet_status': 'paid'}).eq('phone', phone);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const OrderReceipt()
-                      )
-                    );
+              await supabase.from('hotel_booking').update({
+                'paymet_status': 'paid',
+              }).eq('phone', phone);
               print("onSuccess: $params");
             },
             onError: (error) {
@@ -79,6 +67,7 @@ class Paypal {
             }),
       ),
     );
+
     final user = supabase.auth.currentUser;
     final timestamp = getter();
     final data = await supabase.from('payment_table').insert({
