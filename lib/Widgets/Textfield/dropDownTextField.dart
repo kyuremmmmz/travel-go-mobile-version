@@ -65,6 +65,7 @@ class _DropDownFieldState extends State<dropDownTextField> {
       focusNode: _focusNode,
       style: const TextStyle(
         fontSize: 12,
+        color: Colors.black,
       ),
       onChanged: (String? val) {
         setState(() {});

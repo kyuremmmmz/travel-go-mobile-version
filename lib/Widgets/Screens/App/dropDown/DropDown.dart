@@ -22,7 +22,7 @@ class _DropDownState extends State<DropDown> {
   String? selectedOption = 'Payment Method';
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
+    return DropdownButtonFormField<String>(
       onChanged: (String? value) {
         setState(() {
           selectedOption = value!;
