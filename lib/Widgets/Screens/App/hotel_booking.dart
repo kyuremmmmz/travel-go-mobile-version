@@ -2,6 +2,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
@@ -53,6 +54,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final bool _isWaiting = true;
   final supabase = Supabase.instance.client;
   var amount = 0;
+  String? strAmount;
 
   String? hotel;
   late Usersss users = Usersss();
@@ -83,7 +85,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   void initState() {
     super.initState();
     emailFetching();
-    fetchString(widget.id);
+    fetchInt(widget.id);
     fethHotel(widget.id);
     fetchEwan(widget.id);
   }
@@ -107,7 +109,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     }
   }
 
-  Future<void> fetchString(int id) async {
+  Future<void> fetchInt(int id) async {
     final data = await booking.passTheHotelData(id);
     if (data == null) {
       setState(() {
@@ -129,14 +131,17 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
           additionalCost = 9000;
           break;
         case 'Presidential Suite':
-          additionalCost = 100000;
+          additionalCost = 10000;
           break;
         default:
           additionalCost = 0;
       }
-
+      final total = basePrice + additionalCost;
       setState(() {
-        amount = basePrice + additionalCost;
+        amount = total;
+        final numberFormat = NumberFormat('#0,000');
+        final numbers = numberFormat.format(total);
+        strAmount = numbers;
       });
     }
   }
@@ -265,7 +270,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Deluxe Suite";
-                      fetchString(widget.id);
+                      fetchInt(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -277,7 +282,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Premiere Suite ";
-                      fetchString(widget.id);
+                      fetchInt(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -291,7 +296,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Executive Suite ";
-                      fetchString(widget.id);
+                      fetchInt(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -305,7 +310,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Presidential Suite";
-                      fetchString(widget.id);
+                      fetchInt(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -899,7 +904,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            fetchString(widget.id);
+                                            fetchInt(widget.id);
                                           },
                                           child: const Row(
                                             children: [
@@ -919,7 +924,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                         Row(
                                           children: [
                                             Text(
-                                              'PHP $amount',
+                                              'PHP $strAmount',
                                               style: const TextStyle(
                                                 fontSize: 20,
                                                 color: Colors.black,
