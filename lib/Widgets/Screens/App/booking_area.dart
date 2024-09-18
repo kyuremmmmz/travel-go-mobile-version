@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Widgets/Textfield/dropDownTextField.dart';
+import 'package:itransit/Widgets/Textfield/nextScreenTextField.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
@@ -414,10 +415,15 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: inputTextField(
-                                colorr: Colors.black,
-                                text: 'Payment Method:',
-                                controller: _paymentMethodController,
+                              child: GestureDetector(
+                                onTap: () =>
+                                    AppRoutes.navigateToLinkedBankAccount(
+                                        context),
+                                child: nextScreenTextField(
+                                  colorr: Colors.black,
+                                  text: 'Payment Method:',
+                                  controller: _paymentMethodController,
+                                ),
                               ),
                             ),
                             const SizedBox(
