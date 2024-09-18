@@ -67,21 +67,26 @@ class HotelBooking {
       int numberOfChildren,
       String room,
       var price) async {
-    final user = supabase.auth.currentUser;
-    final response = await supabase.from('hotel_booking').insert({
-      'name': fullname,
-      'gmail': emailAddress,
-      'phone': phoneNumber,
-      'price': price,
-      'paymet_status': paymentStatus,
-      'hotel': hotel,
-      'booking_id': user!.id,
-      'checkin': checkIn,
-      'checkout': checkOut,
-      'number_of_adults': numberOfAdult,
-      'number_of_children': numberOfChildren,
-      'room_type' : room
-    });
-    return response;
+    try {
+      final user = supabase.auth.currentUser;
+      final response = await supabase.from('hotel_booking').insert({
+        'name': fullname,
+        'gmail': emailAddress,
+        'phone': phoneNumber,
+        'price': price,
+        'paymet_status': paymentStatus,
+        'hotel': hotel,
+        'booking_id': user!.id,
+        'checkin': checkIn,
+        'checkout': checkOut,
+        'number_of_adults': numberOfAdult,
+        'number_of_children': numberOfChildren,
+        'room_type': room
+      });
+      return response;
+    } catch (e) {
+      SnackBar(content: Text('error: $e')
+      );
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:math';
@@ -8,7 +9,8 @@ class Paypal {
   final supabase = Supabase.instance.client;
   Future<void> pay(BuildContext context, int total, String placeorhotel,
       int price, String name, int phone, String place) async {
-    Navigator.of(context).push(
+    Navigator.of(context)
+        .push(
       MaterialPageRoute(
         builder: (BuildContext context) => UsePaypal(
             sandboxMode: true,
@@ -54,11 +56,10 @@ class Paypal {
             ],
             note: "Contact us for any questions on your order.",
             onSuccess: (Map params) async {
-              
               await supabase.from('hotel_booking').update({
                 'paymet_status': 'paid',
               }).eq('phone', phone);
-              
+
               print("onSuccess: $params");
               final user = supabase.auth.currentUser;
               final timestamp = getter();
@@ -81,9 +82,16 @@ class Paypal {
               print('cancelled: $params');
             }),
       ),
-    );
+    )
+        .then((result) {
+      result = phone;
+      if (result != null && result == 'payment_success') {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => const OrderReceipt()));
+      }
+    });
   }
-  
+
   String? getter() {
     String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     Random random = Random();
