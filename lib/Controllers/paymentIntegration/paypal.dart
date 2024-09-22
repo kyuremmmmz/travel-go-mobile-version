@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
-import 'package:uni_links/uni_links.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:math';
 
@@ -19,7 +18,7 @@ class Paypal {
               "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
           secretKey:
               "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
-          returnURL: "itransit://order",
+          returnURL: "https://samplesite.com/return",
           cancelURL: "https://samplesite.com/cancel",
           transactions: [
             {
@@ -56,7 +55,7 @@ class Paypal {
             }
           ],
           note: "Contact us for any questions on your order.",
-          onSuccess: (Map params, BuildContext context) async {
+          onSuccess: (Map params) async {
             await supabase.from('hotel_booking').update({
               'paymet_status': 'paid',
             }).eq('phone', phone);
@@ -74,7 +73,6 @@ class Paypal {
               'name': name,
               'price': price,
             });
-
           },
           onError: (error) {
             print("onError: $error");
