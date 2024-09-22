@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
@@ -148,20 +149,21 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                             AppRoutes.navigateToCreditCard(context),
                       ),
                       AccountButton(
-                        header: "PayPal",
-                        details: "0193129031903",
-                        color: const Color.fromRGBO(5, 103, 180, 1),
-                        image: paypalIcon,
-                        oppressed: () => Paypal().pay(
-                          context, 
-                          widget.price, 
-                          widget.hotelorplace, 
-                          widget.price, 
-                          widget.name,
-                          widget.phone,
-                          widget.nameoftheplace
-                        ),
-                      ),
+                          header: "PayPal",
+                          details: "0193129031903",
+                          color: const Color.fromRGBO(5, 103, 180, 1),
+                          image: paypalIcon,
+                          oppressed: () {
+                            Paypal().pay(
+                                context,
+                                widget.price,
+                                widget.hotelorplace,
+                                widget.price,
+                                widget.name,
+                                widget.phone,
+                                widget.nameoftheplace
+                              );
+                          }),
                       AccountButton(
                         header: "Gcash",
                         details: "0193129031903",

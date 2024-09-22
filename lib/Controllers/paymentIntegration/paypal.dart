@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
+import 'package:uni_links/uni_links.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:math';
 
 class Paypal {
   final supabase = Supabase.instance.client;
 
-  Future<void> pay(BuildContext context, int total, String placeorhotel,
+  Future<Map<String, dynamic>?> pay(BuildContext context, int total, String placeorhotel,
       int price, String name, int phone, String place) async {
-    Navigator.of(context)
-        .push(
+    Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) => UsePaypal(
           sandboxMode: true,
@@ -19,7 +19,7 @@ class Paypal {
               "AW1TdvpSGbIM5iP4HJNI5TyTmwpY9Gv9dYw8_8yW5lYIbCqf326vrkrp0ce9TAqjEGMHiV3OqJM_aRT0",
           secretKey:
               "EHHtTDjnmTZATYBPiGzZC_AZUfMpMAzj2VZUeqlFUrRJA_C0pQNCxDccB5qoRQSEdcOnnKQhycuOWdP9",
-          returnURL: "https://samplesite.com/return",
+          returnURL: "itransit://order",
           cancelURL: "https://samplesite.com/cancel",
           transactions: [
             {
@@ -56,7 +56,7 @@ class Paypal {
             }
           ],
           note: "Contact us for any questions on your order.",
-          onSuccess: (Map params) async {
+          onSuccess: (Map params, BuildContext context) async {
             await supabase.from('hotel_booking').update({
               'paymet_status': 'paid',
             }).eq('phone', phone);
@@ -75,8 +75,6 @@ class Paypal {
               'price': price,
             });
 
-            // Return a result to the previous screen
-            Navigator.pop(context, 'payment_success');
           },
           onError: (error) {
             print("onError: $error");
@@ -88,15 +86,8 @@ class Paypal {
           },
         ),
       ),
-    ).then((result) {
-      if (result == 'payment_success') {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (BuildContext context) => const OrderReceipt(),
-          ),
-        );
-      }
-    });
+    );
+    return null;
   }
 
   String? getter() {

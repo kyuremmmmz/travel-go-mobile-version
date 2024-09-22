@@ -15,6 +15,8 @@ import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/linkedBankAccount.dart';
 import '../Widgets/Screens/App/foodAreaAbout.dart';
+import 'package:uni_links/uni_links.dart';
+import 'dart:async';
 
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
@@ -66,24 +68,26 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const explore()));
   }
 
-  static void navigateToLinkedBankAccount(BuildContext route, {
-    required String name, 
-    required int phone, 
+  static void navigateToLinkedBankAccount(
+    BuildContext route, {
+    required String name,
+    required int phone,
     required String nameoftheplace,
     required int price,
     required int payment,
     required String hotelorplace,
-   }) {
-    Navigator.push(route,
-        MaterialPageRoute(builder: (context) =>  LinkedBankScreen(
-          name: name, 
-          phone: phone, 
-          nameoftheplace: nameoftheplace, 
-          price: price, 
-          payment: payment, 
-          hotelorplace: hotelorplace,)
-          )
-          );
+  }) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+            builder: (context) => LinkedBankScreen(
+                  name: name,
+                  phone: phone,
+                  nameoftheplace: nameoftheplace,
+                  price: price,
+                  payment: payment,
+                  hotelorplace: hotelorplace,
+                )));
   }
 
   static void navigateToTesting(BuildContext route, {required String name}) {
@@ -134,3 +138,53 @@ class AppRoutes {
         context, MaterialPageRoute(builder: (context) => const Creditcard()));
   }
 }
+
+
+class NavigatorWidget extends StatefulWidget {
+  const NavigatorWidget({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _NavigatorWidgetState createState() => _NavigatorWidgetState();
+}
+
+class _NavigatorWidgetState extends State<NavigatorWidget> {
+  StreamSubscription? _sub;
+
+  @override
+  void initState() {
+    super.initState();
+    _handleDeepLink();
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
+
+  void _handleDeepLink() {
+    _sub = uriLinkStream.listen((Uri? uri) {
+      if (uri != null) {
+        if (uri.scheme == 'itransit' && uri.host == 'order') {
+          // Handle successful payment, navigate to the order page
+          // ignore: use_build_context_synchronously
+          Navigator.pushReplacementNamed(context, '/order');
+        }
+      }
+    }, onError: (err) {
+      // Handle error
+      print("Deep link error: $err");
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      routes: {
+        '/order': (context) => const OrderReceipt(),
+      },
+    );
+  }
+}
+
