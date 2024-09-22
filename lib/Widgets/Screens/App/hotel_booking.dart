@@ -3,16 +3,20 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:itransit/Widgets/Textfield/phoneNumber.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelBookingArea extends StatelessWidget {
   final int id;
-  const HotelBookingArea({super.key, required this.id});
+  const HotelBookingArea({
+    super.key,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class HotelBookingArea extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Travel Go',
       home: HotelBookingAreaScreen(
-        id: id,
+        id: id, 
       ),
     );
   }
@@ -28,7 +32,10 @@ class HotelBookingArea extends StatelessWidget {
 
 class HotelBookingAreaScreen extends StatefulWidget {
   final int id;
-  const HotelBookingAreaScreen({super.key, required this.id});
+  const HotelBookingAreaScreen({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<HotelBookingAreaScreen> createState() => _HotelBookingAreaScreenState();
@@ -1002,9 +1009,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                             place ?? '',
                                                       );
                                                     } else {
-                                                      AppRoutes
-                                                          .navigateToOrderReceipt(
-                                                              context);
+                                                      print('nigga');
                                                     }
                                                   }
                                                 : null,

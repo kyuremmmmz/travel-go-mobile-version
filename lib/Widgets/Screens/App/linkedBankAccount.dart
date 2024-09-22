@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/paymentIntegration/paypal.dart';
@@ -10,6 +10,7 @@ import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/AccountButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
+import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 
 class LinkedBankScreen extends StatefulWidget {
   final String name;
@@ -211,7 +212,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                       ),
                       oppressed: () {
                         if (isPaymentSuccess) {
-                          AppRoutes.navigateToOrderReceipt(context);
+                          HotelBooking().paymentReceipt(context, widget.phone);
                         } else {
                           AppRoutes.navigateToNotPaid(context);
                         }

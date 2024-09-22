@@ -11,11 +11,12 @@ import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 import 'package:itransit/Widgets/Screens/Stateless/hotel_stateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
 import 'package:itransit/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
+
+import '../Widgets/Screens/App/foodAreaAbout.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/linkedBankAccount.dart';
-import '../Widgets/Screens/App/foodAreaAbout.dart';
 
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
@@ -85,7 +86,7 @@ class AppRoutes {
                   nameoftheplace: nameoftheplace,
                   price: price,
                   payment: payment,
-                  hotelorplace: hotelorplace,
+                  hotelorplace: hotelorplace
                 )));
   }
 
@@ -98,9 +99,20 @@ class AppRoutes {
                 )));
   }
 
-  static void navigateToOrderReceipt(BuildContext route) {
+  static void navigateToOrderReceipt(
+    BuildContext route, {
+    required String name,
+    required int phone,
+    required DateTime date,
+    required String ref,
+    required String payment,
+  }) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) => const OrderReceipt()));
+        route,
+        MaterialPageRoute(
+            builder: (context) => OrderReceipt(
+                  Phone: phone,
+                )));
   }
 
   static void navigateToBookingArea(BuildContext route, {required int id}) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelBooking {
@@ -88,5 +89,40 @@ class HotelBooking {
       SnackBar(content: Text('error: $e'));
     }
     return null;
+  }
+
+  Future<Map<String, dynamic>?> paymentReceipt(
+      BuildContext context, int uid) async {
+    final response = await supabase
+        .from('payment_table')
+        .select('*')
+        .eq('payment_id', uid)
+        .single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      final data = response;
+      var account = data['name'];
+      var phone = data['phone'];
+      var dateOfPayment = data['date_of_payment'];
+      var refNo = data['reference_number'];
+      var payment = data['payment'];
+      DateTime current = DateTime(dateOfPayment);
+      final formatDate = DateFormat('yyyy-MM-dd').format(current);
+      data['name'] = account;
+      data['phone'] = phone;
+      data['date_of_payment'] = formatDate;
+      data['reference_number'] = refNo;
+      data['payment'] = payment;
+
+      AppRoutes.navigateToOrderReceipt(
+          context,
+          name: account,
+          phone: phone,
+          date: dateOfPayment,
+          ref: refNo,
+          payment: payment);
+    }
+    return response;
   }
 }
