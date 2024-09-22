@@ -10,7 +10,6 @@ import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/AccountButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 
 class LinkedBankScreen extends StatefulWidget {
   final String name;
@@ -45,22 +44,22 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
   final data = Data();
   late bool isPaymentSuccess = false;
 
-  Future<void> emailFetching() async {
+ Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
-      if (useremail.isNotEmpty) {
+      if (mounted) {
         setState(() {
-          email = useremail[0]['full_name'].toString();
-        });
-      } else {
-        setState(() {
-          email = "Anonymous User";
+          email = useremail.isNotEmpty
+              ? useremail[0]['full_name'].toString()
+              : "Anonymous User";
         });
       }
     } catch (e) {
-      setState(() {
-        email = "error: $e";
-      });
+      if (mounted) {
+        setState(() {
+          email = "error: $e";
+        });
+      }
     }
   }
 
@@ -74,18 +73,26 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
       widget.phone,
       widget.nameoftheplace,
     );
-    setState(() {
-      isPaymentSuccess = true;
-    });
+    if (mounted) {
+      setState(() {
+        isPaymentSuccess = true;
+      });
+    }
   }
 
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
-    setState(() {
-      place = datas;
-    });
+    if (mounted) {
+      setState(() {
+        place = datas;
+      });
+    }
   }
-
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
   @override
   void initState() {
     super.initState();
@@ -93,11 +100,6 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
     fetchImage();
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

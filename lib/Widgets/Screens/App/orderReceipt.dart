@@ -1,12 +1,15 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/TextWidgets/rowDetails.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+Future<void> main(phone) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(OrderReceipt(Phone: phone));
+}
 
 class OrderReceipt extends StatelessWidget {
   final int Phone;
@@ -18,9 +21,10 @@ class OrderReceipt extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Travel',
-        home: OrderReceiptScreen(Phone: Phone));
+      debugShowCheckedModeBanner: false,
+      title: 'Travel',
+      home: OrderReceiptScreen(Phone: Phone),
+    );
   }
 }
 
@@ -36,58 +40,16 @@ class OrderReceiptScreen extends StatefulWidget {
 }
 
 class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
-  final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food.png";
-  final String hotelIcon = "assets/images/icon/hotel.png";
-  final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
   final String receiptBackground = "assets/images/backgrounds/Receipt.png";
-  final _searchController = TextEditingController();
   String? email;
-  String? amount;
+  String amount = "loading";
   var phone;
-  String? ref;
+  String ref = "loading";
   var date;
-  String? account;
+  String account = "loading";
   late Usersss users = Usersss();
   late HotelBooking book = HotelBooking();
-
-  Future<void> emailFetching() async {
-    try {
-      final PostgrestList useremail = await users.fetchUser();
-      if (useremail.isNotEmpty) {
-        setState(() {
-          email = useremail[0]['full_name'].toString();
-        });
-      } else {
-        setState(() {
-          email = "Anonymous User";
-        });
-      }
-    } catch (e) {
-      setState(() {
-        email = "error: $e";
-      });
-    }
-  }
-
-  Future<void> finalReceipt(BuildContext context, int uid) async {
-    try {
-      final response = await book.paymentReceipt(context, uid);
-      if (response == null) {
-        print('haha');
-      } else {
-        final data = response;
-        setState(() {
-          amount = data['amount'];
-          phone = data['phone'];
-          ref = data['ref'];
-          date = data['date_of_payment'];
-          account = data['name'];
-        });
-      }
-    } catch (e) {}
-  }
 
   @override
   void initState() {
@@ -96,10 +58,50 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
     finalReceipt(context, widget.Phone);
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
+  Future<void> emailFetching() async {
+    try {
+      final PostgrestList useremail = await users.fetchUser();
+      if (useremail.isNotEmpty) {
+        if (mounted) {
+          setState(() {
+            email = useremail[0]['full_name'].toString();
+          });
+        }
+      } else if (mounted) {
+        setState(() {
+          email = "Anonymous User";
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          email = "error: $e";
+        });
+      }
+    }
+  }
+
+  Future<void> finalReceipt(BuildContext context, int uid) async {
+    try {
+      final response = await book.paymentReceipt(context, uid);
+      if (response != null) {
+        if (mounted) {
+          final data = response;
+          setState(() {
+            amount =
+                data['payment'] != null ? data['payment'].toString() : 'N/A';
+            phone = data['phone'] ?? 'Unknown';
+            ref = data['reference_number'] ?? 'N/A';
+            date = data['date_of_payment'] ?? 'Unknown Date';
+            account = data['name'] ?? 'Unknown Account';
+          });
+        }
+      } else {
+        print('No data received from paymentReceipt');
+      }
+    } catch (e) {
+      print('error: $e');
+    }
   }
 
   @override
@@ -201,9 +203,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 40,
-                                ),
+                                const SizedBox(height: 40),
                                 const Text(
                                   'Thank You for Your Booking!',
                                   style: TextStyle(
@@ -212,36 +212,26 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                const SizedBox(height: 10),
                                 SizedBox(
                                   height: 40,
                                   width: 40,
                                   child: Image.asset(xButtonIcon),
                                 ),
-                                const SizedBox(
-                                  height: 40,
-                                ),
+                                const SizedBox(height: 40),
                                 Container(
-                                  padding: const EdgeInsets.only(
-                                    top: 10,
-                                  ),
+                                  padding: const EdgeInsets.only(top: 10),
                                   height: 150,
                                   width: 250,
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                        color: Colors.black,
-                                      )),
+                                      border: Border.all(color: Colors.black)),
                                   child: Column(
                                     children: [
                                       const Padding(
                                         padding: EdgeInsets.only(
-                                          right: 10,
-                                          left: 10,
-                                        ),
+                                            right: 10, left: 10),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -276,14 +266,11 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                           children: [
                                             RowDetails(
                                               row1: 'ACCOUNT',
-                                              row2: (email != null
-                                                      ? '$email'
-                                                      : 'Hacked himala e')
-                                                  .toUpperCase(),
+                                              row2: (account).toUpperCase(),
                                             ),
                                             RowDetails(
                                               row1: 'CONTACT NUMBER',
-                                              row2: 'PLACEHOLDER',
+                                              row2: '$phone',
                                             ),
                                             RowDetails(
                                               row1: 'EMAIL',
@@ -291,7 +278,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                             ),
                                             RowDetails(
                                               row1: 'AMOUNT',
-                                              row2: 'PLACEHOLDER',
+                                              row2: amount,
                                             ),
                                           ],
                                         ),
@@ -299,9 +286,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                const SizedBox(height: 10),
                                 Container(
                                   padding: const EdgeInsets.all(10),
                                   height: 100,
@@ -309,14 +294,12 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                        color: Colors.black,
-                                      )),
+                                      border: Border.all(color: Colors.black)),
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      const Row(
+                                      Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
@@ -325,14 +308,13 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'TOTAL AMOUNT',
-                                                style: TextStyle(
+                                                'TOTAL AMOUNT: $amount',
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 10,
                                                 ),
                                               ),
-                                              // Placeholder but change this later
-                                              Text(
+                                              const Text(
                                                 'Paid using paypal',
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
@@ -345,8 +327,8 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                             ],
                                           ),
                                           Text(
-                                            'PHP 6,000',
-                                            style: TextStyle(
+                                            'PHP $amount',
+                                            style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 10,
                                               color: Color.fromRGBO(
@@ -356,27 +338,14 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                         ],
                                       ),
                                       RowDetails(
-                                          row1: 'Date paid', row2: 'Date'),
+                                          row1: 'Date paid', row2: '$date'),
                                       RowDetails(
-                                          row1: 'Reference no.',
-                                          row2: 'NUMBERNUMBER'),
+                                          row1: 'Reference no.', row2: ref),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(40),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            color: Color.fromARGB(94, 0, 0, 0),
-                                            spreadRadius: -8,
-                                            blurRadius: 10,
-                                            offset: Offset(0, 10))
-                                      ]),
-                                  child: BlueButtonWithoutFunction(
+                                const SizedBox(height: 20),
+                                BlueButtonWithoutFunction(
                                     text: const Text(
                                       'Email My Receipt',
                                       style: TextStyle(
@@ -391,7 +360,6 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                     ),
                                     oppressed: () => print(''),
                                   ),
-                                )
                               ],
                             ),
                           ),
@@ -406,5 +374,10 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

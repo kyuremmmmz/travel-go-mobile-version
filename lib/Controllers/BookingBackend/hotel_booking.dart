@@ -4,6 +4,7 @@ import 'package:itransit/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelBooking {
+  late BuildContext context;
   final supabase = Supabase.instance.client;
   Future<Map<String, dynamic>?> passtheData(int id) async {
     final response = await supabase
@@ -91,12 +92,11 @@ class HotelBooking {
     return null;
   }
 
-  Future<Map<String, dynamic>?> paymentReceipt(
-      BuildContext context, int uid) async {
+  Future<Map<String, dynamic>?> paymentReceipt(BuildContext context,int uid) async {
     final response = await supabase
         .from('payment_table')
         .select('*')
-        .eq('payment_id', uid)
+        .eq('phone', uid)
         .single();
     if (response.isEmpty) {
       return null;
@@ -107,22 +107,21 @@ class HotelBooking {
       var dateOfPayment = data['date_of_payment'];
       var refNo = data['reference_number'];
       var payment = data['payment'];
-      DateTime current = DateTime(dateOfPayment);
-      final formatDate = DateFormat('yyyy-MM-dd').format(current);
+      NumberFormat num = NumberFormat("#,###");
+      final format = num.format(payment);
+      DateTime current = DateTime.parse(dateOfPayment);
       data['name'] = account;
       data['phone'] = phone;
-      data['date_of_payment'] = formatDate;
+      data['date_of_payment'] = current;
       data['reference_number'] = refNo;
-      data['payment'] = payment;
-
-      AppRoutes.navigateToOrderReceipt(
-          context,
+      data['payment'] = format;
+      AppRoutes.navigateToOrderReceipt(context,
           name: account,
           phone: phone,
-          date: dateOfPayment,
+          date: current,
           ref: refNo,
-          payment: payment);
+          payment: format);
+      return data;
     }
-    return response;
   }
 }
