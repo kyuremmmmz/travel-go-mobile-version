@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Screens/App/booking_area.dart';
 import 'package:itransit/Widgets/Screens/App/creditcard.dart';
 import 'package:itransit/Widgets/Screens/App/hotel_booking.dart';
+import 'package:itransit/Widgets/Screens/App/notPaid.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
@@ -15,8 +16,6 @@ import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/linkedBankAccount.dart';
 import '../Widgets/Screens/App/foodAreaAbout.dart';
-import 'package:uni_links/uni_links.dart';
-import 'dart:async';
 
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
@@ -137,54 +136,9 @@ class AppRoutes {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const Creditcard()));
   }
-}
 
-
-class NavigatorWidget extends StatefulWidget {
-  const NavigatorWidget({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _NavigatorWidgetState createState() => _NavigatorWidgetState();
-}
-
-class _NavigatorWidgetState extends State<NavigatorWidget> {
-  StreamSubscription? _sub;
-
-  @override
-  void initState() {
-    super.initState();
-    _handleDeepLink();
-  }
-
-  @override
-  void dispose() {
-    _sub?.cancel();
-    super.dispose();
-  }
-
-  void _handleDeepLink() {
-    _sub = uriLinkStream.listen((Uri? uri) {
-      if (uri != null) {
-        if (uri.scheme == 'itransit' && uri.host == 'order') {
-          // Handle successful payment, navigate to the order page
-          // ignore: use_build_context_synchronously
-          Navigator.pushReplacementNamed(context, '/order');
-        }
-      }
-    }, onError: (err) {
-      // Handle error
-      print("Deep link error: $err");
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        '/order': (context) => const OrderReceipt(),
-      },
-    );
+  static void navigateToNotPaid(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Notpaid()));
   }
 }
-

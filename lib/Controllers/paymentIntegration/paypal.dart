@@ -1,16 +1,22 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
-import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'dart:math';
 
 class Paypal {
   final supabase = Supabase.instance.client;
 
-  Future<Map<String, dynamic>?> pay(BuildContext context, int total, String placeorhotel,
-      int price, String name, int phone, String place) async {
-    Navigator.of(context).push(
+  Future<void> pay(
+      BuildContext context,
+      int total,
+      String placeorhotel,
+      int price,
+      String name,
+      int phone,
+      String place) async {
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) => UsePaypal(
           sandboxMode: true,
@@ -73,6 +79,8 @@ class Paypal {
               'name': name,
               'price': price,
             });
+
+            
           },
           onError: (error) {
             print("onError: $error");
@@ -85,10 +93,9 @@ class Paypal {
         ),
       ),
     );
-    return null;
   }
 
-  String? getter() {
+  String getter() {
     String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     Random random = Random();
     int randomNumber = 1000 + random.nextInt(9000);

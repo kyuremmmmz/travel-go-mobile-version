@@ -85,8 +85,8 @@ class HotelBooking {
       });
       return response;
     } catch (e) {
-      SnackBar(content: Text('error: $e')
-      );
+      SnackBar(content: Text('error: $e'));
     }
+    return null;
   }
 }

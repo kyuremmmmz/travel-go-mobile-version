@@ -42,6 +42,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
   late Usersss users = Usersss();
   List<Map<String, dynamic>> place = [];
   final data = Data();
+  late bool isPaymentSuccess = false;
 
   Future<void> emailFetching() async {
     try {
@@ -60,6 +61,21 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
         email = "error: $e";
       });
     }
+  }
+
+  Future<void> paymentHandler() async {
+    await Paypal().pay(
+      context,
+      widget.price,
+      widget.hotelorplace,
+      widget.price,
+      widget.name,
+      widget.phone,
+      widget.nameoftheplace,
+    );
+    setState(() {
+      isPaymentSuccess = true;
+    });
   }
 
   Future<void> fetchImage() async {
@@ -149,21 +165,14 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                             AppRoutes.navigateToCreditCard(context),
                       ),
                       AccountButton(
-                          header: "PayPal",
-                          details: "0193129031903",
-                          color: const Color.fromRGBO(5, 103, 180, 1),
-                          image: paypalIcon,
-                          oppressed: () {
-                            Paypal().pay(
-                                context,
-                                widget.price,
-                                widget.hotelorplace,
-                                widget.price,
-                                widget.name,
-                                widget.phone,
-                                widget.nameoftheplace
-                              );
-                          }),
+                        header: "PayPal",
+                        details: "0193129031903",
+                        color: const Color.fromRGBO(5, 103, 180, 1),
+                        image: paypalIcon,
+                        oppressed: () {
+                          paymentHandler();
+                        },
+                      ),
                       AccountButton(
                         header: "Gcash",
                         details: "0193129031903",
@@ -188,20 +197,25 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                             offset: Offset(0, 10))
                       ]),
                   child: BlueButtonWithoutFunction(
-                    text: const Text(
-                      'Next',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        color: Colors.white,
+                      text: const Text(
+                        'Claim my Receipt',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    style: const ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(
-                          Color.fromRGBO(68, 202, 249, 1)),
-                    ),
-                    oppressed: () => print(''),
-                  ),
+                      style: const ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(
+                            Color.fromRGBO(68, 202, 249, 1)),
+                      ),
+                      oppressed: () {
+                        if (isPaymentSuccess) {
+                          AppRoutes.navigateToOrderReceipt(context);
+                        } else {
+                          AppRoutes.navigateToNotPaid(context);
+                        }
+                      }),
                 )
               ],
             ),
