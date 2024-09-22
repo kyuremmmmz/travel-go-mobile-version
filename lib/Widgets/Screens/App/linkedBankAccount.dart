@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
@@ -44,7 +45,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
   final data = Data();
   late bool isPaymentSuccess = false;
 
- Future<void> emailFetching() async {
+  Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
       if (mounted) {
@@ -88,18 +89,19 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
       });
     }
   }
+
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
   }
+
   @override
   void initState() {
     super.initState();
     emailFetching();
     fetchImage();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +216,11 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                       ),
                       oppressed: () {
                         if (isPaymentSuccess) {
-                          HotelBooking().paymentReceipt(context, widget.phone);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      OrderReceipt(Phone: widget.phone)));
                         } else {
                           AppRoutes.navigateToNotPaid(context);
                         }

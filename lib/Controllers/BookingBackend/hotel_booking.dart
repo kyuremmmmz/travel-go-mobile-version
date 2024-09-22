@@ -92,7 +92,7 @@ class HotelBooking {
     return null;
   }
 
-  Future<Map<String, dynamic>?> paymentReceipt(BuildContext context,int uid) async {
+  Future<Map<String, dynamic>?> paymentReceipt(int uid) async {
     final response = await supabase
         .from('payment_table')
         .select('*')
@@ -115,12 +115,6 @@ class HotelBooking {
       data['date_of_payment'] = current;
       data['reference_number'] = refNo;
       data['payment'] = format;
-      AppRoutes.navigateToOrderReceipt(context,
-          name: account,
-          phone: phone,
-          date: current,
-          ref: refNo,
-          payment: format);
       return data;
     }
   }

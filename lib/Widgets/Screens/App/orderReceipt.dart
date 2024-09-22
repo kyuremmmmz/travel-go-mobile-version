@@ -55,7 +55,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   void initState() {
     super.initState();
     emailFetching();
-    finalReceipt(context, widget.Phone);
+    finalReceipt( widget.Phone);
   }
 
   Future<void> emailFetching() async {
@@ -81,9 +81,9 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
     }
   }
 
-  Future<void> finalReceipt(BuildContext context, int uid) async {
+  Future<void> finalReceipt( int uid) async {
     try {
-      final response = await book.paymentReceipt(context, uid);
+      final response = await book.paymentReceipt( uid);
       if (response != null) {
         if (mounted) {
           final data = response;
