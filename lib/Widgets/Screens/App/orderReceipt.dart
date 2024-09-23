@@ -61,23 +61,26 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   }
 
   void main() async {
-    Mailer mailer = Mailer();
+  Mailer mailer = Mailer();
 
-
-    String htmlContent = mailer.generateHtmlReceipt(
-      amount: amount,
-      phone: phone,
-      ref: ref,
-      date: DateTime.now(),
-    );
-    await mailer.sendEmail(
-      subject: "Your Booking Receipt",
-      htmlContent: htmlContent,
-      recipientEmail: "$gmail",
-      ccEmail: "$gmail",
-      bcc: "$gmail",
-    );
-  }
+  String pdfPath = await mailer.generatePdfReceipt(
+    amount: amount,
+    phone: phone,
+    ref: ref,
+    date: DateTime.now(), 
+    account: account, 
+    gmail: '$gmail',
+  );
+  
+    await mailer.sendEmailWithAttachment(
+    subject: 'Your Booking Receipt',
+    body: 'Please find your receipt attached.',
+    recipientEmail: '$gmail',
+    filePath: pdfPath,
+    ccEmail:  '$gmail',
+    bcc:  '$gmail'
+  );
+}
 
 
   

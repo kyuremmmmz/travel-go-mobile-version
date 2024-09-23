@@ -1,80 +1,168 @@
 import 'dart:io';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/services.dart' show ByteData, rootBundle;
+import 'dart:typed_data';
 
 class Mailer {
-  // Generate HTML receipt
-  String generateHtmlReceipt({
+  Future<String> generatePdfReceipt({
     required String amount,
     required int phone,
     required String ref,
     required DateTime date,
-  }) {
-    return '''
-    <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Booking Receipt</title>
-        </head>
-        <body style="font-family: Arial, sans-serif;">
-          <div style="width: 80%; margin: 0 auto;">
-            <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
-              <h2>Thank you for your booking!</h2>
-            </div>
-            <div style="padding: 20px;">
-              <p style="line-height: 1.5;"><strong>Date:</strong> $date</p>
-              <p style="line-height: 1.5;"><strong>Amount:</strong> PHP $amount</p>
-              <p style="line-height: 1.5;"><strong>Contact Number:</strong> $phone</p>
-              <p style="line-height: 1.5;"><strong>Reference Number:</strong> $ref</p>
-            </div>
-            <div style="text-align: center; margin-top: 20px; font-size: 12px;">
-              <p>Travel Go &copy; 2024</p>
-            </div>
-          </div>
-        </body>
-      </html>
-    ''';
+    required String account,
+    required String gmail,
+  }) async {
+    final pdf = pw.Document();
+
+    final ByteData receiptBackgroundData =
+        await rootBundle.load('assets/images/backgrounds/Receipt.png');
+    final Uint8List receiptBackgroundBytes =
+        receiptBackgroundData.buffer.asUint8List();
+    final pdfImage = pw.MemoryImage(receiptBackgroundBytes);
+
+    final ByteData logoData =
+        await rootBundle.load('assets/images/icon/ButtonX.png');
+    final Uint8List logoBytes = logoData.buffer.asUint8List();
+    final pdfLogo = pw.MemoryImage(logoBytes);
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          const pageWidth = 100.0;
+          const pageHeight = 100.0;
+
+          return pw.Stack(
+            children: [
+              pw.Image(pdfImage,
+                  fit: pw.BoxFit.fill,
+                  width: pageWidth,
+                  height: pageHeight),
+              pw.Padding(
+                padding: const pw.EdgeInsets.all(20),
+                child: pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Container(
+                      alignment: pw.Alignment.center,
+                      child: pw.Image(pdfLogo, width: 40, height: 40),
+                    ),
+                    pw.SizedBox(height: 20),
+
+                    pw.Text(
+                      'Booking Confirmed!',
+                      style: pw.TextStyle(
+                        fontSize: 15,
+                        fontWeight: pw.FontWeight.bold,
+                        color: PdfColor.fromHex("#006B92"),
+                      ),
+                    ),
+                    pw.Text('Date: ${date.toLocal()}',
+                        style: const pw.TextStyle(fontSize: 10)),
+                    pw.SizedBox(height: 20),
+
+                    pw.Text(
+                      'Thank You for Your Booking!',
+                      style: pw.TextStyle(
+                        color: PdfColor.fromHex("#0A2C48"),
+                        fontSize: 16,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
+                    pw.SizedBox(height: 10),
+
+                    // Biller Information
+                    pw.Container(
+                      padding: const pw.EdgeInsets.all(10),
+                      decoration: pw.BoxDecoration(
+                          color: PdfColor.fromHex("#FFFFFF"),
+                          border: pw.Border.all(
+                              color: PdfColor.fromHex("#000000"))),
+                      child: pw.Column(
+                        children: [
+                          pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.Text('BILLER',
+                                  style: pw.TextStyle(
+                                      fontWeight: pw.FontWeight.bold)),
+                              pw.Text('Travel Go',
+                                  style: pw.TextStyle(
+                                      fontWeight: pw.FontWeight.bold,
+                                      color: PdfColor.fromHex("#0567B4"))),
+                            ],
+                          ),
+                          pw.Divider(color: PdfColor.fromHex("#000000")),
+                          pw.Text('ACCOUNT: ${account.toUpperCase()}'),
+                          pw.Text('CONTACT NUMBER: $phone'),
+                          pw.Text('EMAIL: $gmail'),
+                          pw.Text('AMOUNT: PHP $amount'),
+                        ],
+                      ),
+                    ),
+                    pw.SizedBox(height: 20),
+
+                    pw.Container(
+                      padding: const pw.EdgeInsets.all(10),
+                      decoration: pw.BoxDecoration(
+                          color: PdfColor.fromHex("#FFFFFF"),
+                          border: pw.Border.all(
+                              color: PdfColor.fromHex("#000000"))),
+                      child: pw.Column(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
+                        children: [
+                          pw.Text('TOTAL AMOUNT: $amount',
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                          pw.Text('Paid using PayPal',
+                              style: pw.TextStyle(
+                                  color: PdfColor.fromHex("#0567B4"))),
+                          pw.Text('Date Paid: ${date.toLocal()}'),
+                          pw.Text('Reference No: $ref'),
+                        ],
+                      ),
+                    ),
+                    pw.SizedBox(height: 40),
+                    pw.Text('Travel Go © 2024',
+                        style: pw.TextStyle(fontSize: 12)),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+
+    // Save the PDF file
+    final output = await getTemporaryDirectory();
+    final filePath = '${output.path}/BookingReceipt.pdf';
+    final file = File(filePath);
+    await file.writeAsBytes(await pdf.save());
+
+    return filePath;
   }
 
-  // Save HTML file
-  Future<String> saveHtmlFile(String htmlContent) async {
-    var status = await Permission.storage.request();
-    if (!status.isGranted) {
-      print('Storage permission denied');
-      return '';
-    }
-
-    try {
-      Directory? directory = await getExternalStorageDirectory();
-      String path = directory!.path;
-      File file = File('$path/BookingReceipt.html');
-
-      await file.writeAsString(htmlContent);
-      print('HTML file saved: ${file.path}');
-      return file.path;
-    } catch (e) {
-      print('Error saving HTML file: $e');
-      return '';
-    }
-  }
-
-  // Send email with HTML content
-  Future<void> sendEmail({
+  Future<void> sendEmailWithAttachment({
     required String subject,
-    required String htmlContent,
+    required String body,
     required String recipientEmail,
+    required String filePath,
     required String ccEmail,
     required String bcc,
   }) async {
     try {
       await FlutterEmailSender.send(Email(
-        body: htmlContent,
+        body: body,
         subject: subject,
         recipients: [recipientEmail],
         cc: [ccEmail],
         bcc: [bcc],
-        isHTML: true,
+        attachmentPaths: [filePath],
+        isHTML: false,
       ));
       print('Email sent successfully');
     } catch (e) {
