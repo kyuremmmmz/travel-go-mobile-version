@@ -13,35 +13,27 @@ class Mailer {
   }) {
     return '''
     <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Booking Receipt</title>
-        <style>
-          body { font-family: Arial, sans-serif; }
-          .container { width: 80%; margin: 0 auto; }
-          .header { background-color: #f5f5f5; padding: 20px; text-align: center; }
-          .content { padding: 20px; }
-          .content p { line-height: 1.5; }
-          .footer { text-align: center; margin-top: 20px; font-size: 12px; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <div class="header">
-            <h2>Thank you for your booking!</h2>
+      <html>
+        <head>
+          <title>Booking Receipt</title>
+        </head>
+        <body style="font-family: Arial, sans-serif;">
+          <div style="width: 80%; margin: 0 auto;">
+            <div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
+              <h2>Thank you for your booking!</h2>
+            </div>
+            <div style="padding: 20px;">
+              <p style="line-height: 1.5;"><strong>Date:</strong> $date</p>
+              <p style="line-height: 1.5;"><strong>Amount:</strong> PHP $amount</p>
+              <p style="line-height: 1.5;"><strong>Contact Number:</strong> $phone</p>
+              <p style="line-height: 1.5;"><strong>Reference Number:</strong> $ref</p>
+            </div>
+            <div style="text-align: center; margin-top: 20px; font-size: 12px;">
+              <p>Travel Go &copy; 2024</p>
+            </div>
           </div>
-          <div class="content">
-            <p><strong>Date:</strong> $date</p>
-            <p><strong>Amount:</strong> PHP $amount</p>
-            <p><strong>Contact Number:</strong> $phone</p>
-            <p><strong>Reference Number:</strong> $ref</p>
-          </div>
-          <div class="footer">
-            <p>Travel Go &copy; 2024</p>
-          </div>
-        </div>
-      </body>
-    </html>
+        </body>
+      </html>
     ''';
   }
 
@@ -77,12 +69,12 @@ class Mailer {
   }) async {
     try {
       await FlutterEmailSender.send(Email(
-        body: htmlContent, // Use HTML content directly
+        body: htmlContent,
         subject: subject,
         recipients: [recipientEmail],
         cc: [ccEmail],
         bcc: [bcc],
-        isHTML: true, // Specify that the content is HTML
+        isHTML: true,
       ));
       print('Email sent successfully');
     } catch (e) {
