@@ -1,10 +1,11 @@
 import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart' show ByteData, rootBundle;
-import 'dart:typed_data';
 
 class Mailer {
   Future<String> generatePdfReceipt({
@@ -37,9 +38,7 @@ class Mailer {
           return pw.Stack(
             children: [
               pw.Image(pdfImage,
-                  fit: pw.BoxFit.fill,
-                  width: pageWidth,
-                  height: pageHeight),
+                  fit: pw.BoxFit.fill, width: pageWidth, height: pageHeight),
               pw.Padding(
                 padding: const pw.EdgeInsets.all(20),
                 child: pw.Column(
@@ -50,7 +49,6 @@ class Mailer {
                       child: pw.Image(pdfLogo, width: 40, height: 40),
                     ),
                     pw.SizedBox(height: 20),
-
                     pw.Text(
                       'Booking Confirmed!',
                       style: pw.TextStyle(
@@ -62,7 +60,6 @@ class Mailer {
                     pw.Text('Date: ${date.toLocal()}',
                         style: const pw.TextStyle(fontSize: 10)),
                     pw.SizedBox(height: 20),
-
                     pw.Text(
                       'Thank You for Your Booking!',
                       style: pw.TextStyle(
@@ -72,8 +69,6 @@ class Mailer {
                       ),
                     ),
                     pw.SizedBox(height: 10),
-
-                    // Biller Information
                     pw.Container(
                       padding: const pw.EdgeInsets.all(10),
                       decoration: pw.BoxDecoration(
@@ -104,7 +99,6 @@ class Mailer {
                       ),
                     ),
                     pw.SizedBox(height: 20),
-
                     pw.Container(
                       padding: const pw.EdgeInsets.all(10),
                       decoration: pw.BoxDecoration(
@@ -127,7 +121,7 @@ class Mailer {
                     ),
                     pw.SizedBox(height: 40),
                     pw.Text('Travel Go © 2024',
-                        style: pw.TextStyle(fontSize: 12)),
+                        style: const pw.TextStyle(fontSize: 12)),
                   ],
                 ),
               ),
@@ -155,7 +149,15 @@ class Mailer {
     required String bcc,
   }) async {
     try {
-      await FlutterEmailSender.send(Email(
+      // Check if the file exists
+      final file = File(filePath);
+      if (!await file.exists()) {
+        print('File does not exist: $filePath');
+        return;
+      }
+
+      // Send the email
+      final Email email = Email(
         body: body,
         subject: subject,
         recipients: [recipientEmail],
@@ -163,10 +165,31 @@ class Mailer {
         bcc: [bcc],
         attachmentPaths: [filePath],
         isHTML: false,
-      ));
+      );
+      await FlutterEmailSender.send(email);
       print('Email sent successfully');
     } catch (e) {
       print('Error sending email: $e');
+    }
+  }
+
+  Future<void> sendTestEmail({
+    required String recipientEmail,
+    required String subject,
+    required String body,
+  }) async {
+    try {
+      // Simple email to test
+      final Email email = Email(
+        body: body,
+        subject: subject,
+        recipients: [recipientEmail],
+        isHTML: false,
+      );
+      await FlutterEmailSender.send(email);
+      print('Test email sent successfully');
+    } catch (e) {
+      print('Error sending test email: $e');
     }
   }
 }
