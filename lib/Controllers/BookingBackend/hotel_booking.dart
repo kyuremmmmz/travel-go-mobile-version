@@ -107,6 +107,7 @@ class HotelBooking {
       var dateOfPayment = data['date_of_payment'];
       var refNo = data['reference_number'];
       var payment = data['payment'];
+      var email = data['gmail'];
       NumberFormat num = NumberFormat("#,###");
       final format = num.format(payment);
       DateTime current = DateTime.parse(dateOfPayment);
@@ -115,6 +116,7 @@ class HotelBooking {
       data['date_of_payment'] = current;
       data['reference_number'] = refNo;
       data['payment'] = format;
+      data['gmail'] = email;
       return data;
     }
   }

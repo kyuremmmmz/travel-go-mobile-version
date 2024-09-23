@@ -565,13 +565,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     blurRadius: 5,
                                     offset: const Offset(0, 5),
                                   )
-                                ]),
-                            child: inputTextField(
-                              colorr: Colors.black,
-                              text: 'Hotel:',
-                              controller: _destinationController,
-                              icon: const Icon(FontAwesomeIcons.hotel),
-                            ),
+                                ]), 
                           ),
                           const SizedBox(
                             height: 10,
@@ -1002,11 +996,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                             _numberController
                                                                 .text
                                                                 .trim()),
-                                                        nameoftheplace: '',
+                                                        nameoftheplace: _emailController.text.trim(),
                                                         price: amount,
                                                         payment: amount,
                                                         hotelorplace:
-                                                            place ?? '',
+                                                            _hotel.text,
                                                       );
                                                     } else {
                                                       print('nigga');

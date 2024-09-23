@@ -72,8 +72,7 @@ class Paypal {
             await supabase.from('payment_table').insert({
               'payment_id': user!.id,
               'payment': total,
-              'name_of_the_place': place,
-              'place': place,
+              'gmail': place,
               'reference_number': timestamp,
               'phone': phone,
               'name': name,

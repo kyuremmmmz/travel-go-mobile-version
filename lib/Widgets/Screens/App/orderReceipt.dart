@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/mail/Mailer.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/TextWidgets/rowDetails.dart';
@@ -42,9 +43,10 @@ class OrderReceiptScreen extends StatefulWidget {
 class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
   final String receiptBackground = "assets/images/backgrounds/Receipt.png";
-  String? email;
+  var email;
   String amount = "loading";
   var phone;
+  String? gmail;
   String ref = "loading";
   var date;
   String account = "loading";
@@ -55,8 +57,30 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   void initState() {
     super.initState();
     emailFetching();
-    finalReceipt( widget.Phone);
+    finalReceipt(widget.Phone);
   }
+
+  void main() async {
+    Mailer mailer = Mailer();
+
+
+    String htmlContent = mailer.generateHtmlReceipt(
+      amount: amount,
+      phone: phone,
+      ref: ref,
+      date: DateTime.now(),
+    );
+    await mailer.sendEmail(
+      subject: "Your Booking Receipt",
+      htmlContent: htmlContent,
+      recipientEmail: "$gmail",
+      ccEmail: "$gmail",
+      bcc: "$gmail",
+    );
+  }
+
+
+  
 
   Future<void> emailFetching() async {
     try {
@@ -94,6 +118,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
             ref = data['reference_number'] ?? 'N/A';
             date = data['date_of_payment'] ?? 'Unknown Date';
             account = data['name'] ?? 'Unknown Account';
+            gmail = data['gmail'] ?? 'Unknown';
           });
         }
       } else {
@@ -274,7 +299,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                             ),
                                             RowDetails(
                                               row1: 'EMAIL',
-                                              row2: 'PLACEHOLDER',
+                                              row2: '$gmail',
                                             ),
                                             RowDetails(
                                               row1: 'AMOUNT',
@@ -346,20 +371,22 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                 ),
                                 const SizedBox(height: 20),
                                 BlueButtonWithoutFunction(
-                                    text: const Text(
-                                      'Email My Receipt',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                      ),
+                                  text: const Text(
+                                    'Email My Receipt',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: Colors.black,
                                     ),
-                                    style: const ButtonStyle(
-                                      backgroundColor:
-                                          WidgetStatePropertyAll(Colors.white),
-                                    ),
-                                    oppressed: () => print(''),
                                   ),
+                                  style: const ButtonStyle(
+                                    backgroundColor:
+                                        WidgetStatePropertyAll(Colors.white),
+                                  ),
+                                  oppressed: () async {
+                                    main();
+                                  },
+                                ),
                               ],
                             ),
                           ),
