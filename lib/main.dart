@@ -4,8 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'Widgets/Screens/App/mainmenu.dart';
 import 'Widgets/Screens/Auth/Choose.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 

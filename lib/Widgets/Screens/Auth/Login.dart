@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ]),
             ),
           ),
-          Positioned(
+          const Positioned(
               top: 150,
               right: 20,
               child: Text(
@@ -124,8 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 400,
                       padding: const EdgeInsets.only(top: 0),
                       child: plainTextField(
-                        text: 'Email', // Placeholder text for the email field
-                        controller: _emailController,  // Controller for the email field
+                        colorr: Colors.black,
+                        text: 'Email',
+                        controller: _emailController,
                       ),
                     ),
                     const SizedBox(
