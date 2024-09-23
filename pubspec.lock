@@ -1241,10 +1241,24 @@ packages:
     dependency: transitive
     description:
       name: vm_service
+<<<<<<< HEAD
+<<<<<<< HEAD
+      sha256: f652077d0bdf60abe4c1f6377448e8655008eef28f128bc023f7b5e8dfeb48fc
+      url: "https://pub.dev"
+    source: hosted5e
+    version: "14.2.4"
+=======
+      sha256: "3923c89304b715fb1eb6423f017651664a03bf5f4b29983627c4da791f74a4ec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.2.1"
+>>>>>>> b873686e5594770893b3efbf0cc995d712eff622
+=======
       sha256: "5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d"
       url: "https://pub.dev"
     source: hosted
     version: "14.2.5"
+>>>>>>> 07a85c9b66d469eed3060367dbb3fc7f7f1a4cd1
   web:
     dependency: transitive
     description:
