@@ -70,8 +70,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
                 children: <Widget>[
                   const CircleAvatar(
                     backgroundImage: AssetImage(
-                        'assets/images/icon/beach.png'), // Replace with your own profile image
-                    radius: 40,
+                        'assets/images/icon/beach.png'),
                   ),
                   const SizedBox(height: 10),
                   Text(

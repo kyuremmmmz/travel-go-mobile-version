@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Screens/App/booking_area.dart';
 import 'package:itransit/Widgets/Screens/App/creditcard.dart';
 import 'package:itransit/Widgets/Screens/App/hotel_booking.dart';
+import 'package:itransit/Widgets/Screens/App/notPaid.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
@@ -10,11 +11,12 @@ import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 import 'package:itransit/Widgets/Screens/Stateless/hotel_stateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
 import 'package:itransit/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
+
+import '../Widgets/Screens/App/foodAreaAbout.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/linkedBankAccount.dart';
-import '../Widgets/Screens/App/foodAreaAbout.dart';
 
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
@@ -66,9 +68,26 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const explore()));
   }
 
-  static void navigateToLinkedBankAccount(BuildContext route) {
-    Navigator.push(route,
-        MaterialPageRoute(builder: (context) => const LinkedBankScreen()));
+  static void navigateToLinkedBankAccount(
+    BuildContext route, {
+    required String name,
+    required int phone,
+    required String nameoftheplace,
+    required int price,
+    required int payment,
+    required String hotelorplace,
+  }) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+            builder: (context) => LinkedBankScreen(
+                  name: name,
+                  phone: phone,
+                  nameoftheplace: nameoftheplace,
+                  price: price,
+                  payment: payment,
+                  hotelorplace: hotelorplace
+                )));
   }
 
   static void navigateToTesting(BuildContext route, {required String name}) {
@@ -80,9 +99,20 @@ class AppRoutes {
                 )));
   }
 
-  static void navigateToOrderReceipt(BuildContext route) {
+  static void navigateToOrderReceipt(
+    BuildContext route, {
+    required String name,
+    required int phone,
+    required DateTime date,
+    required String ref,
+    required String payment,
+  }) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) => const OrderReceipt()));
+        route,
+        MaterialPageRoute(
+            builder: (context) => OrderReceipt(
+                  Phone: phone,
+                )));
   }
 
   static void navigateToBookingArea(BuildContext route, {required int id}) {
@@ -117,5 +147,10 @@ class AppRoutes {
   static void navigateToCreditCard(BuildContext context) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const Creditcard()));
+  }
+
+  static void navigateToNotPaid(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Notpaid()));
   }
 }

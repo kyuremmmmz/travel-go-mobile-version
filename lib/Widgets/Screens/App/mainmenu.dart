@@ -71,7 +71,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
         (place) {
           if (place['place_name'] != null &&
               place['place_name'].toString().length > 18) {
-            place['place_name'] = place['place_name'].toString().substring(0, 18);
+              place['place_name'] = place['place_name'].toString().substring(0, 18);
           }
           return place;
         },

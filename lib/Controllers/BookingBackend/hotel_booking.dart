@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelBooking {
+  late BuildContext context;
   final supabase = Supabase.instance.client;
   Future<Map<String, dynamic>?> passtheData(int id) async {
     final response = await supabase
@@ -65,22 +67,57 @@ class HotelBooking {
       String paymentStatus,
       int numberOfAdult,
       int numberOfChildren,
-      var price
-      ) async {
-    final user = supabase.auth.currentUser;
-    final response = await supabase.from('hotel_booking').insert({
-      'name': fullname,
-      'gmail': emailAddress,
-      'phone': phoneNumber,
-      'price': price,
-      'paymet_status': paymentStatus,
-      'hotel': hotel,
-      'booking_id' : user!.id,
-      'checkin': checkIn,
-      'checkout': checkOut,
-      'number_of_adults': numberOfAdult,
-      'number_of_children': numberOfChildren,
-    });
-    return response;
+      String room,
+      var price) async {
+    try {
+      final user = supabase.auth.currentUser;
+      final response = await supabase.from('hotel_booking').insert({
+        'name': fullname,
+        'gmail': emailAddress,
+        'phone': phoneNumber,
+        'price': price,
+        'paymet_status': paymentStatus,
+        'hotel': hotel,
+        'booking_id': user!.id,
+        'checkin': checkIn,
+        'checkout': checkOut,
+        'number_of_adults': numberOfAdult,
+        'number_of_children': numberOfChildren,
+        'room_type': room
+      });
+      return response;
+    } catch (e) {
+      SnackBar(content: Text('error: $e'));
+    }
+    return null;
+  }
+
+  Future<Map<String, dynamic>?> paymentReceipt(int uid) async {
+    final response = await supabase
+        .from('payment_table')
+        .select('*')
+        .eq('phone', uid)
+        .single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      final data = response;
+      var account = data['name'];
+      var phone = data['phone'];
+      var dateOfPayment = data['date_of_payment'];
+      var refNo = data['reference_number'];
+      var payment = data['payment'];
+      var email = data['gmail'];
+      NumberFormat num = NumberFormat("#,###");
+      final format = num.format(payment);
+      DateTime current = DateTime.parse(dateOfPayment);
+      data['name'] = account;
+      data['phone'] = phone;
+      data['date_of_payment'] = current;
+      data['reference_number'] = refNo;
+      data['payment'] = format;
+      data['gmail'] = email;
+      return data;
+    }
   }
 }

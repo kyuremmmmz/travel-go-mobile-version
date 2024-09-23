@@ -39,7 +39,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
   String? hasMotor;
   String? located;
   String? availability;
-  String? price;
+  var price;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
   final data = HotelImages();

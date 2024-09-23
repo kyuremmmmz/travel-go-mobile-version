@@ -526,8 +526,8 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       ],
                                     ),
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10, right: 10),
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
                                       child: Column(
                                         children: [
                                           const Row(
@@ -578,8 +578,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                                     const Color.fromARGB(
                                                         255, 26, 169, 235)),
                                             oppressed: () {
-                                              AppRoutes.navigateToOrderReceipt(
-                                                  context);
+                                              print('nigga');
                                             },
                                           ),
                                         ),
