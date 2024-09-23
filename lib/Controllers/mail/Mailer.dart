@@ -1,13 +1,22 @@
 import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:flutter/services.dart' show ByteData, rootBundle;
-import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter/services.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:intl/intl.dart';
 
 class Mailer {
+  Future<void> requestPermission() async {
+    final status = await Permission.storage.request();
+    if (!status.isGranted) {
+      throw Exception('Storage permission not granted');
+    }
+  }
+
   Future<String> generatePdfReceipt({
     required String amount,
     required int phone,
@@ -16,7 +25,10 @@ class Mailer {
     required String account,
     required String gmail,
   }) async {
+    await requestPermission(); 
+
     final pdf = pw.Document();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(date);
 
     final ByteData receiptBackgroundData =
         await rootBundle.load('assets/images/backgrounds/Receipt.png');
@@ -32,13 +44,11 @@ class Mailer {
     pdf.addPage(
       pw.Page(
         build: (pw.Context context) {
-          const pageWidth = 100.0;
-          const pageHeight = 100.0;
 
           return pw.Stack(
             children: [
               pw.Image(pdfImage,
-                  fit: pw.BoxFit.fill, width: pageWidth, height: pageHeight),
+                  fit: pw.BoxFit.fill),
               pw.Padding(
                 padding: const pw.EdgeInsets.all(20),
                 child: pw.Column(
@@ -62,6 +72,7 @@ class Mailer {
                     pw.SizedBox(height: 20),
                     pw.Text(
                       'Thank You for Your Booking!',
+                      textAlign: pw.TextAlign.center,
                       style: pw.TextStyle(
                         color: PdfColor.fromHex("#0A2C48"),
                         fontSize: 16,
@@ -100,6 +111,7 @@ class Mailer {
                     ),
                     pw.SizedBox(height: 20),
                     pw.Container(
+                      width: 900,
                       padding: const pw.EdgeInsets.all(10),
                       decoration: pw.BoxDecoration(
                           color: PdfColor.fromHex("#FFFFFF"),
@@ -145,51 +157,32 @@ class Mailer {
     required String body,
     required String recipientEmail,
     required String filePath,
-    required String ccEmail,
-    required String bcc,
   }) async {
-    try {
-      // Check if the file exists
-      final file = File(filePath);
-      if (!await file.exists()) {
-        print('File does not exist: $filePath');
-        return;
+    final file = File(filePath);
+
+    if (await file.exists()) {
+      const smtpServerAddress = 'smtp.gmail.com';
+      const smtpUsername = 'kurosawataki84@gmail.com';
+      const smtpPassword = 'fwie bneh yhuf pkkf';
+
+      final smtpServer = SmtpServer(smtpServerAddress,
+          username: smtpUsername, password: smtpPassword);
+
+      final message = Message()
+        ..from = const Address(smtpUsername, 'Travel Go') 
+        ..recipients.add(recipientEmail)
+        ..subject = subject
+        ..text = body
+        ..attachments.add(FileAttachment(file));
+
+      try {
+        final sendReport = await send(message, smtpServer);
+        print('Email sent: ' + sendReport.toString());
+      } catch (e) {
+        print('Error sending email: $e');
       }
-
-      // Send the email
-      final Email email = Email(
-        body: body,
-        subject: subject,
-        recipients: [recipientEmail],
-        cc: [ccEmail],
-        bcc: [bcc],
-        attachmentPaths: [filePath],
-        isHTML: false,
-      );
-      await FlutterEmailSender.send(email);
-      print('Email sent successfully');
-    } catch (e) {
-      print('Error sending email: $e');
-    }
-  }
-
-  Future<void> sendTestEmail({
-    required String recipientEmail,
-    required String subject,
-    required String body,
-  }) async {
-    try {
-      // Simple email to test
-      final Email email = Email(
-        body: body,
-        subject: subject,
-        recipients: [recipientEmail],
-        isHTML: false,
-      );
-      await FlutterEmailSender.send(email);
-      print('Test email sent successfully');
-    } catch (e) {
-      print('Error sending test email: $e');
+    } else {
+      print('File does not exist: $filePath');
     }
   }
 }

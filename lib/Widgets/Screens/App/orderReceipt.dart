@@ -77,8 +77,6 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
     body: 'Please find your receipt attached.',
     recipientEmail: '$gmail',
     filePath: pdfPath,
-    ccEmail:  '$gmail',
-    bcc:  '$gmail'
   );
 }
 
