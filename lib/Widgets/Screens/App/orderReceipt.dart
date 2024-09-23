@@ -81,9 +81,9 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
     }
   }
 
-  Future<void> finalReceipt( int uid) async {
+  Future<void> finalReceipt(int uid) async {
     try {
-      final response = await book.paymentReceipt( uid);
+      final response = await book.paymentReceipt(uid);
       if (response != null) {
         if (mounted) {
           final data = response;
