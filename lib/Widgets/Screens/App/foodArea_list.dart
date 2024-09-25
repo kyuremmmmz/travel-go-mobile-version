@@ -289,7 +289,7 @@ class _FoodAreaState extends State<FoodArea> {
                                   Container(
                                     padding: const EdgeInsets.only(right: 220),
                                     child: const Text(
-                                      'Popular Hotels',
+                                      'Food Places',
                                       style: TextStyle(
                                         fontSize: 19,
                                         fontWeight: FontWeight.bold,
