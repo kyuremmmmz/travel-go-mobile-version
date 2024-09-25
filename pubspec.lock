@@ -656,6 +656,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      sha256: "623a88c9594aa774443aa3eb2d41807a48486b5613e67599fb4c41c0ad47c340"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
+  mailer:
+    dependency: "direct main"
+    description:
+      name: mailer
+      sha256: "3b27d204ff92a20aba227c25bc6467e245b0f19f9fbbc83aa357a9b7fa40267f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.2"
   matcher:
     dependency: transitive
     description:
@@ -1233,10 +1249,17 @@ packages:
     dependency: transitive
     description:
       name: vm_service
+<<<<<<< HEAD
       sha256: f652077d0bdf60abe4c1f6377448e8655008eef28f128bc023f7b5e8dfeb48fc
       url: "https://pub.dev"
     source: hosted
     version: "14.2.4"
+=======
+      sha256: "5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.2.5"
+>>>>>>> 05117e382aa7771b3a58f92c87c127909008a16a
   web:
     dependency: transitive
     description:
