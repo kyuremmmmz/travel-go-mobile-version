@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -107,15 +108,17 @@ class _InformationScreenState extends State<InformationScreen> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          toolbarHeight: 40,
+          toolbarHeight: 40.h, // making height reponsive
           leading: Builder(
             builder: (BuildContext context) => IconButton(
-              icon: const Icon(Icons.menu),
+              icon: Icon(Icons.menu, size: 24.sp), // reponsive icon size
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -210,7 +213,7 @@ class _InformationScreenState extends State<InformationScreen> {
                           Text(
                             'TRAVEL GO',
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: 30.sp, // reponsive text
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
                               shadows: [
@@ -250,7 +253,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                         BorderRadius.all(Radius.circular(50)),
                                   ),
                                   filled: true,
-                                  fillColor: Colors.white,
+                                  fillColor: Color.fromARGB(255, 255, 255, 255),
                                 ),
                               ),
                               suggestionsCallback: (pattern) async {

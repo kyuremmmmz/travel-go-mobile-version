@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/GreenButton.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +42,7 @@ class _WelcomePageState extends State<WelcomePage> {
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: -90,
+            top: -90.h,
             right: -30,
             left: -30,
             child: Stack(children: <Widget>[
@@ -49,22 +50,22 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: Image.asset(
                   'assets/images/Background.png',
                   fit: BoxFit.cover,
-                  height: 470,
-                  width: 510,
+                  height: 470.h,
+                  width: 510.w,
                 ),
               ),
               Container(
-                height: 470,
-                width: 510,
+                height: 470.h,
+                width: 510.w,
                 color: Colors.black.withOpacity(0.2),
               )
             ]),
           ),
           Positioned(
-            top: 300,
+            top: 300.h,
             right: 0,
             left: 0,
-            height: 550,
+            height: 800.h,
             child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.only(top: 20),
@@ -93,11 +94,11 @@ class _WelcomePageState extends State<WelcomePage> {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            padding: const EdgeInsets.only(right: 50, top: 50),
-                            child: const Text(
+                            padding: const EdgeInsets.only(right: 50, top: 20),
+                            child: Text(
                               'Welcome to',
                               style: TextStyle(
-                                fontSize: 35,
+                                fontSize: 35.sp,
                                 fontWeight: FontWeight.w900,
                               ),
                               textAlign: TextAlign.left,
@@ -110,11 +111,11 @@ class _WelcomePageState extends State<WelcomePage> {
                                 return gradient.createShader(Rect.fromLTWH(
                                     0, 0, bounds.width, bounds.height));
                               },
-                              child: const Text(
+                              child: Text(
                                 'TRAVEL GO',
                                 style: TextStyle(
                                   color: Colors.lightBlue,
-                                  fontSize: 25,
+                                  fontSize: 25.sp,
                                   fontWeight: FontWeight.w900,
                                 ),
                                 textAlign: TextAlign.left,
@@ -125,13 +126,13 @@ class _WelcomePageState extends State<WelcomePage> {
                             height: 15,
                           ),
                           Container(
-                            padding: const EdgeInsets.only(top: 5, left: 50),
-                            width: 700,
-                            child: const Text(
+                            padding: EdgeInsets.only(top: 5.h, left: 35.w),
+                            width: 700.w,
+                            child: Text(
                               'Travel and get more experience here in Pangasinan! \n \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 14.sp,
                               ),
                             ),
                           ),
@@ -142,11 +143,11 @@ class _WelcomePageState extends State<WelcomePage> {
                       height: 20,
                     ),
                     Container(
-                      padding: const EdgeInsets.only(bottom: 300),
+                      padding: EdgeInsets.only(bottom: 300.h),
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
+                            padding: EdgeInsets.only(bottom: 20.h),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
@@ -155,31 +156,31 @@ class _WelcomePageState extends State<WelcomePage> {
                                     color: Colors.black.withOpacity(0.2),
                                     spreadRadius: 2,
                                     blurRadius: 4,
-                                    offset: const Offset(0, 4),
+                                    offset: Offset(0, 4.h),
                                   ),
                                 ],
                               ),
-                              width: 270,
-                              height: 40,
+                              width: 270.w,
+                              height: 40.h,
                               child: Bluebottle(
                                 color: ElevatedButton.styleFrom(
                                   backgroundColor:
                                       const Color.fromARGB(255, 50, 190, 255),
                                 ),
-                                text: const Text(
+                                text: Text(
                                   'Sign In',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 15,
+                                    fontSize: 15.sp,
                                   ),
                                 ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 10),
+                            padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
                             child: Container(
-                              padding: const EdgeInsets.only(top: 0),
+                              padding: EdgeInsets.only(top: 0.h),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 boxShadow: [
@@ -187,17 +188,18 @@ class _WelcomePageState extends State<WelcomePage> {
                                     color: Colors.black.withOpacity(0.2),
                                     spreadRadius: 2,
                                     blurRadius: 4,
-                                    offset: const Offset(0, 4),
+                                    offset: Offset(0.h, 4.h),
                                   ),
                                 ],
                               ),
-                              width: 270,
-                              height: 40,
+                              width: 270.w,
+                              height: 40.h,
                               child: Greenbutton(
-                                text: const Text(
+                                text: Text(
                                   'Sign Up',
                                   style: TextStyle(
                                     color: Colors.black,
+                                    fontSize: 15.sp,
                                   ),
                                 ),
                                 color: ElevatedButton.styleFrom(
