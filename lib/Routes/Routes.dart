@@ -7,6 +7,7 @@ import 'package:itransit/Widgets/Screens/App/notPaid.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
+import 'package:itransit/Widgets/Screens/Stateless/food_AreaStateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 import 'package:itransit/Widgets/Screens/Stateless/hotel_stateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
@@ -81,13 +82,12 @@ class AppRoutes {
         route,
         MaterialPageRoute(
             builder: (context) => LinkedBankScreen(
-                  name: name,
-                  phone: phone,
-                  nameoftheplace: nameoftheplace,
-                  price: price,
-                  payment: payment,
-                  hotelorplace: hotelorplace
-                )));
+                name: name,
+                phone: phone,
+                nameoftheplace: nameoftheplace,
+                price: price,
+                payment: payment,
+                hotelorplace: hotelorplace)));
   }
 
   static void navigateToTesting(BuildContext route, {required String name}) {
@@ -152,5 +152,10 @@ class AppRoutes {
   static void navigateToNotPaid(BuildContext context) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const Notpaid()));
+  }
+
+  static void navigateTofoodArea(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const FoodAreastateless()));
   }
 }

@@ -213,7 +213,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                   BlueIconButtonDefault(
                                     image: foodIcon,
                                     oppressed: () =>
-                                        print('Food Place clicked'),
+                                        AppRoutes.navigateTofoodArea(context)
                                   ),
                                   const CategoryLabel(label: 'Food Place'),
                                 ],
