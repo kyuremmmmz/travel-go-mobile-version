@@ -30,4 +30,28 @@ class FoodAreaBackEnd {
     }
     return response;
   }
+
+  Future<Map<String, dynamic>?> getSpecigicData(int id) async {
+    final response =
+        await supabase.from('food_area').select("*").eq('id', id).single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      final data = response;
+      for (var i = 1; i <= 20; i++) {
+        final dineT = "dine$i";
+        final dineImg = "dineUrl$i";
+        final img = data[dineT];
+        final imgUrl = data[dineImg];
+        
+        if (img != null || imgUrl!=null) {
+          final get = await getter(imgUrl);
+          data['dine$i'] = img;
+          data['dineUrl$i'] = get;
+        }
+        
+      }
+      return data;
+    }
+  }
 }
