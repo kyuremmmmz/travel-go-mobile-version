@@ -4,6 +4,7 @@ import 'package:itransit/Widgets/Textfield/passwordField.dart'; // import passow
 import 'package:itransit/Routes/Routes.dart'; // Import routes for navigation 
 import '../../Textfield/plainTextField.dart'; //Import plain text widget
 import './../../Buttons/DefaultButtons/BlueButton.dart'; // Import custom blue button widget
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Ensure proper initialization before running the app 
@@ -63,49 +64,52 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Image.asset(
                   'assets/images/Background.png',
                   fit: BoxFit.cover, // Cover the whole container with the image
-                  height: 470,
-                  width: 500,
+                  height: 470.h,
+                  width: 500.w,
                 ),
               ),
               Container(
-                height: 470,
-                width: 500,
+                height: 470.h,
+                width: 500.w,
                 color: Colors.black.withOpacity(0.5), // Semi-transparent black overlay
               )
             ]),
           ),
-          const Positioned(
-            top: 100,
-            right: 95,
+          Positioned(
+            top: 130.h,
+            right: 85.w,
             child: Text(
               textAlign: TextAlign.center,
               'TRAVEL GO', // the logo area 
               style: TextStyle(
-                  fontSize: 40,
+                  fontSize: 40.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   shadows: [
                     Shadow(
-                      offset: Offset(5.0, 5.0), // Shadow position
-                      blurRadius: 12.0,
+                      offset: Offset(5.0.h, 5.0.w), // Shadow position
+                      blurRadius: 12.0.h,
                       color: Colors.black,
                     )
                   ]),
             ),
           ),
-          const Positioned(
-              top: 150,
-              right: 20,
+          Positioned(
+              top: 185.h,
+              right: 50.w,
               child: Text(
-                'Travel and get more experience here in Pangasinan!', // the caption area next the trevel go text
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 15),
+                'Travel and get more experience here in Pangasinan!', // the caption area next the trevel go text
+                style: TextStyle(
+                  color: Colors.white, 
+                  fontWeight: FontWeight.w300,
+                  fontSize: 12.sp),
               )),
           Positioned(
-            bottom: -320,
+            bottom: -320.w,
             right: 0,
             left: 0,
-            height: 800,
+            height: 800.h,
             child: Container(
               padding: const EdgeInsets.only(
                 top: 0,
@@ -132,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 30, // Space between the email and password fields
                     ),
-                    Container(
+                    SizedBox(
                       width: 400,
                       child: passwordTextField(
                         text: 'Password', // Placeholder text for the password field
