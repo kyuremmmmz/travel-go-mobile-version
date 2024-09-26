@@ -171,14 +171,14 @@ class _WelcomePageState extends State<WelcomePage> {
                                   'Sign In',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 15.sp,
+                                    fontSize: 13.sp,
                                   ),
                                 ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
+                            padding: EdgeInsets.only(top: 10.h, bottom: 30.h),
                             child: Container(
                               padding: EdgeInsets.only(top: 0.h),
                               decoration: BoxDecoration(
@@ -186,8 +186,8 @@ class _WelcomePageState extends State<WelcomePage> {
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 2,
-                                    blurRadius: 4,
+                                    spreadRadius: 2.h,
+                                    blurRadius: 4.h,
                                     offset: Offset(0.h, 4.h),
                                   ),
                                 ],
@@ -199,11 +199,11 @@ class _WelcomePageState extends State<WelcomePage> {
                                   'Sign Up',
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 15.sp,
+                                    fontSize: 13.sp,
                                   ),
                                 ),
                                 color: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blueGrey.shade100,
+                                  backgroundColor: Color(0xFFDFEFF2),
                                 ),
                               ),
                             ),
