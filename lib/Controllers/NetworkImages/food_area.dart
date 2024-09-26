@@ -4,7 +4,7 @@ class FoodAreaBackEnd {
   SupabaseClient supabase = Supabase.instance.client;
 
   Future<List<Map<String, dynamic>>> getFood() async {
-    final response = await supabase.from('food_area').select();
+    final response = await supabase.from('food_area').select('*');
 
     if (response.isEmpty) {
       return [];

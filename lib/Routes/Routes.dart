@@ -129,9 +129,9 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const HotelStateless()));
   }
 
-  static void navigateToFoodAreaAbout(BuildContext route) {
+  static void navigateToFoodAreaAbout(BuildContext route, {required int id}) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) => const FoodAreaAbout()));
+        route, MaterialPageRoute(builder: (context) =>  FoodAreaAbout(id: id,)));
   }
 
   static void navigateToHotelBookingScreen(BuildContext route,
