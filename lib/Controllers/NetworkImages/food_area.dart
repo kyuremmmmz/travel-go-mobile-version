@@ -31,7 +31,7 @@ class FoodAreaBackEnd {
     return response;
   }
 
-  Future<Map<String, dynamic>?> getSpecigicData(int id) async {
+  Future<Map<String, dynamic>?> getSpecificData(int id) async {
     final response =
         await supabase.from('food_area').select("*").eq('id', id).single();
     if (response.isEmpty) {
@@ -49,8 +49,18 @@ class FoodAreaBackEnd {
           data['dine$i'] = img;
           data['dineUrl$i'] = get;
         }
-        
       }
+      var img = data['imgUrl'];
+      final imageUrl = await getter(img);
+      var text = data['img'];
+      var price = data['price'];
+      var located = data['located'];
+      var description = data['description'];
+      data['description'] = description;
+      data['price'] = price;
+      data['imgUrl'] = imageUrl;
+      data['located'] = located;
+      data['img'] = text;
       return data;
     }
   }
