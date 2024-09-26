@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 30, // Space between the email and password fields
                     ),
-                    Container(
+                    SizedBox(
                       width: 400,
                       child: passwordTextField(
                         text: 'Password', // Placeholder text for the password field

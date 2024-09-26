@@ -177,7 +177,7 @@ class Mailer {
 
       try {
         final sendReport = await send(message, smtpServer);
-        print('Email sent: ' + sendReport.toString());
+        print('Email sent: $sendReport');
       } catch (e) {
         print('Error sending email: $e');
       }
