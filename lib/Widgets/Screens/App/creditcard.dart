@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 void main() {
-  runApp(Creditcard());
+  runApp(const Creditcard());
 }
 
 class Creditcard extends StatelessWidget {
@@ -122,9 +122,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
                   cardHolderValidator: (String? cardHolderName) {
                     return null;
                   },
-                  onFormComplete: () {
-                    
-                  },
+                  onFormComplete: () {},
                   autovalidateMode: AutovalidateMode.always,
                   disableCardNumberAutoFillHints: false,
                   inputConfiguration: const InputConfiguration(

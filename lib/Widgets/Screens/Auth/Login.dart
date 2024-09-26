@@ -1,17 +1,18 @@
-import 'package:flutter/material.dart'; // Import thr material design widgets 
-import 'package:itransit/Controllers/Auth/login.dart'; // Import login logic 
+import 'package:flutter/material.dart'; // Import thr material design widgets
+import 'package:itransit/Controllers/Auth/login.dart'; // Import login logic
 import 'package:itransit/Widgets/Textfield/passwordField.dart'; // import passowrd widget
-import 'package:itransit/Routes/Routes.dart'; // Import routes for navigation 
+import 'package:itransit/Routes/Routes.dart'; // Import routes for navigation
 import '../../Textfield/plainTextField.dart'; //Import plain text widget
 import './../../Buttons/DefaultButtons/BlueButton.dart'; // Import custom blue button widget
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensure proper initialization before running the app 
-  runApp(const Loginscreen()); // this run the loginscreen widget 
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Ensure proper initialization before running the app
+  runApp(const Loginscreen()); // this run the loginscreen widget
 }
 
 class Loginscreen extends StatelessWidget {
-  const Loginscreen({super.key});  // Constructor for Loginscreen
+  const Loginscreen({super.key}); // Constructor for Loginscreen
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +28,15 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key}); // Constructor for LoginScreen
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState(); // Create the state for LoginScreen
+  State<LoginScreen> createState() =>
+      _LoginScreenState(); // Create the state for LoginScreen
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _emailController = TextEditingController(); // Controller for the email text field
-  final _passwordController = TextEditingController(); // Controller for the password text field
+  final _emailController =
+      TextEditingController(); // Controller for the email text field
+  final _passwordController =
+      TextEditingController(); // Controller for the password text field
 
   @override
   void dispose() {
@@ -49,9 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
- 
     return Scaffold(
-      resizeToAvoidBottomInset: false, // this avoid resizing the body when the keyboard appears
+      resizeToAvoidBottomInset:
+          false, // this avoid resizing the body when the keyboard appears
       body: Stack(
         children: <Widget>[
           Positioned(
@@ -70,7 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 height: 470,
                 width: 500,
-                color: Colors.black.withOpacity(0.5), // Semi-transparent black overlay
+                color: Colors.black
+                    .withOpacity(0.5), // Semi-transparent black overlay
               )
             ]),
           ),
@@ -79,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
             right: 95,
             child: Text(
               textAlign: TextAlign.center,
-              'TRAVEL GO', // the logo area 
+              'TRAVEL GO', // the logo area
               style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
@@ -132,21 +137,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 30, // Space between the email and password fields
                     ),
-                    Container(
+                    SizedBox(
                       width: 400,
                       child: passwordTextField(
-                        text: 'Password', // Placeholder text for the password field
-                        password: _passwordController, // Controller for the password field
+                        text:
+                            'Password', // Placeholder text for the password field
+                        password:
+                            _passwordController, // Controller for the password field
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.only(top: 20, left: 280),
                       child: GestureDetector(
-                        onTap: () =>
-                            {AppRoutes.navigateToForgotPassword(context)}, // Navigate to the forgot password screen
+                        onTap: () => {
+                          AppRoutes.navigateToForgotPassword(context)
+                        }, // Navigate to the forgot password screen
                         child: const Text(
                           'Forgot password?',
-                          style: TextStyle(fontSize: 15, color: Colors.grey), // Style for the forgot password text
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors
+                                  .grey), // Style for the forgot password text
                         ),
                       ),
                     ),
@@ -157,7 +168,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: null,
                         width: 300,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),  // Rounded corners for the button
+                            borderRadius: BorderRadius.circular(
+                                30), // Rounded corners for the button
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.2),
@@ -168,8 +180,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ]),
                         child: BlueButtonWithoutFunction(
                           text: const Text(
-                            'Sign In', 
-                            style: TextStyle(color: Colors.white, fontSize: 20), // Style for the button text
+                            'Sign In',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20), // Style for the button text
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
