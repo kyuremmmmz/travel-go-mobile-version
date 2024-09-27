@@ -38,7 +38,7 @@ class _MapPageState extends State<MapPage> {
   final start = TextEditingController();
   final end = TextEditingController();
   List<LatLng> routePoints = [const LatLng(15.91667, 120.33333)];
-  bool _isVisible = true;
+  final bool _isVisible = true;
   @override
   void dispose() {
     start.dispose();
