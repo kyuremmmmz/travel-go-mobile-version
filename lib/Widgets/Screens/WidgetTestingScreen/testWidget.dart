@@ -93,7 +93,6 @@ class _MapPageState extends State<MapPage> {
                     final v2 = startR[0].longitude;
                     final v3 = endR[0].latitude;
                     final v4 = endR[0].longitude;
-
                     var url = Uri.parse(
                         'http://router.project-osrm.org/route/v1/driving/$v2,$v1;$v4,$v3?steps=true&annotations=true&geometries=geojson&overview=full');
 
@@ -111,8 +110,10 @@ class _MapPageState extends State<MapPage> {
                             routePoints.add(LatLng(coords[1],
                                 coords[0])); // latLng is in [lat, lng]
                           }
-                        });
-                      } else {
+                        }
+                      );
+                    } else
+                      {
                         print('No routes found.');
                       }
                     } else {
@@ -150,12 +151,16 @@ class _MapPageState extends State<MapPage> {
                           points: routePoints,
                           color: Colors.red,
                           strokeWidth: 3.0)
-                    ])
-                  ],
+                        ]
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
-        ))));
+              )
+            ],
+          )
+        )
+      )
+    );
   }
 }
