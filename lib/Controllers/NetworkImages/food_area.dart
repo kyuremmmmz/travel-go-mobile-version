@@ -43,8 +43,8 @@ class FoodAreaBackEnd {
         final dineImg = "dineUrl$i";
         final img = data[dineT];
         final imgUrl = data[dineImg];
-        
-        if (img != null || imgUrl!=null) {
+
+        if (img != null || imgUrl != null) {
           final get = await getter(imgUrl);
           data['dine$i'] = img;
           data['dineUrl$i'] = get;

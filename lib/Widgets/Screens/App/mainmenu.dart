@@ -9,6 +9,7 @@ import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dar
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:itransit/Widgets/Screens/App/information.dart';
+import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 
@@ -296,8 +297,11 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                               }).toList()),
                           CategorySelect(
                             label: "Festival and Events",
-                            oppressed: () =>
-                                print('Festival and Events clicked'),
+                            oppressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Festivalsstateless())),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
