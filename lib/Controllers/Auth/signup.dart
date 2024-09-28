@@ -8,14 +8,14 @@ class Signup {
   late final int? phoneNumber;
   late final int? age;
   late final String? address;
-  late final String email;
-  late final String password;
+  late final String? email;
+  late final String? password;
   late final Text error;
 
   Signup({
-    required this.email,
-    required this.fullName,
-    required this.password,
+    this.email,
+    this.fullName,
+    this.password,
   });
 
   bool validator(String email) {
@@ -24,17 +24,18 @@ class Signup {
     return r.hasMatch(email);
   }
 
-  Future<String?> sign(BuildContext context, String val) async {
+  Future<String> sign(BuildContext context, String val) async {
     final supabase = Supabase.instance.client;
     try {
       if (val.isEmpty) {
         return 'please enter an email';
-      }if(!validator(email)){
+      }
+      if (!validator(email ?? '')) {
         return 'Invalid email';
-      }else{
+      } else {
         await supabase.auth.signUp(
             email: email,
-            password: password,
+            password: password ?? '',
             emailRedirectTo: kIsWeb
                 ? null
                 : "io.supabase.flutterquickstart://login-callback/",
@@ -54,5 +55,6 @@ class Signup {
         ),
       );
     }
+    return 'Success';
   }
 }

@@ -142,6 +142,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
                             return 'please enter valid email address';
                           }
+
+                          Future<String?> email = signUp.sign(context, value);
+                          if (email != null) {
+                            signUp.sign(context, value);
+                          }
                         },
                         decoration: const InputDecoration(
                             labelText: 'email',
