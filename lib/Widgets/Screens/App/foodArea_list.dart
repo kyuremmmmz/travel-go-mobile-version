@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
+import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
-import 'package:itransit/Widgets/Screens/App/information.dart';
+import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class Explorenow extends StatefulWidget {
-  const Explorenow({super.key});
+class FoodArea extends StatefulWidget {
+  const FoodArea({super.key});
 
   @override
-  State<Explorenow> createState() => _ExplorenowState();
+  State<FoodArea> createState() => _FoodAreaState();
 }
 
-class _ExplorenowState extends State<Explorenow> {
+class _FoodAreaState extends State<FoodArea> {
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
@@ -24,17 +24,17 @@ class _ExplorenowState extends State<Explorenow> {
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
-  late Data data = Data();
-  List<Map<String, dynamic>> place = [];
+  late FoodAreaBackEnd images = FoodAreaBackEnd();
+  List<Map<String, dynamic>> data = [];
 
   Future<void> redirecting() async {
     Future.delayed(const Duration(seconds: 7));
   }
 
   Future<void> places() async {
-    final datas = await data.fetchImageandText();
+    final datas = await images.getFood();
     setState(() {
-      place = datas;
+      data = datas;
     });
   }
 
@@ -84,7 +84,67 @@ class _ExplorenowState extends State<Explorenow> {
             ),
           ),
         ),
-        drawer: const DrawerMenuWidget(),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/icon/beach.png'),
+                      radius: 40,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      email ?? 'Hacked himala e',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
+                onTap: () {
+                  Navigator.pop(context);
+                  AppRoutes.navigateToMainMenu(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.search),
+                title: const Text('Search'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text('Settings'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Logout'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Usersss().signout(context);
+                },
+              ),
+            ],
+          ),
+        ),
         body: FutureBuilder(
             future: redirecting(),
             builder: (context, snapshot) {
@@ -92,15 +152,14 @@ class _ExplorenowState extends State<Explorenow> {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              }  else if (snapshot.connectionState == ConnectionState.none) {
+              } else if (snapshot.connectionState == ConnectionState.none) {
                 return const Center(
                   child: Text(
                     'No internet connection',
                     style: TextStyle(fontSize: 20),
                   ),
                 );
-              }
-              else {
+              } else {
                 return Stack(children: [
                   Positioned.fill(
                       child: Column(children: <Widget>[
@@ -227,11 +286,9 @@ class _ExplorenowState extends State<Explorenow> {
                                   ),
                                   const SizedBox(height: 20),
                                   Container(
-                                    padding: const EdgeInsets.only(
-                                      right: 220
-                                    ),
+                                    padding: const EdgeInsets.only(right: 220),
                                     child: const Text(
-                                      'Popular Places',
+                                      'Food Places',
                                       style: TextStyle(
                                         fontSize: 19,
                                         fontWeight: FontWeight.bold,
@@ -243,92 +300,93 @@ class _ExplorenowState extends State<Explorenow> {
                                     height: 15,
                                   ),
                                   Column(
-                                    children: place.map((place) {
-                                      final imageUrl = place['image'];
-                                      final text = place['place_name'] ?? 'Unknown';
+                                    children: data.map((place) {
+                                      final imageUrl = place['imgUrl'];
+                                      final text = place['img'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(
                                             onTap: () async {
-                                              final placeData = await Data()
-                                                  .fetchSpecificDataInSingle(
-                                                      place['id']);
+                                              final placeData =
+                                                  await FoodAreaBackEnd()
+                                                      .getSpecificData(
+                                                          place['id']);
                                               if (placeData != null) {
                                                 Navigator.push(
                                                   // ignore: use_build_context_synchronously
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) =>
-                                                      InformationScreen(
-                                                      text: place['id'], 
-                                                    ),
-                                                  ),
+                                                      builder: (context) =>
+                                                          FoodAreaAboutScreen(
+                                                            id: place['id'],
+                                                          )),
                                                 );
                                               }
                                             },
                                             child: Stack(
-                                                children: [
-                                                  Container(
-                                                    height: 150,
-                                                    width: 600,
+                                              children: [
+                                                Container(
+                                                  height: 150,
+                                                  width: 600,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: NetworkImage(
+                                                          imageUrl),
+                                                    ),
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                      Radius.circular(30),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  bottom: 0,
+                                                  left: 0,
+                                                  right: 0,
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
                                                     decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: NetworkImage(imageUrl),
+                                                      color: Colors.black
+                                                          .withOpacity(0.12),
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .only(
+                                                        bottomLeft:
+                                                            Radius.circular(30),
+                                                        bottomRight:
+                                                            Radius.circular(30),
                                                       ),
-                                                      color: Colors.blue,
-                                                      borderRadius: const BorderRadius.all(
-                                                        Radius.circular(30),
+                                                    ),
+                                                    child: Text(
+                                                      text,
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
                                                   ),
-                                                  Positioned(
-                                                    bottom: 0,
-                                                    left: 0,
-                                                    right: 0,
-                                                    child: Container(
-                                                      padding: const EdgeInsets.all(10),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black.withOpacity(0.12),
-                                                        borderRadius: const BorderRadius.only(
-                                                          bottomLeft: Radius.circular(30),
-                                                          bottomRight: Radius.circular(30),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        text,
-                                                        style: const TextStyle(
-                                                          fontSize: 18,
-                                                          color: Colors.white,
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
+                                          ),
                                           const SizedBox(height: 20),
                                         ],
                                       );
                                     }).toList(),
                                   ),
-                                ]
-                              )
-                            )
-                          )
-                        )
-                      ]
-                    )
-                  )
-                ]
-              );
-            }
-          }
-        )
-      );
-    }
+                                ]))))
+                  ]))
+                ]);
+              }
+            }));
   }
+}
 
 class CategoryLabel extends StatelessWidget {
   final String label;
@@ -351,7 +409,6 @@ class CategoryLabel extends StatelessWidget {
     );
   }
 }
-
 
 class CategorySelect extends StatelessWidget {
   final String label;

@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Routes/Routes.dart';
 
-
 class DrawerMenuWidget extends StatefulWidget {
   const DrawerMenuWidget({super.key});
 
@@ -58,75 +57,72 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const CircleAvatar(
-                    backgroundImage: AssetImage(
-                        'assets/images/icon/beach.png'), // Replace with your own profile image
-                    radius: 40,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/icon/beach.png'),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  // ignore: unnecessary_null_comparison
+                  email != null ? '$email' : 'Loading...',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    // ignore: unnecessary_null_comparison
-                    email != null ? '$email' : 'Loading...',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-                AppRoutes.navigateToMainMenu(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.search),
-              title: const Text('Search'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pop(context);
-                Usersss().signout(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.accessibility),
-              title: const Text('Test Screen'),
-              onTap: () {
-                Navigator.pop(context);
-                // For testing screens
-                AppRoutes.navigateToLinkedBankAccount(context);
-              },
-            ),
-          ],
-        ),
-      );
+          ),
+          ListTile(
+            leading: const Icon(Icons.home),
+            title: const Text('Home'),
+            onTap: () {
+              Navigator.pop(context);
+              AppRoutes.navigateToMainMenu(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.search),
+            title: const Text('Search'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () {
+              Navigator.pop(context);
+              Usersss().signout(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.accessibility),
+            title: const Text('Test Screen'),
+            onTap: () {
+              Navigator.pop(context);
+              // For testing screens
+            },
+          ),
+        ],
+      ),
+    );
   }
 }

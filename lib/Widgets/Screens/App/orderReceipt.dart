@@ -1,74 +1,133 @@
 import 'package:flutter/material.dart';
+import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/mail/Mailer.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/TextWidgets/rowDetails.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
-  runApp(const OrderReceipt());
+Future<void> main(phone) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(OrderReceipt(Phone: phone));
 }
 
 class OrderReceipt extends StatelessWidget {
-  const OrderReceipt({super.key});
+  final int Phone;
+  const OrderReceipt({
+    super.key,
+    required this.Phone,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel',
-      home: OrderReceiptScreen(),
+      home: OrderReceiptScreen(Phone: Phone),
     );
   }
 }
 
 class OrderReceiptScreen extends StatefulWidget {
-  const OrderReceiptScreen({super.key});
+  final int Phone;
+  const OrderReceiptScreen({
+    super.key,
+    required this.Phone,
+  });
 
   @override
   State<OrderReceiptScreen> createState() => _OrderReceiptScreenState();
 }
 
 class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
-  final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food.png";
-  final String hotelIcon = "assets/images/icon/hotel.png";
-  final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
   final String receiptBackground = "assets/images/backgrounds/Receipt.png";
-  final _searchController = TextEditingController();
-  String? email;
+  var email;
+  String amount = "loading";
+  var phone;
+  String? gmail;
+  String ref = "loading";
+  var date;
+  String account = "loading";
   late Usersss users = Usersss();
-
-  Future<void> emailFetching() async {
-    try {
-      final PostgrestList useremail = await users.fetchUser();
-      if (useremail.isNotEmpty) {
-        setState(() {
-          email = useremail[0]['full_name'].toString();
-        });
-      } else {
-        setState(() {
-          email = "Anonymous User";
-        });
-      }
-    } catch (e) {
-      setState(() {
-        email = "error: $e";
-      });
-    }
-  }
+  late HotelBooking book = HotelBooking();
 
   @override
   void initState() {
     super.initState();
     emailFetching();
+    finalReceipt(widget.Phone);
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
+  void main() async {
+  Mailer mailer = Mailer();
+
+  String pdfPath = await mailer.generatePdfReceipt(
+    amount: amount,
+    phone: phone,
+    ref: ref,
+    date: DateTime.now(), 
+    account: account, 
+    gmail: '$gmail',
+  );
+  
+    await mailer.sendEmailWithAttachment(
+    subject: 'Your Booking Receipt',
+    body: 'Please find your receipt attached.',
+    recipientEmail: '$gmail',
+    filePath: pdfPath,
+  );
+}
+
+
+  
+
+  Future<void> emailFetching() async {
+    try {
+      final PostgrestList useremail = await users.fetchUser();
+      if (useremail.isNotEmpty) {
+        if (mounted) {
+          setState(() {
+            email = useremail[0]['full_name'].toString();
+          });
+        }
+      } else if (mounted) {
+        setState(() {
+          email = "Anonymous User";
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          email = "error: $e";
+        });
+      }
+    }
+  }
+
+  Future<void> finalReceipt(int uid) async {
+    try {
+      final response = await book.paymentReceipt(uid);
+      if (response != null) {
+        if (mounted) {
+          final data = response;
+          setState(() {
+            amount =
+                data['payment'] != null ? data['payment'].toString() : 'N/A';
+            phone = data['phone'] ?? 'Unknown';
+            ref = data['reference_number'] ?? 'N/A';
+            date = data['date_of_payment'] ?? 'Unknown Date';
+            account = data['name'] ?? 'Unknown Account';
+            gmail = data['gmail'] ?? 'Unknown';
+          });
+        }
+      } else {
+        print('No data received from paymentReceipt');
+      }
+    } catch (e) {
+      print('error: $e');
+    }
   }
 
   @override
@@ -85,7 +144,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
           ),
         ),
       ),
-      drawer: const DrawerMenuWidget(), 
+      drawer: const DrawerMenuWidget(),
       body: Stack(
         children: [
           Positioned.fill(
@@ -123,52 +182,54 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                             width: 320,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: Image.asset(receiptBackground).image, 
-                                fit: BoxFit.fill
-                              ),
+                                  image: Image.asset(receiptBackground).image,
+                                  fit: BoxFit.fill),
                             ),
                             padding: const EdgeInsets.all(20),
                             child: Column(
                               children: <Widget>[
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: <Widget>[
-                                    const Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Booking Confirmed!',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
-                                            color: Color.fromRGBO(0, 107, 146, 1),
+                                            color:
+                                                Color.fromRGBO(0, 107, 146, 1),
                                           ),
                                         ),
-                                          Text('March 24, 2024 5:49PM',
+                                        Text(
+                                          '$date',
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 10,
                                           ),
                                         ),
                                       ],
                                     ),
                                     IconButton(
-                                        alignment: Alignment.topRight,
-                                        iconSize: 20,
-                                        icon: SizedBox(
-                                          height: 20,
-                                          width: 20,
-                                          child: Image.asset(xButtonIcon),
-                                        ),
-                                        onPressed: ()=> print(''), // Add route later
+                                      alignment: Alignment.topRight,
+                                      iconSize: 20,
+                                      icon: SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: Image.asset(xButtonIcon),
+                                      ),
+                                      onPressed: () =>
+                                          print(''), // Add route later
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 40,
-                                ),
+                                const SizedBox(height: 40),
                                 const Text(
                                   'Thank You for Your Booking!',
                                   style: TextStyle(
@@ -177,37 +238,29 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                const SizedBox(height: 10),
                                 SizedBox(
                                   height: 40,
                                   width: 40,
                                   child: Image.asset(xButtonIcon),
                                 ),
-                                const SizedBox(
-                                  height: 40,
-                                ),
+                                const SizedBox(height: 40),
                                 Container(
-                                  padding: const EdgeInsets.only(
-                                    top: 10,
-                                  ),
+                                  padding: const EdgeInsets.only(top: 10),
                                   height: 150,
                                   width: 250,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(color: Colors.black,)
-                                  ),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: Colors.black)),
                                   child: Column(
                                     children: [
                                       const Padding(
-                                          padding: EdgeInsets.only(
-                                            right: 10,
-                                            left: 10,
-                                          ),
-                                          child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        padding: EdgeInsets.only(
+                                            right: 10, left: 10),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               'BILLER',
@@ -221,7 +274,8 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 13,
-                                                color: Color.fromRGBO(5, 103, 180, 1),
+                                                color: Color.fromRGBO(
+                                                    5, 103, 180, 1),
                                               ),
                                             ),
                                           ],
@@ -234,114 +288,106 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(10),
-                                        child: Column(children: [
+                                        child: Column(
+                                          children: [
                                             RowDetails(
-                                              row1: 'ACCOUNT', 
-                                              row2: (email != null ? '$email' : 'Hacked himala e').toUpperCase(),
-                                              ),
+                                              row1: 'ACCOUNT',
+                                              row2: (account).toUpperCase(),
+                                            ),
                                             RowDetails(
-                                              row1: 'CONTACT NUMBER', 
-                                              row2: 'PLACEHOLDER',
-                                              ),
+                                              row1: 'CONTACT NUMBER',
+                                              row2: '$phone',
+                                            ),
                                             RowDetails(
-                                              row1: 'EMAIL', 
-                                              row2: 'PLACEHOLDER',
-                                              ),
+                                              row1: 'EMAIL',
+                                              row2: '$gmail',
+                                            ),
                                             RowDetails(
-                                              row1: 'AMOUNT', 
-                                              row2: 'PLACEHOLDER',
-                                              ),
+                                              row1: 'AMOUNT',
+                                              row2: amount,
+                                            ),
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
+                                const SizedBox(height: 10),
                                 Container(
                                   padding: const EdgeInsets.all(10),
                                   height: 100,
                                   width: 250,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(color: Colors.black,)
-                                  ),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: Colors.black)),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      const Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'TOTAL AMOUNT',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 10,
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'TOTAL AMOUNT: $amount',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 10,
+                                                ),
                                               ),
-                                            ),
-                                            // Placeholder but change this later
-                                            Text(
-                                              'Paid using paypal',
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 6,
-                                                color: Color.fromRGBO(5, 103, 180, 1),
+                                              const Text(
+                                                'Paid using paypal',
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 6,
+                                                  color: Color.fromRGBO(
+                                                      5, 103, 180, 1),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        Text(
-                                          'PHP 6,000',
-                                          style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 10,
-                                                color: Color.fromRGBO(5, 103, 180, 1),
+                                            ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    RowDetails(row1: 'Date paid', row2: 'Date'),
-                                    RowDetails(row1: 'Reference no.', row2: 'NUMBERNUMBER'),
+                                          Text(
+                                            'PHP $amount',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 10,
+                                              color: Color.fromRGBO(
+                                                  5, 103, 180, 1),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      RowDetails(
+                                          row1: 'Date paid', row2: '$date'),
+                                      RowDetails(
+                                          row1: 'Reference no.', row2: ref),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 20,
+                                const SizedBox(height: 20),
+                                BlueButtonWithoutFunction(
+                                  text: const Text(
+                                    'Email My Receipt',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  style: const ButtonStyle(
+                                    backgroundColor:
+                                        WidgetStatePropertyAll(Colors.white),
+                                  ),
+                                  oppressed: () async {
+                                    main();
+                                  },
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(40),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Color.fromARGB(94, 0, 0, 0),
-                                        spreadRadius: -8,
-                                        blurRadius: 10,
-                                        offset: Offset(0, 10)
-                                      )
-                                    ]
-                                  ),
-                                  child: BlueButtonWithoutFunction(
-                                    text: const Text(
-                                      'Email My Receipt',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                      ),
-                                    ), 
-                                    style: const ButtonStyle(
-                                      backgroundColor: WidgetStatePropertyAll(Colors.white),
-                                    ), 
-                                    oppressed: ()=> print(''),
-                                  ),
-                                )
                               ],
                             ),
                           ),
@@ -356,5 +402,10 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

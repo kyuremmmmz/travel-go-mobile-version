@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelBooking {
+  late BuildContext context;
   final supabase = Supabase.instance.client;
   Future<Map<String, dynamic>?> passtheData(int id) async {
     final response = await supabase
@@ -25,4 +27,22 @@ class HotelBooking {
       return data;
     }
   }
+
+  passTheHotelData(int id) {}
+
+  void insertBooking(
+      String trim,
+      String trim2,
+      int parse,
+      String trim3,
+      String trim4,
+      String trim5,
+      String trim6,
+      String s,
+      int parse2,
+      int parse3,
+      String trim7,
+      int amount) {}
+
+  paymentReceipt(int uid) {}
 }

@@ -71,7 +71,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
         (place) {
           if (place['place_name'] != null &&
               place['place_name'].toString().length > 18) {
-            place['place_name'] = place['place_name'].toString().substring(0, 18);
+              place['place_name'] = place['place_name'].toString().substring(0, 18);
           }
           return place;
         },
@@ -201,7 +201,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => print('test')
+                                    oppressed: () => {
+                                      AppRoutes.navigateToHotelScreen(context)
+                                    }
                                   ),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
@@ -211,7 +213,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                   BlueIconButtonDefault(
                                     image: foodIcon,
                                     oppressed: () =>
-                                        print('Food Place clicked'),
+                                        AppRoutes.navigateTofoodArea(context)
                                   ),
                                   const CategoryLabel(label: 'Food Place'),
                                 ],
@@ -245,8 +247,6 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: place.map((place) {
-                                final image = place['image'];
-                                final text = place['place_name'];
                                 final id = place['id'];
                                 return PlaceButtonSquare(
                                     place: place['place_name'],
