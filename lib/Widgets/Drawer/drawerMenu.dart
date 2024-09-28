@@ -107,6 +107,13 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.history),
+            title: const Text('Recent Bookings'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
