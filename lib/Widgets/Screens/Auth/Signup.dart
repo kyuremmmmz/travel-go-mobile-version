@@ -24,7 +24,9 @@ class SignUpscreen extends StatelessWidget {
 }
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+  final BuildContext? context;
+  final String? email;
+  const SignUpScreen({super.key, this.context, this.email});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -35,6 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final signUp = Signup();
   @override
   void dispose() {
     _emailController.dispose();
@@ -46,6 +49,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  void validator(BuildContext context, String email) {
+    signUp.sign(context, email);
   }
 
   @override
@@ -115,8 +122,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               decoration: const BoxDecoration(color: Colors.white),
               child: SingleChildScrollView(
-                child: Form(
-                  child: Column(
+                  child: Form(
+                key: _formKey,
+                child: Column(
                   children: [
                     const SizedBox(
                       height: 10,
@@ -124,10 +132,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Container(
                       width: 400,
                       padding: const EdgeInsets.only(top: 0),
-                      child: plainTextField(
-                        colorr: Colors.black,
-                        text: 'Email',
+                      child: TextFormField(
                         controller: _emailController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'please enter your email address';
+                          }
+
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                            return 'please enter valid email address';
+                          }
+                        },
+                        decoration: const InputDecoration(
+                            labelText: 'email',
+                            alignLabelWithHint: true,
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 5.0),
+                            labelStyle:
+                                TextStyle(fontSize: 15, color: Colors.black),
+                            border: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.black,
+                            ))),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.black,
+                        ),
+                        keyboardType: TextInputType.emailAddress,
                       ),
                     ),
                     const SizedBox(
@@ -190,8 +223,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ))
                   ],
                 ),
-              )
-              ),
+              )),
             ),
           )
         ],
