@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/NetworkImages/food_area.dart';
-import 'package:itransit/Controllers/NetworkImages/hotel_images.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
-import 'package:itransit/Widgets/Screens/App/hotel_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FoodArea extends StatefulWidget {
@@ -26,7 +24,7 @@ class _FoodAreaState extends State<FoodArea> {
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
-  late FoodAreaBackEnd images =  FoodAreaBackEnd();
+  late FoodAreaBackEnd images = FoodAreaBackEnd();
   List<Map<String, dynamic>> data = [];
 
   Future<void> redirecting() async {
@@ -304,8 +302,7 @@ class _FoodAreaState extends State<FoodArea> {
                                   Column(
                                     children: data.map((place) {
                                       final imageUrl = place['imgUrl'];
-                                      final text =
-                                          place['img'] ?? 'Unknown';
+                                      final text = place['img'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(
@@ -320,7 +317,9 @@ class _FoodAreaState extends State<FoodArea> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          FoodAreaAboutScreen(id: place['id'],)),
+                                                          FoodAreaAboutScreen(
+                                                            id: place['id'],
+                                                          )),
                                                 );
                                               }
                                             },
