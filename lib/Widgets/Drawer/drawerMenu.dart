@@ -122,7 +122,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
               onTap: () {
                 Navigator.pop(context);
                 // For testing screens
-                AppRoutes.navigateToFoodAreaAbout(context);
+                AppRoutes.navigateToLinkedBankAccount(context);
               },
             ),
           ],
