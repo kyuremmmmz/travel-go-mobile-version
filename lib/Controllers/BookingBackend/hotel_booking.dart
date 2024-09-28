@@ -28,21 +28,95 @@ class HotelBooking {
     }
   }
 
-  passTheHotelData(int id) {}
+  Future<Map<String, dynamic>?> passTheHotelData(int id) async {
+    final response = await supabase
+        .from('hotels')
+        .select('id, hotel_name, hotel_price')
+        .eq('id', id)
+        .single();
+    try {
+      if (response.isEmpty) {
+        print('no data found');
+        return null;
+      } else {
+        final data = response;
+        var hotel = data['hotel_name'];
+        var hotelPrice = data['hotel_price'];
+        final priceQ = NumberFormat('#,###');
+        final formatPrice = priceQ.format(hotelPrice);
+        data['hotel_name'] = hotel;
+        data['hotel_price'] = formatPrice;
+        return data;
+      }
+    } catch (e) {
+      SnackBar(
+          content: Text('an error occurred while formatting the data: $e'));
+    }
+    return null;
+  }
 
-  void insertBooking(
-      String trim,
-      String trim2,
-      int parse,
-      String trim3,
-      String trim4,
-      String trim5,
-      String trim6,
-      String s,
-      int parse2,
-      int parse3,
-      String trim7,
-      int amount) {}
+  Future<PostgrestResponse<dynamic>?> insertBooking(
+      String fullname,
+      String emailAddress,
+      int phoneNumber,
+      String hotel,
+      String checkIn,
+      String checkOut,
+      String paymentMethod,
+      String paymentStatus,
+      int numberOfAdult,
+      int numberOfChildren,
+      String room,
+      var price) async {
+    try {
+      final user = supabase.auth.currentUser;
+      final response = await supabase.from('hotel_booking').insert({
+        'name': fullname,
+        'gmail': emailAddress,
+        'phone': phoneNumber,
+        'price': price,
+        'paymet_status': paymentStatus,
+        'hotel': hotel,
+        'booking_id': user!.id,
+        'checkin': checkIn,
+        'checkout': checkOut,
+        'number_of_adults': numberOfAdult,
+        'number_of_children': numberOfChildren,
+        'room_type': room
+      });
+      return response;
+    } catch (e) {
+      SnackBar(content: Text('error: $e'));
+    }
+    return null;
+  }
 
-  paymentReceipt(int uid) {}
+  Future<Map<String, dynamic>?> paymentReceipt(int uid) async {
+    final response = await supabase
+        .from('payment_table')
+        .select('*')
+        .eq('phone', uid)
+        .single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      final data = response;
+      var account = data['name'];
+      var phone = data['phone'];
+      var dateOfPayment = data['date_of_payment'];
+      var refNo = data['reference_number'];
+      var payment = data['payment'];
+      var email = data['gmail'];
+      NumberFormat num = NumberFormat("#,###");
+      final format = num.format(payment);
+      DateTime current = DateTime.parse(dateOfPayment);
+      data['name'] = account;
+      data['phone'] = phone;
+      data['date_of_payment'] = current;
+      data['reference_number'] = refNo;
+      data['payment'] = format;
+      data['gmail'] = email;
+      return data;
+    }
+  }
 }

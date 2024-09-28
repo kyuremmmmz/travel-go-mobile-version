@@ -135,19 +135,12 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           Positioned.fill(
             child: Column(
               children: <Widget>[
-                Text(
+                const Text(
                   'TRAVEL GO',
                   style: TextStyle(
                     fontSize: 30,
                     color: Colors.blue,
                     fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        offset: const Offset(3.0, 3.0),
-                        blurRadius: 4.0,
-                        color: Colors.black.withOpacity(0.5),
-                      ),
-                    ],
                   ),
                 ),
                 const Text(
