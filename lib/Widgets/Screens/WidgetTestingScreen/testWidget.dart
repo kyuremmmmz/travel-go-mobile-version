@@ -38,7 +38,7 @@ class _MapPageState extends State<MapPage> {
   final start = TextEditingController();
   final end = TextEditingController();
   List<LatLng> routePoints = [const LatLng(15.91667, 120.33333)];
-  bool _isVisible = true;
+  final bool _isVisible = true;
   @override
   void dispose() {
     start.dispose();
@@ -83,33 +83,45 @@ class _MapPageState extends State<MapPage> {
             ),
             ElevatedButton(
                 onPressed: () async {
-                  List<Location> startR =
-                      await locationFromAddress(start.text.trim());
-                  List<Location> endR =
-                      await locationFromAddress('${widget.location}');
-                  final v1 = startR[0].latitude;
-                  final v2 = startR[0].longitude;
-                  final v3 = endR[0].latitude;
-                  final v4 = endR[0].longitude;
-                  var url = Uri.parse(
-                      'http://router.project-osrm.org/route/v1/driving/$v2,$v1;$v4,$v3?steps=true&annotations=true&geometries=geojson&overview=full');
-                  var response = await http.get(url);
-                  print(response.body);
-                  setState(() {
-                    routePoints = [];
-                    var router = jsonDecode(response.body)['routes'][0]
-                        ['geometry']['coordinates'];
-                    for (var i = 0; i < router.length; i++) {
-                      var reep = router[i].toString();
-                      reep = reep.replaceAll("[", "");
-                      reep = reep.replaceAll("]", "");
-                      var l1 = reep.split(',');
-                      var lng = reep.split(",");
-                      routePoints.add(
-                          LatLng(double.parse(l1[1]), double.parse(lng[0])));
+                    try {
+                    List<Location> startR =
+                        await locationFromAddress(start.text.trim());
+                    List<Location> endR =
+                        await locationFromAddress('${widget.location}');
+
+                    final v1 = startR[0].latitude;
+                    final v2 = startR[0].longitude;
+                    final v3 = endR[0].latitude;
+                    final v4 = endR[0].longitude;
+                    var url = Uri.parse(
+                        'http://router.project-osrm.org/route/v1/driving/$v2,$v1;$v4,$v3?steps=true&annotations=true&geometries=geojson&overview=full');
+
+                    var response = await http.get(url);
+
+                    if (response.statusCode == 200) {
+                      print(response.body);
+                      final data = jsonDecode(response.body);
+                      if (data['routes'].isNotEmpty) {
+                        setState(() {
+                          routePoints = [];
+                          var router =
+                              data['routes'][0]['geometry']['coordinates'];
+                          for (var coords in router) {
+                            routePoints.add(LatLng(coords[1],
+                                coords[0])); // latLng is in [lat, lng]
+                          }
+                        }
+                      );
+                    } else
+                      {
+                        print('No routes found.');
+                      }
+                    } else {
+                      print('Error: ${response.statusCode}');
                     }
-                  });
-                  _isVisible = !_isVisible;
+                  } catch (e) {
+                    print('Exception occurred: $e');
+                  }
                 },
                 child: const Text('Get location')),
             const SizedBox(
@@ -121,7 +133,7 @@ class _MapPageState extends State<MapPage> {
               child: Visibility(
                 child: FlutterMap(
                   options: MapOptions(
-                    initialCenter: routePoints[0],
+                    initialCenter:routePoints.isNotEmpty ? routePoints[0] : const LatLng(15.91667, 120.33333),
                     initialZoom: 10,
                   ),
                   children: [
@@ -139,12 +151,16 @@ class _MapPageState extends State<MapPage> {
                           points: routePoints,
                           color: Colors.red,
                           strokeWidth: 3.0)
-                    ])
-                  ],
+                        ]
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
-        ))));
+              )
+            ],
+          )
+        )
+      )
+    );
   }
 }

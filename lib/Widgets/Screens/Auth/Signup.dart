@@ -34,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
     _emailController.dispose();
@@ -115,7 +115,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               decoration: const BoxDecoration(color: Colors.white),
               child: SingleChildScrollView(
-                child: Column(
+                child: Form(
+                  child: Column(
                   children: [
                     const SizedBox(
                       height: 10,
@@ -184,11 +185,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     email: _emailController.text.trim(),
                                     fullName: _nameController.text.trim(),
                                     password: _passwordController.text.trim())
-                                .sign(context);
+                                .sign(context, _emailController.text);
                           },
                         ))
                   ],
                 ),
+              )
               ),
             ),
           )

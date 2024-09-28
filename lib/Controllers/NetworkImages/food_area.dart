@@ -4,7 +4,7 @@ class FoodAreaBackEnd {
   SupabaseClient supabase = Supabase.instance.client;
 
   Future<List<Map<String, dynamic>>> getFood() async {
-    final response = await supabase.from('food_area').select();
+    final response = await supabase.from('food_area').select('*');
 
     if (response.isEmpty) {
       return [];
@@ -29,5 +29,39 @@ class FoodAreaBackEnd {
       return 'null';
     }
     return response;
+  }
+
+  Future<Map<String, dynamic>?> getSpecificData(int id) async {
+    final response =
+        await supabase.from('food_area').select("*").eq('id', id).single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      final data = response;
+      for (var i = 1; i <= 20; i++) {
+        final dineT = "dine$i";
+        final dineImg = "dineUrl$i";
+        final img = data[dineT];
+        final imgUrl = data[dineImg];
+        
+        if (img != null || imgUrl!=null) {
+          final get = await getter(imgUrl);
+          data['dine$i'] = img;
+          data['dineUrl$i'] = get;
+        }
+      }
+      var img = data['imgUrl'];
+      final imageUrl = await getter(img);
+      var text = data['img'];
+      var price = data['price'];
+      var located = data['located'];
+      var description = data['description'];
+      data['description'] = description;
+      data['price'] = price;
+      data['imgUrl'] = imageUrl;
+      data['located'] = located;
+      data['img'] = text;
+      return data;
+    }
   }
 }

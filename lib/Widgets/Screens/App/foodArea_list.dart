@@ -6,6 +6,7 @@ import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:itransit/Widgets/Screens/App/hotel_information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -310,8 +311,8 @@ class _FoodAreaState extends State<FoodArea> {
                                           GestureDetector(
                                             onTap: () async {
                                               final placeData =
-                                                  await HotelImages()
-                                                      .fetchDataInSingle(
+                                                  await FoodAreaBackEnd()
+                                                      .getSpecificData(
                                                           place['id']);
                                               if (placeData != null) {
                                                 Navigator.push(
@@ -319,10 +320,7 @@ class _FoodAreaState extends State<FoodArea> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          HotelInformationScreen(
-                                                            text: place['id'],
-                                                            id: place['id'],
-                                                          )),
+                                                          FoodAreaAboutScreen(id: place['id'],)),
                                                 );
                                               }
                                             },
