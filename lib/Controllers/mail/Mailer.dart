@@ -25,10 +25,9 @@ class Mailer {
     required String account,
     required String gmail,
   }) async {
-    await requestPermission(); 
+    await requestPermission();
 
     final pdf = pw.Document();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(date);
 
     final ByteData receiptBackgroundData =
         await rootBundle.load('assets/images/backgrounds/Receipt.png');
@@ -44,11 +43,9 @@ class Mailer {
     pdf.addPage(
       pw.Page(
         build: (pw.Context context) {
-
           return pw.Stack(
             children: [
-              pw.Image(pdfImage,
-                  fit: pw.BoxFit.fill),
+              pw.Image(pdfImage, fit: pw.BoxFit.fill),
               pw.Padding(
                 padding: const pw.EdgeInsets.all(20),
                 child: pw.Column(
@@ -169,7 +166,7 @@ class Mailer {
           username: smtpUsername, password: smtpPassword);
 
       final message = Message()
-        ..from = const Address(smtpUsername, 'Travel Go') 
+        ..from = const Address(smtpUsername, 'Travel Go')
         ..recipients.add(recipientEmail)
         ..subject = subject
         ..text = body
