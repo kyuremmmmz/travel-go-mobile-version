@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:itransit/Controllers/NetworkImages/hotel_images.dart';
@@ -23,7 +24,6 @@ class Map extends StatelessWidget {
         title: Text('Map'),
       ),
       body: MapPage(location: location, id: id),
-      
     );
   }
 }
@@ -50,8 +50,28 @@ class _MapPageState extends State<MapPage> {
   List<Marker> markers = [];
 
   late HotelImages images = HotelImages();
-  Future<void> func() async {
+ Future<void> func() async {
     try {
+      LocationPermission permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.deniedForever) {
+          print(
+              'Location permissions are permanently denied, we cannot request permissions.');
+          return;
+        }
+
+        if (permission == LocationPermission.denied) {
+          print('Location permission denied.');
+          return;
+        }
+      }
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.low,
+      );
+      print(position);
+
       List<Location> startR = await locationFromAddress(start.text.trim());
       List<Location> endR = await locationFromAddress('${widget.location}');
 
@@ -61,7 +81,8 @@ class _MapPageState extends State<MapPage> {
       final v4 = endR[0].longitude;
 
       var url = Uri.parse(
-          'http://router.project-osrm.org/route/v1/driving/$v2,$v1;$v4,$v3?steps=true&annotations=true&geometries=geojson&overview=full');
+        'http://router.project-osrm.org/route/v1/driving/$v2,$v1;$v4,$v3?steps=true&annotations=true&geometries=geojson&overview=full',
+      );
 
       var response = await http.get(url);
 
@@ -88,9 +109,9 @@ class _MapPageState extends State<MapPage> {
     }
   }
 
+
   Future<void> places(int id) async {
     final data = await images.fetchDataInSingle(id);
-
     setState(() {
       placeName = data!['hotel_name'];
       price = data['hotel_price'];
@@ -143,6 +164,24 @@ class _MapPageState extends State<MapPage> {
                                           padding: EdgeInsets.all(16),
                                           child: Text(
                                             hotelName,
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Container(
+                                        padding: null,
+                                        width: double.infinity,
+                                        child: const Padding(
+                                          padding: EdgeInsets.all(16),
+                                          child: Text(
+                                            'Description',
                                             style: const TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
