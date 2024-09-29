@@ -71,7 +71,7 @@ class _MapPageState extends State<MapPage> {
           if (locations.isNotEmpty) {
             double lat = locations[0].latitude;
             double lng = locations[0].longitude;
-            
+
             fetchedMarkers.add(
               Marker(
                 point: LatLng(lat, lng),
@@ -80,23 +80,53 @@ class _MapPageState extends State<MapPage> {
                 child: Column(
                   children: [
                     Container(
-                      child: Text(
-                        '₱${hotel['hotel_price'].toString()}',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                        width: 80,
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40))),
+                        child: GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return Column(
+                                    children: [
+                                      Container(
+                                        width: double.infinity,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(16),
+                                          child: Text(
+                                            hotel['hotel_name'],
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                });
+                          },
+                          child: Text(
+                            '₱${hotel['hotel_price'].toString()}',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )),
                     const Icon(Icons.location_on, color: Colors.red),
                   ],
                 ),
               ),
             );
           }
-          
         }
-        
+
         setState(() {
           markers = fetchedMarkers;
         });
