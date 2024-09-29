@@ -66,8 +66,10 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
               cardHolderName: cardHolderName.text,
               cvvCode: cvvCode.text,
               showBackView: isCvvFocused,
-              // ignore: avoid_types_as_parameter_names
-              onCreditCardWidgetChange: (CreditCardBrand) {},
+              // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+              onCreditCardWidgetChange: (CreditCardBrand) {
+                
+              },
               enableFloatingCard: true,
               bankName: 'BDO',
               obscureCardNumber: true,

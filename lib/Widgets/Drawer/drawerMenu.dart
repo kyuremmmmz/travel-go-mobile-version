@@ -84,6 +84,14 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             ),
           ),
           ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Profile'),
+            onTap: () {
+              Navigator.pop(context);
+              // For testing screens
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Home'),
             onTap: () {
@@ -92,8 +100,15 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.search),
-            title: const Text('Search'),
+            leading: const Icon(Icons.wallet),
+            title: const Text('My Wallet'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.history),
+            title: const Text('Recent Bookings'),
             onTap: () {
               Navigator.pop(context);
             },
@@ -111,14 +126,6 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             onTap: () {
               Navigator.pop(context);
               Usersss().signout(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.accessibility),
-            title: const Text('Test Screen'),
-            onTap: () {
-              Navigator.pop(context);
-              // For testing screens
             },
           ),
         ],

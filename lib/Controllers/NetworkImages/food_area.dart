@@ -43,8 +43,8 @@ class FoodAreaBackEnd {
         final dineImg = "dineUrl$i";
         final img = data[dineT];
         final imgUrl = data[dineImg];
-        
-        if (img != null || imgUrl!=null) {
+
+        if (img != null || imgUrl != null) {
           final get = await getter(imgUrl);
           data['dine$i'] = img;
           data['dineUrl$i'] = get;
@@ -53,6 +53,7 @@ class FoodAreaBackEnd {
       var img = data['imgUrl'];
       final imageUrl = await getter(img);
       var text = data['img'];
+      var menu = data['menu'];
       var price = data['price'];
       var located = data['located'];
       var description = data['description'];
@@ -61,6 +62,7 @@ class FoodAreaBackEnd {
       data['imgUrl'] = imageUrl;
       data['located'] = located;
       data['img'] = text;
+      data['menu'] = menu;
       return data;
     }
   }
