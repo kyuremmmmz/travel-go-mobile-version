@@ -415,15 +415,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: GestureDetector(
-                                onTap: () =>
-                                    AppRoutes.navigateToLinkedBankAccount(
-                                        context),
-                                child: nextScreenTextField(
-                                  colorr: Colors.black,
-                                  text: 'Payment Method:',
-                                  controller: _paymentMethodController,
-                                ),
+                              child: inputTextField(
+                                colorr: Colors.black,
+                                text: 'Payment Method:',
+                                controller: _paymentMethodController,
                               ),
                             ),
                             const SizedBox(
@@ -587,8 +582,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                                     const Color.fromARGB(
                                                         255, 26, 169, 235)),
                                             oppressed: () {
-                                              AppRoutes.navigateToOrderReceipt(
-                                                  context);
+                                              print('nigga');
                                             },
                                           ),
                                         ),

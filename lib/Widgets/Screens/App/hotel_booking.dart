@@ -1,17 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
 import 'package:itransit/Widgets/Textfield/phoneNumber.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HotelBookingArea extends StatelessWidget {
   final int id;
-  const HotelBookingArea({super.key, required this.id});
+  const HotelBookingArea({
+    super.key,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,10 @@ class HotelBookingArea extends StatelessWidget {
 
 class HotelBookingAreaScreen extends StatefulWidget {
   final int id;
-  const HotelBookingAreaScreen({super.key, required this.id});
+  const HotelBookingAreaScreen({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<HotelBookingAreaScreen> createState() => _HotelBookingAreaScreenState();
@@ -49,8 +57,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final _number_of_children = TextEditingController();
   final _number_of_adult = TextEditingController();
   String? email;
+  String? place;
   final bool _isWaiting = true;
-  var amount;
+  final supabase = Supabase.instance.client;
+  var amount = 0;
+  String? strAmount;
 
   String? hotel;
   late Usersss users = Usersss();
@@ -81,8 +92,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   void initState() {
     super.initState();
     emailFetching();
-    fetchString(widget.id);
+    fetchInt(widget.id);
     fethHotel(widget.id);
+    fetchEwan(widget.id);
   }
 
   Future<void> emailFetching() async {
@@ -104,14 +116,41 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     }
   }
 
-  Future<void> fetchString(
-    int id,
-  ) async {
+  Future<void> fetchInt(int id) async {
     final data = await booking.passTheHotelData(id);
-    setState(() {
-      String datas = data!['hotel_price'];
-      amount = datas.replaceAll(',', '');
-    });
+    if (data == null) {
+      setState(() {
+        amount = 0;
+      });
+    } else {
+      int basePrice =
+          int.parse(data['hotel_price'].toString().replaceAll(',', ''));
+      int additionalCost = 0;
+
+      switch (_vehicleTypeController.text.trim()) {
+        case 'Deluxe Suite':
+          additionalCost = 6000;
+          break;
+        case 'Premiere Suite':
+          additionalCost = 8000;
+          break;
+        case 'Executive Suite':
+          additionalCost = 9000;
+          break;
+        case 'Presidential Suite':
+          additionalCost = 10000;
+          break;
+        default:
+          additionalCost = 0;
+      }
+      final total = basePrice + additionalCost;
+      setState(() {
+        amount = total;
+        final numberFormat = NumberFormat('#0,000');
+        final numbers = numberFormat.format(total);
+        strAmount = numbers;
+      });
+    }
   }
 
   Future<void> fethHotel(
@@ -121,6 +160,15 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     setState(() {
       hotel = data!['hotel_name'];
       _hotel.text = hotel ?? '';
+    });
+  }
+
+  Future<void> fetchEwan(
+    int id,
+  ) async {
+    final data = await booking.passTheHotelData(id);
+    setState(() {
+      place = data!['hotel_located'];
     });
   }
 
@@ -229,6 +277,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Deluxe Suite";
+                      fetchInt(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -240,6 +289,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Premiere Suite ";
+                      fetchInt(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -253,6 +303,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Executive Suite ";
+                      fetchInt(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -266,7 +317,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _vehicleTypeController.text = "Presidential Suite";
-
+                      fetchInt(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -515,12 +566,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     offset: const Offset(0, 5),
                                   )
                                 ]),
-                            child: inputTextField(
-                              colorr: Colors.black,
-                              text: 'Hotel:',
-                              controller: _destinationController,
-                              icon: const Icon(FontAwesomeIcons.hotel),
-                            ),
                           ),
                           const SizedBox(
                             height: 10,
@@ -858,23 +903,29 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                         left: 10, right: 10),
                                     child: Column(
                                       children: [
-                                        const Row(
-                                          children: [
-                                            Text(
-                                              "Total Amount",
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Color.fromARGB(
-                                                      255, 26, 169, 235),
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                          ],
+                                        GestureDetector(
+                                          onTap: () {
+                                            fetchInt(widget.id);
+                                          },
+                                          child: const Row(
+                                            children: [
+                                              Text(
+                                                "Total Amount",
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Color.fromARGB(
+                                                        255, 26, 169, 235),
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         Row(
                                           children: [
                                             Text(
-                                              'PHP $amount',
+                                              'PHP $strAmount',
                                               style: const TextStyle(
                                                 fontSize: 20,
                                                 color: Colors.black,
@@ -896,7 +947,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                             onPressed: _value
                                                 ? () {
                                                     if (_validator.currentState!
-                                                        .validate() || _paymentMethodController.text.trim() == "Pay Online") {
+                                                            .validate() ||
+                                                        _paymentMethodController
+                                                                .text
+                                                                .trim() ==
+                                                            "Pay Online") {
                                                       HotelBooking()
                                                           .insertBooking(
                                                         _nameController.text
@@ -926,15 +981,35 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                             _number_of_children
                                                                 .text
                                                                 .trim()),
-                                                        int.parse(amount),
+                                                        _vehicleTypeController
+                                                            .text
+                                                            .trim(),
+                                                        amount,
                                                       );
-                                                      AppRoutes.navigateToLinkedBankAccount(context);
-                                                    }else
-                                                    {
-                                                      AppRoutes.navigateToOrderReceipt(context);
+                                                      AppRoutes
+                                                          .navigateToLinkedBankAccount(
+                                                        context,
+                                                        name: _nameController
+                                                            .text
+                                                            .trim(),
+                                                        phone: int.parse(
+                                                            _numberController
+                                                                .text
+                                                                .trim()),
+                                                        nameoftheplace:
+                                                            _emailController
+                                                                .text
+                                                                .trim(),
+                                                        price: amount,
+                                                        payment: amount,
+                                                        hotelorplace:
+                                                            _hotel.text,
+                                                      );
+                                                    } else {
+                                                      print('nigga');
                                                     }
-                                                    }
-                                                    : null,
+                                                  }
+                                                : null,
                                             child: const Text(
                                               'Place Booking',
                                               textAlign: TextAlign.center,

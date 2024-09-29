@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
+import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:itransit/Widgets/Screens/App/information.dart';
+import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 
@@ -45,6 +48,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   late Usersss users = Usersss();
   List<Map<String, dynamic>> place = [];
   final data = Data();
+  late FoodAreaBackEnd images = FoodAreaBackEnd();
+  List<Map<String, dynamic>> datass = [];
 
   Future<void> emailFetching() async {
     try {
@@ -81,11 +86,29 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     });
   }
 
+  Future<List<Map<String, dynamic>>?> fetchFoods(BuildContext context) async {
+    final datas = await images.getFood();
+    if (datas.isEmpty) {
+      return [];
+    } else {
+      setState(() {
+        datass = datas.map((foods) {
+          if (foods['img'] != null && foods['img'].toString().length > 18) {
+            foods['img'] = foods['img'].toString().substring(0, 18);
+          }
+          return foods;
+        }).toList();
+      });
+      return null;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     emailFetching();
     fetchImage();
+    fetchFoods(context);
   }
 
   @override
@@ -114,19 +137,12 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           Positioned.fill(
             child: Column(
               children: <Widget>[
-                Text(
+                const Text(
                   'TRAVEL GO',
                   style: TextStyle(
                     fontSize: 30,
                     color: Colors.blue,
                     fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        offset: const Offset(3.0, 3.0),
-                        blurRadius: 4.0,
-                        color: Colors.black.withOpacity(0.5),
-                      ),
-                    ],
                   ),
                 ),
                 const Text(
@@ -202,7 +218,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                               Column(
                                 children: [
                                   BlueIconButtonDefault(
-                                      image: hotelIcon,
+                                      image: beachIcon,
                                       oppressed: () => {
                                             AppRoutes.navigateToHotelScreen(
                                                 context)
@@ -213,10 +229,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                               Column(
                                 children: [
                                   BlueIconButtonDefault(
-                                    image: foodIcon,
-                                    oppressed: () =>
-                                        print('Food Place clicked'),
-                                  ),
+                                      image: foodIcon,
+                                      oppressed: () =>
+                                          AppRoutes.navigateTofoodArea(
+                                              context)),
                                   const CategoryLabel(label: 'Food Place'),
                                 ],
                               ),
@@ -268,29 +284,27 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                             oppressed: () => print('Food Places clicked'),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Food Place clicked'),
-                              ),
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Food Place clicked'),
-                              ),
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Food Place clicked'),
-                              ),
-                            ],
-                          ),
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: datass.map((value) {
+                                final id = value['id'];
+                                return PlaceButtonSquare(
+                                    place: value['img'],
+                                    image: Image.network(value['imgUrl']).image,
+                                    oppressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FoodAreaAboutScreen(id: id)));
+                                    });
+                              }).toList()),
                           CategorySelect(
                             label: "Festival and Events",
-                            oppressed: () =>
-                                print('Festival and Events clicked'),
+                            oppressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Festivalsstateless())),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

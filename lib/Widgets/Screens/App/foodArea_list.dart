@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/NetworkImages/hotel_images.dart';
+import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class BeachesScreen extends StatefulWidget {
-  const BeachesScreen({super.key});
+class FoodArea extends StatefulWidget {
+  const FoodArea({super.key});
 
   @override
-  State<BeachesScreen> createState() => _BeachesScreenState();
+  State<FoodArea> createState() => _FoodAreaState();
 }
 
-class _BeachesScreenState extends State<BeachesScreen> {
+class _FoodAreaState extends State<FoodArea> {
   final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food_place.png";
+  final String foodIcon = "assets/images/icon/food.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
-  final String festivalIcon = "assets/images/icon/food.png";
+  late String hundredIsland = "assets/images/places/HundredIsland.jpeg";
+  late String manaoag = "assets/images/places/Manaoag.jpg";
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
-  late HotelImages images = HotelImages();
+  late FoodAreaBackEnd images = FoodAreaBackEnd();
   List<Map<String, dynamic>> data = [];
 
   Future<void> redirecting() async {
@@ -30,7 +32,7 @@ class _BeachesScreenState extends State<BeachesScreen> {
   }
 
   Future<void> places() async {
-    final datas = await images.fetchHotels();
+    final datas = await images.getFood();
     setState(() {
       data = datas;
     });
@@ -243,12 +245,8 @@ class _BeachesScreenState extends State<BeachesScreen> {
                                       Column(
                                         children: [
                                           BlueIconButtonDefault(
-                                              image: hotelIcon,
-                                              oppressed: () => {
-                                                    AppRoutes
-                                                        .navigateToHotelScreen(
-                                                            context)
-                                                  }),
+                                              image: beachIcon,
+                                              oppressed: () => print('helo')),
                                           const CategoryLabel(label: 'Hotels'),
                                         ],
                                       ),
@@ -266,19 +264,17 @@ class _BeachesScreenState extends State<BeachesScreen> {
                                       Column(
                                         children: [
                                           BlueIconButtonDefault(
-                                              image: beachIcon,
-                                              oppressed: () => {
-                                                    AppRoutes
-                                                        .navigateToBeachesScreen(
-                                                            context)
-                                                  }),
+                                            image: beachIcon,
+                                            oppressed: () =>
+                                                print('Beaches clicked'),
+                                          ),
                                           const CategoryLabel(label: 'Beaches'),
                                         ],
                                       ),
                                       Column(
                                         children: [
                                           BlueIconButtonDefault(
-                                            image: festivalIcon,
+                                            image: hotelIcon,
                                             oppressed: () =>
                                                 print('Festivals clicked'),
                                           ),
@@ -292,7 +288,7 @@ class _BeachesScreenState extends State<BeachesScreen> {
                                   Container(
                                     padding: const EdgeInsets.only(right: 220),
                                     child: const Text(
-                                      'Popular Beaches',
+                                      'Food Places',
                                       style: TextStyle(
                                         fontSize: 19,
                                         fontWeight: FontWeight.bold,
@@ -305,13 +301,28 @@ class _BeachesScreenState extends State<BeachesScreen> {
                                   ),
                                   Column(
                                     children: data.map((place) {
-                                      final imageUrl = place['image'];
-                                      final text =
-                                          place['hotel_name'] ?? 'Unknown';
+                                      final imageUrl = place['imgUrl'];
+                                      final text = place['img'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(
-                                            onTap: () async => {},
+                                            onTap: () async {
+                                              final placeData =
+                                                  await FoodAreaBackEnd()
+                                                      .getSpecificData(
+                                                          place['id']);
+                                              if (placeData != null) {
+                                                Navigator.push(
+                                                  // ignore: use_build_context_synchronously
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          FoodAreaAboutScreen(
+                                                            id: place['id'],
+                                                          )),
+                                                );
+                                              }
+                                            },
                                             child: Stack(
                                               children: [
                                                 Container(

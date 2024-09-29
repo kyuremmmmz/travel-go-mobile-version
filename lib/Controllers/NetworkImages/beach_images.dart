@@ -1,19 +1,18 @@
-import 'package:flutter_map/src/layer/marker_layer/marker_layer.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class HotelImages {
+class BeachImages {
   SupabaseClient supabase = Supabase.instance.client;
 
-  Future<List<Map<String, dynamic>>> fetchHotels() async {
+  Future<List<Map<String, dynamic>>> fetchBeaches() async {
     try {
       final response = await supabase
-          .from('hotels')
+          .from('beaches')
           .select('*')
           .limit(1000)
-          .order('hotel_ratings', ascending: true);
+          .order('beach_ratings', ascending: true);
       if (response.isEmpty) {
-        print('no hotels found');
+        print('no beaches found');
         return [];
       } else {
         final data = response;
@@ -21,23 +20,23 @@ class HotelImages {
         List<Map<String, dynamic>> map =
             List<Map<String, dynamic>>.from(data as List);
         for (var map in data) {
-          var place = map['hotel_name'];
+          var place = map['beach_name'];
           var image = map['image'];
           var imageUrl = await getter(image);
           map['image'] = imageUrl;
-          map['hotel_name'] = place;
+          map['beach_name'] = place;
         }
         return map;
       }
     } catch (e) {
-      print('Error fetching hotels: $e');
+      print('Error fetching beaches: $e');
       return [];
     }
   }
 
   Future<String?> getter(String image) async {
     final response =
-        supabase.storage.from('hotel_amenities_url').getPublicUrl(image);
+        supabase.storage.from('beach_amenities_url').getPublicUrl(image);
     if (response.isEmpty) {
       return 'null';
     }
@@ -47,7 +46,7 @@ class HotelImages {
   Future<Map<String, dynamic>?> fetchDataInSingle(int id) async {
     try {
       final response =
-          await supabase.from('hotels').select('*').eq('id', id).single();
+          await supabase.from('beaches').select('*').eq('id', id).single();
 
       if (response.isNotEmpty) {
         final datas = response;
@@ -63,17 +62,17 @@ class HotelImages {
             datas['amenity${i}Url'] = getters;
           }
         }
-        var text = datas['hotel_name'];
+        var text = datas['beach_name'];
         var image = datas['image'];
-        var located = datas['hotel_located'];
-        int price = datas['hotel_price'];
+        var located = datas['beach_located'];
+        int price = datas['beach_price'];
         var priceQ = NumberFormat('#,###');
         final formattedPrice = priceQ.format(price);
         final imageUrl = await getter(image);
         datas['image'] = imageUrl;
-        datas['hotel_name'] = text;
-        datas['hotel_located'] = located;
-        datas['hotel_price'] = formattedPrice;
+        datas['beach_name'] = text;
+        datas['beach_located'] = located;
+        datas['beach_price'] = formattedPrice;
         print(priceQ);
         return datas;
       } else {
@@ -85,6 +84,4 @@ class HotelImages {
       return null;
     }
   }
-
-  map(Marker Function(dynamic place) param0) {}
 }

@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class BlueButtonWithoutFunction extends StatefulWidget {
   late Text text;
   late ButtonStyle style;
-  late VoidCallback oppressed;
+  late VoidCallback? oppressed;
   BlueButtonWithoutFunction
   ({
     super.key,
     required this.text,
     required this.style,
-    required this.oppressed,
+    this.oppressed,
   });
 
   @override

@@ -1,32 +1,45 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Screens/App/information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
+import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 
+// ignore: must_be_immutable
 class FoodAreaAbout extends StatelessWidget {
-  const FoodAreaAbout({
-    super.key, 
-    });
+  String? name;
+  int id;
+  FoodAreaAbout({
+    super.key,
+    this.name,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel',
-      home: FoodAreaAboutScreen(),
+      home: FoodAreaAboutScreen(
+        id: id,
+      ),
     );
   }
 }
 
+// ignore: must_be_immutable
 class FoodAreaAboutScreen extends StatefulWidget {
-  const FoodAreaAboutScreen({super.key});
+  String? name;
+  int id;
+  FoodAreaAboutScreen({
+    super.key,
+    this.name,
+    required this.id,
+  });
 
   @override
   State<FoodAreaAboutScreen> createState() => _FoodAreaAboutScreenState();
@@ -40,10 +53,16 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
 
   String? email;
   String? description;
+  String? menu;
   String? placeName;
   String? imageUrl;
+  var id;
   String? located;
-  final data = Data();
+  String? foodName;
+  String? price;
+  var amenities = <String, dynamic>{};
+  var imageUrlForAmenities = <String, dynamic>{};
+  final data = FoodAreaBackEnd();
 
   final _searchController = TextEditingController();
   late Usersss users = Usersss();
@@ -69,13 +88,12 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
   }
 
   Future<void> fetchImage() async {
-    final datas = await data.fetchImageandText();
+    final datas = await data.getFood();
     setState(() {
       place = datas.map(
         (place) {
-          if (place['place_name'] != null &&
-              place['place_name'].toString().length > 50) {
-            place['place_name'] = place['place_name'].toString().substring(0, 50);
+          if (place['img'] != null && place['img'].toString().length > 50) {
+            place['img'] = place['img'].toString().substring(0, 50);
           }
           return place;
         },
@@ -85,7 +103,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
 
   Future<void> fetchSpecificData(int name) async {
     try {
-      final dataList = await data.fetchSpecificDataInSingle(name);
+      final dataList = await data.getSpecificData(name);
 
       if (dataList == null) {
         setState(() {
@@ -94,9 +112,23 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
       } else {
         setState(() {
           description = dataList['description'];
-          placeName = dataList['place_name'];
-          imageUrl = dataList['image'].toString();
-          located = dataList['locatedIn'];
+          foodName = dataList['img'];
+          imageUrl = dataList['imgUrl'].toString();
+          menu = dataList['menu'];
+          located = dataList['located'];
+          id = dataList['id'];
+          price = dataList['price'];
+          for (var i = 1; i <= 20; i++) {
+            final key = 'dine$i';
+            final keyUrl = 'dineUrl$i';
+            final value = dataList[key];
+            final imageUrlValue = dataList[keyUrl];
+            if (value != null) {
+              amenities[key] = value;
+              imageUrlForAmenities[key] = imageUrlValue;
+              print(imageUrlForAmenities);
+            }
+          }
         });
       }
     } catch (e) {
@@ -112,7 +144,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
     super.initState();
     emailFetching();
     fetchImage();
-    fetchSpecificData(1);
+    fetchSpecificData(widget.id);
   }
 
   Future<void> _isRedirecting() async {
@@ -128,19 +160,19 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 40,
-        leading: Builder(
-          builder: (BuildContext context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+        appBar: AppBar(
+          toolbarHeight: 40,
+          leading: Builder(
+            builder: (BuildContext context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            ),
           ),
         ),
-      ),
-      drawer: const DrawerMenuWidget(),
-      body: FutureBuilder(
+        drawer: const DrawerMenuWidget(),
+        body: FutureBuilder(
             future: _isRedirecting(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -245,10 +277,8 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                     image: imageUrl != null &&
                                             imageUrl!.isNotEmpty
                                         ? NetworkImage(imageUrl!)
-                                        : AssetImage(
-                                            imageUrl ?? 'assets/images/places/PangasinanProvincialCapitol.jpg')
-                                          )
-                                        ),
+                                        : const AssetImage(
+                                            'assets/images/places/PangasinanProvincialCapitol.jpg'))),
                           ),
                         ),
                         Positioned(
@@ -277,7 +307,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                         padding: const EdgeInsets.only(
                                             left: 30, right: 30),
                                         child: Text(
-                                          placeName ?? 'No data available',
+                                          foodName ?? 'No data available',
                                           style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 25,
@@ -296,11 +326,11 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                           GestureDetector(
                                               onTap: () {
                                                 AppRoutes.navigateToTesting(
-                                                    context, name: '$located');
+                                                    context,
+                                                    name: '$located', id: id);
                                               },
                                               child: Text(located ??
-                                                  'I cant locate it')
-                                            )
+                                                  'I cant locate it'))
                                         ],
                                       ),
                                       const SizedBox(height: 20),
@@ -316,22 +346,21 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                       ),
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(
-                                              left: 30,
-                                              right: 30),
+                                            const EdgeInsets.only(left: 30),
                                         child: Text(
                                           description ?? 'No Description',
-                                          textAlign: TextAlign.justify,
+                                          textAlign: TextAlign.left,
                                         ),
                                       ),
                                       const SizedBox(
                                         height: 20,
                                       ),
                                       Container(
-                                        padding:
-                                            const EdgeInsets.only(right: 200),
+                                        padding: const EdgeInsets.only(
+                                          right: 200,
+                                        ),
                                         child: const Text(
-                                          'Menu Highlights:',
+                                          'Menu Highlights',
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
@@ -339,10 +368,10 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                       ),
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(left: 30, right: 30),
+                                            const EdgeInsets.only(left: 30),
                                         child: Text(
-                                          description ?? 'No Description',
-                                          textAlign: TextAlign.justify,
+                                          menu ?? 'No Description',
+                                          textAlign: TextAlign.left,
                                         ),
                                       ),
                                       const SizedBox(
@@ -350,94 +379,84 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                       ),
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(right: 200),
+                                            const EdgeInsets.only(right: 210),
                                         child: const Text(
-                                          'Accommodations',
+                                          'Accomodations',
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
                                       ),
                                       Column(
-                                        children: [
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            children: place.map((place) {
-                                            final imageUrl = place['image'];
-                                            final text = place['place_name'] ?? 'Unknown';
-                                            return Column(
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () async {
-                                                            final placeData = await Data()
-                                                                .fetchSpecificDataInSingle(
-                                                                    place['id']);
-                                                            if (placeData != null) {
-                                                              Navigator.push(
-                                                                // ignore: use_build_context_synchronously
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) =>
-                                                                    InformationScreen(
-                                                                    text: place['id'], 
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }
-                                                          },
-                                                          child: Stack(
-                                                              children: [
-                                                                Container(
-                                                                  height: 180,
-                                                                  width: 300,
-                                                                  decoration: BoxDecoration(
-                                                                    image: DecorationImage(
-                                                                      fit: BoxFit.cover,
-                                                                      image: NetworkImage(imageUrl),
-                                                                    ),
-                                                                    color: Colors.blue,
-                                                                    borderRadius: const BorderRadius.all(
-                                                                      Radius.circular(30),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Positioned(
-                                                                  bottom: 0,
-                                                                  left: 0,
-                                                                  right: 0,
-                                                                  child: Container(
-                                                                    padding: const EdgeInsets.all(10),
-                                                                    decoration: BoxDecoration(
-                                                                      color: Colors.black.withOpacity(0.12),
-                                                                      borderRadius: const BorderRadius.only(
-                                                                        bottomLeft: Radius.circular(30),
-                                                                        bottomRight: Radius.circular(30),
-                                                                      ),
-                                                                    ),
-                                                                    child: Text(
-                                                                      text,
-                                                                      style: const TextStyle(
-                                                                        fontSize: 18,
-                                                                        color: Colors.white,
-                                                                        fontWeight: FontWeight.bold,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        const SizedBox(height: 20),
-                                                      ],
-                                                    );
-                                                  }).toList(),
-                                          ),
-                                        ],
+                                          children: imageUrlForAmenities.entries
+                                              .map((entry) {
+                                        return Column(
+                                          children: [
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Container(
+                                              child: Stack(
+                                                children: [
+                                                  Container(
+                                                    height: 150,
+                                                    width: 350,
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: NetworkImage(
+                                                            entry.value ?? ''),
+                                                      ),
+                                                      color: Colors.blue,
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(
+                                                        Radius.circular(30),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Positioned(
+                                                    bottom: 0,
+                                                    left: 0,
+                                                    right: 0,
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black
+                                                            .withOpacity(0.12),
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  30),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  30),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        amenities[entry.key] ??
+                                                            '',
+                                                        style: const TextStyle(
+                                                          fontSize: 18,
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      }).toList()),
+                                      const SizedBox(
+                                        height: 30,
                                       ),
                                     ],
                                   ),
@@ -451,8 +470,6 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                   ],
                 );
               }
-        }
-      )
-    );
+            }));
   }
 }

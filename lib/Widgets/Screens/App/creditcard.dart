@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 void main() {
-  runApp(Creditcard());
+  runApp(const Creditcard());
 }
 
 class Creditcard extends StatelessWidget {
@@ -66,8 +66,10 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
               cardHolderName: cardHolderName.text,
               cvvCode: cvvCode.text,
               showBackView: isCvvFocused,
-              // ignore: avoid_types_as_parameter_names
-              onCreditCardWidgetChange: (CreditCardBrand) {},
+              // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+              onCreditCardWidgetChange: (CreditCardBrand) {
+                
+              },
               enableFloatingCard: true,
               bankName: 'BDO',
               obscureCardNumber: true,
@@ -122,9 +124,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
                   cardHolderValidator: (String? cardHolderName) {
                     return null;
                   },
-                  onFormComplete: () {
-                    // callback to execute at the end of filling card data
-                  },
+                  onFormComplete: () {},
                   autovalidateMode: AutovalidateMode.always,
                   disableCardNumberAutoFillHints: false,
                   inputConfiguration: const InputConfiguration(
