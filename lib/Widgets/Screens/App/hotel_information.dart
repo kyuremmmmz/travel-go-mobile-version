@@ -40,6 +40,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
   String? located;
   String? availability;
   var price;
+  var id;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
   final data = HotelImages();
@@ -68,6 +69,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
         setState(() {
           description = dataList['hotel_description'];
           text = dataList['hotel_name'];
+          id = dataList['id'];
           imageUrl = dataList['image'].toString();
           hasCar = dataList['car_availability'].toString();
           hasMotor = dataList['tricycle_availability'].toString();
@@ -337,16 +339,23 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                   child: Column(
                                     children: [
                                       Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 30, right: 30),
-                                        child: Text(
-                                          text ?? 'No data available',
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
+                                          padding: const EdgeInsets.only(
+                                              left: 30, right: 30),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              AppRoutes.navigateToTesting(
+                                                  context,
+                                                  name: '$text',
+                                                  id: widget.id);
+                                            },
+                                            child: Text(
+                                              text ?? 'No data available',
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          )),
                                       Row(
                                         children: [
                                           const SizedBox(
@@ -356,14 +365,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                             Icons.location_on,
                                             color: Colors.red,
                                           ),
-                                          GestureDetector(
-                                              onTap: () {
-                                                AppRoutes.navigateToTesting(
-                                                    context,
-                                                    name: '$located');
-                                              },
-                                              child: Text(located ??
-                                                  'I cant locate it'))
+                                          Text(located ?? 'I cant locate it')
                                         ],
                                       ),
                                       const SizedBox(height: 20),

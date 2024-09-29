@@ -56,6 +56,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
   String? menu;
   String? placeName;
   String? imageUrl;
+  var id;
   String? located;
   String? foodName;
   String? price;
@@ -115,6 +116,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
           imageUrl = dataList['imgUrl'].toString();
           menu = dataList['menu'];
           located = dataList['located'];
+          id = dataList['id'];
           price = dataList['price'];
           for (var i = 1; i <= 20; i++) {
             final key = 'dine$i';
@@ -325,7 +327,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                               onTap: () {
                                                 AppRoutes.navigateToTesting(
                                                     context,
-                                                    name: '$located');
+                                                    name: '$located', id: id);
                                               },
                                               child: Text(located ??
                                                   'I cant locate it'))

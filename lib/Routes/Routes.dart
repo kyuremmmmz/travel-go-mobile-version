@@ -90,12 +90,12 @@ class AppRoutes {
                 hotelorplace: hotelorplace)));
   }
 
-  static void navigateToTesting(BuildContext route, {required String name}) {
+  static void navigateToTesting(BuildContext route, {required String name, required int id}) {
     Navigator.push(
         route,
         MaterialPageRoute(
             builder: (context) => Map(
-                  location: name,
+                  location: name, id: id,
                 )));
   }
 
