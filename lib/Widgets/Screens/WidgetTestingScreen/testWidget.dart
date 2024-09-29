@@ -107,8 +107,10 @@ class _MapPageState extends State<MapPage> {
                           var router =
                               data['routes'][0]['geometry']['coordinates'];
                           for (var coords in router) {
-                            routePoints.add(LatLng(coords[1],
-                                coords[0])); // latLng is in [lat, lng]
+                            double latitude = coords[1].toDouble();
+                            double longitude = coords[0].toDouble();
+                            routePoints.add(LatLng(latitude, longitude));
+              
                           }
                         }
                       );
