@@ -18,12 +18,12 @@ class Map extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MapPage(
-        location: location,
-        id: id,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Map'),
       ),
+      body: MapPage(location: location, id: id),
+      
     );
   }
 }
@@ -50,6 +50,43 @@ class _MapPageState extends State<MapPage> {
   List<Marker> markers = [];
 
   late HotelImages images = HotelImages();
+  Future<void> func() async {
+    try {
+      List<Location> startR = await locationFromAddress(start.text.trim());
+      List<Location> endR = await locationFromAddress('${widget.location}');
+
+      final v1 = startR[0].latitude;
+      final v2 = startR[0].longitude;
+      final v3 = endR[0].latitude;
+      final v4 = endR[0].longitude;
+
+      var url = Uri.parse(
+          'http://router.project-osrm.org/route/v1/driving/$v2,$v1;$v4,$v3?steps=true&annotations=true&geometries=geojson&overview=full');
+
+      var response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data['routes'].isNotEmpty) {
+          setState(() {
+            routePoints = [];
+            var router = data['routes'][0]['geometry']['coordinates'];
+            for (var coords in router) {
+              double latitude = coords[1].toDouble();
+              double longitude = coords[0].toDouble();
+              routePoints.add(LatLng(latitude, longitude));
+            }
+          });
+        } else {
+          print('No routes found.');
+        }
+      } else {
+        print('Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception occurred: $e');
+    }
+  }
 
   Future<void> places(int id) async {
     final data = await images.fetchDataInSingle(id);
@@ -65,7 +102,7 @@ class _MapPageState extends State<MapPage> {
       final hotels = await images.fetchHotels();
       if (hotels.isNotEmpty) {
         List<Marker> fetchedMarkers = [];
-        
+
         for (var hotel in hotels) {
           var hotelName = hotel['hotel_name'];
           var hotelPrice = hotel['hotel_price'];
@@ -161,17 +198,6 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Map',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        backgroundColor: Colors.grey,
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -192,44 +218,7 @@ class _MapPageState extends State<MapPage> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () async {
-                  try {
-                    List<Location> startR =
-                        await locationFromAddress(start.text.trim());
-                    List<Location> endR =
-                        await locationFromAddress('${widget.location}');
-
-                    final v1 = startR[0].latitude;
-                    final v2 = startR[0].longitude;
-                    final v3 = endR[0].latitude;
-                    final v4 = endR[0].longitude;
-
-                    var url = Uri.parse(
-                        'http://router.project-osrm.org/route/v1/driving/$v2,$v1;$v4,$v3?steps=true&annotations=true&geometries=geojson&overview=full');
-
-                    var response = await http.get(url);
-
-                    if (response.statusCode == 200) {
-                      final data = jsonDecode(response.body);
-                      if (data['routes'].isNotEmpty) {
-                        setState(() {
-                          routePoints = [];
-                          var router =
-                              data['routes'][0]['geometry']['coordinates'];
-                          for (var coords in router) {
-                            double latitude = coords[1].toDouble();
-                            double longitude = coords[0].toDouble();
-                            routePoints.add(LatLng(latitude, longitude));
-                          }
-                        });
-                      } else {
-                        print('No routes found.');
-                      }
-                    } else {
-                      print('Error: ${response.statusCode}');
-                    }
-                  } catch (e) {
-                    print('Exception occurred: $e');
-                  }
+                  func();
                 },
                 child: const Text('Get location'),
               ),
