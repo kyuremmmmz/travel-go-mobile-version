@@ -24,7 +24,9 @@ class FoodAreaAbout extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel',
-      home: FoodAreaAboutScreen(id: id,),
+      home: FoodAreaAboutScreen(
+        id: id,
+      ),
     );
   }
 }
@@ -51,6 +53,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
 
   String? email;
   String? description;
+  String? menu;
   String? placeName;
   String? imageUrl;
   String? located;
@@ -110,7 +113,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
           description = dataList['description'];
           foodName = dataList['img'];
           imageUrl = dataList['imgUrl'].toString();
-
+          menu = dataList['menu'];
           located = dataList['located'];
           price = dataList['price'];
           for (var i = 1; i <= 20; i++) {
@@ -349,6 +352,25 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                       ),
                                       const SizedBox(
                                         height: 20,
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          right: 200,
+                                        ),
+                                        child: const Text(
+                                          'Menu Highlights',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.only(left: 30),
+                                        child: Text(
+                                          menu ?? 'No Description',
+                                          textAlign: TextAlign.left,
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 20,

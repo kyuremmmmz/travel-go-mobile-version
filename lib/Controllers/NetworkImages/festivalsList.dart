@@ -30,4 +30,9 @@ class Festivalslist {
     }
     return res;
   }
+
+
+  Future<PostgrestMap?> getSpecificData(int id) async {
+
+  }
 }
