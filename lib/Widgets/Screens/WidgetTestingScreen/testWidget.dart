@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:itransit/Controllers/NetworkImages/hotel_images.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -64,8 +65,15 @@ class _MapPageState extends State<MapPage> {
       final hotels = await images.fetchHotels();
       if (hotels.isNotEmpty) {
         List<Marker> fetchedMarkers = [];
-
+        
         for (var hotel in hotels) {
+          var hotelName = hotel['hotel_name'];
+          var hotelPrice = hotel['hotel_price'];
+          var numberFormat = NumberFormat('#,###');
+          var finalPrice = numberFormat.format(hotelPrice);
+          hotel['hotel_price'] = finalPrice;
+          hotel['hotel_name'] = hotelName;
+
           List<Location> locations =
               await locationFromAddress(hotel['hotel_name']);
           if (locations.isNotEmpty) {
@@ -97,7 +105,7 @@ class _MapPageState extends State<MapPage> {
                                         child: Padding(
                                           padding: EdgeInsets.all(16),
                                           child: Text(
-                                            hotel['hotel_name'],
+                                            hotelName,
                                             style: const TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
@@ -111,7 +119,7 @@ class _MapPageState extends State<MapPage> {
                                 });
                           },
                           child: Text(
-                            '₱${hotel['hotel_price'].toString()}',
+                            '₱$finalPrice',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.black,
