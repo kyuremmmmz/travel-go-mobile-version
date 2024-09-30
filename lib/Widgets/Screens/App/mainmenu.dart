@@ -240,7 +240,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Beaches())),
+                                    oppressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Beaches())),
                                   ),
                                   const CategoryLabel(label: 'Beaches'),
                                 ],
@@ -249,7 +252,11 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: hotelIcon,
-                                    oppressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Festivalsstateless())),
+                                    oppressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const FestivalsStateless())),
                                   ),
                                   const CategoryLabel(
                                       label: 'Festivals and \nEvents'),
@@ -302,7 +309,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const Festivalsstateless())),
+                                        const FestivalsStateless())),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

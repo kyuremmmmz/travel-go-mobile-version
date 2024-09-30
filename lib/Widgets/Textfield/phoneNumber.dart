@@ -24,29 +24,22 @@ class _numberTextFieldState extends State<PhonenumberTextField> {
     return TextFormField(
       controller: widget.controller,
       decoration: InputDecoration(
-        prefixIcon: widget.icon,
-        labelText: widget.text,
-        labelStyle: const TextStyle(
-          fontSize: 12,
-        ),
-        floatingLabelStyle: const TextStyle(
-          color: Colors.black
-        ),
-        filled: true,
-        fillColor: Colors.white,
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
+          prefixIcon: widget.icon,
+          labelText: widget.text,
+          labelStyle: const TextStyle(
+            fontSize: 12,
+          ),
+          floatingLabelStyle: const TextStyle(color: Colors.black),
+          filled: true,
+          fillColor: Colors.white,
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
             color: Colors.black,
-          )
-        )
-      ),
+          ))),
       keyboardType: TextInputType.phone,
-      style: const TextStyle(
-        fontSize: 12
-      ),
+      style: const TextStyle(fontSize: 12),
     );
   }
 }

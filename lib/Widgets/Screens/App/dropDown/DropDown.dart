@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class Drowpdown extends StatefulWidget {
+class DropDown extends StatefulWidget {
   final String option1;
   final String option2;
   final String option3;
   final String option4;
-  const Drowpdown({
+  const DropDown({
     super.key,
     required this.option1,
     required this.option2,
@@ -15,14 +15,14 @@ class Drowpdown extends StatefulWidget {
   });
 
   @override
-  State<Drowpdown> createState() => _DrowpdownState();
+  State<DropDown> createState() => _DropDownState();
 }
 
-class _DrowpdownState extends State<Drowpdown> {
+class _DropDownState extends State<DropDown> {
   String? selectedOption = 'Payment Method';
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
+    return DropdownButtonFormField<String>(
       onChanged: (String? value) {
         setState(() {
           selectedOption = value!;

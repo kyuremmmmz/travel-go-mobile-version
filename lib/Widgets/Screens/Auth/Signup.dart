@@ -144,7 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }
                           signUp.sign(context, value);
                           return null;
-                          },
+                        },
                         decoration: const InputDecoration(
                             labelText: 'email',
                             alignLabelWithHint: true,

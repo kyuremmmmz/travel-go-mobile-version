@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
@@ -28,8 +27,9 @@ class InformationScreen extends StatefulWidget {
 class _InformationScreenState extends State<InformationScreen> {
   final _searchController = TextEditingController();
   final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food.png";
+  final String foodIcon = "assets/images/icon/food_place.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
+  final String festivalIcon = "assets/images/icon/food.png";
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   String? email;
   String? description;
@@ -339,7 +339,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                               onTap: () {
                                                 AppRoutes.navigateToTesting(
                                                     context,
-                                                    name: '$located', id: id);
+                                                    name: '$located',
+                                                    id: id);
                                               },
                                               child: Text(located ??
                                                   'I cant locate it'))
@@ -527,7 +528,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                           Column(
                                             children: [
                                               BlueIconButtonDefault(
-                                                image: hotelIcon,
+                                                image: festivalIcon,
                                                 oppressed: () =>
                                                     print('Festivals clicked'),
                                               ),
