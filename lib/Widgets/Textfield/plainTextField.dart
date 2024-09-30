@@ -20,24 +20,6 @@ class plainTextField extends StatefulWidget {
 
 // ignore: camel_case_types
 class _numberTextFieldState extends State<plainTextField> {
-  final FocusNode _focusNode = FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode.addListener(() {
-      if (!_focusNode.hasFocus) {
-        FocusScope.of(context).unfocus();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -53,7 +35,6 @@ class _numberTextFieldState extends State<plainTextField> {
               borderSide: BorderSide(
             color: Colors.black,
           ))),
-      focusNode: _focusNode,
       style: TextStyle(
         fontSize: 12,
         color: widget.colorr,

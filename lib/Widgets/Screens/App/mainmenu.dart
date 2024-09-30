@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
-import 'package:itransit/Widgets/Textfield/searchField.dart';
+import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
+import 'package:itransit/Widgets/Screens/App/beachList.dart';
+import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
+import 'package:itransit/Widgets/Screens/App/information.dart';
+import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 
 void main() {
   runApp(const MainMenu());
@@ -38,6 +46,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
+  List<Map<String, dynamic>> place = [];
+  final data = Data();
+  late FoodAreaBackEnd images = FoodAreaBackEnd();
+  List<Map<String, dynamic>> datass = [];
 
   Future<void> emailFetching() async {
     try {
@@ -58,10 +70,45 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     }
   }
 
+  Future<void> fetchImage() async {
+    final datas = await data.fetchImageandText();
+    setState(() {
+      place = datas.map(
+        (place) {
+          if (place['place_name'] != null &&
+              place['place_name'].toString().length > 18) {
+            place['place_name'] =
+                place['place_name'].toString().substring(0, 18);
+          }
+          return place;
+        },
+      ).toList();
+    });
+  }
+
+  Future<List<Map<String, dynamic>>?> fetchFoods(BuildContext context) async {
+    final datas = await images.getFood();
+    if (datas.isEmpty) {
+      return [];
+    } else {
+      setState(() {
+        datass = datas.map((foods) {
+          if (foods['img'] != null && foods['img'].toString().length > 18) {
+            foods['img'] = foods['img'].toString().substring(0, 18);
+          }
+          return foods;
+        }).toList();
+      });
+      return null;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     emailFetching();
+    fetchImage();
+    fetchFoods(context);
   }
 
   @override
@@ -69,6 +116,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     _searchController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,85 +131,18 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           ),
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const CircleAvatar(
-                    backgroundImage: AssetImage(
-                        'assets/images/icon/beach.png'), // Replace with your own profile image
-                    radius: 40,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    // ignore: unnecessary_null_comparison
-                    email !=null ? '$email' : 'Hacked himala e',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.search),
-              title: const Text('Search'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              onTap: () {
-                Navigator.pop(context);
-                Usersss().signout(context);
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const DrawerMenuWidget(),
       body: Stack(
         children: [
           Positioned.fill(
             child: Column(
               children: <Widget>[
-                Text(
+                const Text(
                   'TRAVEL GO',
                   style: TextStyle(
                     fontSize: 30,
                     color: Colors.blue,
                     fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        offset: const Offset(3.0, 3.0),
-                        blurRadius: 4.0,
-                        color: Colors.black.withOpacity(0.5),
-                      ),
-                    ],
                   ),
                 ),
                 const Text(
@@ -171,30 +152,54 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                SizedBox(
-                  height: 40,
-                  width: 400,
-                  child: Search(
-                    controller: _searchController,
-                    style: const InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                      hintStyle: TextStyle(color: Colors.black54),
-                      hintText: 'Search Destination',
-                      border: OutlineInputBorder(
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: TypeAheadField(
+                    textFieldConfiguration: TextFieldConfiguration(
+                      controller: _searchController,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                            onPressed: () async {
+                              await data.fetchinSearch(
+                                  _searchController.text.trim(), context);
+                            },
+                            icon: const Icon(
+                              Icons.search,
+                            )),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 10),
+                        hintStyle: const TextStyle(color: Colors.black54),
+                        hintText: 'Search Destination',
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(50)),
-                          borderSide: BorderSide(color: Colors.black54)),
-                      focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black54),
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      filled: true,
-                      fillColor: Colors.white,
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black54),
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
                     ),
+                    suggestionsCallback: (pattern) async {
+                      return await Searchcontroller().fetchSuggestions(pattern);
+                    },
+                    itemBuilder: (context, dynamic suggestion) {
+                      return ListTile(
+                        title: Text(suggestion['title'] ?? 'No title'),
+                        subtitle: Text(suggestion['address'] ?? 'No address'),
+                      );
+                    },
+                    onSuggestionSelected: (dynamic suggestion) {
+                      _searchController.text =
+                          suggestion['title'] ?? 'No title';
+                      FocusScope.of(context).unfocus();
+                    },
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 Expanded(
                   child: Scrollbar(
                     thumbVisibility: true,
@@ -213,19 +218,21 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                               Column(
                                 children: [
                                   BlueIconButtonDefault(
-                                    image: beachIcon,
-                                    oppressed: () => print('Hotels clicked'),
-                                  ),
+                                      image: beachIcon,
+                                      oppressed: () => {
+                                            AppRoutes.navigateToHotelScreen(
+                                                context)
+                                          }),
                                   const CategoryLabel(label: 'Hotels'),
                                 ],
                               ),
                               Column(
                                 children: [
                                   BlueIconButtonDefault(
-                                    image: foodIcon,
-                                    oppressed: () =>
-                                        print('Food Place clicked'),
-                                  ),
+                                      image: foodIcon,
+                                      oppressed: () =>
+                                          AppRoutes.navigateTofoodArea(
+                                              context)),
                                   const CategoryLabel(label: 'Food Place'),
                                 ],
                               ),
@@ -233,7 +240,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => print('Beaches clicked'),
+                                    oppressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Beaches())),
                                   ),
                                   const CategoryLabel(label: 'Beaches'),
                                 ],
@@ -242,7 +249,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: hotelIcon,
-                                    oppressed: () => print('Festivals clicked'),
+                                    oppressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Festivalsstateless())),
                                   ),
                                   const CategoryLabel(
                                       label: 'Festivals and \nEvents'),
@@ -252,56 +259,50 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           ),
                           CategorySelect(
                             label: "Popular Places",
-                            oppressed: () => print('Popular Places clicked'),
+                            oppressed: () =>
+                                AppRoutes.navigateToExploreNowScreen(context),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Popular Place clicked'),
-                              ),
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Popular Place clicked'),
-                              ),
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Popular Place clicked'),
-                              ),
-                            ],
-                          ),
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: place.map((place) {
+                                final id = place['id'];
+                                return PlaceButtonSquare(
+                                    place: place['place_name'],
+                                    image: Image.network(place['image']).image,
+                                    oppressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  InformationScreen(text: id)));
+                                    });
+                              }).toList()),
                           CategorySelect(
                             label: "Food Places",
                             oppressed: () => print('Food Places clicked'),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Food Place clicked'),
-                              ),
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Food Place clicked'),
-                              ),
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Food Place clicked'),
-                              ),
-                            ],
-                          ),
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: datass.map((value) {
+                                final id = value['id'];
+                                return PlaceButtonSquare(
+                                    place: value['img'],
+                                    image: Image.network(value['imgUrl']).image,
+                                    oppressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FoodAreaAboutScreen(id: id)));
+                                    });
+                              }).toList()),
                           CategorySelect(
                             label: "Festival and Events",
-                            oppressed: () =>
-                                print('Festival and Events clicked'),
+                            oppressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Festivalsstateless())),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -416,7 +417,9 @@ class _DismissableFindMoreLocationState
                             Align(
                               alignment: Alignment.bottomLeft,
                               child: GestureDetector(
-                                onTap: () => AppRoutes.navigateToExploreNowScreen(context),
+                                onTap: () =>
+                                    AppRoutes.navigateToExploreNowScreen(
+                                        context),
                                 child: Stack(
                                   children: [
                                     const Text(
