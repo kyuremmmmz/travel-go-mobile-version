@@ -31,33 +31,8 @@ class Festivalslist {
     return res;
   }
 
+
   Future<PostgrestMap?> getSpecificData(int id) async {
-    final res =
-        await supabase.from('Festivals').select('*').eq('id', id).single();
-    if (res.isEmpty) {
-      return null;
-    } else {
-      final data = res;
-      var img = data['img'];
-      var imgUrl = data['imgUrl'];
-      var located = data['Located'];
-      var tips = data['TipsForVisitors'];
-      var get = await getter(imgUrl);
-      for (var i = 0; i < 20; i++) {
-        var text = 'Dine$i';
-        var text2 = data[text];
-        var imgUrlDine = data['DineUrl$i'];
-        if (text.isNotEmpty && imgUrlDine != null) {
-          final gett = await getter(imgUrlDine);
-          data[text] = text2;
-          data['DineUrl$i'] = gett;
-        }
-        data['img'] = img;
-        data['TipsForVisitors'] = tips;
-        data['imgUrl'] = get;
-        data['Located'] = located;
-      }
-      return data;
-    }
+
   }
 }

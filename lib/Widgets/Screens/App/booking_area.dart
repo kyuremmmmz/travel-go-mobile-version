@@ -1,11 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
+import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
@@ -49,21 +47,15 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _checkInController = TextEditingController();
   final _checkOutController = TextEditingController();
   final _originController = TextEditingController();
-  final _paymentMethodController = TextEditingController();
   final _vehicleTypeController = TextEditingController();
+  final _paymentMethodController = TextEditingController();
   final _specialReqController = TextEditingController();
   final _validator = GlobalKey<FormState>();
   final _hotel = TextEditingController();
   final _number_of_children = TextEditingController();
   final _number_of_adult = TextEditingController();
   String? email;
-  String? place;
-  final bool _isWaiting = true;
-  final supabase = Supabase.instance.client;
-  var amount = 0;
-  String? strAmount;
-
-  String? hotel;
+  var amount;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
   final String adventureIcon = "assets/images/icon/adventure.png";
@@ -71,6 +63,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
   bool _value = false;
   HotelBooking booking = HotelBooking();
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -727,35 +720,16 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: TextField(
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
+                              child: inputTextField(
+                                colorr: Colors.black,
+                                text: 'Payment Method:',
                                 controller: _paymentMethodController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Payment Method',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  prefixIcon: Icon(Icons.payment_rounded),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  niggaModal(context);
-                                },
-                              )),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
                               width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
@@ -768,146 +742,126 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: TextField(
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
+                              child: inputTextField(
+                                colorr: Colors.black,
+                                text: 'Vehicle Type: (Optional)',
                                 controller: _vehicleTypeController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Room Type',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  prefixIcon: Icon(Icons.room_outlined),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  niggaModalRoomType(context);
-                                },
-                              )),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              colorr: Colors.black,
-                              text: 'Special Requests: (Optional)',
-                              controller: _originController,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 0,
-                          ),
-                          Theme(
-                            data: ThemeData(
-                              checkboxTheme: const CheckboxThemeData(
-                                shape: CircleBorder(),
                               ),
                             ),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: ListTileTheme(
-                                horizontalTitleGap: 0.0,
-                                child: CheckboxListTile(
-                                  activeColor: Colors.green,
-                                  title: RichText(
-                                    text: TextSpan(children: <TextSpan>[
-                                      const TextSpan(
-                                        text:
-                                            "I have reviewed my booking details and agree to the ",
-                                        style: TextStyle(
-                                            fontSize: 12, color: Colors.black),
-                                      ),
-                                      TextSpan(
-                                        text: "Terms of Service.",
-                                        style: const TextStyle(
-                                            fontSize: 12, color: Colors.white),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () => AppRoutes
-                                              .navigateToForgotPassword(
-                                                  context),
-                                      ),
-                                    ]),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: 380,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(50)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 5),
+                                    )
+                                  ]),
+                              child: inputTextField(
+                                colorr: Colors.black,
+                                text: 'Special Requests: (Optional)',
+                                controller: _originController,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Theme(
+                              data: ThemeData(
+                                checkboxTheme: const CheckboxThemeData(
+                                  shape: CircleBorder(),
+                                ),
+                              ),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: ListTileTheme(
+                                  horizontalTitleGap: 0.0,
+                                  child: CheckboxListTile(
+                                    activeColor: Colors.green,
+                                    title: RichText(
+                                      text: TextSpan(children: <TextSpan>[
+                                        const TextSpan(
+                                          text:
+                                              "I have reviewed my booking details and agree to the ",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black),
+                                        ),
+                                        TextSpan(
+                                          text: "Terms of Service.",
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () => AppRoutes
+                                                .navigateToForgotPassword(
+                                                    context),
+                                        ),
+                                      ]),
+                                    ),
+                                    value: value,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        this.value = value!;
+                                      });
+                                    },
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
                                   ),
-                                  value: _value,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      _value = value ?? false;
-                                    });
-                                  },
-                                  controlAffinity:
-                                      ListTileControlAffinity.leading,
                                 ),
                               ),
                             ),
-                          ),
-                          Container(
-                            height: 100,
-                            width: double.infinity, // Adjust width as needed
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50),
-                                topRight: Radius.circular(50),
+                            Container(
+                              height: 100,
+                              width: double.infinity, // Adjust width as needed
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(50),
+                                  topRight: Radius.circular(50),
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10, top: 30),
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 30,
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 50,
-                                        child: Image.asset(adventureIcon),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20,
-                                        child: Image.asset(suitcaseIcon),
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                        child: Image.asset(planeTicketIcon),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: Column(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, top: 30),
+                                child: Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 30,
+                                    ),
+                                    Column(
                                       children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            fetchInt(widget.id);
-                                          },
-                                          child: const Row(
+                                        SizedBox(
+                                          height: 50,
+                                          child: Image.asset(adventureIcon),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 20,
+                                          child: Image.asset(suitcaseIcon),
+                                        ),
+                                        SizedBox(
+                                          height: 30,
+                                          child: Image.asset(planeTicketIcon),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: Column(
+                                        children: [
+                                          const Row(
                                             children: [
                                               Text(
                                                 "Total Amount",

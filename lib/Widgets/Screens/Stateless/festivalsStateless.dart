@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Widgets/Screens/App/festivalsList.dart';
 
-class Festivalsstateless extends StatelessWidget {
-  const Festivalsstateless({super.key});
+class FestivalsStateless extends StatelessWidget {
+  const FestivalsStateless({super.key});
 
   @override
   Widget build(BuildContext context) {
