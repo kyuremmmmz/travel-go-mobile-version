@@ -7,6 +7,7 @@ import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Screens/App/categories.dart';
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
+import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Beaches extends StatefulWidget {
@@ -17,13 +18,8 @@ class Beaches extends StatefulWidget {
 }
 
 class _BeachesState extends State<Beaches> {
-  final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food_place.png";
-  final String hotelIcon = "assets/images/icon/hotel.png";
-  final String festivalIcon = "assets/images/icon/food.png";
   late String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   late String manaoag = "assets/images/places/Manaoag.jpg";
-  final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
   late BeachImages images = BeachImages();
@@ -45,12 +41,6 @@ class _BeachesState extends State<Beaches> {
     super.initState();
     emailFetching();
     places();
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
   }
 
   Future<void> emailFetching() async {
@@ -165,68 +155,7 @@ class _BeachesState extends State<Beaches> {
                 return Stack(children: [
                   Positioned.fill(
                       child: Column(children: <Widget>[
-                    Text(
-                      'TRAVEL GO',
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        shadows: [
-                          Shadow(
-                            offset: const Offset(3.0, 3.0),
-                            blurRadius: 4.0,
-                            color: Colors.black.withOpacity(0.5),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Text(
-                      "Northwestern part of Luzon Island, Philippines",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 30),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: TypeAheadField(
-                        textFieldConfiguration: TextFieldConfiguration(
-                          controller: _searchController,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 10),
-                            hintStyle: TextStyle(color: Colors.black54),
-                            hintText: 'Search Destination',
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                              borderSide: BorderSide(color: Colors.black54),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black54),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                          ),
-                        ),
-                        suggestionsCallback: (pattern) async {
-                          return await Searchcontroller()
-                              .fetchSuggestions(pattern);
-                        },
-                        itemBuilder: (context, dynamic suggestion) {
-                          return ListTile(
-                            title: Text(suggestion['title'] ?? 'No title'),
-                            subtitle:
-                                Text(suggestion['address'] ?? 'No address'),
-                          );
-                        },
-                        onSuggestionSelected: (dynamic suggestion) {
-                          _searchController.text =
-                              suggestion['title'] ?? 'No title';
-                          FocusScope.of(context).unfocus();
-                        },
-                      ),
-                    ),
+                    const TitleSearchMenu(),
                     const SizedBox(height: 30),
                     Expanded(
                         child: Scrollbar(
