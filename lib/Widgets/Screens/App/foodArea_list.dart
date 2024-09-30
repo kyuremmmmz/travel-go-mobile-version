@@ -16,10 +16,6 @@ class FoodArea extends StatefulWidget {
 }
 
 class _FoodAreaState extends State<FoodArea> {
-  final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food_place.png";
-  final String hotelIcon = "assets/images/icon/hotel.png";
-  final String festivalIcon = "assets/images/icon/food.png";
   late String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   late String manaoag = "assets/images/places/Manaoag.jpg";
   final _searchController = TextEditingController();

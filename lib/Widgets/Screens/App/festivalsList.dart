@@ -5,7 +5,6 @@ import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Screens/App/categories.dart';
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -18,10 +17,6 @@ class Festival extends StatefulWidget {
 }
 
 class _FestivalState extends State<Festival> {
-  final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food_place.png";
-  final String hotelIcon = "assets/images/icon/hotel.png";
-  final String festivalIcon = "assets/images/icon/food.png";
   late String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   late String manaoag = "assets/images/places/Manaoag.jpg";
   final _searchController = TextEditingController();
