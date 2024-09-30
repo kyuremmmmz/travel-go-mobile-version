@@ -4,7 +4,6 @@ import 'package:itransit/Controllers/NetworkImages/beach.dart';
 import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
-import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
