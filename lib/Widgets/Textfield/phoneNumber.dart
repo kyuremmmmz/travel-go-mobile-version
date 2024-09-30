@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 // ignore: camel_case_types
 class PhonenumberTextField extends StatefulWidget {
   final String? text;
-
-    const PhonenumberTextField
-    ({
-      super.key,
-      required this.text,
-    });
+  final TextEditingController controller;
+  final Icon? icon;
+  const PhonenumberTextField({
+    super.key,
+    required this.text,
+    required this.controller,
+    this.icon,
+  });
 
   @override
   State<PhonenumberTextField> createState() => _numberTextFieldState();
@@ -20,15 +22,24 @@ class _numberTextFieldState extends State<PhonenumberTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _controller,
-      decoration:  InputDecoration(
+      controller: widget.controller,
+      decoration: InputDecoration(
+          prefixIcon: widget.icon,
           labelText: widget.text,
-          border: const UnderlineInputBorder(),
-      ),
+          labelStyle: const TextStyle(
+            fontSize: 12,
+          ),
+          floatingLabelStyle: const TextStyle(color: Colors.black),
+          filled: true,
+          fillColor: Colors.white,
+          border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+            color: Colors.black,
+          ))),
       keyboardType: TextInputType.phone,
-      style: const TextStyle(
-        fontSize: 12
-      ),
+      style: const TextStyle(fontSize: 12),
     );
   }
 }

@@ -5,6 +5,8 @@ import 'package:itransit/Widgets/Screens/App/creditcard.dart';
 import 'package:itransit/Widgets/Screens/App/hotel_booking.dart';
 import 'package:itransit/Widgets/Screens/App/notPaid.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
+import 'package:itransit/Widgets/Screens/Profiles/Settings.dart';
+import 'package:itransit/Widgets/Screens/Stateless/beaches_stateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
 import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
