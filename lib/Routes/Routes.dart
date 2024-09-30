@@ -5,6 +5,7 @@ import 'package:itransit/Widgets/Screens/App/creditcard.dart';
 import 'package:itransit/Widgets/Screens/App/hotel_booking.dart';
 import 'package:itransit/Widgets/Screens/App/notPaid.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
+import 'package:itransit/Widgets/Screens/Profiles/Settings.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
 import 'package:itransit/Widgets/Screens/Stateless/food_AreaStateless.dart';
@@ -132,6 +133,11 @@ class AppRoutes {
   static void navigateToFoodAreaAbout(BuildContext route, {required int id}) {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) =>  FoodAreaAbout(id: id,)));
+  }
+
+  static void navigateToAccountSettings(BuildContext route) {
+    Navigator.push(
+        route, MaterialPageRoute(builder: (context) =>  AccountSettingsScreen()));
   }
 
   static void navigateToHotelBookingScreen(BuildContext route,
