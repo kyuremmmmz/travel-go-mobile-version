@@ -52,26 +52,6 @@ class _MapPageState extends State<MapPage> {
   late HotelImages images = HotelImages();
  Future<void> func() async {
     try {
-      LocationPermission permission = await Geolocator.checkPermission();
-
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.deniedForever) {
-          print(
-              'Location permissions are permanently denied, we cannot request permissions.');
-          return;
-        }
-
-        if (permission == LocationPermission.denied) {
-          print('Location permission denied.');
-          return;
-        }
-      }
-      Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low,
-      );
-      print(position);
-
       List<Location> startR = await locationFromAddress(start.text.trim());
       List<Location> endR = await locationFromAddress('${widget.location}');
 
@@ -127,11 +107,12 @@ class _MapPageState extends State<MapPage> {
         for (var hotel in hotels) {
           var hotelName = hotel['hotel_name'];
           var hotelPrice = hotel['hotel_price'];
+          var des = hotel['hotel_description'];
           var numberFormat = NumberFormat('#,###');
           var finalPrice = numberFormat.format(hotelPrice);
           hotel['hotel_price'] = finalPrice;
           hotel['hotel_name'] = hotelName;
-
+          hotel['description'] = des;
           List<Location> locations =
               await locationFromAddress(hotel['hotel_name']);
           if (locations.isNotEmpty) {
@@ -178,21 +159,41 @@ class _MapPageState extends State<MapPage> {
                                       Container(
                                         padding: null,
                                         width: double.infinity,
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(16),
-                                          child: Text(
+                                        child: Container(
+                                          padding: EdgeInsets.only(
+                                            left: 50
+                                          ),
+                                          child: const Text(
                                             'Description',
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
+                                            style: TextStyle(
+                                              fontSize: 16,
                                               color: Colors.black,
+                                              fontWeight: FontWeight.bold
                                             ),
                                           ),
                                         ),
-                                      )
-                                    ],
+                                      ),
+                                      Container(
+                                        padding: null,
+                                        width: double.infinity,
+                                        child: Container(
+                                          padding: const EdgeInsets.only(
+                                            left: 50
+                                          ),
+                                          child:  Text(
+                                            des,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ]
                                   );
-                                });
+                                }
+                              );
                           },
                           child: Text(
                             '₱$finalPrice',
