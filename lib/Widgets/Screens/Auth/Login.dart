@@ -60,9 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: -85,
-            right: -30,
-            left: -30,
+            top: -85.w,
+            right: -30.h,
+            left: -30.h,
             child: Stack(children: [
               Align(
                 child: Image.asset(
@@ -91,8 +91,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Colors.white,
                   shadows: [
                     Shadow(
-                      offset: Offset(5.0.h, 5.0.w), // Shadow position
-                      blurRadius: 12.0.h,
+                      offset: Offset(5.0.w, 5.0.h), // Shadow position
+                      blurRadius: 12.0.w,
                       color: Colors.black,
                     )
                   ]),
@@ -110,27 +110,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   fontSize: 12.sp),
               )),
           Positioned(
-            bottom: -320.w,
+            bottom: -320.h,
             right: 0,
             left: 0,
             height: 800.h,
             child: Container(
               padding: EdgeInsets.only(
-                top: 0.h,
-                left: 0,
-                bottom: 0,
-                right: 0.w,
+                top: 0.w,
+                left: 0.h,
+                bottom: 0.w,
+                right: 0.h,
               ),
               decoration: const BoxDecoration(color: Color.fromARGB(255, 255, 255, 255)),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 50.h,
+                      height: 40.h, // space between the img and email
                     ),
                     Container(
                       width: 350.w, // the  width of the line 
-                      padding: EdgeInsets.only(top: 0.h),
+                      padding: EdgeInsets.only(top: 0.w),
                       child: plainTextField(
                         colorr: Colors.black,
                         text: 'Email',

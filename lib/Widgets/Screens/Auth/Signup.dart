@@ -113,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   fontSize: 12.sp)
               )),
           Positioned(
-            bottom: -290.h,
+            bottom: -320.h,
             right: 0,
             left: 0,
             height: 800.h,
@@ -131,7 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 10.h,
+                      height: 40.h,
                     ),
                     Container(
                       width: 350.w, // email line area
