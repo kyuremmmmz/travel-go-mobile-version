@@ -17,7 +17,7 @@ class Beach {
           var name = datas['img'];
           var imgUrl = datas['imgUrl'];
           var imgFinal = await getter(imgUrl);
-          datas['img'] = imgFinal;
+          datas['imgUrl'] = imgFinal;
           datas['img'] = name;
         }
         return data;

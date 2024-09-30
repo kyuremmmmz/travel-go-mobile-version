@@ -31,8 +31,14 @@ class Festivalslist {
     return res;
   }
 
-
   Future<PostgrestMap?> getSpecificData(int id) async {
+    final res =
+        await 
+        supabase
+        .from('Festivals')
+        .select('*')
+        .eq('id', id)
+        .single();
     
   }
 }
