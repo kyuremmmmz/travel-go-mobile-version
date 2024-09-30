@@ -24,7 +24,7 @@ class HotelBookingArea extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Travel Go',
       home: HotelBookingAreaScreen(
-        id: id, 
+        id: id,
       ),
     );
   }
@@ -565,7 +565,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     blurRadius: 5,
                                     offset: const Offset(0, 5),
                                   )
-                                ]), 
+                                ]),
                           ),
                           const SizedBox(
                             height: 10,
@@ -996,7 +996,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                             _numberController
                                                                 .text
                                                                 .trim()),
-                                                        nameoftheplace: _emailController.text.trim(),
+                                                        nameoftheplace:
+                                                            _emailController
+                                                                .text
+                                                                .trim(),
                                                         price: amount,
                                                         payment: amount,
                                                         hotelorplace:
