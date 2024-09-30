@@ -245,7 +245,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                       Column(
                                         children: [
                                           BlueIconButtonDefault(
-                                              image: beachIcon,
+                                              image: hotelIcon,
                                               oppressed: () => print('helo')),
                                           const CategoryLabel(label: 'Hotels'),
                                         ],
@@ -317,9 +317,11 @@ class _HotelScreenState extends State<HotelScreen> {
                                                   // ignore: use_build_context_synchronously
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        HotelInformationScreen(text: place['id'], id: place['id'],)
-                                                  ),
+                                                      builder: (context) =>
+                                                          HotelInformationScreen(
+                                                            text: place['id'],
+                                                            id: place['id'],
+                                                          )),
                                                 );
                                               }
                                             },

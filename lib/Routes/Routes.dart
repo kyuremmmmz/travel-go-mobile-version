@@ -8,6 +8,7 @@ import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:itransit/Widgets/Screens/Stateless/beaches_stateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
+import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/food_AreaStateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 import 'package:itransit/Widgets/Screens/Stateless/hotel_stateless.dart';
@@ -144,6 +145,11 @@ class AppRoutes {
   static void navigateToBeachesScreen(BuildContext route) {
     Navigator.push(route,
         MaterialPageRoute(builder: (context) => const BeachesStateless()));
+  }
+
+  static void navigateToFestivalsScreen(BuildContext route) {
+    Navigator.push(route,
+        MaterialPageRoute(builder: (context) => const FestivalsStateless()));
   }
 
   static void navigateToHotelBookingScreen(BuildContext route,

@@ -1,8 +1,8 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class Festivalslist {
+class FestivalsImages {
   final supabase = Supabase.instance.client;
-  Future<List<Map<String, dynamic>>> listOfFestivals() async {
+  Future<List<Map<String, dynamic>>> fetchFestivals() async {
     final response = await supabase.from('Festivals').select('*');
 
     if (response.isEmpty) {
@@ -31,8 +31,5 @@ class Festivalslist {
     return res;
   }
 
-
-  Future<PostgrestMap?> getSpecificData(int id) async {
-
-  }
+  Future<PostgrestMap?> getSpecificData(int id) async {}
 }

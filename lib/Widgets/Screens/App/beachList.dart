@@ -18,8 +18,9 @@ class Beaches extends StatefulWidget {
 
 class _BeachesState extends State<Beaches> {
   final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food.png";
+  final String foodIcon = "assets/images/icon/food_place.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
+  final String festivalIcon = "assets/images/icon/food.png";
   late String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   late String manaoag = "assets/images/places/Manaoag.jpg";
   final _searchController = TextEditingController();
@@ -246,7 +247,7 @@ class _BeachesState extends State<Beaches> {
                                       Column(
                                         children: [
                                           BlueIconButtonDefault(
-                                              image: beachIcon,
+                                              image: hotelIcon,
                                               oppressed: () => print('helo')),
                                           const CategoryLabel(label: 'Hotels'),
                                         ],
@@ -275,7 +276,7 @@ class _BeachesState extends State<Beaches> {
                                       Column(
                                         children: [
                                           BlueIconButtonDefault(
-                                            image: hotelIcon,
+                                            image: festivalIcon,
                                             oppressed: () =>
                                                 print('Festivals clicked'),
                                           ),

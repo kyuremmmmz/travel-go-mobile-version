@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/NetworkImages/festivalsList.dart';
+import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
 import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
@@ -18,14 +18,15 @@ class Festival extends StatefulWidget {
 
 class _FestivalState extends State<Festival> {
   final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food.png";
+  final String foodIcon = "assets/images/icon/food_place.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
+  final String festivalIcon = "assets/images/icon/food.png";
   late String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   late String manaoag = "assets/images/places/Manaoag.jpg";
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
-  late Festivalslist images = Festivalslist();
+  late FestivalsImages images = FestivalsImages();
   List<Map<String, dynamic>> data = [];
 
   Future<void> redirecting() async {
@@ -33,7 +34,7 @@ class _FestivalState extends State<Festival> {
   }
 
   Future<void> places() async {
-    final datas = await images.listOfFestivals();
+    final datas = await images.fetchFestivals();
     setState(() {
       data = datas;
     });
@@ -246,7 +247,7 @@ class _FestivalState extends State<Festival> {
                                       Column(
                                         children: [
                                           BlueIconButtonDefault(
-                                              image: beachIcon,
+                                              image: hotelIcon,
                                               oppressed: () => print('helo')),
                                           const CategoryLabel(label: 'Hotels'),
                                         ],
@@ -275,7 +276,7 @@ class _FestivalState extends State<Festival> {
                                       Column(
                                         children: [
                                           BlueIconButtonDefault(
-                                            image: hotelIcon,
+                                            image: festivalIcon,
                                             oppressed: () =>
                                                 print('Festivals clicked'),
                                           ),

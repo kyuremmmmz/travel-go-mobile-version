@@ -218,7 +218,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                               Column(
                                 children: [
                                   BlueIconButtonDefault(
-                                      image: beachIcon,
+                                      image: hotelIcon,
                                       oppressed: () => {
                                             AppRoutes.navigateToHotelScreen(
                                                 context)
@@ -251,7 +251,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: festivalIcon,
-                                    oppressed: () => print('Festivals clicked'),
+                                    oppressed: () => {
+                                      AppRoutes.navigateToFestivalsScreen(
+                                          context)
+                                    },
                                   ),
                                   const CategoryLabel(
                                       label: 'Festivals and \nEvents'),
@@ -304,7 +307,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const Festivalsstateless())),
+                                        const FestivalsStateless())),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
