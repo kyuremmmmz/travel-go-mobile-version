@@ -6,6 +6,7 @@ import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart';
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -309,7 +310,7 @@ class _FestivalState extends State<Festival> {
                                           GestureDetector(
                                             onTap: () async {
                                               final placeData =
-                                                  await FoodAreaBackEnd()
+                                                  await Festivalslist()
                                                       .getSpecificData(
                                                           place['id']);
                                               if (placeData != null) {
@@ -318,7 +319,7 @@ class _FestivalState extends State<Festival> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          FoodAreaAboutScreen(
+                                                          FestivalsAboutScreen(
                                                             id: place['id'],
                                                           )),
                                                 );
