@@ -118,6 +118,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             title: const Text('Settings'),
             onTap: () {
               Navigator.pop(context);
+              AppRoutes.navigateToAccountSettings(context);
             },
           ),
           ListTile(
