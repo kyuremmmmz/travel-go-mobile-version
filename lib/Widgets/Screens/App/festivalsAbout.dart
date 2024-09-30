@@ -358,7 +358,7 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                                       ),
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(right: 210),
+                                            const EdgeInsets.only(right: 188),
                                         child: const Text(
                                           'Festival Highlights',
                                           style: TextStyle(
@@ -455,6 +455,9 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                                           menu ?? 'No Description',
                                           textAlign: TextAlign.left,
                                         ),
+                                      ),
+                                      const SizedBox(
+                                        height: 30,
                                       ),
                                     ],
                                   ),
