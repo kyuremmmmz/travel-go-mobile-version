@@ -4,7 +4,7 @@ import 'package:itransit/Widgets/Textfield/passwordField.dart'; // import passow
 import 'package:itransit/Routes/Routes.dart'; // Import routes for navigation
 import '../../Textfield/plainTextField.dart'; //Import plain text widget
 import './../../Buttons/DefaultButtons/BlueButton.dart'; // Import custom blue button widget
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 void main() async {
   WidgetsFlutterBinding
@@ -115,33 +115,33 @@ class _LoginScreenState extends State<LoginScreen> {
             left: 0,
             height: 800.h,
             child: Container(
-              padding: const EdgeInsets.only(
-                top: 0,
+              padding: EdgeInsets.only(
+                top: 0.h,
                 left: 0,
                 bottom: 0,
-                right: 0,
+                right: 0.w,
               ),
-              decoration: const BoxDecoration(color: Colors.white),
+              decoration: const BoxDecoration(color: Color.fromARGB(255, 255, 255, 255)),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 50,
+                    SizedBox(
+                      height: 50.h,
                     ),
                     Container(
-                      width: 400,
-                      padding: const EdgeInsets.only(top: 0),
+                      width: 350.w,
+                      padding: EdgeInsets.only(top: 0.h),
                       child: plainTextField(
                         colorr: Colors.black,
                         text: 'Email',
                         controller: _emailController,
                       ),
                     ),
-                    const SizedBox(
-                      height: 30, // Space between the email and password fields
+                    SizedBox(
+                      height: 30.h, // Space between the email and password fields
                     ),
                     SizedBox(
-                      width: 400,
+                      width: 350.w,
                       child: passwordTextField(
                         text:
                             'Password', // Placeholder text for the password field
@@ -150,26 +150,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(top: 20, left: 280),
+                      padding: EdgeInsets.only(top: 25.w, left: 240.w),
                       child: GestureDetector(
                         onTap: () => {
                           AppRoutes.navigateToForgotPassword(context)
                         }, // Navigate to the forgot password screen
-                        child: const Text(
+                        child: Text(
                           'Forgot password?',
                           style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 12.sp,
                               color: Colors
                                   .grey), // Style for the forgot password text
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 70, // Space above the sign-in button
+                    SizedBox(
+                      height: 70.h, // Space above the sign-in button
                     ),
                     Container(
                         padding: null,
-                        width: 300,
+                        width: 300.w,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(
                                 30), // Rounded corners for the button
@@ -182,15 +182,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               )
                             ]),
                         child: BlueButtonWithoutFunction(
-                          text: const Text(
+                          text: Text(
                             'Sign In',
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20), // Style for the button text
+                                fontSize: 18.sp), // Style for the button text
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                const Color.fromARGB(255, 26, 219, 245),
+                                 const Color.fromARGB(255, 50, 190, 255),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
