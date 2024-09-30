@@ -33,6 +33,6 @@ class Festivalslist {
 
 
   Future<PostgrestMap?> getSpecificData(int id) async {
-
+    
   }
 }

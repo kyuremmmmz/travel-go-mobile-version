@@ -140,9 +140,10 @@ class _MapPageState extends State<MapPage> {
                                   return Column(
                                     children: [
                                       Container(
+                                        padding: null,
                                         width: double.infinity,
                                         child: Padding(
-                                          padding: EdgeInsets.all(16),
+                                          padding: const EdgeInsets.all(16),
                                           child: Text(
                                             hotelName,
                                             style: const TextStyle(
@@ -160,7 +161,7 @@ class _MapPageState extends State<MapPage> {
                                         padding: null,
                                         width: double.infinity,
                                         child: Container(
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                             left: 50
                                           ),
                                           child: const Text(
