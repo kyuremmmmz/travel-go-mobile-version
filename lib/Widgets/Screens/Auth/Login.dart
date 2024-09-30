@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 50.h,
                     ),
                     Container(
-                      width: 350.w,
+                      width: 350.w, // the  width of the line 
                       padding: EdgeInsets.only(top: 0.h),
                       child: plainTextField(
                         colorr: Colors.black,

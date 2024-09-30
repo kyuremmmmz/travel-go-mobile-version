@@ -4,6 +4,7 @@ import 'package:itransit/Widgets/Textfield/passwordField.dart';
 
 import '../../Textfield/plainTextField.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,63 +63,66 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: -85,
-            right: -30,
-            left: -30,
+            top: -85.w,
+            right: -30.h,
+            left: -30.h,
             child: Stack(children: [
               Align(
                 child: Image.asset(
                   'assets/images/Background.png',
                   fit: BoxFit.cover,
-                  height: 470,
-                  width: 500,
+                  height: 470.h,
+                  width: 500.w,
                 ),
               ),
               Container(
-                height: 470,
-                width: 500,
+                height: 470.h,
+                width: 500.w,
                 color: Colors.black.withOpacity(0.5),
               )
             ]),
           ),
-          const Positioned(
-            top: 100,
-            right: 95,
+          Positioned(
+            top: 130.h,
+            right: 85.w,
             child: Text(
               textAlign: TextAlign.center,
               'TRAVEL GO',
               style: TextStyle(
-                  fontSize: 40,
+                  fontSize: 40.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   shadows: [
                     Shadow(
-                      offset: Offset(5.0, 5.0), // Shadow position
-                      blurRadius: 12.0,
+                      offset: Offset(5.0.w, 5.0.h), // Shadow position
+                      blurRadius: 12.0.w,
                       color: Colors.black,
                     )
                   ]),
             ),
           ),
-          const Positioned(
-              top: 150,
-              right: 20,
+          Positioned(
+              top: 185.h,
+              right: 50.w,
               child: Text(
                 'Travel and get more experience here in Pangasinan!',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 15),
+                  style: TextStyle(
+                  color: Colors.white, 
+                  fontWeight: FontWeight.w300,
+                  fontSize: 12.sp)
               )),
           Positioned(
-            bottom: -290,
+            bottom: -290.h,
             right: 0,
             left: 0,
-            height: 800,
+            height: 800.h,
             child: Container(
-              padding: const EdgeInsets.only(
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
+              padding: EdgeInsets.only(
+                top: 0.w,
+                left: 0.h,
+                bottom: 0.w,
+                right: 0.h,
               ),
               decoration: const BoxDecoration(color: Colors.white),
               child: SingleChildScrollView(
@@ -126,12 +130,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: 10.h,
                     ),
                     Container(
-                      width: 400,
-                      padding: const EdgeInsets.only(top: 0),
+                      width: 350.w, // email line area
+                      padding: EdgeInsets.only(top: 0.w),
                       child: TextFormField(
                         controller: _emailController,
                         validator: (value) {
@@ -146,7 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           return null;
                           },
                         decoration: const InputDecoration(
-                            labelText: 'email',
+                            labelText: 'Email',
                             alignLabelWithHint: true,
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 5.0),
@@ -159,40 +163,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               color: Colors.black,
                             ))),
                         style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 15,
                           color: Colors.black,
                         ),
                         keyboardType: TextInputType.emailAddress,
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
+                    SizedBox(
+                      height: 30.h,
                     ),
                     Container(
-                      width: 400,
-                      padding: const EdgeInsets.only(top: 0),
+                      width: 350.w, // full name line area
+                      padding: EdgeInsets.only(top: 0.w),
                       child: plainTextField(
                         colorr: Colors.black,
                         text: 'Full name',
                         controller: _nameController,
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
+                    SizedBox(
+                      height: 30.h,
                     ),
                     SizedBox(
-                      width: 400,
+                      width: 350.w, // password line area
                       child: passwordTextField(
                         text: 'Password',
                         password: _passwordController,
                       ),
                     ),
-                    const SizedBox(
-                      height: 70,
+                    SizedBox(
+                      height: 70.h,
                     ),
                     Container(
                         padding: null,
-                        width: 300,
+                        width: 300.w,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             boxShadow: [
@@ -204,13 +208,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               )
                             ]),
                         child: BlueButtonWithoutFunction(
-                          text: const Text(
+                          text: Text(
                             'Sign Up',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            style: TextStyle(color: Colors.white, fontSize: 18.sp),
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                const Color.fromARGB(255, 26, 219, 245),
+                                const Color.fromARGB(255, 50, 190, 255),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
