@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/NetworkImages/festivalsList.dart';
+import 'package:itransit/Controllers/NetworkImages/beach.dart';
 import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
-import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class Festival extends StatefulWidget {
-  const Festival({super.key});
+class Beaches extends StatefulWidget {
+  const Beaches({super.key});
 
   @override
-  State<Festival> createState() => _FestivalState();
+  State<Beaches> createState() => _BeachesState();
 }
 
-class _FestivalState extends State<Festival> {
+class _BeachesState extends State<Beaches> {
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
@@ -25,7 +25,7 @@ class _FestivalState extends State<Festival> {
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
-  late Festivalslist images = Festivalslist();
+  late Beach images = Beach();
   List<Map<String, dynamic>> data = [];
 
   Future<void> redirecting() async {
@@ -33,7 +33,7 @@ class _FestivalState extends State<Festival> {
   }
 
   Future<void> places() async {
-    final datas = await images.listOfFestivals();
+    final datas = await images.beachesList();
     setState(() {
       data = datas;
     });
@@ -85,67 +85,7 @@ class _FestivalState extends State<Festival> {
             ),
           ),
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const CircleAvatar(
-                      backgroundImage:
-                          AssetImage('assets/images/icon/beach.png'),
-                      radius: 40,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      email ?? 'LoFestival',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                onTap: () {
-                  Navigator.pop(context);
-                  AppRoutes.navigateToMainMenu(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.search),
-                title: const Text('Search'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Usersss().signout(context);
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: const DrawerMenuWidget(),
         body: FutureBuilder(
             future: redirecting(),
             builder: (context, snapshot) {
@@ -302,8 +242,8 @@ class _FestivalState extends State<Festival> {
                                   ),
                                   Column(
                                     children: data.map((place) {
-                                      final imageUrl = place['imgUrl'];
-                                      final text = place['img'] ?? 'Unknown';
+                                      final imageUrl = place['image'];
+                                      final text = place['beach_name'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(

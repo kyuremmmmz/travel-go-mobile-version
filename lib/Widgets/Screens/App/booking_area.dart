@@ -1,13 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Textfield/inputTextField.dart';
+import 'package:itransit/Widgets/Textfield/phoneNumber.dart';
 
 class BookingArea extends StatelessWidget {
   final int id;
@@ -21,14 +23,19 @@ class BookingArea extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel Go',
-      home: BookingAreaScreen(id: id),
+      home: BookingAreaScreen(
+        id: id,
+      ),
     );
   }
 }
 
 class BookingAreaScreen extends StatefulWidget {
   final int id;
-  const BookingAreaScreen({super.key, required this.id});
+  const BookingAreaScreen({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<BookingAreaScreen> createState() => _BookingAreaScreenState();
@@ -39,19 +46,30 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _emailController = TextEditingController();
   final _numberController = TextEditingController();
   final _destinationController = TextEditingController();
-  final _departureController = TextEditingController();
+  final _checkInController = TextEditingController();
+  final _checkOutController = TextEditingController();
   final _originController = TextEditingController();
   final _paymentMethodController = TextEditingController();
   final _vehicleTypeController = TextEditingController();
   final _specialReqController = TextEditingController();
+  final _validator = GlobalKey<FormState>();
+  final _hotel = TextEditingController();
+  final _number_of_children = TextEditingController();
+  final _number_of_adult = TextEditingController();
   String? email;
-  var amount;
+  String? place;
+  final bool _isWaiting = true;
+  final supabase = Supabase.instance.client;
+  var amount = 0;
+  String? strAmount;
+
+  String? hotel;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
   final String adventureIcon = "assets/images/icon/adventure.png";
   final String suitcaseIcon = "assets/images/icon/suitcase.png";
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
-  bool value = false;
+  bool _value = false;
   HotelBooking booking = HotelBooking();
   @override
   void dispose() {
@@ -59,11 +77,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     _emailController.dispose();
     _numberController.dispose();
     _destinationController.dispose();
-    _departureController.dispose();
+    _checkInController.dispose();
     _originController.dispose();
     _paymentMethodController.dispose();
     _vehicleTypeController.dispose();
     _specialReqController.dispose();
+    _hotel.dispose();
+    _number_of_adult.dispose();
+    _number_of_children.dispose();
     super.dispose();
   }
 
@@ -71,7 +92,9 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   void initState() {
     super.initState();
     emailFetching();
-    fetchString(widget.id);
+    fetchInt(widget.id);
+    fethHotel(widget.id);
+    fetchEwan(widget.id);
   }
 
   Future<void> emailFetching() async {
@@ -93,11 +116,216 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     }
   }
 
-  Future<void> fetchString(int id) async {
-    final data = await booking.passtheData(id);
+  Future<void> fetchInt(int id) async {
+    final data = await booking.passTheHotelData(id);
+    if (data == null) {
+      setState(() {
+        amount = 0;
+      });
+    } else {
+      int basePrice =
+          int.parse(data['hotel_price'].toString().replaceAll(',', ''));
+      int additionalCost = 0;
+
+      switch (_vehicleTypeController.text.trim()) {
+        case 'Deluxe Suite':
+          additionalCost = 6000;
+          break;
+        case 'Premiere Suite':
+          additionalCost = 8000;
+          break;
+        case 'Executive Suite':
+          additionalCost = 9000;
+          break;
+        case 'Presidential Suite':
+          additionalCost = 10000;
+          break;
+        default:
+          additionalCost = 0;
+      }
+      final total = basePrice + additionalCost;
+      setState(() {
+        amount = total;
+        final numberFormat = NumberFormat('#0,000');
+        final numbers = numberFormat.format(total);
+        strAmount = numbers;
+      });
+    }
+  }
+
+  Future<void> fethHotel(
+    int id,
+  ) async {
+    final data = await booking.passTheHotelData(id);
     setState(() {
-      amount = data!['price'];
+      hotel = data!['hotel_name'];
+      _hotel.text = hotel ?? '';
     });
+  }
+
+  Future<void> fetchEwan(
+    int id,
+  ) async {
+    final data = await booking.passTheHotelData(id);
+    setState(() {
+      place = data!['hotel_located'];
+    });
+  }
+
+  Future<void> setter() async {
+    final picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(21000));
+    if (picked != null) {
+      setState(() {
+        _checkInController.text = picked.toString().split(" ")[0];
+      });
+    }
+  }
+
+  Future<void> checkout() async {
+    final picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(21000));
+    if (picked != null) {
+      setState(() {
+        _checkOutController.text = picked.toString().split(" ")[0];
+      });
+    }
+  }
+
+  Future<void> niggaModal(BuildContext context) async {
+    await showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: null,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                const SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  padding: null,
+                  child: const Text(
+                    'Payment Method',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ListTile(
+                  leading: const Icon(Icons.mobile_friendly_rounded),
+                  title: const Text('Pay Online'),
+                  onTap: () {
+                    setState(() {
+                      _paymentMethodController.text = "Pay Online";
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.share_arrival_time),
+                  title: const Text('Pay Upon Arrival'),
+                  onTap: () {
+                    setState(() {
+                      _paymentMethodController.text = "Pay Upon Arrival";
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  Future<void> niggaModalRoomType(BuildContext context) async {
+    await showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: null,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                const SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  padding: null,
+                  child: const Text(
+                    'Room Type',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ListTile(
+                  leading: const Icon(
+                    FontAwesomeIcons.medal,
+                    color: Colors.amber,
+                  ),
+                  title: const Text('Deluxe Suite'),
+                  onTap: () {
+                    setState(() {
+                      _vehicleTypeController.text = "Deluxe Suite";
+                      fetchInt(widget.id);
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                ListTile(
+                  leading:
+                      const Icon(FontAwesomeIcons.crown, color: Colors.amber),
+                  title: const Text('Premiere Suite '),
+                  onTap: () {
+                    setState(() {
+                      _vehicleTypeController.text = "Premiere Suite ";
+                      fetchInt(widget.id);
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    FontAwesomeIcons.gem,
+                    color: Colors.green,
+                  ),
+                  title: const Text('Executive Suite '),
+                  onTap: () {
+                    setState(() {
+                      _vehicleTypeController.text = "Executive Suite ";
+                      fetchInt(widget.id);
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    FontAwesomeIcons.diamond,
+                    color: Colors.blueAccent,
+                  ),
+                  title: const Text('Presidential Suite'),
+                  onTap: () {
+                    setState(() {
+                      _vehicleTypeController.text = "Presidential Suite";
+                      fetchInt(widget.id);
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   @override
@@ -133,7 +361,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                     const SizedBox(height: 10),
                     Text(
                       // ignore: unnecessary_null_comparison
-                      email != null ? '$email' : 'Hacked himala e',
+                      email != null ? '$email' : 'Loading...',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -175,98 +403,218 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
             ],
           ),
         ),
-        body: Stack(
-          children: [
-            Column(
-              children: <Widget>[
-                const Text(
-                  'TRAVEL GO',
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                  ),
+        body: Form(
+          key: _validator,
+          child: Column(
+            children: <Widget>[
+              const Text(
+                'TRAVEL GO',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
                 ),
-                const Text(
-                  "Northwestern part of Luzon Island, Philippines",
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 30),
-                Expanded(
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      child: Container(
-                        width: double.infinity, // Adjust width as needed
-                        decoration: const BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50),
-                            topRight: Radius.circular(50),
-                          ),
+              ),
+              const Text(
+                "Northwestern part of Luzon Island, Philippines",
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 30),
+              Expanded(
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(226, 63, 176, 241),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50),
                         ),
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 8, right: 10),
-                                child: IconButton(
-                                  iconSize: 20,
-                                  icon: SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: Image.asset(xButtonIcon),
-                                  ),
-                                  onPressed:
-                                      () {}, // change routes to InformationScreen later
+                      ),
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8, right: 10),
+                              child: IconButton(
+                                iconSize: 20,
+                                icon: SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: Image.asset(xButtonIcon),
                                 ),
+                                onPressed:
+                                    () {}, // change routes to InformationScreen later
                               ),
                             ),
-                            const Text(
-                              'Flight Booking Form',
-                              style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          ),
+                          const Text(
+                            'Flight Booking Form',
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
-                            const Text(
-                              "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color.fromARGB(255, 82, 79, 79),
-                              ),
+                          ),
+                          const Text(
+                            "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color.fromARGB(255, 82, 79, 79),
                             ),
-                            const SizedBox(
-                              height: 30,
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          // ignore: sized_box_for_whitespace
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: inputTextField(
+                              validator: (value) {
+                                if (value == null ||
+                                    value.toString().isEmpty ||
+                                    value.length <= 5) {
+                                  return 'please enter your name';
+                                }
+                                return null;
+                              },
+                              icon: const Icon(FontAwesomeIcons.person),
+                              colorr: Colors.black,
+                              text: 'Full Name:',
+                              controller: _nameController,
                             ),
-                            // ignore: sized_box_for_whitespace
-                            Container(
-                              width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: inputTextField(
-                                colorr: Colors.black,
-                                text: 'Full Name:',
-                                controller: _nameController,
-                              ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(50)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: inputTextField(
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'please enter valid email address';
+                                }
+                                return null;
+                              },
+                              icon: const Icon(FontAwesomeIcons.envelope),
+                              colorr: Colors.black,
+                              text: 'Email Address:',
+                              controller: _emailController,
                             ),
-                            const SizedBox(
-                              height: 10,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(50)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: PhonenumberTextField(
+                              text: 'Phone Number:',
+                              controller: _numberController,
+                              icon: const Icon(FontAwesomeIcons.phone),
                             ),
-                            Container(
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(50)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(50)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: PhonenumberTextField(
+                              icon: const Icon(FontAwesomeIcons.children),
+                              controller: _number_of_children,
+                              text: 'Number of children:',
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(50)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: PhonenumberTextField(
+                              icon: const Icon(FontAwesomeIcons.peopleGroup),
+                              controller: _number_of_adult,
+                              text: 'Number of Adults:',
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
                               width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
@@ -279,16 +627,44 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: inputTextField(
-                                colorr: Colors.black,
-                                text: 'Email Address:',
-                                controller: _emailController,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.toString().isEmpty ||
+                                      value.length <= 5) {
+                                    return 'Please select Departure Date';
+                                  }
+                                  return null;
+                                },
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
+                                controller: _checkInController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  hintText: 'Departure Date',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintStyle: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  prefixIcon:
+                                      Icon(Icons.calendar_today_outlined),
+                                ),
+                                readOnly: true,
+                                onTap: () {
+                                  setter();
+                                },
+                              )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
                               width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
@@ -301,16 +677,44 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: inputTextField(
-                                colorr: Colors.black,
-                                text: 'Phone Number:',
-                                controller: _numberController,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.toString().isEmpty ||
+                                      value.length <= 5) {
+                                    return 'Please Select Return date';
+                                  }
+                                  return null;
+                                },
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
+                                controller: _checkOutController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  hintText: 'Return Date',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintStyle: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  prefixIcon:
+                                      Icon(Icons.calendar_today_outlined),
+                                ),
+                                readOnly: true,
+                                onTap: () {
+                                  checkout();
+                                },
+                              )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
                               width: 380,
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(
@@ -323,214 +727,187 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: inputTextField(
-                                colorr: Colors.black,
-                                text: 'Destination:',
-                                controller: _destinationController,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: inputTextField(
-                                colorr: Colors.black,
-                                text: 'Departure Date:',
-                                controller: _departureController,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: inputTextField(
-                                colorr: Colors.black,
-                                text: 'Origin:',
-                                controller: _originController,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: inputTextField(
-                                colorr: Colors.black,
-                                text: 'Payment Method:',
+                              child: TextField(
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
                                 controller: _paymentMethodController,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: inputTextField(
-                                colorr: Colors.black,
-                                text: 'Vehicle Type: (Optional)',
-                                controller: _vehicleTypeController,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: inputTextField(
-                                colorr: Colors.black,
-                                text: 'Special Requests: (Optional)',
-                                controller: _originController,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Theme(
-                              data: ThemeData(
-                                checkboxTheme: const CheckboxThemeData(
-                                  shape: CircleBorder(),
-                                ),
-                              ),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: ListTileTheme(
-                                  horizontalTitleGap: 0.0,
-                                  child: CheckboxListTile(
-                                    activeColor: Colors.green,
-                                    title: RichText(
-                                      text: TextSpan(children: <TextSpan>[
-                                        const TextSpan(
-                                          text:
-                                              "I have reviewed my booking details and agree to the ",
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.black),
-                                        ),
-                                        TextSpan(
-                                          text: "Terms of Service.",
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.white),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () => AppRoutes
-                                                .navigateToForgotPassword(
-                                                    context),
-                                        ),
-                                      ]),
-                                    ),
-                                    value: value,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        this.value = value!;
-                                      });
-                                    },
-                                    controlAffinity:
-                                        ListTileControlAffinity.leading,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  hintText: 'Payment Method',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintStyle: TextStyle(
+                                    fontSize: 12,
                                   ),
+                                  prefixIcon: Icon(Icons.payment_rounded),
+                                ),
+                                readOnly: true,
+                                onTap: () {
+                                  niggaModal(context);
+                                },
+                              )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                              width: 380,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(50)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      spreadRadius: 1,
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 5),
+                                    )
+                                  ]),
+                              child: TextField(
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
+                                controller: _vehicleTypeController,
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  hintText: 'Room Type',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintStyle: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                  prefixIcon: Icon(Icons.room_outlined),
+                                ),
+                                readOnly: true,
+                                onTap: () {
+                                  niggaModalRoomType(context);
+                                },
+                              )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(50)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: inputTextField(
+                              colorr: Colors.black,
+                              text: 'Special Requests: (Optional)',
+                              controller: _originController,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 0,
+                          ),
+                          Theme(
+                            data: ThemeData(
+                              checkboxTheme: const CheckboxThemeData(
+                                shape: CircleBorder(),
+                              ),
+                            ),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: ListTileTheme(
+                                horizontalTitleGap: 0.0,
+                                child: CheckboxListTile(
+                                  activeColor: Colors.green,
+                                  title: RichText(
+                                    text: TextSpan(children: <TextSpan>[
+                                      const TextSpan(
+                                        text:
+                                            "I have reviewed my booking details and agree to the ",
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.black),
+                                      ),
+                                      TextSpan(
+                                        text: "Terms of Service.",
+                                        style: const TextStyle(
+                                            fontSize: 12, color: Colors.white),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () => AppRoutes
+                                              .navigateToForgotPassword(
+                                                  context),
+                                      ),
+                                    ]),
+                                  ),
+                                  value: _value,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      _value = value ?? false;
+                                    });
+                                  },
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 100,
-                              width: double.infinity, // Adjust width as needed
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(50),
-                                  topRight: Radius.circular(50),
-                                ),
+                          ),
+                          Container(
+                            height: 100,
+                            width: double.infinity, // Adjust width as needed
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(50),
+                                topRight: Radius.circular(50),
                               ),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, top: 30),
-                                child: Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 30,
-                                    ),
-                                    Column(
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 30),
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 30,
+                                  ),
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 50,
+                                        child: Image.asset(adventureIcon),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 20,
+                                        child: Image.asset(suitcaseIcon),
+                                      ),
+                                      SizedBox(
+                                        height: 30,
+                                        child: Image.asset(planeTicketIcon),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Column(
                                       children: [
-                                        SizedBox(
-                                          height: 50,
-                                          child: Image.asset(adventureIcon),
-                                        ),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 20,
-                                          child: Image.asset(suitcaseIcon),
-                                        ),
-                                        SizedBox(
-                                          height: 30,
-                                          child: Image.asset(planeTicketIcon),
-                                        ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, right: 10),
-                                      child: Column(
-                                        children: [
-                                          const Row(
+                                        GestureDetector(
+                                          onTap: () {
+                                            fetchInt(widget.id);
+                                          },
+                                          child: const Row(
                                             children: [
                                               Text(
                                                 "Total Amount",
@@ -544,59 +921,117 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                               ),
                                             ],
                                           ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'PHP $amount',
-                                                style: const TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          width: 120,
-                                          child: BlueButtonWithoutFunction(
-                                            text: const Text(
-                                              'Place Flight',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'PHP $strAmount',
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Colors.white,
                                               ),
                                             ),
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    const Color.fromARGB(
-                                                        255, 26, 169, 235)),
-                                            oppressed: () {
-                                              print('nigga');
-                                            },
-                                          ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        width: 150,
+                                        child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.blue),
+                                            onPressed: _value
+                                                ? () {
+                                                    if (_validator.currentState!
+                                                            .validate() ||
+                                                        _paymentMethodController
+                                                                .text
+                                                                .trim() ==
+                                                            "Pay Online") {
+                                                      HotelBooking()
+                                                          .insertBooking(
+                                                        _nameController.text
+                                                            .trim(),
+                                                        _emailController.text
+                                                            .trim(),
+                                                        int.parse(
+                                                            _numberController
+                                                                .text
+                                                                .trim()),
+                                                        _hotel.text.trim(),
+                                                        _checkInController.text
+                                                            .trim(),
+                                                        _checkOutController.text
+                                                            .trim(),
+                                                        _paymentMethodController
+                                                            .text
+                                                            .trim(),
+                                                        _isWaiting
+                                                            ? "Not Paid"
+                                                            : "Paid",
+                                                        int.parse(
+                                                            _number_of_adult
+                                                                .text
+                                                                .trim()),
+                                                        int.parse(
+                                                            _number_of_children
+                                                                .text
+                                                                .trim()),
+                                                        _vehicleTypeController
+                                                            .text
+                                                            .trim(),
+                                                        amount,
+                                                      );
+                                                      AppRoutes
+                                                          .navigateToLinkedBankAccount(
+                                                        context,
+                                                        name: _nameController
+                                                            .text
+                                                            .trim(),
+                                                        phone: int.parse(
+                                                            _numberController
+                                                                .text
+                                                                .trim()),
+                                                        nameoftheplace:
+                                                            _emailController
+                                                                .text
+                                                                .trim(),
+                                                        price: amount,
+                                                        payment: amount,
+                                                        hotelorplace:
+                                                            _hotel.text,
+                                                      );
+                                                    } else {
+                                                      print('nigga');
+                                                    }
+                                                  }
+                                                : null,
+                                            child: const Text(
+                                              'Place Booking',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ));
   }
 }

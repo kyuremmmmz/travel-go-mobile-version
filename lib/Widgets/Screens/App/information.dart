@@ -38,6 +38,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? imageUrl;
   String? hasMotor;
   String? located;
+  var id;
   String? availability;
   String? price;
   final data = Data();
@@ -337,11 +338,11 @@ class _InformationScreenState extends State<InformationScreen> {
                                           GestureDetector(
                                               onTap: () {
                                                 AppRoutes.navigateToTesting(
-                                                    context, name: '$located');
+                                                    context,
+                                                    name: '$located', id: id);
                                               },
                                               child: Text(located ??
-                                                  'I cant locate it')
-                                            )
+                                                  'I cant locate it'))
                                         ],
                                       ),
                                       const SizedBox(height: 20),

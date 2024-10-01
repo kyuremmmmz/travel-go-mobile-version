@@ -1,3 +1,4 @@
+import 'package:flutter_map/src/layer/marker_layer/marker_layer.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -84,4 +85,6 @@ class HotelImages {
       return null;
     }
   }
+
+  map(Marker Function(dynamic place) param0) {}
 }

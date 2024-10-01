@@ -24,7 +24,9 @@ class FoodAreaAbout extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel',
-      home: FoodAreaAboutScreen(id: id,),
+      home: FoodAreaAboutScreen(
+        id: id,
+      ),
     );
   }
 }
@@ -56,6 +58,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
   String? located;
   String? foodName;
   String? price;
+  var id;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
   final data = FoodAreaBackEnd();
@@ -110,7 +113,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
           description = dataList['description'];
           foodName = dataList['img'];
           imageUrl = dataList['imgUrl'].toString();
-
+          id = dataList['id'];
           located = dataList['located'];
           price = dataList['price'];
           for (var i = 1; i <= 20; i++) {
@@ -322,7 +325,8 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                               onTap: () {
                                                 AppRoutes.navigateToTesting(
                                                     context,
-                                                    name: '$located');
+                                                    name: '$located',
+                                                    id: id);
                                               },
                                               child: Text(located ??
                                                   'I cant locate it'))
