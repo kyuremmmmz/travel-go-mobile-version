@@ -280,7 +280,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 AppRoutes.navigateToTesting(
                                                     context,
                                                     name: '$located',
-                                                    id: id);
+                                                    id: widget.text);
                                               },
                                               child: Text(located ??
                                                   'I cant locate it'))
