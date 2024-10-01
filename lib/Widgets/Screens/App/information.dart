@@ -521,6 +521,28 @@ class _InformationScreenState extends State<InformationScreen> {
                                               color: const Color.fromARGB(
                                                   255, 203, 231, 255),
                                             ),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      padding: const EdgeInsets.only(
+                                                        left: 20,
+                                                        top: 15
+                                                      ),
+                                                      child: const Text(
+                                                        '2 Comments',
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Color.fromARGB(255, 44, 44, 44),
+                                                          fontWeight: FontWeight.bold
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
                                           )
                                         ],
                                       ),
