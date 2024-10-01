@@ -538,6 +538,18 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           fontWeight: FontWeight.bold
                                                         ),
                                                       ),
+                                                    ),
+                                                    Container(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 20,
+                                                              top: 15),
+                                                      child: const Text(
+                                                        'Write Comment',
+                                                        style: TextStyle(
+                                                            color:Colors.black,
+                                                          ),
+                                                      ),
                                                     )
                                                   ],
                                                 )
