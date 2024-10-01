@@ -34,6 +34,7 @@ dependencies:
   pdf: ^3.11.1
   printing: ^5.13.2
   mailer: ^6.1.2
+  flutter_switch: ^0.3.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -43,7 +43,7 @@ class BeachImages {
     return response;
   }
 
-  Future<Map<String, dynamic>?> fetchDataInSingle(int id) async {
+  Future<Map<String, dynamic>?> getSpecificData(int id) async {
     try {
       final response =
           await supabase.from('beaches').select('*').eq('id', id).single();

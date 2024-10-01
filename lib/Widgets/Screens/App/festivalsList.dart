@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
-import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Screens/App/categories.dart';
-import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Festival extends StatefulWidget {
@@ -189,7 +186,7 @@ class _FestivalState extends State<Festival> {
                                           GestureDetector(
                                             onTap: () async {
                                               final placeData =
-                                                  await FoodAreaBackEnd()
+                                                  await FestivalsImages()
                                                       .getSpecificData(
                                                           place['id']);
                                               if (placeData != null) {
@@ -198,7 +195,7 @@ class _FestivalState extends State<Festival> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          FoodAreaAboutScreen(
+                                                          FestivalsAboutScreen(
                                                             id: place['id'],
                                                           )),
                                                 );

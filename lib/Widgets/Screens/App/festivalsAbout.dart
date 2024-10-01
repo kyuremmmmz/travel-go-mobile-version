@@ -1,19 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'package:itransit/Controllers/NetworkImages/food_area.dart';
+import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 // ignore: must_be_immutable
-class BeachInfo extends StatelessWidget {
+class FestivalsAbout extends StatelessWidget {
   String? name;
   int id;
-  BeachInfo({
+  FestivalsAbout({
     super.key,
     this.name,
     required this.id,
@@ -24,7 +23,7 @@ class BeachInfo extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel',
-      home: FoodAreaAboutScreen(
+      home: FestivalsAboutScreen(
         id: id,
       ),
     );
@@ -32,20 +31,20 @@ class BeachInfo extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class FoodAreaAboutScreen extends StatefulWidget {
+class FestivalsAboutScreen extends StatefulWidget {
   String? name;
   int id;
-  FoodAreaAboutScreen({
+  FestivalsAboutScreen({
     super.key,
     this.name,
     required this.id,
   });
 
   @override
-  State<FoodAreaAboutScreen> createState() => _FoodAreaAboutScreenState();
+  State<FestivalsAboutScreen> createState() => _FestivalsAboutScreenState();
 }
 
-class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
+class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
@@ -53,15 +52,16 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
 
   String? email;
   String? description;
+  String? menu;
   String? placeName;
   String? imageUrl;
+  var id;
   String? located;
   String? foodName;
   String? price;
-  var id;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
-  final data = FoodAreaBackEnd();
+  final data = FestivalsImages();
 
   final _searchController = TextEditingController();
   late Usersss users = Usersss();
@@ -87,7 +87,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
   }
 
   Future<void> fetchImage() async {
-    final datas = await data.getFood();
+    final datas = await data.fetchFestivals();
     setState(() {
       place = datas.map(
         (place) {
@@ -110,15 +110,16 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
         });
       } else {
         setState(() {
-          description = dataList['description'];
+          description = dataList['Description'];
           foodName = dataList['img'];
           imageUrl = dataList['imgUrl'].toString();
+          located = dataList['Located'];
           id = dataList['id'];
-          located = dataList['located'];
+          menu = dataList['TipsForVisitors'];
           price = dataList['price'];
           for (var i = 1; i <= 20; i++) {
-            final key = 'dine$i';
-            final keyUrl = 'dineUrl$i';
+            final key = 'Dine$i';
+            final keyUrl = 'DineUrl$i';
             final value = dataList[key];
             final imageUrlValue = dataList[keyUrl];
             if (value != null) {
@@ -158,6 +159,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           toolbarHeight: 40,
           leading: Builder(
@@ -354,14 +356,11 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(right: 210),
+                                            const EdgeInsets.only(right: 188),
                                         child: const Text(
-                                          'Accomodations',
+                                          'Festival Highlights',
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
@@ -435,6 +434,28 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                           ],
                                         );
                                       }).toList()),
+                                      const SizedBox(
+                                        height: 30,
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                          right: 179,
+                                        ),
+                                        child: const Text(
+                                          'Tips for the Visitors',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.only(left: 30),
+                                        child: Text(
+                                          menu ?? 'No Description',
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
                                       const SizedBox(
                                         height: 30,
                                       ),
