@@ -89,8 +89,10 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
     setState(() {
       place = datas.map(
         (place) {
-          if (place['img'] != null && place['img'].toString().length > 50) {
-            place['img'] = place['img'].toString().substring(0, 50);
+          if (place['beach_name'] != null &&
+              place['beach_name'].toString().length > 50) {
+            place['beach_name'] =
+                place['beach_name'].toString().substring(0, 50);
           }
           return place;
         },
@@ -109,11 +111,11 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
       } else {
         setState(() {
           description = dataList['description'];
-          foodName = dataList['img'];
-          imageUrl = dataList['imgUrl'].toString();
+          foodName = dataList['beach_name'];
+          imageUrl = dataList['image'].toString();
           id = dataList['id'];
-          located = dataList['located'];
-          price = dataList['price'];
+          located = dataList['beach_located'];
+          price = dataList['beach_price'];
           for (var i = 1; i <= 20; i++) {
             final key = 'dine$i';
             final keyUrl = 'dineUrl$i';

@@ -2,64 +2,55 @@ import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class BeachImages {
-  SupabaseClient supabase = Supabase.instance.client;
+  final supabase = Supabase.instance.client;
 
   Future<List<Map<String, dynamic>>> fetchBeaches() async {
+    final response = await supabase.from('Beaches').select('*');
     try {
-      final response = await supabase
-          .from('beaches')
-          .select('*')
-          .limit(1000)
-          .order('beach_ratings', ascending: true);
       if (response.isEmpty) {
-        print('no beaches found');
         return [];
       } else {
         final data = response;
 
-        List<Map<String, dynamic>> map =
+        List<Map<String, dynamic>> result =
             List<Map<String, dynamic>>.from(data as List);
-        for (var map in data) {
-          var place = map['beach_name'];
-          var image = map['image'];
-          var imageUrl = await getter(image);
-          map['image'] = imageUrl;
-          map['beach_name'] = place;
+        for (var datas in result) {
+          var name = datas['beach_name'];
+          var imgUrl = datas['image'];
+          var imgFinal = await getter(imgUrl);
+          datas['image'] = imgFinal;
+          datas['beach_name'] = name;
         }
-        return map;
+        return data;
       }
     } catch (e) {
-      print('Error fetching beaches: $e');
+      print(e);
       return [];
     }
   }
 
-  Future<String?> getter(String image) async {
-    final response =
-        supabase.storage.from('beach_amenities_url').getPublicUrl(image);
-    if (response.isEmpty) {
-      return 'null';
-    }
-    return response;
+  Future<String?> getter(String name) async {
+    final storage = supabase.storage.from('beaches').getPublicUrl(name);
+    return storage;
   }
 
   Future<Map<String, dynamic>?> getSpecificData(int id) async {
     try {
       final response =
-          await supabase.from('beaches').select('*').eq('id', id).single();
+          await supabase.from('Beaches').select('*').eq('id', id).single();
 
       if (response.isNotEmpty) {
         final datas = response;
         //NOTE: THIS IS THE TEXT
         for (var i = 1; i <= 20; i++) {
-          final amenity = 'amenity$i';
-          final amenityUrl = 'amenity${i}Url';
+          final amenity = 'dine$i';
+          final amenityUrl = 'dine${i}Url';
           final amenityValue = datas[amenity];
           final amenityUrlValue = datas[amenityUrl];
           if (amenityValue != null && amenityUrlValue != null) {
             final getters = await getter(amenityUrlValue);
-            datas['amenity$i'] = amenityValue;
-            datas['amenity${i}Url'] = getters;
+            datas['dine$i'] = amenityValue;
+            datas['dine${i}Url'] = getters;
           }
         }
         var text = datas['beach_name'];

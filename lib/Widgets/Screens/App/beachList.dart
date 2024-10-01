@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/NetworkImages/beach.dart';
 import 'package:itransit/Controllers/NetworkImages/beach_images.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
@@ -23,7 +22,7 @@ class _BeachesState extends State<Beaches> {
   late String manaoag = "assets/images/places/Manaoag.jpg";
   String? email;
   late Usersss users = Usersss();
-  late Beach images = Beach();
+  late BeachImages images = BeachImages();
   List<Map<String, dynamic>> data = [];
 
   Future<void> redirecting() async {
@@ -31,7 +30,7 @@ class _BeachesState extends State<Beaches> {
   }
 
   Future<void> places() async {
-    final datas = await images.beachesList();
+    final datas = await images.fetchBeaches();
     setState(() {
       data = datas;
     });
@@ -110,7 +109,7 @@ class _BeachesState extends State<Beaches> {
                                   Container(
                                     padding: const EdgeInsets.only(right: 220),
                                     child: const Text(
-                                      'Notable Beaches',
+                                      'Well-Known Beaches',
                                       style: TextStyle(
                                         fontSize: 19,
                                         fontWeight: FontWeight.bold,
@@ -123,8 +122,9 @@ class _BeachesState extends State<Beaches> {
                                   ),
                                   Column(
                                     children: data.map((place) {
-                                      final imageUrl = place['imgUrl'];
-                                      final text = place['img'] ?? 'Unknown';
+                                      final imageUrl = place['image'];
+                                      final text =
+                                          place['beach_name'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(
