@@ -602,6 +602,23 @@ class _InformationScreenState extends State<InformationScreen> {
                                                             ),
                                                           ))
                                                     ],
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets.only(
+                                                      top: 20
+                                                    ),
+                                                    child: const Row(
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 20,
+                                                        ),
+                                                        CircleAvatar(
+                                                          backgroundImage: NetworkImage(
+                                                            'https://picsum.photos/id/1000/200/300'
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
                                                   )
                                                 ],
                                               ),
