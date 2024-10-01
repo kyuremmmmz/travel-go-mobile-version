@@ -51,7 +51,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   final data = Data();
   late FoodAreaBackEnd images = FoodAreaBackEnd();
   List<Map<String, dynamic>> datass = [];
-   late Festivalslist festivals = Festivalslist();
+  late Festivalslist festivals = Festivalslist();
   List<Map<String, dynamic>> dataOfFestivals = [];
   Future<void> emailFetching() async {
     try {
@@ -105,13 +105,14 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     }
   }
 
-  Future<List<Map<String, dynamic>>?> fetchFestivals(BuildContext context) async {
+  Future<List<Map<String, dynamic>>?> fetchFestivals(
+      BuildContext context) async {
     final datas = await festivals.listOfFestivals();
     if (datas.isEmpty) {
       return [];
     } else {
       setState(() {
-        datass = datas.map((foods) {
+        dataOfFestivals = datas.map((foods) {
           if (foods['img'] != null && foods['img'].toString().length > 18) {
             foods['img'] = foods['img'].toString().substring(0, 18);
           }
@@ -128,6 +129,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     emailFetching();
     fetchImage();
     fetchFoods(context);
+    fetchFestivals(context);
   }
 
   @override
@@ -259,7 +261,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: beachIcon,
-                                    oppressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Beaches())),
+                                    oppressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Beaches())),
                                   ),
                                   const CategoryLabel(label: 'Beaches'),
                                 ],
@@ -268,7 +273,11 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 children: [
                                   BlueIconButtonDefault(
                                     image: hotelIcon,
-                                    oppressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Festivalsstateless())),
+                                    oppressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Festivalsstateless())),
                                   ),
                                   const CategoryLabel(
                                       label: 'Festivals and \nEvents'),
@@ -335,27 +344,22 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  FoodAreaAboutScreen(id: id)
-                                                  )
-                                                );
-                                              }
-                                            );
-                                          }
-                                        ).toList()
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                                                  FoodAreaAboutScreen(id: id)));
+                                    });
+                              }).toList()),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                );
-              }
-            }
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class CategoryLabel extends StatelessWidget {
   final String label;
