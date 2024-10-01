@@ -10,6 +10,7 @@ import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/Screens/App/beachList.dart';
+import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart';
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:itransit/Widgets/Screens/App/information.dart';
 import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
@@ -344,7 +345,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  FoodAreaAboutScreen(id: id)));
+                                                  FestivalsAboutScreen(id: id)));
                                     });
                               }).toList()),
                         ],
