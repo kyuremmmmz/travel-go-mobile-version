@@ -123,8 +123,12 @@ class _BeachesState extends State<Beaches> {
                                   Column(
                                     children: data.map((place) {
                                       final imageUrl = place['image'];
+
+                                      final text = place['beach_name'] ?? 'Unknown';
+
                                       final text =
                                           place['beach_name'] ?? 'Unknown';
+
                                       return Column(
                                         children: [
                                           GestureDetector(

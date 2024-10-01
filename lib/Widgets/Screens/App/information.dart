@@ -9,7 +9,9 @@ import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InformationScreen extends StatefulWidget {
   final int text;
@@ -123,67 +125,7 @@ class _InformationScreenState extends State<InformationScreen> {
             ),
           ),
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const CircleAvatar(
-                      backgroundImage:
-                          AssetImage('assets/images/icon/beach.png'),
-                      radius: 40,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      email ?? 'Hacked himala e',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                onTap: () {
-                  Navigator.pop(context);
-                  AppRoutes.navigateToMainMenu(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.search),
-                title: const Text('Search'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Usersss().signout(context);
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: const DrawerMenuWidget(),
         body: FutureBuilder(
             future: _isRedirecting(),
             builder: (context, snapshot) {
@@ -539,6 +481,139 @@ class _InformationScreenState extends State<InformationScreen> {
                                           ),
                                         ],
                                       ),
+                                      Column(
+                                        children: [
+                                          Row(children: [
+                                            Container(
+                                              padding: const EdgeInsets.only(
+                                                  left: 35),
+                                              child: const Row(
+                                                children: [
+                                                  Text(
+                                                      '4.9/5',
+                                                      style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255, 49, 49, 49),
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      'OUT OF 5',
+                                                      style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255, 49, 49, 49),
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                ],
+                                              )
+                                            ),
+                                            const SizedBox(
+                                              width: 80,
+                                            ),
+                                            const Icon(Icons.star,
+                                                color: Colors.yellow, size: 25),
+                                            const Icon(Icons.star,
+                                                color: Colors.yellow, size: 25),
+                                            const Icon(Icons.star,
+                                                color: Colors.yellow, size: 25),
+                                            const Icon(Icons.star,
+                                                color: Colors.yellow, size: 25),
+                                            const Icon(Icons.star_half_outlined,
+                                                color: Colors.yellow, size: 25)
+                                          ]),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          SingleChildScrollView(
+                                            child: Container(
+                                              width: 350,
+                                              height: 350,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: const Color.fromARGB(
+                                                    255, 203, 231, 255),
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 20,
+                                                                top: 15),
+                                                        child: const Text(
+                                                          '2 Comments',
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      44,
+                                                                      44,
+                                                                      44),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 60,
+                                                      ),
+                                                      Container(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  left: 20,
+                                                                  top: 15),
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              showAdaptiveDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return const AlertDialog(
+                                                                    title: Text('Rate and review ',
+                                                                    style: TextStyle(
+                                                                      color: Colors.white,
+                                                                      fontSize: 20,
+                                                                      fontWeight: FontWeight.bold
+                                                                    )),
+                                                                    backgroundColor: Colors.blue,
+
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                            child: const Text(
+                                                              'Write a comment',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ))
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
                                       Row(
                                         children: [
                                           const SizedBox(
@@ -583,22 +658,25 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       .navigateToBookingArea(
                                                           context,
                                                           id: widget.text);
-                                                }),
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                                        }
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                                ],
+                              )
+                            ],
+                          );
+                        }
+                      }
                     )
-                  ],
-                );
+                  );
+                }
               }
-            }));
-  }
-}
