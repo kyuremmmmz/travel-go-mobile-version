@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/NetworkImages/festivalsList.dart';
-
+import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
 import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Screens/App/beachList.dart';
 import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart';
 import 'package:itransit/Widgets/Screens/App/categories.dart';
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
@@ -50,7 +46,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   final data = Data();
   late FoodAreaBackEnd images = FoodAreaBackEnd();
   List<Map<String, dynamic>> datass = [];
-  late Festivalslist festivals = Festivalslist();
+  late FestivalsImages festivals = FestivalsImages();
   List<Map<String, dynamic>> dataOfFestivals = [];
   Future<void> emailFetching() async {
     try {
@@ -106,7 +102,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
   Future<List<Map<String, dynamic>>?> fetchFestivals(
       BuildContext context) async {
-    final datas = await festivals.listOfFestivals();
+    final datas = await festivals.fetchFestivals();
     if (datas.isEmpty) {
       return [];
     } else {
@@ -161,65 +157,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                       child: Column(
                         children: <Widget>[
                           const DismissableFindMoreLocation(),
-                          CategorySelect(
-                            label: "Categories",
-                            oppressed: () => print('Categories clicked'),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  BlueIconButtonDefault(
-                                      image: beachIcon,
-                                      oppressed: () => {
-                                            AppRoutes.navigateToHotelScreen(
-                                                context)
-                                          }),
-                                  const CategoryLabel(label: 'Hotels'),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  BlueIconButtonDefault(
-                                      image: foodIcon,
-                                      oppressed: () =>
-                                          AppRoutes.navigateTofoodArea(
-                                              context)),
-                                  const CategoryLabel(label: 'Food Place'),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  BlueIconButtonDefault(
-                                    image: beachIcon,
-                                    oppressed: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Beaches())),
-                                  ),
-                                  const CategoryLabel(label: 'Beaches'),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  BlueIconButtonDefault(
-                                    image: hotelIcon,
-                                    oppressed: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Festivalsstateless())),
-                                  ),
-                                  const CategoryLabel(
-                                      label: 'Festivals and \nEvents'),
-                                ],
-                              ),
-                            ],
-                          ),
-
                           const Categories(),
-
                           CategorySelect(
                             label: "Popular Places",
                             oppressed: () =>
@@ -279,7 +217,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  FestivalsAboutScreen(id: id)));
+                                                  FestivalsAboutScreen(
+                                                      id: id)));
                                     });
                               }).toList()),
                         ],
