@@ -15,7 +15,7 @@ class Booking {
     String destination,
     int payment,
     String paymentMethod,
-    int plane,
+    String plane,
     String airPort,
     String travelType,
   ) async {
