@@ -607,16 +607,71 @@ class _InformationScreenState extends State<InformationScreen> {
                                                     padding: const EdgeInsets.only(
                                                       top: 20
                                                     ),
-                                                    child: const Row(
+                                                    child:  Row(
                                                       children: [
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 20,
                                                         ),
-                                                        CircleAvatar(
+                                                        const CircleAvatar(
                                                           backgroundImage: NetworkImage(
-                                                            'https://picsum.photos/id/1000/200/300'
+                                                            'https://scontent.fcrk2-1.fna.fbcdn.net/v/t39.30808-6/458201923_1043023800791060_3272608477704101222_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGBMm4xU2usMJaUqOsw_6B8XS5FRhVw6eldLkVGFXDp6YAneXr2mX8UggCWeJBKRtwp3v6PLmGEDoQZG9hUsZGN&_nc_ohc=yft81t1DQ9sQ7kNvgHunJTg&_nc_ht=scontent.fcrk2-1.fna&_nc_gid=A3XN-Jpcj-F6OLYI6cGWoDW&oh=00_AYBPnxFmLD8OofmQoLRd73Ru62FdY2CfQhMpLQxUdnDJbg&oe=67018C33'
                                                           ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            Container(
+                                                              padding: const EdgeInsets.only(
+                                                                bottom: 20
+                                                              ),
+                                                              child: const Column(
+                                                                children: [
+                                                                  Text(
+                                                                      'Aila Kaye',
+                                                                      style: TextStyle(
+                                                                          color: Color.fromARGB(255, 53, 52, 52),
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize:
+                                                                              16
+                                                                        ),
+                                                                    ),
+                                                                  ],
+                                                              )
+                                                            ),
+                                                          ],
                                                         )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets.only(
+                                                      left: 70
+                                                    ),
+                                                    child: const Row(
+                                                      children: [
+                                                        Icon(Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 25),
+                                                        Icon(Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 25),
+                                                            Icon(Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 25),
+                                                        Icon(Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 25),
+                                                        Icon(Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 25),
                                                       ],
                                                     ),
                                                   )
