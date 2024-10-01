@@ -623,12 +623,14 @@ class _InformationScreenState extends State<InformationScreen> {
                                                         Column(
                                                           children: [
                                                             Container(
-                                                              padding: const EdgeInsets.only(
-                                                                bottom: 20
-                                                              ),
-                                                              child: const Column(
+                                                              padding: null,
+                                                              child:  Column(
                                                                 children: [
-                                                                  Text(
+                                                                  Container(
+                                                                    padding: const EdgeInsets.only(
+                                                                      right: 50
+                                                                    ),
+                                                                    child: const Text(
                                                                       'Aila Kaye',
                                                                       style: TextStyle(
                                                                           color: Color.fromARGB(255, 53, 52, 52),
@@ -638,6 +640,16 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                               16
                                                                         ),
                                                                     ),
+                                                                  ),
+                                                                  const Row(
+                                                                      children: [
+                                                                              Icon(Icons.star, color: Colors.yellow, size: 25),
+                                                                              Icon(Icons.star, color: Colors.yellow, size: 25),
+                                                                              Icon(Icons.star, color: Colors.yellow, size: 25),
+                                                                              Icon(Icons.star, color: Colors.yellow, size: 25),
+                                                                              Icon(Icons.star, color: Colors.yellow, size: 25),
+                                                                            ],
+                                                                    )
                                                                   ],
                                                               )
                                                             ),
@@ -646,35 +658,6 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       ],
                                                     ),
                                                   ),
-                                                  Container(
-                                                    padding: const EdgeInsets.only(
-                                                      left: 70
-                                                    ),
-                                                    child: const Row(
-                                                      children: [
-                                                        Icon(Icons.star,
-                                                            color:
-                                                                Colors.yellow,
-                                                            size: 25),
-                                                        Icon(Icons.star,
-                                                            color:
-                                                                Colors.yellow,
-                                                            size: 25),
-                                                            Icon(Icons.star,
-                                                            color:
-                                                                Colors.yellow,
-                                                            size: 25),
-                                                        Icon(Icons.star,
-                                                            color:
-                                                                Colors.yellow,
-                                                            size: 25),
-                                                        Icon(Icons.star,
-                                                            color:
-                                                                Colors.yellow,
-                                                            size: 25),
-                                                      ],
-                                                    ),
-                                                  )
                                                 ],
                                               ),
                                             ),
