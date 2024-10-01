@@ -110,7 +110,7 @@ class _BeachesState extends State<Beaches> {
                                   Container(
                                     padding: const EdgeInsets.only(right: 220),
                                     child: const Text(
-                                      'Festivals & Events',
+                                      'Notable Beaches',
                                       style: TextStyle(
                                         fontSize: 19,
                                         fontWeight: FontWeight.bold,
