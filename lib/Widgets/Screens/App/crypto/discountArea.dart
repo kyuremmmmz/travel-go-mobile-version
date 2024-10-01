@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:path/path.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -9,6 +10,7 @@ import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
+import 'package:itransit/Widgets/Buttons/WithMethodButtons/VoucherButton.dart';
 
 // ignore: must_be_immutable
 class discountArea extends StatelessWidget {
@@ -151,8 +153,10 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                 padding: const EdgeInsets.only(right: 10, left: 10, top: 20, bottom: 20),
                                 height: 225,
                                 width: 350,
-                                decoration: const BoxDecoration(
-                                  color: Color.fromRGBO(241, 252, 255, 100),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(20),  
+                                  color: const Color.fromRGBO(241, 252, 255, 100),
                                 ),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -176,7 +180,12 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             const Text(
-                                              'Spend wise and use'
+                                              'Spend wise and use',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 13,
+                                                color: Color.fromRGBO(5, 103, 180, 100),
+                                              ),
                                             ),
                                             Text(
                                               // ignore: unnecessary_null_comparison
@@ -195,67 +204,75 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                       height: 10,
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.all(5),
+                                      padding: const EdgeInsets.all(3),
                                       height: 70,
                                       width: 350,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),  
+                                        border: Border.all(color: Colors.black),
+                                        borderRadius: BorderRadius.circular(10),  
                                         color: Colors.white,
                                       ),
-                                      child: const Row( // Placeholder kaya gumamit ng const change later wag kalimutan
+                                      child: Row(
                                         children: [
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                          CircleAvatar(
-                                              radius: 20,
-                                              backgroundImage: AssetImage('assets/images/icon/beach.png'),
-                                            ),
-                                          ],
+                                        const SizedBox(
+                                          width: 30,
+                                          child: 
+                                          FaIcon(FontAwesomeIcons.coins, color: Colors.yellow,)
                                         ),
-                                        Column(
+                                        Container(
+                                          width: 280,
+                                          padding: const EdgeInsets.all(5),
+                                          child: Column(
                                           children: [
                                             Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Text(
+                                                const Text(
                                                   'Travel Go Points',
                                                   style: TextStyle(
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Text(
-                                                  '56.04',
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  ' as of Sept 17',
-                                                  style: TextStyle(
-                                                    fontSize: 11,
+                                                Container(
+                                                  child: Row(
+                                                    children: [
+                                                      Text(
+                                                        '56.04',
+                                                        style: TextStyle(
+                                                          fontSize: 13,
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        ' as of Sept 17',
+                                                        style: TextStyle(
+                                                          fontSize: 11,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 )
                                               ],
                                             ),
                                             Row(
                                               children: [
-                                                Text(
-                                                  'To be implemented bar'
-                                                ),
+                                                SizedBox(
+                                                  width: 269,
+                                                  child: LinearProgressIndicator(
+                                                    value: 0.56,
+                                                    backgroundColor: Colors.grey,
+                                                    color: Colors.yellow,
+                                                  ),
+                                                )
                                               ],
                                             ),
-                                            Row(
+                                            const Row(
                                               children: [
                                                 Text(
                                                   'Earn 1,000 points and enjoy PHP100 discount on your next booking! \nStart collecting points now and save big!',
                                                   style: TextStyle(
-                                                    fontSize: 7,
+                                                    fontSize: 8,
                                                     color: Color.fromRGBO(5, 103, 180, 100),
                                                   ),
                                                   textAlign: TextAlign.justify,
@@ -263,6 +280,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                               ],
                                             ),
                                           ],
+                                        ),
                                         ),
                                       ],
                                       ),
@@ -279,7 +297,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Available Vouchers',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
@@ -287,6 +305,15 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
+                                  const SizedBox(
+                                    height: 30
+                                  ),
+                                  VoucherButton(
+                                    voucherTitle: 'Enjoy up to 10% off at The Monarch Hotel!',
+                                    description: 'Book now and experience luxury at a discounted rate',
+                                    expiring: '8 hours left', 
+                                    image: const AssetImage('assets/images/icon/beach.png'), 
+                                    oppressed: ()=> 'Test')
                                 ],
                               ),
                             ),
