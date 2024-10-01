@@ -49,8 +49,8 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _checkInController = TextEditingController();
   final _checkOutController = TextEditingController();
   final _originController = TextEditingController();
-  final _paymentMethodController = TextEditingController();
   final _vehicleTypeController = TextEditingController();
+  final _paymentMethodController = TextEditingController();
   final _specialReqController = TextEditingController();
   final _validator = GlobalKey<FormState>();
   final _hotel = TextEditingController();
@@ -71,6 +71,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
   bool _value = false;
   HotelBooking booking = HotelBooking();
+
   @override
   void dispose() {
     _nameController.dispose();
