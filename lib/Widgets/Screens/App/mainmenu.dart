@@ -334,7 +334,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           ),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: datass.map((value) {
+                              children: dataOfFestivals.map((value) {
                                 final id = value['id'];
                                 return PlaceButtonSquare(
                                     place: value['img'],
