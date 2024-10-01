@@ -485,15 +485,31 @@ class _InformationScreenState extends State<InformationScreen> {
                                             Container(
                                               padding: const EdgeInsets.only(
                                                   left: 35),
-                                              child: const Text(
-                                                '4.9/5 OUT OF 5',
-                                                style: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 49, 49, 49),
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
+                                              child: const Row(
+                                                children: [
+                                                  Text(
+                                                      '4.9/5',
+                                                      style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255, 49, 49, 49),
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      'OUT OF 5',
+                                                      style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255, 49, 49, 49),
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                ],
+                                              )
                                             ),
                                             const SizedBox(
                                               width: 80,
@@ -512,48 +528,83 @@ class _InformationScreenState extends State<InformationScreen> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          Container(
-                                            width: 350,
-                                            height: 350,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: const Color.fromARGB(
-                                                  255, 203, 231, 255),
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      padding: const EdgeInsets.only(
-                                                        left: 20,
-                                                        top: 15
-                                                      ),
-                                                      child: const Text(
-                                                        '2 Comments',
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Color.fromARGB(255, 44, 44, 44),
-                                                          fontWeight: FontWeight.bold
+                                          SingleChildScrollView(
+                                            child: Container(
+                                              width: 350,
+                                              height: 350,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: const Color.fromARGB(
+                                                    255, 203, 231, 255),
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 20,
+                                                                top: 15),
+                                                        child: const Text(
+                                                          '2 Comments',
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      44,
+                                                                      44,
+                                                                      44),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 20,
-                                                              top: 15),
-                                                      child: const Text(
-                                                        'Write Comment',
-                                                        style: TextStyle(
-                                                            color:Colors.black,
-                                                          ),
+                                                      const SizedBox(
+                                                        width: 60,
                                                       ),
-                                                    )
-                                                  ],
-                                                )
-                                              ],
+                                                      Container(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  left: 20,
+                                                                  top: 15),
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              showAdaptiveDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return const AlertDialog(
+                                                                    title: Text('Rate and review ',
+                                                                    style: TextStyle(
+                                                                      color: Colors.white,
+                                                                      fontSize: 20,
+                                                                      fontWeight: FontWeight.bold
+                                                                    )),
+                                                                    backgroundColor: Colors.blue,
+
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                            child: const Text(
+                                                              'Write a comment',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            ),
+                                                          ))
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           )
                                         ],
@@ -605,22 +656,25 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       .navigateToBookingArea(
                                                           context,
                                                           id: widget.text);
-                                                }),
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                                        }
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                                ],
+                              )
+                            ],
+                          );
+                        }
+                      }
                     )
-                  ],
-                );
+                  );
+                }
               }
-            }));
-  }
-}
