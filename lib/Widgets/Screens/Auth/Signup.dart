@@ -131,7 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 40.h,
+                      height: 40.h, // the space between the img and email area
                     ),
                     Container(
                       width: 350.w, // email line area

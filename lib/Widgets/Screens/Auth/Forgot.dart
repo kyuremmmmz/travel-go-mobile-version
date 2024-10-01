@@ -3,6 +3,7 @@ import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Textfield/searchField.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -27,99 +28,105 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       body: Stack(
         children: <Widget>[
           Positioned(
-              top: 130,
-              right: 50,
+              top: 130.h,
+              right: 50.w, // the center  of the forgot password tezt
               child: Column(
                 children: [
                   Container(
-                    child: const Text(
+                    child: Text(
                       textAlign: TextAlign.center,
                       'Forgot Password',
                       style: TextStyle(
-                          fontSize: 40,
+                          fontSize: 36.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: 30.h, // the space between the forgot password and this text 
                   ),
                   // ignore: avoid_unnecessary_containers
                   Container(
-                    child: const Text(
+                    child: Text(
                       textAlign: TextAlign.center,
                       "Enter the email associated with your account \n and we'll send an email with instructions \n to reset your password. ",
-                      style: TextStyle(fontSize: 13, color: Colors.black54),
+                      style: TextStyle(fontSize: 13.sp, color: Colors.black54),
                     ),
                   )
                 ],
               )),
           Positioned(
-              bottom: 0,
+              bottom: 0.w,
               child: Container(
-                height: 500,
-                width: 410,
-                decoration: const BoxDecoration(
-                    color: Colors.blue,
+                height: 500.h,
+                width: 375.w,
+                decoration: BoxDecoration(
+                    color: Color(0xFF44CAF9),
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50))),
+                        topLeft: Radius.circular(50.h),
+                        topRight: Radius.circular(50.w))),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 60,
+                    SizedBox(
+                      height: 60.h,
+                      width: 90.w,
                     ),
                     // ignore: sized_box_for_whitespace
                     Container(
-                      width: 350,
+                      width: 330.w, // width of the container of email address 
                       decoration: BoxDecoration(
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(50)),
+                              BorderRadius.all(Radius.circular(50.w)),
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.black.withOpacity(0.5),
+                                color: Colors.black.withOpacity(0.3),
                                 spreadRadius: 1,
-                                blurRadius: 5,
+                                blurRadius: 3,
                                 offset: const Offset(0, 5))
                           ]),
                       child: Search(
                         controller: _emailController,
-                        style: const InputDecoration(
+                        style: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
-                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.all(Radius.circular(50.h)), // Keep border radius
+                            borderSide: BorderSide.none,  // Remove the border line
                           ),
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50))),
+                            borderRadius: BorderRadius.all(Radius.circular(50.h)), // Keep border radius
+                            borderSide: BorderSide.none,  // Remove the border line when focused
+                          ),
                           hintText: "Email Address",
+                          hintStyle: TextStyle(
+                            fontSize: 15.sp,  // Adjust font size
+                            color: Colors.black54,  // Set hint text color
+                          ),
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.white,  // Background color for the input field
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 50,
+                    SizedBox(
+                      height: 50.h, // the send instructions space top
                     ),
                     Container(
-                      width: 300,
+                      height: 45.h,
+                      width: 200.w,
                       decoration: BoxDecoration(
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(50)),
+                              BorderRadius.all(Radius.circular(50.w)),
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
+                                color: Colors.black.withOpacity(0.2.w),
                                 spreadRadius: 1,
                                 blurRadius: 5,
-                                offset: const Offset(0, 5))
+                                offset: Offset(0.h, 5.w))
                           ]),
                       child: BlueButtonWithoutFunction(
-                          text: const Text(
+                          text: Text(
                             'Send Instructions',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w300,
                               color: Colors.black,
                             ),
                           ),
@@ -129,16 +136,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               _emailController.text.trim(), context)),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     GestureDetector(
                         onTap: () {
                           AppRoutes.navigateToLogin(context);
                         },
                         child: Container(
-                          child: const Text(
+                          child: Text(
                             'Back to Log In',
                             style: TextStyle(
+                              fontSize: 12.sp,
                                 color: Color.fromARGB(255, 82, 79, 79)),
                           ),
                         ))
