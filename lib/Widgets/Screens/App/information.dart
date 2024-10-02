@@ -941,6 +941,8 @@ class _InformationScreenState extends State<InformationScreen> {
                   ],
                 );
               }
-            }));
-  }
-}
+            }
+          )
+        );
+      }
+    }
