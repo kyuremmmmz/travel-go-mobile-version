@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
@@ -11,6 +10,7 @@ import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InformationScreen extends StatefulWidget {
   final int text;
@@ -651,30 +651,37 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                         ),
                                                                                         focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)))),
                                                                               ),
-                                                                              const SizedBox(),
+                                                                              const SizedBox(
+                                                                                height: 20,
+                                                                              ),
                                                                               Row(
                                                                                 children: [
-                                                                                  Container(
-                                                                                    padding: null,
-                                                                                    child: ElevatedButton(
-                                                                                      style: ElevatedButton.styleFrom(
-                                                                                        backgroundColor: Colors.red,),
+                                                                                  ElevatedButton(
+                                                                                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                                                                       onPressed: () {
                                                                                         Navigator.pop(context);
                                                                                       },
-                                                                                      child: const Text('Cancel',
-                                                                                      style: TextStyle(
-                                                                                        color: Colors.white
-                                                                                        ),
-                                                                                      )
-                                                                                    ),
-                                                                                  )
+                                                                                      child: const Text(
+                                                                                        'Cancel',
+                                                                                        style: TextStyle(color: Colors.black),
+                                                                                      )),
+                                                                                  const SizedBox(
+                                                                                    width: 110,
+                                                                                  ),
+                                                                                  ElevatedButton(
+                                                                                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                                                                                      onPressed: () {
+                                                                                        print('hahahaha inserted');
+                                                                                      },
+                                                                                      child: const Text(
+                                                                                        'Post',
+                                                                                        style: TextStyle(color: Colors.black),
+                                                                                      )),
                                                                                 ],
                                                                               )
                                                                             ],
                                                                           ),
-                                                                        )
-                                                                      );
+                                                                        ));
                                                                   },
                                                                 );
                                                               },
