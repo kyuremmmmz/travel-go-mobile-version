@@ -11,7 +11,6 @@ import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InformationScreen extends StatefulWidget {
   final int text;
