@@ -925,24 +925,25 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       .navigateToBookingArea(
                                                           context,
                                                           id: widget.text);
-                                                }),
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                                        }
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                                ],
+                              )
+                            ],
+                          );
+                        }
+                      }
                     )
-                  ],
-                );
+                  );
+                }
               }
-            }
-          )
-        );
-      }
-    }
