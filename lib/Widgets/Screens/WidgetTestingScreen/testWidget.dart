@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:itransit/Controllers/NetworkImages/hotel_images.dart';
@@ -21,7 +21,7 @@ class Map extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Map'),
+        title: const Text('Map'),
       ),
       body: MapPage(location: location, id: id),
     );
@@ -46,6 +46,7 @@ class _MapPageState extends State<MapPage> {
   final end = TextEditingController();
   List<LatLng> routePoints = [const LatLng(15.91667, 120.33333)];
   String? placeName;
+  // ignore: prefer_typing_uninitialized_variables
   var price;
   List<Marker> markers = [];
 
@@ -79,13 +80,13 @@ class _MapPageState extends State<MapPage> {
             }
           });
         } else {
-          print('No routes found.');
+          debugPrint('No routes found.');
         }
       } else {
-        print('Error: ${response.statusCode}');
+        debugPrint('Error: ${response.statusCode}');
       }
     } catch (e) {
-      print('Exception occurred: $e');
+      debugPrint('Exception occurred: $e');
     }
   }
 
@@ -218,7 +219,7 @@ class _MapPageState extends State<MapPage> {
         });
       }
     } catch (error) {
-      print('Error fetching hotels: $error');
+      debugPrint('Error fetching hotels: $error');
     }
   }
 

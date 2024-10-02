@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
@@ -7,8 +7,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:intl/intl.dart';
-
 class Mailer {
   Future<void> requestPermission() async {
     final status = await Permission.storage.request();
@@ -174,12 +172,12 @@ class Mailer {
 
       try {
         final sendReport = await send(message, smtpServer);
-        print('Email sent: $sendReport');
+        debugPrint('Email sent: $sendReport');
       } catch (e) {
-        print('Error sending email: $e');
+        debugPrint('Error sending email: $e');
       }
     } else {
-      print('File does not exist: $filePath');
+      debugPrint('File does not exist: $filePath');
     }
   }
 }
