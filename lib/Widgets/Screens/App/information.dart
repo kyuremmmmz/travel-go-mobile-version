@@ -231,8 +231,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                         ? NetworkImage(imageUrl!)
                                         : const AssetImage(
                                             'assets/images/places/PangasinanProvincialCapitol.jpg'))),
-                          ),
-                        ),
+                                      ),
+                                    ),
                         Positioned(
                           bottom: 0,
                           left: 0,
