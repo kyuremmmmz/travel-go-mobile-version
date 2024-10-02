@@ -610,7 +610,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                           width:
                                                                               400,
                                                                           height:
-                                                                              200,
+                                                                              250,
                                                                           child:
                                                                               Column(
                                                                             children: [
@@ -632,45 +632,54 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                   onPressed: () {
                                                                                     setState(() {
                                                                                       ratings = index + 1;
-                                                                                    }
-                                                                                  );
-                                                                                },
-                                                                              );
-                                                                            }
-                                                                          )
-                                                                        ),
-                                                                        Container(
-                                                                          padding: null,
-                                                                          child: TextField(
-                                                                            maxLines: 3,
-                                                                            autocorrect: true,
-                                                                            controller: _commentController,
-                                                                            decoration: const InputDecoration(
-                                                                              hintText: 'Write a comment',
-                                                                              filled: true,
-                                                                              fillColor: Colors.white,
-                                                                              border: OutlineInputBorder(
-                                                                                borderSide: BorderSide(
-                                                                                  color: Colors.black
-                                                                                ),
+                                                                                    });
+                                                                                  },
+                                                                                );
+                                                                              })),
+                                                                              Container(
+                                                                                padding: null,
+                                                                                child: TextField(
+                                                                                    maxLines: 3,
+                                                                                    autocorrect: true,
+                                                                                    controller: _commentController,
+                                                                                    decoration: const InputDecoration(
+                                                                                        hintText: 'Write a comment',
+                                                                                        filled: true,
+                                                                                        fillColor: Colors.white,
+                                                                                        border: OutlineInputBorder(
+                                                                                          borderSide: BorderSide(color: Colors.black),
+                                                                                        ),
+                                                                                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)))),
                                                                               ),
-                                                                              focusedBorder: OutlineInputBorder(
-                                                                                borderSide: BorderSide(
-                                                                                  color: Colors.blue
-                                                                                )
+                                                                              const SizedBox(),
+                                                                              Row(
+                                                                                children: [
+                                                                                  Container(
+                                                                                    padding: null,
+                                                                                    child: ElevatedButton(
+                                                                                      style: ElevatedButton.styleFrom(
+                                                                                        backgroundColor: Colors.red,),
+                                                                                      onPressed: () {
+                                                                                        Navigator.pop(context);
+                                                                                      },
+                                                                                      child: const Text('Cancel',
+                                                                                      style: TextStyle(
+                                                                                        color: Colors.white
+                                                                                        ),
+                                                                                      )
+                                                                                    ),
+                                                                                  )
+                                                                                ],
                                                                               )
-                                                                            )
+                                                                            ],
                                                                           ),
                                                                         )
-                                                                      ],
-                                                                    ),
-                                                                  )
+                                                                      );
+                                                                  },
                                                                 );
                                                               },
                                                             );
                                                           },
-                                                        );
-                                                      },
                                                           child: const Text(
                                                             'Write a comment',
                                                             style: TextStyle(
@@ -925,25 +934,22 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       .navigateToBookingArea(
                                                           context,
                                                           id: widget.text);
-                                                        }
-                                                      ),
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                                }),
+                                          )
+                                        ],
+                                      )
+                                    ],
                                   ),
-                                ],
-                              )
-                            ],
-                          );
-                        }
-                      }
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     )
-                  );
-                }
+                  ],
+                );
               }
+            }));
+  }
+}
