@@ -40,6 +40,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? hasMotor;
   String? located;
   var id;
+  int ratings = 0;
   String? availability;
   String? price;
   final data = Data();
@@ -232,8 +233,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                         ? NetworkImage(imageUrl!)
                                         : const AssetImage(
                                             'assets/images/places/PangasinanProvincialCapitol.jpg'))),
-                                      ),
-                                    ),
+                          ),
+                        ),
                         Positioned(
                           bottom: 0,
                           left: 0,
@@ -484,11 +485,11 @@ class _InformationScreenState extends State<InformationScreen> {
                                         children: [
                                           Row(children: [
                                             Container(
-                                              padding: const EdgeInsets.only(
-                                                  left: 35),
-                                              child: const Row(
-                                                children: [
-                                                  Text(
+                                                padding: const EdgeInsets.only(
+                                                    left: 35),
+                                                child: const Row(
+                                                  children: [
+                                                    Text(
                                                       '4.9/5',
                                                       style: TextStyle(
                                                           color: Color.fromARGB(
@@ -509,9 +510,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
-                                                ],
-                                              )
-                                            ),
+                                                  ],
+                                                )),
                                             const SizedBox(
                                               width: 80,
                                             ),
@@ -530,118 +530,113 @@ class _InformationScreenState extends State<InformationScreen> {
                                             height: 10,
                                           ),
                                           SingleChildScrollView(
-                                          child: Container(
-                                            width: 350,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              color: const Color.fromARGB(255, 203, 231, 255),
-                                            ),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Container(
-                                                      padding: const EdgeInsets.only(left: 20, top: 15),
-                                                      child: const Text(
-                                                        '2 Comments',
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Color.fromARGB(255, 44, 44, 44),
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 60,
-                                                    ),
-                                                    Container(
-                                                      padding: const EdgeInsets.only(left: 20, top: 15),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          showAdaptiveDialog(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return const AlertDialog(
-                                                                title: Text(
-                                                                  'Rate and review ',
-                                                                  style: TextStyle(
-                                                                    color: Colors.white,
-                                                                    fontSize: 20,
-                                                                    fontWeight: FontWeight.bold,
-                                                                  ),
-                                                                ),
-                                                                backgroundColor: Colors.blue,
-                                                              );
-                                                            },
-                                                          );
-                                                        },
+                                            child: Container(
+                                              width: 350,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: const Color.fromARGB(
+                                                    255, 203, 231, 255),
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 20,
+                                                                top: 15),
                                                         child: const Text(
-                                                          'Write a comment',
+                                                          '2 Comments',
                                                           style: TextStyle(
-                                                            color: Colors.black,
+                                                            fontSize: 20,
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    44,
+                                                                    44,
+                                                                    44),
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Container(
-                                                  padding: const EdgeInsets.only(top: 20),
-                                                  child: Row(
-                                                    children: [
                                                       const SizedBox(
-                                                        width: 20,
+                                                        width: 60,
                                                       ),
-                                                      const CircleAvatar(
-                                                        backgroundImage: NetworkImage(
-                                                          'https://scontent.fcrk2-1.fna.fbcdn.net/v/t39.30808-6/458201923_1043023800791060_3272608477704101222_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGBMm4xU2usMJaUqOsw_6B8XS5FRhVw6eldLkVGFXDp6YAneXr2mX8UggCWeJBKRtwp3v6PLmGEDoQZG9hUsZGN&_nc_ohc=yft81t1DQ9sQ7kNvgHunJTg&_nc_ht=scontent.fcrk2-1.fna&_nc_gid=A3XN-Jpcj-F6OLYI6cGWoDW&oh=00_AYBPnxFmLD8OofmQoLRd73Ru62FdY2CfQhMpLQxUdnDJbg&oe=67018C33',
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Container(
-                                                            padding: const EdgeInsets.only(right: 200),
-                                                            child: const Text(
-                                                              'Aila Kaye',
-                                                              style: TextStyle(
-                                                                color: Color.fromARGB(255, 53, 52, 52),
-                                                                fontWeight: FontWeight.bold,
-                                                                fontSize: 16,
-                                                              ),
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 20,
+                                                                top: 15),
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            showAdaptiveDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (context) {
+                                                                return AlertDialog(
+                                                                    title:
+                                                                        const Text(
+                                                                      'Rate and review ',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            20,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                      ),
+                                                                    ),
+                                                                    backgroundColor:
+                                                                        const Color
+                                                                            .fromARGB(
+                                                                            255,
+                                                                            50,
+                                                                            148,
+                                                                            228),
+                                                                    content:
+                                                                        Container(
+                                                                      padding:
+                                                                          null,
+                                                                      width:
+                                                                          400,
+                                                                      height:
+                                                                          200,
+                                                                      child:
+                                                                          Column(
+                                                                        children: [
+                                                                          Container(
+                                                                            padding:
+                                                                                const EdgeInsets.only(right: 210),
+                                                                            child:
+                                                                                const Text(
+                                                                              'Rating 4/5',
+                                                                              style: TextStyle(color: Colors.white),
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ));
+                                                              },
+                                                            );
+                                                          },
+                                                          child: const Text(
+                                                            'Write a comment',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
                                                             ),
                                                           ),
-                                                          const Row(
-                                                            children: [
-                                                              Icon(Icons.star, color: Colors.yellow, size: 25),
-                                                              Icon(Icons.star, color: Colors.yellow, size: 25),
-                                                              Icon(Icons.star, color: Colors.yellow, size: 25),
-                                                              Icon(Icons.star, color: Colors.yellow, size: 25),
-                                                              Icon(Icons.star, color: Colors.yellow, size: 25),
-                                                              Text(
-                                                                '4 OUT OF 5, Sept 24, 2024',
-                                                                style: TextStyle(fontSize: 12),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
-                                                ),
-                                                Container(
-                                                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                                                  child: const Text(
-                                                    'Hundred Islands is a beautiful spot with clear waters, scenic views, and great for island-hopping. Perfect for a relaxing getaway or fun adventures!',
-                                                    style: TextStyle(fontSize: 14),
-                                                    overflow: TextOverflow.ellipsis,
-                                                    maxLines: 5,
-                                                  ),
-                                                ),
-                                                Container(
+                                                  Container(
                                                     padding:
                                                         const EdgeInsets.only(
                                                             top: 20),
@@ -736,11 +731,105 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       maxLines: 5,
                                                     ),
                                                   ),
-                                              ],
+                                                  Container(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 20),
+                                                    child: Row(
+                                                      children: [
+                                                        const SizedBox(
+                                                          width: 20,
+                                                        ),
+                                                        const CircleAvatar(
+                                                          backgroundImage:
+                                                              NetworkImage(
+                                                            'https://scontent.fcrk2-1.fna.fbcdn.net/v/t39.30808-6/458201923_1043023800791060_3272608477704101222_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGBMm4xU2usMJaUqOsw_6B8XS5FRhVw6eldLkVGFXDp6YAneXr2mX8UggCWeJBKRtwp3v6PLmGEDoQZG9hUsZGN&_nc_ohc=yft81t1DQ9sQ7kNvgHunJTg&_nc_ht=scontent.fcrk2-1.fna&_nc_gid=A3XN-Jpcj-F6OLYI6cGWoDW&oh=00_AYBPnxFmLD8OofmQoLRd73Ru62FdY2CfQhMpLQxUdnDJbg&oe=67018C33',
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      right:
+                                                                          200),
+                                                              child: const Text(
+                                                                'Aila Kaye',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          53,
+                                                                          52,
+                                                                          52),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            const Row(
+                                                              children: [
+                                                                Icon(Icons.star,
+                                                                    color: Colors
+                                                                        .yellow,
+                                                                    size: 25),
+                                                                Icon(Icons.star,
+                                                                    color: Colors
+                                                                        .yellow,
+                                                                    size: 25),
+                                                                Icon(Icons.star,
+                                                                    color: Colors
+                                                                        .yellow,
+                                                                    size: 25),
+                                                                Icon(Icons.star,
+                                                                    color: Colors
+                                                                        .yellow,
+                                                                    size: 25),
+                                                                Icon(Icons.star,
+                                                                    color: Colors
+                                                                        .yellow,
+                                                                    size: 25),
+                                                                Text(
+                                                                  '4 OUT OF 5, Sept 24, 2024',
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 10,
+                                                        horizontal: 20),
+                                                    child: const Text(
+                                                      'Hundred Islands is a beautiful spot with clear waters, scenic views, and great for island-hopping. Perfect for a relaxing getaway or fun adventures!',
+                                                      style: TextStyle(
+                                                          fontSize: 14),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 5,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        )
-
+                                          )
                                         ],
                                       ),
                                       const SizedBox(
@@ -790,25 +879,22 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       .navigateToBookingArea(
                                                           context,
                                                           id: widget.text);
-                                                        }
-                                                      ),
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                                }),
+                                          )
+                                        ],
+                                      )
+                                    ],
                                   ),
-                                ],
-                              )
-                            ],
-                          );
-                        }
-                      }
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     )
-                  );
-                }
+                  ],
+                );
               }
+            }));
+  }
+}
