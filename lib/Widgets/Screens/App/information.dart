@@ -41,7 +41,6 @@ class _InformationScreenState extends State<InformationScreen> {
   String? located;
   var id;
   int ratings = 0;
-  
   String? availability;
   String? price;
   final data = Data();
@@ -579,53 +578,74 @@ class _InformationScreenState extends State<InformationScreen> {
                                                               context: context,
                                                               builder:
                                                                   (context) {
-                                                                return AlertDialog(
-                                                                    title:
-                                                                        const Text(
-                                                                      'Rate and review ',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            20,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                      ),
-                                                                    ),
-                                                                    backgroundColor:
-                                                                        const Color
+                                                                return StatefulBuilder(
+                                                                  builder: (context,
+                                                                      setState) {
+                                                                    return AlertDialog(
+                                                                        title:
+                                                                            const Text(
+                                                                          'Rate and review ',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontSize:
+                                                                                20,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                          ),
+                                                                        ),
+                                                                        backgroundColor: const Color
                                                                             .fromARGB(
                                                                             255,
                                                                             50,
                                                                             148,
                                                                             228),
-                                                                    content:
-                                                                        Container(
-                                                                      padding:
-                                                                          null,
-                                                                      width:
-                                                                          400,
-                                                                      height:
-                                                                          200,
-                                                                      child:
-                                                                          Column(
-                                                                        children: [
-                                                                          Container(
-                                                                            padding:
-                                                                                const EdgeInsets.only(right: 210),
-                                                                            child:
-                                                                                const Text(
-                                                                              'Rating 4/5',
-                                                                              style: TextStyle(color: Colors.white),
-                                                                            ),
+                                                                        content:
+                                                                            Container(
+                                                                          padding:
+                                                                              null,
+                                                                          width:
+                                                                              400,
+                                                                          height:
+                                                                              200,
+                                                                          child:
+                                                                              Column(
+                                                                            children: [
+                                                                              Container(
+                                                                                padding: const EdgeInsets.only(right: 210),
+                                                                                child: Text(
+                                                                                  'Rating $ratings/5',
+                                                                                  style: const TextStyle(color: Colors.white),
+                                                                                ),
+                                                                              ),
+                                                                              Row(
+                                                                                  children: List.generate(5, (index) {
+                                                                                return IconButton(
+                                                                                  icon: Icon(
+                                                                                    index < ratings ? Icons.star : Icons.star_border,
+                                                                                    color: Colors.yellow,
+                                                                                    size: 30,
+                                                                                  ),
+                                                                                  onPressed: () {
+                                                                                    setState(() {
+                                                                                      ratings = index + 1;
+                                                                                    }
+                                                                                  );
+                                                                                },
+                                                                              );
+                                                                            }
                                                                           )
-                                                                        ],
-                                                                      ),
-                                                                    ));
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  )
+                                                                );
                                                               },
                                                             );
                                                           },
+                                                        );
+                                                      },
                                                           child: const Text(
                                                             'Write a comment',
                                                             style: TextStyle(

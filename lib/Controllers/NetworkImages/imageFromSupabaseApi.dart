@@ -10,7 +10,7 @@ class Data {
     final response = await supabase.from('places').select('*');
 
     if (response.isEmpty) {
-      debugPrint('Error fetching data: ${response.toString()}');
+      print('Error fetching data: ${response.toString()}');
       return [];
     } else {
       var data = response;
@@ -40,7 +40,7 @@ class Data {
       }
       return response;
     } catch (e) {
-      debugPrint('Error getting image URL: $e');
+      print('Error getting image URL: $e');
       return 'Error';
     }
   }
@@ -66,15 +66,15 @@ class Data {
         datas['tricycle_availability'] = tricycleAvailability;
         datas['locatedIn'] = located;
         datas['price'] = formattedPrice;
-        debugPrint(cars);
-        debugPrint("$priceQ");
+        print(cars);
+        print(priceQ);
         return datas;
       } else {
-        debugPrint('No data found for $id');
+        print('No data found for $id');
         return null;
       }
     } catch (e) {
-      debugPrint('Error fetching specific data: $e');
+      print('Error fetching specific data: $e');
       return null;
     }
   }
@@ -107,7 +107,6 @@ class Data {
         datas['id'] = id;
         datas['price'] = formattedPrice;
         Navigator.push(
-            // ignore: use_build_context_synchronously
             context,
             MaterialPageRoute(
                 builder: (context) => InformationScreen(
@@ -116,11 +115,11 @@ class Data {
                     )));
         return datas;
       } else {
-        debugPrint('No data found for $name');
+        print('No data found for $name');
         return null;
       }
     } catch (e) {
-      debugPrint('Error fetching data in search: $e');
+      print('Error fetching data in search: $e');
       return null;
     }
   }
