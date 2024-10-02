@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Beach {
@@ -23,7 +24,7 @@ class Beach {
         return data;
       }
     } catch (e) {
-      print(e);
+      debugPrint("$e");
       return [];
     }
   }

@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
@@ -172,12 +172,12 @@ class Mailer {
 
       try {
         final sendReport = await send(message, smtpServer);
-        print('Email sent: $sendReport');
+        debugPrint('Email sent: $sendReport');
       } catch (e) {
-        print('Error sending email: $e');
+        debugPrint('Error sending email: $e');
       }
     } else {
-      print('File does not exist: $filePath');
+      debugPrint('File does not exist: $filePath');
     }
   }
 }

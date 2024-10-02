@@ -21,7 +21,7 @@ class _CategoriesState extends State<Categories> {
       children: [
         CategorySelect(
           label: "Categories",
-          oppressed: () => print('Categories clicked'),
+          oppressed: () => debugPrint('Categories clicked'),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

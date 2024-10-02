@@ -56,6 +56,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
   String? located;
   String? foodName;
   String? price;
+  // ignore: prefer_typing_uninitialized_variables
   var id;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
@@ -124,7 +125,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
             if (value != null) {
               amenities[key] = value;
               imageUrlForAmenities[key] = imageUrlValue;
-              print(imageUrlForAmenities);
+              debugPrint("$imageUrlForAmenities");
             }
           }
         });
@@ -133,7 +134,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
       setState(() {
         description = "Error fetching data";
       });
-      print('Error in fetchSpecificData: $e');
+      debugPrint('Error in fetchSpecificData: $e');
     }
   }
 
@@ -313,6 +314,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                               height: 20,
                                             ),
                                             Container(
+                                              padding: null,
                                               child: Stack(
                                                 children: [
                                                   Container(

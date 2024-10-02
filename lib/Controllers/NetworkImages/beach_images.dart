@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -24,7 +25,7 @@ class BeachImages {
         return data;
       }
     } catch (e) {
-      print(e);
+      debugPrint('$e');
       return [];
     }
   }
@@ -64,14 +65,14 @@ class BeachImages {
         datas['beach_name'] = text;
         datas['beach_located'] = located;
         datas['beach_price'] = formattedPrice;
-        print(priceQ);
+        debugPrint("$priceQ");
         return datas;
       } else {
-        print('No data found for $id');
+        debugPrint('No data found for $id');
         return null;
       }
     } catch (e) {
-      print('Error fetching specific data: $e');
+      debugPrint('Error fetching specific data: $e');
       return null;
     }
   }

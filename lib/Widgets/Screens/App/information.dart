@@ -41,6 +41,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? located;
   var id;
   int ratings = 0;
+  
   String? availability;
   String? price;
   final data = Data();
