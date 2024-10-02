@@ -32,6 +32,7 @@ class _InformationScreenState extends State<InformationScreen> {
   final String hotelIcon = "assets/images/icon/hotel.png";
   final String festivalIcon = "assets/images/icon/food.png";
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
+  final _commentController = TextEditingController();
   String? email;
   String? description;
   String? text;
@@ -88,6 +89,7 @@ class _InformationScreenState extends State<InformationScreen> {
   @override
   void dispose() {
     _searchController.dispose();
+    _commentController.dispose();
     super.dispose();
   }
 
@@ -636,6 +638,29 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                               );
                                                                             }
                                                                           )
+                                                                        ),
+                                                                        Container(
+                                                                          padding: null,
+                                                                          child: TextField(
+                                                                            maxLines: 3,
+                                                                            autocorrect: true,
+                                                                            controller: _commentController,
+                                                                            decoration: const InputDecoration(
+                                                                              hintText: 'Write a comment',
+                                                                              filled: true,
+                                                                              fillColor: Colors.white,
+                                                                              border: OutlineInputBorder(
+                                                                                borderSide: BorderSide(
+                                                                                  color: Colors.black
+                                                                                ),
+                                                                              ),
+                                                                              focusedBorder: OutlineInputBorder(
+                                                                                borderSide: BorderSide(
+                                                                                  color: Colors.blue
+                                                                                )
+                                                                              )
+                                                                            )
+                                                                          ),
                                                                         )
                                                                       ],
                                                                     ),
