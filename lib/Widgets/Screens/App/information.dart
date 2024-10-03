@@ -681,12 +681,17 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                           commentType = "places",
                                                                                           '$text',
                                                                                         );
+                                                                                        rating.fetchComments(
+                                                                                          commentType!,
+                                                                                          commentType = "places",
+                                                                                        );
+                                                                                        _commentController.clear();
+                                                                                        Navigator.pop(context);
                                                                                       },
                                                                                       child: const Text(
                                                                                         'Post',
                                                                                         style: TextStyle(color: Colors.black),
-                                                                                      )
-                                                                                    ),
+                                                                                      )),
                                                                                 ],
                                                                               )
                                                                             ],
