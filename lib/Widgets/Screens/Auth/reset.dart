@@ -108,7 +108,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             padding: null,
                             width: 350.w,
                             child: passwordTextField(
-                              text: 'Password',
+                              text: 'New Password', // Password
                               password: _passwordController,
                             ),
                           ),

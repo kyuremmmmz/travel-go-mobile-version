@@ -13,6 +13,7 @@ import 'package:itransit/Widgets/Screens/App/information.dart';
 import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
 import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 void main() {
   runApp(const MainMenu());
@@ -131,7 +132,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 40,
+        toolbarHeight: 40.h,
         leading: Builder(
           builder: (BuildContext context) => IconButton(
             icon: const Icon(Icons.menu),
