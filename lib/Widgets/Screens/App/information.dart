@@ -41,9 +41,10 @@ class _InformationScreenState extends State<InformationScreen> {
   String? hasCar;
   String? imageUrl;
   String? hasMotor;
-  String? commentType;
+  late String commentType;
   String? located;
   var id;
+  int totalRatings = 0;
   int ratings = 0;
   String? availability;
   String? price;
@@ -87,6 +88,27 @@ class _InformationScreenState extends State<InformationScreen> {
         description = "Error fetching data";
       });
       print('Error in fetchSpecificData: $e');
+    }
+  }
+
+  Future<void> commentInserttion() async {
+    rating.postComment(
+      _commentController.text.trim(),
+      ratings,
+      commentType = "places",
+      '$text',
+    );
+  }
+
+  Future<void> fetchRatings() async {
+    if (widget.name == null) {
+      print('widget.name is null');
+      return;
+    }
+
+    final data = await rating.fetchComments(text!);
+    for (var i = 1; i < data.length; i++) {
+      print(data[i]);
     }
   }
 
@@ -675,16 +697,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                   ElevatedButton(
                                                                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                                                                       onPressed: () {
-                                                                                        rating.postComment(
-                                                                                          _commentController.text.trim(),
-                                                                                          ratings,
-                                                                                          commentType = "places",
-                                                                                          '$text',
-                                                                                        );
-                                                                                        rating.fetchComments(
-                                                                                          commentType!,
-                                                                                          commentType = "places",
-                                                                                        );
+                                                                                        commentInserttion();
                                                                                         _commentController.clear();
                                                                                         Navigator.pop(context);
                                                                                       },
@@ -950,12 +963,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   backgroundColor: Colors.blue,
                                                 ),
                                                 oppressed: () {
-                                                  HotelBooking()
-                                                      .passtheData(widget.text);
-                                                  AppRoutes
-                                                      .navigateToBookingArea(
-                                                          context,
-                                                          id: widget.text);
+                                                  fetchRatings();
                                                 }),
                                           )
                                         ],

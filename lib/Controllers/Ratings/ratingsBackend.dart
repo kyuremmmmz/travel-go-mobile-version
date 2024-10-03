@@ -22,14 +22,10 @@ class RatingsAndComments {
 
   Future<List<Map<String, dynamic>>> fetchComments(
     String commentType,
-    String placeComment,
   ) async {
-    final user = supabase.auth.currentUser;
     final response = await supabase
         .from("ratings_and_comments")
-        .select("*")
-        .eq("comment_type", commentType)
-        .eq("placeComment", placeComment);
+        .select("*").eq('placeComment', commentType);
     if (response.isEmpty) {
       return [];
     } else {
@@ -39,19 +35,9 @@ class RatingsAndComments {
       for (var datas in map) {
         final comments = datas['comment'];
         final ratings = datas['rating'];
-        final commentId = datas['comment_id'];
-
-        final users = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', commentId)
-            .single();
-        if (users.isNotEmpty) {
-          final pfp = datas['profiles']['full_name'];
-          datas['full_name'] = pfp;
-        }//IGONORE THIS ONE PUTANGINA KASI NETO
         datas['comment'] = comments;
         datas['rating'] = ratings;
+        print(ratings);
       }
       return data;
     }

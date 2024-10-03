@@ -175,7 +175,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  InformationScreen(text: id)));
+                                                  InformationScreen(text: id, name: place['place_name'],)));
                                     });
                               }).toList()),
                           CategorySelect(
