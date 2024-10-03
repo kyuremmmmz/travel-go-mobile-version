@@ -4,6 +4,7 @@ import 'package:itransit/Widgets/Textfield/passwordField.dart';
 import 'package:itransit/Widgets/Textfield/number.dart';
 import 'package:itransit/Widgets/Textfield/plainTextField.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -31,25 +32,31 @@ class _ResetPasswordState extends State<ResetPassword> {
       body: Stack(
         children: [
           Positioned(
-              right: 80,
+              right: 80.w,
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 150,
+                  SizedBox(
+                    height: 350.h,
+                    width: -560.w,
                   ),
                   Container(
                     padding: null,
-                    child: const Text(
+                    child: Text(
                       'Create New Password',
                       style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 30.sp, 
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                   Container(
                     padding: null,
-                    child: const Text(
+                    child: Text(
+                        'Your new password must be different from \nprevious used passwords.', 
                         textAlign: TextAlign.justify,
-                        'Your new password must be different from \nprevious used passwords.'),
+                            style: TextStyle(
+                                fontSize: 16.0.sp,)
+                        
+                        ),
                   )
                 ],
               )),
