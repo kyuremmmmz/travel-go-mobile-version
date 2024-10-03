@@ -676,7 +676,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                       child: const Text(
                                                                                         'Post',
                                                                                         style: TextStyle(color: Colors.black),
-                                                                                      )),
+                                                                                      )
+                                                                                    ),
                                                                                 ],
                                                                               )
                                                                             ],
