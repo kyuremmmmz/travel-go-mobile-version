@@ -62,7 +62,7 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
                       Text(
                         textAlign: TextAlign.center,
                         'We have sent a password recover \nInstructions to your email.',
-                        style: TextStyle(fontSize: 17.sp, 
+                        style: TextStyle(fontSize: 16.sp, 
                         fontWeight: FontWeight.w400,
                         color: Colors.black),
                       ),
@@ -70,8 +70,8 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
                         height: 25.h // the space between the caption and next
                       ),
                       Container(
-                        height: 45.h,
-                        width: 180.w, // Set your desired width here
+                        height: 35.h,
+                        width: 160.w, // Set your desired width here
                       child:  BlueButtonWithoutFunction(
                         text: Text(
                           'Next',
