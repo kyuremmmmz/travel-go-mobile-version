@@ -5,6 +5,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/Ratings/ratingsBackend.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
@@ -40,6 +41,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? hasCar;
   String? imageUrl;
   String? hasMotor;
+  String? commentType;
   String? located;
   var id;
   int ratings = 0;
@@ -47,6 +49,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? price;
   final data = Data();
   late Usersss users = Usersss();
+  late RatingsAndComments rating = RatingsAndComments();
 
   @override
   void initState() {
@@ -112,8 +115,6 @@ class _InformationScreenState extends State<InformationScreen> {
       });
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -674,7 +675,12 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                   ElevatedButton(
                                                                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                                                                       onPressed: () {
-                                                                                        print('hahahaha inserted');
+                                                                                        rating.postComment(
+                                                                                          _commentController.text.trim(),
+                                                                                          ratings,
+                                                                                          commentType = "places",
+                                                                                          '$text',
+                                                                                        );
                                                                                       },
                                                                                       child: const Text(
                                                                                         'Post',
