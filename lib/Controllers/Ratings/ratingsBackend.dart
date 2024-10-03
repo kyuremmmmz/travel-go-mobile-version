@@ -17,4 +17,14 @@ class RatingsAndComments {
       return null;
     }
   }
+
+  Future<List<Map<String, dynamic>>?> fetchComments(
+      String commentType, String placeComment) async {
+    final user = supabase.auth.currentUser!.id;
+    final response = supabase
+        .from("ratings_and_comments")
+        .select("*")
+        .eq("comment_type", commentType)
+        .eq("placeComment", placeComment);
+  }
 }
