@@ -953,17 +953,19 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 const EdgeInsets.only(left: 50),
                                             child: BlueButtonWithoutFunction(
                                                 text: const Text(
-                                                  'Book Now',
+                                                  'See Tickets',
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
                                                 ),
-                                                oppressed: () {}),
+                                                oppressed: () {
+
+                                                }),
                                           )
                                         ],
                                       )
