@@ -25,7 +25,8 @@ class RatingsAndComments {
   ) async {
     final response = await supabase
         .from("ratings_and_comments")
-        .select("*").eq('placeComment', commentType);
+        .select("*")
+        .eq('placeComment', commentType);
     if (response.isEmpty) {
       return [];
     } else {
@@ -41,5 +42,13 @@ class RatingsAndComments {
       }
       return data;
     }
+  }
+
+  Future<int> fetchRatingsAsSum() async {
+    final response = await supabase.rpc('getsum');
+    if (response != null) {
+      return response;
+    }
+    return 0;
   }
 }

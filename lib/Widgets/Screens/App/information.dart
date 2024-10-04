@@ -41,6 +41,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? hasCar;
   String? imageUrl;
   String? hasMotor;
+  double ratingsTotal = 0.0;
   late String commentType;
   String? located;
   var id;
@@ -57,6 +58,7 @@ class _InformationScreenState extends State<InformationScreen> {
     super.initState();
     emailFetching();
     fetchSpecificData(widget.text);
+    fetchRatings();
   }
 
   Future<void> _isRedirecting() async {
@@ -101,15 +103,13 @@ class _InformationScreenState extends State<InformationScreen> {
   }
 
   Future<void> fetchRatings() async {
-    if (widget.name == null) {
-      print('widget.name is null');
-      return;
-    }
-
     final data = await rating.fetchComments(text!);
-    for (var i = 1; i < data.length; i++) {
-      print(data[i]);
-    }
+    final records = data.length;
+    final totalOfRatings = await rating.fetchRatingsAsSum();
+    final getTheTotal = records / totalOfRatings;
+    setState(() {
+      ratingsTotal = getTheTotal;
+    });
   }
 
   @override
@@ -704,12 +704,14 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                       child: const Text(
                                                                                         'Post',
                                                                                         style: TextStyle(color: Colors.black),
-                                                                                      )),
+                                                                                      )
+                                                                                  ),
                                                                                 ],
                                                                               )
                                                                             ],
                                                                           ),
-                                                                        ));
+                                                                        )
+                                                                    );
                                                                   },
                                                                 );
                                                               },
