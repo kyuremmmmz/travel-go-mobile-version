@@ -5,6 +5,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/Ratings/ratingsBackend.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
@@ -40,13 +41,16 @@ class _InformationScreenState extends State<InformationScreen> {
   String? hasCar;
   String? imageUrl;
   String? hasMotor;
+  late String commentType;
   String? located;
   var id;
+  int totalRatings = 0;
   int ratings = 0;
   String? availability;
   String? price;
   final data = Data();
   late Usersss users = Usersss();
+  late RatingsAndComments rating = RatingsAndComments();
 
   @override
   void initState() {
@@ -87,6 +91,27 @@ class _InformationScreenState extends State<InformationScreen> {
     }
   }
 
+  Future<void> commentInserttion() async {
+    rating.postComment(
+      _commentController.text.trim(),
+      ratings,
+      commentType = "places",
+      '$text',
+    );
+  }
+
+  Future<void> fetchRatings() async {
+    if (widget.name == null) {
+      print('widget.name is null');
+      return;
+    }
+
+    final data = await rating.fetchComments(text!);
+    for (var i = 1; i < data.length; i++) {
+      print(data[i]);
+    }
+  }
+
   @override
   void dispose() {
     _searchController.dispose();
@@ -112,8 +137,6 @@ class _InformationScreenState extends State<InformationScreen> {
       });
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -674,7 +697,9 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                   ElevatedButton(
                                                                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                                                                       onPressed: () {
-                                                                                        print('hahahaha inserted');
+                                                                                        commentInserttion();
+                                                                                        _commentController.clear();
+                                                                                        Navigator.pop(context);
                                                                                       },
                                                                                       child: const Text(
                                                                                         'Post',
@@ -938,12 +963,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   backgroundColor: Colors.blue,
                                                 ),
                                                 oppressed: () {
-                                                  HotelBooking()
-                                                      .passtheData(widget.text);
-                                                  AppRoutes
-                                                      .navigateToBookingArea(
-                                                          context,
-                                                          id: widget.text);
+                                                  fetchRatings();
                                                 }),
                                           )
                                         ],
