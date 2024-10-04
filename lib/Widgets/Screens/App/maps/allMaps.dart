@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:itransit/Controllers/NetworkImages/hotel_images.dart';
@@ -21,7 +20,7 @@ class Map extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Map'),
+        title: Text('Map'),
       ),
       body: MapPage(location: location, id: id),
     );
@@ -46,12 +45,11 @@ class _MapPageState extends State<MapPage> {
   final end = TextEditingController();
   List<LatLng> routePoints = [const LatLng(15.91667, 120.33333)];
   String? placeName;
-  // ignore: prefer_typing_uninitialized_variables
   var price;
   List<Marker> markers = [];
 
   late HotelImages images = HotelImages();
- Future<void> func() async {
+  Future<void> func() async {
     try {
       List<Location> startR = await locationFromAddress(start.text.trim());
       List<Location> endR = await locationFromAddress('${widget.location}');
@@ -80,16 +78,15 @@ class _MapPageState extends State<MapPage> {
             }
           });
         } else {
-          debugPrint('No routes found.');
+          print('No routes found.');
         }
       } else {
-        debugPrint('Error: ${response.statusCode}');
+        print('Error: ${response.statusCode}');
       }
     } catch (e) {
-      debugPrint('Exception occurred: $e');
+      print('Exception occurred: $e');
     }
   }
-
 
   Future<void> places(int id) async {
     final data = await images.fetchDataInSingle(id);
@@ -138,64 +135,57 @@ class _MapPageState extends State<MapPage> {
                             showModalBottomSheet(
                                 context: context,
                                 builder: (context) {
-                                  return Column(
-                                    children: [
-                                      Container(
-                                        padding: null,
-                                        width: double.infinity,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Text(
-                                            hotelName,
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
+                                  return Column(children: [
+                                    Container(
+                                      padding: null,
+                                      width: double.infinity,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Text(
+                                          hotelName,
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      Container(
-                                        padding: null,
-                                        width: double.infinity,
-                                        child: Container(
-                                          padding: const EdgeInsets.only(
-                                            left: 50
-                                          ),
-                                          child: const Text(
-                                            'Description',
-                                            style: TextStyle(
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Container(
+                                      padding: null,
+                                      width: double.infinity,
+                                      child: Container(
+                                        padding:
+                                            const EdgeInsets.only(left: 50),
+                                        child: const Text(
+                                          'Description',
+                                          style: TextStyle(
                                               fontSize: 16,
                                               color: Colors.black,
-                                              fontWeight: FontWeight.bold
-                                            ),
-                                          ),
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      Container(
-                                        padding: null,
-                                        width: double.infinity,
-                                        child: Container(
-                                          padding: const EdgeInsets.only(
-                                            left: 50
-                                          ),
-                                          child:  Text(
-                                            des,
-                                            style: const TextStyle(
+                                    ),
+                                    Container(
+                                      padding: null,
+                                      width: double.infinity,
+                                      child: Container(
+                                        padding:
+                                            const EdgeInsets.only(left: 50),
+                                        child: Text(
+                                          des,
+                                          style: const TextStyle(
                                               fontSize: 16,
                                               color: Colors.black,
-                                              fontWeight: FontWeight.bold
-                                            ),
-                                          ),
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                    ]
-                                  );
-                                }
-                              );
+                                    ),
+                                  ]);
+                                });
                           },
                           child: Text(
                             '₱$finalPrice',
@@ -219,7 +209,7 @@ class _MapPageState extends State<MapPage> {
         });
       }
     } catch (error) {
-      debugPrint('Error fetching hotels: $error');
+      print('Error fetching hotels: $error');
     }
   }
 

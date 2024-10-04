@@ -12,7 +12,7 @@ class HotelBooking {
         .eq('id', id)
         .single();
     if (response.isEmpty) {
-      print('no data found');
+      debugPrint('no data found');
       return null;
     } else {
       final data = response;
@@ -22,8 +22,8 @@ class HotelBooking {
       final formatPrice = priceQ.format(price);
       data['place_name'] = place;
       data['price'] = formatPrice;
-      print(price);
-      print(place);
+      debugPrint(price);
+      debugPrint(place);
       return data;
     }
   }
@@ -36,7 +36,7 @@ class HotelBooking {
         .single();
     try {
       if (response.isEmpty) {
-        print('no data found');
+        debugPrint('no data found');
         return null;
       } else {
         final data = response;

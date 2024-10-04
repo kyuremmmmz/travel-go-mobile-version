@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Beach {
@@ -14,16 +15,16 @@ class Beach {
         List<Map<String, dynamic>> result =
             List<Map<String, dynamic>>.from(data as List);
         for (var datas in result) {
-          var name = datas['img'];
-          var imgUrl = datas['imgUrl'];
+          var name = datas['beach_name'];
+          var imgUrl = datas['image'];
           var imgFinal = await getter(imgUrl);
-          datas['imgUrl'] = imgFinal;
-          datas['img'] = name;
+          datas['image'] = imgFinal;
+          datas['beach_name'] = name;
         }
         return data;
       }
     } catch (e) {
-      print(e);
+      debugPrint("$e");
       return [];
     }
   }

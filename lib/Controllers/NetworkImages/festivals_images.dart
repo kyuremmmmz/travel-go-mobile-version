@@ -31,7 +31,10 @@ class Festivalslist {
     return res;
   }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2c60857ac80e5d7aabb0027883333f7b6c4dcdb4
   Future<PostgrestMap?> getSpecificData(int id) async {
 
   }

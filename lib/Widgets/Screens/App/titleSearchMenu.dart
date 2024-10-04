@@ -40,7 +40,6 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
         const SizedBox(
           height: 30,
         ),
-        const SizedBox(height: 30),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: TypeAheadField(

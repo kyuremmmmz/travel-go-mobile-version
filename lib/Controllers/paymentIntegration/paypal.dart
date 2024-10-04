@@ -65,7 +65,7 @@ class Paypal {
               'paymet_status': 'paid',
             }).eq('phone', phone);
 
-            print("onSuccess: $params");
+            debugPrint("onSuccess: $params");
             final user = supabase.auth.currentUser;
             final timestamp = getter();
             await supabase.from('payment_table').insert({
@@ -81,11 +81,11 @@ class Paypal {
             
           },
           onError: (error) {
-            print("onError: $error");
+            debugPrint("onError: $error");
             Navigator.pop(context, 'payment_error');
           },
           onCancel: (params) {
-            print('cancelled: $params');
+            debugPrint('cancelled: $params');
             Navigator.pop(context, 'payment_cancelled');
           },
         ),

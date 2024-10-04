@@ -154,8 +154,8 @@ class AppRoutes {
   }
 
   static void navigateToAccountSettings(BuildContext route) {
-    Navigator.push(
-        route, MaterialPageRoute(builder: (context) =>  AccountSettingsScreen()));
+    Navigator.push(route,
+        MaterialPageRoute(builder: (context) => AccountSettingsScreen()));
   }
 
   static void navigateToHotelBookingScreen(BuildContext route,

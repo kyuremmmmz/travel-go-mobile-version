@@ -1,19 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 
 // ignore: must_be_immutable
-class FoodAreaAbout extends StatelessWidget {
+class BeachInfo extends StatelessWidget {
   String? name;
   int id;
-  FoodAreaAbout({
+  BeachInfo({
     super.key,
     this.name,
     required this.id,
@@ -58,6 +56,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
   String? located;
   String? foodName;
   String? price;
+  // ignore: prefer_typing_uninitialized_variables
   var id;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
@@ -91,8 +90,10 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
     setState(() {
       place = datas.map(
         (place) {
-          if (place['img'] != null && place['img'].toString().length > 50) {
-            place['img'] = place['img'].toString().substring(0, 50);
+          if (place['beach_name'] != null &&
+              place['beach_name'].toString().length > 50) {
+            place['beach_name'] =
+                place['beach_name'].toString().substring(0, 50);
           }
           return place;
         },
@@ -111,11 +112,11 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
       } else {
         setState(() {
           description = dataList['description'];
-          foodName = dataList['img'];
-          imageUrl = dataList['imgUrl'].toString();
+          foodName = dataList['beach_name'];
+          imageUrl = dataList['image'].toString();
           id = dataList['id'];
-          located = dataList['located'];
-          price = dataList['price'];
+          located = dataList['beach_located'];
+          price = dataList['beach_price'];
           for (var i = 1; i <= 20; i++) {
             final key = 'dine$i';
             final keyUrl = 'dineUrl$i';
@@ -124,7 +125,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
             if (value != null) {
               amenities[key] = value;
               imageUrlForAmenities[key] = imageUrlValue;
-              print(imageUrlForAmenities);
+              debugPrint("$imageUrlForAmenities");
             }
           }
         });
@@ -133,7 +134,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
       setState(() {
         description = "Error fetching data";
       });
-      print('Error in fetchSpecificData: $e');
+      debugPrint('Error in fetchSpecificData: $e');
     }
   }
 
@@ -191,74 +192,11 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
               } else {
                 return Stack(
                   children: [
-                    Positioned(
+                    const Positioned(
                       child: Column(
                         children: <Widget>[
-                          Text(
-                            'TRAVEL GO',
-                            style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
-                              shadows: [
-                                Shadow(
-                                  offset: const Offset(3.0, 3.0),
-                                  blurRadius: 4.0,
-                                  color: Colors.black.withOpacity(0.5),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Text(
-                            "Northwestern part of Luzon Island, Philippines",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          const SizedBox(height: 30),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: TypeAheadField(
-                              textFieldConfiguration: TextFieldConfiguration(
-                                controller: _searchController,
-                                decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 0, horizontal: 10),
-                                  hintStyle: TextStyle(color: Colors.black54),
-                                  hintText: 'Search Destination',
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    borderSide:
-                                        BorderSide(color: Colors.black54),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black54),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                ),
-                              ),
-                              suggestionsCallback: (pattern) async {
-                                return await Searchcontroller()
-                                    .fetchSuggestions(pattern);
-                              },
-                              itemBuilder: (context, dynamic suggestion) {
-                                return ListTile(
-                                  title:
-                                      Text(suggestion['title'] ?? 'No title'),
-                                  subtitle: Text(
-                                      suggestion['address'] ?? 'No address'),
-                                );
-                              },
-                              onSuggestionSelected: (dynamic suggestion) {
-                                _searchController.text =
-                                    suggestion['title'] ?? 'No title';
-                                FocusScope.of(context).unfocus();
-                              },
-                            ),
-                          ),
+                          TitleSearchMenu(),
+                          SizedBox(height: 30),
                         ],
                       ),
                     ),
@@ -376,6 +314,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                                               height: 20,
                                             ),
                                             Container(
+                                              padding: null,
                                               child: Stack(
                                                 children: [
                                                   Container(

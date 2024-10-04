@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/NetworkImages/beach.dart';
 import 'package:itransit/Controllers/NetworkImages/food_area.dart';
@@ -7,6 +8,14 @@ import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
+=======
+import 'package:itransit/Controllers/NetworkImages/beach_images.dart';
+import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
+import 'package:itransit/Widgets/Screens/App/beachInfo.dart';
+import 'package:itransit/Widgets/Screens/App/categories.dart';
+import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
+>>>>>>> 2c60857ac80e5d7aabb0027883333f7b6c4dcdb4
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Beaches extends StatefulWidget {
@@ -25,7 +34,11 @@ class _BeachesState extends State<Beaches> {
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
+<<<<<<< HEAD
   late Beach images = Beach();
+=======
+  late BeachImages images = BeachImages();
+>>>>>>> 2c60857ac80e5d7aabb0027883333f7b6c4dcdb4
   List<Map<String, dynamic>> data = [];
 
   Future<void> redirecting() async {
@@ -33,7 +46,11 @@ class _BeachesState extends State<Beaches> {
   }
 
   Future<void> places() async {
+<<<<<<< HEAD
     final datas = await images.beachesList();
+=======
+    final datas = await images.fetchBeaches();
+>>>>>>> 2c60857ac80e5d7aabb0027883333f7b6c4dcdb4
     setState(() {
       data = datas;
     });
@@ -229,7 +246,11 @@ class _BeachesState extends State<Beaches> {
                                   Container(
                                     padding: const EdgeInsets.only(right: 220),
                                     child: const Text(
+<<<<<<< HEAD
                                       'Festivals & Events',
+=======
+                                      'Well-Known Beaches',
+>>>>>>> 2c60857ac80e5d7aabb0027883333f7b6c4dcdb4
                                       style: TextStyle(
                                         fontSize: 19,
                                         fontWeight: FontWeight.bold,
@@ -242,14 +263,15 @@ class _BeachesState extends State<Beaches> {
                                   ),
                                   Column(
                                     children: data.map((place) {
-                                      final imageUrl = place['imgUrl'];
-                                      final text = place['img'] ?? 'Unknown';
+                                      final imageUrl = place['image'];
+                                      final text =
+                                          place['beach_name'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(
                                             onTap: () async {
                                               final placeData =
-                                                  await FoodAreaBackEnd()
+                                                  await BeachImages()
                                                       .getSpecificData(
                                                           place['id']);
                                               if (placeData != null) {
@@ -258,7 +280,7 @@ class _BeachesState extends State<Beaches> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          FoodAreaAboutScreen(
+                                                          BeachInfo(
                                                             id: place['id'],
                                                           )),
                                                 );

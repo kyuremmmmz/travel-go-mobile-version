@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:itransit/Controllers/NetworkImages/festivalsList.dart';
 import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
@@ -6,6 +7,13 @@ import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+=======
+import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
+import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Routes/Routes.dart';
+import 'package:itransit/Widgets/Screens/App/categories.dart';
+import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
+>>>>>>> 2c60857ac80e5d7aabb0027883333f7b6c4dcdb4
 import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -309,7 +317,7 @@ class _FestivalState extends State<Festival> {
                                           GestureDetector(
                                             onTap: () async {
                                               final placeData =
-                                                  await Festivalslist()
+                                                  await FestivalsImages()
                                                       .getSpecificData(
                                                           place['id']);
                                               if (placeData != null) {

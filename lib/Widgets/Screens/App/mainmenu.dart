@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+=======
+import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
+>>>>>>> 2c60857ac80e5d7aabb0027883333f7b6c4dcdb4
 import 'package:itransit/Controllers/NetworkImages/food_area.dart';
+import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/SearchController/searchController.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
+<<<<<<< HEAD
 import 'package:itransit/Widgets/Screens/App/beachList.dart';
+=======
+import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart';
+import 'package:itransit/Widgets/Screens/App/categories.dart';
+>>>>>>> 2c60857ac80e5d7aabb0027883333f7b6c4dcdb4
 import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:itransit/Widgets/Screens/App/information.dart';
 import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 
 void main() {
   runApp(const MainMenu());
@@ -50,7 +59,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   final data = Data();
   late FoodAreaBackEnd images = FoodAreaBackEnd();
   List<Map<String, dynamic>> datass = [];
-
+  late FestivalsImages festivals = FestivalsImages();
+  List<Map<String, dynamic>> dataOfFestivals = [];
   Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
@@ -103,12 +113,31 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     }
   }
 
+  Future<List<Map<String, dynamic>>?> fetchFestivals(
+      BuildContext context) async {
+    final datas = await festivals.fetchFestivals();
+    if (datas.isEmpty) {
+      return [];
+    } else {
+      setState(() {
+        dataOfFestivals = datas.map((foods) {
+          if (foods['img'] != null && foods['img'].toString().length > 18) {
+            foods['img'] = foods['img'].toString().substring(0, 18);
+          }
+          return foods;
+        }).toList();
+      });
+      return null;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     emailFetching();
     fetchImage();
     fetchFoods(context);
+    fetchFestivals(context);
   }
 
   @override
@@ -208,6 +237,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                       child: Column(
                         children: <Widget>[
                           const DismissableFindMoreLocation(),
+<<<<<<< HEAD
                           CategorySelect(
                             label: "Categories",
                             oppressed: () => print('Categories clicked'),
@@ -264,6 +294,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                               ),
                             ],
                           ),
+=======
+                          const Categories(),
+>>>>>>> 2c60857ac80e5d7aabb0027883333f7b6c4dcdb4
                           CategorySelect(
                             label: "Popular Places",
                             oppressed: () =>
@@ -281,7 +314,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  InformationScreen(text: id)));
+                                                  InformationScreen(text: id, name: place['place_name'],)));
                                     });
                               }).toList()),
                           CategorySelect(
@@ -312,25 +345,21 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                         const FestivalsStateless())),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Event clicked'),
-                              ),
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Event clicked'),
-                              ),
-                              PlaceButtonSquare(
-                                place: 'Hundred Island',
-                                image: Image.asset(hundredIsland).image,
-                                oppressed: () => print('Event clicked'),
-                              ),
-                            ],
-                          ),
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: dataOfFestivals.map((value) {
+                                final id = value['id'];
+                                return PlaceButtonSquare(
+                                    place: value['img'],
+                                    image: Image.network(value['imgUrl']).image,
+                                    oppressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FestivalsAboutScreen(
+                                                      id: id)));
+                                    });
+                              }).toList()),
                         ],
                       ),
                     ),
