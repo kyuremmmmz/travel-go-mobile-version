@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
 import 'package:itransit/Controllers/NetworkImages/food_area.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart'; // Importing a controller for handling images from Supabase API.
+import 'package:itransit/Controllers/Profiles/ProfileController.dart'; // Importing a controller for user profiles.
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
@@ -235,6 +235,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     );
   }
 }
+
+// THIS END OF THE BACKEND (DART)
 
 class DismissableFindMoreLocation extends StatefulWidget {
   const DismissableFindMoreLocation({super.key});
