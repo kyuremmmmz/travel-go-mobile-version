@@ -40,6 +40,8 @@ class _InformationScreenState extends State<InformationScreen> {
   String? text;
   String? hasCar;
   String? imageUrl;
+  String? comments;
+  String? userRatings;
   String? hasMotor;
   double ratingsTotal = 0.0;
   late String commentType;
@@ -104,12 +106,19 @@ class _InformationScreenState extends State<InformationScreen> {
 
   Future<void> fetchRatings() async {
     final data = await rating.fetchComments(text!);
-    final records = data.length;
-    final totalOfRatings = await rating.fetchRatingsAsSum();
-    final getTheTotal = records / totalOfRatings;
-    setState(() {
-      ratingsTotal = getTheTotal;
-    });
+    if (data.isEmpty) {
+      setState(() {
+        comments = "No comments yet";
+      });
+    }else{
+       final records = data.length;
+      final totalOfRatings = await rating.fetchRatingsAsSum();
+      final getTheTotal = records / totalOfRatings;
+      setState(() {
+        ratingsTotal = getTheTotal;
+        userRatings = ;
+      });
+    }
   }
 
   @override
@@ -704,14 +713,12 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                       child: const Text(
                                                                                         'Post',
                                                                                         style: TextStyle(color: Colors.black),
-                                                                                      )
-                                                                                  ),
+                                                                                      )),
                                                                                 ],
                                                                               )
                                                                             ],
                                                                           ),
-                                                                        )
-                                                                    );
+                                                                        ));
                                                                   },
                                                                 );
                                                               },
