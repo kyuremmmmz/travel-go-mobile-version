@@ -149,12 +149,12 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             child: Column(
               children: <Widget>[
                 const TitleSearchMenu(),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 Expanded(
                   child: Scrollbar(
                     thumbVisibility: true,
                     child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      padding: EdgeInsets.symmetric(horizontal: 25.h),
                       child: Column(
                         children: <Widget>[
                           const DismissableFindMoreLocation(),
@@ -255,10 +255,10 @@ class _DismissableFindMoreLocationState
     return _isVisible
         ? Center(
             child: Container(
-              height: 180,
-              width: 380,
+              height: 200.h,
+              width: 390.w,
               decoration: const BoxDecoration(
-                color: Colors.blue,
+                color: Color(0xFF2196F3),
                 borderRadius: BorderRadius.all(Radius.circular(30)),
               ),
               child: Column(
