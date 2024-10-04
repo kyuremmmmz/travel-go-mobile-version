@@ -4,7 +4,7 @@ class RatingsAndComments {
   final supabase = Supabase.instance.client;
 
   Future<PostgrestResponse<dynamic>?> postComment(String comments, int ratings,
-      String commentType, String placeComment) async {
+      String commentType, String placeComment, int id) async {
     try {
       final user = supabase.auth.currentUser;
       final response = await supabase.from("ratings_and_comments").insert({
@@ -12,7 +12,8 @@ class RatingsAndComments {
         "comment_type": commentType,
         "rating": ratings,
         "placeComment": placeComment,
-        "comment_id": user!.id
+        "comment_id": user!.id,
+        "comment_id_places" : id
       });
       return response;
     } catch (e) {
@@ -21,12 +22,12 @@ class RatingsAndComments {
   }
 
   Future<List<Map<String, dynamic>>> fetchComments(
-    String commentType,
+    int commentType,
   ) async {
     final response = await supabase
         .from("ratings_and_comments")
         .select("*")
-        .eq('placeComment', commentType);
+        .eq('comment_id_places', commentType);
     if (response.isEmpty) {
       return [];
     } else {
@@ -38,7 +39,6 @@ class RatingsAndComments {
         final ratings = datas['rating'];
         datas['comment'] = comments;
         datas['rating'] = ratings;
-        print(ratings);
       }
       return data;
     }

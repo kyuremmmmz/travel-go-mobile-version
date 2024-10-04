@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/Ratings/ratingsBackend.dart';
@@ -41,7 +40,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? hasCar;
   String? imageUrl;
   String? comments;
-  String? userRatings;
+  int userRatings = 0;
   String? hasMotor;
   double ratingsTotal = 0.0;
   late String commentType;
@@ -52,6 +51,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? availability;
   String? price;
   final data = Data();
+  List<Map<String, dynamic>> list = [];
   late Usersss users = Usersss();
   late RatingsAndComments rating = RatingsAndComments();
 
@@ -60,7 +60,7 @@ class _InformationScreenState extends State<InformationScreen> {
     super.initState();
     emailFetching();
     fetchSpecificData(widget.text);
-    fetchRatings();
+    fetchRatings(widget.text);
   }
 
   Future<void> _isRedirecting() async {
@@ -96,29 +96,20 @@ class _InformationScreenState extends State<InformationScreen> {
   }
 
   Future<void> commentInserttion() async {
-    rating.postComment(
-      _commentController.text.trim(),
-      ratings,
-      commentType = "places",
-      '$text',
-    );
+    rating.postComment(_commentController.text.trim(), ratings,
+        commentType = "places", '$text', widget.text);
   }
 
-  Future<void> fetchRatings() async {
-    final data = await rating.fetchComments(text!);
-    if (data.isEmpty) {
-      setState(() {
-        comments = "No comments yet";
-      });
-    }else{
-       final records = data.length;
-      final totalOfRatings = await rating.fetchRatingsAsSum();
-      final getTheTotal = records / totalOfRatings;
-      setState(() {
-        ratingsTotal = getTheTotal;
-        userRatings = ;
-      });
-    }
+  Future<void> fetchRatings(int id) async {
+    final data = await rating.fetchComments(id);
+    final totalRatings = await rating.fetchRatingsAsSum();
+    final records = data.length;
+    final count = totalRatings / records;
+    setState(() {
+      list = data;
+      ratingsTotal = count;
+      userRatings = records;
+    });
   }
 
   @override
@@ -524,21 +515,21 @@ class _InformationScreenState extends State<InformationScreen> {
                                             Container(
                                                 padding: const EdgeInsets.only(
                                                     left: 35),
-                                                child: const Row(
+                                                child: Row(
                                                   children: [
                                                     Text(
-                                                      '4.9/5',
-                                                      style: TextStyle(
+                                                      '$totalRatings/5',
+                                                      style: const TextStyle(
                                                           color: Color.fromARGB(
                                                               255, 49, 49, 49),
                                                           fontSize: 20,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 5,
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                       'OUT OF 5',
                                                       style: TextStyle(
                                                           color: Color.fromARGB(
@@ -585,9 +576,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                 .only(
                                                                 left: 20,
                                                                 top: 15),
-                                                        child: const Text(
-                                                          '2 Comments',
-                                                          style: TextStyle(
+                                                        child: Text(
+                                                          '$userRatings Comments',
+                                                          style:
+                                                              const TextStyle(
                                                             fontSize: 20,
                                                             color:
                                                                 Color.fromARGB(
@@ -971,9 +963,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
                                                 ),
-                                                oppressed: () {
-                                                  fetchRatings();
-                                                }),
+                                                oppressed: () {}),
                                           )
                                         ],
                                       )
