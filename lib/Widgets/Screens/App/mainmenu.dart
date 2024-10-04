@@ -176,7 +176,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  InformationScreen(text: id, name: place['place_name'],)));
+                                                  InformationScreen(text: id)));
                                     });
                               }).toList()),
                           CategorySelect(
@@ -247,8 +247,8 @@ class DismissableFindMoreLocation extends StatefulWidget {
 class _DismissableFindMoreLocationState
     extends State<DismissableFindMoreLocation> {
   bool _isVisible = true;
-  final String xButtonIcon = "assets/images/icon/ButtonX.png";
-  final String adventureIcon = "assets/images/icon/adventure.png";
+  final String xButtonIcon = "assets/images/icon/ButtonX.png"; // exit button 
+  final String adventureIcon = "assets/images/icon/adventure.png"; // the icon of blue-pop
 
   @override
   Widget build(BuildContext context) {
@@ -270,62 +270,77 @@ class _DismissableFindMoreLocationState
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                '  Find more location\n  around you',
-                                style: TextStyle(
-                                    fontSize: 25, color: Colors.white),
+                          children:[
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    width: 200.w,
+                                     margin: EdgeInsets.only(left: 16.0.h, right: 16.0.h, top: 40.0.h), // Add left and right margin
+                                      child: Text(
+                                        '  Find more location\n  around you',
+                                          style: TextStyle(
+                                          fontSize: 21.sp,  // Assuming .sp is handled correctly in your project
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,  
+                                 ),
+                                ),
                               ),
                             ),
-                            const Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Text(
-                                '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    width: 500.w,
+                                     margin: EdgeInsets.only(left: 16.0.h, right: 16.0.h, top: 5.0.h), // Add left and right margin
+                                  child: Text(
+                                    '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
+                                      style: TextStyle(
+                                        fontSize: 8.sp,  // Assuming .sp is handled correctly in your project
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w200,  
+                                 ),
+                                ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 20,
+                            SizedBox(
+                              height: 20.h,
                             ),
                             Align(
                               alignment: Alignment.bottomLeft,
                               child: GestureDetector(
-                                onTap: () =>
-                                    AppRoutes.navigateToExploreNowScreen(
-                                        context),
-                                child: Stack(
-                                  children: [
-                                    const Text(
-                                      '    Explore now',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        decoration: TextDecoration
-                                            .none, // Disable the default underline
+                                onTap: () => AppRoutes.navigateToExploreNowScreen(context),
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 27.0.h , right: 16.0.h), // u know the margin my fav
+                                  child: Stack(
+                                    clipBehavior: Clip.none, // this prevents clipping of positioned children outside the stack
+                                    children: [
+                                      Text(
+                                        'Explore now',
+                                        style: TextStyle(
+                                          fontSize: 12.sp, 
+                                          color: Colors.white,
+                                          decoration: TextDecoration.none, // no default underline
+                                        )
                                       ),
-                                    ),
-                                    Positioned(
-                                      bottom: 0,
-                                      left: 10,
-                                      right: 0,
-                                      child: Container(
-                                        height: 2,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
+                                      Positioned(
+                                        bottom: -2, // the position for the underlune 
+                                        left: 0, 
+                                        right: 0,
+                                        child: Container(
+                                          height: 2, // the thickness of the underline 
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             )
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 180,
-                        width: 100,
+                      SizedBox( // setup position blue x button 
+                        height: 180.h,
+                        width: 100.h,
                         child: Column(
                           children: [
                             Align(
@@ -333,9 +348,9 @@ class _DismissableFindMoreLocationState
                               child: IconButton(
                                 iconSize: 20,
                                 icon: SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: Image.asset(xButtonIcon),
+                                  height: 20.h,
+                                  width: 20.w,
+                                  child: Image.asset(xButtonIcon), 
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -344,11 +359,13 @@ class _DismissableFindMoreLocationState
                                 },
                               ),
                             ),
-                            SizedBox(
-                              height: 80,
-                              width: 80,
-                              child: Image.asset(adventureIcon),
-                            ),
+                          Padding(padding: EdgeInsets.only(right: 20.0.h, top: 20.0.w),
+                          child: SizedBox(
+                            height: 100.h,
+                            width: 80.w,
+                            child: Image.asset(adventureIcon),
+                          ),
+                          )
                           ],
                         ),
                       ),
