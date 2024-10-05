@@ -518,7 +518,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 child: Row(
                                                   children: [
                                                     Text(
-                                                      '$totalRatings/5',
+                                                      '$ratingsTotal/5',
                                                       style: const TextStyle(
                                                           color: Color.fromARGB(
                                                               255, 49, 49, 49),
@@ -543,16 +543,31 @@ class _InformationScreenState extends State<InformationScreen> {
                                             const SizedBox(
                                               width: 80,
                                             ),
-                                            const Icon(Icons.star,
-                                                color: Colors.yellow, size: 25),
-                                            const Icon(Icons.star,
-                                                color: Colors.yellow, size: 25),
-                                            const Icon(Icons.star,
-                                                color: Colors.yellow, size: 25),
-                                            const Icon(Icons.star,
-                                                color: Colors.yellow, size: 25),
-                                            const Icon(Icons.star_half_outlined,
-                                                color: Colors.yellow, size: 25)
+                                            Row(
+                                                children:
+                                                    List.generate(5, (index) {
+                                              if (index < ratingsTotal) {
+                                                return const Icon(
+                                                  Icons.star,
+                                                  color: Colors.yellow,
+                                                  size: 25,
+                                                );
+                                              } else if (index ==
+                                                      ratingsTotal.floor() &&
+                                                  ratingsTotal % 1 != 0) {
+                                                return const Icon(
+                                                  Icons.star_border,
+                                                  color: Colors.yellow,
+                                                  size: 25,
+                                                );
+                                              } else {
+                                                return const Icon(
+                                                  Icons.star_border,
+                                                  color: Colors.yellow,
+                                                  size: 25,
+                                                );
+                                              }
+                                            }))
                                           ]),
                                           const SizedBox(
                                             height: 10,
@@ -963,9 +978,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
                                                 ),
-                                                oppressed: () {
-
-                                                }),
+                                                oppressed: () {}),
                                           )
                                         ],
                                       )
