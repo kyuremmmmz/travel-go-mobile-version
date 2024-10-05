@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:itransit/Controllers/Ratings/ratingsBackend.dart';
@@ -40,7 +39,10 @@ class _InformationScreenState extends State<InformationScreen> {
   String? text;
   String? hasCar;
   String? imageUrl;
+  String? comments;
+  int userRatings = 0;
   String? hasMotor;
+  double ratingsTotal = 0.0;
   late String commentType;
   String? located;
   var id;
@@ -49,6 +51,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? availability;
   String? price;
   final data = Data();
+  List<Map<String, dynamic>> list = [];
   late Usersss users = Usersss();
   late RatingsAndComments rating = RatingsAndComments();
 
@@ -57,6 +60,7 @@ class _InformationScreenState extends State<InformationScreen> {
     super.initState();
     emailFetching();
     fetchSpecificData(widget.text);
+    fetchRatings(widget.text);
   }
 
   Future<void> _isRedirecting() async {
@@ -92,24 +96,32 @@ class _InformationScreenState extends State<InformationScreen> {
   }
 
   Future<void> commentInserttion() async {
-    rating.postComment(
-      _commentController.text.trim(),
-      ratings,
-      commentType = "places",
-      '$text',
-    );
+    rating.postComment(_commentController.text.trim(), ratings,
+        commentType = "places", '$text', widget.text, '$email');
   }
 
-  Future<void> fetchRatings() async {
-    if (widget.name == null) {
-      print('widget.name is null');
-      return;
-    }
+  Future<void> stateComments() async {
+    final data = await rating.fetchComments(widget.text);
+    final totalRatings = await rating.fetchRatingsAsSum();
+    final records = data.length;
+    final count = records / totalRatings;
+    setState(() {
+      list = data;
+      ratingsTotal = count;
+      userRatings = records;
+    });
+  }
 
-    final data = await rating.fetchComments(text!);
-    for (var i = 1; i < data.length; i++) {
-      print(data[i]);
-    }
+  Future<void> fetchRatings(int id) async {
+    final data = await rating.fetchComments(id);
+    final totalRatings = await rating.fetchRatingsAsSum();
+    final records = data.length;
+    final count = records / totalRatings;
+    setState(() {
+      list = data;
+      ratingsTotal = count;
+      userRatings = records;
+    });
   }
 
   @override
@@ -515,21 +527,21 @@ class _InformationScreenState extends State<InformationScreen> {
                                             Container(
                                                 padding: const EdgeInsets.only(
                                                     left: 35),
-                                                child: const Row(
+                                                child: Row(
                                                   children: [
                                                     Text(
-                                                      '4.9/5',
-                                                      style: TextStyle(
+                                                      '${ratingsTotal.roundToDouble()}/5',
+                                                      style: const TextStyle(
                                                           color: Color.fromARGB(
                                                               255, 49, 49, 49),
                                                           fontSize: 20,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 5,
                                                     ),
-                                                    Text(
+                                                    const Text(
                                                       'OUT OF 5',
                                                       style: TextStyle(
                                                           color: Color.fromARGB(
@@ -543,16 +555,31 @@ class _InformationScreenState extends State<InformationScreen> {
                                             const SizedBox(
                                               width: 80,
                                             ),
-                                            const Icon(Icons.star,
-                                                color: Colors.yellow, size: 25),
-                                            const Icon(Icons.star,
-                                                color: Colors.yellow, size: 25),
-                                            const Icon(Icons.star,
-                                                color: Colors.yellow, size: 25),
-                                            const Icon(Icons.star,
-                                                color: Colors.yellow, size: 25),
-                                            const Icon(Icons.star_half_outlined,
-                                                color: Colors.yellow, size: 25)
+                                            Row(
+                                                children:
+                                                    List.generate(5, (index) {
+                                              if (index < ratingsTotal) {
+                                                return const Icon(
+                                                  Icons.star,
+                                                  color: Colors.yellow,
+                                                  size: 25,
+                                                );
+                                              } else if (index ==
+                                                      ratingsTotal.floor() &&
+                                                  ratingsTotal % 1 != 0) {
+                                                return const Icon(
+                                                  Icons.star_border,
+                                                  color: Colors.yellow,
+                                                  size: 25,
+                                                );
+                                              } else {
+                                                return const Icon(
+                                                  Icons.star_border,
+                                                  color: Colors.yellow,
+                                                  size: 25,
+                                                );
+                                              }
+                                            }))
                                           ]),
                                           const SizedBox(
                                             height: 10,
@@ -576,9 +603,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                 .only(
                                                                 left: 20,
                                                                 top: 15),
-                                                        child: const Text(
-                                                          '2 Comments',
-                                                          style: TextStyle(
+                                                        child: Text(
+                                                          '$userRatings Comments',
+                                                          style:
+                                                              const TextStyle(
                                                             fontSize: 20,
                                                             color:
                                                                 Color.fromARGB(
@@ -726,196 +754,116 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       ),
                                                     ],
                                                   ),
-                                                  Container(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 20),
-                                                    child: Row(
-                                                      children: [
-                                                        const SizedBox(
-                                                          width: 20,
-                                                        ),
-                                                        const CircleAvatar(
-                                                          backgroundImage:
-                                                              NetworkImage(
-                                                            'https://scontent.fcrk2-1.fna.fbcdn.net/v/t39.30808-6/458201923_1043023800791060_3272608477704101222_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGBMm4xU2usMJaUqOsw_6B8XS5FRhVw6eldLkVGFXDp6YAneXr2mX8UggCWeJBKRtwp3v6PLmGEDoQZG9hUsZGN&_nc_ohc=yft81t1DQ9sQ7kNvgHunJTg&_nc_ht=scontent.fcrk2-1.fna&_nc_gid=A3XN-Jpcj-F6OLYI6cGWoDW&oh=00_AYBPnxFmLD8OofmQoLRd73Ru62FdY2CfQhMpLQxUdnDJbg&oe=67018C33',
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Container(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      right:
-                                                                          200),
-                                                              child: const Text(
-                                                                'Aila Kaye',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          53,
-                                                                          52,
-                                                                          52),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 16,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            const Row(
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: list.map((place) {
+                                                      final int ratings =
+                                                          place['rating'];
+                                                      final String name =
+                                                          place['full_name'];
+
+                                                      return Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    top: 20),
+                                                            child: Row(
                                                               children: [
-                                                                Icon(Icons.star,
-                                                                    color: Colors
-                                                                        .yellow,
-                                                                    size: 25),
-                                                                Icon(Icons.star,
-                                                                    color: Colors
-                                                                        .yellow,
-                                                                    size: 25),
-                                                                Icon(Icons.star,
-                                                                    color: Colors
-                                                                        .yellow,
-                                                                    size: 25),
-                                                                Icon(Icons.star,
-                                                                    color: Colors
-                                                                        .yellow,
-                                                                    size: 25),
-                                                                Icon(Icons.star,
-                                                                    color: Colors
-                                                                        .yellow,
-                                                                    size: 25),
-                                                                Text(
-                                                                  '4 OUT OF 5, Sept 24, 2024',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          12),
+                                                                const SizedBox(
+                                                                    width: 20),
+                                                                const CircleAvatar(
+                                                                  backgroundImage:
+                                                                      NetworkImage(
+                                                                    'https://scontent.fcrk2-1.fna.fbcdn.net/v/t39.30808-6/458201923_1043023800791060_3272608477704101222_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGBMm4xU2usMJaUqOsw_6B8XS5FRhVw6eldLkVGFXDp6YAneXr2mX8UggCWeJBKRtwp3v6PLmGEDoQZG9hUsZGN&_nc_ohc=yft81t1DQ9sQ7kNvgHunJTg&_nc_ht=scontent.fcrk2-1.fna&_nc_gid=A3XN-Jpcj-F6OLYI6cGWoDW&oh=00_AYBPnxFmLD8OofmQoLRd73Ru62FdY2CfQhMpLQxUdnDJbg&oe=67018C33',
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                    width: 10),
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Container(
+                                                                      padding: const EdgeInsets
+                                                                          .only(
+                                                                          right:
+                                                                              10),
+                                                                      child:
+                                                                          Text(
+                                                                        name, // Using dynamic name here
+                                                                        style:
+                                                                            const TextStyle(
+                                                                          color: Color.fromARGB(
+                                                                              255,
+                                                                              53,
+                                                                              52,
+                                                                              52),
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          fontSize:
+                                                                              16,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        ...List.generate(
+                                                                            5,
+                                                                            (index) {
+                                                                          return Icon(
+                                                                            index < ratings
+                                                                                ? Icons.star
+                                                                                : Icons.star_border_outlined,
+                                                                            color:
+                                                                                Colors.yellow,
+                                                                            size:
+                                                                                25,
+                                                                          );
+                                                                        }),
+                                                                        Text(
+                                                                          ' $ratings OUT OF 5',
+                                                                          style:
+                                                                              const TextStyle(fontSize: 12),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ],
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 10,
-                                                        horizontal: 20),
-                                                    child: const Text(
-                                                      'Hundred Islands is a beautiful spot with clear waters, scenic views, and great for island-hopping. Perfect for a relaxing getaway or fun adventures!',
-                                                      style: TextStyle(
-                                                          fontSize: 14),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 5,
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 20),
-                                                    child: Row(
-                                                      children: [
-                                                        const SizedBox(
-                                                          width: 20,
-                                                        ),
-                                                        const CircleAvatar(
-                                                          backgroundImage:
-                                                              NetworkImage(
-                                                            'https://scontent.fcrk2-1.fna.fbcdn.net/v/t39.30808-6/458201923_1043023800791060_3272608477704101222_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGBMm4xU2usMJaUqOsw_6B8XS5FRhVw6eldLkVGFXDp6YAneXr2mX8UggCWeJBKRtwp3v6PLmGEDoQZG9hUsZGN&_nc_ohc=yft81t1DQ9sQ7kNvgHunJTg&_nc_ht=scontent.fcrk2-1.fna&_nc_gid=A3XN-Jpcj-F6OLYI6cGWoDW&oh=00_AYBPnxFmLD8OofmQoLRd73Ru62FdY2CfQhMpLQxUdnDJbg&oe=67018C33',
                                                           ),
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Container(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      right:
-                                                                          200),
-                                                              child: const Text(
-                                                                'Aila Kaye',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          53,
-                                                                          52,
-                                                                          52),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 16,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            const Row(
-                                                              children: [
-                                                                Icon(Icons.star,
-                                                                    color: Colors
-                                                                        .yellow,
-                                                                    size: 25),
-                                                                Icon(Icons.star,
-                                                                    color: Colors
-                                                                        .yellow,
-                                                                    size: 25),
-                                                                Icon(Icons.star,
-                                                                    color: Colors
-                                                                        .yellow,
-                                                                    size: 25),
-                                                                Icon(Icons.star,
-                                                                    color: Colors
-                                                                        .yellow,
-                                                                    size: 25),
-                                                                Icon(Icons.star,
-                                                                    color: Colors
-                                                                        .yellow,
-                                                                    size: 25),
-                                                                Text(
-                                                                  '4 OUT OF 5, Sept 24, 2024',
-                                                                  style: TextStyle(
+                                                          Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        10,
+                                                                    horizontal:
+                                                                        20),
+                                                            child: Text(
+                                                              '${place['comment']}', // Display the comment
+                                                              style:
+                                                                  const TextStyle(
                                                                       fontSize:
-                                                                          12),
-                                                                ),
-                                                              ],
+                                                                          14),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 5,
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 10,
-                                                        horizontal: 20),
-                                                    child: const Text(
-                                                      'Hundred Islands is a beautiful spot with clear waters, scenic views, and great for island-hopping. Perfect for a relaxing getaway or fun adventures!',
-                                                      style: TextStyle(
-                                                          fontSize: 14),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 5,
-                                                    ),
-                                                  ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    }).toList(),
+                                                  )
                                                 ],
                                               ),
                                             ),
@@ -952,10 +900,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 const EdgeInsets.only(left: 50),
                                             child: BlueButtonWithoutFunction(
                                                 text: const Text(
-                                                  'Book Now',
+                                                  'See Tickets',
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 14,
+                                                      fontSize: 12,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -963,7 +911,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   backgroundColor: Colors.blue,
                                                 ),
                                                 oppressed: () {
-                                                  fetchRatings();
+                                                  stateComments();
                                                 }),
                                           )
                                         ],
