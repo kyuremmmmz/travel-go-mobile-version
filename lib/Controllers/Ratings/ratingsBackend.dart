@@ -13,7 +13,7 @@ class RatingsAndComments {
         "rating": ratings,
         "placeComment": placeComment,
         "comment_id": user!.id,
-        "comment_id_places" : id
+        "comment_id_places": id
       });
       return response;
     } catch (e) {
