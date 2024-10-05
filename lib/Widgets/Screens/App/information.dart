@@ -747,6 +747,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: list.map((place) {
+                                                      final ratings = place['rating'];
                                                       return Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -783,7 +784,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                               200),
                                                                       child:
                                                                           const Text(
-                                                                        'Aila Kaye',
+                                                                        'Nigga tian',
                                                                         style:
                                                                             TextStyle(
                                                                           color: Color.fromARGB(
@@ -798,42 +799,22 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    const Row(
+                                                                    Row(
                                                                       children: [
-                                                                        Icon(
-                                                                            Icons
-                                                                                .star,
-                                                                            color:
-                                                                                Colors.yellow,
-                                                                            size: 25),
-                                                                        Icon(
-                                                                            Icons
-                                                                                .star,
-                                                                            color:
-                                                                                Colors.yellow,
-                                                                            size: 25),
-                                                                        Icon(
-                                                                            Icons
-                                                                                .star,
-                                                                            color:
-                                                                                Colors.yellow,
-                                                                            size: 25),
-                                                                        Icon(
-                                                                            Icons
-                                                                                .star,
-                                                                            color:
-                                                                                Colors.yellow,
-                                                                            size: 25),
-                                                                        Icon(
-                                                                            Icons
-                                                                                .star,
-                                                                            color:
-                                                                                Colors.yellow,
-                                                                            size: 25),
+                                                                          ...List.generate(
+                                                                            5, (index) {
+                                                                              return Icon(
+                                                                                index<ratings ? Icons.star : Icons.star_border_outlined,
+                                                                                color: Colors.yellow,
+                                                                                size: 25,
+                                                                              );
+                                                                            }
+                                                                          ),
                                                                         Text(
-                                                                          '4 OUT OF 5, Sept 24, 2024',
-                                                                          style:
-                                                                              TextStyle(fontSize: 12),
+                                                                          '$ratings OUT OF 5, Sept 24, 2024',
+                                                                          style: const TextStyle(
+                                                                            fontSize: 12
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -848,11 +829,11 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                     .symmetric(
                                                                     vertical:
                                                                         10,
-                                                                    horizontal:
-                                                                        20),
-                                                            child: const Text(
-                                                              'Hundred Islands is a beautiful spot with clear waters, scenic views, and great for island-hopping. Perfect for a relaxing getaway or fun adventures!',
-                                                              style: TextStyle(
+                                                                    horizontal:20
+                                                                  ),
+                                                            child: Text(
+                                                              '${place['comment']}',
+                                                              style: const TextStyle(
                                                                   fontSize: 14),
                                                               overflow:
                                                                   TextOverflow
