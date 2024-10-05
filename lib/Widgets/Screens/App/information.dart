@@ -97,7 +97,7 @@ class _InformationScreenState extends State<InformationScreen> {
 
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "places", '$text', widget.text);
+        commentType = "places", '$text', widget.text, '$email');
   }
 
   Future<void> fetchRatings(int id) async {
@@ -748,6 +748,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                             .start,
                                                     children: list.map((place) {
                                                       final ratings = place['rating'];
+                                                      final name = place['full_name'];
                                                       return Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -783,19 +784,12 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                           right:
                                                                               200),
                                                                       child:
-                                                                          const Text(
-                                                                        'Nigga tian',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color: Color.fromARGB(
-                                                                              255,
-                                                                              53,
-                                                                              52,
-                                                                              52),
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                          fontSize:
-                                                                              16,
+                                                                          Text(
+                                                                        '$name',
+                                                                        style: const TextStyle(
+                                                                          color: Color.fromARGB(255,53,52,52),
+                                                                          fontWeight:FontWeight.bold,
+                                                                          fontSize:16,
                                                                         ),
                                                                       ),
                                                                     ),

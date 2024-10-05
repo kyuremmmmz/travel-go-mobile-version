@@ -4,7 +4,7 @@ class RatingsAndComments {
   final supabase = Supabase.instance.client;
 
   Future<PostgrestResponse<dynamic>?> postComment(String comments, int ratings,
-      String commentType, String placeComment, int id) async {
+      String commentType, String placeComment, int id, String name) async {
     try {
       final user = supabase.auth.currentUser;
       final response = await supabase.from("ratings_and_comments").insert({
@@ -13,7 +13,8 @@ class RatingsAndComments {
         "rating": ratings,
         "placeComment": placeComment,
         "comment_id": user!.id,
-        "comment_id_places": id
+        "comment_id_places": id,
+        "full_name" : name
       });
       return response;
     } catch (e) {
