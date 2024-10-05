@@ -100,11 +100,23 @@ class _InformationScreenState extends State<InformationScreen> {
         commentType = "places", '$text', widget.text, '$email');
   }
 
+  Future<void> stateComments() async {
+    final data = await rating.fetchComments(widget.text);
+    final totalRatings = await rating.fetchRatingsAsSum();
+    final records = data.length;
+    final count = records / totalRatings;
+    setState(() {
+      list = data;
+      ratingsTotal = count;
+      userRatings = records;
+    });
+  }
+
   Future<void> fetchRatings(int id) async {
     final data = await rating.fetchComments(id);
     final totalRatings = await rating.fetchRatingsAsSum();
     final records = data.length;
-    final count = totalRatings / records;
+    final count = records / totalRatings;
     setState(() {
       list = data;
       ratingsTotal = count;
@@ -518,7 +530,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 child: Row(
                                                   children: [
                                                     Text(
-                                                      '$ratingsTotal/5',
+                                                      '${ratingsTotal.roundToDouble()}/5',
                                                       style: const TextStyle(
                                                           color: Color.fromARGB(
                                                               255, 49, 49, 49),
@@ -747,8 +759,11 @@ class _InformationScreenState extends State<InformationScreen> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: list.map((place) {
-                                                      final ratings = place['rating'];
-                                                      final name = place['full_name'];
+                                                      final int ratings =
+                                                          place['rating'];
+                                                      final String name =
+                                                          place['full_name'];
+
                                                       return Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -762,8 +777,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                             child: Row(
                                                               children: [
                                                                 const SizedBox(
-                                                                  width: 20,
-                                                                ),
+                                                                    width: 20),
                                                                 const CircleAvatar(
                                                                   backgroundImage:
                                                                       NetworkImage(
@@ -771,8 +785,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                   ),
                                                                 ),
                                                                 const SizedBox(
-                                                                  width: 10,
-                                                                ),
+                                                                    width: 10),
                                                                 Column(
                                                                   crossAxisAlignment:
                                                                       CrossAxisAlignment
@@ -782,33 +795,43 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                       padding: const EdgeInsets
                                                                           .only(
                                                                           right:
-                                                                              200),
+                                                                              10),
                                                                       child:
                                                                           Text(
-                                                                        '$name',
-                                                                        style: const TextStyle(
-                                                                          color: Color.fromARGB(255,53,52,52),
-                                                                          fontWeight:FontWeight.bold,
-                                                                          fontSize:16,
+                                                                        name, // Using dynamic name here
+                                                                        style:
+                                                                            const TextStyle(
+                                                                          color: Color.fromARGB(
+                                                                              255,
+                                                                              53,
+                                                                              52,
+                                                                              52),
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                          fontSize:
+                                                                              16,
                                                                         ),
                                                                       ),
                                                                     ),
                                                                     Row(
                                                                       children: [
-                                                                          ...List.generate(
-                                                                            5, (index) {
-                                                                              return Icon(
-                                                                                index<ratings ? Icons.star : Icons.star_border_outlined,
-                                                                                color: Colors.yellow,
-                                                                                size: 25,
-                                                                              );
-                                                                            }
-                                                                          ),
+                                                                        ...List.generate(
+                                                                            5,
+                                                                            (index) {
+                                                                          return Icon(
+                                                                            index < ratings
+                                                                                ? Icons.star
+                                                                                : Icons.star_border_outlined,
+                                                                            color:
+                                                                                Colors.yellow,
+                                                                            size:
+                                                                                25,
+                                                                          );
+                                                                        }),
                                                                         Text(
-                                                                          '$ratings OUT OF 5, Sept 24, 2024',
-                                                                          style: const TextStyle(
-                                                                            fontSize: 12
-                                                                          ),
+                                                                          ' $ratings OUT OF 5',
+                                                                          style:
+                                                                              const TextStyle(fontSize: 12),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -823,12 +846,14 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                     .symmetric(
                                                                     vertical:
                                                                         10,
-                                                                    horizontal:20
-                                                                  ),
+                                                                    horizontal:
+                                                                        20),
                                                             child: Text(
-                                                              '${place['comment']}',
-                                                              style: const TextStyle(
-                                                                  fontSize: 14),
+                                                              '${place['comment']}', // Display the comment
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          14),
                                                               overflow:
                                                                   TextOverflow
                                                                       .ellipsis,
@@ -885,7 +910,9 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
                                                 ),
-                                                oppressed: () {}),
+                                                oppressed: () {
+                                                  stateComments();
+                                                }),
                                           )
                                         ],
                                       )
