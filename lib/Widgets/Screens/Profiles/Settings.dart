@@ -121,6 +121,15 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   const SizedBox(
                     height: 30,
                   ),
+                  Center(
+                    child: Container(
+                      padding: null,
+                      child: const CircleAvatar(
+                      radius: 40,
+                      backgroundImage: AssetImage('assets/images/icon/suitcase.png'),
+                      ),
+                    )
+                  ),
                   SizedBox(
                     width: 350,
                     child: Column(

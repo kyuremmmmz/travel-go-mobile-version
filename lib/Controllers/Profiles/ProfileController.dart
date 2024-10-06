@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -50,5 +51,15 @@ class Usersss {
     } catch (e) {
       SnackBar(content: Text('error: $e'));
     }
+  }
+
+  Future<String?> editProfile() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image == null) {
+      debugPrint('null');
+      return 'null';
+    }
+    
   }
 }
