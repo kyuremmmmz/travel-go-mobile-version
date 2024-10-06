@@ -1,25 +1,25 @@
-import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
-import 'package:itransit/Controllers/NetworkImages/food_area.dart';
+import 'package:flutter/material.dart'; // The flutter material package for UI 
+import 'package:itransit/Controllers/NetworkImages/festivals_images.dart'; // handling festival images 
+import 'package:itransit/Controllers/NetworkImages/food_area.dart'; // handling food area images
 import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart'; // Importing a controller for handling images from Supabase API.
 import 'package:itransit/Controllers/Profiles/ProfileController.dart'; // Importing a controller for user profiles.
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart';
-import 'package:itransit/Widgets/Screens/App/categories.dart';
-import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
-import 'package:itransit/Widgets/Screens/App/information.dart';
-import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
-import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:itransit/Routes/Routes.dart'; // Routes for navigation within the app
+import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart'; // Custom widget for square place buttons
+import 'package:itransit/Widgets/Drawer/drawerMenu.dart'; // the drawer menu
+import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart'; // the screen for festival details 
+import 'package:itransit/Widgets/Screens/App/categories.dart'; // Screen for general categories 
+import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart'; // Screen for foodarea
+import 'package:itransit/Widgets/Screens/App/information.dart'; // Screen for general information 
+import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart'; // Screen for search menu widget 
+import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart'; // the stateless wdiget for festivals 
+import 'package:supabase_flutter/supabase_flutter.dart'; // Importing the Supabase Flutter package for database functionality.
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 void main() {
-  runApp(const MainMenu());
+  runApp(const MainMenu()); // running the main application
 }
 
-class MainMenu extends StatelessWidget {
+class MainMenu extends StatelessWidget { // creating a stateless widget for the main menu 
   const MainMenu({super.key});
 
   @override
@@ -41,18 +41,20 @@ class MainMenuScreen extends StatefulWidget {
 
 class _MainMenuScreenState extends State<MainMenuScreen> {
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
-  String? email;
-  late Usersss users = Usersss();
-  List<Map<String, dynamic>> place = [];
-  final data = Data();
+  String? email; // the variable to store the user's email
+  late Usersss users = Usersss(); // Instance of unserss controller 
+  List<Map<String, dynamic>> place = []; // list to hold place data
+  final data = Data(); // instance of the data controller 
   late FoodAreaBackEnd images = FoodAreaBackEnd();
   List<Map<String, dynamic>> datass = [];
   late FestivalsImages festivals = FestivalsImages();
   List<Map<String, dynamic>> dataOfFestivals = [];
+
+  // Method to fetch user email
   Future<void> emailFetching() async {
     try {
-      final PostgrestList useremail = await users.fetchUser();
-      if (useremail.isNotEmpty) {
+      final PostgrestList useremail = await users.fetchUser(); // this fetching user email from the controller
+      if (useremail.isNotEmpty) { // area of checking if the email is found 
         setState(() {
           email = useremail[0]['full_name'].toString();
         });
@@ -68,21 +70,23 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     }
   }
 
+// Method to fetch images and place names 
   Future<void> fetchImage() async {
-    final datas = await data.fetchImageandText();
+    final datas = await data.fetchImageandText(); // fetching images and text data 
     setState(() {
-      place = datas.map(
+      place = datas.map( // mapping the data to a new format 
         (place) {
           if (place['place_name'] != null &&
-              place['place_name'].toString().length > 18) {
+              place['place_name'].toString().length > 18) { //limiting place name 
             place['place_name'] =
-                place['place_name'].toString().substring(0, 18);
+                place['place_name'].toString().substring(0, 18); // trimming place name
           }
           return place;
         },
       ).toList();
     });
   }
+
 
   Future<List<Map<String, dynamic>>?> fetchFoods(BuildContext context) async {
     final datas = await images.getFood();
@@ -101,16 +105,17 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     }
   }
 
+// Method to fetch food area  
   Future<List<Map<String, dynamic>>?> fetchFestivals(
       BuildContext context) async {
-    final datas = await festivals.fetchFestivals();
+    final datas = await festivals.fetchFestivals(); // Fetching food area
     if (datas.isEmpty) {
       return [];
     } else {
       setState(() {
         dataOfFestivals = datas.map((foods) {
-          if (foods['img'] != null && foods['img'].toString().length > 18) {
-            foods['img'] = foods['img'].toString().substring(0, 18);
+          if (foods['img'] != null && foods['img'].toString().length > 18) { // Limiting 
+            foods['img'] = foods['img'].toString().substring(0, 18); // Trimmimg 
           }
           return foods;
         }).toList();
@@ -121,11 +126,11 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
   @override
   void initState() {
-    super.initState();
-    emailFetching();
-    fetchImage();
-    fetchFoods(context);
-    fetchFestivals(context);
+    super.initState(); //calling the parent class's initState method 
+    emailFetching(); // Fetching user email and initialization
+    fetchImage(); // fetching the images on initialization 
+    fetchFoods(context); // fetching food areas on initialization 
+    fetchFestivals(context); // Fetching festivals on initialization
   }
 
   @override
@@ -180,7 +185,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                     });
                               }).toList()),
                           CategorySelect(
-                            label: "Food Places",
+                            label: "Food Placess",
                             oppressed: () => print('Food Places clicked'),
                           ),
                           Row(
@@ -277,7 +282,7 @@ class _DismissableFindMoreLocationState
                                 alignment: Alignment.centerLeft,
                                   child: Container(
                                     width: 200.w,
-                                     margin: EdgeInsets.only(left: 16.0.h, right: 16.0.h, top: 40.0.h), // Add left and right margin
+                                     margin: EdgeInsets.only(left: 16.0.h, right: 16.0.h, top: 35.0.h), // Add left and right margin
                                       child: Text(
                                         '  Find more location\n  around you',
                                           style: TextStyle(
