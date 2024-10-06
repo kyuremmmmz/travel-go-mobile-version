@@ -185,7 +185,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                     });
                               }).toList()),
                           CategorySelect(
-                            label: "Food Placess",
+                            label: "Food Places",
                             oppressed: () => print('Food Places clicked'),
                           ),
                           Row(
@@ -282,7 +282,7 @@ class _DismissableFindMoreLocationState
                                 alignment: Alignment.centerLeft,
                                   child: Container(
                                     width: 200.w,
-                                     margin: EdgeInsets.only(left: 16.0.h, right: 16.0.h, top: 35.0.h), // Add left and right margin
+                                     margin: EdgeInsets.only(left: 14.0.h, right: 16.0.h, top: 35.0.h), // Add left and right margin
                                       child: Text(
                                         '  Find more location\n  around you',
                                           style: TextStyle(
@@ -297,7 +297,7 @@ class _DismissableFindMoreLocationState
                                 alignment: Alignment.centerLeft,
                                   child: Container(
                                     width: 500.w,
-                                     margin: EdgeInsets.only(left: 16.0.h, right: 16.0.h, top: 5.0.h), // Add left and right margin
+                                     margin: EdgeInsets.only(left: 14.0.h, right: 16.0.h, top: 5.0.h), // Add left and right margin
                                   child: Text(
                                     '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
                                       style: TextStyle(
@@ -316,7 +316,7 @@ class _DismissableFindMoreLocationState
                               child: GestureDetector(
                                 onTap: () => AppRoutes.navigateToExploreNowScreen(context),
                                 child: Padding(
-                                  padding: EdgeInsets.only(left: 27.0.h , right: 16.0.h), // u know the margin my fav
+                                  padding: EdgeInsets.only(left: 25.0.h , right: 16.0.h), // u know the margin my fav
                                   child: Stack(
                                     clipBehavior: Clip.none, // this prevents clipping of positioned children outside the stack
                                     children: [

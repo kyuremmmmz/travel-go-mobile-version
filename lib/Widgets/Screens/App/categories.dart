@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -79,9 +80,9 @@ class CategoryLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: EdgeInsets.only(top: 8.w),
       child: SizedBox(
-        height: 50,
+        height: 50.h,
         child: Text(
           label,
           textAlign: TextAlign.center,
@@ -101,32 +102,39 @@ class CategorySelect extends StatelessWidget {
     required this.oppressed,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 30),
-        Row(
+@override
+Widget build(BuildContext context) {
+  return Column(
+    children: [
+      SizedBox(height: 30.h),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 9.0), // Add padding to left and right
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               label,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle( // Text area for the categories, Popular places, food places, and Festival and events. 
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp, // Add font size
+              ),
             ),
             GestureDetector(
               onTap: oppressed,
               child: const Text(
                 'View all',
                 style: TextStyle(
-                  color: Color.fromRGBO(33, 150, 243, 100),
+                  color: Color(0xFF2196F3),
                   fontWeight: FontWeight.bold,
+                  fontSize: 13, // Add font size
                 ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 20),
-      ],
-    );
-  }
+      ),
+      const SizedBox(height: 20),
+    ],
+  );
+}
 }
