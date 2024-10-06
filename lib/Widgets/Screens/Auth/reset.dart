@@ -4,6 +4,8 @@ import 'package:itransit/Widgets/Textfield/passwordField.dart';
 import 'package:itransit/Widgets/Textfield/number.dart';
 import 'package:itransit/Widgets/Textfield/plainTextField.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -27,29 +29,34 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Positioned(
-              right: 80,
+              right: 20.w,
+              left: -20.w,
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 150,
+                  SizedBox(
+                    height: 100.h,
+                    width: 80.w,
                   ),
                   Container(
                     padding: null,
-                    child: const Text(
+                    child: Text(
                       'Create New Password',
                       style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Container(
                     padding: null,
-                    child: const Text(
+                    child: Text(
                         textAlign: TextAlign.justify,
-                        'Your new password must be different from \nprevious used passwords.'),
+                        'Your new password must be different from \nprevious used passwords.',
+                        style: 
+                            TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400),),
                   )
                 ],
               )),
@@ -62,59 +69,60 @@ class _ResetPasswordState extends State<ResetPassword> {
                 child: Column(
                   children: [
                     Container(
-                      height: 550,
-                      width: 410,
+                      height: 550.h,
+                      width: 410.w,
                       decoration: const BoxDecoration(
-                          color: Colors.blue,
+                          color: Color(0xFF44CAF9),
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(50),
                               topRight: Radius.circular(50))),
                       child: Column(
                         children: [
-                          const SizedBox(
-                            height: 50,
+                          SizedBox(
+                            height: 50.h,
                           ),
                           Container(
                             padding: null,
-                            width: 390,
+                            width: 350.w, // the width of the line 
                             child: numberTextField(
                               text: 'Reset Token',
                               controller: _resetTokenController,
                             ),
                           ),
-                          const SizedBox(
-                            height: 30,
+                          SizedBox(
+                            height: 30.h,
                           ),
                           Container(
                             padding: null,
-                            width: 390,
+                            width: 350.w,
                             child: plainTextField(
                               colorr: Colors.black,
                               text: 'Email',
                               controller: _emailController,
                             ),
                           ),
-                          const SizedBox(
-                            height: 30,
+                          SizedBox(
+                            height: 30.h,
                           ),
                           Container(
                             padding: null,
-                            width: 390,
+                            width: 350.w,
                             child: passwordTextField(
                               text: 'Password',
                               password: _passwordController,
                             ),
                           ),
-                          const SizedBox(
-                            height: 50,
+                          SizedBox(
+                            height: 50.h,
                           ),
                           Container(
                             padding: null,
-                            width: 300,
+                            width: 170.w,
+                            height: 45.h,
                             child: BlueButtonWithoutFunction(
-                                text: const Text(
+                                text: Text(
                                   'Reset Password',
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.black, fontSize: 15.sp,),
                                 ),
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white),

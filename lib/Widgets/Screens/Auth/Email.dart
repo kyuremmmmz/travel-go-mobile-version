@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:itransit/Routes/Routes.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class CheckEmailScreen extends StatefulWidget {
   const CheckEmailScreen({super.key});
@@ -17,57 +18,66 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
       body: Stack(
         children: <Widget>[
           Positioned(
-              top: 80,
-              right: 50,
+              top: 80.w,
+              right: 10.h,
+              left: 10.h,
               child: Column(
                 children: [
                   SizedBox(
-                    width: 300,
-                    height: 200,
+                    width: 150.w,
+                    height: 180.h,
                     child: Image.asset('assets/images/GmailLogo.png'),
                   ),
                   Container(
-                    child: const Text(
+                    child: Text(
                       textAlign: TextAlign.center,
-                      'Check your email',
+                      'Take a look at your email.',
                       style: TextStyle(
-                          fontSize: 30,
+                          fontSize: 25.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                     ),
                   ),
-                  const SizedBox(
-                    height: 30,
+                  SizedBox(
+                    height: 90.h,
                   ),
                 ],
               )),
           Positioned(
-              bottom: 0,
+              bottom: -150.w,
+              height:630.h, // the height of the blue contianer
               child: Container(
-                  height: 480,
-                  width: 410,
-                  decoration: const BoxDecoration(
-                      color: Colors.blue,
+                  height: 500.h,
+                  width: 373.w,
+                  decoration: BoxDecoration(
+                      color: Color(0xFF44CAF9),
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50))),
+                          topLeft: Radius.circular(50.w),
+                          topRight: Radius.circular(50.w))),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 60,
+                      SizedBox(
+                        height: 50.h,
                       ),
-                      const Text(
+                      Text(
                         textAlign: TextAlign.center,
                         'We have sent a password recover \nInstructions to your email.',
-                        style: TextStyle(fontSize: 20, color: Colors.black),
+                        style: TextStyle(fontSize: 16.sp, 
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black),
                       ),
-                      const SizedBox(
-                        height: 30,
+                      SizedBox(
+                        height: 25.h // the space between the caption and next
                       ),
-                      BlueButtonWithoutFunction(
-                        text: const Text(
+                      Container(
+                        height: 35.h,
+                        width: 160.w, // Set your desired width here
+                      child:  BlueButtonWithoutFunction(
+                        text: Text(
                           'Next',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: TextStyle(color: Colors.black,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18.sp),
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
@@ -79,21 +89,22 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
                         oppressed: () => AppRoutes.navigateToResetScreen(
                             context), // Add route later or change
                       ),
-                      const SizedBox(
-                        height: 12,
+                      ),
+                      SizedBox(
+                        height: 15.h, // the space between the next and skip
                       ),
                       GestureDetector(
                         onTap: () => print(
                             "Confirm Detected"), // Add route for skipping confirmation or change
-                        child: const Text(
+                        child: Text(
                           'Skip I\'ll confirm later',
                           style: TextStyle(
-                              fontSize: 15,
-                              color: Color.fromARGB(255, 216, 216, 216)),
+                              fontSize: 13.sp,
+                              color: Color(0xFF534D4D)),
                         ),
                       ),
-                      const SizedBox(
-                        height: 190,
+                      SizedBox(
+                        height: 225.h,
                       ),
                       RichText(
                         textAlign: TextAlign.center,

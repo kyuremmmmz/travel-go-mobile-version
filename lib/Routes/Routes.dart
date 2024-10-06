@@ -6,8 +6,10 @@ import 'package:itransit/Widgets/Screens/App/hotel_booking.dart';
 import 'package:itransit/Widgets/Screens/App/notPaid.dart';
 import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
 import 'package:itransit/Widgets/Screens/Profiles/Settings.dart';
+import 'package:itransit/Widgets/Screens/Stateless/beaches_stateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/email.dart';
 import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
+import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/food_AreaStateless.dart';
 import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
 import 'package:itransit/Widgets/Screens/Stateless/hotel_stateless.dart';
@@ -92,12 +94,14 @@ class AppRoutes {
                 hotelorplace: hotelorplace)));
   }
 
-  static void navigateToTesting(BuildContext route, {required String name, required int id}) {
+  static void navigateToTesting(BuildContext route,
+      {required String name, required int id}) {
     Navigator.push(
         route,
         MaterialPageRoute(
             builder: (context) => Map(
-                  location: name, id: id,
+                  location: name,
+                  id: id,
                 )));
   }
 
@@ -133,12 +137,26 @@ class AppRoutes {
 
   static void navigateToFoodAreaAbout(BuildContext route, {required int id}) {
     Navigator.push(
-        route, MaterialPageRoute(builder: (context) =>  FoodAreaAbout(id: id,)));
+        route,
+        MaterialPageRoute(
+            builder: (context) => FoodAreaAbout(
+                  id: id,
+                )));
+  }
+
+  static void navigateToBeachesScreen(BuildContext route) {
+    Navigator.push(route,
+        MaterialPageRoute(builder: (context) => const BeachesStateless()));
+  }
+
+  static void navigateToFestivalsScreen(BuildContext route) {
+    Navigator.push(route,
+        MaterialPageRoute(builder: (context) => const FestivalsStateless()));
   }
 
   static void navigateToAccountSettings(BuildContext route) {
-    Navigator.push(
-        route, MaterialPageRoute(builder: (context) =>  AccountSettingsScreen()));
+    Navigator.push(route,
+        MaterialPageRoute(builder: (context) => AccountSettingsScreen()));
   }
 
   static void navigateToHotelBookingScreen(BuildContext route,
@@ -162,8 +180,8 @@ class AppRoutes {
   }
 
   static void navigateTofoodArea(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const FoodAreastateless()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const FoodAreastateless()));
   }
 
   static void navigateToDiscountArea(BuildContext context) {

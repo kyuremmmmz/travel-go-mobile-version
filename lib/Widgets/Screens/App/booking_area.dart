@@ -49,12 +49,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _checkInController = TextEditingController();
   final _checkOutController = TextEditingController();
   final _originController = TextEditingController();
-  final _paymentMethodController = TextEditingController();
   final _vehicleTypeController = TextEditingController();
+  final _paymentMethodController = TextEditingController();
   final _specialReqController = TextEditingController();
   final _validator = GlobalKey<FormState>();
   final _hotel = TextEditingController();
+  // ignore: non_constant_identifier_names
   final _number_of_children = TextEditingController();
+  // ignore: non_constant_identifier_names
   final _number_of_adult = TextEditingController();
   String? email;
   String? place;
@@ -71,6 +73,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
   bool _value = false;
   HotelBooking booking = HotelBooking();
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -1006,7 +1009,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                                             _hotel.text,
                                                       );
                                                     } else {
-                                                      print('nigga');
+                                                      debugPrint('nigga');
                                                     }
                                                   }
                                                 : null,

@@ -1,3 +1,6 @@
+// ignore: implementation_imports
+import 'package:flutter/material.dart';
+// ignore: implementation_imports
 import 'package:flutter_map/src/layer/marker_layer/marker_layer.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -13,7 +16,7 @@ class HotelImages {
           .limit(1000)
           .order('hotel_ratings', ascending: true);
       if (response.isEmpty) {
-        print('no hotels found');
+        debugPrint('no hotels found');
         return [];
       } else {
         final data = response;
@@ -30,7 +33,7 @@ class HotelImages {
         return map;
       }
     } catch (e) {
-      print('Error fetching hotels: $e');
+      debugPrint('Error fetching hotels: $e');
       return [];
     }
   }
@@ -74,14 +77,14 @@ class HotelImages {
         datas['hotel_name'] = text;
         datas['hotel_located'] = located;
         datas['hotel_price'] = formattedPrice;
-        print(priceQ);
+        debugPrint("$priceQ");
         return datas;
       } else {
-        print('No data found for $id');
+        debugPrint('No data found for $id');
         return null;
       }
     } catch (e) {
-      print('Error fetching specific data: $e');
+      debugPrint('Error fetching specific data: $e');
       return null;
     }
   }
