@@ -60,6 +60,14 @@ class Usersss {
       debugPrint('null');
       return 'null';
     }
-    
+  }
+
+  Future<String?> getter(String name) async {
+    final img = supabase.storage.from('avatars').getPublicUrl(name);
+    if (img.isEmpty) {
+      return null;
+    } else {
+      return img;
+    }
   }
 }
