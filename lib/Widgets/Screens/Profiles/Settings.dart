@@ -171,7 +171,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: [Text('Name'), Text('$email')],
+                                    children: [const Text('Name'), Text('$email')],
                                   ),
                                 ),
                                 const Divider(
@@ -195,7 +195,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: [Text('Email'), Text('$gmail')],
+                                    children: [const Text('Email:'), Text('$gmail')],
                                   ),
                                 ),
                                 const Divider(
@@ -206,69 +206,14 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.only(
                                           right: 15, left: 15),
-                                      child: Row(
+                                      child: const Row(
                                         children: [Text('Change Password')],
                                       ),
-                                    )),
+                                    )
+                                  ),
                               ],
-                            )),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  SizedBox(
-                    width: 330,
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          width: 330,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(68, 202, 249, 100),
-                              borderRadius: BorderRadius.circular(30)),
-                          child: const Text(
-                            'Preferences',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            )
                           ),
-                        ),
-                        Container(
-                            width: 290,
-                            height: 50,
-                            margin: const EdgeInsets.only(
-                              right: 15,
-                              left: 15,
-                            ),
-                            padding: const EdgeInsets.only(right: 15, left: 15),
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10)),
-                                color: Color.fromRGBO(241, 241, 241, 100),
-                                border: Border(
-                                    right: BorderSide(color: Colors.black),
-                                    left: BorderSide(color: Colors.black),
-                                    bottom: BorderSide(color: Colors.black))),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                    onTap: () => 'test',
-                                    child: Container(
-                                      padding: const EdgeInsets.only(
-                                          right: 15, left: 15),
-                                      child: Row(
-                                        children: [Text('Change Password')],
-                                      ),
-                                    )),
-                              ],
-                            )),
                       ],
                     ),
                   ),
