@@ -289,7 +289,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          'Change Password'
+                                          'Privacy & Date'
                                         )
                                       ],
                                     ),
