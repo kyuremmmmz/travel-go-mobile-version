@@ -711,7 +711,13 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                               Row(
                                                                                 children: [
                                                                                   ElevatedButton(
-                                                                                      style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                                                                                      style: ElevatedButton.styleFrom(
+                                                                                        backgroundColor: Colors.white, 
+                                                                                        shape: RoundedRectangleBorder(
+                                                                                          borderRadius: BorderRadius.circular(10
+                                                                                          )
+                                                                                        )
+                                                                                      ),
                                                                                       onPressed: () {
                                                                                         Navigator.pop(context);
                                                                                       },
