@@ -732,17 +732,19 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                       child: const Text(
                                                                                         'Post',
                                                                                         style: TextStyle(color: Colors.black),
-                                                                                      )),
+                                                                                      )
+                                                                                    ),
                                                                                 ],
                                                                               )
                                                                             ],
                                                                           ),
-                                                                        ));
-                                                                  },
-                                                                );
-                                                              },
-                                                            );
-                                                          },
+                                                                        )
+                                                                      );
+                                                                    },
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
                                                           child: const Text(
                                                             'Write a comment',
                                                             style: TextStyle(
@@ -759,15 +761,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: list.map((place) {
-                                                      final int ratings =
-                                                          place['rating'];
-                                                      final String name =
-                                                          place['full_name'];
-
+                                                      final int ratings = place['rating'];
+                                                      final String name = place['full_name'];
                                                       return Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Container(
                                                             padding:
@@ -816,8 +813,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                     Row(
                                                                       children: [
                                                                         ...List.generate(
-                                                                            5,
-                                                                            (index) {
+                                                                            5, (index) {
                                                                           return Icon(
                                                                             index < ratings
                                                                                 ? Icons.star
@@ -842,12 +838,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           ),
                                                           Container(
                                                             padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    vertical:
-                                                                        10,
-                                                                    horizontal:
-                                                                        20),
+                                                                const EdgeInsets.symmetric(
+                                                                    vertical:10,
+                                                                    horizontal: 20
+                                                                    ),
                                                             child: Text(
                                                               '${place['comment']}', // Display the comment
                                                               style:
@@ -911,7 +905,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   backgroundColor: Colors.blue,
                                                 ),
                                                 oppressed: () {
-                                                  stateComments();
+                                                  
                                                 }),
                                           )
                                         ],

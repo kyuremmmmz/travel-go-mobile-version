@@ -1,19 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:path/path.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:itransit/Controllers/NetworkImages/food_area.dart';
 import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Controllers/SearchController/searchController.dart';
-import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/VoucherButton.dart';
 
 // ignore: must_be_immutable
 class discountArea extends StatelessWidget {
+  const discountArea({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +30,7 @@ class discountAreaScreen extends StatefulWidget {
   State<discountAreaScreen> createState() => _discountAreaScreenState();
 }
 
+// ignore: camel_case_types
 class _discountAreaScreenState extends State<discountAreaScreen> {
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
 
@@ -235,7 +234,8 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                                   ),
                                                 ),
                                                 Container(
-                                                  child: Row(
+                                                  padding: null,
+                                                  child: const Row(
                                                     children: [
                                                       Text(
                                                         '56.04',
@@ -255,7 +255,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                                 )
                                               ],
                                             ),
-                                            Row(
+                                            const Row(
                                               children: [
                                                 SizedBox(
                                                   width: 269,
@@ -292,7 +292,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                               height: 30,
                             ),
                             Container(
-                              padding: EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
                               width: 400,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,

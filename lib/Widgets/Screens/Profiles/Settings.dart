@@ -24,19 +24,23 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   final String mastercardIcon = "assets/images/icon/mastercard.png";
   final _searchController = TextEditingController();
   String? email;
+  String? gmail;
   late Usersss users = Usersss();
   List<Map<String, dynamic>> place = [];
   final data = Data();
   late bool isPaymentSuccess = false;
+  final supabase = Supabase.instance.client;
 
   Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
+      final userEmail = supabase.auth.currentUser!.email;
       if (mounted) {
         setState(() {
           email = useremail.isNotEmpty
               ? useremail[0]['full_name'].toString()
               : "Anonymous User";
+          gmail = userEmail;
         });
       }
     } catch (e) {
@@ -74,6 +78,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Settings'),
         toolbarHeight: 40,
         leading: Builder(
           builder: (BuildContext context) => IconButton(
@@ -123,35 +128,13 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                         const SizedBox(
                           height: 30,
                         ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Center(
-                                child: Text(
-                                  'Settings',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const CircleAvatar(
-                              backgroundImage: AssetImage('assets/images/icon/beach.png'),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
                         Container(
                           padding: const EdgeInsets.all(15),
                           width: 330,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: const Color.fromRGBO(68,202,249,100),
-                            borderRadius: BorderRadius.circular(30)
-                          ),
+                              color: const Color.fromRGBO(68, 202, 249, 100),
+                              borderRadius: BorderRadius.circular(30)),
                           child: const Text(
                             'Account Settings',
                             textAlign: TextAlign.left,
@@ -162,86 +145,73 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                           ),
                         ),
                         Container(
-                          width: 290,
-                          height: 175,
-                          margin: const EdgeInsets.only(right: 15, left: 15,),
-                          padding: const EdgeInsets.only(bottom: 10),
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
-                            color: Color.fromRGBO(241,241,241,100),
-                            border: Border(right: BorderSide(color: Colors.black), left: BorderSide(color: Colors.black), bottom: BorderSide(color: Colors.black))
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                width: 300,
-                                padding: const EdgeInsets.only(right: 15, left: 15),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Name'
-                                    ),
-                                    Text(
-                                      'Placeholder name'
-                                    )
-                                  ],
+                            width: 290,
+                            height: 175,
+                            margin: const EdgeInsets.only(
+                              right: 15,
+                              left: 15,
+                            ),
+                            padding: const EdgeInsets.only(bottom: 10),
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)),
+                                color: Color.fromRGBO(241, 241, 241, 100),
+                                border: Border(
+                                    right: BorderSide(color: Colors.black),
+                                    left: BorderSide(color: Colors.black),
+                                    bottom: BorderSide(color: Colors.black))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  width: 300,
+                                  padding: const EdgeInsets.only(
+                                      right: 15, left: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [Text('Name'), Text('$email')],
+                                  ),
                                 ),
-                              ),
-                              Divider(
-                                color: Colors.black,
-                              ),
-                              InkWell(
-                                onTap: ()=> 'test',
-                                  child: Container(
-                                    padding: const EdgeInsets.only(right: 15, left: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Edit Profile'
-                                        )
-                                      ],
-                                    ),
-                                  )
-                              ),
-                              Divider(
-                                color: Colors.black,
-                              ),
-                              Container(
-                                padding: const EdgeInsets.only(right: 15, left: 15),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Email'
-                                    ),
-                                    Text(
-                                      'Email Placeholder'
-                                    )
-                                  ],
+                                const Divider(
+                                  color: Colors.black,
                                 ),
-                              ),
-                              Divider(
-                                color: Colors.black,
-                              ),
-                              InkWell(
-                                onTap: ()=> 'test',
-                                  child: Container(
-                                    padding: const EdgeInsets.only(right: 15, left: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Change Password'
-                                        )
-                                      ],
-                                    ),
-                                  )
-                              ),
-                            ],
-                          )
-                        ),
-                        
+                                InkWell(
+                                    onTap: () => 'test',
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 15, left: 15),
+                                      child: const Row(
+                                        children: [Text('Edit Profile')],
+                                      ),
+                                    )),
+                                const Divider(
+                                  color: Colors.black,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      right: 15, left: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [Text('Email'), Text('$gmail')],
+                                  ),
+                                ),
+                                const Divider(
+                                  color: Colors.black,
+                                ),
+                                InkWell(
+                                    onTap: () => 'test',
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 15, left: 15),
+                                      child: Row(
+                                        children: [Text('Change Password')],
+                                      ),
+                                    )),
+                              ],
+                            )),
                       ],
                     ),
                   ),
@@ -257,9 +227,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                           width: 330,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: const Color.fromRGBO(68,202,249,100),
-                            borderRadius: BorderRadius.circular(30)
-                          ),
+                              color: const Color.fromRGBO(68, 202, 249, 100),
+                              borderRadius: BorderRadius.circular(30)),
                           child: const Text(
                             'Preferences',
                             textAlign: TextAlign.left,
@@ -270,35 +239,36 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                           ),
                         ),
                         Container(
-                          width: 290,
-                          height: 50,
-                          margin: const EdgeInsets.only(right: 15, left: 15,),
-                          padding: const EdgeInsets.only(right: 15, left: 15),
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
-                            color: Color.fromRGBO(241,241,241,100),
-                            border: Border(right: BorderSide(color: Colors.black), left: BorderSide(color: Colors.black), bottom: BorderSide(color: Colors.black))
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                            InkWell(
-                                onTap: ()=> 'test',
-                                  child: Container(
-                                    padding: const EdgeInsets.only(right: 15, left: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Change Password'
-                                        )
-                                      ],
-                                    ),
-                                  )
-                              ),
-                            ],
-                          )
-                        ),
-                        
+                            width: 290,
+                            height: 50,
+                            margin: const EdgeInsets.only(
+                              right: 15,
+                              left: 15,
+                            ),
+                            padding: const EdgeInsets.only(right: 15, left: 15),
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)),
+                                color: Color.fromRGBO(241, 241, 241, 100),
+                                border: Border(
+                                    right: BorderSide(color: Colors.black),
+                                    left: BorderSide(color: Colors.black),
+                                    bottom: BorderSide(color: Colors.black))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                    onTap: () => 'test',
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 15, left: 15),
+                                      child: Row(
+                                        children: [Text('Change Password')],
+                                      ),
+                                    )),
+                              ],
+                            )),
                       ],
                     ),
                   ),
@@ -314,9 +284,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                           width: 330,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: const Color.fromRGBO(68,202,249,100),
-                            borderRadius: BorderRadius.circular(30)
-                          ),
+                              color: const Color.fromRGBO(68, 202, 249, 100),
+                              borderRadius: BorderRadius.circular(30)),
                           child: const Text(
                             'Notification Settings',
                             textAlign: TextAlign.left,
@@ -327,82 +296,72 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                           ),
                         ),
                         Container(
-                          width: 290,
-                          height: 175,
-                          margin: const EdgeInsets.only(right: 15, left: 15,),
-                          padding: const EdgeInsets.only(bottom: 10),
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
-                            color: Color.fromRGBO(241,241,241,100),
-                            border: Border(right: BorderSide(color: Colors.black), left: BorderSide(color: Colors.black), bottom: BorderSide(color: Colors.black))
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              InkWell(
-                                onTap: ()=> 'test',
-                                  child: Container(
-                                    padding: const EdgeInsets.only(right: 15, left: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'About'
-                                        )
-                                      ],
-                                    ),
-                                  )
-                              ),
-                              Divider(
-                                color: Colors.black,
-                              ),
-                              InkWell(
-                                onTap: ()=> 'test',
-                                  child: Container(
-                                    padding: const EdgeInsets.only(right: 15, left: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Rate My App'
-                                        )
-                                      ],
-                                    ),
-                                  )
-                              ),
-                              Divider(
-                                color: Colors.black,
-                              ),
-                              InkWell(
-                                onTap: ()=> 'test',
-                                  child: Container(
-                                    padding: const EdgeInsets.only(right: 15, left: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Contact'
-                                        )
-                                      ],
-                                    ),
-                                  )
-                              ),
-                              Divider(
-                                color: Colors.black,
-                              ),
-                              InkWell(
-                                onTap: ()=> 'test',
-                                  child: Container(
-                                    padding: const EdgeInsets.only(right: 15, left: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Share with Friends'
-                                        )
-                                      ],
-                                    ),
-                                  )
-                              ),
-                            ],
-                          )
-                        ),
+                            width: 290,
+                            height: 175,
+                            margin: const EdgeInsets.only(
+                              right: 15,
+                              left: 15,
+                            ),
+                            padding: const EdgeInsets.only(bottom: 10),
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10)),
+                                color: Color.fromRGBO(241, 241, 241, 100),
+                                border: Border(
+                                    right: BorderSide(color: Colors.black),
+                                    left: BorderSide(color: Colors.black),
+                                    bottom: BorderSide(color: Colors.black))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                InkWell(
+                                    onTap: () => 'test',
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 15, left: 15),
+                                      child: Row(
+                                        children: [Text('About')],
+                                      ),
+                                    )),
+                                Divider(
+                                  color: Colors.black,
+                                ),
+                                InkWell(
+                                    onTap: () => 'test',
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 15, left: 15),
+                                      child: Row(
+                                        children: [Text('Rate My App')],
+                                      ),
+                                    )),
+                                Divider(
+                                  color: Colors.black,
+                                ),
+                                InkWell(
+                                    onTap: () => 'test',
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 15, left: 15),
+                                      child: Row(
+                                        children: [Text('Contact')],
+                                      ),
+                                    )),
+                                Divider(
+                                  color: Colors.black,
+                                ),
+                                InkWell(
+                                    onTap: () => 'test',
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 15, left: 15),
+                                      child: Row(
+                                        children: [Text('Share with Friends')],
+                                      ),
+                                    )),
+                              ],
+                            )),
                       ],
                     ),
                   ),
@@ -410,9 +369,18 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                     height: 30,
                   ),
                   BlueButtonWithoutFunction(
-                    text: const Text('Back', style: TextStyle(color: Colors.white),), 
-                    style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(68,202,249,100),)), 
-                    oppressed: () { Navigator.pop(context); AppRoutes.navigateToMainMenu(context);},
+                    text: const Text(
+                      'Back',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: const ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(
+                      Color.fromRGBO(68, 202, 249, 100),
+                    )),
+                    oppressed: () {
+                      Navigator.pop(context);
+                      AppRoutes.navigateToMainMenu(context);
+                    },
                   ),
                   const SizedBox(
                     height: 30,

@@ -19,7 +19,7 @@ class Usersss {
     late String? name = user?.id;
     return await supabase
         .from('profiles')
-        .select('full_name')
+        .select('*')
         .eq('id', name.toString());
   }
 
