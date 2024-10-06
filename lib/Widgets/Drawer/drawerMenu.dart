@@ -43,8 +43,8 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
     setState(() {
-      place = datas;
-    });
+        place = datas;
+      });
   }
 
   @override
@@ -104,6 +104,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             title: const Text('My Wallet'),
             onTap: () {
               Navigator.pop(context);
+              AppRoutes.navigateToDiscountArea(context);
             },
           ),
           ListTile(

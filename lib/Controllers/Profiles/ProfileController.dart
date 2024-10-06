@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -19,7 +20,7 @@ class Usersss {
     late String? name = user?.id;
     return await supabase
         .from('profiles')
-        .select('full_name')
+        .select('*')
         .eq('id', name.toString());
   }
 
@@ -49,6 +50,24 @@ class Usersss {
       const SnackBar(content: Text('Password reset successfully'));
     } catch (e) {
       SnackBar(content: Text('error: $e'));
+    }
+  }
+
+  Future<String?> editProfile() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image == null) {
+      debugPrint('null');
+      return 'null';
+    }
+  }
+
+  Future<String?> getter(String name) async {
+    final img = supabase.storage.from('avatars').getPublicUrl(name);
+    if (img.isEmpty) {
+      return null;
+    } else {
+      return img;
     }
   }
 }

@@ -21,6 +21,7 @@ import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/linkedBankAccount.dart';
+import '../../Widgets/Screens/App/crypto/discountArea.dart';
 
 class AppRoutes {
   static const String login = "../Widgets/Screens/Auth/Login.dart";
@@ -181,5 +182,10 @@ class AppRoutes {
   static void navigateTofoodArea(BuildContext context) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const FoodAreastateless()));
+  }
+
+  static void navigateToDiscountArea(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => discountArea()));
   }
 }
