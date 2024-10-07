@@ -24,7 +24,8 @@ class Usersss {
     if (response.isNotEmpty) {
       final data = response;
       var img = data[0]['avatar_url'].toString();
-      data[0]['avatar_url'] = img;
+      var imgUrl = await getter(img);
+      data[0]['avatar_url'] = imgUrl;
       return data;
     }
     return [];
@@ -67,13 +68,13 @@ class Usersss {
       return 'null';
     }
     File file = File(image.path);
-    final String name =  '${DateTime.now().millisecondsSinceEpoch}_${image.name}';
+    final String name = image.name;
 
     try {
       final storageResponse = await supabase.storage.from('avatars').upload(name, file);
       final response = await supabase
           .from('profiles')
-          .upsert({'id': id, 'avatar_url': storageResponse});
+          .upsert({'id': id, 'avatar_url': name});
 
       if (storageResponse.isEmpty) {
         debugPrint('Error uploading image: $storageResponse');
