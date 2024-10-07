@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -291,11 +289,11 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.only(
                                           right: 15, left: 15),
-                                      child: Row(
+                                      child: const Row(
                                         children: [Text('About')],
                                       ),
                                     )),
-                                Divider(
+                                const Divider(
                                   color: Colors.black,
                                 ),
                                 InkWell(
@@ -303,11 +301,11 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.only(
                                           right: 15, left: 15),
-                                      child: Row(
+                                      child: const Row(
                                         children: [Text('Rate My App')],
                                       ),
                                     )),
-                                Divider(
+                                const Divider(
                                   color: Colors.black,
                                 ),
                                 InkWell(
@@ -315,11 +313,11 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.only(
                                           right: 15, left: 15),
-                                      child: Row(
+                                      child: const Row(
                                         children: [Text('Contact')],
                                       ),
                                     )),
-                                Divider(
+                                const Divider(
                                   color: Colors.black,
                                 ),
                                 InkWell(
@@ -327,7 +325,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.only(
                                           right: 15, left: 15),
-                                      child: Row(
+                                      child: const Row(
                                         children: [Text('Share with Friends')],
                                       ),
                                     )),
