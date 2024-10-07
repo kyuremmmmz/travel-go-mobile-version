@@ -25,6 +25,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   final _searchController = TextEditingController();
   String? email;
   String? gmail;
+  String? uid;
   late Usersss users = Usersss();
   List<Map<String, dynamic>> place = [];
   final data = Data();
@@ -35,12 +36,14 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     try {
       final PostgrestList useremail = await users.fetchUser();
       final userEmail = supabase.auth.currentUser!.email;
+      final userId = supabase.auth.currentUser!.id;
       if (mounted) {
         setState(() {
           email = useremail.isNotEmpty
               ? useremail[0]['full_name'].toString()
               : "Anonymous User";
           gmail = userEmail;
+          uid = userId;
         });
       }
     } catch (e) {
@@ -50,6 +53,11 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
         });
       }
     }
+  }
+
+  Future<Future<String?>> insert(String id) async {
+    final response = users.editProfile(id);
+    return response;
   }
 
   Future<void> fetchImage() async {
@@ -116,20 +124,25 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   ),
                   const Text(
                     "Northwestern part of Luzon Island, Philippines",
-                    style: TextStyle(fontSize: 16), // Adjust text style as needed
+                    style:
+                        TextStyle(fontSize: 16), // Adjust text style as needed
                   ),
                   const SizedBox(
                     height: 30,
                   ),
                   Center(
-                    child: Container(
-                      padding: null,
-                      child: const CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage('assets/images/icon/suitcase.png'),
-                      ),
-                    )
-                  ),
+                      child: Container(
+                          padding: null,
+                          child: GestureDetector(
+                            onTap: () {
+                              insert('$uid');
+                            },
+                            child: const CircleAvatar(
+                              radius: 40,
+                              backgroundImage:
+                                  AssetImage('assets/images/icon/suitcase.png'),
+                            ),
+                          ))),
                   SizedBox(
                     width: 350,
                     child: Column(
@@ -180,7 +193,10 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: [const Text('Name'), Text('$email')],
+                                    children: [
+                                      const Text('Name'),
+                                      Text('$email')
+                                    ],
                                   ),
                                 ),
                                 const Divider(
@@ -204,7 +220,10 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: [const Text('Email:'), Text('$gmail')],
+                                    children: [
+                                      const Text('Email:'),
+                                      Text('$gmail')
+                                    ],
                                   ),
                                 ),
                                 const Divider(
@@ -218,11 +237,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                       child: const Row(
                                         children: [Text('Change Password')],
                                       ),
-                                    )
-                                  ),
+                                    )),
                               ],
-                            )
-                          ),
+                            )),
                       ],
                     ),
                   ),

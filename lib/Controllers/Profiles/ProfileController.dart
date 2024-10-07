@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -53,12 +54,32 @@ class Usersss {
     }
   }
 
-  Future<String?> editProfile() async {
+  Future<String?> editProfile(String id) async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image == null) {
       debugPrint('null');
       return 'null';
+    }
+    File file = File(image.path);
+    final String name = 'user_${DateTime.now().microsecondsSinceEpoch}.jpg';
+
+    try {
+      final storageResponse =
+          await supabase.storage.from('avatars').upload(name, file);
+
+      if (storageResponse.isNotEmpty) {
+        debugPrint('Error uploading image: $storageResponse');
+        return null;
+      }
+
+      final response = await supabase.from('profiles').upsert(
+          {'id': id, 'avatar_url': storageResponse});
+
+      return response.data;
+    } catch (e) {
+      debugPrint('Exception occurred: $e');
+      return null;
     }
   }
 
