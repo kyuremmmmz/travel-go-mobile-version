@@ -70,6 +70,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CircleAvatar(
+                  radius: 40,
                   backgroundImage: NetworkImage('$img'),
                 ),
                 const SizedBox(height: 10),
