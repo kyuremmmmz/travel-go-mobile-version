@@ -19,10 +19,15 @@ class Usersss {
   Future<PostgrestList> fetchUser() async {
     user = supabase.auth.currentUser;
     late String? name = user?.id;
-    return await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', name.toString());
+    final response =
+        await supabase.from('profiles').select('*').eq('id', name.toString());
+    if (response.isNotEmpty) {
+      final data = response;
+      var img = data[0]['avatar_url'].toString();
+      data[0]['avatar_url'] = img;
+      return data;
+    }
+    return [];
   }
 
   Future<dynamic> sendVerificationCode(
@@ -62,21 +67,19 @@ class Usersss {
       return 'null';
     }
     File file = File(image.path);
-    final String name = 'user_${DateTime.now().microsecondsSinceEpoch}.jpg';
+    final String name =  '${DateTime.now().millisecondsSinceEpoch}_${image.name}';
 
     try {
-      final storageResponse =
-          await supabase.storage.from('avatars').upload(name, file);
+      final storageResponse = await supabase.storage.from('avatars').upload(name, file);
+      final response = await supabase
+          .from('profiles')
+          .upsert({'id': id, 'avatar_url': storageResponse});
 
-      if (storageResponse.isNotEmpty) {
+      if (storageResponse.isEmpty) {
         debugPrint('Error uploading image: $storageResponse');
         return null;
       }
-
-      final response = await supabase.from('profiles').upsert(
-          {'id': id, 'avatar_url': storageResponse});
-
-      return response.data;
+      return response;
     } catch (e) {
       debugPrint('Exception occurred: $e');
       return null;

@@ -24,6 +24,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   String? email;
   String? gmail;
   String? uid;
+  String? img;
   late Usersss users = Usersss();
   List<Map<String, dynamic>> place = [];
   final data = Data();
@@ -42,6 +43,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               : "Anonymous User";
           gmail = userEmail;
           uid = userId;
+          img = useremail.isNotEmpty
+              ? useremail[0]['avatar_url'].toString()
+              : "Anonymous User";
         });
       }
     } catch (e) {
@@ -52,6 +56,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       }
     }
   }
+
 
   Future<Future<String?>> insert(String id) async {
     final response = users.editProfile(id);
@@ -135,10 +140,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             onTap: () {
                               insert('$uid');
                             },
-                            child: const CircleAvatar(
+                            child: CircleAvatar(
                               radius: 40,
-                              backgroundImage:
-                                  AssetImage('assets/images/icon/suitcase.png'),
+                              backgroundImage: NetworkImage('$img'),
                             ),
                           ))),
                   SizedBox(
