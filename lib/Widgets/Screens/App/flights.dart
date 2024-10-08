@@ -25,11 +25,14 @@ class _FlightState extends State<Flight> {
       ),
       drawer: const DrawerMenuWidget(),
       body: SafeArea(
-        child:  SingleChildScrollView(
-          child: Stack(
-            children: [
-              Center(
-                child: Container(
+        child:  Scrollbar(
+          child: SingleChildScrollView(
+            child: 
+              Stack(
+                children: [
+                  Center(
+                  child: Container(
+                  padding: null,
                   child: const Text(
                     'Travel Go',
                     style: TextStyle(
@@ -96,14 +99,46 @@ class _FlightState extends State<Flight> {
                           )
                         ),
                       ),
-                    )
-                  ]
+                    ),
+                    const SizedBox(
+                      height: 60,
+                    ),
+                    Center(
+                      child: Card(
+                        color: const Color.fromARGB(255, 195, 213, 245),
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(
+                            width: 1,
+                            color: Color.fromARGB(255, 0, 0, 0)
+                          ),
+                          borderRadius: BorderRadius.circular(
+                            10
+                          )
+                        ),
+                        child: Container(
+                          padding: null,
+                          height: 50,
+                          width: 207,
+                          child: const Center(
+                            child: Text(
+                            'Choose your Flight',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            )
+                          ),
+                        ),
+                      )
+                    ]
+                  ),
                 ),
-              )
-            ],
+              ]
+            ),
           ),
         )
-      ),
+      )
     );
   }
 }
