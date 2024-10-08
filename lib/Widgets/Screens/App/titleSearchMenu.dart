@@ -42,32 +42,32 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 45.0.w),
+          padding: EdgeInsets.symmetric(horizontal: 59.0.w),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 12.h), // the top padding for image
                   Image.asset(
                     'assets/images/icon/placeholder.png',
-                    width: 15.w,
-                    height: 15.h,
+                    width: 13.w,
+                    height: 13.h,
                   ),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 20.h), // the bottom padding for image
                 ],
               ),
-              SizedBox(width: 5.w),
+              SizedBox(width: 5.w), // Space between image and text
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: 12.h),
+                  SizedBox(height: 12.h), // top padding for text
                   Text(
                     "Northwestern part of Luzon Island, Philippines",
-                    style: TextStyle(fontSize: 12.sp),
+                    style: TextStyle(fontSize: 11.sp),
                   ),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 40.h), // bottom padding for text 
                 ],
               ),
           ],
