@@ -1,9 +1,8 @@
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Routes/Routes.dart';
-
 class DrawerMenuWidget extends StatefulWidget {
   const DrawerMenuWidget({super.key});
 

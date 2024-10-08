@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/App/hotels.dart';
+import 'package:TravelGo/Widgets/Screens/App/hotels.dart';
 
 class HotelStateless extends StatelessWidget {
   const HotelStateless({super.key});

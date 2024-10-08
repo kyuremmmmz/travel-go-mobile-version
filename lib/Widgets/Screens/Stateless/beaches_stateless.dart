@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/App/beachList.dart';
+import 'package:TravelGo/Widgets/Screens/App/beachList.dart';
 
 class BeachesStateless extends StatelessWidget {
   const BeachesStateless({super.key});

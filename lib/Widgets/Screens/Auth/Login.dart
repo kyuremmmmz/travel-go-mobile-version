@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart'; // Import thr material design widgets
-import 'package:itransit/Controllers/Auth/login.dart'; // Import login logic
-import 'package:itransit/Widgets/Textfield/passwordField.dart'; // import passowrd widget
-import 'package:itransit/Routes/Routes.dart'; // Import routes for navigation
+import 'package:TravelGo/Controllers/Auth/login.dart'; // Import login logic
+import 'package:TravelGo/Widgets/Textfield/passwordField.dart'; // import passowrd widget
+import 'package:TravelGo/Routes/Routes.dart'; // Import routes for navigation
 import '../../Textfield/plainTextField.dart'; //Import plain text widget
 import './../../Buttons/DefaultButtons/BlueButton.dart'; // Import custom blue button widget
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness

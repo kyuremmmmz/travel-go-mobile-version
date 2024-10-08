@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 
 class Flight extends StatefulWidget {
   const Flight({super.key});

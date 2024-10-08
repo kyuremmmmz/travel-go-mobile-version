@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Textfield/searchField.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Widgets/Textfield/searchField.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class ForgotPasswordScreen extends StatefulWidget {
