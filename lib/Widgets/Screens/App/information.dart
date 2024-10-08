@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -36,6 +37,7 @@ class _InformationScreenState extends State<InformationScreen> {
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   final _commentController = TextEditingController();
   String? email;
+  String? userEmail;
   String? description;
   String? text;
   String? img;
@@ -52,11 +54,11 @@ class _InformationScreenState extends State<InformationScreen> {
   int ratings = 0;
   String? availability;
   String? price;
+  String? commentImg;
   final data = Data();
   List<Map<String, dynamic>> list = [];
   late Usersss users = Usersss();
   late RatingsAndComments rating = RatingsAndComments();
-
   @override
   void initState() {
     super.initState();
@@ -104,25 +106,30 @@ class _InformationScreenState extends State<InformationScreen> {
 
   Future<void> stateComments() async {
     final data = await rating.fetchComments(widget.text);
-    final totalRatings = await rating.fetchRatingsAsSum();
+    final image = data[0]['comment_id'].toString();
+    final imgUrl = await users.fetchImageForComments(image);
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
       userRatings = records;
+      commentImg = imgUrl;
     });
   }
 
   Future<void> fetchRatings(int id) async {
-    final data = await rating.fetchComments(id);
+    final data = await rating.fetchComments(widget.text);
     final totalRatings = await rating.fetchRatingsAsSum();
+    final image = data[0]['comment_id'].toString();
+    final imgUrl = await users.fetchImageForComments(image);
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
       userRatings = records;
+      commentImg = imgUrl;
     });
   }
 
@@ -568,7 +575,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   size: 25,
                                                 );
                                               } else if (index ==
-                                                      ratingsTotal.floor() &&
+                                                      ratingsTotal &&
                                                   ratingsTotal % 1 != 0) {
                                                 return const Icon(
                                                   Icons.star_border,
@@ -784,7 +791,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                 CircleAvatar(
                                                                   backgroundImage:
                                                                       NetworkImage(
-                                                                    '$img',
+                                                                    '$commentImg',
                                                                   ),
                                                                 ),
                                                                 const SizedBox(
@@ -833,9 +840,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                         }),
                                                                         Text(
                                                                           ' $ratings OUT OF 5',
-                                                                          style: const TextStyle(
-                                                                            fontSize: 12
-                                                                          ),
+                                                                          style:
+                                                                              const TextStyle(fontSize: 12),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -919,11 +925,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const Flight()
-                                                    )
-                                                  );
-                                                }
-                                              ),
+                                                              const Flight()));
+                                                }),
                                           )
                                         ],
                                       )
@@ -939,8 +942,6 @@ class _InformationScreenState extends State<InformationScreen> {
                   ],
                 );
               }
-            }
-          )
-        );
+            }));
   }
 }

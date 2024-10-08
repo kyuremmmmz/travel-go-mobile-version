@@ -71,7 +71,8 @@ class Usersss {
     final String name = image.name;
 
     try {
-      final storageResponse = await supabase.storage.from('avatars').upload(name, file);
+      final storageResponse =
+          await supabase.storage.from('avatars').upload(name, file);
       final response = await supabase
           .from('profiles')
           .upsert({'id': id, 'avatar_url': name});
@@ -84,6 +85,22 @@ class Usersss {
     } catch (e) {
       debugPrint('Exception occurred: $e');
       return null;
+    }
+  }
+
+  Future<String?> fetchImageForComments(String name) async {
+    final response = await supabase
+        .from('profiles')
+        .select('avatar_url')
+        .eq('id', name)
+        .single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      var data = response;
+      var img = data['avatar_url'];
+      var imgUrl = await getter(img);
+      return imgUrl;
     }
   }
 

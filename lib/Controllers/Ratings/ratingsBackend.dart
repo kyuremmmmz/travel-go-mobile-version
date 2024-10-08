@@ -14,7 +14,7 @@ class RatingsAndComments {
         "placeComment": placeComment,
         "comment_id": user!.id,
         "comment_id_places": id,
-        "full_name" : name
+        "full_name": name,
       });
       return response;
     } catch (e) {
@@ -33,11 +33,14 @@ class RatingsAndComments {
       return [];
     } else {
       final data = response;
-      List<Map<String, dynamic>> map = List<Map<String, dynamic>>.from(data as List);
+      List<Map<String, dynamic>> map =
+          List<Map<String, dynamic>>.from(data as List);
       for (var datas in map) {
         final comments = datas['comment'];
         final ratings = datas['rating'];
+        final commentId = datas['comment_id'];
         datas['comment'] = comments;
+        datas['comment_id'] = commentId;
         datas['rating'] = ratings;
       }
       return data;

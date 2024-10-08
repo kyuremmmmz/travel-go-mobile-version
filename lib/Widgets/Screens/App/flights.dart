@@ -187,21 +187,33 @@ class _FlightState extends State<Flight> {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        const Row(
+                                        Row(
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 20,
                                             ),
-                                            Column(
+                                            const Column(
                                               children: [
                                                 CircleAvatar(
                                                 backgroundImage: AssetImage(
                                                     'assets/images/icon/food_place.png'),
                                                 ),
-                                                const Text(
-                                                  'NAIA '
+                                                Text(
+                                                  'NAIA'
                                                 )
                                               ],
+                                            ),
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            Container(
+                                              child: Column(
+                                                children: [
+                                                  const Text(
+                                                    '7:15'
+                                                  )
+                                                ],
+                                              ),
                                             )
                                           ],
                                         )
