@@ -833,8 +833,9 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                         }),
                                                                         Text(
                                                                           ' $ratings OUT OF 5',
-                                                                          style:
-                                                                              const TextStyle(fontSize: 12),
+                                                                          style: const TextStyle(
+                                                                            fontSize: 12
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),

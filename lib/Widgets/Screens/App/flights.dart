@@ -13,7 +13,15 @@ class _FlightState extends State<Flight> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your available Flights'),
+        toolbarHeight: 40,
+        leading: Builder(
+          builder: (BuildContext context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
       ),
       drawer: const DrawerMenuWidget(),
       body: SafeArea(
@@ -23,8 +31,42 @@ class _FlightState extends State<Flight> {
               Center(
                 child: Container(
                   child: const Text(
-                    'Travel Go'
+                    'Travel Go',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
                   ),
+                ),
+              ),
+              const Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Icon(
+                          Icons.location_on,
+                          color: Colors.red,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                            'Northwestern part of Luzon Island, Philippines',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    )
+                  ]
                 ),
               )
             ],
