@@ -41,6 +41,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? description;
   String? text;
   String? img;
+  String? imgUrl;
   String? hasCar;
   String? imageUrl;
   String? comments;
@@ -65,6 +66,7 @@ class _InformationScreenState extends State<InformationScreen> {
     emailFetching();
     fetchSpecificData(widget.text);
     fetchRatings(widget.text);
+    fetchWithoutFunct();
   }
 
   Future<void> _isRedirecting() async {
@@ -101,28 +103,33 @@ class _InformationScreenState extends State<InformationScreen> {
 
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "places", '$text', widget.text, '$email');
+        commentType = "places", '$text', widget.text, '$email', '$img');
+  }
+
+  Future<void> fetchWithoutFunct() async {
+    final response = await users.fetchUserWithoutgetter();
+    setState(() {
+      imgUrl = response[0]['avatar_url'];
+    });
   }
 
   Future<void> stateComments() async {
     final data = await rating.fetchComments(widget.text);
-    final image = data[0]['comment_id'].toString();
-    final imgUrl = await users.fetchImageForComments(image);
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
       userRatings = records;
-      commentImg = imgUrl;
     });
   }
 
   Future<void> fetchRatings(int id) async {
     final data = await rating.fetchComments(widget.text);
     final totalRatings = await rating.fetchRatingsAsSum();
-    final image = data[0]['comment_id'].toString();
-    final imgUrl = await users.fetchImageForComments(image);
+    final img = await users.fetchUser();
+    final images = img[0]['full_name'];
+    final imgUrl = await users.fetchImageForComments(images);
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
@@ -774,6 +781,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           place['rating'];
                                                       final String name =
                                                           place['full_name'];
+                                                      final String imgUrl =
+                                                          place['avatar_url'];
                                                       return Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -791,7 +800,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                 CircleAvatar(
                                                                   backgroundImage:
                                                                       NetworkImage(
-                                                                    '$commentImg',
+                                                                    imgUrl,
                                                                   ),
                                                                 ),
                                                                 const SizedBox(
