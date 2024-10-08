@@ -1,17 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/vehicleAvailability.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
-import 'package:TravelGo/Controllers/SearchController/searchController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/exploreNow.dart';
 import 'package:TravelGo/Widgets/Screens/App/flights.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -290,91 +288,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      Container(
-                                        padding:
-                                            const EdgeInsets.only(right: 170),
-                                        child: const Text(
-                                          'Vehicle Availability',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: <Widget>[
-                                            Column(
-                                              children: [
-                                                BlueIconButtonDefault(
-                                                  image:
-                                                      'assets/images/icon/tricycle.png',
-                                                  oppressed: () =>
-                                                      print('Hotels clicked'),
-                                                ),
-                                                const CategoryLabel(
-                                                    label: 'Tricycle'),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 20,
-                                            ),
-                                            Column(
-                                              children: [
-                                                BlueIconButtonDefault(
-                                                  image:
-                                                      'assets/images/icon/motorbike.png',
-                                                  oppressed: () => print(
-                                                      'Food Place clicked'),
-                                                ),
-                                                CategoryLabel(
-                                                    label: hasMotor == "true"
-                                                        ? 'Motorcycle'
-                                                        : 'Unavailable'),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 20,
-                                            ),
-                                            Column(
-                                              children: [
-                                                BlueIconButtonDefault(
-                                                  image:
-                                                      'assets/images/icon/plane.png',
-                                                  oppressed: () =>
-                                                      print('Beaches clicked'),
-                                                ),
-                                                const CategoryLabel(
-                                                    label: 'Planes'),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 20,
-                                            ),
-                                            Column(
-                                              children: [
-                                                BlueIconButtonDefault(
-                                                  image:
-                                                      'assets/images/icon/bus.png',
-                                                  oppressed: () => print(
-                                                      'Festivals clicked'),
-                                                ),
-                                                CategoryLabel(
-                                                    label: hasCar == "true"
-                                                        ? "Bus or Van"
-                                                        : "No van or bus available"),
-                                                const SizedBox(
-                                                  height: 20,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                      VehicleAvailability(
+                                        text: widget.text,
                                       ),
                                       Container(
                                           padding:
@@ -400,66 +315,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 30,
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: beachIcon,
-                                                oppressed: () =>
-                                                    print('Hotels clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label: 'Hotels'),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: foodIcon,
-                                                oppressed: () =>
-                                                    print('Food Place clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label: 'Food Place'),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: beachIcon,
-                                                oppressed: () =>
-                                                    print('Beaches clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label: 'Beaches'),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: festivalIcon,
-                                                oppressed: () =>
-                                                    print('Festivals clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label:
-                                                      'Festivals and \nEvents'),
-                                            ],
-                                          ),
-                                        ],
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 25),
+                                        child: const Categories(),
                                       ),
                                       Column(
                                         children: [
