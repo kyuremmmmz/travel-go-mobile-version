@@ -204,13 +204,45 @@ class _FlightState extends State<Flight> {
                                               ],
                                             ),
                                             const SizedBox(
-                                              width: 20,
+                                              width: 10,
                                             ),
                                             Container(
+                                              padding: const EdgeInsets.only(
+                                                bottom: 30
+                                              ),
                                               child: Column(
                                                 children: [
-                                                  const Text(
-                                                    '7:15'
+                                                  Container(
+                                                    padding: const EdgeInsets.only(
+                                                      right: 50,
+                                                      top: 10
+                                                    ),
+                                                    child: const Row(
+                                                      children: [
+                                                        Text(
+                                                        '7:15',
+                                                        style:  TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 15
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Text(
+                                                          'AM'
+                                                        )
+                                                      ],
+                                                    )
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets.only(
+                                                      right: 25
+                                                    ),
+                                                    child: const Text(
+                                                      'MNL . OCT 9'
+                                                    ),
                                                   )
                                                 ],
                                               ),
