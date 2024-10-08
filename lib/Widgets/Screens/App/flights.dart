@@ -66,16 +66,35 @@ class _FlightState extends State<Flight> {
                         ),
                       ],
                     ),
+                    const SizedBox(
+                      height: 50,
+                    ),
                     Center(
                       child: Card(
-                        
+                        color: const Color.fromARGB(255, 195, 213, 245),
                         shape: RoundedRectangleBorder(
-                          
+                          side: const BorderSide(
+                            width: 1,
+                            color: Color.fromARGB(255, 0, 0, 0)
+                          ),
                           borderRadius: BorderRadius.circular(
-                            50
+                            10
                           )
                         ),
-                        child: const Text('Choose your flight'),
+                        child: Container(
+                          padding: null,
+                          height: 50,
+                          width: 207,
+                          child: const Center(
+                            child: Text(
+                            'Choose your Flight',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold
+                              ),
+                            ),
+                          )
+                        ),
                       ),
                     )
                   ]
