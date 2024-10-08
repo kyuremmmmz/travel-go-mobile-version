@@ -49,7 +49,7 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
           height: 30.h,
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 23.w), // Search bar in Home M
+          padding: EdgeInsets.symmetric(horizontal: 23.w), // Search bar in Home Main Fron-end Dito
           child: TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
               controller: _searchController,
@@ -71,7 +71,7 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
                   borderSide: BorderSide.none, // Removed the border
                 ),
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Color(0XffDEDEDE),
               ),
             ),
             suggestionsCallback: (pattern) async {
