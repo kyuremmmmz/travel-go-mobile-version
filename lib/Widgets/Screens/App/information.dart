@@ -518,7 +518,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                               ),
                                               const CategoryLabel(
                                                   label:
-                                                      'Festivals and \nEventss'),
+                                                      'Festivals and \nEvents'),
                                             ],
                                           ),
                                         ],

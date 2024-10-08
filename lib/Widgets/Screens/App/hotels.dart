@@ -164,7 +164,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                     EdgeInsets.symmetric(horizontal: 25.w),
                                 child: Column(children: <Widget>[
                                   const Categories(),
-                                  SizedBox(height: 20.h),
+                                  SizedBox(height: 10.h),
                                   Container(
                                     padding: EdgeInsets.only(right: 190.w, bottom: 5.h),
                                     child: Text(
