@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:flutter/material.dart';
 
 class Flight extends StatefulWidget {
   const Flight({super.key});
@@ -45,6 +45,7 @@ class _FlightState extends State<Flight> {
               ),
               Center(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const SizedBox(
                       height: 50,
@@ -101,13 +102,14 @@ class _FlightState extends State<Flight> {
                       ),
                     ),
                     const SizedBox(
-                      height: 50,
-                      ),
+                    height: 50,
+                  ),
                     Container(
                       padding: const EdgeInsets.only(
-                        right: 100
+                        right: 70
                       ),
                       child: Card(
+                          margin:  EdgeInsets.zero,
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(30),
@@ -118,6 +120,7 @@ class _FlightState extends State<Flight> {
                             )
                           ),
                           child: Container(
+                          padding: null,
                           width: 280,
                           height: 50,
                           child: const Row(
@@ -144,6 +147,32 @@ class _FlightState extends State<Flight> {
                             ],
                           ),
                         )
+                      ),
+                    ),
+                    Container(
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        shape: const RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.black
+                          )
+                        ),
+                        child: Container(
+                          padding: null,
+                          width: 350,
+                          height: 70,
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                              top: 10,
+                              left: 15
+                            ),
+                            child: const Text('Your Flight to Pangasinan ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14
+                            ),),
+                          )
+                        ),
                       ),
                     )
                     ]
