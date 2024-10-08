@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:itransit/Routes/Routes.dart';
+import 'package:TravelGo/Routes/Routes.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 

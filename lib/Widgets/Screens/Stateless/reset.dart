@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/Auth/reset.dart';
+import 'package:TravelGo/Widgets/Screens/Auth/reset.dart';
 
 class Resetpassword extends StatefulWidget {
   const Resetpassword({super.key});

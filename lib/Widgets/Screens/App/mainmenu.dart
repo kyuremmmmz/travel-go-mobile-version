@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
-import 'package:itransit/Controllers/NetworkImages/food_area.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart';
-import 'package:itransit/Widgets/Screens/App/categories.dart';
-import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
-import 'package:itransit/Widgets/Screens/App/information.dart';
-import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
-import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
+import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
+import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/festivalsAbout.dart';
+import 'package:TravelGo/Widgets/Screens/App/categories.dart';
+import 'package:TravelGo/Widgets/Screens/App/foodAreaAbout.dart';
+import 'package:TravelGo/Widgets/Screens/App/information.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/Stateless/festivalsStateless.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {

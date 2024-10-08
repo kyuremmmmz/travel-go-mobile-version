@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:itransit/Routes/Routes.dart';
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 
 class AccountSettingsScreen extends StatefulWidget {
   const AccountSettingsScreen({
@@ -24,6 +24,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   String? email;
   String? gmail;
   String? uid;
+  String? img;
   late Usersss users = Usersss();
   List<Map<String, dynamic>> place = [];
   final data = Data();
@@ -42,6 +43,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               : "Anonymous User";
           gmail = userEmail;
           uid = userId;
+          img = useremail.isNotEmpty
+              ? useremail[0]['avatar_url'].toString()
+              : "Anonymous User";
         });
       }
     } catch (e) {
@@ -52,6 +56,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       }
     }
   }
+
 
   Future<Future<String?>> insert(String id) async {
     final response = users.editProfile(id);
@@ -135,10 +140,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             onTap: () {
                               insert('$uid');
                             },
-                            child: const CircleAvatar(
+                            child: CircleAvatar(
                               radius: 40,
-                              backgroundImage:
-                                  AssetImage('assets/images/icon/suitcase.png'),
+                              backgroundImage: NetworkImage('$img'),
                             ),
                           ))),
                   SizedBox(

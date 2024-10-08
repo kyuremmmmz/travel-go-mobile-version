@@ -1,17 +1,16 @@
 import 'dart:convert';
+import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:itransit/Controllers/NetworkImages/hotel_images.dart';
 import 'package:latlong2/latlong.dart';
 
-class Map extends StatelessWidget {
+class Mapa extends StatelessWidget {
   final String? location;
   final int id;
-  const Map({
+  const Mapa({
     super.key,
     required this.location,
     required this.id,

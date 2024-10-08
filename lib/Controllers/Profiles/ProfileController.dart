@@ -1,9 +1,9 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:itransit/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Usersss {
@@ -19,10 +19,16 @@ class Usersss {
   Future<PostgrestList> fetchUser() async {
     user = supabase.auth.currentUser;
     late String? name = user?.id;
-    return await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', name.toString());
+    final response =
+        await supabase.from('profiles').select('*').eq('id', name.toString());
+    if (response.isNotEmpty) {
+      final data = response;
+      var img = data[0]['avatar_url'].toString();
+      var imgUrl = await getter(img);
+      data[0]['avatar_url'] = imgUrl;
+      return data;
+    }
+    return [];
   }
 
   Future<dynamic> sendVerificationCode(
@@ -62,21 +68,19 @@ class Usersss {
       return 'null';
     }
     File file = File(image.path);
-    final String name = 'user_${DateTime.now().microsecondsSinceEpoch}.jpg';
+    final String name = image.name;
 
     try {
-      final storageResponse =
-          await supabase.storage.from('avatars').upload(name, file);
+      final storageResponse = await supabase.storage.from('avatars').upload(name, file);
+      final response = await supabase
+          .from('profiles')
+          .upsert({'id': id, 'avatar_url': name});
 
-      if (storageResponse.isNotEmpty) {
+      if (storageResponse.isEmpty) {
         debugPrint('Error uploading image: $storageResponse');
         return null;
       }
-
-      final response = await supabase.from('profiles').upsert(
-          {'id': id, 'avatar_url': storageResponse});
-
-      return response.data;
+      return response;
     } catch (e) {
       debugPrint('Exception occurred: $e');
       return null;
