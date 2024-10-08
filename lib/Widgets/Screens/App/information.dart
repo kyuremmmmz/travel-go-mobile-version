@@ -918,8 +918,11 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const Flight()));
-                                                }),
+                                                              const Flight()
+                                                    )
+                                                  );
+                                                }
+                                              ),
                                           )
                                         ],
                                       )
@@ -935,6 +938,8 @@ class _InformationScreenState extends State<InformationScreen> {
                   ],
                 );
               }
-            }));
+            }
+          )
+        );
   }
 }
