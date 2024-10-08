@@ -726,6 +726,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                                                                       onPressed: () {
                                                                                         commentInserttion();
+                                                                                        fetchRatings(widget.text);
                                                                                         _commentController.clear();
                                                                                         Navigator.pop(context);
                                                                                       },
@@ -763,7 +764,6 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           place['rating'];
                                                       final String name =
                                                           place['full_name'];
-
                                                       return Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -910,9 +910,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
                                                 ),
-                                                oppressed: () {
-                                                  stateComments();
-                                                }),
+                                                oppressed: () {}),
                                           )
                                         ],
                                       )

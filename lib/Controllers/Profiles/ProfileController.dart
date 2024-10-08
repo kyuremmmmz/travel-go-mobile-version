@@ -1,6 +1,8 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:itransit/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -17,10 +19,15 @@ class Usersss {
   Future<PostgrestList> fetchUser() async {
     user = supabase.auth.currentUser;
     late String? name = user?.id;
-    return await supabase
-        .from('profiles')
-        .select('full_name')
-        .eq('id', name.toString());
+    final response =
+        await supabase.from('profiles').select('*').eq('id', name.toString());
+    if (response.isNotEmpty) {
+      final data = response;
+      var img = data[0]['avatar_url'].toString();
+      data[0]['avatar_url'] = img;
+      return data;
+    }
+    return [];
   }
 
   Future<dynamic> sendVerificationCode(
@@ -49,6 +56,42 @@ class Usersss {
       const SnackBar(content: Text('Password reset successfully'));
     } catch (e) {
       SnackBar(content: Text('error: $e'));
+    }
+  }
+
+  Future<String?> editProfile(String id) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image == null) {
+      debugPrint('null');
+      return 'null';
+    }
+    File file = File(image.path);
+    final String name =  '${DateTime.now().millisecondsSinceEpoch}_${image.name}';
+
+    try {
+      final storageResponse = await supabase.storage.from('avatars').upload(name, file);
+      final response = await supabase
+          .from('profiles')
+          .upsert({'id': id, 'avatar_url': storageResponse});
+
+      if (storageResponse.isEmpty) {
+        debugPrint('Error uploading image: $storageResponse');
+        return null;
+      }
+      return response;
+    } catch (e) {
+      debugPrint('Exception occurred: $e');
+      return null;
+    }
+  }
+
+  Future<String?> getter(String name) async {
+    final img = supabase.storage.from('avatars').getPublicUrl(name);
+    if (img.isEmpty) {
+      return null;
+    } else {
+      return img;
     }
   }
 }
