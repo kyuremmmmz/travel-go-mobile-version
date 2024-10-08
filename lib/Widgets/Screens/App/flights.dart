@@ -153,28 +153,66 @@ class _FlightState extends State<Flight> {
                       child: Card(
                         margin: EdgeInsets.zero,
                         shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
+                            bottomLeft: Radius.circular(30)
+                          ),
                           side: BorderSide(
                             color: Colors.black
                           )
                         ),
                         child: Container(
                           padding: null,
-                          width: 350,
-                          height: 70,
-                          child: Container(
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                              left: 15
+                          child: Column(
+                            children: [
+                              Container(
+                                  padding: null,
+                                  width: 350,
+                                  height: 300,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                        top: 10,
+                                        right: 150),
+                                        child: const Text(
+                                        'Your Flight to Pangasinan ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Row(
+                                          children: [
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Column(
+                                              children: [
+                                                CircleAvatar(
+                                                backgroundImage: AssetImage(
+                                                    'assets/images/icon/food_place.png'),
+                                                ),
+                                                const Text(
+                                                  'NAIA '
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ),
+                              ],
                             ),
-                            child: const Text('Your Flight to Pangasinan ',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14
-                            ),),
                           )
                         ),
                       ),
-                    )
                     ]
                   ),
                 ),
