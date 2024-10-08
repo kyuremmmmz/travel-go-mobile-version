@@ -33,8 +33,7 @@ class RatingsAndComments {
       return [];
     } else {
       final data = response;
-      List<Map<String, dynamic>> map =
-          List<Map<String, dynamic>>.from(data as List);
+      List<Map<String, dynamic>> map = List<Map<String, dynamic>>.from(data as List);
       for (var datas in map) {
         final comments = datas['comment'];
         final ratings = datas['rating'];

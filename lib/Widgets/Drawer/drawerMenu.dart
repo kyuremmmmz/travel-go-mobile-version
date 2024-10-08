@@ -17,6 +17,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
   final String hotelIcon = "assets/images/icon/hotel.png";
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   String? email;
+  String? img;
   late Usersss users = Usersss();
   List<Map<String, dynamic>> place = [];
   final data = Data();
@@ -27,6 +28,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
       if (useremail.isNotEmpty) {
         setState(() {
           email = useremail[0]['full_name'].toString();
+          img = useremail[0]['avatar_url'].toString();
         });
       } else {
         setState(() {
@@ -43,8 +45,8 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
     setState(() {
-        place = datas;
-      });
+      place = datas;
+    });
   }
 
   @override
@@ -67,8 +69,9 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/icon/beach.png'),
+                CircleAvatar(
+                  radius: 40,
+                  backgroundImage: NetworkImage('$img'),
                 ),
                 const SizedBox(height: 10),
                 Text(

@@ -37,6 +37,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? email;
   String? description;
   String? text;
+  String? img;
   String? hasCar;
   String? imageUrl;
   String? comments;
@@ -104,7 +105,7 @@ class _InformationScreenState extends State<InformationScreen> {
     final data = await rating.fetchComments(widget.text);
     final totalRatings = await rating.fetchRatingsAsSum();
     final records = data.length;
-    final count = records / totalRatings;
+    final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
@@ -116,7 +117,7 @@ class _InformationScreenState extends State<InformationScreen> {
     final data = await rating.fetchComments(id);
     final totalRatings = await rating.fetchRatingsAsSum();
     final records = data.length;
-    final count = records / totalRatings;
+    final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
@@ -137,6 +138,7 @@ class _InformationScreenState extends State<InformationScreen> {
       if (useremail.isNotEmpty) {
         setState(() {
           email = useremail[0]['full_name'].toString();
+          img = useremail[0]['avatar_url'].toString();
         });
       } else {
         setState(() {
@@ -726,25 +728,24 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                                                                       onPressed: () {
                                                                                         commentInserttion();
+                                                                                        fetchRatings(widget.text);
                                                                                         _commentController.clear();
                                                                                         Navigator.pop(context);
                                                                                       },
                                                                                       child: const Text(
                                                                                         'Post',
                                                                                         style: TextStyle(color: Colors.black),
-                                                                                      )
-                                                                                    ),
+                                                                                      )),
                                                                                 ],
                                                                               )
                                                                             ],
                                                                           ),
-                                                                        )
-                                                                      );
-                                                                    },
-                                                                  );
-                                                                },
-                                                              );
-                                                            },
+                                                                        ));
+                                                                  },
+                                                                );
+                                                              },
+                                                            );
+                                                          },
                                                           child: const Text(
                                                             'Write a comment',
                                                             style: TextStyle(
@@ -761,10 +762,14 @@ class _InformationScreenState extends State<InformationScreen> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: list.map((place) {
-                                                      final int ratings = place['rating'];
-                                                      final String name = place['full_name'];
+                                                      final int ratings =
+                                                          place['rating'];
+                                                      final String name =
+                                                          place['full_name'];
                                                       return Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Container(
                                                             padding:
@@ -775,10 +780,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                                               children: [
                                                                 const SizedBox(
                                                                     width: 20),
-                                                                const CircleAvatar(
+                                                                CircleAvatar(
                                                                   backgroundImage:
                                                                       NetworkImage(
-                                                                    'https://scontent.fcrk2-1.fna.fbcdn.net/v/t39.30808-6/458201923_1043023800791060_3272608477704101222_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGBMm4xU2usMJaUqOsw_6B8XS5FRhVw6eldLkVGFXDp6YAneXr2mX8UggCWeJBKRtwp3v6PLmGEDoQZG9hUsZGN&_nc_ohc=yft81t1DQ9sQ7kNvgHunJTg&_nc_ht=scontent.fcrk2-1.fna&_nc_gid=A3XN-Jpcj-F6OLYI6cGWoDW&oh=00_AYBPnxFmLD8OofmQoLRd73Ru62FdY2CfQhMpLQxUdnDJbg&oe=67018C33',
+                                                                    '$img',
                                                                   ),
                                                                 ),
                                                                 const SizedBox(
@@ -813,7 +818,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                     Row(
                                                                       children: [
                                                                         ...List.generate(
-                                                                            5, (index) {
+                                                                            5,
+                                                                            (index) {
                                                                           return Icon(
                                                                             index < ratings
                                                                                 ? Icons.star
@@ -838,10 +844,12 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           ),
                                                           Container(
                                                             padding:
-                                                                const EdgeInsets.symmetric(
-                                                                    vertical:10,
-                                                                    horizontal: 20
-                                                                    ),
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        10,
+                                                                    horizontal:
+                                                                        20),
                                                             child: Text(
                                                               '${place['comment']}', // Display the comment
                                                               style:
@@ -904,9 +912,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
                                                 ),
-                                                oppressed: () {
-                                                  
-                                                }),
+                                                oppressed: () {}),
                                           )
                                         ],
                                       )
