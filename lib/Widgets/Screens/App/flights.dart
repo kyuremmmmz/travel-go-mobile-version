@@ -40,13 +40,13 @@ class _FlightState extends State<Flight> {
                   ),
                 ),
               ),
-              const Center(
+              Center(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         SizedBox(
                           width: 30,
@@ -60,11 +60,23 @@ class _FlightState extends State<Flight> {
                         ),
                         Text(
                             'Northwestern part of Luzon Island, Philippines',
-                          style: TextStyle(
+                            style: TextStyle(
                             color: Colors.black,
                           ),
                         ),
                       ],
+                    ),
+                    Center(
+                      child: Card(
+                        
+                        shape: RoundedRectangleBorder(
+                          
+                          borderRadius: BorderRadius.circular(
+                            50
+                          )
+                        ),
+                        child: const Text('Choose your flight'),
+                      ),
                     )
                   ]
                 ),
