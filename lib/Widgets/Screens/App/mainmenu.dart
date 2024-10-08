@@ -175,7 +175,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  InformationScreen(text: id, name: place['place_name'],)));
+                                                  InformationScreen(
+                                                    text: id,
+                                                    name: place['place_name'],
+                                                  )));
                                     });
                               }).toList()),
                           CategorySelect(
@@ -270,55 +273,59 @@ class _DismissableFindMoreLocationState
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                '  Find more location\n  around you',
-                                style: TextStyle(
-                                    fontSize: 25, color: Colors.white),
-                              ),
-                            ),
-                            const Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Text(
-                                '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: GestureDetector(
-                                onTap: () =>
-                                    AppRoutes.navigateToExploreNowScreen(
-                                        context),
-                                child: Stack(
-                                  children: [
-                                    const Text(
-                                      '    Explore now',
+                            Padding(
+                                padding: EdgeInsets.all(14.0),
+                                child: Column(children: [
+                                  const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Find more location \naround you',
                                       style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.white,
-                                        decoration: TextDecoration
-                                            .none, // Disable the default underline
+                                          fontSize: 25, color: Colors.white),
+                                    ),
+                                  ),
+                                  const Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text(
+                                      'Find your next adventure around Pangasinan \nand create unforgettable memories!',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.white),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: GestureDetector(
+                                      onTap: () =>
+                                          AppRoutes.navigateToExploreNowScreen(
+                                              context),
+                                      child: Stack(
+                                        children: [
+                                          const Text(
+                                            'Explore now',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white,
+                                              decoration: TextDecoration
+                                                  .none, // Disable the default underline
+                                            ),
+                                          ),
+                                          Positioned(
+                                            bottom: 0,
+                                            left: 0,
+                                            right: 0,
+                                            child: Container(
+                                              height: 2,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Positioned(
-                                      bottom: 0,
-                                      left: 10,
-                                      right: 0,
-                                      child: Container(
-                                        height: 2,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
+                                  )
+                                ]))
                           ],
                         ),
                       ),
