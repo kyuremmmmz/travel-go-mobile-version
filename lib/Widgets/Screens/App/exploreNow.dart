@@ -221,7 +221,7 @@ class _ExplorenowState extends State<Explorenow> {
                                                 print('Festivals clicked'),
                                           ),
                                           const CategoryLabel(
-                                              label: 'Festivals and \nEvents'),
+                                              label: 'Festivals and \nEventss'),
                                         ],
                                       ),
                                     ],

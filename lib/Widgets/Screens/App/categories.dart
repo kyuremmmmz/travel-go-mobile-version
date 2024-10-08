@@ -60,7 +60,7 @@ class _CategoriesState extends State<Categories> {
                   oppressed: () =>
                       {AppRoutes.navigateToFestivalsScreen(context)},
                 ),
-                const CategoryLabel(label: 'Festivals and \nEvents'),
+                const CategoryLabel(label: 'Festivals and \nEventss'),
               ],
             ),
           ],

@@ -166,7 +166,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                   const Categories(),
                                   SizedBox(height: 20.h),
                                   Container(
-                                    padding: EdgeInsets.only(right: 185.w, bottom: 5.h),
+                                    padding: EdgeInsets.only(right: 190.w, bottom: 5.h),
                                     child: Text(
                                       'Popular Hotels',
                                       style: TextStyle(
@@ -176,8 +176,8 @@ class _HotelScreenState extends State<HotelScreen> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 15,
+                                  SizedBox(
+                                    height: 15.h,
                                   ),
                                   Column(
                                     children: data.map((place) {
@@ -229,8 +229,8 @@ class _HotelScreenState extends State<HotelScreen> {
                                                   right: 0,
                                                   child: Container(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            10),
+                                                        EdgeInsets.all(
+                                                            10.w),
                                                     decoration: BoxDecoration(
                                                       color: Colors.black
                                                           .withOpacity(0.12),

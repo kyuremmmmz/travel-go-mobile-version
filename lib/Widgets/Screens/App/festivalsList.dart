@@ -6,6 +6,8 @@ import 'package:itransit/Widgets/Screens/App/categories.dart';
 import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
 import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+
 
 class Festival extends StatefulWidget {
   const Festival({super.key});
@@ -153,29 +155,29 @@ class _FestivalState extends State<Festival> {
                   Positioned.fill(
                       child: Column(children: <Widget>[
                     const TitleSearchMenu(),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     Expanded(
                         child: Scrollbar(
                             thumbVisibility: true,
                             child: SingleChildScrollView(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
+                                    EdgeInsets.symmetric(horizontal: 25.h),
                                 child: Column(children: <Widget>[
                                   const Categories(),
-                                  const SizedBox(height: 20),
+                                  SizedBox(height: 20.h),
                                   Container(
-                                    padding: const EdgeInsets.only(right: 250),
-                                    child: const Text(
-                                      'Festivals &\nEvents',
+                                    padding: EdgeInsets.only(right: 90.w, bottom: 5.h),
+                                    child: Text(
+                                      'Discover Festivals & Events',
                                       style: TextStyle(
-                                        fontSize: 19,
+                                        fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Color.fromARGB(255, 49, 49, 49),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 15,
+                                  SizedBox(
+                                    height: 15.h,
                                   ),
                                   Column(
                                     children: data.map((place) {
@@ -204,8 +206,8 @@ class _FestivalState extends State<Festival> {
                                             child: Stack(
                                               children: [
                                                 Container(
-                                                  height: 150,
-                                                  width: 600,
+                                                  height: 150.h,
+                                                  width: 600.w,
                                                   decoration: BoxDecoration(
                                                     image: DecorationImage(
                                                       fit: BoxFit.cover,
@@ -214,8 +216,8 @@ class _FestivalState extends State<Festival> {
                                                     ),
                                                     color: Colors.blue,
                                                     borderRadius:
-                                                        const BorderRadius.all(
-                                                      Radius.circular(30),
+                                                        BorderRadius.all(
+                                                      Radius.circular(15.w),
                                                     ),
                                                   ),
                                                 ),
@@ -231,18 +233,18 @@ class _FestivalState extends State<Festival> {
                                                       color: Colors.black
                                                           .withOpacity(0.12),
                                                       borderRadius:
-                                                          const BorderRadius
+                                                         BorderRadius
                                                               .only(
                                                         bottomLeft:
-                                                            Radius.circular(30),
+                                                            Radius.circular(30.w),
                                                         bottomRight:
-                                                            Radius.circular(30),
+                                                            Radius.circular(30.w),
                                                       ),
                                                     ),
                                                     child: Text(
                                                       text,
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
+                                                      style: TextStyle(
+                                                        fontSize: 16.sp,
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -253,7 +255,7 @@ class _FestivalState extends State<Festival> {
                                               ],
                                             ),
                                           ),
-                                          const SizedBox(height: 20),
+                                          SizedBox(height: 20.h),
                                         ],
                                       );
                                     }).toList(),

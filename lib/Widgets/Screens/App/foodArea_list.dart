@@ -166,7 +166,7 @@ class _FoodAreaState extends State<FoodArea> {
                                   const Categories(),
                                   SizedBox(height: 20.h),
                                   Container(
-                                    padding: EdgeInsets.only(right: 205.w, bottom: 5.h),
+                                    padding: EdgeInsets.only(right: 210.w, bottom: 5.h),
                                     child: Text(
                                       'Food Places',
                                       style: TextStyle(

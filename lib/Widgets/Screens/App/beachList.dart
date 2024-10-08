@@ -6,6 +6,7 @@ import 'package:itransit/Widgets/Screens/App/beachInfo.dart';
 import 'package:itransit/Widgets/Screens/App/categories.dart';
 import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class Beaches extends StatefulWidget {
   const Beaches({super.key});
@@ -102,23 +103,23 @@ class _BeachesState extends State<Beaches> {
                             thumbVisibility: true,
                             child: SingleChildScrollView(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
+                                    EdgeInsets.symmetric(horizontal: 25.w),
                                 child: Column(children: <Widget>[
                                   const Categories(),
-                                  const SizedBox(height: 20),
+                                  SizedBox(height: 20.h),
                                   Container(
-                                    padding: const EdgeInsets.only(right: 220),
-                                    child: const Text(
-                                      'Well-Known Beaches',
+                                    padding: EdgeInsets.only(right: 160.w, bottom: 5.h),
+                                    child: Text(
+                                      'Beach Destinations',
                                       style: TextStyle(
-                                        fontSize: 19,
+                                        fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Color.fromARGB(255, 49, 49, 49),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 15,
+                                  SizedBox(
+                                    height: 15.h,
                                   ),
                                   Column(
                                     children: data.map((place) {
@@ -145,11 +146,11 @@ class _BeachesState extends State<Beaches> {
                                                 );
                                               }
                                             },
-                                            child: Stack(
+                                            child: Stack( // area of the beach destinations
                                               children: [
                                                 Container(
-                                                  height: 150,
-                                                  width: 600,
+                                                  height: 150.h,
+                                                  width: 600.w,
                                                   decoration: BoxDecoration(
                                                     image: DecorationImage(
                                                       fit: BoxFit.cover,
@@ -158,8 +159,8 @@ class _BeachesState extends State<Beaches> {
                                                     ),
                                                     color: Colors.blue,
                                                     borderRadius:
-                                                        const BorderRadius.all(
-                                                      Radius.circular(30),
+                                                        BorderRadius.all(
+                                                      Radius.circular(15.w),
                                                     ),
                                                   ),
                                                 ),
@@ -169,24 +170,24 @@ class _BeachesState extends State<Beaches> {
                                                   right: 0,
                                                   child: Container(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            10),
+                                                        EdgeInsets.all(
+                                                            10.w),
                                                     decoration: BoxDecoration(
                                                       color: Colors.black
                                                           .withOpacity(0.12),
                                                       borderRadius:
-                                                          const BorderRadius
+                                                           BorderRadius
                                                               .only(
                                                         bottomLeft:
-                                                            Radius.circular(30),
+                                                            Radius.circular(30.w),
                                                         bottomRight:
-                                                            Radius.circular(30),
+                                                            Radius.circular(30.w),
                                                       ),
                                                     ),
                                                     child: Text(
                                                       text,
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
+                                                      style: TextStyle(
+                                                        fontSize: 16.sp,
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -197,7 +198,7 @@ class _BeachesState extends State<Beaches> {
                                               ],
                                             ),
                                           ),
-                                          const SizedBox(height: 20),
+                                          SizedBox(height: 20.h),
                                         ],
                                       );
                                     }).toList(),
