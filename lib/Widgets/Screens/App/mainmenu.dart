@@ -274,12 +274,12 @@ class _DismissableFindMoreLocationState
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                                padding: EdgeInsets.all(14.0),
+                                padding: const EdgeInsets.all(14.0),
                                 child: Column(children: [
                                   const Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      'Find more location \naround you',
+                                      'Find more location around you',
                                       style: TextStyle(
                                           fontSize: 25, color: Colors.white),
                                     ),
@@ -287,7 +287,7 @@ class _DismissableFindMoreLocationState
                                   const Align(
                                     alignment: Alignment.bottomLeft,
                                     child: Text(
-                                      'Find your next adventure around Pangasinan \nand create unforgettable memories!',
+                                      'Find your next adventure around Pangasinan and create unforgettable memories!',
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.white),
                                     ),
