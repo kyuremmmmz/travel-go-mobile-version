@@ -34,7 +34,7 @@ class _FlightState extends State<Flight> {
                   child: Container(
                   padding: null,
                   child: const Text(
-                    'Travel Go',
+                    'TRAVEL GO',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -101,36 +101,51 @@ class _FlightState extends State<Flight> {
                       ),
                     ),
                     const SizedBox(
-                      height: 60,
-                    ),
-                    Center(
+                      height: 50,
+                      ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        right: 100
+                      ),
                       child: Card(
-                        color: const Color.fromARGB(255, 195, 213, 245),
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(
-                            width: 1,
-                            color: Color.fromARGB(255, 0, 0, 0)
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30)
+                            ),
+                            side: BorderSide(
+                              color: Colors.black
+                            )
                           ),
-                          borderRadius: BorderRadius.circular(
-                            10
-                          )
-                        ),
-                        child: Container(
-                          padding: null,
+                          child: Container(
+                          width: 280,
                           height: 50,
-                          width: 207,
-                          child: const Center(
-                            child: Text(
-                            'Choose your Flight',
+                          child: const Row(
+                          children: [
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text('Best',
                             style: TextStyle(
-                              color: Colors.black,
+                              fontSize: 16,
+                              color: Colors.blue,
                               fontWeight: FontWeight.bold
                                 ),
                               ),
-                            )
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Flexible ticket upgrade available',
+                                style: TextStyle(
+                                  color: Colors.green
+                                ),
+                              )
+                            ],
                           ),
-                        ),
-                      )
+                        )
+                      ),
+                    )
                     ]
                   ),
                 ),
