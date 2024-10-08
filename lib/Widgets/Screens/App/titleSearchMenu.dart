@@ -41,13 +41,38 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
           ],
           ),
         ),
-        Text(
-          "Northwestern part of Luzon Island, Philippines", // The home address of Pangasinan
-          style: TextStyle(fontSize: 12.sp), // Adjust text style as needed
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 45.0.w),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 12.h),
+                  Image.asset(
+                    'assets/images/icon/placeholder.png',
+                    width: 15.w,
+                    height: 15.h,
+                  ),
+                  SizedBox(height: 20.h),
+                ],
+              ),
+              SizedBox(width: 5.w),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 12.h),
+                  Text(
+                    "Northwestern part of Luzon Island, Philippines",
+                    style: TextStyle(fontSize: 12.sp),
+                  ),
+                  SizedBox(height: 20.h),
+                ],
+              ),
+          ],
         ),
-        SizedBox(
-          height: 30.h,
-        ),
+      ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 23.w), // Search bar in Home Main Fron-end Dito
           child: TypeAheadField(
