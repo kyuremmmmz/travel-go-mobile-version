@@ -8,6 +8,8 @@ import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
 import 'package:TravelGo/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+
 
 class HotelInformationScreen extends StatefulWidget {
   final int text;
@@ -274,9 +276,9 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                   padding: const EdgeInsets.only(right: 0),
                                   child: Column(
                                     children: [
-                                      Container(
+                                      Container( // AREA OF THE HOTEL PLACES NAME (TITLES)
                                           padding: const EdgeInsets.only(
-                                              left: 30, right: 30),
+                                              left: 25, right: 60, bottom: 20),
                                           child: GestureDetector(
                                             onTap: () {
                                               AppRoutes.navigateToTesting(
@@ -288,7 +290,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                               text ?? 'No data available',
                                               style: const TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 25,
+                                                  fontSize: 23, // HOTEL PLACES FONT TEXT
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           )),
@@ -304,22 +306,26 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                           Text(located ?? 'I cant locate it')
                                         ],
                                       ),
-                                      const SizedBox(height: 20),
+                                      SizedBox(
+                                        height: 20.h),// Bottom of ABOUT
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(right: 300),
-                                        child: const Text(
+                                            EdgeInsets.only(right: 256.w, bottom: 5.h),
+                                        child: Text(
                                           'About',
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 20.sp,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      Container(
+                                      Container( //THE DEISCRIPTION TEXT AREA OF EACH HOTEL
                                         padding:
-                                            const EdgeInsets.only(left: 30),
+                                            EdgeInsets.only(left: 30.w, right: 30.w, top: 5.h),
                                         child: Text(
                                           description ?? 'No Description',
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                          ),
                                           textAlign: TextAlign.left,
                                         ),
                                       ),

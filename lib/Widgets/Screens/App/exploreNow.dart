@@ -9,6 +9,8 @@ import 'package:TravelGo/Widgets/Screens/App/information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
+// THE POPULAR PLACES YUNG SA VIEW ALL 
+
 class Explorenow extends StatefulWidget {
   const Explorenow({super.key});
 
@@ -105,21 +107,21 @@ class _ExplorenowState extends State<Explorenow> {
                 return Stack(children: [
                   Positioned.fill(
                       child: Column(children: <Widget>[
-                    Text(
-                      'TRAVEL GO',
+                  Text(
+                    'TRAVEL GO', // The home Travel Go Icon DITO HA
                       style: TextStyle(
                         fontSize: 30.sp,
-                        color: Colors.blue,
+                        color: Color(0xFF44CAF9),
                         fontWeight: FontWeight.bold,
                         shadows: [
                           Shadow(
-                            offset: Offset(3.0.w, 3.0.h),
-                            blurRadius: 4.0,
-                            color: Colors.black.withOpacity(0.5.w),
-                          ),
-                        ],
-                      ),
-                    ),
+                            offset: Offset(2.0.h, -2.0.h), // Position of the shadow (x, y)
+                            blurRadius: 20, // Blur effect of the shadow
+                            color: Color.fromARGB(128, 117, 116, 116), // Shadow color with opacity
+                                 ),
+                                ],
+                                ),
+                              ),
                     Text(
                       "Northwestern part of Luzon Island, Philippines",
                       style: TextStyle(fontSize: 16.sp),

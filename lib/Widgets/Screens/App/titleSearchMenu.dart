@@ -1,13 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-<<<<<<< HEAD
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Controllers/SearchController/searchController.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
-=======
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/SearchController/searchController.dart';
->>>>>>> bad30491eef441e6056dcf696b0697a20cfca481
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+
+
 
 class TitleSearchMenu extends StatefulWidget {
   const TitleSearchMenu({super.key});
@@ -60,7 +58,7 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
                     width: 13.w,
                     height: 13.h,
                   ),
-                  SizedBox(height: 20.h), // the bottom padding for image
+                  SizedBox(height: 30.h), // the bottom padding for image
                 ],
               ),
               SizedBox(width: 5.w), // Space between image and text
@@ -72,7 +70,7 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
                     "Northwestern part of Luzon Island, Philippines",
                     style: TextStyle(fontSize: 11.sp),
                   ),
-                  SizedBox(height: 40.h), // bottom padding for text 
+                  SizedBox(height: 20.h), // bottom padding for text 
                 ],
               ),
           ],

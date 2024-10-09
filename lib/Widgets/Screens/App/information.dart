@@ -210,66 +210,90 @@ class _InformationScreenState extends State<InformationScreen> {
                             'TRAVEL GO',
                             style: TextStyle(
                               fontSize: 30.sp, // reponsive text
-                              color: const Color.fromARGB(255, 79, 126, 165),
+                              color: Color(0xFF44CAF9),
                               fontWeight: FontWeight.bold,
                               shadows: [
                                 Shadow(
-                                  offset: const Offset(3.0, 3.0),
-                                  blurRadius: 4.0,
-                                  color: Colors.black.withOpacity(0.5),
+                                  offset: Offset(2.0.h, -2.0.h),
+                                  blurRadius: 20,
+                                  color: Color.fromARGB(128, 117, 116, 116), // Shadow color with opacity
                                 ),
                               ],
                             ),
                           ),
-                          const Text(
-                            "Northwestern part of Luzon Island, Philippines",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          const SizedBox(height: 30),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: TypeAheadField(
-                              textFieldConfiguration: TextFieldConfiguration(
-                                controller: _searchController,
-                                decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 0, horizontal: 10),
-                                  hintStyle: TextStyle(color: Colors.black54),
-                                  hintText: 'Search Destination',
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                    borderSide:
-                                        BorderSide(color: Colors.black54),
+                  Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 59.0.w),
+                    child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(height: 12.h), // the top padding for image
+                            Image.asset(
+                             'assets/images/icon/placeholder.png',
+                               width: 13.w,
+                               height: 13.h,
+                                ),
+                          SizedBox(height: 30.h), // the bottom padding for image
+                                  ],
+                                ),
+                          SizedBox(width: 5.w), // Space between image and text
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                             children: [
+                              SizedBox(height: 12.h), // top padding for text
+                              Text(
+                                "Northwestern part of Luzon Island, Philippines",
+                                style: TextStyle(fontSize: 11.sp),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black54),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
+                                SizedBox(height: 20.h), // bottom padding for text 
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                  filled: true,
-                                  fillColor: Color.fromARGB(255, 255, 255, 255),
+                                ),
+                          SizedBox(height: 1.h),
+                   Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 23.w), // Search bar in Home Main Fron-end Dito
+                    child: TypeAheadField(
+                      textFieldConfiguration: TextFieldConfiguration(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () async {
+                            await data.fetchinSearch(
+                              _searchController.text.trim(), context);
+                          },
+                        icon: const Icon(
+                          Icons.search,
+                            )),
+                        contentPadding:
+                          EdgeInsets.symmetric(vertical: 0.w, horizontal: 10.w),
+                          hintStyle: const TextStyle(color: Colors.black54),
+                          hintText: 'Search Destination',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(50.h)),
+                            borderSide: BorderSide.none, // Removed the border
+                             ),
+                              filled: true,
+                              fillColor: Color(0XffDEDEDE),
                                 ),
                               ),
-                              suggestionsCallback: (pattern) async {
-                                return await Searchcontroller()
-                                    .fetchSuggestions(pattern);
-                              },
-                              itemBuilder: (context, dynamic suggestion) {
-                                return ListTile(
-                                  title:
-                                      Text(suggestion['title'] ?? 'No title'),
-                                  subtitle: Text(
-                                      suggestion['address'] ?? 'No address'),
+                            suggestionsCallback: (pattern) async {
+                            return await Searchcontroller().fetchSuggestions(pattern);
+                             },
+                            itemBuilder: (context, dynamic suggestion) {
+                            return ListTile(
+                              title: Text(suggestion['title'] ?? 'No title'),
+                              subtitle: Text(suggestion['address'] ?? 'No address'),
                                 );
                               },
-                              onSuggestionSelected: (dynamic suggestion) {
-                                _searchController.text =
-                                    suggestion['title'] ?? 'No title';
-                                FocusScope.of(context).unfocus();
-                              },
-                            ),
+                            onSuggestionSelected: (dynamic suggestion) {
+                               _searchController.text = suggestion['title'] ?? 'No title';
+                                    FocusScope.of(context).unfocus();
+                                },
+                             ),
                           ),
                         ],
                       ),

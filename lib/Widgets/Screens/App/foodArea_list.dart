@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:itransit/Controllers/NetworkImages/food_area.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Screens/App/categories.dart';
-import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
-import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
-import 'package:itransit/main.dart';
-=======
 import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
->>>>>>> bad30491eef441e6056dcf696b0697a20cfca481
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
