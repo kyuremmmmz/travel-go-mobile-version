@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/RedButton.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/RedButton.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Home extends StatefulWidget {

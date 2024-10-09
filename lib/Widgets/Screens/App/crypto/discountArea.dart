@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/VoucherButton.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:itransit/Controllers/NetworkImages/food_area.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/VoucherButton.dart';
 
 // ignore: must_be_immutable
 class discountArea extends StatelessWidget {

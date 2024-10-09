@@ -1,10 +1,10 @@
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/NetworkImages/festivals_images.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Screens/App/categories.dart';
-import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
-import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart';
+import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Widgets/Screens/App/categories.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/festivalsAbout.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
@@ -75,67 +75,7 @@ class _FestivalState extends State<Festival> {
             ),
           ),
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const CircleAvatar(
-                      backgroundImage:
-                          AssetImage('assets/images/icon/beach.png'),
-                      radius: 40,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      email ?? 'LoFestival',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                onTap: () {
-                  Navigator.pop(context);
-                  AppRoutes.navigateToMainMenu(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.search),
-                title: const Text('Search'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Usersss().signout(context);
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: const DrawerMenuWidget(),
         body: FutureBuilder(
             future: redirecting(),
             builder: (context, snapshot) {

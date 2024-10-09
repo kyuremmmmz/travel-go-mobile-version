@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/Auth/Choose.dart';
-import 'package:itransit/main.dart';
+import 'package:TravelGo/Widgets/Screens/Auth/Choose.dart';
+import 'package:TravelGo/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../App/exploreNow.dart';
 

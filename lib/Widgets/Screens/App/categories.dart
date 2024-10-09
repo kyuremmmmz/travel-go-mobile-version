@@ -1,9 +1,14 @@
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:itransit/Routes/Routes.dart';
 import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 // CODE AREA 
+=======
+>>>>>>> bad30491eef441e6056dcf696b0697a20cfca481
 
 class Categories extends StatefulWidget {
   const Categories({super.key});

@@ -2,15 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Controllers/Ratings/ratingsBackend.dart';
-import 'package:itransit/Controllers/SearchController/searchController.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
+import 'package:TravelGo/Controllers/SearchController/searchController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/exploreNow.dart';
+import 'package:TravelGo/Widgets/Screens/App/flights.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InformationScreen extends StatefulWidget {
@@ -35,9 +36,11 @@ class _InformationScreenState extends State<InformationScreen> {
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   final _commentController = TextEditingController();
   String? email;
+  String? userEmail;
   String? description;
   String? text;
   String? img;
+  String? imgUrl;
   String? hasCar;
   String? imageUrl;
   String? comments;
@@ -51,17 +54,18 @@ class _InformationScreenState extends State<InformationScreen> {
   int ratings = 0;
   String? availability;
   String? price;
+  String? commentImg;
   final data = Data();
   List<Map<String, dynamic>> list = [];
   late Usersss users = Usersss();
   late RatingsAndComments rating = RatingsAndComments();
-
   @override
   void initState() {
     super.initState();
     emailFetching();
     fetchSpecificData(widget.text);
     fetchRatings(widget.text);
+    fetchWithoutFunct();
   }
 
   Future<void> _isRedirecting() async {
@@ -98,12 +102,18 @@ class _InformationScreenState extends State<InformationScreen> {
 
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "places", '$text', widget.text, '$email');
+        commentType = "places", '$text', widget.text, '$email', '$img');
+  }
+
+  Future<void> fetchWithoutFunct() async {
+    final response = await users.fetchUserWithoutgetter();
+    setState(() {
+      imgUrl = response[0]['avatar_url'];
+    });
   }
 
   Future<void> stateComments() async {
     final data = await rating.fetchComments(widget.text);
-    final totalRatings = await rating.fetchRatingsAsSum();
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
@@ -114,14 +124,18 @@ class _InformationScreenState extends State<InformationScreen> {
   }
 
   Future<void> fetchRatings(int id) async {
-    final data = await rating.fetchComments(id);
+    final data = await rating.fetchComments(widget.text);
     final totalRatings = await rating.fetchRatingsAsSum();
+    final img = await users.fetchUser();
+    final images = img[0]['full_name'];
+    final imgUrl = await users.fetchImageForComments(images);
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
       userRatings = records;
+      commentImg = imgUrl;
     });
   }
 
@@ -567,7 +581,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   size: 25,
                                                 );
                                               } else if (index ==
-                                                      ratingsTotal.floor() &&
+                                                      ratingsTotal &&
                                                   ratingsTotal % 1 != 0) {
                                                 return const Icon(
                                                   Icons.star_border,
@@ -766,6 +780,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           place['rating'];
                                                       final String name =
                                                           place['full_name'];
+                                                      final String imgUrl =
+                                                          place['avatar_url'];
                                                       return Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -783,7 +799,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                 CircleAvatar(
                                                                   backgroundImage:
                                                                       NetworkImage(
-                                                                    '$img',
+                                                                    imgUrl,
                                                                   ),
                                                                 ),
                                                                 const SizedBox(
@@ -912,7 +928,13 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
                                                 ),
-                                                oppressed: () {}),
+                                                oppressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const Flight()));
+                                                }),
                                           )
                                         ],
                                       )
