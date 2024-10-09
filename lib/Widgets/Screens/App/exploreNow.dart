@@ -7,6 +7,7 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class Explorenow extends StatefulWidget {
   const Explorenow({super.key});
@@ -71,7 +72,7 @@ class _ExplorenowState extends State<Explorenow> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 40,
+          toolbarHeight: 40.h,
           leading: Builder(
             builder: (BuildContext context) => IconButton(
               icon: const Icon(Icons.menu),
@@ -90,10 +91,10 @@ class _ExplorenowState extends State<Explorenow> {
                   child: CircularProgressIndicator(),
                 );
               } else if (snapshot.connectionState == ConnectionState.none) {
-                return const Center(
+                return Center(
                   child: Text(
                     'No internet connection',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20.sp),
                   ),
                 );
               } else {
@@ -254,7 +255,7 @@ class CategorySelect extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 30),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
