@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:flutter/material.dart';
 
 class Flight extends StatefulWidget {
   const Flight({super.key});
@@ -45,6 +45,7 @@ class _FlightState extends State<Flight> {
               ),
               Center(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const SizedBox(
                       height: 50,
@@ -101,13 +102,14 @@ class _FlightState extends State<Flight> {
                       ),
                     ),
                     const SizedBox(
-                      height: 50,
-                      ),
+                    height: 50,
+                  ),
                     Container(
                       padding: const EdgeInsets.only(
-                        right: 100
+                        right: 70
                       ),
                       child: Card(
+                          margin:  EdgeInsets.zero,
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(30),
@@ -118,6 +120,7 @@ class _FlightState extends State<Flight> {
                             )
                           ),
                           child: Container(
+                          padding: null,
                           width: 280,
                           height: 50,
                           child: const Row(
@@ -145,7 +148,115 @@ class _FlightState extends State<Flight> {
                           ),
                         )
                       ),
-                    )
+                    ),
+                    Container(
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
+                            bottomLeft: Radius.circular(30)
+                          ),
+                          side: BorderSide(
+                            color: Colors.black
+                          )
+                        ),
+                        child: Container(
+                          padding: null,
+                          child: Column(
+                            children: [
+                              Container(
+                                  padding: null,
+                                  width: 350,
+                                  height: 300,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                        top: 10,
+                                        right: 150),
+                                        child: const Text(
+                                        'Your Flight to Pangasinan ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            const Column(
+                                              children: [
+                                                CircleAvatar(
+                                                backgroundImage: AssetImage(
+                                                    'assets/images/icon/food_place.png'),
+                                                ),
+                                                Text(
+                                                  'NAIA'
+                                                )
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.only(
+                                                bottom: 30
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  Container(
+                                                    padding: const EdgeInsets.only(
+                                                      right: 50,
+                                                      top: 10
+                                                    ),
+                                                    child: const Row(
+                                                      children: [
+                                                        Text(
+                                                        '7:15',
+                                                        style:  TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 15
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Text(
+                                                          'AM'
+                                                        )
+                                                      ],
+                                                    )
+                                                  ),
+                                                  Container(
+                                                    padding: const EdgeInsets.only(
+                                                      right: 25
+                                                    ),
+                                                    child: const Text(
+                                                      'MNL . OCT 9'
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  ),
+                              ],
+                            ),
+                          )
+                        ),
+                      ),
                     ]
                   ),
                 ),
