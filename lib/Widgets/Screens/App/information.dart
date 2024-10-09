@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -55,17 +57,19 @@ class _InformationScreenState extends State<InformationScreen> {
   String? availability;
   String? price;
   String? commentImg;
+  StreamSubscription? sub;
   final data = Data();
   List<Map<String, dynamic>> list = [];
   late Usersss users = Usersss();
   late RatingsAndComments rating = RatingsAndComments();
+  final supabase = Supabase.instance.client;
   @override
   void initState() {
     super.initState();
     emailFetching();
     fetchSpecificData(widget.text);
-    fetchRatings(widget.text);
     fetchWithoutFunct();
+    _realTimeFetch();
   }
 
   Future<void> _isRedirecting() async {
@@ -102,7 +106,7 @@ class _InformationScreenState extends State<InformationScreen> {
 
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "places", '$text', widget.text, '$email', '$img');
+        commentType = "places", '$text', widget.text, '$email', '$imgUrl');
   }
 
   Future<void> fetchWithoutFunct() async {
@@ -123,7 +127,14 @@ class _InformationScreenState extends State<InformationScreen> {
     });
   }
 
-  Future<void> fetchRatings(int id) async {
+  void _realTimeFetch() {
+    sub = supabase.from('ratings_and_comments').stream(
+        primaryKey: ['id']).listen((List<Map<String, dynamic>> comment) async {
+      await fetchRatings(comment);
+    });
+  }
+
+  Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
     final data = await rating.fetchComments(widget.text);
     final totalRatings = await rating.fetchRatingsAsSum();
     final img = await users.fetchUser();
@@ -143,6 +154,7 @@ class _InformationScreenState extends State<InformationScreen> {
   void dispose() {
     _searchController.dispose();
     _commentController.dispose();
+    sub?.cancel();
     super.dispose();
   }
 
@@ -742,7 +754,6 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                                                                       onPressed: () {
                                                                                         commentInserttion();
-                                                                                        fetchRatings(widget.text);
                                                                                         _commentController.clear();
                                                                                         Navigator.pop(context);
                                                                                       },
