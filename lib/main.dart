@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil for responsive
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'Widgets/Screens/App/mainmenu.dart';

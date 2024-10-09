@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/SearchController/searchController.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class TitleSearchMenu extends StatefulWidget {
   const TitleSearchMenu({super.key});
@@ -25,23 +27,55 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          'TRAVEL GO',
+        Text(
+          'TRAVEL GO', // The home Travel Go Icon
           style: TextStyle(
-            fontSize: 30,
-            color: Colors.blue,
+            fontSize: 30.sp,
+            color: Color(0xFF44CAF9),
             fontWeight: FontWeight.bold,
+            shadows: [
+            Shadow(
+              offset: Offset(2.0.h, -2.0.h), // Position of the shadow (x, y)
+              blurRadius: 20, // Blur effect of the shadow
+              color: Color.fromARGB(128, 117, 116, 116), // Shadow color with opacity
+            ),
+          ],
           ),
         ),
-        const Text(
-          "Northwestern part of Luzon Island, Philippines",
-          style: TextStyle(fontSize: 16), // Adjust text style as needed
-        ),
-        const SizedBox(
-          height: 30,
-        ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: EdgeInsets.symmetric(horizontal: 59.0.w),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 12.h), // the top padding for image
+                  Image.asset(
+                    'assets/images/icon/placeholder.png',
+                    width: 13.w,
+                    height: 13.h,
+                  ),
+                  SizedBox(height: 20.h), // the bottom padding for image
+                ],
+              ),
+              SizedBox(width: 5.w), // Space between image and text
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 12.h), // top padding for text
+                  Text(
+                    "Northwestern part of Luzon Island, Philippines",
+                    style: TextStyle(fontSize: 11.sp),
+                  ),
+                  SizedBox(height: 40.h), // bottom padding for text 
+                ],
+              ),
+          ],
+        ),
+      ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 23.w), // Search bar in Home Main Fron-end Dito
           child: TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
               controller: _searchController,
@@ -55,19 +89,15 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
                       Icons.search,
                     )),
                 contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    EdgeInsets.symmetric(vertical: 0.w, horizontal: 10.w),
                 hintStyle: const TextStyle(color: Colors.black54),
                 hintText: 'Search Destination',
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  borderSide: BorderSide(color: Colors.black54),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black54),
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50.h)),
+                  borderSide: BorderSide.none, // Removed the border
                 ),
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Color(0XffDEDEDE),
               ),
             ),
             suggestionsCallback: (pattern) async {

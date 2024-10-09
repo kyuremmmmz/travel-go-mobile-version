@@ -210,7 +210,7 @@ class _InformationScreenState extends State<InformationScreen> {
                             'TRAVEL GO',
                             style: TextStyle(
                               fontSize: 30.sp, // reponsive text
-                              color: Colors.blue,
+                              color: const Color.fromARGB(255, 79, 126, 165),
                               fontWeight: FontWeight.bold,
                               shadows: [
                                 Shadow(
