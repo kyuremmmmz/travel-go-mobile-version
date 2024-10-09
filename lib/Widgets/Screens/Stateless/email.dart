@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/Auth/Email.dart';
+import 'package:TravelGo/Widgets/Screens/Auth/Email.dart';
 
 // ignore: camel_case_types
 class email extends StatelessWidget {

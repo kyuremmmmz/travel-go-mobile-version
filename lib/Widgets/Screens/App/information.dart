@@ -2,15 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Controllers/Ratings/ratingsBackend.dart';
-import 'package:itransit/Controllers/SearchController/searchController.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
+import 'package:TravelGo/Controllers/SearchController/searchController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/exploreNow.dart';
+import 'package:TravelGo/Widgets/Screens/App/flights.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InformationScreen extends StatefulWidget {
@@ -35,8 +36,11 @@ class _InformationScreenState extends State<InformationScreen> {
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   final _commentController = TextEditingController();
   String? email;
+  String? userEmail;
   String? description;
   String? text;
+  String? img;
+  String? imgUrl;
   String? hasCar;
   String? imageUrl;
   String? comments;
@@ -50,17 +54,18 @@ class _InformationScreenState extends State<InformationScreen> {
   int ratings = 0;
   String? availability;
   String? price;
+  String? commentImg;
   final data = Data();
   List<Map<String, dynamic>> list = [];
   late Usersss users = Usersss();
   late RatingsAndComments rating = RatingsAndComments();
-
   @override
   void initState() {
     super.initState();
     emailFetching();
     fetchSpecificData(widget.text);
     fetchRatings(widget.text);
+    fetchWithoutFunct();
   }
 
   Future<void> _isRedirecting() async {
@@ -97,14 +102,20 @@ class _InformationScreenState extends State<InformationScreen> {
 
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "places", '$text', widget.text, '$email');
+        commentType = "places", '$text', widget.text, '$email', '$img');
+  }
+
+  Future<void> fetchWithoutFunct() async {
+    final response = await users.fetchUserWithoutgetter();
+    setState(() {
+      imgUrl = response[0]['avatar_url'];
+    });
   }
 
   Future<void> stateComments() async {
     final data = await rating.fetchComments(widget.text);
-    final totalRatings = await rating.fetchRatingsAsSum();
     final records = data.length;
-    final count = records / totalRatings;
+    final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
@@ -113,14 +124,18 @@ class _InformationScreenState extends State<InformationScreen> {
   }
 
   Future<void> fetchRatings(int id) async {
-    final data = await rating.fetchComments(id);
+    final data = await rating.fetchComments(widget.text);
     final totalRatings = await rating.fetchRatingsAsSum();
+    final img = await users.fetchUser();
+    final images = img[0]['full_name'];
+    final imgUrl = await users.fetchImageForComments(images);
     final records = data.length;
-    final count = records / totalRatings;
+    final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
       userRatings = records;
+      commentImg = imgUrl;
     });
   }
 
@@ -137,6 +152,7 @@ class _InformationScreenState extends State<InformationScreen> {
       if (useremail.isNotEmpty) {
         setState(() {
           email = useremail[0]['full_name'].toString();
+          img = useremail[0]['avatar_url'].toString();
         });
       } else {
         setState(() {
@@ -565,7 +581,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   size: 25,
                                                 );
                                               } else if (index ==
-                                                      ratingsTotal.floor() &&
+                                                      ratingsTotal &&
                                                   ratingsTotal % 1 != 0) {
                                                 return const Icon(
                                                   Icons.star_border,
@@ -726,25 +742,24 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                                                                       onPressed: () {
                                                                                         commentInserttion();
+                                                                                        fetchRatings(widget.text);
                                                                                         _commentController.clear();
                                                                                         Navigator.pop(context);
                                                                                       },
                                                                                       child: const Text(
                                                                                         'Post',
                                                                                         style: TextStyle(color: Colors.black),
-                                                                                      )
-                                                                                    ),
+                                                                                      )),
                                                                                 ],
                                                                               )
                                                                             ],
                                                                           ),
-                                                                        )
-                                                                      );
-                                                                    },
-                                                                  );
-                                                                },
-                                                              );
-                                                            },
+                                                                        ));
+                                                                  },
+                                                                );
+                                                              },
+                                                            );
+                                                          },
                                                           child: const Text(
                                                             'Write a comment',
                                                             style: TextStyle(
@@ -761,10 +776,16 @@ class _InformationScreenState extends State<InformationScreen> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: list.map((place) {
-                                                      final int ratings = place['rating'];
-                                                      final String name = place['full_name'];
+                                                      final int ratings =
+                                                          place['rating'];
+                                                      final String name =
+                                                          place['full_name'];
+                                                      final String imgUrl =
+                                                          place['avatar_url'];
                                                       return Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Container(
                                                             padding:
@@ -775,10 +796,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                                               children: [
                                                                 const SizedBox(
                                                                     width: 20),
-                                                                const CircleAvatar(
+                                                                CircleAvatar(
                                                                   backgroundImage:
                                                                       NetworkImage(
-                                                                    'https://scontent.fcrk2-1.fna.fbcdn.net/v/t39.30808-6/458201923_1043023800791060_3272608477704101222_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGBMm4xU2usMJaUqOsw_6B8XS5FRhVw6eldLkVGFXDp6YAneXr2mX8UggCWeJBKRtwp3v6PLmGEDoQZG9hUsZGN&_nc_ohc=yft81t1DQ9sQ7kNvgHunJTg&_nc_ht=scontent.fcrk2-1.fna&_nc_gid=A3XN-Jpcj-F6OLYI6cGWoDW&oh=00_AYBPnxFmLD8OofmQoLRd73Ru62FdY2CfQhMpLQxUdnDJbg&oe=67018C33',
+                                                                    imgUrl,
                                                                   ),
                                                                 ),
                                                                 const SizedBox(
@@ -813,7 +834,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                     Row(
                                                                       children: [
                                                                         ...List.generate(
-                                                                            5, (index) {
+                                                                            5,
+                                                                            (index) {
                                                                           return Icon(
                                                                             index < ratings
                                                                                 ? Icons.star
@@ -838,10 +860,12 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           ),
                                                           Container(
                                                             padding:
-                                                                const EdgeInsets.symmetric(
-                                                                    vertical:10,
-                                                                    horizontal: 20
-                                                                    ),
+                                                                const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
+                                                                        10,
+                                                                    horizontal:
+                                                                        20),
                                                             child: Text(
                                                               '${place['comment']}', // Display the comment
                                                               style:
@@ -905,7 +929,11 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   backgroundColor: Colors.blue,
                                                 ),
                                                 oppressed: () {
-                                                  
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const Flight()));
                                                 }),
                                           )
                                         ],

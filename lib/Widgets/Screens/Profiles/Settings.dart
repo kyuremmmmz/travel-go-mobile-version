@@ -1,13 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:itransit/Routes/Routes.dart';
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 
 class AccountSettingsScreen extends StatefulWidget {
   const AccountSettingsScreen({
@@ -25,6 +23,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   final _searchController = TextEditingController();
   String? email;
   String? gmail;
+  String? uid;
+  String? img;
   late Usersss users = Usersss();
   List<Map<String, dynamic>> place = [];
   final data = Data();
@@ -35,12 +35,17 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     try {
       final PostgrestList useremail = await users.fetchUser();
       final userEmail = supabase.auth.currentUser!.email;
+      final userId = supabase.auth.currentUser!.id;
       if (mounted) {
         setState(() {
           email = useremail.isNotEmpty
               ? useremail[0]['full_name'].toString()
               : "Anonymous User";
           gmail = userEmail;
+          uid = userId;
+          img = useremail.isNotEmpty
+              ? useremail[0]['avatar_url'].toString()
+              : "Anonymous User";
         });
       }
     } catch (e) {
@@ -50,6 +55,12 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
         });
       }
     }
+  }
+
+
+  Future<Future<String?>> insert(String id) async {
+    final response = users.editProfile(id);
+    return response;
   }
 
   Future<void> fetchImage() async {
@@ -116,20 +127,24 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   ),
                   const Text(
                     "Northwestern part of Luzon Island, Philippines",
-                    style: TextStyle(fontSize: 16), // Adjust text style as needed
+                    style:
+                        TextStyle(fontSize: 16), // Adjust text style as needed
                   ),
                   const SizedBox(
                     height: 30,
                   ),
                   Center(
-                    child: Container(
-                      padding: null,
-                      child: const CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage('assets/images/icon/suitcase.png'),
-                      ),
-                    )
-                  ),
+                      child: Container(
+                          padding: null,
+                          child: GestureDetector(
+                            onTap: () {
+                              insert('$uid');
+                            },
+                            child: CircleAvatar(
+                              radius: 40,
+                              backgroundImage: NetworkImage('$img'),
+                            ),
+                          ))),
                   SizedBox(
                     width: 350,
                     child: Column(
@@ -180,7 +195,10 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: [const Text('Name'), Text('$email')],
+                                    children: [
+                                      const Text('Name'),
+                                      Text('$email')
+                                    ],
                                   ),
                                 ),
                                 const Divider(
@@ -204,7 +222,10 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
-                                    children: [const Text('Email:'), Text('$gmail')],
+                                    children: [
+                                      const Text('Email:'),
+                                      Text('$gmail')
+                                    ],
                                   ),
                                 ),
                                 const Divider(
@@ -218,11 +239,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                       child: const Row(
                                         children: [Text('Change Password')],
                                       ),
-                                    )
-                                  ),
+                                    )),
                               ],
-                            )
-                          ),
+                            )),
                       ],
                     ),
                   ),
@@ -274,11 +293,11 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.only(
                                           right: 15, left: 15),
-                                      child: Row(
+                                      child: const Row(
                                         children: [Text('About')],
                                       ),
                                     )),
-                                Divider(
+                                const Divider(
                                   color: Colors.black,
                                 ),
                                 InkWell(
@@ -286,11 +305,11 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.only(
                                           right: 15, left: 15),
-                                      child: Row(
+                                      child: const Row(
                                         children: [Text('Rate My App')],
                                       ),
                                     )),
-                                Divider(
+                                const Divider(
                                   color: Colors.black,
                                 ),
                                 InkWell(
@@ -298,11 +317,11 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.only(
                                           right: 15, left: 15),
-                                      child: Row(
+                                      child: const Row(
                                         children: [Text('Contact')],
                                       ),
                                     )),
-                                Divider(
+                                const Divider(
                                   color: Colors.black,
                                 ),
                                 InkWell(
@@ -310,7 +329,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     child: Container(
                                       padding: const EdgeInsets.only(
                                           right: 15, left: 15),
-                                      child: Row(
+                                      child: const Row(
                                         children: [Text('Share with Friends')],
                                       ),
                                     )),

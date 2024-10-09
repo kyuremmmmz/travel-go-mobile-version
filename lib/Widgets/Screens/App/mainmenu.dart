@@ -1,19 +1,19 @@
-import 'package:flutter/material.dart'; // The flutter material package for UI 
-import 'package:itransit/Controllers/NetworkImages/festivals_images.dart'; // handling festival images 
-import 'package:itransit/Controllers/NetworkImages/food_area.dart'; // handling food area images
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart'; // Importing a controller for handling images from Supabase API.
-import 'package:itransit/Controllers/Profiles/ProfileController.dart'; // Importing a controller for user profiles.
-import 'package:itransit/Routes/Routes.dart'; // Routes for navigation within the app
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart'; // Custom widget for square place buttons
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart'; // the drawer menu
-import 'package:itransit/Widgets/Screens/App/festivalsAbout.dart'; // the screen for festival details 
-import 'package:itransit/Widgets/Screens/App/categories.dart'; // Screen for general categories 
-import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart'; // Screen for foodarea
-import 'package:itransit/Widgets/Screens/App/information.dart'; // Screen for general information 
-import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart'; // Screen for search menu widget 
-import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart'; // the stateless wdiget for festivals 
+import 'package:flutter/material.dart'; // The flutter material package for UI e stateless wdiget for festivals 
 import 'package:supabase_flutter/supabase_flutter.dart'; // Importing the Supabase Flutter package for database functionality.
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
+import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/festivalsAbout.dart';
+import 'package:TravelGo/Widgets/Screens/App/categories.dart';
+import 'package:TravelGo/Widgets/Screens/App/foodAreaAbout.dart';
+import 'package:TravelGo/Widgets/Screens/App/information.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/Stateless/festivalsStateless.dart';
 
 void main() {
   runApp(const MainMenu()); // running the main application

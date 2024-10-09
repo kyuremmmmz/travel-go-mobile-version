@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/Auth/Forgot.dart';
+import 'package:TravelGo/Widgets/Screens/Auth/Forgot.dart';
 class Forgotpassword extends StatelessWidget {
   const Forgotpassword({super.key});
 

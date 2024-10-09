@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/BookingBackend/hotel_booking.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Controllers/mail/Mailer.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/TextWidgets/rowDetails.dart';
+import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Controllers/mail/Mailer.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/TextWidgets/rowDetails.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main(phone) async {
