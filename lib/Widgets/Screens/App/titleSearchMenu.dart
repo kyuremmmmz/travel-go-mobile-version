@@ -1,11 +1,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+<<<<<<< HEAD
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/SearchController/searchController.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 
+=======
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/SearchController/searchController.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+>>>>>>> 06a48455a6a757c897fe11eafcd33a21ac12e9ee
 
 class TitleSearchMenu extends StatefulWidget {
   const TitleSearchMenu({super.key});

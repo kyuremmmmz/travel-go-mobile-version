@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 // CODE AREA 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 06a48455a6a757c897fe11eafcd33a21ac12e9ee
 
 class Categories extends StatefulWidget {
   const Categories({super.key});

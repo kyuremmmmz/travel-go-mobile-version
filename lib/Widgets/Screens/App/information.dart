@@ -255,7 +255,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                 ),
                           SizedBox(height: 1.h),
                    Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 23.w), // Search bar in Home Main Fron-end Dito
+                    padding: EdgeInsets.symmetric(horizontal: 23.w), // Search bar in POPULAR PLACES SEARCH BAR
                     child: TypeAheadField(
                       textFieldConfiguration: TextFieldConfiguration(
                         controller: _searchController,

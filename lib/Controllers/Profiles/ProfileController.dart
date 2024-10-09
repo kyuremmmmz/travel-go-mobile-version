@@ -110,6 +110,8 @@ class Usersss {
     }
   }
 
+// binago 
+
 Future<String?> fetchImageForComments(String name) async {
   final response = await supabase
       .from('profiles')
@@ -117,13 +119,13 @@ Future<String?> fetchImageForComments(String name) async {
       .eq('full_name', name)
       .single();
 
-  // Check if response is empty or avatar_url is null
+  // this check if response is empty or avatar_url is null
   if (response.isEmpty || response['avatar_url'] == null) {
     return null;
   } else {
     var img = response['avatar_url'] as String?; // Cast to String? for null safety
     
-    // Ensure img is not null before passing to getter
+    // this ensure img is not null before passing to getter
     if (img != null) {
       var imgUrl = await getter(img);
       return imgUrl; // Here imgUrl could also be null
