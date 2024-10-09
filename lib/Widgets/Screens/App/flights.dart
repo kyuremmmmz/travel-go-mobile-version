@@ -225,14 +225,18 @@ class _FlightState extends State<Flight> {
                                                         style:  TextStyle(
                                                           color: Colors.black,
                                                           fontWeight: FontWeight.bold,
-                                                          fontSize: 15
+                                                          fontSize: 12
                                                           ),
                                                         ),
                                                         const SizedBox(
                                                           width: 5,
                                                         ),
                                                         const Text(
-                                                          'AM'
+                                                          'AM',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 12
+                                                          ),
                                                         ),
                                                         Container(
                                                           padding: const EdgeInsets.only(
@@ -262,13 +266,44 @@ class _FlightState extends State<Flight> {
                                                               ),
                                                             ],
                                                           )
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Container(
+                                                          padding: const EdgeInsets.only(
+                                                            bottom: 0
                                                           ),
+                                                          child: const Text(
+                                                        '12:05',
+                                                        style:  TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 12
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Container(
+                                                          padding: const EdgeInsets.only(
+                                                            bottom: 0
+                                                          ),
+                                                          child: const Text(
+                                                              'PM',
+                                                          style:  TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 12
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ],
                                                     )
                                                   ),
                                                   Container(
                                                     padding: const EdgeInsets.only(
-                                                      right: 150
+                                                      right: 210
                                                     ),
                                                     child: const Text(
                                                       'MNL . OCT 9',
@@ -276,7 +311,7 @@ class _FlightState extends State<Flight> {
                                                         fontSize: 12
                                                       ),
                                                     ),
-                                                  )
+                                                  ),
                                                 ],
                                               ),
                                             ),
