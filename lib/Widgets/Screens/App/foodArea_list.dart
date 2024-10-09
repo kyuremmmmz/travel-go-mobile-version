@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+import 'package:itransit/Controllers/NetworkImages/food_area.dart';
+import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:itransit/Routes/Routes.dart';
+import 'package:itransit/Widgets/Screens/App/categories.dart';
+import 'package:itransit/Widgets/Screens/App/foodAreaAbout.dart';
+import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:itransit/main.dart';
+=======
 import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+>>>>>>> bad30491eef441e6056dcf696b0697a20cfca481
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class FoodArea extends StatefulWidget {
   const FoodArea({super.key});
@@ -102,20 +113,20 @@ class _FoodAreaState extends State<FoodArea> {
                                     const EdgeInsets.symmetric(horizontal: 25),
                                 child: Column(children: <Widget>[
                                   const Categories(),
-                                  const SizedBox(height: 20),
+                                  SizedBox(height: 20.h),
                                   Container(
-                                    padding: const EdgeInsets.only(right: 250),
-                                    child: const Text(
+                                    padding: EdgeInsets.only(right: 210.w, bottom: 5.h),
+                                    child: Text(
                                       'Food Places',
                                       style: TextStyle(
-                                        fontSize: 19,
+                                        fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Color.fromARGB(255, 49, 49, 49),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 15,
+                                  SizedBox(
+                                    height: 15.h,
                                   ),
                                   Column(
                                     children: data.map((place) {
@@ -141,11 +152,11 @@ class _FoodAreaState extends State<FoodArea> {
                                                 );
                                               }
                                             },
-                                            child: Stack(
+                                            child: Stack( // area of the food places
                                               children: [
                                                 Container(
-                                                  height: 150,
-                                                  width: 600,
+                                                  height: 150.h,
+                                                  width: 600.w,
                                                   decoration: BoxDecoration(
                                                     image: DecorationImage(
                                                       fit: BoxFit.cover,
@@ -154,8 +165,8 @@ class _FoodAreaState extends State<FoodArea> {
                                                     ),
                                                     color: Colors.blue,
                                                     borderRadius:
-                                                        const BorderRadius.all(
-                                                      Radius.circular(30),
+                                                        BorderRadius.all(
+                                                      Radius.circular(15.w), // radius area of hotels images 
                                                     ),
                                                   ),
                                                 ),
@@ -165,24 +176,24 @@ class _FoodAreaState extends State<FoodArea> {
                                                   right: 0,
                                                   child: Container(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            10),
+                                                        EdgeInsets.all(
+                                                            10.w),
                                                     decoration: BoxDecoration(
                                                       color: Colors.black
                                                           .withOpacity(0.12),
                                                       borderRadius:
-                                                          const BorderRadius
+                                                          BorderRadius
                                                               .only(
                                                         bottomLeft:
-                                                            Radius.circular(30),
+                                                            Radius.circular(30.w),
                                                         bottomRight:
-                                                            Radius.circular(30),
+                                                            Radius.circular(30.w),
                                                       ),
                                                     ),
-                                                    child: Text(
+                                                    child: Text( // color area of text in each hotels.
                                                       text,
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
+                                                      style: TextStyle(
+                                                        fontSize: 16.sp,
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.bold,

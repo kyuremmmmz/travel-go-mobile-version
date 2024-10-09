@@ -1,7 +1,9 @@
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+
+// CODE AREA 
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -33,7 +35,7 @@ class _CategoriesState extends State<Categories> {
                     image: hotelIcon,
                     oppressed: () =>
                         {AppRoutes.navigateToHotelScreen(context)}),
-                const CategoryLabel(label: 'Hotels'),
+                CategoryLabel(label: 'Hotels', fontSize: 12.0.sp), // Specify font size here
               ],
             ),
             Column(
@@ -41,7 +43,7 @@ class _CategoriesState extends State<Categories> {
                 BlueIconButtonDefault(
                     image: foodIcon,
                     oppressed: () => AppRoutes.navigateTofoodArea(context)),
-                const CategoryLabel(label: 'Food Place'),
+                 CategoryLabel(label: 'Food Place', fontSize: 11.0.sp),
               ],
             ),
             Column(
@@ -50,7 +52,7 @@ class _CategoriesState extends State<Categories> {
                   image: beachIcon,
                   oppressed: () => {AppRoutes.navigateToBeachesScreen(context)},
                 ),
-                const CategoryLabel(label: 'Beaches'),
+                 CategoryLabel(label: 'Beaches', fontSize: 11.0.sp),
               ],
             ),
             Column(
@@ -60,7 +62,7 @@ class _CategoriesState extends State<Categories> {
                   oppressed: () =>
                       {AppRoutes.navigateToFestivalsScreen(context)},
                 ),
-                const CategoryLabel(label: 'Festivals and \nEvents'),
+                 CategoryLabel(label: 'Festivals and \nEvents', fontSize: 11.0.sp),
               ],
             ),
           ],
@@ -70,27 +72,36 @@ class _CategoriesState extends State<Categories> {
   }
 }
 
+
 class CategoryLabel extends StatelessWidget {
   final String label;
+  final double fontSize; // Add fontSize parameter of the categories
+  
   const CategoryLabel({
     super.key,
     required this.label,
+    this.fontSize = 14.0, // Default font size
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 8.w),
+      padding: EdgeInsets.only(top: 8.w, bottom: 5.h),
       child: SizedBox(
-        height: 50.h,
+        height: 35.h,
         child: Text(
           label,
           textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w500, // Use the fontSize parameter here
+          ),
         ),
       ),
     );
   }
 }
+
 
 class CategorySelect extends StatelessWidget {
   final String label;

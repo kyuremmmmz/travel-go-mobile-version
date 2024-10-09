@@ -1,6 +1,7 @@
+
 import 'package:flutter/material.dart'; // The flutter material package for UI e stateless wdiget for festivals 
 import 'package:supabase_flutter/supabase_flutter.dart'; // Importing the Supabase Flutter package for database functionality.
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness // The flutter material package for UI 
 import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
 import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';

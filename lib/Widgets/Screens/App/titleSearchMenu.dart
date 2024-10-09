@@ -3,6 +3,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/SearchController/searchController.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class TitleSearchMenu extends StatefulWidget {
   const TitleSearchMenu({super.key});
@@ -41,15 +42,40 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
           ],
           ),
         ),
-        Text(
-          "Northwestern part of Luzon Island, Philippines", // The home address of Pangasinan
-          style: TextStyle(fontSize: 12.sp), // Adjust text style as needed
-        ),
-        SizedBox(
-          height: 30.h,
-        ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 23.w), // Search bar in Home M
+          padding: EdgeInsets.symmetric(horizontal: 59.0.w),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 12.h), // the top padding for image
+                  Image.asset(
+                    'assets/images/icon/placeholder.png',
+                    width: 13.w,
+                    height: 13.h,
+                  ),
+                  SizedBox(height: 20.h), // the bottom padding for image
+                ],
+              ),
+              SizedBox(width: 5.w), // Space between image and text
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 12.h), // top padding for text
+                  Text(
+                    "Northwestern part of Luzon Island, Philippines",
+                    style: TextStyle(fontSize: 11.sp),
+                  ),
+                  SizedBox(height: 40.h), // bottom padding for text 
+                ],
+              ),
+          ],
+        ),
+      ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 23.w), // Search bar in Home Main Fron-end Dito
           child: TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
               controller: _searchController,
@@ -71,7 +97,7 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
                   borderSide: BorderSide.none, // Removed the border
                 ),
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Color(0XffDEDEDE),
               ),
             ),
             suggestionsCallback: (pattern) async {
