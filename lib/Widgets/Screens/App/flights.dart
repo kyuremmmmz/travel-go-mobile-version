@@ -170,7 +170,7 @@ class _FlightState extends State<Flight> {
                               Container(
                                   padding: null,
                                   width: 350,
-                                  height: 300,
+                                  height: 230,
                                   child: Column(
                                     children: [
                                       Container(
@@ -497,6 +497,7 @@ class _FlightState extends State<Flight> {
                                                                 ],
                                                               ),
                                                               Container(
+                                                                padding: null,
                                                                 child: const Text('PANG . OCT 9',
                                                                 style: TextStyle(
                                                                   fontSize: 9
@@ -509,6 +510,16 @@ class _FlightState extends State<Flight> {
                                                       ],
                                                     )
                                                   ),
+                                                  Container(
+                                                    child: Row(
+                                                      children: [
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        
+                                                      ],
+                                                    ),
+                                                  )
                                                 ],
                                               ),
                                             ),
