@@ -185,4 +185,5 @@ class AppRoutes {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const discountArea()));
   }
+
 }

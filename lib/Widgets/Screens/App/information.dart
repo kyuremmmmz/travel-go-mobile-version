@@ -944,7 +944,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const Flight()));
+                                                              Flight(id: widget.text,)));
                                                 }),
                                           )
                                         ],

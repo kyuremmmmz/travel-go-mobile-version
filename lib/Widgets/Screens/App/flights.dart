@@ -1,9 +1,14 @@
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Flight extends StatefulWidget {
-  const Flight({super.key});
+  final int id;
+  const Flight({
+    super.key, 
+    required this.id});
 
   @override
   State<Flight> createState() => _FlightState();
@@ -170,7 +175,7 @@ class _FlightState extends State<Flight> {
                               Container(
                                   padding: null,
                                   width: 350,
-                                  height: 230,
+                                  height: 250,
                                   child: Column(
                                     children: [
                                       Container(
@@ -510,20 +515,39 @@ class _FlightState extends State<Flight> {
                                                       ],
                                                     )
                                                   ),
-                                                  Container(
-                                                    child: Row(
-                                                      children: [
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        
-                                                      ],
-                                                    ),
-                                                  )
                                                 ],
                                               ),
                                             ),
                                           ],
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                            left: 10
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              const Text('PHP 1,800',
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 50,
+                                              ),
+                                              Container(
+                                                child: ElevatedButton(
+                                                  onPressed: () {
+                                                    AppRoutes.navigateToBookingArea(id: widget.id,context);
+                                                  },
+                                                  child: const Text('Select Ticket')
+                                                )
+                                              )
+                                            ],
+                                          ),
                                         )
                                       ],
                                     )
