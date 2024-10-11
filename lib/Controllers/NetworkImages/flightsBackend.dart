@@ -143,7 +143,6 @@ class Flightsbackend {
         var format = price.format(pricePlace);
         var nameOfDeparture = datas['airplane'];
 
-        var date = datas['date'];
         String cleanDate = departure.split('+')[0];
         DateTime dateFormatito = DateTime(
             now.year,
@@ -154,9 +153,19 @@ class Flightsbackend {
             int.parse(cleanDate.split(':')[2]));
         var formatDate = DateFormat('MMM d').format(dateFormatito);
 
+        var departureDate = datas['date_departure']; 
+        DateTime dateFormatDeparture = DateTime.parse(departureDate);
+        var formatDateDeparture = DateFormat('MMM d').format(dateFormatDeparture);
+
+        var date = datas['date'];
+        DateTime dateFormatIto = DateTime.parse(date);
+        var formatDateIto = DateFormat('MMM d').format(dateFormatIto);
+
+        datas['date_departure'] = formatDateDeparture;
         datas['date_arrival'] = formatDate;
         datas['airplane'] = nameOfDeparture;
         datas['airport'] = name;
+        datas['date'] = formatDateIto;
         datas['return_arrival'] = formatTimeReturn;
         datas['return'] = formatTimeHe;
         datas['arrival'] = formatTimeyan;

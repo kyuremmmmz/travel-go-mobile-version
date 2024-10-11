@@ -217,7 +217,7 @@ class _BestState extends State<Best> {
                                                                     Container(
                                                                       child:
                                                                           Text(
-                                                                        '${data['airplane']} . OCT 9',
+                                                                        '${data['airplane']} . ${data['date']}',
                                                                         style: const TextStyle(
                                                                             fontSize:
                                                                                 9),
@@ -286,7 +286,7 @@ class _BestState extends State<Best> {
                                                             Container(
                                                               padding: null,
                                                               child: Text(
-                                                                '${data['place']} . OCT 9',
+                                                                '${data['place']} . ${data['date_departure']}',
                                                                 style: const TextStyle(
                                                                     fontSize:
                                                                         9
@@ -363,7 +363,7 @@ class _BestState extends State<Best> {
                                                                     Container(
                                                                       child:
                                                                           Text(
-                                                                        '${data['place']} . OCT 9',
+                                                                        '${data['place']} .${data['date']}',
                                                                         style: const TextStyle(
                                                                             fontSize:
                                                                                 9),
