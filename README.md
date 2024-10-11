@@ -2,5 +2,5 @@
 
 TODOs:
 
-- Settings
-- Flights
+- Flight Booking
+- Widget Final Checking
