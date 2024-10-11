@@ -9,7 +9,7 @@ import 'package:TravelGo/Widgets/Screens/App/information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
-// THE POPULAR PLACES YUNG SA VIEW ALL 
+// THE POPULAR PLACES YUNG SA VIEW ALL  DITO YUN 
 
 class Explorenow extends StatefulWidget {
   const Explorenow({super.key});
@@ -122,30 +122,57 @@ class _ExplorenowState extends State<Explorenow> {
                                 ],
                                 ),
                               ),
-                    Text(
-                      "Northwestern part of Luzon Island, Philippines",
-                      style: TextStyle(fontSize: 16.sp),
-                    ),
-                    SizedBox(height: 30.h),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      padding: EdgeInsets.symmetric(horizontal: 59.0.w),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: 12.h),
+                            Image.asset(
+                              'assets/images/icon/placeholder.png',
+                              width: 13.w,
+                              height: 13.h,
+                            ),
+                            SizedBox(height: 30.h,),
+                          ],
+                        ),
+                        SizedBox(width: 5.w),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: 12.h),
+                            Text(
+                              "Northwestern part of Luzon Island, Philippines",
+                              style: TextStyle(fontSize: 11.sp),
+                            ),
+                            SizedBox(height: 20.h),
+                          ],
+                        ),
+                      ],
+                      ), 
+                    ),
+                    Padding(
+                      padding:EdgeInsets.symmetric(horizontal: 25.h),
                       child: TypeAheadField(
                         textFieldConfiguration: TextFieldConfiguration(
                           controller: _searchController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 10),
+                                vertical: 0.h, horizontal: 10.h),
                             hintStyle: TextStyle(color: Colors.black54),
                             hintText: 'Search Destination',
                             border: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                                  BorderRadius.all(Radius.circular(50.h)),
                               borderSide: BorderSide(color: Colors.black54),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.black54),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                                  BorderRadius.all(Radius.circular(50.h)),
                             ),
                             filled: true,
                             fillColor: Colors.white,

@@ -1,18 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-<<<<<<< HEAD
-import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:TravelGo/Controllers/SearchController/searchController.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
-
-
-=======
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:TravelGo/Controllers/SearchController/searchController.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
->>>>>>> 06a48455a6a757c897fe11eafcd33a21ac12e9ee
+import 'package:TravelGo/Controllers/SearchController/searchController.dart'; // responsiveness
 
 class TitleSearchMenu extends StatefulWidget {
   const TitleSearchMenu({super.key});
@@ -40,13 +30,13 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
           'TRAVEL GO', // The home Travel Go Icon
           style: TextStyle(
             fontSize: 30.sp,
-            color: Color(0xFF44CAF9),
+            color: const Color(0xFF44CAF9),
             fontWeight: FontWeight.bold,
             shadows: [
             Shadow(
               offset: Offset(2.0.h, -2.0.h), // Position of the shadow (x, y)
               blurRadius: 20, // Blur effect of the shadow
-              color: Color.fromARGB(128, 117, 116, 116), // Shadow color with opacity
+              color: const Color.fromARGB(128, 117, 116, 116), // Shadow color with opacity
             ),
           ],
           ),
@@ -65,7 +55,7 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
                     width: 13.w,
                     height: 13.h,
                   ),
-                  SizedBox(height: 30.h), // the bottom padding for image
+                  SizedBox(height: 20.h), // the bottom padding for image
                 ],
               ),
               SizedBox(width: 5.w), // Space between image and text
@@ -77,7 +67,7 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
                     "Northwestern part of Luzon Island, Philippines",
                     style: TextStyle(fontSize: 11.sp),
                   ),
-                  SizedBox(height: 20.h), // bottom padding for text 
+                  SizedBox(height: 40.h), // bottom padding for text 
                 ],
               ),
           ],
@@ -106,7 +96,7 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
                   borderSide: BorderSide.none, // Removed the border
                 ),
                 filled: true,
-                fillColor: Color(0XffDEDEDE),
+                fillColor: const Color(0XffDEDEDE),
               ),
             ),
             suggestionsCallback: (pattern) async {
