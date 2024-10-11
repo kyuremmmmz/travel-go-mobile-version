@@ -202,8 +202,7 @@ class _BestState extends State<Best> {
                                                                     Row(
                                                                       children: [
                                                                         Text(
-                                                                          data[
-                                                                              'departure'],
+                                                                          data['departure'],
                                                                           style: const TextStyle(
                                                                               color: Colors.black,
                                                                               fontWeight: FontWeight.bold,
@@ -348,9 +347,9 @@ class _BestState extends State<Best> {
                                                                   children: [
                                                                     Row(
                                                                       children: [
-                                                                        const Text(
-                                                                          '12:05',
-                                                                          style: TextStyle(
+                                                                        Text(
+                                                                          data['return'],
+                                                                          style: const TextStyle(
                                                                               color: Colors.black,
                                                                               fontWeight: FontWeight.bold,
                                                                               fontSize: 12),
@@ -359,24 +358,13 @@ class _BestState extends State<Best> {
                                                                           width:
                                                                               5,
                                                                         ),
-                                                                        Container(
-                                                                          padding: const EdgeInsets
-                                                                              .only(
-                                                                              bottom: 0),
-                                                                          child:
-                                                                              const Text(
-                                                                            'PM',
-                                                                            style:
-                                                                                TextStyle(color: Colors.black, fontSize: 12),
-                                                                          ),
-                                                                        ),
                                                                       ],
                                                                     ),
                                                                     Container(
                                                                       child:
-                                                                          const Text(
-                                                                        'PANG . OCT 9',
-                                                                        style: TextStyle(
+                                                                          Text(
+                                                                        '${data['place']} . OCT 9',
+                                                                        style: const TextStyle(
                                                                             fontSize:
                                                                                 9),
                                                                       ),
@@ -424,9 +412,9 @@ class _BestState extends State<Best> {
                                                             ),
                                                             Row(
                                                               children: [
-                                                                const Text(
-                                                                  '12:05',
-                                                                  style: TextStyle(
+                                                                Text(
+                                                                  data['return_arrival'],
+                                                                  style: const TextStyle(
                                                                       color: Colors
                                                                           .black,
                                                                       fontWeight:
@@ -438,29 +426,13 @@ class _BestState extends State<Best> {
                                                                 const SizedBox(
                                                                   width: 5,
                                                                 ),
-                                                                Container(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          bottom:
-                                                                              0),
-                                                                  child:
-                                                                      const Text(
-                                                                    'PM',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12),
-                                                                  ),
-                                                                ),
                                                               ],
                                                             ),
                                                             Container(
                                                               padding: null,
-                                                              child: const Text(
-                                                                'PANG . OCT 9',
-                                                                style: TextStyle(
+                                                              child:  Text(
+                                                                '${data['airplane']} . OCT 9',
+                                                                style: const TextStyle(
                                                                     fontSize:
                                                                         9),
                                                               ),

@@ -28,15 +28,37 @@ class Flightsbackend {
         var price = NumberFormat('#,###');
         var departure = datas['departure'];
         var arrival = datas['arrival'];
-        var cleanTimeToString = arrival.split('+')[0];
+        var returnD = datas['return'];
+        var returnArrival = datas['return_arrival'];
+        var cleanTimeToString = returnD.split('+')[0];
         DateTime now = DateTime.now();
-        DateTime dateFormathehe = DateTime(
+        DateTime dateFormatTo = DateTime(
             now.year,
             now.month,
             now.day,
             int.parse(cleanTimeToString.split(':')[0]),
             int.parse(cleanTimeToString.split(':')[1]),
             int.parse(cleanTimeToString.split(':')[2]));
+        var formatTimeHe = DateFormat.jm().format(dateFormatTo);
+
+        var cleanThis = returnArrival.split('+')[0];
+        DateTime dateFormatreturn = DateTime(
+            now.year,
+            now.month,
+            now.day,
+            int.parse(cleanThis.split(':')[0]),
+            int.parse(cleanThis.split(':')[1]),
+            int.parse(cleanThis.split(':')[2]));
+        var formatTimeReturn = DateFormat.jm().format(dateFormatreturn);
+
+        var cleanTimeToWhat = arrival.split('+')[0];
+        DateTime dateFormathehe = DateTime(
+            now.year,
+            now.month,
+            now.day,
+            int.parse(cleanTimeToWhat.split(':')[0]),
+            int.parse(cleanTimeToWhat.split(':')[1]),
+            int.parse(cleanTimeToWhat.split(':')[2]));
         var formatTimeyan = DateFormat.jm().format(dateFormathehe);
 
         String cleanTimeString = departure.split('+')[0];
@@ -52,6 +74,8 @@ class Flightsbackend {
         var nameOfDeparture = datas['airplane'];
         datas['airplane'] = nameOfDeparture;
         datas['airport'] = name;
+        datas['return_arrival'] = formatTimeReturn;
+        datas['return'] = formatTimeHe;
         datas['arrival'] = formatTimeyan;
         datas['departure'] = formatTime;
         datas['price'] = format;
