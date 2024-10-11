@@ -250,6 +250,7 @@ class _FastestState extends State<Fastest> {
                                                                       ],
                                                                     ),
                                                                     Container(
+                                                                      padding: null,
                                                                       child: const Text('PANG . OCT 9',
                                                                       style: TextStyle(
                                                                         fontSize: 9
@@ -324,6 +325,7 @@ class _FastestState extends State<Fastest> {
                                                                 ],
                                                               ),
                                                               Container(
+                                                                padding: null,
                                                                 child: const Text('PANG . OCT 9',
                                                                 style: TextStyle(
                                                                   fontSize: 9
@@ -413,6 +415,7 @@ class _FastestState extends State<Fastest> {
                                                                       ],
                                                                     ),
                                                                     Container(
+                                                                      padding: null,
                                                                       child: const Text('PANG . OCT 9',
                                                                       style: TextStyle(
                                                                         fontSize: 9
