@@ -405,6 +405,28 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               icon: const Icon(FontAwesomeIcons.phone),
                             ),
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(50)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: PhonenumberTextField(
+                              text: 'Country:',
+                              controller: _numberController,
+                              icon: const Icon(FontAwesomeIcons.earthAmericas),
+                            ),
+                          ),
                           
                           Container(
                             width: 380,
