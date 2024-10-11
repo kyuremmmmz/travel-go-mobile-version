@@ -4,14 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/SearchController/searchController.dart'; // responsiveness
 
-class TitleSearchMenu extends StatefulWidget {
-  const TitleSearchMenu({super.key});
+class SearchMenu extends StatefulWidget {
+  const SearchMenu({super.key});
 
   @override
-  State<TitleSearchMenu> createState() => _TitleSearchMenuState();
+  State<SearchMenu> createState() => _SearchMenuState();
 }
 
-class _TitleSearchMenuState extends State<TitleSearchMenu> {
+class _SearchMenuState extends State<SearchMenu> {
   final _searchController = TextEditingController();
   List<Map<String, dynamic>> place = [];
   final data = Data();
@@ -26,6 +26,7 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+<<<<<<< HEAD:lib/Widgets/Screens/App/titleSearchMenu.dart
         Text(
           'TRAVEL GO', // The home Travel Go Icon
           style: TextStyle(
@@ -41,40 +42,11 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
           ],
           ),
         ),
+=======
+>>>>>>> 0475bbf68afe1a92e3b1cce3a9ca6c63d80f865e:lib/Widgets/Screens/App/searchMenu.dart
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 59.0.w),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 12.h), // the top padding for image
-                  Image.asset(
-                    'assets/images/icon/placeholder.png',
-                    width: 13.w,
-                    height: 13.h,
-                  ),
-                  SizedBox(height: 20.h), // the bottom padding for image
-                ],
-              ),
-              SizedBox(width: 5.w), // Space between image and text
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 12.h), // top padding for text
-                  Text(
-                    "Northwestern part of Luzon Island, Philippines",
-                    style: TextStyle(fontSize: 11.sp),
-                  ),
-                  SizedBox(height: 40.h), // bottom padding for text 
-                ],
-              ),
-          ],
-        ),
-      ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 23.w), // Search bar in Home Main Fron-end Dito
+          padding: EdgeInsets.symmetric(
+              horizontal: 23.w), // Search bar in Home Main Fron-end Dito
           child: TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
               controller: _searchController,

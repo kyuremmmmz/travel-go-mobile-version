@@ -1,16 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+import 'package:TravelGo/Widgets/Screens/App/categories.dart';
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/vehicleAvailability.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
-import 'package:TravelGo/Controllers/SearchController/searchController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/exploreNow.dart';
 import 'package:TravelGo/Widgets/Screens/App/flights.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -55,17 +56,19 @@ class _InformationScreenState extends State<InformationScreen> {
   String? availability;
   String? price;
   String? commentImg;
+  StreamSubscription? sub;
   final data = Data();
   List<Map<String, dynamic>> list = [];
   late Usersss users = Usersss();
   late RatingsAndComments rating = RatingsAndComments();
+  final supabase = Supabase.instance.client;
   @override
   void initState() {
     super.initState();
     emailFetching();
     fetchSpecificData(widget.text);
-    fetchRatings(widget.text);
     fetchWithoutFunct();
+    _realTimeFetch();
   }
 
   Future<void> _isRedirecting() async {
@@ -102,7 +105,7 @@ class _InformationScreenState extends State<InformationScreen> {
 
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "places", '$text', widget.text, '$email', '$img');
+        commentType = "places", '$text', widget.text, '$email', '$imgUrl');
   }
 
   Future<void> fetchWithoutFunct() async {
@@ -123,7 +126,14 @@ class _InformationScreenState extends State<InformationScreen> {
     });
   }
 
-  Future<void> fetchRatings(int id) async {
+  void _realTimeFetch() {
+    sub = supabase.from('ratings_and_comments').stream(
+        primaryKey: ['id']).listen((List<Map<String, dynamic>> comment) async {
+      await fetchRatings(comment);
+    });
+  }
+
+  Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
     final data = await rating.fetchComments(widget.text);
     final totalRatings = await rating.fetchRatingsAsSum();
     final img = await users.fetchUser();
@@ -143,6 +153,7 @@ class _InformationScreenState extends State<InformationScreen> {
   void dispose() {
     _searchController.dispose();
     _commentController.dispose();
+    sub?.cancel();
     super.dispose();
   }
 
@@ -203,7 +214,7 @@ class _InformationScreenState extends State<InformationScreen> {
               } else {
                 return Stack(
                   children: [
-                    Positioned(
+                    const Positioned(
                       child: Column(
                         children: <Widget>[
                           Text(
@@ -295,6 +306,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                 },
                              ),
                           ),
+=======
+                          TitleMenu(),
+                          SearchMenu(),
+>>>>>>> 0475bbf68afe1a92e3b1cce3a9ca6c63d80f865e
                         ],
                       ),
                     ),
@@ -390,91 +405,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      Container(
-                                        padding:
-                                            const EdgeInsets.only(right: 170),
-                                        child: const Text(
-                                          'Vehicle Availability',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: <Widget>[
-                                            Column(
-                                              children: [
-                                                BlueIconButtonDefault(
-                                                  image:
-                                                      'assets/images/icon/tricycle.png',
-                                                  oppressed: () =>
-                                                      print('Hotels clicked'),
-                                                ),
-                                                const CategoryLabel(
-                                                    label: 'Tricycle'),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 20,
-                                            ),
-                                            Column(
-                                              children: [
-                                                BlueIconButtonDefault(
-                                                  image:
-                                                      'assets/images/icon/motorbike.png',
-                                                  oppressed: () => print(
-                                                      'Food Place clicked'),
-                                                ),
-                                                CategoryLabel(
-                                                    label: hasMotor == "true"
-                                                        ? 'Motorcycle'
-                                                        : 'Unavailable'),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 20,
-                                            ),
-                                            Column(
-                                              children: [
-                                                BlueIconButtonDefault(
-                                                  image:
-                                                      'assets/images/icon/plane.png',
-                                                  oppressed: () =>
-                                                      print('Beaches clicked'),
-                                                ),
-                                                const CategoryLabel(
-                                                    label: 'Planes'),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 20,
-                                            ),
-                                            Column(
-                                              children: [
-                                                BlueIconButtonDefault(
-                                                  image:
-                                                      'assets/images/icon/bus.png',
-                                                  oppressed: () => print(
-                                                      'Festivals clicked'),
-                                                ),
-                                                CategoryLabel(
-                                                    label: hasCar == "true"
-                                                        ? "Bus or Van"
-                                                        : "No van or bus available"),
-                                                const SizedBox(
-                                                  height: 20,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
+                                      VehicleAvailability(
+                                        text: widget.text,
                                       ),
                                       Container(
                                           padding:
@@ -500,66 +432,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 30,
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: beachIcon,
-                                                oppressed: () =>
-                                                    print('Hotels clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label: 'Hotels'),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: foodIcon,
-                                                oppressed: () =>
-                                                    print('Food Place clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label: 'Food Place'),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: beachIcon,
-                                                oppressed: () =>
-                                                    print('Beaches clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label: 'Beaches'),
-                                            ],
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          Column(
-                                            children: [
-                                              BlueIconButtonDefault(
-                                                image: festivalIcon,
-                                                oppressed: () =>
-                                                    print('Festivals clicked'),
-                                              ),
-                                              const CategoryLabel(
-                                                  label:
-                                                      'Festivals and \nEvents'),
-                                            ],
-                                          ),
-                                        ],
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 25),
+                                        child: const Categories(),
                                       ),
                                       Column(
                                         children: [
@@ -766,7 +642,6 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                                                                       onPressed: () {
                                                                                         commentInserttion();
-                                                                                        fetchRatings(widget.text);
                                                                                         _commentController.clear();
                                                                                         Navigator.pop(context);
                                                                                       },
@@ -957,7 +832,9 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const Flight()));
+                                                              Flight(
+                                                                id: widget.text,
+                                                              )));
                                                 }),
                                           )
                                         ],
