@@ -16,7 +16,7 @@ class Booking {
       final destination = data['place'];
       final price = data['price'];
       final departure = data['departure'];
-
+      final arrival = data[''];
       DateTime now = DateTime.now();
       String cleanTimeString = departure.split('+')[0];
       DateTime dateFormat = DateTime(
@@ -27,7 +27,7 @@ class Booking {
           int.parse(cleanTimeString.split(':')[1]),
           int.parse(cleanTimeString.split(':')[2]));
       var formatTime = DateFormat.jm().format(dateFormat);
-
+      data[''] = arrival;
       data['price'] = price;
       data['airplane'] = origin;
       data['airport'] = airport;

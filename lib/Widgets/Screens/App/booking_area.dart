@@ -55,6 +55,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _specialReqController = TextEditingController();
   final _validator = GlobalKey<FormState>();
   final _hotel = TextEditingController();
+  final _lastNameController = TextEditingController();
   // ignore: non_constant_identifier_names
   final _number_of_children = TextEditingController();
   // ignore: non_constant_identifier_names
@@ -89,6 +90,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     _vehicleTypeController.dispose();
     _specialReqController.dispose();
     _hotel.dispose();
+    _lastNameController.dispose();
     _number_of_adult.dispose();
     _number_of_children.dispose();
     super.dispose();
@@ -131,6 +133,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
       origin = data['airplane'];
       destination = data['place'];
       strAmount = finalFormat;
+
       _hotel.text = hotel ?? '';
     });
   }
@@ -316,8 +319,39 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               },
                               icon: const Icon(FontAwesomeIcons.person),
                               colorr: Colors.black,
-                              text: 'Full Name:',
+                              text: 'First Name:',
                               controller: _nameController,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: inputTextField(
+                              validator: (value) {
+                                if (value == null ||
+                                    value.toString().isEmpty ||
+                                    value.length <= 5) {
+                                  return 'please enter your name';
+                                }
+                                return null;
+                              },
+                              icon: const Icon(FontAwesomeIcons.person),
+                              colorr: Colors.black,
+                              text: 'Last Name:',
+                              controller: _lastNameController,
                             ),
                           ),
                           const SizedBox(
@@ -371,9 +405,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               icon: const Icon(FontAwesomeIcons.phone),
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          
                           Container(
                             width: 380,
                             decoration: BoxDecoration(
