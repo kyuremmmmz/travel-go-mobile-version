@@ -1,6 +1,5 @@
 import 'package:TravelGo/Controllers/NetworkImages/flightsBackend.dart';
 import 'package:TravelGo/Routes/Routes.dart';
-import 'package:TravelGo/Widgets/Screens/App/flights.dart';
 import 'package:flutter/material.dart';
 
 class Best extends StatefulWidget {
@@ -203,8 +202,9 @@ class _BestState extends State<Best> {
                                                                     Row(
                                                                       children: [
                                                                         Text(
-                                                                          data['departure'],
-                                                                          style: TextStyle(
+                                                                          data[
+                                                                              'departure'],
+                                                                          style: const TextStyle(
                                                                               color: Colors.black,
                                                                               fontWeight: FontWeight.bold,
                                                                               fontSize: 12),
@@ -267,9 +267,10 @@ class _BestState extends State<Best> {
                                                             ),
                                                             Row(
                                                               children: [
-                                                                const Text(
-                                                                  '12:05',
-                                                                  style: TextStyle(
+                                                                Text(
+                                                                  data[
+                                                                      'arrival'],
+                                                                  style: const TextStyle(
                                                                       color: Colors
                                                                           .black,
                                                                       fontWeight:
@@ -280,22 +281,6 @@ class _BestState extends State<Best> {
                                                                 ),
                                                                 const SizedBox(
                                                                   width: 5,
-                                                                ),
-                                                                Container(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          bottom:
-                                                                              0),
-                                                                  child:
-                                                                      const Text(
-                                                                    'PM',
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            12),
-                                                                  ),
                                                                 ),
                                                               ],
                                                             ),
@@ -493,13 +478,13 @@ class _BestState extends State<Best> {
                                           height: 10,
                                         ),
                                         Text(
-                                          data['price'].toString(),
+                                          '${data['price'].toString()} PHP',
                                           style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         const SizedBox(
-                                          width: 180,
+                                          width: 130,
                                         ),
                                         Container(
                                             padding: null,
