@@ -96,7 +96,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   void initState() {
     super.initState();
     emailFetching();
-    fetchInt(widget.id);
     fethHotel(widget.id);
     fetchEwan(widget.id);
   }
@@ -116,43 +115,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     } catch (e) {
       setState(() {
         email = "error: $e";
-      });
-    }
-  }
-
-  Future<void> fetchInt(int id) async {
-    final data = await booking.passTheHotelData(id);
-    if (data == null) {
-      setState(() {
-        amount = 0;
-      });
-    } else {
-      int basePrice =
-          int.parse(data['hotel_price'].toString().replaceAll(',', ''));
-      int additionalCost = 0;
-
-      switch (_vehicleTypeController.text.trim()) {
-        case 'Deluxe Suite':
-          additionalCost = 6000;
-          break;
-        case 'Premiere Suite':
-          additionalCost = 8000;
-          break;
-        case 'Executive Suite':
-          additionalCost = 9000;
-          break;
-        case 'Presidential Suite':
-          additionalCost = 10000;
-          break;
-        default:
-          additionalCost = 0;
-      }
-      final total = basePrice + additionalCost;
-      setState(() {
-        amount = total;
-        final numberFormat = NumberFormat('#0,000');
-        final numbers = numberFormat.format(total);
-        strAmount = numbers;
       });
     }
   }
@@ -240,88 +202,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                   onTap: () {
                     setState(() {
                       _paymentMethodController.text = "Pay Upon Arrival";
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-              ],
-            ),
-          );
-        });
-  }
-
-  Future<void> niggaModalRoomType(BuildContext context) async {
-    await showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            padding: null,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  padding: null,
-                  child: const Text(
-                    'Room Type',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ListTile(
-                  leading: const Icon(
-                    FontAwesomeIcons.medal,
-                    color: Colors.amber,
-                  ),
-                  title: const Text('Deluxe Suite'),
-                  onTap: () {
-                    setState(() {
-                      _vehicleTypeController.text = "Deluxe Suite";
-                      fetchInt(widget.id);
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-                ListTile(
-                  leading:
-                      const Icon(FontAwesomeIcons.crown, color: Colors.amber),
-                  title: const Text('Premiere Suite '),
-                  onTap: () {
-                    setState(() {
-                      _vehicleTypeController.text = "Premiere Suite ";
-                      fetchInt(widget.id);
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(
-                    FontAwesomeIcons.gem,
-                    color: Colors.green,
-                  ),
-                  title: const Text('Executive Suite '),
-                  onTap: () {
-                    setState(() {
-                      _vehicleTypeController.text = "Executive Suite ";
-                      fetchInt(widget.id);
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(
-                    FontAwesomeIcons.diamond,
-                    color: Colors.blueAccent,
-                  ),
-                  title: const Text('Presidential Suite'),
-                  onTap: () {
-                    setState(() {
-                      _vehicleTypeController.text = "Presidential Suite";
-                      fetchInt(widget.id);
                       Navigator.pop(context);
                     });
                   },
@@ -631,106 +511,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null ||
-                                      value.toString().isEmpty ||
-                                      value.length <= 5) {
-                                    return 'Please select Departure Date';
-                                  }
-                                  return null;
-                                },
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
-                                controller: _checkInController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Departure Date',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  prefixIcon:
-                                      Icon(Icons.calendar_today_outlined),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  setter();
-                                },
-                              )),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                              width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null ||
-                                      value.toString().isEmpty ||
-                                      value.length <= 5) {
-                                    return 'Please Select Return date';
-                                  }
-                                  return null;
-                                },
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
-                                controller: _checkOutController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Return Date',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  prefixIcon:
-                                      Icon(Icons.calendar_today_outlined),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  checkout();
-                                },
-                              )),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                              width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
                               child: TextField(
                                 style: const TextStyle(
                                   fontSize: 12,
@@ -754,47 +534,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 readOnly: true,
                                 onTap: () {
                                   niggaModal(context);
-                                },
-                              )),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                              width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: TextField(
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
-                                controller: _vehicleTypeController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Room Type',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  prefixIcon: Icon(Icons.room_outlined),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  niggaModalRoomType(context);
                                 },
                               )),
                           const SizedBox(
@@ -907,11 +646,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                         left: 10, right: 10),
                                     child: Column(
                                       children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            fetchInt(widget.id);
-                                          },
-                                          child: const Row(
+                                      const Row(
                                             children: [
                                               Text(
                                                 "Total Amount",
@@ -925,7 +660,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                               ),
                                             ],
                                           ),
-                                        ),
                                         Row(
                                           children: [
                                             Text(
