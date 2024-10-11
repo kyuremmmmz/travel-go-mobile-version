@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/Auth/signup.dart';
-import 'package:itransit/Widgets/Textfield/passwordField.dart';
+import 'package:TravelGo/Controllers/Auth/signup.dart';
+import 'package:TravelGo/Widgets/Textfield/passwordField.dart';
 
 import '../../Textfield/plainTextField.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';

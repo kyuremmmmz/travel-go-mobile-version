@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Controllers/NetworkImages/hotel_images.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Screens/App/categories.dart';
-import 'package:itransit/Widgets/Screens/App/hotel_information.dart';
-import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Screens/App/categories.dart';
+import 'package:TravelGo/Widgets/Screens/App/hotel_information.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelScreen extends StatefulWidget {

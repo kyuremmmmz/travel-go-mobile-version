@@ -1,20 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/booking_area.dart';
+import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
+import 'package:TravelGo/Widgets/Screens/App/hotel_booking.dart';
+import 'package:TravelGo/Widgets/Screens/App/notPaid.dart';
+import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
+import 'package:TravelGo/Widgets/Screens/Profiles/Settings.dart';
+import 'package:TravelGo/Widgets/Screens/Stateless/beaches_stateless.dart';
+import 'package:TravelGo/Widgets/Screens/Stateless/email.dart';
+import 'package:TravelGo/Widgets/Screens/Stateless/explore.dart';
+import 'package:TravelGo/Widgets/Screens/Stateless/festivalsStateless.dart';
+import 'package:TravelGo/Widgets/Screens/Stateless/food_AreaStateless.dart';
+import 'package:TravelGo/Widgets/Screens/Stateless/forgot.dart';
+import 'package:TravelGo/Widgets/Screens/Stateless/hotel_stateless.dart';
+import 'package:TravelGo/Widgets/Screens/Stateless/reset.dart';
+import 'package:TravelGo/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/App/booking_area.dart';
-import 'package:itransit/Widgets/Screens/App/creditcard.dart';
-import 'package:itransit/Widgets/Screens/App/hotel_booking.dart';
-import 'package:itransit/Widgets/Screens/App/notPaid.dart';
-import 'package:itransit/Widgets/Screens/App/orderReceipt.dart';
-import 'package:itransit/Widgets/Screens/Profiles/Settings.dart';
-import 'package:itransit/Widgets/Screens/Stateless/beaches_stateless.dart';
-import 'package:itransit/Widgets/Screens/Stateless/email.dart';
-import 'package:itransit/Widgets/Screens/Stateless/explore.dart';
-import 'package:itransit/Widgets/Screens/Stateless/festivalsStateless.dart';
-import 'package:itransit/Widgets/Screens/Stateless/food_AreaStateless.dart';
-import 'package:itransit/Widgets/Screens/Stateless/forgot.dart';
-import 'package:itransit/Widgets/Screens/Stateless/hotel_stateless.dart';
-import 'package:itransit/Widgets/Screens/Stateless/reset.dart';
-import 'package:itransit/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
 
 import '../Widgets/Screens/App/foodAreaAbout.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
@@ -99,10 +99,7 @@ class AppRoutes {
     Navigator.push(
         route,
         MaterialPageRoute(
-            builder: (context) => Map(
-                  location: name,
-                  id: id,
-                )));
+            builder: (context) => Mapa(location: name, id: id)));
   }
 
   static void navigateToOrderReceipt(
@@ -186,6 +183,6 @@ class AppRoutes {
 
   static void navigateToDiscountArea(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => discountArea()));
+        context, MaterialPageRoute(builder: (context) => const discountArea()));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/GreenButton.dart';
+import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueButton.dart';
+import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/GreenButton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {

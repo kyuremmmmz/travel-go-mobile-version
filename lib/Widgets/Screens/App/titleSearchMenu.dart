@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Controllers/SearchController/searchController.dart';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/SearchController/searchController.dart';
 
 class TitleSearchMenu extends StatefulWidget {
   const TitleSearchMenu({super.key});

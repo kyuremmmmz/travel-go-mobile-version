@@ -2,15 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Controllers/Ratings/ratingsBackend.dart';
-import 'package:itransit/Controllers/SearchController/searchController.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Screens/App/exploreNow.dart';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
+import 'package:TravelGo/Controllers/SearchController/searchController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/exploreNow.dart';
+import 'package:TravelGo/Widgets/Screens/App/flights.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InformationScreen extends StatefulWidget {
@@ -37,6 +38,7 @@ class _InformationScreenState extends State<InformationScreen> {
   String? email;
   String? description;
   String? text;
+  String? img;
   String? hasCar;
   String? imageUrl;
   String? comments;
@@ -104,7 +106,7 @@ class _InformationScreenState extends State<InformationScreen> {
     final data = await rating.fetchComments(widget.text);
     final totalRatings = await rating.fetchRatingsAsSum();
     final records = data.length;
-    final count = records / totalRatings;
+    final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
@@ -116,7 +118,7 @@ class _InformationScreenState extends State<InformationScreen> {
     final data = await rating.fetchComments(id);
     final totalRatings = await rating.fetchRatingsAsSum();
     final records = data.length;
-    final count = records / totalRatings;
+    final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
@@ -137,6 +139,7 @@ class _InformationScreenState extends State<InformationScreen> {
       if (useremail.isNotEmpty) {
         setState(() {
           email = useremail[0]['full_name'].toString();
+          img = useremail[0]['avatar_url'].toString();
         });
       } else {
         setState(() {
@@ -778,10 +781,10 @@ class _InformationScreenState extends State<InformationScreen> {
                                                               children: [
                                                                 const SizedBox(
                                                                     width: 20),
-                                                                const CircleAvatar(
+                                                                CircleAvatar(
                                                                   backgroundImage:
                                                                       NetworkImage(
-                                                                    'https://scontent.fcrk2-1.fna.fbcdn.net/v/t39.30808-6/458201923_1043023800791060_3272608477704101222_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGBMm4xU2usMJaUqOsw_6B8XS5FRhVw6eldLkVGFXDp6YAneXr2mX8UggCWeJBKRtwp3v6PLmGEDoQZG9hUsZGN&_nc_ohc=yft81t1DQ9sQ7kNvgHunJTg&_nc_ht=scontent.fcrk2-1.fna&_nc_gid=A3XN-Jpcj-F6OLYI6cGWoDW&oh=00_AYBPnxFmLD8OofmQoLRd73Ru62FdY2CfQhMpLQxUdnDJbg&oe=67018C33',
+                                                                    '$img',
                                                                   ),
                                                                 ),
                                                                 const SizedBox(
@@ -830,8 +833,9 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                         }),
                                                                         Text(
                                                                           ' $ratings OUT OF 5',
-                                                                          style:
-                                                                              const TextStyle(fontSize: 12),
+                                                                          style: const TextStyle(
+                                                                            fontSize: 12
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -910,7 +914,16 @@ class _InformationScreenState extends State<InformationScreen> {
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: Colors.blue,
                                                 ),
-                                                oppressed: () {}),
+                                                oppressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const Flight()
+                                                    )
+                                                  );
+                                                }
+                                              ),
                                           )
                                         ],
                                       )
@@ -926,6 +939,8 @@ class _InformationScreenState extends State<InformationScreen> {
                   ],
                 );
               }
-            }));
+            }
+          )
+        );
   }
 }

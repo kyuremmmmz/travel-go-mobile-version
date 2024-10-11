@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:itransit/Routes/Routes.dart';
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 
 class AccountSettingsScreen extends StatefulWidget {
   const AccountSettingsScreen({

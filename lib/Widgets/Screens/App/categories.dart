@@ -1,6 +1,6 @@
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:flutter/material.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});

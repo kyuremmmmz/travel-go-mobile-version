@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/App/foodArea_list.dart';
+import 'package:TravelGo/Widgets/Screens/App/foodArea_list.dart';
 
 class FoodAreastateless extends StatelessWidget {
   const FoodAreastateless({super.key});

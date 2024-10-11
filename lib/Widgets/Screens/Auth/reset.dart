@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:itransit/Widgets/Textfield/passwordField.dart';
-import 'package:itransit/Widgets/Textfield/number.dart';
-import 'package:itransit/Widgets/Textfield/plainTextField.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Widgets/Textfield/passwordField.dart';
+import 'package:TravelGo/Widgets/Textfield/number.dart';
+import 'package:TravelGo/Widgets/Textfield/plainTextField.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 

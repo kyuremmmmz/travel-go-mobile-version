@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:itransit/Controllers/NetworkImages/food_area.dart';
-import 'package:itransit/Controllers/Profiles/ProfileController.dart';
-import 'package:itransit/Routes/Routes.dart';
-import 'package:itransit/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 
 // ignore: must_be_immutable
 class FoodAreaAbout extends StatelessWidget {

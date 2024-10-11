@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:itransit/Widgets/Screens/App/festivalsList.dart';
+import 'package:TravelGo/Widgets/Screens/App/festivalsList.dart';
 
 class FestivalsStateless extends StatelessWidget {
   const FestivalsStateless({super.key});
