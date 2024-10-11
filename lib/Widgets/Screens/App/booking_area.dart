@@ -2,6 +2,7 @@
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Textfield/inputTextField.dart';
 import 'package:TravelGo/Widgets/Textfield/phoneNumber.dart';
 import 'package:flutter/gestures.dart';
@@ -9,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-
 
 class BookingArea extends StatelessWidget {
   final int id;
@@ -411,18 +410,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
           key: _validator,
           child: Column(
             children: <Widget>[
-              const Text(
-                'TRAVEL GO',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Text(
-                "Northwestern part of Luzon Island, Philippines",
-                style: TextStyle(fontSize: 16),
-              ),
+              const TitleMenu(),
               const SizedBox(height: 30),
               Expanded(
                 child: Scrollbar(
@@ -553,9 +541,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               controller: _numberController,
                               icon: const Icon(FontAwesomeIcons.phone),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 10,
                           ),
                           Container(
                             width: 380,
