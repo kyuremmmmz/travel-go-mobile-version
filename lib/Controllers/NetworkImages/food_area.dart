@@ -10,8 +10,7 @@ class FoodAreaBackEnd {
       return [];
     } else {
       final data = response;
-      List<Map<String, dynamic>> list =
-          List<Map<String, dynamic>>.from(data as List);
+      List<Map<String, dynamic>> list = List<Map<String, dynamic>>.from(data as List);
       for (var data in list) {
         var img = data['imgUrl'];
         final imageUrl = await getter(img);
