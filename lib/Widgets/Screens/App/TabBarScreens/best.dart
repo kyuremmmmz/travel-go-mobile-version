@@ -217,9 +217,9 @@ class _BestState extends State<Best> {
                                                                     ),
                                                                     Container(
                                                                       child:
-                                                                          const Text(
-                                                                        'PANG . OCT 9',
-                                                                        style: TextStyle(
+                                                                          Text(
+                                                                        '${data['airplane']} . OCT 9',
+                                                                        style: const TextStyle(
                                                                             fontSize:
                                                                                 9),
                                                                       ),
@@ -285,22 +285,26 @@ class _BestState extends State<Best> {
                                                               ],
                                                             ),
                                                             Container(
-                                                              child: const Text(
-                                                                'PANG . OCT 9',
-                                                                style: TextStyle(
+                                                              padding: null,
+                                                              child: Text(
+                                                                '${data['place']} . OCT 9',
+                                                                style: const TextStyle(
                                                                     fontSize:
-                                                                        9),
+                                                                        9
+                                                                ),
                                                               ),
                                                             )
                                                           ],
-                                                        )),
-                                                  ],
-                                                )),
-                                          ],
-                                        ),
+                                                        )
+                                                      ),
+                                                    ],
+                                                  )
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
                                   Row(
                                     children: [
                                       const SizedBox(

@@ -38,9 +38,8 @@ class Flightsbackend {
             int.parse(cleanTimeToString.split(':')[1]),
             int.parse(cleanTimeToString.split(':')[2]));
         var formatTimeyan = DateFormat.jm().format(dateFormathehe);
-        
+
         String cleanTimeString = departure.split('+')[0];
-        DateTime nowNa = DateTime.now();
         DateTime dateFormat = DateTime(
             now.year,
             now.month,
@@ -50,6 +49,8 @@ class Flightsbackend {
             int.parse(cleanTimeString.split(':')[2]));
         var formatTime = DateFormat.jm().format(dateFormat);
         var format = price.format(pricePlace);
+        var nameOfDeparture = datas['airplane'];
+        datas['airplane'] = nameOfDeparture;
         datas['airport'] = name;
         datas['arrival'] = formatTimeyan;
         datas['departure'] = formatTime;
