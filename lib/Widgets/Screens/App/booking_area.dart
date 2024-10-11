@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Controllers/BookingBackend/booking.dart';
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Textfield/inputTextField.dart';
 import 'package:TravelGo/Widgets/Textfield/phoneNumber.dart';
 import 'package:flutter/gestures.dart';
@@ -9,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-
 
 class BookingArea extends StatelessWidget {
   final int id;
@@ -73,7 +73,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final String suitcaseIcon = "assets/images/icon/suitcase.png";
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
   bool _value = false;
-  HotelBooking booking = HotelBooking();
+  Booking booking = Booking();
 
   @override
   void dispose() {
@@ -97,7 +97,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     super.initState();
     emailFetching();
     fethHotel(widget.id);
-    fetchEwan(widget.id);
   }
 
   Future<void> emailFetching() async {
@@ -122,19 +121,13 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   Future<void> fethHotel(
     int id,
   ) async {
-    final data = await booking.passTheHotelData(id);
+    final data = await booking.passTheDate(id);
+    final format = NumberFormat('#,###');
+    final finalFormat = format.format(data!['price']);
     setState(() {
-      hotel = data!['hotel_name'];
+      amount = data['price'];
+      strAmount = finalFormat;
       _hotel.text = hotel ?? '';
-    });
-  }
-
-  Future<void> fetchEwan(
-    int id,
-  ) async {
-    final data = await booking.passTheHotelData(id);
-    setState(() {
-      place = data!['hotel_located'];
     });
   }
 
@@ -226,67 +219,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
             ),
           ),
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const CircleAvatar(
-                      backgroundImage: AssetImage(
-                          'assets/images/icon/beach.png'), // Replace with your own profile image
-                      radius: 40,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      // ignore: unnecessary_null_comparison
-                      email != null ? '$email' : 'Loading...',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.search),
-                title: const Text('Search'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Usersss().signout(context);
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: const DrawerMenuWidget(),
         body: Form(
           key: _validator,
           child: Column(
@@ -646,20 +579,19 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                         left: 10, right: 10),
                                     child: Column(
                                       children: [
-                                      const Row(
-                                            children: [
-                                              Text(
-                                                "Total Amount",
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Color.fromARGB(
-                                                        255, 26, 169, 235),
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                              ),
-                                            ],
-                                          ),
+                                        const Row(
+                                          children: [
+                                            Text(
+                                              "Total Amount",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Color.fromARGB(
+                                                      255, 26, 169, 235),
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                          ],
+                                        ),
                                         Row(
                                           children: [
                                             Text(

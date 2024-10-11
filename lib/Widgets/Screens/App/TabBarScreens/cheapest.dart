@@ -464,7 +464,7 @@ class _CheapestState extends State<Cheapest> {
                                                 onPressed: () {
                                                   AppRoutes
                                                       .navigateToBookingArea(
-                                                          id: widget.id,
+                                                          id: data['id'],
                                                           context);
                                                 },
                                                 child: const Text(

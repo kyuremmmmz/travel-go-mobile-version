@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Booking {
@@ -5,7 +6,33 @@ class Booking {
 
   Future<Map<String, dynamic>?> passTheDate(int id) async {
     final response =
-        await supabase.from('flights').select('*').eq('id', id).single();
+        await supabase.from('flightsList').select('*').eq('id', id).single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      final data = response;
+      final plane = data['airplane'];
+      final airport = data['airport'];
+      final price = data['price'];
+      final departure = data['departure'];
+
+      DateTime now = DateTime.now();
+      String cleanTimeString = departure.split('+')[0];
+      DateTime dateFormat = DateTime(
+          now.year,
+          now.month,
+          now.day,
+          int.parse(cleanTimeString.split(':')[0]),
+          int.parse(cleanTimeString.split(':')[1]),
+          int.parse(cleanTimeString.split(':')[2]));
+      var formatTime = DateFormat.jm().format(dateFormat);
+
+      data['price'] = price;
+      data['airplane'] = plane;
+      data['airport'] = airport;
+      data['departure'] = formatTime;
+      return data;
+    }
   }
 
   Future<PostgrestResponse?> flightBooking(
