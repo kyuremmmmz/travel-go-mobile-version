@@ -44,7 +44,7 @@ class _SearchMenuState extends State<SearchMenu> {
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 0.w, horizontal: 10.w),
                 hintStyle: const TextStyle(color: Colors.black54),
-                hintText: 'Search Destination',
+                hintText: 'Search Destinajtion',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(50.h)),
                   borderSide: BorderSide.none, // Removed the border

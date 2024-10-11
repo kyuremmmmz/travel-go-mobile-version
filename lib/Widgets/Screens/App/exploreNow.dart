@@ -155,49 +155,48 @@ class _ExplorenowState extends State<Explorenow> {
                       ],
                       ), 
                     ),
-                    Padding(
-                      padding:EdgeInsets.symmetric(horizontal: 25.h),
-                      child: TypeAheadField(
-                        textFieldConfiguration: TextFieldConfiguration(
-                          controller: _searchController,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 0.h, horizontal: 10.h),
-                            hintStyle: TextStyle(color: Colors.black54),
-                            hintText: 'Search Destination',
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50.h)),
-                              borderSide: BorderSide(color: Colors.black54),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black54),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50.h)),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                          ),
-                        ),
-                        suggestionsCallback: (pattern) async {
-                          return await Searchcontroller()
-                              .fetchSuggestions(pattern);
-                        },
-                        itemBuilder: (context, dynamic suggestion) {
-                          return ListTile(
-                            title: Text(suggestion['title'] ?? 'No title'),
-                            subtitle:
-                                Text(suggestion['address'] ?? 'No address'),
-                          );
-                        },
-                        onSuggestionSelected: (dynamic suggestion) {
-                          _searchController.text =
-                              suggestion['title'] ?? 'No title';
-                          FocusScope.of(context).unfocus();
-                        },
+            Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 23.w), // Search bar in Popular Places
+                child: TypeAheadField(
+                  textFieldConfiguration: TextFieldConfiguration(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                          onPressed: () async {
+                            await data.fetchinSearch(
+                                _searchController.text.trim(), context);
+                          },
+                          icon: const Icon(
+                            Icons.search,
+                          )),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 0.w, horizontal: 10.w),
+                      hintStyle: const TextStyle(color: Colors.black54),
+                      hintText: 'Search Destination',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(50.h)),
+                        borderSide: BorderSide.none, // Removed the border
                       ),
+                      filled: true,
+                      fillColor: const Color(0XffDEDEDE),
                     ),
-
+                  ),
+                  suggestionsCallback: (pattern) async {
+                    return await Searchcontroller().fetchSuggestions(pattern);
+                  },
+                  itemBuilder: (context, dynamic suggestion) {
+                    return ListTile(
+                      title: Text(suggestion['title'] ?? 'No title'),
+                      subtitle: Text(suggestion['address'] ?? 'No address'),
+                    );
+                  },
+                  onSuggestionSelected: (dynamic suggestion) {
+                    _searchController.text = suggestion['title'] ?? 'No title';
+                    FocusScope.of(context).unfocus();
+                  },
+                ),
+              ),
                   // END OF IT 
 
                     const SizedBox(height: 30),
@@ -298,7 +297,7 @@ class _ExplorenowState extends State<Explorenow> {
                                               }
                                             },
                                             child: Stack(
-                                              // area of the popular hotels images
+                                              // area of the popular places images
                                               children: [
                                                 Container(
                                                   height: 150.h,
@@ -313,7 +312,7 @@ class _ExplorenowState extends State<Explorenow> {
                                                     borderRadius:
                                                         BorderRadius.all(
                                                       Radius.circular(15
-                                                          .w), // radius area of hotels images
+                                                          .w), // radius area of populara places images
                                                     ),
                                                   ),
                                                 ),
