@@ -286,91 +286,85 @@ class _DismissableFindMoreLocationState
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Padding(
-                                padding: const EdgeInsets.all(14.0),
-                                child: Column(children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Container(
-                                      width: 200.w,
-                                      margin: EdgeInsets.only(
-                                          left: 14.0.h,
-                                          right: 16.0.h,
-                                          top: 35.0
-                                              .h), // Add left and right margin
-                                      child: Text(
-                                        '  Find more location\n  around you',
-                                        style: TextStyle(
-                                          fontSize: 21
-                                              .sp, // Assuming .sp is handled correctly in your project
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                width: 200.w,
+                                margin: EdgeInsets.only(
+                                    left: 14.0.h,
+                                    right: 16.0.h,
+                                    top: 35.0.h), // Add left and right margin
+                                child: Text(
+                                  '  Find more location\n  around you',
+                                  style: TextStyle(
+                                    fontSize: 21
+                                        .sp, // Assuming .sp is handled correctly in your project
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                width: 500.w,
+                                margin: EdgeInsets.only(
+                                    left: 14.0.h,
+                                    right: 16.0.h,
+                                    top: 5.0.h), // Add left and right margin
+                                child: Text(
+                                  '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
+                                  style: TextStyle(
+                                    fontSize: 8
+                                        .sp, // Assuming .sp is handled correctly in your project
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w200,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: GestureDetector(
+                                onTap: () =>
+                                    AppRoutes.navigateToExploreNowScreen(
+                                        context),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 25.0.h,
+                                      right:
+                                          16.0.h), // u know the margin my fav
+                                  child: Stack(
+                                    clipBehavior: Clip
+                                        .none, // this prevents clipping of positioned children outside the stack
+                                    children: [
+                                      Text('Explore now',
+                                          style: TextStyle(
+                                            fontSize: 12.sp,
+                                            color: Colors.white,
+                                            decoration: TextDecoration
+                                                .none, // no default underline
+                                          )),
+                                      Positioned(
+                                        bottom:
+                                            -2, // the position for the underlune
+                                        left: 0,
+                                        right: 0,
+                                        child: Container(
+                                          height:
+                                              2, // the thickness of the underline
                                           color: Colors.white,
-                                          fontWeight: FontWeight.w600,
                                         ),
-                                      ),
-                                    ),
+                                      )
+                                    ],
                                   ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Container(
-                                      width: 500.w,
-                                      margin: EdgeInsets.only(
-                                          left: 14.0.h,
-                                          right: 16.0.h,
-                                          top: 5.0
-                                              .h), // Add left and right margin
-                                      child: Text(
-                                        '    Find your next adventure around Pangasinan \n    and create unforgettable memories!',
-                                        style: TextStyle(
-                                          fontSize: 8
-                                              .sp, // Assuming .sp is handled correctly in your project
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w200,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: GestureDetector(
-                                      onTap: () =>
-                                          AppRoutes.navigateToExploreNowScreen(
-                                              context),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 25.0.h,
-                                            right: 16.0
-                                                .h), // u know the margin my fav
-                                        child: Stack(
-                                          clipBehavior: Clip
-                                              .none, // this prevents clipping of positioned children outside the stack
-                                          children: [
-                                            Text('Explore now',
-                                                style: TextStyle(
-                                                  fontSize: 12.sp,
-                                                  color: Colors.white,
-                                                  decoration: TextDecoration
-                                                      .none, // no default underline
-                                                )),
-                                            Positioned(
-                                              bottom:
-                                                  -2, // the position for the underlune
-                                              left: 0,
-                                              right: 0,
-                                              child: Container(
-                                                height:
-                                                    2, // the thickness of the underline
-                                                color: Colors.white,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ]))
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),

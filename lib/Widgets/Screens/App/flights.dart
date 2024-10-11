@@ -1,5 +1,6 @@
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Flight extends StatefulWidget {
   const Flight({super.key});
@@ -190,7 +191,7 @@ class _FlightState extends State<Flight> {
                                         Row(
                                           children: [
                                             const SizedBox(
-                                              width: 20,
+                                              width: 5,
                                             ),
                                             const Column(
                                               children: [
@@ -217,36 +218,137 @@ class _FlightState extends State<Flight> {
                                                       right: 50,
                                                       top: 10
                                                     ),
-                                                    child: const Row(
-                                                      children: [
-                                                        Text(
-                                                        '7:15',
-                                                        style:  TextStyle(
-                                                          color: Colors.black,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 15
+                                                    child: Row(
+                                                            children: [
+                                                              Container(
+                                                                padding: const EdgeInsets.only(
+                                                                  top: 12
+                                                                ),
+                                                                child: Row(
+                                                                  children: [
+                                                                    Container(
+                                                                padding: const EdgeInsets.only(
+                                                                  bottom: 0
+                                                                ),
+                                                                child: Column(
+                                                                  children: [
+                                                                  Row(
+                                                                    children: [
+                                                                    const Text(
+                                                                    '12:05',
+                                                                    style:  TextStyle(
+                                                                      color: Colors.black,
+                                                                      fontWeight: FontWeight.bold,
+                                                                      fontSize: 12
+                                                                        ),
+                                                                      ),
+                                                                      const SizedBox(
+                                                                        width: 5,
+                                                                      ),
+                                                                      Container(
+                                                                        padding: const EdgeInsets.only(
+                                                                          bottom: 0
+                                                                        ),
+                                                                        child: const Text(
+                                                                            'PM',
+                                                                        style:  TextStyle(
+                                                                        color: Colors.black,
+                                                                        fontSize: 12
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      ],
+                                                                    ),
+                                                                    Container(
+                                                                      child: const Text('PANG . OCT 9',
+                                                                      style: TextStyle(
+                                                                        fontSize: 9
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                )
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 12,
+                                                              ),
+                                                              const Icon(
+                                                              Icons.flight_takeoff,
+                                                              size: 18,
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Container(
+                                                                width: 50,
+                                                                height: 2,
+                                                                color: Colors.black,
+                                                              ),
+                                                              const SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              const Icon(
+                                                              Icons.flight_land,
+                                                              size: 18,
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Container(
+                                                          padding: const EdgeInsets.only(
+                                                            bottom: 0
                                                           ),
+                                                          child: Column(
+                                                            children: [
+                                                            const SizedBox(
+                                                              height: 12,
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                              const Text(
+                                                              '12:05',
+                                                              style:  TextStyle(
+                                                                color: Colors.black,
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: 12
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Container(
+                                                                  padding: const EdgeInsets.only(
+                                                                    bottom: 0
+                                                                  ),
+                                                                  child: const Text(
+                                                                      'PM',
+                                                                  style:  TextStyle(
+                                                                  color: Colors.black,
+                                                                  fontSize: 12
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                ],
+                                                              ),
+                                                              Container(
+                                                                child: const Text('PANG . OCT 9',
+                                                                style: TextStyle(
+                                                                  fontSize: 9
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          )
                                                         ),
-                                                        SizedBox(
-                                                          width: 5,
-                                                        ),
-                                                        Text(
-                                                          'AM'
-                                                        )
                                                       ],
                                                     )
                                                   ),
-                                                  Container(
-                                                    padding: const EdgeInsets.only(
-                                                      right: 25
-                                                    ),
-                                                    child: const Text(
-                                                      'MNL . OCT 9'
-                                                    ),
-                                                  )
                                                 ],
                                               ),
-                                            )
+                                            ),
                                           ],
                                         )
                                       ],

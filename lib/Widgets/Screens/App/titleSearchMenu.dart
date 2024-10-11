@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:TravelGo/Controllers/SearchController/searchController.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+import 'package:TravelGo/Controllers/SearchController/searchController.dart'; // responsiveness
 
 class TitleSearchMenu extends StatefulWidget {
   const TitleSearchMenu({super.key});
@@ -31,13 +30,13 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
           'TRAVEL GO', // The home Travel Go Icon
           style: TextStyle(
             fontSize: 30.sp,
-            color: Color(0xFF44CAF9),
+            color: const Color(0xFF44CAF9),
             fontWeight: FontWeight.bold,
             shadows: [
             Shadow(
               offset: Offset(2.0.h, -2.0.h), // Position of the shadow (x, y)
               blurRadius: 20, // Blur effect of the shadow
-              color: Color.fromARGB(128, 117, 116, 116), // Shadow color with opacity
+              color: const Color.fromARGB(128, 117, 116, 116), // Shadow color with opacity
             ),
           ],
           ),
@@ -97,7 +96,7 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
                   borderSide: BorderSide.none, // Removed the border
                 ),
                 filled: true,
-                fillColor: Color(0XffDEDEDE),
+                fillColor: const Color(0XffDEDEDE),
               ),
             ),
             suggestionsCallback: (pattern) async {
