@@ -25,26 +25,8 @@ class _SearchMenuState extends State<SearchMenu> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-<<<<<<< HEAD:lib/Widgets/Screens/App/titleSearchMenu.dart
-        Text(
-          'TRAVEL GO', // The home Travel Go Icon
-          style: TextStyle(
-            fontSize: 30.sp,
-            color: const Color(0xFF44CAF9),
-            fontWeight: FontWeight.bold,
-            shadows: [
-            Shadow(
-              offset: Offset(2.0.h, -2.0.h), // Position of the shadow (x, y)
-              blurRadius: 20, // Blur effect of the shadow
-              color: const Color.fromARGB(128, 117, 116, 116), // Shadow color with opacity
-            ),
-          ],
-          ),
-        ),
-=======
->>>>>>> 0475bbf68afe1a92e3b1cce3a9ca6c63d80f865e:lib/Widgets/Screens/App/searchMenu.dart
-        Padding(
+      children: [ // DITONG AREA NA DOUBLE TRAVEL GO IDK
+       Padding(
           padding: EdgeInsets.symmetric(
               horizontal: 23.w), // Search bar in Home Main Fron-end Dito
           child: TypeAheadField(
