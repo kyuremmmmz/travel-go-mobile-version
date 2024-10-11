@@ -65,6 +65,8 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final supabase = Supabase.instance.client;
   var amount = 0;
   String? strAmount;
+  String? origin;
+  String? destination;
 
   String? hotel;
   late Usersss users = Usersss();
@@ -126,6 +128,8 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     final finalFormat = format.format(data!['price']);
     setState(() {
       amount = data['price'];
+      origin = data['airplane'];
+      destination = data['place'];
       strAmount = finalFormat;
       _hotel.text = hotel ?? '';
     });

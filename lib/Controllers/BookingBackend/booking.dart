@@ -11,8 +11,9 @@ class Booking {
       return null;
     } else {
       final data = response;
-      final plane = data['airplane'];
+      final origin = data['airplane'];
       final airport = data['airport'];
+      final destination = data['place'];
       final price = data['price'];
       final departure = data['departure'];
 
@@ -28,8 +29,9 @@ class Booking {
       var formatTime = DateFormat.jm().format(dateFormat);
 
       data['price'] = price;
-      data['airplane'] = plane;
+      data['airplane'] = origin;
       data['airport'] = airport;
+      data['place'] = destination;
       data['departure'] = formatTime;
       return data;
     }
