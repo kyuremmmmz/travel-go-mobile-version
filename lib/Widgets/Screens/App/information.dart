@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -36,9 +38,11 @@ class _InformationScreenState extends State<InformationScreen> {
   final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   final _commentController = TextEditingController();
   String? email;
+  String? userEmail;
   String? description;
   String? text;
   String? img;
+  String? imgUrl;
   String? hasCar;
   String? imageUrl;
   String? comments;
@@ -52,17 +56,20 @@ class _InformationScreenState extends State<InformationScreen> {
   int ratings = 0;
   String? availability;
   String? price;
+  String? commentImg;
+  StreamSubscription? sub;
   final data = Data();
   List<Map<String, dynamic>> list = [];
   late Usersss users = Usersss();
   late RatingsAndComments rating = RatingsAndComments();
-
+  final supabase = Supabase.instance.client;
   @override
   void initState() {
     super.initState();
     emailFetching();
     fetchSpecificData(widget.text);
-    fetchRatings(widget.text);
+    fetchWithoutFunct();
+    _realTimeFetch();
   }
 
   Future<void> _isRedirecting() async {
@@ -99,12 +106,18 @@ class _InformationScreenState extends State<InformationScreen> {
 
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "places", '$text', widget.text, '$email');
+        commentType = "places", '$text', widget.text, '$email', '$imgUrl');
+  }
+
+  Future<void> fetchWithoutFunct() async {
+    final response = await users.fetchUserWithoutgetter();
+    setState(() {
+      imgUrl = response[0]['avatar_url'];
+    });
   }
 
   Future<void> stateComments() async {
     final data = await rating.fetchComments(widget.text);
-    final totalRatings = await rating.fetchRatingsAsSum();
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
@@ -114,15 +127,26 @@ class _InformationScreenState extends State<InformationScreen> {
     });
   }
 
-  Future<void> fetchRatings(int id) async {
-    final data = await rating.fetchComments(id);
+  void _realTimeFetch() {
+    sub = supabase.from('ratings_and_comments').stream(
+        primaryKey: ['id']).listen((List<Map<String, dynamic>> comment) async {
+      await fetchRatings(comment);
+    });
+  }
+
+  Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
+    final data = await rating.fetchComments(widget.text);
     final totalRatings = await rating.fetchRatingsAsSum();
+    final img = await users.fetchUser();
+    final images = img[0]['full_name'];
+    final imgUrl = await users.fetchImageForComments(images);
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
       list = data;
       ratingsTotal = count;
       userRatings = records;
+      commentImg = imgUrl;
     });
   }
 
@@ -130,6 +154,7 @@ class _InformationScreenState extends State<InformationScreen> {
   void dispose() {
     _searchController.dispose();
     _commentController.dispose();
+    sub?.cancel();
     super.dispose();
   }
 
@@ -197,7 +222,7 @@ class _InformationScreenState extends State<InformationScreen> {
                             'TRAVEL GO',
                             style: TextStyle(
                               fontSize: 30.sp, // reponsive text
-                              color: Colors.blue,
+                              color: const Color.fromARGB(255, 79, 126, 165),
                               fontWeight: FontWeight.bold,
                               shadows: [
                                 Shadow(
@@ -568,7 +593,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                   size: 25,
                                                 );
                                               } else if (index ==
-                                                      ratingsTotal.floor() &&
+                                                      ratingsTotal &&
                                                   ratingsTotal % 1 != 0) {
                                                 return const Icon(
                                                   Icons.star_border,
@@ -729,7 +754,6 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                                                                                       onPressed: () {
                                                                                         commentInserttion();
-                                                                                        fetchRatings(widget.text);
                                                                                         _commentController.clear();
                                                                                         Navigator.pop(context);
                                                                                       },
@@ -767,6 +791,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                           place['rating'];
                                                       final String name =
                                                           place['full_name'];
+                                                      final String imgUrl =
+                                                          place['avatar_url'];
                                                       return Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -784,7 +810,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                 CircleAvatar(
                                                                   backgroundImage:
                                                                       NetworkImage(
-                                                                    '$img',
+                                                                    imgUrl,
                                                                   ),
                                                                 ),
                                                                 const SizedBox(
@@ -833,9 +859,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                                         }),
                                                                         Text(
                                                                           ' $ratings OUT OF 5',
-                                                                          style: const TextStyle(
-                                                                            fontSize: 12
-                                                                          ),
+                                                                          style:
+                                                                              const TextStyle(fontSize: 12),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -919,11 +944,8 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const Flight()
-                                                    )
-                                                  );
-                                                }
-                                              ),
+                                                              Flight(id: widget.text,)));
+                                                }),
                                           )
                                         ],
                                       )
@@ -939,8 +961,6 @@ class _InformationScreenState extends State<InformationScreen> {
                   ],
                 );
               }
-            }
-          )
-        );
+            }));
   }
 }

@@ -31,6 +31,20 @@ class Usersss {
     return [];
   }
 
+  Future<PostgrestList> fetchUserWithoutgetter() async {
+    user = supabase.auth.currentUser;
+    late String? name = user?.id;
+    final response =
+        await supabase.from('profiles').select('*').eq('id', name.toString());
+    if (response.isNotEmpty) {
+      final data = response;
+      var img = data[0]['avatar_url'].toString();
+      data[0]['avatar_url'] = img;
+      return data;
+    }
+    return [];
+  }
+
   Future<dynamic> sendVerificationCode(
       String? email, BuildContext context) async {
     try {
@@ -68,14 +82,23 @@ class Usersss {
       return 'null';
     }
     File file = File(image.path);
-    final String name = image.name;
+    final String originalName = image.name;
+
+    final String uniqueName = '${DateTime.now().millisecondsSinceEpoch}_$originalName';
 
     try {
-      final storageResponse = await supabase.storage.from('avatars').upload(name, file);
+      final comments = await supabase
+          .from('ratings_and_comments')
+          .update({'avatar_url': uniqueName}).eq('comment_id', id);
+      final storageResponse =
+          await supabase.storage.from('avatars').upload(uniqueName, file);
       final response = await supabase
           .from('profiles')
-          .upsert({'id': id, 'avatar_url': name});
+          .upsert({'id': id, 'avatar_url': uniqueName});
 
+      if (comments > 0) {
+        return null;
+      }
       if (storageResponse.isEmpty) {
         debugPrint('Error uploading image: $storageResponse');
         return null;
@@ -84,6 +107,22 @@ class Usersss {
     } catch (e) {
       debugPrint('Exception occurred: $e');
       return null;
+    }
+  }
+
+  Future<String?> fetchImageForComments(String name) async {
+    final response = await supabase
+        .from('profiles')
+        .select('avatar_url')
+        .eq('full_name', name)
+        .single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      var data = response;
+      var img = data['avatar_url'];
+      var imgUrl = await getter(img);
+      return imgUrl;
     }
   }
 

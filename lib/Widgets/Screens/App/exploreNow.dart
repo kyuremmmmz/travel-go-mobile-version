@@ -7,6 +7,7 @@ import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:TravelGo/Widgets/Screens/App/information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class Explorenow extends StatefulWidget {
   const Explorenow({super.key});
@@ -74,7 +75,7 @@ class _ExplorenowState extends State<Explorenow> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 40,
+          toolbarHeight: 40.h,
           leading: Builder(
             builder: (BuildContext context) => IconButton(
               icon: const Icon(Icons.menu),
@@ -93,10 +94,10 @@ class _ExplorenowState extends State<Explorenow> {
                   child: CircularProgressIndicator(),
                 );
               }  else if (snapshot.connectionState == ConnectionState.none) {
-                return const Center(
+                return Center(
                   child: Text(
                     'No internet connection',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20.sp),
                   ),
                 );
               }
@@ -107,23 +108,23 @@ class _ExplorenowState extends State<Explorenow> {
                     Text(
                       'TRAVEL GO',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 30.sp,
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
                         shadows: [
                           Shadow(
-                            offset: const Offset(3.0, 3.0),
+                            offset: Offset(3.0.w, 3.0.h),
                             blurRadius: 4.0,
-                            color: Colors.black.withOpacity(0.5),
+                            color: Colors.black.withOpacity(0.5.w),
                           ),
                         ],
                       ),
                     ),
-                    const Text(
+                    Text(
                       "Northwestern part of Luzon Island, Philippines",
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 16.sp),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       child: TypeAheadField(

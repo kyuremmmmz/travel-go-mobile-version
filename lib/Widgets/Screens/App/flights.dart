@@ -1,8 +1,15 @@
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/TabBarScreens/best.dart';
+import 'package:TravelGo/Widgets/Screens/App/TabBarScreens/cheapest.dart';
+import 'package:TravelGo/Widgets/Screens/App/TabBarScreens/fastest.dart';
 import 'package:flutter/material.dart';
 
 class Flight extends StatefulWidget {
-  const Flight({super.key});
+  final int id;
+  const Flight({
+    super.key, 
+    required this.id});
 
   @override
   State<Flight> createState() => _FlightState();
@@ -11,8 +18,19 @@ class Flight extends StatefulWidget {
 class _FlightState extends State<Flight> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultTabController(
+      length: 3, 
+      child: Scaffold(
       appBar: AppBar(
+        bottom: const TabBar(
+          indicatorColor: Colors.blue,
+          labelColor: Colors.blue,
+          tabs: [
+            Tab(icon: Icon(Icons.airplane_ticket), text: 'Cheapest'),
+            Tab(icon: Icon(Icons.airplane_ticket), text: 'Best'),
+            Tab(icon: Icon(Icons.airplane_ticket), text: 'Fastest'),
+          ],
+          ),
         toolbarHeight: 40,
         leading: Builder(
           builder: (BuildContext context) => IconButton(
@@ -24,203 +42,13 @@ class _FlightState extends State<Flight> {
         ),
       ),
       drawer: const DrawerMenuWidget(),
-      body: SafeArea(
-        child:  Scrollbar(
-          child: SingleChildScrollView(
-            child: 
-              Stack(
-                children: [
-                  Center(
-                  child: Container(
-                  padding: null,
-                  child: const Text(
-                    'TRAVEL GO',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    const Row(
-                      children: [
-                        SizedBox(
-                          width: 30,
-                        ),
-                        Icon(
-                          Icons.location_on,
-                          color: Colors.red,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                            'Northwestern part of Luzon Island, Philippines',
-                            style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Center(
-                      child: Card(
-                        color: const Color.fromARGB(255, 195, 213, 245),
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(
-                            width: 1,
-                            color: Color.fromARGB(255, 0, 0, 0)
-                          ),
-                          borderRadius: BorderRadius.circular(
-                            10
-                          )
-                        ),
-                        child: Container(
-                          padding: null,
-                          height: 50,
-                          width: 207,
-                          child: const Center(
-                            child: Text(
-                            'Choose your Flight',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          )
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                    height: 50,
-                  ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                        right: 70
-                      ),
-                      child: Card(
-                          margin:  EdgeInsets.zero,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30)
-                            ),
-                            side: BorderSide(
-                              color: Colors.black
-                            )
-                          ),
-                          child: Container(
-                          padding: null,
-                          width: 280,
-                          height: 50,
-                          child: const Row(
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text('Best',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                'Flexible ticket upgrade available',
-                                style: TextStyle(
-                                  color: Colors.green
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ),
-                    ),
-                    Container(
-                      child: Card(
-                        margin: EdgeInsets.zero,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(30),
-                            bottomRight: Radius.circular(30),
-                            bottomLeft: Radius.circular(30)
-                          ),
-                          side: BorderSide(
-                            color: Colors.black
-                          )
-                        ),
-                        child: Container(
-                          padding: null,
-                          child: Column(
-                            children: [
-                              Container(
-                                  padding: null,
-                                  width: 350,
-                                  height: 300,
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.only(
-                                        top: 10,
-                                        right: 150),
-                                        child: const Text(
-                                        'Your Flight to Pangasinan ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        const Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 20,
-                                            ),
-                                            Column(
-                                              children: [
-                                                CircleAvatar(
-                                                backgroundImage: AssetImage(
-                                                    'assets/images/icon/food_place.png'),
-                                                ),
-                                                const Text(
-                                                  'NAIA '
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    )
-                                  ),
-                              ],
-                            ),
-                          )
-                        ),
-                      ),
-                    ]
-                  ),
-                ),
-              ]
-            ),
-          ),
-        )
+      body: TabBarView(children: [
+          Cheapest(id: widget.id),
+          Best(id: widget.id,),
+          Fastest(id: widget.id)
+        ]
       )
+    ),
     );
   }
 }
