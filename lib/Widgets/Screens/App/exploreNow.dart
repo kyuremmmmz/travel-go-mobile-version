@@ -1,3 +1,4 @@
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
@@ -72,7 +73,7 @@ class _ExplorenowState extends State<Explorenow> {
       });
     }
   }
-
+                  // AREA OF POPULAR PLACES VIEW ALL SEARCH DESTINATION LOGO
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,6 +197,9 @@ class _ExplorenowState extends State<Explorenow> {
                         },
                       ),
                     ),
+
+                  // END OF IT 
+
                     const SizedBox(height: 30),
                     Expanded(
                         child: Scrollbar(
@@ -209,61 +213,57 @@ class _ExplorenowState extends State<Explorenow> {
                                     oppressed: () =>
                                         print('Categories clicked'),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                  Column(
                                     children: [
-                                      Column(
-                                        children: [
-                                          BlueIconButtonDefault(
-                                              image: beachIcon,
-                                              oppressed: () => print('helo')),
-                                          const CategoryLabel(label: 'Hotels'),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          BlueIconButtonDefault(
-                                            image: foodIcon,
-                                            oppressed: () =>
-                                                print('Food Place clicked'),
-                                          ),
-                                          const CategoryLabel(
-                                              label: 'Food Place'),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          BlueIconButtonDefault(
-                                            image: beachIcon,
-                                            oppressed: () =>
-                                                print('Beaches clicked'),
-                                          ),
-                                          const CategoryLabel(label: 'Beaches'),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          BlueIconButtonDefault(
-                                            image: hotelIcon,
-                                            oppressed: () =>
-                                                print('Festivals clicked'),
-                                          ),
-                                          const CategoryLabel(
-                                              label: 'Festivals and \nEvents'),
-                                        ],
-                                      ),
+                                      BlueIconButtonDefault(
+                                        image: hotelIcon,
+                                        oppressed: () =>
+                                          {AppRoutes.navigateToHotelScreen(context)}),
+                                          CategoryLabel(label: 'Hotels', fontSize: 12.0.sp), // Specify font size here
+                                              ],
+                                            ),
+                                  Column(
+                                    children: [
+                                      BlueIconButtonDefault(
+                                        image: foodIcon,
+                                          oppressed: () => AppRoutes.navigateTofoodArea(context)),
+                                          CategoryLabel(label: 'Food Place', fontSize: 11.0.sp),
+                                               ],
+                                            ),
+                                  Column(
+                                    children: [
+                                      BlueIconButtonDefault(
+                                        image: beachIcon,
+                                          oppressed: () => {AppRoutes.navigateToBeachesScreen(context)},
+                                            ),
+                                          CategoryLabel(label: 'Beaches', fontSize: 11.0.sp),
                                     ],
                                   ),
-                                  const SizedBox(height: 20),
+                                  Column(
+                                    children: [
+                                      BlueIconButtonDefault(
+                                        image: hotelIcon,
+                                        oppressed: () =>
+                                            {AppRoutes.navigateToFestivalsScreen(context)},
+                                      ),
+                                      CategoryLabel(label: 'Festivals and \nEvents', fontSize: 11.0.sp),
+                                    ],
+                                  ),
+                                ],
+                              ),
+
+                              // MEDYO MAGULO DITO NAK, CLICKING THE POPLUAR PLACES DITO FRONT-END
+                                  SizedBox(height: 10.h),
                                   Container(
-                                    padding: const EdgeInsets.only(
-                                      right: 220
-                                    ),
-                                    child: const Text(
+                                    padding: EdgeInsets.only(
+                                        right: 190.w, bottom: 5.h),
+                                    child: Text(
                                       'Popular Places',
                                       style: TextStyle(
-                                        fontSize: 19,
+                                        fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Color.fromARGB(255, 49, 49, 49),
                                       ),
@@ -298,48 +298,61 @@ class _ExplorenowState extends State<Explorenow> {
                                               }
                                             },
                                             child: Stack(
-                                                children: [
-                                                  Container(
-                                                    height: 150,
-                                                    width: 600,
+                                              // area of the popular hotels images
+                                              children: [
+                                                Container(
+                                                  height: 150.h,
+                                                  width: 600.w,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: NetworkImage(
+                                                          imageUrl),
+                                                    ),
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                      Radius.circular(15
+                                                          .w), // radius area of hotels images
+                                                    ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  bottom: 0,
+                                                  left: 0,
+                                                  right: 0,
+                                                  child: Container(
+                                                    padding:
+                                                        EdgeInsets.all(10.w),
                                                     decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: NetworkImage(imageUrl),
+                                                      color: Colors.black
+                                                          .withOpacity(0.12),
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(
+                                                                30.w),
+                                                        bottomRight:
+                                                            Radius.circular(
+                                                                30.w),
                                                       ),
-                                                      color: Colors.blue,
-                                                      borderRadius: const BorderRadius.all(
-                                                        Radius.circular(30),
+                                                    ),
+                                                    child: Text(
+                                                      // color area of text in each hotels.
+                                                      text,
+                                                      style: TextStyle(
+                                                        fontSize: 16.sp,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
                                                   ),
-                                                  Positioned(
-                                                    bottom: 0,
-                                                    left: 0,
-                                                    right: 0,
-                                                    child: Container(
-                                                      padding: const EdgeInsets.all(10),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black.withOpacity(0.12),
-                                                        borderRadius: const BorderRadius.only(
-                                                          bottomLeft: Radius.circular(30),
-                                                          bottomRight: Radius.circular(30),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        text,
-                                                        style: const TextStyle(
-                                                          fontSize: 18,
-                                                          color: Colors.white,
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
-                                          const SizedBox(height: 20),
+                                          ),
+                                          SizedBox(height: 20.h),
                                         ],
                                       );
                                     }).toList(),
@@ -363,20 +376,28 @@ class _ExplorenowState extends State<Explorenow> {
 
 class CategoryLabel extends StatelessWidget {
   final String label;
+  final double fontSize; // Add fontSize parameter of the categories
+  
   const CategoryLabel({
     super.key,
     required this.label,
+    this.fontSize = 14.0, // Default font size
   });
+
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: EdgeInsets.only(top: 8.w, bottom: 5.h),
       child: SizedBox(
-        height: 50,
+        height: 35.h,
         child: Text(
           label,
           textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: FontWeight.w500, // Use the fontSize parameter here
+          ),
         ),
       ),
     );
@@ -394,32 +415,39 @@ class CategorySelect extends StatelessWidget {
     required this.oppressed,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 30),
-        Row(
+@override
+Widget build(BuildContext context) {
+  return Column(
+    children: [
+      SizedBox(height: 30.h),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 9.0), // Add padding to left and right
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               label,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle( // Text area for the categories, Popular places, food places, and Festival and events. 
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp, // Add font size
+              ),
             ),
             GestureDetector(
               onTap: oppressed,
               child: const Text(
                 'View all',
                 style: TextStyle(
-                  color: Color.fromRGBO(33, 150, 243, 100),
+                  color: Color(0xFF2196F3),
                   fontWeight: FontWeight.bold,
+                  fontSize: 13, // Add font size
                 ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 20),
-      ],
-    );
-  }
+      ),
+      const SizedBox(height: 20),
+    ],
+  );
+}
 }
