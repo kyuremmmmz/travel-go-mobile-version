@@ -3,7 +3,8 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/beachInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
@@ -96,19 +97,20 @@ class _BeachesState extends State<Beaches> {
                 return Stack(children: [
                   Positioned.fill(
                       child: Column(children: <Widget>[
-                    const TitleSearchMenu(),
+                    const TitleMenu(),
+                    const SearchMenu(),
                     const SizedBox(height: 30),
                     Expanded(
                         child: Scrollbar(
                             thumbVisibility: true,
                             child: SingleChildScrollView(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 25.w),
+                                padding: EdgeInsets.symmetric(horizontal: 25.w),
                                 child: Column(children: <Widget>[
                                   const Categories(),
                                   SizedBox(height: 20.h),
                                   Container(
-                                    padding: EdgeInsets.only(right: 160.w, bottom: 5.h),
+                                    padding: EdgeInsets.only(
+                                        right: 160.w, bottom: 5.h),
                                     child: Text(
                                       'Beach Destinations',
                                       style: TextStyle(
@@ -146,7 +148,8 @@ class _BeachesState extends State<Beaches> {
                                                 );
                                               }
                                             },
-                                            child: Stack( // area of the beach destinations
+                                            child: Stack(
+                                              // area of the beach destinations
                                               children: [
                                                 Container(
                                                   height: 150.h,
@@ -170,18 +173,18 @@ class _BeachesState extends State<Beaches> {
                                                   right: 0,
                                                   child: Container(
                                                     padding:
-                                                        EdgeInsets.all(
-                                                            10.w),
+                                                        EdgeInsets.all(10.w),
                                                     decoration: BoxDecoration(
                                                       color: Colors.black
                                                           .withOpacity(0.12),
                                                       borderRadius:
-                                                           BorderRadius
-                                                              .only(
+                                                          BorderRadius.only(
                                                         bottomLeft:
-                                                            Radius.circular(30.w),
+                                                            Radius.circular(
+                                                                30.w),
                                                         bottomRight:
-                                                            Radius.circular(30.w),
+                                                            Radius.circular(
+                                                                30.w),
                                                       ),
                                                     ),
                                                     child: Text(

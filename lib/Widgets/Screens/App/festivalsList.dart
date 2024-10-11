@@ -1,13 +1,13 @@
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/festivalsAbout.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
-
 
 class Festival extends StatefulWidget {
   const Festival({super.key});
@@ -94,19 +94,20 @@ class _FestivalState extends State<Festival> {
                 return Stack(children: [
                   Positioned.fill(
                       child: Column(children: <Widget>[
-                    const TitleSearchMenu(),
+                    const TitleMenu(),
+                    const SearchMenu(),
                     SizedBox(height: 30.h),
                     Expanded(
                         child: Scrollbar(
                             thumbVisibility: true,
                             child: SingleChildScrollView(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 25.h),
+                                padding: EdgeInsets.symmetric(horizontal: 25.h),
                                 child: Column(children: <Widget>[
                                   const Categories(),
                                   SizedBox(height: 20.h),
                                   Container(
-                                    padding: EdgeInsets.only(right: 90.w, bottom: 5.h),
+                                    padding: EdgeInsets.only(
+                                        right: 90.w, bottom: 5.h),
                                     child: Text(
                                       'Discover Festivals & Events',
                                       style: TextStyle(
@@ -173,12 +174,13 @@ class _FestivalState extends State<Festival> {
                                                       color: Colors.black
                                                           .withOpacity(0.12),
                                                       borderRadius:
-                                                         BorderRadius
-                                                              .only(
+                                                          BorderRadius.only(
                                                         bottomLeft:
-                                                            Radius.circular(30.w),
+                                                            Radius.circular(
+                                                                30.w),
                                                         bottomRight:
-                                                            Radius.circular(30.w),
+                                                            Radius.circular(
+                                                                30.w),
                                                       ),
                                                     ),
                                                     child: Text(
