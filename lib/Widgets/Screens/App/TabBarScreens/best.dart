@@ -202,8 +202,8 @@ class _BestState extends State<Best> {
                                                                   children: [
                                                                     Row(
                                                                       children: [
-                                                                        const Text(
-                                                                          '12:05',
+                                                                        Text(
+                                                                          data['departure'],
                                                                           style: TextStyle(
                                                                               color: Colors.black,
                                                                               fontWeight: FontWeight.bold,
@@ -212,17 +212,6 @@ class _BestState extends State<Best> {
                                                                         const SizedBox(
                                                                           width:
                                                                               5,
-                                                                        ),
-                                                                        Container(
-                                                                          padding: const EdgeInsets
-                                                                              .only(
-                                                                              bottom: 0),
-                                                                          child:
-                                                                              const Text(
-                                                                            'PM',
-                                                                            style:
-                                                                                TextStyle(color: Colors.black, fontSize: 12),
-                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),

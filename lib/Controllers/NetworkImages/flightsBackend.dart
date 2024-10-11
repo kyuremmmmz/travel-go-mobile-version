@@ -26,8 +26,17 @@ class Flightsbackend {
         var name = datas['airport'];
         var pricePlace = datas['price'];
         var price = NumberFormat('#,###');
+        var departure = datas['departure'];
+        String cleanTimeString = departure.split('+')[0];
+        DateTime now = DateTime.now();
+        DateTime dateFormat = DateTime(now.year, now.month, now.day, 
+            int.parse(cleanTimeString.split(':')[0]), 
+            int.parse(cleanTimeString.split(':')[1]), 
+            int.parse(cleanTimeString.split(':')[2]));
+        var formatTime = DateFormat.jm().format(dateFormat);
         var format = price.format(pricePlace);
         datas['airport'] = name;
+        datas['departure'] = formatTime;
         datas['price'] = format;
         var imgUrl = await getter(img);
         datas['airplane_img'] = imgUrl;
