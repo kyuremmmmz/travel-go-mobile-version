@@ -1,10 +1,11 @@
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/foodAreaAbout.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
@@ -93,7 +94,8 @@ class _FoodAreaState extends State<FoodArea> {
                 return Stack(children: [
                   Positioned.fill(
                       child: Column(children: <Widget>[
-                    const TitleSearchMenu(),
+                    const TitleMenu(),
+                    const SearchMenu(),
                     const SizedBox(height: 30),
                     Expanded(
                         child: Scrollbar(
@@ -105,7 +107,8 @@ class _FoodAreaState extends State<FoodArea> {
                                   const Categories(),
                                   SizedBox(height: 20.h),
                                   Container(
-                                    padding: EdgeInsets.only(right: 210.w, bottom: 5.h),
+                                    padding: EdgeInsets.only(
+                                        right: 210.w, bottom: 5.h),
                                     child: Text(
                                       'Food Places',
                                       style: TextStyle(
@@ -142,7 +145,8 @@ class _FoodAreaState extends State<FoodArea> {
                                                 );
                                               }
                                             },
-                                            child: Stack( // area of the food places
+                                            child: Stack(
+                                              // area of the food places
                                               children: [
                                                 Container(
                                                   height: 150.h,
@@ -156,7 +160,8 @@ class _FoodAreaState extends State<FoodArea> {
                                                     color: Colors.blue,
                                                     borderRadius:
                                                         BorderRadius.all(
-                                                      Radius.circular(15.w), // radius area of hotels images 
+                                                      Radius.circular(15
+                                                          .w), // radius area of hotels images
                                                     ),
                                                   ),
                                                 ),
@@ -166,21 +171,22 @@ class _FoodAreaState extends State<FoodArea> {
                                                   right: 0,
                                                   child: Container(
                                                     padding:
-                                                        EdgeInsets.all(
-                                                            10.w),
+                                                        EdgeInsets.all(10.w),
                                                     decoration: BoxDecoration(
                                                       color: Colors.black
                                                           .withOpacity(0.12),
                                                       borderRadius:
-                                                          BorderRadius
-                                                              .only(
+                                                          BorderRadius.only(
                                                         bottomLeft:
-                                                            Radius.circular(30.w),
+                                                            Radius.circular(
+                                                                30.w),
                                                         bottomRight:
-                                                            Radius.circular(30.w),
+                                                            Radius.circular(
+                                                                30.w),
                                                       ),
                                                     ),
-                                                    child: Text( // color area of text in each hotels.
+                                                    child: Text(
+                                                      // color area of text in each hotels.
                                                       text,
                                                       style: TextStyle(
                                                         fontSize: 16.sp,

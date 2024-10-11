@@ -1,10 +1,11 @@
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotel_information.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
@@ -92,7 +93,8 @@ class _HotelScreenState extends State<HotelScreen> {
                 return Stack(children: [
                   Positioned.fill(
                       child: Column(children: <Widget>[
-                    const TitleSearchMenu(),
+                    const TitleMenu(),
+                    const SearchMenu(),
                     SizedBox(height: 30.h),
                     Expanded(
                         child: Scrollbar(

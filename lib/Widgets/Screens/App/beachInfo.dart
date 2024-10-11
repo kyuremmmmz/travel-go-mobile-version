@@ -3,10 +3,10 @@ import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 
 // ignore: must_be_immutable
 class BeachInfo extends StatelessWidget {
@@ -196,7 +196,8 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                     const Positioned(
                       child: Column(
                         children: <Widget>[
-                          TitleSearchMenu(),
+                          TitleMenu(),
+                          SearchMenu(),
                           SizedBox(height: 30),
                         ],
                       ),

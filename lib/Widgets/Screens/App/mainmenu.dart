@@ -1,3 +1,4 @@
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart'; // The flutter material package for UI e stateless wdiget for festivals
 import 'package:supabase_flutter/supabase_flutter.dart'; // Importing the Supabase Flutter package for database functionality.
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness // The flutter material package for UI
@@ -12,7 +13,7 @@ import 'package:TravelGo/Widgets/Screens/App/festivalsAbout.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/foodAreaAbout.dart';
 import 'package:TravelGo/Widgets/Screens/App/information.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Screens/Stateless/festivalsStateless.dart';
 
 void main() {
@@ -160,7 +161,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           Positioned.fill(
             child: Column(
               children: <Widget>[
-                const TitleSearchMenu(),
+                const TitleMenu(),
+                const SearchMenu(),
                 SizedBox(height: 30.h),
                 Expanded(
                   child: Scrollbar(

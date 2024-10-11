@@ -1,7 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/vehicleAvailability.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -216,7 +217,8 @@ class _InformationScreenState extends State<InformationScreen> {
                     const Positioned(
                       child: Column(
                         children: <Widget>[
-                          TitleSearchMenu(),
+                          TitleMenu(),
+                          SearchMenu(),
                         ],
                       ),
                     ),
@@ -739,7 +741,9 @@ class _InformationScreenState extends State<InformationScreen> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              Flight(id: widget.text,)));
+                                                              Flight(
+                                                                id: widget.text,
+                                                              )));
                                                 }),
                                           )
                                         ],

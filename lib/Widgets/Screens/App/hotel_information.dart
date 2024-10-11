@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -230,7 +231,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                     const Positioned(
                       child: Column(
                         children: <Widget>[
-                          TitleSearchMenu(),
+                          TitleMenu(),
+                          SearchMenu(),
                           SizedBox(height: 30),
                         ],
                       ),
