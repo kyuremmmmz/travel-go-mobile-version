@@ -5,7 +5,7 @@ class Flightsbackend {
   final supabase = Supabase.instance.client;
 
   Future<List<Map<String, dynamic>>> flightList() async {
-  final response = await supabase
+    final response = await supabase
         .from('flightsList')
         .select('*')
         .eq('ticket_type', 'cheapest');
@@ -142,6 +142,19 @@ class Flightsbackend {
         var formatTime = DateFormat.jm().format(dateFormat);
         var format = price.format(pricePlace);
         var nameOfDeparture = datas['airplane'];
+
+        var date = datas['date'];
+        String cleanDate = departure.split('+')[0];
+        DateTime dateFormatito = DateTime(
+            now.year,
+            now.month,
+            now.day,
+            int.parse(cleanDate.split(':')[0]),
+            int.parse(cleanDate.split(':')[1]),
+            int.parse(cleanDate.split(':')[2]));
+        var formatDate = DateFormat('MMM d').format(dateFormatito);
+
+        datas['date_arrival'] = formatDate;
         datas['airplane'] = nameOfDeparture;
         datas['airport'] = name;
         datas['return_arrival'] = formatTimeReturn;

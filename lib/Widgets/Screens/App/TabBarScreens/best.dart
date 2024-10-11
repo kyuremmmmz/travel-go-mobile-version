@@ -431,21 +431,24 @@ class _BestState extends State<Best> {
                                                             Container(
                                                               padding: null,
                                                               child:  Text(
-                                                                '${data['airplane']} . OCT 9',
+                                                                '${data['airplane']} . ${data['date_arrival']}',
                                                                 style: const TextStyle(
                                                                     fontSize:
-                                                                        9),
+                                                                        9
+                                                                ),
                                                               ),
                                                             )
                                                           ],
-                                                        )),
-                                                  ],
-                                                )),
-                                          ],
-                                        ),
+                                                        )
+                                                      ),
+                                                    ],
+                                                  )
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
                                   Container(
                                     padding: const EdgeInsets.only(left: 10),
                                     child: Row(
