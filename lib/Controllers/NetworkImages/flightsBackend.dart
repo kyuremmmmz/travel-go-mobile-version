@@ -66,8 +66,31 @@ class Flightsbackend {
         var formatTime = DateFormat.jm().format(dateFormat);
         var format = price.format(pricePlace);
         var nameOfDeparture = datas['airplane'];
+
+        var departureDate = datas['date_departure'];
+        DateTime dateFormatDeparture = DateTime.parse(departureDate);
+        var formatDateDeparture =
+            DateFormat('MMM d').format(dateFormatDeparture);
+
+        var date = datas['date'];
+        DateTime dateFormatIto = DateTime.parse(date);
+        var formatDateIto = DateFormat('MMM d').format(dateFormatIto);
+
+        var dateArrival = datas['date_arrival'];
+        DateTime dateFormatArrival = DateTime.parse(dateArrival);
+        var formatDateArrival = DateFormat('MMM d').format(dateFormatArrival);
+
+        var returnDate = datas['return_date'];
+        DateTime dateReturnArrival = DateTime.parse(returnDate);
+        var formatDateReturnArrival =
+            DateFormat('MMM d').format(dateReturnArrival);
+
+        datas['date_departure'] = formatDateDeparture;
+        datas['date_arrival'] = formatDateArrival;
+        datas['return_date'] = formatDateReturnArrival;
         datas['airplane'] = nameOfDeparture;
         datas['airport'] = name;
+        datas['date'] = formatDateIto;
         datas['return_arrival'] = formatTimeReturn;
         datas['return'] = formatTimeHe;
         datas['arrival'] = formatTimeyan;
@@ -143,26 +166,28 @@ class Flightsbackend {
         var format = price.format(pricePlace);
         var nameOfDeparture = datas['airplane'];
 
-        String cleanDate = departure.split('+')[0];
-        DateTime dateFormatito = DateTime(
-            now.year,
-            now.month,
-            now.day,
-            int.parse(cleanDate.split(':')[0]),
-            int.parse(cleanDate.split(':')[1]),
-            int.parse(cleanDate.split(':')[2]));
-        var formatDate = DateFormat('MMM d').format(dateFormatito);
 
-        var departureDate = datas['date_departure']; 
+        var departureDate = datas['date_departure'];
         DateTime dateFormatDeparture = DateTime.parse(departureDate);
-        var formatDateDeparture = DateFormat('MMM d').format(dateFormatDeparture);
+        var formatDateDeparture =
+            DateFormat('MMM d').format(dateFormatDeparture);
 
         var date = datas['date'];
         DateTime dateFormatIto = DateTime.parse(date);
         var formatDateIto = DateFormat('MMM d').format(dateFormatIto);
 
+        var dateArrival = datas['date_arrival'];
+        DateTime dateFormatArrival = DateTime.parse(dateArrival);
+        var formatDateArrival = DateFormat('MMM d').format(dateFormatArrival);
+
+        var returnDate = datas['return_date'];
+        DateTime dateReturnArrival = DateTime.parse(returnDate);
+        var formatDateReturnArrival =
+            DateFormat('MMM d').format(dateReturnArrival);
+
         datas['date_departure'] = formatDateDeparture;
-        datas['date_arrival'] = formatDate;
+        datas['date_arrival'] = formatDateArrival;
+        datas['return_date'] = formatDateReturnArrival;
         datas['airplane'] = nameOfDeparture;
         datas['airport'] = name;
         datas['date'] = formatDateIto;

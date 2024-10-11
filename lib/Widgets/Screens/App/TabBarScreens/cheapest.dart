@@ -15,7 +15,7 @@ class _CheapestState extends State<Cheapest> {
   List<Map<String, dynamic>> imgUrl = [];
 
   Future<void> fetchBest() async {
-    final result = await flights.flightList();
+    final result = await flights.flightListBest();
     if (result.isNotEmpty) {
       setState(() {
         imgUrl = result;
@@ -202,7 +202,8 @@ class _CheapestState extends State<Cheapest> {
                                                                     Row(
                                                                       children: [
                                                                         Text(
-                                                                          data['departure'],
+                                                                          data[
+                                                                              'departure'],
                                                                           style: const TextStyle(
                                                                               color: Colors.black,
                                                                               fontWeight: FontWeight.bold,
@@ -217,7 +218,7 @@ class _CheapestState extends State<Cheapest> {
                                                                     Container(
                                                                       child:
                                                                           Text(
-                                                                        '${data['airplane']} . OCT 9',
+                                                                        '${data['airplane']} . ${data['date']}',
                                                                         style: const TextStyle(
                                                                             fontSize:
                                                                                 9),
@@ -286,24 +287,22 @@ class _CheapestState extends State<Cheapest> {
                                                             Container(
                                                               padding: null,
                                                               child: Text(
-                                                                '${data['place']} . OCT 9',
-                                                                style: const TextStyle(
-                                                                    fontSize:
-                                                                        9
-                                                                ),
+                                                                '${data['place']} . ${data['date_departure']}',
+                                                                style:
+                                                                    const TextStyle(
+                                                                        fontSize:
+                                                                            9),
                                                               ),
                                                             )
                                                           ],
-                                                        )
-                                                      ),
-                                                    ],
-                                                  )
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                                        )),
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
                                       ),
+                                    ],
+                                  ),
                                   Row(
                                     children: [
                                       const SizedBox(
@@ -348,7 +347,8 @@ class _CheapestState extends State<Cheapest> {
                                                                     Row(
                                                                       children: [
                                                                         Text(
-                                                                          data['return'],
+                                                                          data[
+                                                                              'return'],
                                                                           style: const TextStyle(
                                                                               color: Colors.black,
                                                                               fontWeight: FontWeight.bold,
@@ -363,7 +363,7 @@ class _CheapestState extends State<Cheapest> {
                                                                     Container(
                                                                       child:
                                                                           Text(
-                                                                        '${data['place']} . OCT 9',
+                                                                        '${data['place']} .${data['return_date']}',
                                                                         style: const TextStyle(
                                                                             fontSize:
                                                                                 9),
@@ -413,7 +413,8 @@ class _CheapestState extends State<Cheapest> {
                                                             Row(
                                                               children: [
                                                                 Text(
-                                                                  data['return_arrival'],
+                                                                  data[
+                                                                      'return_arrival'],
                                                                   style: const TextStyle(
                                                                       color: Colors
                                                                           .black,
@@ -430,11 +431,12 @@ class _CheapestState extends State<Cheapest> {
                                                             ),
                                                             Container(
                                                               padding: null,
-                                                              child:  Text(
-                                                                '${data['airplane']} . OCT 9',
-                                                                style: const TextStyle(
-                                                                    fontSize:
-                                                                        9),
+                                                              child: Text(
+                                                                '${data['airplane']} . ${data['date_arrival']}',
+                                                                style:
+                                                                    const TextStyle(
+                                                                        fontSize:
+                                                                            9),
                                                               ),
                                                             )
                                                           ],

@@ -363,7 +363,7 @@ class _BestState extends State<Best> {
                                                                     Container(
                                                                       child:
                                                                           Text(
-                                                                        '${data['place']} .${data['date']}',
+                                                                        '${data['place']} .${data['return_date']}',
                                                                         style: const TextStyle(
                                                                             fontSize:
                                                                                 9),
