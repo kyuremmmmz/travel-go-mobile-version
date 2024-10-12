@@ -298,8 +298,9 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                           )),
                                       Row(
                                         children: [
-                                          const SizedBox(
-                                            width: 25,
+                                          SizedBox(
+                                            width: 25.w,
+                                            height: 25.h,
                                           ),
                                           const Icon(
                                             Icons.location_on,
@@ -334,16 +335,17 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                       const SizedBox(
                                         height: 20,
                                       ),
-                                      const SizedBox(
-                                        height: 20,
+                                      SizedBox(
+                                        height: 20.h,
+                                        width: 200.w,
                                       ),
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(right: 250),
-                                        child: const Text(
-                                          'Amenities',
+                                            EdgeInsets.only(right: 160.w, bottom: 1.h),
+                                        child: Text(
+                                          'Accommodations',
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 20.sp,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -371,7 +373,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                       borderRadius:
                                                           const BorderRadius
                                                               .all(
-                                                        Radius.circular(30),
+                                                        Radius.circular(15),
                                                       ),
                                                     ),
                                                   ),

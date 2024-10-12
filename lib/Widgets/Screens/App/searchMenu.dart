@@ -22,13 +22,15 @@ class _SearchMenuState extends State<SearchMenu> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [ // DITONG AREA NA DOUBLE TRAVEL GO IDK
-       Padding(
+@override
+Widget build(BuildContext context) {
+  return Container(
+    // color: Colors.white, // Add your desired background color here just incase po 
+    child: Column(
+      children: [
+        Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: 23.w), // Search bar in Home Main Fron-end Dito
+              horizontal: 23.w), // Search bar in Home Main Front-end Dito
           child: TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
               controller: _searchController,
@@ -44,13 +46,13 @@ class _SearchMenuState extends State<SearchMenu> {
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 0.w, horizontal: 10.w),
                 hintStyle: const TextStyle(color: Colors.black54),
-                hintText: 'Search Destinajtion',
+                hintText: 'Search Destination',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(50.h)),
                   borderSide: BorderSide.none, // Removed the border
                 ),
                 filled: true,
-                fillColor: const Color(0XffDEDEDE),
+                fillColor: const Color(0XffDEDEDE), // Background color of the text field
               ),
             ),
             suggestionsCallback: (pattern) async {
@@ -69,6 +71,7 @@ class _SearchMenuState extends State<SearchMenu> {
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
 }

@@ -137,7 +137,7 @@ class _ExplorenowState extends State<Explorenow> {
                               width: 13.w,
                               height: 13.h,
                             ),
-                            SizedBox(height: 30.h,),
+                            SizedBox(height: 10.h,),
                           ],
                         ),
                         SizedBox(width: 5.w),
