@@ -28,7 +28,7 @@ class _FastestState extends State<Fastest> {
           Center(
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               const SizedBox(
-                height: 150,
+                height: 120,
               ),
               Center(
                 child: Card(

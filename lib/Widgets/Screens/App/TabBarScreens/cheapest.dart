@@ -40,7 +40,7 @@ class _CheapestState extends State<Cheapest> {
           return Center(
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               const SizedBox(
-                height: 50,
+                height: 30,
               ),
               const Row(children: [
                 TitleMenu(),
