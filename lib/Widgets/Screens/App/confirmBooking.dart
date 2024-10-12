@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:ffi';
-
 import 'package:TravelGo/Controllers/BookingBackend/booking.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
@@ -116,7 +114,6 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   final _number_of_adult = TextEditingController();
   String? email;
   String? place;
-  final bool _isWaiting = true;
   final supabase = Supabase.instance.client;
   var amount = 0;
   String? strAmount;
