@@ -47,14 +47,13 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _emailController = TextEditingController();
   final _numberController = TextEditingController();
   final _destinationController = TextEditingController();
-  final _checkInController = TextEditingController();
-  final _checkOutController = TextEditingController();
   final _originController = TextEditingController();
-  final _vehicleTypeController = TextEditingController();
   final _paymentMethodController = TextEditingController();
   final _specialReqController = TextEditingController();
   final _validator = GlobalKey<FormState>();
+  final _country = TextEditingController();
   final _hotel = TextEditingController();
+  final _age = TextEditingController();
   final _lastNameController = TextEditingController();
   // ignore: non_constant_identifier_names
   final _number_of_children = TextEditingController();
@@ -84,12 +83,10 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     _emailController.dispose();
     _numberController.dispose();
     _destinationController.dispose();
-    _checkInController.dispose();
-    _originController.dispose();
     _paymentMethodController.dispose();
-    _vehicleTypeController.dispose();
     _specialReqController.dispose();
-    _hotel.dispose();
+    _age.dispose();
+    _country.dispose();
     _lastNameController.dispose();
     _number_of_adult.dispose();
     _number_of_children.dispose();
@@ -136,32 +133,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
 
       _hotel.text = hotel ?? '';
     });
-  }
-
-  Future<void> setter() async {
-    final picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(21000));
-    if (picked != null) {
-      setState(() {
-        _checkInController.text = picked.toString().split(" ")[0];
-      });
-    }
-  }
-
-  Future<void> checkout() async {
-    final picked = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime(21000));
-    if (picked != null) {
-      setState(() {
-        _checkOutController.text = picked.toString().split(" ")[0];
-      });
-    }
   }
 
   Future<void> niggaModal(BuildContext context) async {
@@ -422,12 +393,43 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                   )
                                 ]),
                             child: PhonenumberTextField(
-                              text: 'Country:',
-                              controller: _numberController,
-                              icon: const Icon(FontAwesomeIcons.earthAmericas),
+                              text: 'Age:',
+                              controller: _age,
+                              icon: const Icon(FontAwesomeIcons.personCane),
                             ),
                           ),
-                          
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: const Offset(0, 5),
+                                  )
+                                ]),
+                            child: inputTextField(
+                              validator: (value) {
+                                if (value == null ||
+                                    value.toString().isEmpty ||
+                                    value.length <= 5) {
+                                  return 'please enter your Country';
+                                }
+                                return null;
+                              },
+                              icon: const Icon(FontAwesomeIcons.earthAfrica),
+                              colorr: Colors.black,
+                              text: 'Country:',
+                              controller: _lastNameController,
+                            ),
+                          ),
+
                           Container(
                             width: 380,
                             decoration: BoxDecoration(
@@ -680,40 +682,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                                                 .text
                                                                 .trim() ==
                                                             "Pay Online") {
-                                                      HotelBooking()
-                                                          .insertBooking(
-                                                        _nameController.text
-                                                            .trim(),
-                                                        _emailController.text
-                                                            .trim(),
-                                                        int.parse(
-                                                            _numberController
-                                                                .text
-                                                                .trim()),
-                                                        _hotel.text.trim(),
-                                                        _checkInController.text
-                                                            .trim(),
-                                                        _checkOutController.text
-                                                            .trim(),
-                                                        _paymentMethodController
-                                                            .text
-                                                            .trim(),
-                                                        _isWaiting
-                                                            ? "Not Paid"
-                                                            : "Paid",
-                                                        int.parse(
-                                                            _number_of_adult
-                                                                .text
-                                                                .trim()),
-                                                        int.parse(
-                                                            _number_of_children
-                                                                .text
-                                                                .trim()),
-                                                        _vehicleTypeController
-                                                            .text
-                                                            .trim(),
-                                                        amount,
-                                                      );
                                                       AppRoutes
                                                           .navigateToLinkedBankAccount(
                                                         context,
