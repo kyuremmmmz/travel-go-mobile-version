@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -407,18 +408,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
           key: _validator,
           child: Column(
             children: <Widget>[
-              const Text(
-                'TRAVEL GO',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Text(
-                "Northwestern part of Luzon Island, Philippines",
-                style: TextStyle(fontSize: 16),
-              ),
+              const TitleMenu(),
               const SizedBox(height: 30),
               Expanded(
                 child: Scrollbar(
@@ -566,9 +556,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     offset: const Offset(0, 5),
                                   )
                                 ]),
-                          ),
-                          const SizedBox(
-                            height: 10,
                           ),
                           Container(
                             width: 380,
