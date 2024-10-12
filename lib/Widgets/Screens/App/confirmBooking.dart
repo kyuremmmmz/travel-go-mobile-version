@@ -3,7 +3,6 @@ import 'package:TravelGo/Controllers/BookingBackend/booking.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Textfield/inputTextField.dart';
 import 'package:TravelGo/Widgets/Textfield/phoneNumber.dart';
 import 'package:flutter/gestures.dart';
@@ -12,37 +11,91 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class BookingArea extends StatelessWidget {
+class Confirmbooking extends StatelessWidget {
   final int id;
-  const BookingArea({
+  final String name;
+  final String email;
+  final int phone;
+  final int age;
+  final String country;
+  final int numberOfChildren;
+  final int numberOfAdults;
+  final String paymentMethod;
+  final String? specialReq;
+  final int price;
+  final String last;
+
+  const Confirmbooking({
     super.key,
     required this.id,
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.age,
+    required this.country,
+    required this.numberOfChildren,
+    required this.numberOfAdults,
+    required this.paymentMethod,
+    this.specialReq,
+    required this.price, 
+    required this.last,
   });
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Travel Go',
-      home: BookingAreaScreen(
-        id: id,
-      ),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Travel Go',
+        home: ConfirmBookingAreaScreen(
+          id: id,
+          name: name,
+          email: email,
+          phone: phone,
+          age: age,
+          country: country,
+          numberOfChildren: numberOfChildren,
+          numberOfAdults: numberOfAdults,
+          paymentMethod: paymentMethod,
+          price: price,
+          last: last,
+        ));
   }
 }
 
-class BookingAreaScreen extends StatefulWidget {
+class ConfirmBookingAreaScreen extends StatefulWidget {
   final int id;
-  const BookingAreaScreen({
+  final String name;
+  final String last;
+  final String email;
+  final int phone;
+  final int age;
+  final String country;
+  final int numberOfChildren;
+  final int numberOfAdults;
+  final String paymentMethod;
+  final String? specialReq;
+  final int price;
+  const ConfirmBookingAreaScreen({
     super.key,
     required this.id,
+    required this.name,
+    required this.last,
+    required this.email,
+    required this.phone,
+    required this.age,
+    required this.country,
+    required this.numberOfChildren,
+    required this.numberOfAdults,
+    required this.paymentMethod,
+    this.specialReq,
+    required this.price,
   });
 
   @override
-  State<BookingAreaScreen> createState() => _BookingAreaScreenState();
+  State<ConfirmBookingAreaScreen> createState() => _ConfirmBookingAreaScreen();
 }
 
-class _BookingAreaScreenState extends State<BookingAreaScreen> {
+class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _numberController = TextEditingController();
@@ -52,7 +105,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _specialReqController = TextEditingController();
   final _validator = GlobalKey<FormState>();
   final _country = TextEditingController();
-  final _phone = TextEditingController();
+  final _hotel = TextEditingController();
   final _age = TextEditingController();
   final _lastNameController = TextEditingController();
   // ignore: non_constant_identifier_names
@@ -81,7 +134,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _numberController.dispose();
-    _phone.dispose();
     _destinationController.dispose();
     _paymentMethodController.dispose();
     _specialReqController.dispose();
@@ -200,7 +252,18 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
           key: _validator,
           child: Column(
             children: <Widget>[
-              const TitleMenu(),
+              const Text(
+                'TRAVEL GO',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Text(
+                "Northwestern part of Luzon Island, Philippines",
+                style: TextStyle(fontSize: 16),
+              ),
               const SizedBox(height: 30),
               Expanded(
                 child: Scrollbar(
@@ -234,7 +297,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             ),
                           ),
                           const Text(
-                            'User Credentials',
+                            'Travel Confirmation',
                             style: TextStyle(
                               fontSize: 30,
                               color: Colors.white,
@@ -359,7 +422,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 ]),
                             child: PhonenumberTextField(
                               text: 'Phone Number:',
-                              controller: _phone,
+                              controller: _numberController,
                               icon: const Icon(FontAwesomeIcons.phone),
                             ),
                           ),
@@ -413,7 +476,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               icon: const Icon(FontAwesomeIcons.earthAfrica),
                               colorr: Colors.black,
                               text: 'Country:',
-                              controller: _country,
+                              controller: _lastNameController,
                             ),
                           ),
 
@@ -669,40 +732,32 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                                                 .text
                                                                 .trim() ==
                                                             "Pay Online") {
-                                                      AppRoutes.navigateToNextScreen(
-                                                          context,
-                                                          id: widget.id,
-                                                          name: _nameController
-                                                              .text
-                                                              .trim(),
-                                                          email:
-                                                              _emailController
-                                                                  .text
-                                                                  .trim(),
-                                                          phone: int.parse(
-                                                              _phone.text
-                                                                  .trim()),
-                                                          age: int.parse(
-                                                              _age.text.trim()),
-                                                          country: _country.text
-                                                              .trim(),
-                                                          numberOfChildren:
-                                                              int.parse(
-                                                                  _number_of_children
-                                                                      .text
-                                                                      .trim()),
-                                                          numberOfAdults:
-                                                              int.parse(_number_of_adult.text.trim()),
-                                                          paymentMethod: _paymentMethodController.text.trim(),
-                                                          price: amount,
-                                                          last: _lastNameController.text.trim());
+                                                      AppRoutes
+                                                          .navigateToLinkedBankAccount(
+                                                        context,
+                                                        name: _nameController
+                                                            .text
+                                                            .trim(),
+                                                        phone: int.parse(
+                                                            _numberController
+                                                                .text
+                                                                .trim()),
+                                                        nameoftheplace:
+                                                            _emailController
+                                                                .text
+                                                                .trim(),
+                                                        price: amount,
+                                                        payment: amount,
+                                                        hotelorplace:
+                                                            _hotel.text,
+                                                      );
                                                     } else {
                                                       debugPrint('nigga');
                                                     }
                                                   }
                                                 : null,
                                             child: const Text(
-                                              'Next',
+                                              'Place Booking',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Colors.white,

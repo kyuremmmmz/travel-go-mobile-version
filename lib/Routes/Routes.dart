@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Widgets/Screens/App/booking_area.dart';
+import 'package:TravelGo/Widgets/Screens/App/confirmBooking.dart';
 import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotel_booking.dart';
 import 'package:TravelGo/Widgets/Screens/App/notPaid.dart';
@@ -96,10 +97,8 @@ class AppRoutes {
 
   static void navigateToTesting(BuildContext route,
       {required String name, required int id}) {
-    Navigator.push(
-        route,
-        MaterialPageRoute(
-            builder: (context) => Mapa(location: name, id: id)));
+    Navigator.push(route,
+        MaterialPageRoute(builder: (context) => Mapa(location: name, id: id)));
   }
 
   static void navigateToOrderReceipt(
@@ -186,4 +185,36 @@ class AppRoutes {
         context, MaterialPageRoute(builder: (context) => const discountArea()));
   }
 
+  static void navigateToNextScreen(
+    BuildContext context, {
+    required id,
+    required name,
+    required email,
+    required phone,
+    required age,
+    required country,
+    required numberOfChildren,
+    required numberOfAdults,
+    required paymentMethod,
+    required price,
+    required last
+  }) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ConfirmBookingAreaScreen(
+                id: id,
+                name: name,
+                email: email,
+                phone: phone,
+                age: age,
+                country: country,
+                numberOfChildren: numberOfChildren,
+                numberOfAdults: numberOfAdults,
+                paymentMethod: paymentMethod,
+                price: price, 
+                last: last,)
+                )
+            );
+  }
 }

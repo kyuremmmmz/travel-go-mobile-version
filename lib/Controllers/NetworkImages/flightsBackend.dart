@@ -115,6 +115,7 @@ class Flightsbackend {
       final List<Map<String, dynamic>> results =
           List<Map<String, dynamic>>.from(data as List);
       for (var datas in results) {
+        var id = datas['id'];
         var img = datas['airplane_img'];
         var name = datas['airport'];
         var pricePlace = datas['price'];
@@ -166,7 +167,6 @@ class Flightsbackend {
         var format = price.format(pricePlace);
         var nameOfDeparture = datas['airplane'];
 
-
         var departureDate = datas['date_departure'];
         DateTime dateFormatDeparture = DateTime.parse(departureDate);
         var formatDateDeparture =
@@ -184,7 +184,7 @@ class Flightsbackend {
         DateTime dateReturnArrival = DateTime.parse(returnDate);
         var formatDateReturnArrival =
             DateFormat('MMM d').format(dateReturnArrival);
-
+        datas['id'] = id;
         datas['date_departure'] = formatDateDeparture;
         datas['date_arrival'] = formatDateArrival;
         datas['return_date'] = formatDateReturnArrival;
