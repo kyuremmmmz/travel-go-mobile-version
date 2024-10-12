@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -57,7 +58,6 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     }
   }
 
-
   Future<Future<String?>> insert(String id) async {
     final response = users.editProfile(id);
     return response;
@@ -110,26 +110,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   const SizedBox(
                     height: 30,
                   ),
-                  Text(
-                    'TRAVEL GO',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      shadows: [
-                        Shadow(
-                          offset: const Offset(3.0, 3.0),
-                          blurRadius: 4.0,
-                          color: Colors.black.withOpacity(0.5),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Text(
-                    "Northwestern part of Luzon Island, Philippines",
-                    style:
-                        TextStyle(fontSize: 16), // Adjust text style as needed
-                  ),
+                  const TitleMenu(),
                   const SizedBox(
                     height: 30,
                   ),
