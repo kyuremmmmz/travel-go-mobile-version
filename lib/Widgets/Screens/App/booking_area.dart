@@ -35,6 +35,7 @@ class BookingAreaScreen extends StatefulWidget {
   const BookingAreaScreen({
     super.key,
     required this.id,
+    
   });
 
   @override

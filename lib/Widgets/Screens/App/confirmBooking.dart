@@ -37,7 +37,7 @@ class Confirmbooking extends StatelessWidget {
     required this.numberOfAdults,
     required this.paymentMethod,
     this.specialReq,
-    required this.price, 
+    required this.price,
     required this.last,
   });
 
@@ -119,6 +119,8 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   String? strAmount;
   String? origin;
   String? destination;
+  String? returnDate;
+  String? returnDateArrival;
 
   String? hotel;
   late Usersss users = Usersss();
@@ -181,6 +183,8 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
       amount = data['price'];
       origin = data['airplane'];
       destination = data['place'];
+      returnDate = data['return_date'];
+      returnDateArrival = data['date_arrival'];
       strAmount = finalFormat;
     });
   }
@@ -317,91 +321,37 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           ),
                           // ignore: sized_box_for_whitespace
                           Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              validator: (value) {
-                                if (value == null ||
-                                    value.toString().isEmpty ||
-                                    value.length <= 5) {
-                                  return 'please enter your name';
-                                }
-                                return null;
-                              },
-                              icon: const Icon(FontAwesomeIcons.person),
-                              colorr: Colors.black,
-                              text: 'First Name:',
-                              controller: _nameController,
-                            ),
+                              width: 380,
+                              child: Text(
+                                'Origin :  $origin',
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                          const SizedBox(
+                            height: 10,
                           ),
+                          Container(
+                              width: 380,
+                              child: Text(
+                                'Destination :  $destination',
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              )),
                           const SizedBox(
                             height: 10,
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              validator: (value) {
-                                if (value == null ||
-                                    value.toString().isEmpty ||
-                                    value.length <= 5) {
-                                  return 'please enter your name';
-                                }
-                                return null;
-                              },
-                              icon: const Icon(FontAwesomeIcons.person),
-                              colorr: Colors.black,
-                              text: 'Last Name:',
-                              controller: _lastNameController,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              validator: (value) {
-                                if (value == null || value.toString().isEmpty) {
-                                  return 'please enter valid email address';
-                                }
-                                return null;
-                              },
-                              icon: const Icon(FontAwesomeIcons.envelope),
-                              colorr: Colors.black,
-                              text: 'Email Address:',
-                              controller: _emailController,
+                            child: Text(
+                              'Departure :  $returnDate',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
