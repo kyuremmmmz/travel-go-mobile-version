@@ -119,8 +119,12 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   String? strAmount;
   String? origin;
   String? destination;
+  String? departure;
+  String? arrival;
+  String? departureTime;
   String? returnDate;
-  String? returnDateArrival;
+  String? returnTime;
+  String? arrivalTime;
 
   String? hotel;
   late Usersss users = Usersss();
@@ -183,9 +187,13 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
       amount = data['price'];
       origin = data['airplane'];
       destination = data['place'];
+      departure = data['date'];
+      arrival = data['date_departure'];
       returnDate = data['return_date'];
-      returnDateArrival = data['date_arrival'];
       strAmount = finalFormat;
+      departureTime = data['departure'];
+      arrivalTime = data['arrival'];
+      returnTime = data['return'];
     });
   }
 
@@ -347,7 +355,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           Container(
                             width: 380,
                             child: Text(
-                              'Departure :  $returnDate',
+                              'Departure Date:  $departure',
                               style: const TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,
@@ -359,21 +367,12 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: PhonenumberTextField(
-                              text: 'Phone Number:',
-                              controller: _numberController,
-                              icon: const Icon(FontAwesomeIcons.phone),
+                            child: Text(
+                              'Arrival Date:  $arrival',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
@@ -381,21 +380,12 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: PhonenumberTextField(
-                              text: 'Age:',
-                              controller: _age,
-                              icon: const Icon(FontAwesomeIcons.personCane),
+                            child: Text(
+                              'Return Date:  $returnDate',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
@@ -403,67 +393,26 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              validator: (value) {
-                                if (value == null ||
-                                    value.toString().isEmpty ||
-                                    value.length <= 5) {
-                                  return 'please enter your Country';
-                                }
-                                return null;
-                              },
-                              icon: const Icon(FontAwesomeIcons.earthAfrica),
-                              colorr: Colors.black,
-                              text: 'Country:',
-                              controller: _lastNameController,
+                            child: Text(
+                              'Departure Time :  $departureTime',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
 
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: PhonenumberTextField(
-                              icon: const Icon(FontAwesomeIcons.children),
-                              controller: _number_of_children,
-                              text: 'Number of children:',
+                            child: Text(
+                              'Arrival Time :  $arrivalTime',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
@@ -471,67 +420,18 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: PhonenumberTextField(
-                              icon: const Icon(FontAwesomeIcons.peopleGroup),
-                              controller: _number_of_adult,
-                              text: 'Number of Adults:',
+                            child: Text(
+                              'Return Time :  $returnTime',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
-                              width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: TextField(
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
-                                controller: _paymentMethodController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Payment Method',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  prefixIcon: Icon(Icons.payment_rounded),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  niggaModal(context);
-                                },
-                              )),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          
                           Container(
                             width: 380,
                             decoration: BoxDecoration(
@@ -598,7 +498,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                             ),
                           ),
                           Container(
-                            height: 100,
+                            height: 200,
                             width: double.infinity, // Adjust width as needed
                             decoration: const BoxDecoration(
                               color: Colors.white,
