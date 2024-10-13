@@ -115,7 +115,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                 data['payment'] != null ? data['payment'].toString() : 'N/A';
             phone = data['phone'] ?? 'Unknown';
             ref = data['reference_number'] ?? 'N/A';
-            paid_via = data['paid_via'] ?? 'Unknown';
+            paid_via = data['pay_via'] ?? 'Unknown';
             date = data['date_of_payment'] ?? 'Unknown Date';
             account = data['name'] ?? 'Unknown Account';
             gmail = data['gmail'] ?? 'Unknown';

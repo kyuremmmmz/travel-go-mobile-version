@@ -82,6 +82,8 @@ class AppRoutes {
     required int price,
     required int payment,
     required String hotelorplace,
+    String? origin,
+    String? destination
   }) {
     Navigator.push(
         route,
@@ -92,7 +94,9 @@ class AppRoutes {
                 nameoftheplace: nameoftheplace,
                 price: price,
                 payment: payment,
-                hotelorplace: hotelorplace)));
+                hotelorplace: hotelorplace,
+                origin: origin,
+                destination: destination)));
   }
 
   static void navigateToTesting(BuildContext route,

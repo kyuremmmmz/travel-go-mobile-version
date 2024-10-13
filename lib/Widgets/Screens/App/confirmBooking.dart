@@ -123,7 +123,8 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   String? returnDate;
   String? returnTime;
   String? arrivalTime;
-
+  String? airPort;
+  String? airLine;
   String? hotel;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
@@ -192,6 +193,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
       departureTime = data['departure'];
       arrivalTime = data['arrival'];
       returnTime = data['return'];
+      airPort = data['airPort'];
     });
   }
 
@@ -429,7 +431,6 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          
                           Container(
                             width: 380,
                             decoration: BoxDecoration(
@@ -576,29 +577,39 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                                                 ? () {
                                                     if (_validator.currentState!
                                                             .validate() ||
-                                                        _paymentMethodController
-                                                                .text
-                                                                .trim() ==
+                                                        widget.paymentMethod ==
                                                             "Pay Online") {
                                                       AppRoutes
                                                           .navigateToLinkedBankAccount(
                                                         context,
-                                                        name: _nameController
-                                                            .text
-                                                            .trim(),
-                                                        phone: int.parse(
-                                                            _numberController
-                                                                .text
-                                                                .trim()),
+                                                        name: widget.name,
+                                                        phone: widget.phone,
                                                         nameoftheplace:
-                                                            _emailController
-                                                                .text
-                                                                .trim(),
+                                                            widget.email,
                                                         price: amount,
                                                         payment: amount,
                                                         hotelorplace:
-                                                            _hotel.text,
+                                                            widget.country,
                                                       );
+                                                      Booking().flightBooking(
+                                                          widget.name,
+                                                          widget.last,
+                                                          widget.country,
+                                                          widget.phone,
+                                                          widget.age,
+                                                          widget.email,
+                                                          '$origin',
+                                                          '$returnDate',
+                                                          '$departure',
+                                                          '$departureTime',
+                                                          '$arrivalTime',
+                                                          '$arrival',
+                                                          '$destination',
+                                                          amount,
+                                                          widget.paymentMethod,
+                                                          'Cebu Pacific',
+                                                          widget.country,
+                                                          'Road Trip');
                                                     } else {
                                                       debugPrint('nigga');
                                                     }

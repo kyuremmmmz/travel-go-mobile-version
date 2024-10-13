@@ -77,15 +77,18 @@ class Booking {
   }
 
   Future<PostgrestResponse?> flightBooking(
-    int id,
     String firstName,
     String lastName,
     String country,
-    String phoneNumber,
+    int phoneNumber,
+    int age,
     String email,
     String origin,
     String returnDate,
     String departureDate,
+    String departureTime,
+    String arrivalTime,
+    String arrivalDate,
     String destination,
     int payment,
     String paymentMethod,
@@ -93,6 +96,30 @@ class Booking {
     String airPort,
     String travelType,
   ) async {
-    return null;
+    final response = await supabase.from('flightBooking').insert({
+      'firstName': firstName,
+      'lastName': lastName,
+      'country': country,
+      'phoneNumber': phoneNumber,
+      'email': email,
+      'origin': origin,
+      'destination': destination,
+      'age': age,
+      'departureDate': departureDate,
+      'departure_time': departureTime,
+      'arrival_time': arrivalTime,
+      'arrival_date': arrivalDate,
+      'returnDate': returnDate,
+      'payment': payment,
+      'paymentMethod': paymentMethod,
+      'plane': plane,
+      'airPort': airPort,
+      'traveltype': travelType,
+    });
+    if (response != null) {
+      return response;
+    }else{
+      return null;
+    }
   }
 }
