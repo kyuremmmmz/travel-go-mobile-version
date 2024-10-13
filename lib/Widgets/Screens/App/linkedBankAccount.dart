@@ -25,7 +25,7 @@ class LinkedBankScreen extends StatefulWidget {
     required this.hotelorplace,
     required this.nameoftheplace,
     required this.price,
-    required this.payment,
+    required this.payment, String? origin, String? destination,
   });
 
   @override

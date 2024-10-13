@@ -361,6 +361,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               text: 'Phone Number:',
                               controller: _phone,
                               icon: const Icon(FontAwesomeIcons.phone),
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter an active number';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           const SizedBox(
@@ -383,6 +389,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               text: 'Age:',
                               controller: _age,
                               icon: const Icon(FontAwesomeIcons.personCane),
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter your age';
+                                } else if (value <= 18) {
+                                  return 'You are below 18';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           const SizedBox(
@@ -451,6 +465,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               icon: const Icon(FontAwesomeIcons.children),
                               controller: _number_of_children,
                               text: 'Number of children:',
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           const SizedBox(
@@ -473,6 +493,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               icon: const Icon(FontAwesomeIcons.peopleGroup),
                               controller: _number_of_adult,
                               text: 'Number of Adults:',
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           const SizedBox(

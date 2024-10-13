@@ -404,23 +404,16 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           // ignore: sized_box_for_whitespace
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                             child: inputTextField(
                               validator: (value) {
                                 if (value == null ||
                                     value.toString().isEmpty ||
                                     value.length <= 5) {
-                                  return 'please enter your name';
+                                  return 'Please enter your name';
                                 }
                                 return null;
                               },
@@ -435,21 +428,14 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
                             child: inputTextField(
                               validator: (value) {
                                 if (value == null || value.toString().isEmpty) {
-                                  return 'please enter valid email address';
+                                  return 'Please enter a valid email address';
                                 }
                                 return null;
                               },
@@ -464,18 +450,17 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
                             child: PhonenumberTextField(
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter an active phone number';
+                                }
+                                return null;
+                              },
                               text: 'Phone Number:',
                               controller: _numberController,
                               icon: const Icon(FontAwesomeIcons.phone),
@@ -486,35 +471,27 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
                             child: PhonenumberTextField(
                               icon: const Icon(FontAwesomeIcons.children),
                               controller: _number_of_children,
                               text: 'Number of children:',
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           const SizedBox(
@@ -522,21 +499,20 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
                             child: PhonenumberTextField(
                               icon: const Icon(FontAwesomeIcons.peopleGroup),
                               controller: _number_of_adult,
                               text: 'Number of Adults:',
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           const SizedBox(
@@ -544,23 +520,16 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           ),
                           Container(
                               width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                              ),
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == null ||
                                       value.toString().isEmpty ||
                                       value.length <= 5) {
-                                    return 'Please select Check in Date';
+                                    return 'Please select Check-in Date';
                                   }
                                   return null;
                                 },
@@ -594,23 +563,16 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           ),
                           Container(
                               width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                              ),
                               child: TextFormField(
                                 validator: (value) {
                                   if (value == null ||
                                       value.toString().isEmpty ||
                                       value.length <= 5) {
-                                    return 'Please Select check out date';
+                                    return 'Please Select Check-Out Date';
                                   }
                                   return null;
                                 },
@@ -644,18 +606,18 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           ),
                           Container(
                               width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: TextField(
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                              ),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.toString().isEmpty) {
+                                    return 'Please select a method';
+                                  }
+                                  return null;
+                                },
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,
@@ -685,18 +647,18 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           ),
                           Container(
                               width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: TextField(
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                              ),
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.toString().isEmpty) {
+                                    return 'Please select a type';
+                                  }
+                                  return null;
+                                },
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,
@@ -726,17 +688,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
                             child: inputTextField(
                               colorr: Colors.black,
                               text: 'Special Requests: (Optional)',

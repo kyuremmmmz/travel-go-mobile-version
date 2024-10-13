@@ -76,7 +76,7 @@ class Paypal {
               'phone': phone,
               'name': name,
               'price': price,
-              'paid_via' : 'paypal'
+              'pay_via' : 'paypal'
             });
 
             
