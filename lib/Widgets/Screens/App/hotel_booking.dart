@@ -58,6 +58,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final _hotel = TextEditingController();
   final _number_of_children = TextEditingController();
   final _number_of_adult = TextEditingController();
+  final _age = TextEditingController();
   String? email;
   String? place;
   final bool _isWaiting = true;
@@ -84,6 +85,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     _paymentMethodController.dispose();
     _vehicleTypeController.dispose();
     _specialReqController.dispose();
+    _age.dispose();
     _hotel.dispose();
     _number_of_adult.dispose();
     _number_of_children.dispose();
@@ -475,6 +477,30 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50)),
                             ),
+                          ),
+                          Container(
+                            width: 380,
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
+                            child: PhonenumberTextField(
+                              text: 'Age:',
+                              controller: _age,
+                              icon: const Icon(FontAwesomeIcons.personCane),
+                              validator: (value) {
+                                value = int.tryParse(value);
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter your age';
+                                } else if (value <= (18)) {
+                                  return 'You are below 18';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           Container(
                             width: 380,
