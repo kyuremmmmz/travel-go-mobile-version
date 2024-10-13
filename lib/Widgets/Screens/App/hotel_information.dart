@@ -10,7 +10,6 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
-import 'package:TravelGo/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelInformationScreen extends StatefulWidget {

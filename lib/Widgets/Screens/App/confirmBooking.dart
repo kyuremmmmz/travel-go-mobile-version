@@ -103,7 +103,6 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   final _specialReqController = TextEditingController();
   final _validator = GlobalKey<FormState>();
   final _country = TextEditingController();
-  final _hotel = TextEditingController();
   final _age = TextEditingController();
   final _lastNameController = TextEditingController();
   // ignore: non_constant_identifier_names
