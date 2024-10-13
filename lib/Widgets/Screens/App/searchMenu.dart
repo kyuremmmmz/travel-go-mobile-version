@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:TravelGo/Controllers/SearchController/searchController.dart';
+import 'package:TravelGo/Controllers/SearchController/searchController.dart'; // responsiveness
 
-class TitleSearchMenu extends StatefulWidget {
-  const TitleSearchMenu({super.key});
+class SearchMenu extends StatefulWidget {
+  const SearchMenu({super.key});
 
   @override
-  State<TitleSearchMenu> createState() => _TitleSearchMenuState();
+  State<SearchMenu> createState() => _SearchMenuState();
 }
 
-class _TitleSearchMenuState extends State<TitleSearchMenu> {
+class _SearchMenuState extends State<SearchMenu> {
   final _searchController = TextEditingController();
   List<Map<String, dynamic>> place = [];
   final data = Data();
@@ -25,23 +26,9 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          'TRAVEL GO',
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const Text(
-          "Northwestern part of Luzon Island, Philippines",
-          style: TextStyle(fontSize: 16), // Adjust text style as needed
-        ),
-        const SizedBox(
-          height: 30,
-        ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: EdgeInsets.symmetric(
+              horizontal: 23.w), // Search bar in Home Main Fron-end Dito
           child: TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
               controller: _searchController,
@@ -55,19 +42,15 @@ class _TitleSearchMenuState extends State<TitleSearchMenu> {
                       Icons.search,
                     )),
                 contentPadding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    EdgeInsets.symmetric(vertical: 0.w, horizontal: 10.w),
                 hintStyle: const TextStyle(color: Colors.black54),
                 hintText: 'Search Destination',
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                  borderSide: BorderSide(color: Colors.black54),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black54),
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50.h)),
+                  borderSide: BorderSide.none, // Removed the border
                 ),
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: const Color(0XffDEDEDE),
               ),
             ),
             suggestionsCallback: (pattern) async {

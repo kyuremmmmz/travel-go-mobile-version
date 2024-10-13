@@ -1,11 +1,13 @@
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
-import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotel_information.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 class HotelScreen extends StatefulWidget {
   const HotelScreen({super.key});
@@ -72,67 +74,7 @@ class _HotelScreenState extends State<HotelScreen> {
             ),
           ),
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const CircleAvatar(
-                      backgroundImage:
-                          AssetImage('assets/images/icon/beach.png'),
-                      radius: 40,
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      email ?? 'Hacked himala e',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                onTap: () {
-                  Navigator.pop(context);
-                  AppRoutes.navigateToMainMenu(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.search),
-                title: const Text('Search'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout'),
-                onTap: () {
-                  Navigator.pop(context);
-                  Usersss().signout(context);
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: const DrawerMenuWidget(),
         body: FutureBuilder(
             future: redirecting(),
             builder: (context, snapshot) {
@@ -151,30 +93,31 @@ class _HotelScreenState extends State<HotelScreen> {
                 return Stack(children: [
                   Positioned.fill(
                       child: Column(children: <Widget>[
-                    const TitleSearchMenu(),
-                    const SizedBox(height: 30),
+                    const TitleMenu(),
+                    const SearchMenu(),
+                    SizedBox(height: 30.h),
                     Expanded(
                         child: Scrollbar(
                             thumbVisibility: true,
                             child: SingleChildScrollView(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 25),
+                                padding: EdgeInsets.symmetric(horizontal: 25.w),
                                 child: Column(children: <Widget>[
                                   const Categories(),
-                                  const SizedBox(height: 20),
+                                  SizedBox(height: 10.h),
                                   Container(
-                                    padding: const EdgeInsets.only(right: 220),
-                                    child: const Text(
+                                    padding: EdgeInsets.only(
+                                        right: 190.w, bottom: 5.h),
+                                    child: Text(
                                       'Popular Hotels',
                                       style: TextStyle(
-                                        fontSize: 19,
+                                        fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Color.fromARGB(255, 49, 49, 49),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 15,
+                                  SizedBox(
+                                    height: 15.h,
                                   ),
                                   Column(
                                     children: data.map((place) {
@@ -203,10 +146,11 @@ class _HotelScreenState extends State<HotelScreen> {
                                               }
                                             },
                                             child: Stack(
+                                              // area of the popular hotels images
                                               children: [
                                                 Container(
-                                                  height: 150,
-                                                  width: 600,
+                                                  height: 150.h,
+                                                  width: 600.w,
                                                   decoration: BoxDecoration(
                                                     image: DecorationImage(
                                                       fit: BoxFit.cover,
@@ -215,8 +159,9 @@ class _HotelScreenState extends State<HotelScreen> {
                                                     ),
                                                     color: Colors.blue,
                                                     borderRadius:
-                                                        const BorderRadius.all(
-                                                      Radius.circular(30),
+                                                        BorderRadius.all(
+                                                      Radius.circular(15
+                                                          .w), // radius area of hotels images
                                                     ),
                                                   ),
                                                 ),
@@ -226,24 +171,25 @@ class _HotelScreenState extends State<HotelScreen> {
                                                   right: 0,
                                                   child: Container(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            10),
+                                                        EdgeInsets.all(10.w),
                                                     decoration: BoxDecoration(
                                                       color: Colors.black
                                                           .withOpacity(0.12),
                                                       borderRadius:
-                                                          const BorderRadius
-                                                              .only(
+                                                          BorderRadius.only(
                                                         bottomLeft:
-                                                            Radius.circular(30),
+                                                            Radius.circular(
+                                                                30.w),
                                                         bottomRight:
-                                                            Radius.circular(30),
+                                                            Radius.circular(
+                                                                30.w),
                                                       ),
                                                     ),
                                                     child: Text(
+                                                      // color area of text in each hotels.
                                                       text,
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
+                                                      style: TextStyle(
+                                                        fontSize: 16.sp,
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -254,7 +200,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                               ],
                                             ),
                                           ),
-                                          const SizedBox(height: 20),
+                                          SizedBox(height: 20.h),
                                         ],
                                       );
                                     }).toList(),
