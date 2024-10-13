@@ -74,17 +74,15 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const explore()));
   }
 
-  static void navigateToLinkedBankAccount(
-    BuildContext route, {
-    required String name,
-    required int phone,
-    required String nameoftheplace,
-    required int price,
-    required int payment,
-    required String hotelorplace,
-    String? origin,
-    String? destination
-  }) {
+  static void navigateToLinkedBankAccount(BuildContext route,
+      {required String name,
+      required int phone,
+      required String nameoftheplace,
+      required int price,
+      required int payment,
+      required String hotelorplace,
+      String? origin,
+      String? destination}) {
     Navigator.push(
         route,
         MaterialPageRoute(
@@ -189,36 +187,43 @@ class AppRoutes {
         context, MaterialPageRoute(builder: (context) => const discountArea()));
   }
 
-  static void navigateToNextScreen(
-    BuildContext context, {
-    required id,
-    required name,
-    required email,
-    required phone,
-    required age,
-    required country,
-    required numberOfChildren,
-    required numberOfAdults,
-    required paymentMethod,
-    required price,
-    required last
-  }) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ConfirmBookingAreaScreen(
-                id: id,
-                name: name,
-                email: email,
-                phone: phone,
-                age: age,
-                country: country,
-                numberOfChildren: numberOfChildren,
-                numberOfAdults: numberOfAdults,
-                paymentMethod: paymentMethod,
-                price: price, 
-                last: last,)
+  static void navigateToNextScreen(BuildContext context,
+      {required id,
+      required name,
+      required email,
+      required phone,
+      required age,
+      required country,
+      required numberOfChildren,
+      required numberOfAdults,
+      required paymentMethod,
+      required price,
+      required last}) {
+    if (age < 18) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('You must be 18 years or older'),
+        ),
+      );
+    }else{
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConfirmBookingAreaScreen(
+                    id: id,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    age: age,
+                    country: country,
+                    numberOfChildren: numberOfChildren,
+                    numberOfAdults: numberOfAdults,
+                    paymentMethod: paymentMethod,
+                    price: price,
+                    last: last,
+                  )
                 )
-            );
+              );
+    }
   }
 }

@@ -35,7 +35,6 @@ class BookingAreaScreen extends StatefulWidget {
   const BookingAreaScreen({
     super.key,
     required this.id,
-    
   });
 
   @override
@@ -370,6 +369,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 ]),
                             child: PhonenumberTextField(
                               text: 'Phone Number:',
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Enter your phone number';
+                                }
+                                return null;
+                              },
                               controller: _phone,
                               icon: const Icon(FontAwesomeIcons.phone),
                             ),
@@ -391,6 +396,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                   )
                                 ]),
                             child: PhonenumberTextField(
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Enter your age';
+                                } else if (int.parse(value) <= 17) {
+                                  return 'You are $value you must be 18 years old to book';
+                                }
+                                return null;
+                              },
                               text: 'Age:',
                               controller: _age,
                               icon: const Icon(FontAwesomeIcons.personCane),
@@ -417,7 +430,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 if (value == null ||
                                     value.toString().isEmpty ||
                                     value.length <= 5) {
-                                  return 'please enter your Country';
+                                  return 'Please enter your Country';
                                 }
                                 return null;
                               },
@@ -430,34 +443,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
 
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
                           ),
                           const SizedBox(
                             height: 10,
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
                             child: PhonenumberTextField(
                               icon: const Icon(FontAwesomeIcons.children),
                               controller: _number_of_children,
@@ -491,22 +482,17 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           ),
                           Container(
                               width: 380,
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 5),
-                                    )
-                                  ]),
-                              child: TextField(
+                              child: TextFormField(
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,
                                 ),
+                                validator: (value) {
+                                  if (value.toString().isEmpty) {
+                                    return 'Oops, payment method is required';
+                                  }
+                                  return null;
+                                },
                                 controller: _paymentMethodController,
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(
@@ -676,10 +662,8 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                                 ? () {
                                                     if (_validator.currentState!
                                                             .validate() ||
-                                                        _paymentMethodController
-                                                                .text
-                                                                .trim() ==
-                                                            "Pay Online") {
+                                                        _paymentMethodController.text.trim() == "Pay Online" ||
+                                                        int.parse(_age.text.trim()) <= 18) {
                                                       AppRoutes.navigateToNextScreen(
                                                           context,
                                                           id: widget.id,
