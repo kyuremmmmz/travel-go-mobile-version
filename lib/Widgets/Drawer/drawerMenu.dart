@@ -132,6 +132,14 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
               Usersss().signout(context);
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Test'),
+            onTap: () {
+              Navigator.pop(context);
+              AppRoutes.navigateToCreditCard(context);
+            },
+          ),
         ],
       ),
     );
