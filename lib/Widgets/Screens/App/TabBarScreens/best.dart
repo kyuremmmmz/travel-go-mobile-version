@@ -1,5 +1,6 @@
 import 'package:TravelGo/Controllers/NetworkImages/flightsBackend.dart';
 import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 
 class Best extends StatefulWidget {
@@ -43,26 +44,8 @@ class _BestState extends State<Best> {
               ),
               const Row(
                 children: [
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Icon(
-                    Icons.location_on,
-                    color: Colors.red,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    'Northwestern part of Luzon Island, Philippines',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
+                  TitleMenu(),
                 ],
-              ),
-              const SizedBox(
-                height: 50,
               ),
               Center(
                 child: Card(
@@ -202,7 +185,8 @@ class _BestState extends State<Best> {
                                                                     Row(
                                                                       children: [
                                                                         Text(
-                                                                          data['departure'],
+                                                                          data[
+                                                                              'departure'],
                                                                           style: const TextStyle(
                                                                               color: Colors.black,
                                                                               fontWeight: FontWeight.bold,
@@ -287,23 +271,21 @@ class _BestState extends State<Best> {
                                                               padding: null,
                                                               child: Text(
                                                                 '${data['place']} . ${data['date_departure']}',
-                                                                style: const TextStyle(
-                                                                    fontSize:
-                                                                        9
-                                                                ),
+                                                                style:
+                                                                    const TextStyle(
+                                                                        fontSize:
+                                                                            9),
                                                               ),
                                                             )
                                                           ],
-                                                        )
-                                                      ),
-                                                    ],
-                                                  )
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                                        )),
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
                                       ),
+                                    ],
+                                  ),
                                   Row(
                                     children: [
                                       const SizedBox(
@@ -348,7 +330,8 @@ class _BestState extends State<Best> {
                                                                     Row(
                                                                       children: [
                                                                         Text(
-                                                                          data['return'],
+                                                                          data[
+                                                                              'return'],
                                                                           style: const TextStyle(
                                                                               color: Colors.black,
                                                                               fontWeight: FontWeight.bold,
@@ -413,7 +396,8 @@ class _BestState extends State<Best> {
                                                             Row(
                                                               children: [
                                                                 Text(
-                                                                  data['return_arrival'],
+                                                                  data[
+                                                                      'return_arrival'],
                                                                   style: const TextStyle(
                                                                       color: Colors
                                                                           .black,
@@ -430,25 +414,23 @@ class _BestState extends State<Best> {
                                                             ),
                                                             Container(
                                                               padding: null,
-                                                              child:  Text(
+                                                              child: Text(
                                                                 '${data['airplane']} . ${data['date_arrival']}',
-                                                                style: const TextStyle(
-                                                                    fontSize:
-                                                                        9
-                                                                ),
+                                                                style:
+                                                                    const TextStyle(
+                                                                        fontSize:
+                                                                            9),
                                                               ),
                                                             )
                                                           ],
-                                                        )
-                                                      ),
-                                                    ],
-                                                  )
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                                        )),
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
                                       ),
+                                    ],
+                                  ),
                                   Container(
                                     padding: const EdgeInsets.only(left: 10),
                                     child: Row(

@@ -1,5 +1,6 @@
 import 'package:TravelGo/Controllers/NetworkImages/flightsBackend.dart';
 import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 
 class Cheapest extends StatefulWidget {
@@ -41,29 +42,9 @@ class _CheapestState extends State<Cheapest> {
               const SizedBox(
                 height: 50,
               ),
-              const Row(
-                children: [
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Icon(
-                    Icons.location_on,
-                    color: Colors.red,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    'Northwestern part of Luzon Island, Philippines',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 50,
-              ),
+              const Row(children: [
+                TitleMenu(),
+              ]),
               Center(
                 child: Card(
                   color: const Color.fromARGB(255, 195, 213, 245),
@@ -483,7 +464,7 @@ class _CheapestState extends State<Cheapest> {
                                                 onPressed: () {
                                                   AppRoutes
                                                       .navigateToBookingArea(
-                                                          id: widget.id,
+                                                          id: data['id'],
                                                           context);
                                                 },
                                                 child: const Text(

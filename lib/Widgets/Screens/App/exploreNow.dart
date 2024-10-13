@@ -1,10 +1,11 @@
+import 'package:TravelGo/Widgets/Screens/App/categories.dart';
+import 'package:TravelGo/Widgets/Screens/App/mainmenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
-import 'package:TravelGo/Controllers/SearchController/searchController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:TravelGo/Widgets/Screens/App/information.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
@@ -17,9 +18,6 @@ class Explorenow extends StatefulWidget {
 }
 
 class _ExplorenowState extends State<Explorenow> {
-  final String beachIcon = "assets/images/icon/beach.png";
-  final String foodIcon = "assets/images/icon/food.png";
-  final String hotelIcon = "assets/images/icon/hotel.png";
   late String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   late String manaoag = "assets/images/places/Manaoag.jpg";
   final _searchController = TextEditingController();
@@ -93,80 +91,19 @@ class _ExplorenowState extends State<Explorenow> {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              }  else if (snapshot.connectionState == ConnectionState.none) {
+              } else if (snapshot.connectionState == ConnectionState.none) {
                 return Center(
                   child: Text(
                     'No internet connection',
                     style: TextStyle(fontSize: 20.sp),
                   ),
                 );
-              }
-              else {
+              } else {
                 return Stack(children: [
                   Positioned.fill(
                       child: Column(children: <Widget>[
-                    Text(
-                      'TRAVEL GO',
-                      style: TextStyle(
-                        fontSize: 30.sp,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        shadows: [
-                          Shadow(
-                            offset: Offset(3.0.w, 3.0.h),
-                            blurRadius: 4.0,
-                            color: Colors.black.withOpacity(0.5.w),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      "Northwestern part of Luzon Island, Philippines",
-                      style: TextStyle(fontSize: 16.sp),
-                    ),
-                    SizedBox(height: 30.h),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: TypeAheadField(
-                        textFieldConfiguration: TextFieldConfiguration(
-                          controller: _searchController,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 10),
-                            hintStyle: TextStyle(color: Colors.black54),
-                            hintText: 'Search Destination',
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                              borderSide: BorderSide(color: Colors.black54),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black54),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                          ),
-                        ),
-                        suggestionsCallback: (pattern) async {
-                          return await Searchcontroller()
-                              .fetchSuggestions(pattern);
-                        },
-                        itemBuilder: (context, dynamic suggestion) {
-                          return ListTile(
-                            title: Text(suggestion['title'] ?? 'No title'),
-                            subtitle:
-                                Text(suggestion['address'] ?? 'No address'),
-                          );
-                        },
-                        onSuggestionSelected: (dynamic suggestion) {
-                          _searchController.text =
-                              suggestion['title'] ?? 'No title';
-                          FocusScope.of(context).unfocus();
-                        },
-                      ),
-                    ),
+                    const TitleMenu(),
+                    const SearchMenu(),
                     const SizedBox(height: 30),
                     Expanded(
                         child: Scrollbar(
@@ -175,62 +112,11 @@ class _ExplorenowState extends State<Explorenow> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 25),
                                 child: Column(children: <Widget>[
-                                  CategorySelect(
-                                    label: "Categories",
-                                    oppressed: () =>
-                                        print('Categories clicked'),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          BlueIconButtonDefault(
-                                              image: beachIcon,
-                                              oppressed: () => print('helo')),
-                                          const CategoryLabel(label: 'Hotels'),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          BlueIconButtonDefault(
-                                            image: foodIcon,
-                                            oppressed: () =>
-                                                print('Food Place clicked'),
-                                          ),
-                                          const CategoryLabel(
-                                              label: 'Food Place'),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          BlueIconButtonDefault(
-                                            image: beachIcon,
-                                            oppressed: () =>
-                                                print('Beaches clicked'),
-                                          ),
-                                          const CategoryLabel(label: 'Beaches'),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          BlueIconButtonDefault(
-                                            image: hotelIcon,
-                                            oppressed: () =>
-                                                print('Festivals clicked'),
-                                          ),
-                                          const CategoryLabel(
-                                              label: 'Festivals and \nEvents'),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                                  const DismissableFindMoreLocation(),
+                                  const Categories(),
                                   const SizedBox(height: 20),
                                   Container(
-                                    padding: const EdgeInsets.only(
-                                      right: 220
-                                    ),
+                                    padding: const EdgeInsets.only(right: 220),
                                     child: const Text(
                                       'Popular Places',
                                       style: TextStyle(
@@ -246,7 +132,8 @@ class _ExplorenowState extends State<Explorenow> {
                                   Column(
                                     children: place.map((place) {
                                       final imageUrl = place['image'];
-                                      final text = place['place_name'] ?? 'Unknown';
+                                      final text =
+                                          place['place_name'] ?? 'Unknown';
                                       return Column(
                                         children: [
                                           GestureDetector(
@@ -260,7 +147,7 @@ class _ExplorenowState extends State<Explorenow> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                      InformationScreen(
+                                                        InformationScreen(
                                                       text: place['id'],
                                                       name: place['place_name'],
                                                     ),
@@ -269,68 +156,69 @@ class _ExplorenowState extends State<Explorenow> {
                                               }
                                             },
                                             child: Stack(
-                                                children: [
-                                                  Container(
-                                                    height: 150,
-                                                    width: 600,
+                                              children: [
+                                                Container(
+                                                  height: 150,
+                                                  width: 600,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: NetworkImage(
+                                                          imageUrl),
+                                                    ),
+                                                    color: Colors.blue,
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                      Radius.circular(30),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  bottom: 0,
+                                                  left: 0,
+                                                  right: 0,
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
                                                     decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: NetworkImage(imageUrl),
+                                                      color: Colors.black
+                                                          .withOpacity(0.12),
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .only(
+                                                        bottomLeft:
+                                                            Radius.circular(30),
+                                                        bottomRight:
+                                                            Radius.circular(30),
                                                       ),
-                                                      color: Colors.blue,
-                                                      borderRadius: const BorderRadius.all(
-                                                        Radius.circular(30),
+                                                    ),
+                                                    child: Text(
+                                                      text,
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
                                                   ),
-                                                  Positioned(
-                                                    bottom: 0,
-                                                    left: 0,
-                                                    right: 0,
-                                                    child: Container(
-                                                      padding: const EdgeInsets.all(10),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.black.withOpacity(0.12),
-                                                        borderRadius: const BorderRadius.only(
-                                                          bottomLeft: Radius.circular(30),
-                                                          bottomRight: Radius.circular(30),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        text,
-                                                        style: const TextStyle(
-                                                          fontSize: 18,
-                                                          color: Colors.white,
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
+                                          ),
                                           const SizedBox(height: 20),
                                         ],
                                       );
                                     }).toList(),
                                   ),
-                                ]
-                              )
-                            )
-                          )
-                        )
-                      ]
-                    )
-                  )
-                ]
-              );
-            }
-          }
-        )
-      );
-    }
+                                ]))))
+                  ]))
+                ]);
+              }
+            }));
   }
+}
 
 class CategoryLabel extends StatelessWidget {
   final String label;
@@ -354,7 +242,6 @@ class CategoryLabel extends StatelessWidget {
   }
 }
 
-
 class CategorySelect extends StatelessWidget {
   final String label;
   final VoidCallback oppressed;
@@ -370,7 +257,7 @@ class CategorySelect extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 30),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(

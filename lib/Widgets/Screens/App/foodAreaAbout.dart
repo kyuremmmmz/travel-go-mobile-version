@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleSearchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
@@ -22,7 +23,9 @@ class FoodAreaAbout extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel',
-      home: FoodAreaAboutScreen(id: id,),
+      home: FoodAreaAboutScreen(
+        id: id,
+      ),
     );
   }
 }
@@ -191,7 +194,8 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
                     const Positioned(
                       child: Column(
                         children: <Widget>[
-                          TitleSearchMenu(),
+                          TitleMenu(),
+                          SearchMenu(),
                           SizedBox(height: 30),
                         ],
                       ),

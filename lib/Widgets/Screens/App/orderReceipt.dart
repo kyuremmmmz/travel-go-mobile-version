@@ -44,6 +44,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
   final String receiptBackground = "assets/images/backgrounds/Receipt.png";
   var email;
+  String? paid_via;
   String amount = "loading";
   var phone;
   String? gmail;
@@ -61,27 +62,24 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   }
 
   void main() async {
-  Mailer mailer = Mailer();
+    Mailer mailer = Mailer();
 
-  String pdfPath = await mailer.generatePdfReceipt(
-    amount: amount,
-    phone: phone,
-    ref: ref,
-    date: DateTime.now(), 
-    account: account, 
-    gmail: '$gmail',
-  );
-  
+    String pdfPath = await mailer.generatePdfReceipt(
+      amount: amount,
+      phone: phone,
+      ref: ref,
+      date: DateTime.now(),
+      account: account,
+      gmail: '$gmail',
+    );
+
     await mailer.sendEmailWithAttachment(
-    subject: 'Your Booking Receipt',
-    body: 'Please find your receipt attached.',
-    recipientEmail: '$gmail',
-    filePath: pdfPath,
-  );
-}
-
-
-  
+      subject: 'Your Booking Receipt',
+      body: 'Please find your receipt attached.',
+      recipientEmail: '$gmail',
+      filePath: pdfPath,
+    );
+  }
 
   Future<void> emailFetching() async {
     try {
@@ -117,6 +115,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                 data['payment'] != null ? data['payment'].toString() : 'N/A';
             phone = data['phone'] ?? 'Unknown';
             ref = data['reference_number'] ?? 'N/A';
+            paid_via = data['pay_via'] ?? 'Unknown';
             date = data['date_of_payment'] ?? 'Unknown Date';
             account = data['name'] ?? 'Unknown Account';
             gmail = data['gmail'] ?? 'Unknown';
@@ -340,10 +339,10 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                                   fontSize: 10,
                                                 ),
                                               ),
-                                              const Text(
-                                                'Paid using paypal',
+                                              Text(
+                                                'Paid using $paid_via',
                                                 textAlign: TextAlign.start,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 6,
                                                   color: Color.fromRGBO(
