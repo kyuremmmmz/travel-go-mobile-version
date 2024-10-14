@@ -447,7 +447,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
+                          SizedBox(
                             width: 380,
                             child: PhonenumberTextField(
                               icon: const Icon(FontAwesomeIcons.children),
@@ -480,7 +480,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
+                          SizedBox(
                               width: 380,
                               child: TextFormField(
                                 style: const TextStyle(
