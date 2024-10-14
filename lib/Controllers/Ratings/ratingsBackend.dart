@@ -30,12 +30,12 @@ class RatingsAndComments {
   }
 
   Future<List<Map<String, dynamic>>> fetchComments(
-    int commentType,
+    int commentType, String comment
   ) async {
     final response = await supabase
         .from("ratings_and_comments")
         .select("*")
-        .eq('comment_id_places', commentType);
+        .eq('comment_id_places', commentType).eq('comment_type', comment);
     if (response.isEmpty) {
       return [];
     } else {

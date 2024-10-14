@@ -38,6 +38,35 @@ class HotelImages {
     }
   }
 
+  Future<List<Map<String, dynamic>>> fetchHotelsByplace(String located) async {
+    try {
+      final response = await supabase
+          .from('hotels')
+          .select('*')
+          .eq('hotel_located', located);
+      if (response.isEmpty) {
+        debugPrint('no hotels found');
+        return [];
+      } else {
+        final data = response;
+
+        List<Map<String, dynamic>> map =
+            List<Map<String, dynamic>>.from(data as List);
+        for (var map in data) {
+          var place = map['hotel_name'];
+          var image = map['image'];
+          var imageUrl = await getter(image);
+          map['image'] = imageUrl;
+          map['hotel_name'] = place;
+        }
+        return map;
+      }
+    } catch (e) {
+      debugPrint('Error fetching hotels: $e');
+      return [];
+    }
+  }
+
   Future<String?> getter(String image) async {
     final response =
         supabase.storage.from('hotel_amenities_url').getPublicUrl(image);

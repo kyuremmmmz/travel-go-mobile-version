@@ -115,6 +115,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             title: const Text('Recent Bookings'),
             onTap: () {
               Navigator.pop(context);
+              AppRoutes.navigateToBookingHistory(context);
             },
           ),
           ListTile(

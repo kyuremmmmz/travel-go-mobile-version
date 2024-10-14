@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/bookingHistory.dart';
 import 'package:TravelGo/Widgets/Screens/App/booking_area.dart';
 import 'package:TravelGo/Widgets/Screens/App/confirmBooking.dart';
 import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
@@ -106,8 +107,10 @@ class AppRoutes {
 
   static void navigateToHotelMapPage(BuildContext route,
       {required String name, required int id}) {
-    Navigator.push(route,
-        MaterialPageRoute(builder: (context) => HotelMapPage(location: name, id: id)));
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+            builder: (context) => HotelMapPage(location: name, id: id)));
   }
 
   static void navigateToOrderReceipt(
@@ -206,21 +209,34 @@ class AppRoutes {
       required paymentMethod,
       required price,
       required last}) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ConfirmBookingAreaScreen(
-                  id: id,
-                  name: name,
-                  email: email,
-                  phone: phone,
-                  age: age,
-                  country: country,
-                  numberOfChildren: numberOfChildren,
-                  numberOfAdults: numberOfAdults,
-                  paymentMethod: paymentMethod,
-                  price: price,
-                  last: last,
-                )));
+    if (age < 18) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('You must be 18 years or older'),
+        ),
+      );
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConfirmBookingAreaScreen(
+                    id: id,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    age: age,
+                    country: country,
+                    numberOfChildren: numberOfChildren,
+                    numberOfAdults: numberOfAdults,
+                    paymentMethod: paymentMethod,
+                    price: price,
+                    last: last,
+                  )));
+    }
+  }
+
+  static void navigateToBookingHistory(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const Bookinghistory()));
   }
 }
