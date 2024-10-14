@@ -222,7 +222,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                               left: 30, right: 30),
                                           child: GestureDetector(
                                             onTap: () {
-                                              AppRoutes.navigateToTesting(
+                                              AppRoutes.navigateToHotelMapPage(
                                                   context,
                                                   name: '$text',
                                                   id: widget.id);

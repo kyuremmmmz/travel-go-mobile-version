@@ -271,7 +271,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 if (value == null ||
                                     value.toString().isEmpty ||
                                     value.length <= 5) {
-                                  return 'please enter your name';
+                                  return 'Please enter your name';
                                 }
                                 return null;
                               },
@@ -302,7 +302,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 if (value == null ||
                                     value.toString().isEmpty ||
                                     value.length <= 5) {
-                                  return 'please enter your name';
+                                  return 'Please enter your name';
                                 }
                                 return null;
                               },
@@ -331,7 +331,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             child: inputTextField(
                               validator: (value) {
                                 if (value == null || value.toString().isEmpty) {
-                                  return 'please enter valid email address';
+                                  return 'Please enter a valid email address';
                                 }
                                 return null;
                               },
@@ -390,10 +390,11 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               controller: _age,
                               icon: const Icon(FontAwesomeIcons.personCane),
                               validator: (value) {
+                                value = int.tryParse(value);
                                 if (value == null || value.toString().isEmpty) {
                                   return 'Please enter your age';
                                 } else if (value <= 18) {
-                                  return 'You are below 18';
+                                  return "You aren't legal age";
                                 }
                                 return null;
                               },
@@ -420,7 +421,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                 if (value == null ||
                                     value.toString().isEmpty ||
                                     value.length <= 5) {
-                                  return 'please enter your Country';
+                                  return 'Please enter your Country';
                                 }
                                 return null;
                               },
@@ -517,7 +518,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       offset: const Offset(0, 5),
                                     )
                                   ]),
-                              child: TextField(
+                              child: TextFormField(
+                                validator: (value) {
+                                  if (value == null ||
+                                      value.toString().isEmpty) {
+                                    return 'Please select a method';
+                                  }
+                                  return null;
+                                },
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black,

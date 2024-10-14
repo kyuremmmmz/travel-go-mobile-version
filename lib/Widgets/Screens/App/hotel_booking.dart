@@ -493,7 +493,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 if (value == null || value.toString().isEmpty) {
                                   return 'Please enter your age';
                                 } else if (value <= (18)) {
-                                  return 'You are below 18';
+                                  return "You aren't legal age";
                                 }
                                 return null;
                               },
