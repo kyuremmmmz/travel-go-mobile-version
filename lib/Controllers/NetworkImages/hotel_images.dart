@@ -38,14 +38,12 @@ class HotelImages {
     }
   }
 
-
   Future<List<Map<String, dynamic>>> fetchHotelsByplace(String located) async {
     try {
       final response = await supabase
           .from('hotels')
-          .select('*').eq('hotel_located', located)
-          .limit(1000)
-          .order('hotel_ratings', ascending: true);
+          .select('*')
+          .eq('hotel_located', located);
       if (response.isEmpty) {
         debugPrint('no hotels found');
         return [];

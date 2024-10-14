@@ -284,21 +284,14 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                       Container(
                                           padding: const EdgeInsets.only(
                                               left: 30, right: 30),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              AppRoutes.navigateToTesting(
-                                                  context,
-                                                  name: '$text',
-                                                  id: widget.id);
-                                            },
-                                            child: Text(
+                                          child: Text(
                                               text ?? 'No data available',
                                               style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 25,
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                          )),
+                                          ),
                                       Row(
                                         children: [
                                           const SizedBox(
@@ -308,7 +301,16 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                             Icons.location_on,
                                             color: Colors.red,
                                           ),
-                                          Text(located ?? 'I cant locate it')
+                                          GestureDetector(
+                                            onTap: () {
+                                              AppRoutes.navigateToTesting(
+                                                  context,
+                                                  name: '$located',
+                                                  id: widget.id);
+                                            },
+                                            child: Text(
+                                                located ?? 'I cant locate it'),
+                                          )
                                         ],
                                       ),
                                       const SizedBox(height: 20),
