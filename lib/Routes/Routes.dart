@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/bookingHistory.dart';
 import 'package:TravelGo/Widgets/Screens/App/booking_area.dart';
 import 'package:TravelGo/Widgets/Screens/App/confirmBooking.dart';
 import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
@@ -205,7 +206,7 @@ class AppRoutes {
           content: Text('You must be 18 years or older'),
         ),
       );
-    }else{
+    } else {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -221,9 +222,12 @@ class AppRoutes {
                     paymentMethod: paymentMethod,
                     price: price,
                     last: last,
-                  )
-                )
-              );
+                  )));
     }
+  }
+
+  static void navigateToBookingHistory(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const Bookinghistory()));
   }
 }

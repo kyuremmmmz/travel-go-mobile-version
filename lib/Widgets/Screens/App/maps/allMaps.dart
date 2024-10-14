@@ -98,7 +98,8 @@ class _MapPageState extends State<MapPage> {
 
   Future<void> getMarkers() async {
     try {
-      final hotels = await images.fetchHotels();
+      final hotels = await images.fetchHotelsByplace('${widget.location}');
+      
       if (hotels.isNotEmpty) {
         List<Marker> fetchedMarkers = [];
 

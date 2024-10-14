@@ -272,7 +272,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                                     width: 269,
                                                     child:
                                                         LinearProgressIndicator(
-                                                      value: 0.56,
+                                                      value: 0.58,
                                                       backgroundColor:
                                                           Colors.grey,
                                                       color: Colors.yellow,
