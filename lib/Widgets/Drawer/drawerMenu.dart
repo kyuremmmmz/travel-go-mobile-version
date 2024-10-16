@@ -131,6 +131,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             title: const Text('Logout'),
             onTap: () {
               Navigator.pop(context);
+              AppRoutes.navigateToLogin(context);
               Usersss().signout(context);
             },
           ),
