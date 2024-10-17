@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
@@ -218,6 +219,54 @@ class _HotelMapPageState extends State<HotelMapPage> {
     }
   }
 
+  Future<void> detailsModal(BuildContext context) async {
+    await showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            padding: null,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                const SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  padding: null,
+                  child: const Text(
+                    'Booking Details',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  'Place name',
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      onPressed: () async {},
+                      child: const Text(
+                        'Book Now',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      )),
+                )
+              ],
+            ),
+          );
+        });
+  }
+
   @override
   void dispose() {
     start.dispose();
@@ -253,10 +302,13 @@ class _HotelMapPageState extends State<HotelMapPage> {
             children: [
               const TitleMenu(),
               const SizedBox(height: 30),
-              const Text(
-                'Book your hotels nearby:',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              Container(
+                padding: EdgeInsets.only(right: 190.w, bottom: 5.h),
+                child: const Text(
+                  'Book your hotels nearby:',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ),
               Text(
                 '$located',
@@ -298,6 +350,24 @@ class _HotelMapPageState extends State<HotelMapPage> {
                   ],
                 ),
               ),
+              const SizedBox(height: 30),
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    onPressed: () async {
+                      detailsModal(context);
+                    },
+                    child: const Text(
+                      'See Details',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    )),
+              )
             ],
           ),
         ),

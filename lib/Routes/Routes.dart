@@ -99,18 +99,18 @@ class AppRoutes {
                 destination: destination)));
   }
 
-  static void navigateToTesting(BuildContext route,
-      {required String name, required int id}) {
-    Navigator.push(route,
-        MaterialPageRoute(builder: (context) => Mapa(location: name, id: id)));
-  }
-
   static void navigateToHotelMapPage(BuildContext route,
       {required String name, required int id}) {
     Navigator.push(
         route,
         MaterialPageRoute(
             builder: (context) => HotelMapPage(location: name, id: id)));
+  }
+
+  static void navigateToTesting(BuildContext route,
+      {required String name, required int id}) {
+    Navigator.push(route,
+        MaterialPageRoute(builder: (context) => Mapa(location: name, id: id)));
   }
 
   static void navigateToOrderReceipt(
