@@ -1,5 +1,6 @@
 import 'package:TravelGo/Controllers/paymentIntegration/creditCard.dart';
 import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
@@ -307,6 +308,11 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
                 onPressed: _value
                     ? () {
                         creditCard();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    OrderReceipt(Phone: widget.phone)));
                       }
                     : null,
                 child: const Text(
