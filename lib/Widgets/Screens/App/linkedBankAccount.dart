@@ -25,7 +25,9 @@ class LinkedBankScreen extends StatefulWidget {
     required this.hotelorplace,
     required this.nameoftheplace,
     required this.price,
-    required this.payment, String? origin, String? destination,
+    required this.payment,
+    String? origin,
+    String? destination,
   });
 
   @override
@@ -78,6 +80,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
       });
     }
   }
+
 
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
@@ -165,7 +168,14 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                         color: const Color.fromRGBO(39, 92, 135, 1),
                         image: mastercardIcon,
                         oppressed: () =>
-                            AppRoutes.navigateToCreditCard(context),
+                            AppRoutes.navigateToCreditCard(
+                              context, 
+                              hotelorplace: widget.hotelorplace, 
+                              name: widget.name, 
+                              phone: widget.phone, 
+                              nameoftheplace: widget.nameoftheplace, 
+                              price: widget.price, 
+                              payment: widget.price, ),
                       ),
                       AccountButton(
                         header: "PayPal",
