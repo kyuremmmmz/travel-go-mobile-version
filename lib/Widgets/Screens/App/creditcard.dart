@@ -1,12 +1,28 @@
+import 'package:TravelGo/Controllers/paymentIntegration/creditCard.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
-void main() {
-  runApp(const Creditcard());
-}
-
 class Creditcard extends StatelessWidget {
-  const Creditcard({super.key});
+  final String name;
+  final int phone;
+  final String hotelorplace;
+  final String nameoftheplace;
+  final int price;
+  final int payment;
+  const Creditcard({
+    super.key,
+    required this.name,
+    required this.phone,
+    required this.hotelorplace,
+    required this.nameoftheplace,
+    required this.price,
+    required this.payment,
+    String? origin,
+    String? destination,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +32,36 @@ class Creditcard extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CreditCardFormScreen(),
+      home: CreditCardFormScreen(
+        name: name,
+        phone: phone,
+        hotelorplace: hotelorplace,
+        nameoftheplace: nameoftheplace,
+        price: price,
+        payment: payment,
+      ),
     );
   }
 }
 
 class CreditCardFormScreen extends StatefulWidget {
-  const CreditCardFormScreen({super.key});
+  final String name;
+  final int phone;
+  final String hotelorplace;
+  final String nameoftheplace;
+  final int price;
+  final int payment;
+  const CreditCardFormScreen({
+    super.key,
+    required this.name,
+    required this.phone,
+    required this.hotelorplace,
+    required this.nameoftheplace,
+    required this.price,
+    required this.payment,
+    String? origin,
+    String? destination,
+  });
 
   @override
   // ignore: library_private_types_in_public_api
@@ -36,6 +75,8 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
   final expiryDate = TextEditingController();
   final cvvCode = TextEditingController();
   bool isCvvFocused = false;
+  bool _value = false;
+  bool isPaymentSuccess = false;
 
   @override
   void dispose() {
@@ -44,6 +85,21 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
     expiryDate.dispose();
     cvvCode.dispose();
     super.dispose();
+  }
+
+  Future<void> creditCard() async {
+    await CreditcardBackend().payViaCredit(
+      widget.price,
+      widget.price,
+      widget.hotelorplace,
+      widget.name,
+      widget.phone,
+    );
+    if (mounted) {
+      setState(() {
+        isPaymentSuccess = true;
+      });
+    }
   }
 
   @override
@@ -67,16 +123,14 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
               cvvCode: cvvCode.text,
               showBackView: isCvvFocused,
               // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-              onCreditCardWidgetChange: (CreditCardBrand) {
-                
-              },
+              onCreditCardWidgetChange: (CreditCardBrand) {},
               enableFloatingCard: true,
               bankName: 'BDO',
               obscureCardNumber: true,
               obscureInitialCardNumber: false,
               obscureCardCvv: true,
               cardType: CardType.mastercard,
-              isHolderNameVisible: false,
+              isHolderNameVisible: true,
               height: 175,
               textStyle: const TextStyle(
                   color: Colors.black, fontWeight: FontWeight.bold),
@@ -167,6 +221,104 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
                 ),
               ),
             ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              height: 40,
+              width: 300,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.black)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'TOTAL AMOUNT: ${widget.price}',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'PHP ${widget.price}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: Color.fromRGBO(5, 103, 180, 1),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Theme(
+              data: ThemeData(
+                checkboxTheme: const CheckboxThemeData(
+                  shape: CircleBorder(),
+                ),
+              ),
+              child: Align(
+                alignment: Alignment.center,
+                child: ListTileTheme(
+                  horizontalTitleGap: 0.0,
+                  child: CheckboxListTile(
+                    activeColor: Colors.green,
+                    title: RichText(
+                      text: TextSpan(children: <TextSpan>[
+                        const TextSpan(
+                          text:
+                              "I have reviewed my transaction details and agree to the ",
+                          style: TextStyle(fontSize: 12, color: Colors.black),
+                        ),
+                        TextSpan(
+                          text: "Terms of Service.",
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.blue),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () =>
+                                AppRoutes.navigateToForgotPassword(context),
+                        ),
+                      ]),
+                    ),
+                    value: _value,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _value = value ?? false;
+                      });
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
+                ),
+              ),
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                onPressed: _value
+                    ? () {
+                        creditCard();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    OrderReceipt(Phone: widget.phone)));
+                      }
+                    : null,
+                child: const Text(
+                  'Continue',
+                  style: TextStyle(color: Colors.white),
+                )),
           ],
         ),
       ),

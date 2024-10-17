@@ -3,10 +3,10 @@ import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/VoucherButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 
 // ignore: must_be_immutable
 class discountArea extends StatelessWidget {
@@ -113,29 +113,11 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                 );
               } else {
                 return Stack(children: [
-                  Positioned.fill(
+                  const Positioned.fill(
                     child: Column(
                       children: <Widget>[
-                        Text(
-                          'TRAVEL GO',
-                          style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                            shadows: [
-                              Shadow(
-                                offset: const Offset(3.0, 3.0),
-                                blurRadius: 4.0,
-                                color: Colors.black.withOpacity(0.5),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Text(
-                          "Northwestern part of Luzon Island, Philippines",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(height: 30),
+                        TitleMenu(),
+                        SizedBox(height: 30),
                       ],
                     ),
                   ),
@@ -169,8 +151,8 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                         children: [
                                           CircleAvatar(
                                             radius: 30,
-                                            backgroundImage: NetworkImage(
-                                                '$img'),
+                                            backgroundImage:
+                                                NetworkImage('$img'),
                                           ),
                                         ],
                                       ),
@@ -272,7 +254,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                                     width: 269,
                                                     child:
                                                         LinearProgressIndicator(
-                                                      value: 0.56,
+                                                      value: 0.58,
                                                       backgroundColor:
                                                           Colors.grey,
                                                       color: Colors.yellow,

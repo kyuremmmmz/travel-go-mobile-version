@@ -4,44 +4,96 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Textfield/inputTextField.dart';
-import 'package:TravelGo/Widgets/Textfield/phoneNumber.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class BookingArea extends StatelessWidget {
+class Confirmbooking extends StatelessWidget {
   final int id;
-  const BookingArea({
+  final String name;
+  final String email;
+  final int phone;
+  final int age;
+  final String country;
+  final int numberOfChildren;
+  final int numberOfAdults;
+  final String paymentMethod;
+  final String? specialReq;
+  final int price;
+  final String last;
+
+  const Confirmbooking({
     super.key,
     required this.id,
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.age,
+    required this.country,
+    required this.numberOfChildren,
+    required this.numberOfAdults,
+    required this.paymentMethod,
+    this.specialReq,
+    required this.price,
+    required this.last,
   });
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Travel Go',
-      home: BookingAreaScreen(
-        id: id,
-      ),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Travel Go',
+        home: ConfirmBookingAreaScreen(
+          id: id,
+          name: name,
+          email: email,
+          phone: phone,
+          age: age,
+          country: country,
+          numberOfChildren: numberOfChildren,
+          numberOfAdults: numberOfAdults,
+          paymentMethod: paymentMethod,
+          price: price,
+          last: last,
+        ));
   }
 }
 
-class BookingAreaScreen extends StatefulWidget {
+class ConfirmBookingAreaScreen extends StatefulWidget {
   final int id;
-  const BookingAreaScreen({
+  final String name;
+  final String last;
+  final String email;
+  final int phone;
+  final int age;
+  final String country;
+  final int numberOfChildren;
+  final int numberOfAdults;
+  final String paymentMethod;
+  final String? specialReq;
+  final int price;
+  const ConfirmBookingAreaScreen({
     super.key,
     required this.id,
+    required this.name,
+    required this.last,
+    required this.email,
+    required this.phone,
+    required this.age,
+    required this.country,
+    required this.numberOfChildren,
+    required this.numberOfAdults,
+    required this.paymentMethod,
+    this.specialReq,
+    required this.price,
   });
 
   @override
-  State<BookingAreaScreen> createState() => _BookingAreaScreenState();
+  State<ConfirmBookingAreaScreen> createState() => _ConfirmBookingAreaScreen();
 }
 
-class _BookingAreaScreenState extends State<BookingAreaScreen> {
+class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _numberController = TextEditingController();
@@ -51,7 +103,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   final _specialReqController = TextEditingController();
   final _validator = GlobalKey<FormState>();
   final _country = TextEditingController();
-  final _phone = TextEditingController();
   final _age = TextEditingController();
   final _lastNameController = TextEditingController();
   // ignore: non_constant_identifier_names
@@ -65,7 +116,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   String? strAmount;
   String? origin;
   String? destination;
-
+  String? departure;
+  String? arrival;
+  String? departureTime;
+  String? returnDate;
+  String? returnTime;
+  String? arrivalTime;
+  String? airPort;
+  String? airLine;
   String? hotel;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
@@ -80,7 +138,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _numberController.dispose();
-    _phone.dispose();
     _destinationController.dispose();
     _paymentMethodController.dispose();
     _specialReqController.dispose();
@@ -128,7 +185,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
       amount = data['price'];
       origin = data['airplane'];
       destination = data['place'];
+      departure = data['date'];
+      arrival = data['date_departure'];
+      returnDate = data['return_date'];
       strAmount = finalFormat;
+      departureTime = data['departure'];
+      arrivalTime = data['arrival'];
+      returnTime = data['return'];
+      airPort = data['airPort'];
     });
   }
 
@@ -244,7 +308,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             ),
                           ),
                           const Text(
-                            'User Credentials',
+                            'Travel Confirmation',
                             style: TextStyle(
                               fontSize: 30,
                               color: Colors.white,
@@ -264,31 +328,37 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           ),
                           // ignore: sized_box_for_whitespace
                           Container(
+                              width: 380,
+                              child: Text(
+                                'Origin :  $origin',
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                              width: 380,
+                              child: Text(
+                                'Destination :  $destination',
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              validator: (value) {
-                                if (value == null ||
-                                    value.toString().isEmpty ||
-                                    value.length <= 5) {
-                                  return 'please enter your name';
-                                }
-                                return null;
-                              },
-                              icon: const Icon(FontAwesomeIcons.person),
-                              colorr: Colors.black,
-                              text: 'First Name:',
-                              controller: _nameController,
+                            child: Text(
+                              'Departure Date:  $departure',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
@@ -296,30 +366,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              validator: (value) {
-                                if (value == null ||
-                                    value.toString().isEmpty ||
-                                    value.length <= 5) {
-                                  return 'please enter your name';
-                                }
-                                return null;
-                              },
-                              icon: const Icon(FontAwesomeIcons.person),
-                              colorr: Colors.black,
-                              text: 'Last Name:',
-                              controller: _lastNameController,
+                            child: Text(
+                              'Arrival Date:  $arrival',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
@@ -327,28 +379,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              validator: (value) {
-                                if (value == null || value.toString().isEmpty) {
-                                  return 'please enter valid email address';
-                                }
-                                return null;
-                              },
-                              icon: const Icon(FontAwesomeIcons.envelope),
-                              colorr: Colors.black,
-                              text: 'Email Address:',
-                              controller: _emailController,
+                            child: Text(
+                              'Return Date:  $returnDate',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
@@ -356,103 +392,26 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: PhonenumberTextField(
-                              text: 'Phone Number:',
-                              validator: (value) {
-                                if (value == null || value.toString().isEmpty) {
-                                  return 'Enter your phone number';
-                                }
-                                return null;
-                              },
-                              controller: _phone,
-                              icon: const Icon(FontAwesomeIcons.phone),
+                            child: Text(
+                              'Departure Time :  $departureTime',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
                             height: 10,
-                          ),
-                          Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: PhonenumberTextField(
-                              validator: (value) {
-                                if (value == null || value.toString().isEmpty) {
-                                  return 'Enter your age';
-                                } else if (int.parse(value) <= 17) {
-                                  return 'You are $value you must be 18 years old to book';
-                                }
-                                return null;
-                              },
-                              text: 'Age:',
-                              controller: _age,
-                              icon: const Icon(FontAwesomeIcons.personCane),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              validator: (value) {
-                                if (value == null ||
-                                    value.toString().isEmpty ||
-                                    value.length <= 5) {
-                                  return 'Please enter your Country';
-                                }
-                                return null;
-                              },
-                              icon: const Icon(FontAwesomeIcons.earthAfrica),
-                              colorr: Colors.black,
-                              text: 'Country:',
-                              controller: _country,
-                            ),
                           ),
 
                           Container(
                             width: 380,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: 380,
-                            child: PhonenumberTextField(
-                              icon: const Icon(FontAwesomeIcons.children),
-                              controller: _number_of_children,
-                              text: 'Number of children:',
+                            child: Text(
+                              'Arrival Time :  $arrivalTime',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
@@ -460,59 +419,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           ),
                           Container(
                             width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: PhonenumberTextField(
-                              icon: const Icon(FontAwesomeIcons.peopleGroup),
-                              controller: _number_of_adult,
-                              text: 'Number of Adults:',
+                            child: Text(
+                              'Return Time :  $returnTime',
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                              width: 380,
-                              child: TextFormField(
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
-                                validator: (value) {
-                                  if (value.toString().isEmpty) {
-                                    return 'Oops, payment method is required';
-                                  }
-                                  return null;
-                                },
-                                controller: _paymentMethodController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Payment Method',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  prefixIcon: Icon(Icons.payment_rounded),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  niggaModal(context);
-                                },
-                              )),
                           const SizedBox(
                             height: 10,
                           ),
@@ -582,7 +496,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             ),
                           ),
                           Container(
-                            height: 100,
+                            height: 200,
                             width: double.infinity, // Adjust width as needed
                             decoration: const BoxDecoration(
                               color: Colors.white,
@@ -662,42 +576,46 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                                 ? () {
                                                     if (_validator.currentState!
                                                             .validate() ||
-                                                        _paymentMethodController.text.trim() == "Pay Online" ||
-                                                        int.parse(_age.text.trim()) <= 18) {
-                                                      AppRoutes.navigateToNextScreen(
-                                                          context,
-                                                          id: widget.id,
-                                                          name: _nameController
-                                                              .text
-                                                              .trim(),
-                                                          email:
-                                                              _emailController
-                                                                  .text
-                                                                  .trim(),
-                                                          phone: int.parse(
-                                                              _phone.text
-                                                                  .trim()),
-                                                          age: int.parse(
-                                                              _age.text.trim()),
-                                                          country: _country.text
-                                                              .trim(),
-                                                          numberOfChildren:
-                                                              int.parse(
-                                                                  _number_of_children
-                                                                      .text
-                                                                      .trim()),
-                                                          numberOfAdults:
-                                                              int.parse(_number_of_adult.text.trim()),
-                                                          paymentMethod: _paymentMethodController.text.trim(),
-                                                          price: amount,
-                                                          last: _lastNameController.text.trim());
+                                                        widget.paymentMethod ==
+                                                            "Pay Online") {
+                                                      AppRoutes
+                                                          .navigateToLinkedBankAccount(
+                                                        context,
+                                                        name: widget.name,
+                                                        phone: widget.phone,
+                                                        nameoftheplace:
+                                                            widget.email,
+                                                        price: amount,
+                                                        payment: amount,
+                                                        hotelorplace:
+                                                            widget.country,
+                                                      );
+                                                      Booking().flightBooking(
+                                                          widget.name,
+                                                          widget.last,
+                                                          widget.country,
+                                                          widget.phone,
+                                                          widget.age,
+                                                          widget.email,
+                                                          '$origin',
+                                                          '$returnDate',
+                                                          '$departure',
+                                                          '$departureTime',
+                                                          '$arrivalTime',
+                                                          '$arrival',
+                                                          '$destination',
+                                                          amount,
+                                                          widget.paymentMethod,
+                                                          'Cebu Pacific',
+                                                          widget.country,
+                                                          'Road Trip');
                                                     } else {
                                                       debugPrint('nigga');
                                                     }
                                                   }
                                                 : null,
                                             child: const Text(
-                                              'Next',
+                                              'Place Booking',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Colors.white,

@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/bookingHistory.dart';
 import 'package:TravelGo/Widgets/Screens/App/booking_area.dart';
+import 'package:TravelGo/Widgets/Screens/App/confirmBooking.dart';
 import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotel_booking.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/hotelTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/notPaid.dart';
 import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
 import 'package:TravelGo/Widgets/Screens/Profiles/Settings.dart';
@@ -73,15 +76,15 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const explore()));
   }
 
-  static void navigateToLinkedBankAccount(
-    BuildContext route, {
-    required String name,
-    required int phone,
-    required String nameoftheplace,
-    required int price,
-    required int payment,
-    required String hotelorplace,
-  }) {
+  static void navigateToLinkedBankAccount(BuildContext route,
+      {required String name,
+      required int phone,
+      required String nameoftheplace,
+      required int price,
+      required int payment,
+      required String hotelorplace,
+      String? origin,
+      String? destination}) {
     Navigator.push(
         route,
         MaterialPageRoute(
@@ -91,15 +94,23 @@ class AppRoutes {
                 nameoftheplace: nameoftheplace,
                 price: price,
                 payment: payment,
-                hotelorplace: hotelorplace)));
+                hotelorplace: hotelorplace,
+                origin: origin,
+                destination: destination)));
   }
 
   static void navigateToTesting(BuildContext route,
       {required String name, required int id}) {
+    Navigator.push(route,
+        MaterialPageRoute(builder: (context) => Mapa(location: name, id: id)));
+  }
+
+  static void navigateToHotelMapPage(BuildContext route,
+      {required String name, required int id}) {
     Navigator.push(
         route,
         MaterialPageRoute(
-            builder: (context) => Mapa(location: name, id: id)));
+            builder: (context) => HotelMapPage(location: name, id: id)));
   }
 
   static void navigateToOrderReceipt(
@@ -166,9 +177,22 @@ class AppRoutes {
                 )));
   }
 
-  static void navigateToCreditCard(BuildContext context) {
+  static void navigateToCreditCard(BuildContext context, {
+    required String name,
+    required int phone,
+    required String hotelorplace,
+    required String nameoftheplace,
+    required int price,
+    required int payment,
+  }) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const Creditcard()));
+        context, MaterialPageRoute(builder: (context) =>  Creditcard(
+          name: name, 
+          phone: phone, 
+          hotelorplace: hotelorplace, 
+          nameoftheplace: nameoftheplace, 
+          price: price, 
+          payment: payment,)));
   }
 
   static void navigateToNotPaid(BuildContext context) {
@@ -186,4 +210,46 @@ class AppRoutes {
         context, MaterialPageRoute(builder: (context) => const discountArea()));
   }
 
+  static void navigateToNextScreen(BuildContext context,
+      {required id,
+      required name,
+      required email,
+      required phone,
+      required age,
+      required country,
+      required numberOfChildren,
+      required numberOfAdults,
+      required paymentMethod,
+      required price,
+      required last}) {
+    if (age < 18) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('You must be 18 years or older'),
+        ),
+      );
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ConfirmBookingAreaScreen(
+                    id: id,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    age: age,
+                    country: country,
+                    numberOfChildren: numberOfChildren,
+                    numberOfAdults: numberOfAdults,
+                    paymentMethod: paymentMethod,
+                    price: price,
+                    last: last,
+                  )));
+    }
+  }
+
+  static void navigateToBookingHistory(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const Bookinghistory()));
+  }
 }

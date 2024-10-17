@@ -116,7 +116,7 @@ class _InformationScreenState extends State<InformationScreen> {
   }
 
   Future<void> stateComments() async {
-    final data = await rating.fetchComments(widget.text);
+    final data = await rating.fetchComments(widget.text, 'places');
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
@@ -134,7 +134,7 @@ class _InformationScreenState extends State<InformationScreen> {
   }
 
   Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
-    final data = await rating.fetchComments(widget.text);
+    final data = await rating.fetchComments(widget.text, 'places');
     final totalRatings = await rating.fetchRatingsAsSum();
     final img = await users.fetchUser();
     final images = img[0]['full_name'];

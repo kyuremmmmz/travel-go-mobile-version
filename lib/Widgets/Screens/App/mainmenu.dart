@@ -236,6 +236,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                                       id: id)));
                                     });
                               }).toList()),
+                          SizedBox(height: 10.h),
                         ],
                       ),
                     ),

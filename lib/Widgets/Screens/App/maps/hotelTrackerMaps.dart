@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -22,29 +25,30 @@ class Map extends StatelessWidget {
       appBar: AppBar(
         title: Text('Map'),
       ),
-      body: MapPage(location: location, id: id),
+      body: HotelMapPage(location: location, id: id),
     );
   }
 }
 
-class MapPage extends StatefulWidget {
+class HotelMapPage extends StatefulWidget {
   final String? location;
   final int id;
-  const MapPage({
+  const HotelMapPage({
     super.key,
     required this.location,
     required this.id,
   });
 
   @override
-  State<MapPage> createState() => _MapPageState();
+  State<HotelMapPage> createState() => _HotelMapPageState();
 }
 
-class _MapPageState extends State<MapPage> {
+class _HotelMapPageState extends State<HotelMapPage> {
   final start = TextEditingController();
   final end = TextEditingController();
   List<LatLng> routePoints = [const LatLng(15.91667, 120.33333)];
   String? placeName;
+  String? located;
   var price;
   List<Marker> markers = [];
 
@@ -93,6 +97,7 @@ class _MapPageState extends State<MapPage> {
     setState(() {
       placeName = data!['hotel_name'];
       price = data['hotel_price'];
+      located = data['hotel_located'];
     });
   }
 
@@ -230,31 +235,34 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 40.h,
+        leading: Builder(
+          builder: (BuildContext context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
+      ),
+      drawer: const DrawerMenuWidget(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              const TitleMenu(),
               const SizedBox(height: 30),
-              TextFormField(
-                controller: start,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your Current Location',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                  ),
-                ),
+              const Text(
+                'Book your hotels nearby:',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () async {
-                  func();
-                },
-                child: const Text('Get location'),
+              Text(
+                '$located',
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 40),
               SizedBox(
                 height: 500,
                 width: 400,

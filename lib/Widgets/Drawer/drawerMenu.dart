@@ -3,6 +3,7 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 class DrawerMenuWidget extends StatefulWidget {
   const DrawerMenuWidget({super.key});
 
@@ -114,6 +115,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             title: const Text('Recent Bookings'),
             onTap: () {
               Navigator.pop(context);
+              AppRoutes.navigateToBookingHistory(context);
             },
           ),
           ListTile(
@@ -129,7 +131,15 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             title: const Text('Logout'),
             onTap: () {
               Navigator.pop(context);
+              AppRoutes.navigateToLogin(context);
               Usersss().signout(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Test'),
+            onTap: () {
+              Navigator.pop(context);
             },
           ),
         ],
