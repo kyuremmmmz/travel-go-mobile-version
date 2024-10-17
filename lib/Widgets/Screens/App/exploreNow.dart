@@ -297,7 +297,7 @@ class _ExplorenowState extends State<Explorenow> {
                                               }
                                             },
                                             child: Stack(
-                                              // area of the popular places images
+                                              // area of the popular places images VIEW ALL POPULAR PLACES
                                               children: [
                                                 Container(
                                                   height: 150.h,

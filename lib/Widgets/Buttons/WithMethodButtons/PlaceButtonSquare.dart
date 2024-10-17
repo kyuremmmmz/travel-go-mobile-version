@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness // The flutter material package for UI
 
-// PLACES, FOODPLACES, FESTIVALS AND EVENTS SQUARE BUTTON AREA
+// PLACES, FOODPLACES, FESTIVALS AND EVENTS SQUARE BUTTON AREA WITH SHADOW BOX
 
 // ignore: must_be_immutable
 class PlaceButtonSquare extends StatefulWidget{
@@ -23,7 +23,6 @@ class _PlaceButtonSquareState extends State<PlaceButtonSquare> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // Adding a Container to hold the decoration and shadow
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(15)), // Rounded corners
         boxShadow: [
@@ -50,12 +49,12 @@ class _PlaceButtonSquareState extends State<PlaceButtonSquare> {
                 child: Padding(
                   padding: const EdgeInsets.all(5),
                   child: Container(
-                    width: 100.w, // Set your desired width here
-                    height: 35.h, // Set your desired height here
+                    width: 100.w, 
+                    height: 35.h, 
                     child: Text(
                       widget.place,
                       style: TextStyle(
-                        fontSize: 12.sp, // Font size (you can adjust this as needed)
+                        fontSize: 12.sp, 
                         color: Colors.white,
                       ),
                       overflow: TextOverflow.ellipsis, // Optional: handle overflow

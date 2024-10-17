@@ -174,7 +174,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           const DismissableFindMoreLocation(),
                           const Categories(),
                           CategorySelect(
-                            label: "Popular Places",
+                            label: "Popular Placezs",
                             oppressed: () =>
                                 AppRoutes.navigateToExploreNowScreen(context),
                           ),
