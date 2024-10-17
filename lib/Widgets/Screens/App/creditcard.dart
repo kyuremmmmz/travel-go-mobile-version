@@ -1,3 +1,5 @@
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
@@ -36,6 +38,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
   final expiryDate = TextEditingController();
   final cvvCode = TextEditingController();
   bool isCvvFocused = false;
+  bool _value = false;
 
   @override
   void dispose() {
@@ -167,6 +170,100 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
                 ),
               ),
             ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              height: 40,
+              width: 300,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.black)),
+              child: Column(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'TOTAL AMOUNT:',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'PHP Placehodler',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: Color.fromRGBO(
+                              5, 103, 180, 1),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Theme(
+              data: ThemeData(
+                checkboxTheme: const CheckboxThemeData(
+                  shape: CircleBorder(),
+                ),
+              ),
+              child: Align(
+                alignment: Alignment.center,
+                child: ListTileTheme(
+                  horizontalTitleGap: 0.0,
+                  child: CheckboxListTile(
+                    activeColor: Colors.green,
+                    title: RichText(
+                      text: TextSpan(children: <TextSpan>[
+                        const TextSpan(
+                          text:
+                              "I have reviewed my transaction details and agree to the ",
+                          style: TextStyle(
+                              fontSize: 12, color: Colors.black),
+                        ),
+                        TextSpan(
+                          text: "Terms of Service.",
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.blue),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => AppRoutes
+                                .navigateToForgotPassword(
+                                    context),
+                        ),
+                      ]),
+                    ),
+                    value: _value,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _value = value ?? false;
+                      });
+                    },
+                    controlAffinity:
+                        ListTileControlAffinity.leading,
+                  ),
+                ),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+              onPressed: _value ? () {print('test');}: null,
+              child: const Text('Continue', style: TextStyle(color: Colors.white),)
+            ), 
           ],
         ),
       ),
