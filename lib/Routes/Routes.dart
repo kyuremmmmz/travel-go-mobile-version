@@ -177,9 +177,22 @@ class AppRoutes {
                 )));
   }
 
-  static void navigateToCreditCard(BuildContext context) {
+  static void navigateToCreditCard(BuildContext context, {
+    required String name,
+    required int phone,
+    required String hotelorplace,
+    required String nameoftheplace,
+    required int price,
+    required int payment,
+  }) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const Creditcard()));
+        context, MaterialPageRoute(builder: (context) =>  Creditcard(
+          name: name, 
+          phone: phone, 
+          hotelorplace: hotelorplace, 
+          nameoftheplace: nameoftheplace, 
+          price: price, 
+          payment: payment,)));
   }
 
   static void navigateToNotPaid(BuildContext context) {

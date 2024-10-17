@@ -140,7 +140,6 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             title: const Text('Test'),
             onTap: () {
               Navigator.pop(context);
-              AppRoutes.navigateToCreditCard(context);
             },
           ),
         ],
