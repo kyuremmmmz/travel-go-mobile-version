@@ -79,7 +79,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
               obscureInitialCardNumber: false,
               obscureCardCvv: true,
               cardType: CardType.mastercard,
-              isHolderNameVisible: false,
+              isHolderNameVisible: true,
               height: 175,
               textStyle: const TextStyle(
                   color: Colors.black, fontWeight: FontWeight.bold),
