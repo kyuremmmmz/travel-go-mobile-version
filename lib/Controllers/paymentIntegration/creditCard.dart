@@ -17,7 +17,7 @@ class CreditcardBackend {
       'pay_via': 'Credit card',
     });
     await supabase.from('hotel_booking').update({
-      'payment_status': 'Paid',
+      'paymet_status': 'Paid',
     });
     if (response) {
       return response;
