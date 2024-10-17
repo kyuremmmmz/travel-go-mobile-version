@@ -108,7 +108,6 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     });
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -282,16 +281,16 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                   child: Column(
                                     children: [
                                       Container(
-                                          padding: const EdgeInsets.only(
-                                              left: 30, right: 30),
-                                          child: Text(
-                                              text ?? 'No data available',
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
+                                        padding: const EdgeInsets.only(
+                                            left: 30, right: 30),
+                                        child: Text(
+                                          text ?? 'No data available',
+                                          style: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                       Row(
                                         children: [
                                           const SizedBox(
@@ -303,7 +302,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                           ),
                                           GestureDetector(
                                             onTap: () {
-                                              AppRoutes.navigateToTesting(
+                                              AppRoutes.navigateToHotelMapPage(
                                                   context,
                                                   name: '$located',
                                                   id: widget.id);
@@ -419,7 +418,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                       const SizedBox(
                                         height: 30,
                                       ),
-                                                                                  Column(
+                                      Column(
                                         children: [
                                           Row(children: [
                                             Container(

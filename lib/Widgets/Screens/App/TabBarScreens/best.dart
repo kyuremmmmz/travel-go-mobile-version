@@ -40,7 +40,7 @@ class _BestState extends State<Best> {
           return Center(
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               const SizedBox(
-                height: 50,
+                height: 30,
               ),
               const Row(
                 children: [

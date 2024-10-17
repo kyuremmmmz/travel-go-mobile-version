@@ -66,7 +66,6 @@ class _TitleMenuState extends State<TitleMenu> {
                     "Northwestern part of Luzon Island, Philippines",
                     style: TextStyle(fontSize: 11.sp),
                   ),
-                  SizedBox(height: 40.h), // bottom padding for text
                 ],
               ),
             ],
