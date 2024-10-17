@@ -91,7 +91,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
     await CreditcardBackend().payViaCredit(
       widget.price,
       widget.price,
-      widget.hotelorplace,
+      widget.nameoftheplace,
       widget.name,
       widget.phone,
     );
