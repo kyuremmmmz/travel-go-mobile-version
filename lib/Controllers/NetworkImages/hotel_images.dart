@@ -14,7 +14,7 @@ class HotelImages {
           .from('hotels')
           .select('*')
           .limit(1000)
-          .order('hotel_ratings', ascending: true);
+          .order('id', ascending: true);
       if (response.isEmpty) {
         debugPrint('no hotels found');
         return [];
