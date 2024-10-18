@@ -1,4 +1,5 @@
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/Booking/BookingSection.dart';
 import 'package:flutter/material.dart';
 
 class Bookinghistory extends StatefulWidget {
@@ -53,13 +54,7 @@ class _BookinghistoryState extends State<Bookinghistory> {
               const SizedBox(
                 height: 30,
               ),
-              Card(
-                child: Container(
-                  height: 220,
-                  width: 350,
-                  color: const Color.fromARGB(255, 181, 231, 247),
-                  ),
-                )
+              BookingSection(),
               ],
             ),
           ),
