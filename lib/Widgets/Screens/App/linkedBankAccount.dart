@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:TravelGo/Controllers/paymentIntegration/creditCard.dart';
-import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
