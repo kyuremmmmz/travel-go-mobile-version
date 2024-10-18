@@ -28,6 +28,7 @@ class _BookingSectionState extends State<BookingSection> {
       located = response!['hotel_located'];
       return response;
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error: $e')));
       return null;
@@ -43,6 +44,7 @@ class _BookingSectionState extends State<BookingSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: null,
       width: 330,
       height: 280,
       child: list.isEmpty
@@ -72,7 +74,7 @@ class _BookingSectionState extends State<BookingSection> {
                         child: Stack(
                           children: [
                             Positioned(
-                              top: 1,
+                              top: 40,
                               child: Container(
                                 padding:
                                     const EdgeInsets.only(top: 35, left: 15),
