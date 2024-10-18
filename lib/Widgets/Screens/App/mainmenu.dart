@@ -196,11 +196,19 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                     const SizedBox(
                                       width: 100,
                                       height: 100,
+                                    ),
+                                    const SizedBox(
+                                      width: 100,
+                                      height: 100,
                                       child: Center(
                                         child: Center(
                                           child: CircularProgressIndicator(),
                                         ),
                                       ),
+                                    ),
+                                    const SizedBox(
+                                      width: 100,
+                                      height: 100,
                                     ),
                                   ]
                                 : place.map((place) {
