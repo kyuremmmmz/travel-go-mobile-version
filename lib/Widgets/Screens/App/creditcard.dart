@@ -309,6 +309,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
                 onPressed: _value
                     ? () {
                         creditCard();
+                        print(widget.phone);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
