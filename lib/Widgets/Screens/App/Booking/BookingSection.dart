@@ -67,8 +67,7 @@ class _BookingSectionState extends State<BookingSection> {
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      final located =
-                          snapshot.data!['hotel_located'] ?? 'Unknown location';
+                      final located = snapshot.data!['hotel_located'] ?? 'Unknown location';
                       return SizedBox(
                         height: 280,
                         child: Stack(
@@ -136,7 +135,7 @@ class _BookingSectionState extends State<BookingSection> {
                                               child: Text(
                                                 'PHP $priceFormatted',
                                                 textAlign: TextAlign.center,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.bold,

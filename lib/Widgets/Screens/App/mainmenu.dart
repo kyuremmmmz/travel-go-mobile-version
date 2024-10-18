@@ -51,7 +51,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   List<Map<String, dynamic>> datass = [];
   late FestivalsImages festivals = FestivalsImages();
   List<Map<String, dynamic>> dataOfFestivals = [];
-
+  bool isLoading = false;
   // Method to fetch user email
   Future<void> emailFetching() async {
     try {
@@ -76,23 +76,33 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
 // Method to fetch images and place names
   Future<void> fetchImage() async {
-    final datas =
-        await data.fetchImageandText(); // fetching images and text data
     setState(() {
-      place = datas.map(
-        // mapping the data to a new format
-        (place) {
-          if (place['place_name'] != null &&
-              place['place_name'].toString().length > 18) {
-            //limiting place name
-            place['place_name'] = place['place_name']
-                .toString()
-                .substring(0, 18); // trimming place name
-          }
-          return place;
-        },
-      ).toList();
+      isLoading = true;
     });
+    try {
+      final datas = await data.fetchImageandText();
+      if (datas.isNotEmpty) {
+        setState(() {
+          place = datas.map(
+            (place) {
+              if (place['place_name'] != null &&
+                  place['place_name'].toString().length > 18) {
+                place['place_name'] = place['place_name']
+                    .toString()
+                    .substring(0, 18);
+              }
+              return place;
+            },
+          ).toList();
+        });
+      }
+    } catch (e) {
+      print('Error: $e');
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   Future<List<Map<String, dynamic>>?> fetchFoods(BuildContext context) async {
@@ -139,6 +149,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     fetchImage(); // fetching the images on initialization
     fetchFoods(context); // fetching food areas on initialization
     fetchFestivals(context); // Fetching festivals on initialization
+    isLoading = true;
   }
 
   @override
@@ -179,20 +190,37 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                 AppRoutes.navigateToExploreNowScreen(context),
                           ),
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: place.map((place) {
-                                final id = place['id'];
-                                return PlaceButtonSquare(
-                                    place: place['place_name'],
-                                    image: Image.network(place['image']).image,
-                                    oppressed: () {
-                                      Navigator.push(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: isLoading
+                                ? [
+                                    const SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                      child: Center(
+                                        child: Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                                : place.map((place) {
+                                    final id = place['id'];
+                                    return PlaceButtonSquare(
+                                      place: place['place_name'],
+                                      image:
+                                          Image.network(place['image']).image,
+                                      oppressed: () {
+                                        Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  InformationScreen(text: id)));
-                                    });
-                              }).toList()),
+                                            builder: (context) =>
+                                                InformationScreen(text: id),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }).toList(),
+                          ),
                           CategorySelect(
                             label: "Food Places",
                             oppressed: () => print('Food Places clicked'),
