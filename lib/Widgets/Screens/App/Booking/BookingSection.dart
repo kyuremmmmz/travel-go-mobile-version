@@ -15,7 +15,7 @@ class _BookingSectionState extends State<BookingSection> {
   String? checkOut;
   String? roomType;
   String? hotels;
-  Bookinghistory bookings = Bookinghistory();
+  BookinghistoryBackend bookings = BookinghistoryBackend();
   List<Map<String, dynamic>> list = [];
 
   Future<void> getTheBooking() async {
@@ -44,7 +44,7 @@ class _BookingSectionState extends State<BookingSection> {
                   child: Text('No Booking History'),
                 );
               } else {
-                return Column(
+                return Stack(
                   children: [
                     Positioned(
                         bottom: 8,
@@ -121,7 +121,7 @@ class _BookingSectionState extends State<BookingSection> {
                                 height: 30,
                               ),
                               Text(
-                                'The Monarch Hotel',
+                                '${items['hotel']}',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -162,6 +162,7 @@ class _BookingSectionState extends State<BookingSection> {
                         )),
                     Positioned(
                       top: 0,
+                      left: 125,
                       child: Container(
                         padding: const EdgeInsets.all(15),
                         height: 75,

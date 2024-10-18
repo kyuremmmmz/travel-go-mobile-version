@@ -35,7 +35,7 @@ class _BookinghistoryState extends State<Bookinghistory> {
         ),
       ),
       endDrawer: const DrawerMenuWidget(),
-      body: SafeArea(
+      body: const SafeArea(
         child: SingleChildScrollView(
           child: Center(
           child: Column(

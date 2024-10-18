@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class Bookinghistory {
+class BookinghistoryBackend {
   final supabase = Supabase.instance.client;
 
   Future<PostgrestResponse<dynamic>?> insertBooking(
@@ -64,9 +64,11 @@ class Bookinghistory {
   Future<List<Map<String, dynamic>>> getBookingHistory() async {
     try {
       final user = supabase.auth.currentUser;
-      final response =
-          supabase.from('booking_history').select('*').eq('id', user!.id);
-      if (response.toString().isNotEmpty) {
+      final response = await supabase
+          .from('booking_history')
+          .select('*')
+          .eq('booking_id', user!.id);
+      if (response.isNotEmpty) {
         final data = response;
         final List<Map<String, dynamic>> dataList =
             List<Map<String, dynamic>>.from(data as List);
@@ -91,6 +93,7 @@ class Bookinghistory {
         return [];
       }
     } catch (e) {
+      print(e);
       return [];
     }
   }

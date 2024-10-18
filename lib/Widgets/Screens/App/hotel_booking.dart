@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
+import 'package:TravelGo/Controllers/NetworkImages/bookingHistory.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
@@ -862,6 +863,40 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                                 .text
                                                                 .trim() ==
                                                             "Pay Online") {
+                                                              BookinghistoryBackend()
+                                                          .insertBooking(
+                                                        _nameController.text
+                                                            .trim(),
+                                                        _emailController.text
+                                                            .trim(),
+                                                        int.parse(
+                                                            _numberController
+                                                                .text
+                                                                .trim()),
+                                                        _hotel.text.trim(),
+                                                        _checkInController.text
+                                                            .trim(),
+                                                        _checkOutController.text
+                                                            .trim(),
+                                                        _paymentMethodController
+                                                            .text
+                                                            .trim(),
+                                                        _isWaiting
+                                                            ? "Not Paid"
+                                                            : "Paid",
+                                                        int.parse(
+                                                            _number_of_adult
+                                                                .text
+                                                                .trim()),
+                                                        int.parse(
+                                                            _number_of_children
+                                                                .text
+                                                                .trim()),
+                                                        _vehicleTypeController
+                                                            .text
+                                                            .trim(),
+                                                        amount,
+                                                      );
                                                       HotelBooking()
                                                           .insertBooking(
                                                         _nameController.text
