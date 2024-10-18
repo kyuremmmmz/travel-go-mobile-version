@@ -47,14 +47,10 @@ class BookinghistoryBackend {
           .select('hotel_located')
           .eq('hotel_name', hotel)
           .single();
-      if (response.isNotEmpty) {
-        final location = response;
-        final located = location['hotel_located'];
-        location['hotel_located'] = located;
-        return location;
-      } else {
-        return null;
-      }
+      final data = response;
+      var locate = data['hotel_located'];
+      data['hotel_located'] = locate;
+      return data;
     } catch (e) {
       SnackBar(content: Text('error: $e'));
       return null;
