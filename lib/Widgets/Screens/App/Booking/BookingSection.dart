@@ -67,138 +67,146 @@ class _BookingSectionState extends State<BookingSection> {
                     } else {
                       final located =
                           snapshot.data!['hotel_located'] ?? 'Unknown location';
-                      return Stack(
-                        children: [
-                          Positioned(
-                            top: 500,
-                            child: Container(
-                              padding: const EdgeInsets.only(top: 35, left: 15),
-                              width: 330,
-                              height: 230,
-                              decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromRGBO(241, 252, 255, 100),
-                                  border: Border.all(
-                                      color: const Color.fromRGBO(
-                                          176, 234, 253, 100))),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      const Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            '13th',
-                                            style: TextStyle(fontSize: 19),
-                                          ),
-                                          Text(
-                                            'October, 2024. Wednesday',
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              color: Colors.blue,
+                      return SizedBox(
+                        height: 280,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              top: 1,
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.only(top: 35, left: 15),
+                                width: 330,
+                                height: 230,
+                                decoration: BoxDecoration(
+                                    color: const Color.fromRGBO(
+                                        241, 252, 255, 100),
+                                    border: Border.all(
+                                        color: const Color.fromRGBO(
+                                            176, 234, 253, 100))),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        const Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '13th',
+                                              style: TextStyle(fontSize: 19),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          ClipPath(
-                                            clipper: LeftPointClipper(),
-                                            child: Container(
-                                              width: 30,
-                                              height: 50,
-                                              decoration: const BoxDecoration(
-                                                color: Color.fromRGBO(
-                                                    68, 202, 249, 100),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            padding:
-                                                const EdgeInsets.only(right: 5),
-                                            alignment: Alignment.center,
-                                            width: 100,
-                                            height: 50,
-                                            color: const Color.fromRGBO(
-                                                68, 202, 249, 100),
-                                            child: Text(
-                                              'PHP $priceFormatted',
-                                              textAlign: TextAlign.center,
+                                            Text(
+                                              'October, 2024. Wednesday',
                                               style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
+                                                fontSize: 11,
+                                                color: Colors.blue,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            ClipPath(
+                                              clipper: LeftPointClipper(),
+                                              child: Container(
+                                                width: 30,
+                                                height: 50,
+                                                decoration: const BoxDecoration(
+                                                  color: Color.fromRGBO(
+                                                      68, 202, 249, 100),
+                                                ),
                                               ),
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(height: 30),
-                                  Text(
-                                    '${item['hotel']}',
-                                    style: const  TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
+                                            Container(
+                                              padding: const EdgeInsets.only(
+                                                  right: 5),
+                                              alignment: Alignment.center,
+                                              width: 100,
+                                              height: 50,
+                                              color: const Color.fromRGBO(
+                                                  68, 202, 249, 100),
+                                              child: Text(
+                                                'PHP $priceFormatted',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                  Text(
-                                    'October 12, 2024, 9:00 AM',
-                                    style: TextStyle(
-                                        fontSize: 11, color: Colors.blue),
-                                  ),
-                                  Text(
-                                    '$located',
-                                    style: const TextStyle(
-                                      fontSize: 11,
+                                    const SizedBox(height: 30),
+                                    Text(
+                                      '${item['hotel']}',
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Container(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: InkWell(
-                                        onTap: () {
-                                          print('hello');
-                                        },
-                                        child: const Text(
-                                          'BOOK AGAIN',
-                                          style: TextStyle(color: Colors.blue),
+                                    Text(
+                                      'October 12, 2024, 9:00 AM',
+                                      style: TextStyle(
+                                          fontSize: 11, color: Colors.blue),
+                                    ),
+                                    Text(
+                                      '$located',
+                                      style: const TextStyle(
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Container(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: InkWell(
+                                          onTap: () {
+                                            print('hello');
+                                          },
+                                          child: const Text(
+                                            'BOOK AGAIN',
+                                            style:
+                                                TextStyle(color: Colors.blue),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Positioned(
-                            top: 0,
-                            left: 125,
-                            child: Container(
-                              padding: const EdgeInsets.all(15),
-                              height: 75,
-                              width: 75,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color:
-                                      const Color.fromARGB(255, 225, 242, 250),
-                                  border: Border.all(
-                                      color:
-                                          Color.fromRGBO(176, 234, 253, 100))),
-                              child:
-                                  Image.asset("assets/images/icon/plane.png"),
+                            Positioned(
+                              top: 0,
+                              left: 125,
+                              child: Container(
+                                padding: const EdgeInsets.all(15),
+                                height: 75,
+                                width: 75,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: const Color.fromARGB(
+                                        255, 225, 242, 250),
+                                    border: Border.all(
+                                        color: const Color.fromRGBO(
+                                            176, 234, 253, 100
+                                            )
+                                          )
+                                        ),
+                                child: Image.asset("assets/images/icon/plane.png"),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     }
                   },
