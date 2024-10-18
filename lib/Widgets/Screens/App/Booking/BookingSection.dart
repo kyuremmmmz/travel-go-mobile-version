@@ -61,9 +61,7 @@ class _BookingSectionState extends State<BookingSection> {
                 String? checkIn = item['checkout'];
                 String? checkOut = item['checkin'];
                 String formattedCheckInDate = 'No check-in date available';
-                String formattedNextDate = 'No next date available';
                 String formattedCheckOutDate = 'No check-out date available';
-                String formattedCheckOuutDate = 'No check-out date available';
                 String formattedNexttDate = 'No nextt date available';
                 if (checkIn != null) {
                   try {
@@ -90,10 +88,6 @@ class _BookingSectionState extends State<BookingSection> {
                     final date = DateTime.parse(cleanedCheckOut);
                     formattedCheckOutDate =
                         DateFormat('dd').format(date);
-
-                    final nextDate = date.add(const Duration(days: 1));
-                    formattedNextDate = DateFormat('d')
-                        .format(nextDate); 
                   } catch (e) {
                     formattedCheckOutDate = 'Invalid date format: $e';
                   }
@@ -106,14 +100,12 @@ class _BookingSectionState extends State<BookingSection> {
                         .replaceAll(
                             RegExp(r'\.\d+'), ''); 
                     final date = DateTime.parse(cleanedCheckOut);
-                    formattedCheckOuutDate = DateFormat('dd')
-                        .format(date); 
 
                     final nextDate = date.add(const Duration(days: 0));
                     formattedNexttDate = DateFormat('MMMM yyyy, EEEE')
                         .format(nextDate); 
                   } catch (e) {
-                    formattedCheckOuutDate = 'Invalid date format: $e';
+                    formattedCheckOutDate = 'Invalid date format: $e';
                   }
                 }
 
