@@ -54,7 +54,15 @@ class _BookinghistoryState extends State<Bookinghistory> {
               const SizedBox(
                 height: 30,
               ),
-              BookingSection(),
+              BookingSection(
+                departureDay: '11th',
+                departureDate: 'October, 2024, Monday',
+                checkedInDate: 'October 12, 2024, 9:00 AM',
+                price: 999900,
+                locationName: 'The Monarch Hotel',
+                locationAddress: 'Calasiao, Pangasinan, Philippines',
+                oppressed: () => print('test'),
+                ),
               ],
             ),
           ),

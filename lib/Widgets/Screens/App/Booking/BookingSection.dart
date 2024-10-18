@@ -1,14 +1,32 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BookingSection extends StatefulWidget {
-  const BookingSection({super.key});
+  final String departureDay;
+  final String departureDate;
+  final String checkedInDate;
+  final int price;
+  final String locationName;
+  final String locationAddress;
+  final VoidCallback oppressed;
+  const BookingSection({
+    super.key,
+    required this.departureDay,
+    required this.departureDate,
+    required this.checkedInDate,
+    required this.price,
+    required this.locationName,
+    required this.locationAddress,
+    required this.oppressed,
+    });
 
   @override
   State<BookingSection> createState() => _BookingSectionState();
 }
 
 class _BookingSectionState extends State<BookingSection> {
+  final value = NumberFormat("#,###", "en_US");
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,14 +56,14 @@ class _BookingSectionState extends State<BookingSection> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '13th',
-                            style: TextStyle(
+                            widget.departureDay,
+                            style: const TextStyle(
                               fontSize: 19
                             ),
                           ),
                           Text(
-                            'October, 2024. Wednesday',
-                            style: TextStyle(
+                            widget.departureDate,
+                            style: const TextStyle(
                               fontSize: 11,
                               color: Colors.blue,
                             ),
@@ -71,9 +89,9 @@ class _BookingSectionState extends State<BookingSection> {
                             height: 50,
                             color: const Color.fromRGBO(68,202,249, 100),
                             child: Text(
-                              'PHP 999,000',
+                              'PHP ${value.format(widget.price)}',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -88,22 +106,22 @@ class _BookingSectionState extends State<BookingSection> {
                     height: 30,
                   ),
                   Text(
-                    'The Monarch Hotel',
-                    style: TextStyle(
+                    widget.locationName,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    'October 12, 2024, 9:00 AM',
-                    style: TextStyle(
+                    widget.checkedInDate,
+                    style: const TextStyle(
                       fontSize: 11,
                       color: Colors.blue
                     ),
                   ),
                   Text(
-                    'Calasiao, Pangasinan, Philippines',
-                    style: TextStyle(
+                    widget.locationAddress,
+                    style: const TextStyle(
                       fontSize: 11,
                     ),
                   ),
@@ -115,8 +133,8 @@ class _BookingSectionState extends State<BookingSection> {
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: InkWell(
-                        onTap: () {print('hello');},
-                        child: Text(
+                        onTap: widget.oppressed,
+                        child: const Text(
                           'BOOK AGAIN',
                           style: TextStyle(
                             color: Colors.blue,
@@ -138,7 +156,7 @@ class _BookingSectionState extends State<BookingSection> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle, 
                 color: const Color.fromARGB(255, 225, 242, 250),
-                border: Border.all(color: Color.fromRGBO(176,234,253, 100)) 
+                border: Border.all(color: const Color.fromRGBO(176,234,253, 100)) 
               ),
               child: Image.asset("assets/images/icon/plane.png"),
             ),
