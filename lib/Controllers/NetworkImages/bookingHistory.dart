@@ -21,6 +21,24 @@ class BookinghistoryBackend {
     try {
       if (age < 18) {
         throw Exception("Age must be between 18 and older");
+      }else{
+        final user = supabase.auth.currentUser;
+        final response = await supabase.from('booking_history').insert({
+          'name': fullname,
+          'gmail': emailAddress,
+          'phone': phoneNumber,
+          'price': price,
+          'paymet_status': paymentStatus,
+          'hotel': hotel,
+          'booking_id': user!.id,
+          'checkin': checkIn,
+          'checkout': checkOut,
+          'number_of_adults': numberOfAdult,
+          'number_of_children': numberOfChildren,
+          'room_type': room,
+          'age': age,
+        });
+        return response;
       }
     } catch (e) {
       SnackBar(content: Text('error: $e'));

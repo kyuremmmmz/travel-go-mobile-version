@@ -896,7 +896,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                             .trim(),
                                                         int.parse(_age.text.trim()),
                                                         amount,
-                                                        
                                                       );
                                                       HotelBooking()
                                                           .insertBooking(
