@@ -139,20 +139,36 @@ class _InformationScreenState extends State<InformationScreen> {
   }
 
   Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
-    final data = await rating.fetchComments(widget.text, 'places');
-    final totalRatings = await rating.fetchRatingsAsSum();
-    final img = await users.fetchUser();
-    final images = img[0]['full_name'];
-    final imgUrl = await users.fetchImageForComments(images);
-    final records = data.length;
-    final count = totalRatings / records;
-    setState(() {
-      list = data;
-      ratingsTotal = count;
-      userRatings = records;
-      commentImg = imgUrl;
-    });
+    try {
+      final data = await rating.fetchComments(widget.text, 'places');
+      final totalRatings = await rating.fetchRatingsAsSum();
+      final img = await users.fetchUser();
+      final images = img[0]['full_name'];
+      final imgUrl = await users.fetchImageForComments(images);
+      final records = data.length;
+
+      if (records > 0) {
+        final count = totalRatings / records;
+        final validCount = count > 5.0 ? 5.0 : count;
+
+        setState(() {
+          list = data;
+          ratingsTotal = validCount;
+          userRatings = records;
+          commentImg = imgUrl;
+        });
+      } else {
+        setState(() {
+          ratingsTotal = 0;
+          userRatings = 0;
+          commentImg = imgUrl;
+        });
+      }
+    } catch (e) {
+      print('Error fetching ratings: $e');
+    }
   }
+
 
   @override
   void dispose() {
