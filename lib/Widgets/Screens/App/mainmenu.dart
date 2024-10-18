@@ -269,9 +269,15 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   FestivalsAboutScreen(
-                                                      id: id)));
-                                    });
-                              }).toList()),
+                                                      id: id
+                                                    )
+                                                  )
+                                                );
+                                              }
+                                            );
+                                          }
+                                        ).toList()
+                                      ),
                           SizedBox(height: 10.h),
                         ],
                       ),
