@@ -109,6 +109,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
     var cardHolderKey;
     var cardNumberKey;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Credit Card'),
       ),

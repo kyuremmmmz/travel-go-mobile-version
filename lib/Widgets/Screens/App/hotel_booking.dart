@@ -180,7 +180,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     final picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
+        firstDate: DateTime.now(),
         lastDate: DateTime(21000));
     if (picked != null) {
       setState(() {
@@ -190,10 +190,12 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   }
 
   Future<void> checkout() async {
+    final checkIndate = await DateTime.parse(_checkInController.text);
     final picked = await showDatePicker(
+        // ignore: use_build_context_synchronously
         context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
+        initialDate: checkIndate,
+        firstDate: checkIndate,
         lastDate: DateTime(21000));
     if (picked != null) {
       setState(() {
