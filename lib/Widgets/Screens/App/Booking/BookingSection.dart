@@ -58,6 +58,63 @@ class _BookingSectionState extends State<BookingSection> {
                 final price = NumberFormat('#,###');
                 final priceFormatted = price.format(item['price']);
                 final hotel = item['hotel'];
+                String? checkIn = item['checkout'];
+                String? checkOut = item['checkin'];
+                String formattedCheckInDate = 'No check-in date available';
+                String formattedNextDate = 'No next date available';
+                String formattedCheckOutDate = 'No check-out date available';
+                String formattedNexttDate = 'No nextt date available';
+                if (checkIn != null) {
+                  try {
+                    String cleanedCheckIn = checkIn
+                        .replaceAll(
+                            '-', '-') 
+                        .replaceAll('T', ' ')
+                        .replaceAll(
+                            RegExp(r'\.\d+'), '');
+                    final date = DateTime.parse(cleanedCheckIn);
+                    formattedCheckInDate =
+                        DateFormat('MMMM dd, yyyy, h:mm a').format(date);
+                  } catch (e) {
+                    formattedCheckInDate = 'Invalid date format: $e';
+                  }
+                }
+
+                if (checkOut != null) {
+                  try {
+                    String cleanedCheckOut = checkOut
+                        .replaceAll('T', ' ')
+                        .replaceAll(
+                            RegExp(r'\.\d+'), '');
+                    final date = DateTime.parse(cleanedCheckOut);
+                    formattedCheckOutDate =
+                        DateFormat('MMMM dd, yyyy, h:mm a').format(date);
+
+                    final nextDate = date.add(const Duration(days: 1));
+                    formattedNextDate = DateFormat('d')
+                        .format(nextDate); 
+                  } catch (e) {
+                    formattedCheckOutDate = 'Invalid date format: $e';
+                  }
+                }
+
+                if (checkOut != null) {
+                  try {
+                    String cleanedCheckOut = checkOut
+                        .replaceAll('T', ' ')
+                        .replaceAll(
+                            RegExp(r'\.\d+'), ''); 
+                    final date = DateTime.parse(cleanedCheckOut);
+                    formattedCheckOutDate = DateFormat('MMMM yyyy,EEEE')
+                        .format(date); 
+
+                    final nextDate = date.add(const Duration(days: 1));
+                    formattedNexttDate = DateFormat('MMMM yyyy, EEEE')
+                        .format(nextDate); 
+                  } catch (e) {
+                    formattedCheckOutDate = 'Invalid date format: $e';
+                  }
+                }
 
                 return FutureBuilder<PostgrestMap?>(
                   future: getPlace(hotel),
@@ -94,16 +151,16 @@ class _BookingSectionState extends State<BookingSection> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        const Column(
+                                        Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              '13th',
+                                              '${formattedNextDate}th',
                                               style: TextStyle(fontSize: 19),
                                             ),
                                             Text(
-                                              'October, 2024. Wednesday',
+                                              formattedNexttDate,
                                               style: TextStyle(
                                                 fontSize: 11,
                                                 color: Colors.blue,
@@ -155,7 +212,7 @@ class _BookingSectionState extends State<BookingSection> {
                                       ),
                                     ),
                                     Text(
-                                      'October 12, 2024, 9:00 AM',
+                                      formattedCheckInDate,
                                       style: TextStyle(
                                           fontSize: 11, color: Colors.blue),
                                     ),
