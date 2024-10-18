@@ -491,11 +491,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               controller: _age,
                               icon: const Icon(FontAwesomeIcons.personCane),
                               validator: (value) {
-                                value = int.tryParse(value);
                                 if (value == null || value.toString().isEmpty) {
-                                  return 'Please enter your age';
-                                } else if (value <= (18)) {
-                                  return "You aren't legal age";
+                                  return 'Enter your age';
+                                } else if (int.parse(value) <= 17) {
+                                  return 'You are $value you must be 18 years old to book';
                                 }
                                 return null;
                               },
@@ -895,7 +894,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                         _vehicleTypeController
                                                             .text
                                                             .trim(),
+                                                        int.parse(_age.text.trim()),
                                                         amount,
+                                                        
                                                       );
                                                       HotelBooking()
                                                           .insertBooking(
@@ -929,7 +930,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                         _vehicleTypeController
                                                             .text
                                                             .trim(),
-                                                        amount,
+                                                            amount,
+                                                        int.parse(_age.text
+                                                              .trim()),
+                                                        
                                                       );
                                                       AppRoutes
                                                           .navigateToLinkedBankAccount(
@@ -948,7 +952,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                         price: amount,
                                                         payment: amount,
                                                         hotelorplace:
-                                                            _hotel.text,
+                                                            _hotel.text, 
+                                                        age: int.parse(_age.text.trim()),
                                                       );
                                                     } else {
                                                       print('nigga');

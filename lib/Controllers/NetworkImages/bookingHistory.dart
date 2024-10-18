@@ -16,24 +16,12 @@ class BookinghistoryBackend {
       int numberOfAdult,
       int numberOfChildren,
       String room,
+      int age,
       var price) async {
     try {
-      final user = supabase.auth.currentUser;
-      final response = await supabase.from('booking_history').insert({
-        'name': fullname,
-        'gmail': emailAddress,
-        'phone': phoneNumber,
-        'price': price,
-        'paymet_status': paymentStatus,
-        'hotel': hotel,
-        'booking_id': user!.id,
-        'checkin': checkIn,
-        'checkout': checkOut,
-        'number_of_adults': numberOfAdult,
-        'number_of_children': numberOfChildren,
-        'room_type': room
-      });
-      return response;
+      if (age < 18) {
+        throw Exception("Age must be between 18 and older");
+      }
     } catch (e) {
       SnackBar(content: Text('error: $e'));
     }
