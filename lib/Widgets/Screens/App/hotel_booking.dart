@@ -1,17 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
+import 'package:TravelGo/Widgets/Textfield/inputTextField.dart';
+import 'package:TravelGo/Widgets/Textfield/phoneNumber.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
-import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
-import 'package:TravelGo/Routes/Routes.dart';
-import 'package:TravelGo/Widgets/Textfield/inputTextField.dart';
-import 'package:TravelGo/Widgets/Textfield/phoneNumber.dart';
 
 class HotelBookingArea extends StatelessWidget {
   final int id;
@@ -190,7 +189,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   }
 
   Future<void> checkout() async {
-    final checkIndate = await DateTime.parse(_checkInController.text);
+    final checkIndate = DateTime.now();
     final picked = await showDatePicker(
         // ignore: use_build_context_synchronously
         context: context,
