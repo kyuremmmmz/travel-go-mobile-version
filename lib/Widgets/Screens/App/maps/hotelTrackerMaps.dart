@@ -651,8 +651,8 @@ class _HotelMapPageState extends State<HotelMapPage> {
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: 500,
-                width: 400,
+                height: MediaQuery.of(context).size.height - 300,
+                width: MediaQuery.of(context).size.width,
                 child: FlutterMap(
                   options: MapOptions(
                     initialCenter: routePoints.isNotEmpty
@@ -685,7 +685,6 @@ class _HotelMapPageState extends State<HotelMapPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 30),
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
