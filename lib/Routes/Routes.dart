@@ -83,26 +83,32 @@ class AppRoutes {
       required int price,
       required int payment,
       required String hotelorplace,
+      required int age,
       String? origin,
       String? destination}) {
-    Navigator.push(
-        route,
-        MaterialPageRoute(
-            builder: (context) => LinkedBankScreen(
-                name: name,
-                phone: phone,
-                nameoftheplace: nameoftheplace,
-                price: price,
-                payment: payment,
-                hotelorplace: hotelorplace,
-                origin: origin,
-                destination: destination)));
-  }
-
-  static void navigateToTesting(BuildContext route,
-      {required String name, required int id}) {
-    Navigator.push(route,
-        MaterialPageRoute(builder: (context) => Mapa(location: name, id: id)));
+    try {
+      if (age < 18) {
+        throw Exception('You must be 18 years old or older');
+      } else {
+        Navigator.push(
+            route,
+            MaterialPageRoute(
+                builder: (context) => LinkedBankScreen(
+                      name: name,
+                      phone: phone,
+                      nameoftheplace: nameoftheplace,
+                      price: price,
+                      payment: payment,
+                      hotelorplace: hotelorplace,
+                      origin: origin,
+                      destination: destination,
+                      age: age,
+                    )));
+      }
+      return;
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 
   static void navigateToHotelMapPage(BuildContext route,
@@ -111,6 +117,12 @@ class AppRoutes {
         route,
         MaterialPageRoute(
             builder: (context) => HotelMapPage(location: name, id: id)));
+  }
+
+  static void navigateToTesting(BuildContext route,
+      {required String name, required int id}) {
+    Navigator.push(route,
+        MaterialPageRoute(builder: (context) => Mapa(location: name, id: id)));
   }
 
   static void navigateToOrderReceipt(
@@ -177,22 +189,25 @@ class AppRoutes {
                 )));
   }
 
-  static void navigateToCreditCard(BuildContext context, {
-    required String name,
-    required int phone,
-    required String hotelorplace,
-    required String nameoftheplace,
-    required int price,
-    required int payment,
-  }) {
+  static void navigateToCreditCard(BuildContext context,
+      {required String name,
+      required int phone,
+      required String hotelorplace,
+      required String nameoftheplace,
+      required int price,
+      required int payment,
+      required int age}) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) =>  Creditcard(
-          name: name, 
-          phone: phone, 
-          hotelorplace: hotelorplace, 
-          nameoftheplace: nameoftheplace, 
-          price: price, 
-          payment: payment,)));
+        context,
+        MaterialPageRoute(
+            builder: (context) => Creditcard(
+                  name: name,
+                  phone: phone,
+                  hotelorplace: hotelorplace,
+                  nameoftheplace: nameoftheplace,
+                  price: price,
+                  payment: payment,
+                )));
   }
 
   static void navigateToNotPaid(BuildContext context) {
