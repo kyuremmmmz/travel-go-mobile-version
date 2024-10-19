@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart'; // Import thr material design widgets
 import 'package:TravelGo/Controllers/Auth/login.dart'; // Import login logic
-import 'package:TravelGo/Widgets/Textfield/passwordField.dart'; // import passowrd widget
 import 'package:TravelGo/Routes/Routes.dart'; // Import routes for navigation
+import 'package:TravelGo/Widgets/Textfield/passwordField.dart'; // import passowrd widget
+import 'package:flutter/material.dart'; // Import thr material design widgets
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+
 import '../../Textfield/plainTextField.dart'; //Import plain text widget
 import './../../Buttons/DefaultButtons/BlueButton.dart'; // Import custom blue button widget
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 void main() async {
   WidgetsFlutterBinding
@@ -63,7 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
             top: -85.w,
             right: -30.h,
             left: -30.h,
-            child: Stack(children: [
+            child: Stack(
+              children: [
               Align(
                 child: Image.asset(
                   'assets/images/Background.png',
@@ -190,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                 const Color.fromARGB(255, 50, 190, 255),
+                                const Color.fromARGB(255, 50, 190, 255),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),

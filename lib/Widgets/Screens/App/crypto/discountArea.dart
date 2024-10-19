@@ -54,6 +54,25 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
     });
   }
 
+  String calculateRemainingTime(String expiryTime) {
+    DateTime expiryDate = DateTime.parse(expiryTime);
+
+    DateTime currentDate = DateTime.now();
+
+    Duration difference = expiryDate.difference(currentDate);
+
+    int remainingHours = difference.inHours;
+    int remainingMinutes = difference.inMinutes.remainder(60);
+
+    if (remainingHours > 0) {
+      return '$remainingHours hours and $remainingMinutes minutes left';
+    } else if (remainingMinutes > 0) {
+      return '$remainingMinutes minutes left';
+    } else {
+      return 'Expired';
+    }
+  }
+
   Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
@@ -215,7 +234,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                             padding: null,
                                             child: Row(
                                               children: [
-                                                Text(
+                                                const Text(
                                                   '56.04',
                                                   style: TextStyle(
                                                     fontSize: 13,
@@ -224,7 +243,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                                 ),
                                                 Text(
                                                   ' as of ${formattedDate}',
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 11,
                                                   ),
                                                 ),
@@ -277,6 +296,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: res.map((items) {
                             final dateNow = DateTime.now();
+                            final date = calculateRemainingTime(items['expiry']);
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
@@ -291,10 +311,10 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                 const SizedBox(height: 30),
                                 VoucherButton(
                                     voucherTitle:
-                                        'Enjoy up to ${items['discount']}% off at The Monarch Hotel!',
+                                        'Enjoy up to ${items['discount']}% off at ${items['hotelName']}!',
                                     description:
                                         'Book now and experience luxury at a discounted rate',
-                                    expiring: '8 hours left',
+                                    expiring: date,
                                     image: items['ishotel'] == true
                                         ? const AssetImage(
                                             'assets/images/icon/hotel.png')
