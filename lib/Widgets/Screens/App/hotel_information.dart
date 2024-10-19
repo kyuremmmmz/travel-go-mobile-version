@@ -63,6 +63,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
   int ratings = 0;
   String? commentImg;
   StreamSubscription? sub;
+  StreamSubscription? supa;
   List<Map<String, dynamic>> list = [];
   List vouchersList = [];
   late RatingsAndComments rating = RatingsAndComments();
@@ -139,7 +140,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     fetchSpecificData(widget.text);
     fetchWithoutFunct();
     _realTimeFetch();
-    fetchDiscounts('${widget.name}');
+    fetchDiscountReal();
     print(widget.name);
     _isRedirecting = true;
   }
@@ -221,7 +222,14 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     }
   }
 
-  Future<void> fetchDiscounts(String name) async {
+  Future<void> fetchDiscountReal() async {
+    supa = supabase.from('discounts').stream(primaryKey: ['id']).listen(
+        (List<Map<String, dynamic>> comment) async {
+      await fetchDiscounts(comment);
+    });
+  }
+
+  Future<void> fetchDiscounts(List<Map<String, dynamic>> name) async {
     final data = await vouchers.getTheDiscountsAsListOfLike(name);
     setState(() {
       vouchersList = data;
@@ -798,7 +806,6 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                   int.tryParse(
                                                           cleanedPriceString) ??
                                                       0;
-
                                               int discountPercentage =
                                                   item['discount'];
                                               int discountAmount = (priceValue *
@@ -813,6 +820,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                               setState(() {
                                                 price = formattedPrice;
                                               });
+                                              vouchers
+                                                  .deleteDiscount(item['id']);
                                             },
                                             child: Container(
                                               width: 200,
