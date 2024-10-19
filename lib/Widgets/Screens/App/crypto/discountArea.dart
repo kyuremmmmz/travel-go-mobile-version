@@ -295,7 +295,6 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: res.map((items) {
-                            final dateNow = DateTime.now();
                             final date = calculateRemainingTime(items['expiry']);
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
