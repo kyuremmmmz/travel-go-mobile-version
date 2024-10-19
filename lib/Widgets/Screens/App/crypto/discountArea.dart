@@ -163,7 +163,9 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                 children: [
                                   CircleAvatar(
                                     radius: 30,
-                                    backgroundImage: NetworkImage('$img'),
+                                    backgroundImage: img == null ? 
+                                    const AssetImage('assets/images/icon/food_place.png') 
+                                    : NetworkImage('$img'),
                                   ),
                                 ],
                               ),

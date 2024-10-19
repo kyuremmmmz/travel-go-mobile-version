@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
@@ -60,8 +61,10 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
   String? commentImg;
   StreamSubscription? sub;
   List<Map<String, dynamic>> list = [];
+  List vouchersList = [];
   late RatingsAndComments rating = RatingsAndComments();
   bool _isRedirecting = false;
+  final vouchers = Vouchers();
   final supabase = Supabase.instance.client;
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
@@ -133,6 +136,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     fetchSpecificData(widget.text);
     fetchWithoutFunct();
     _realTimeFetch();
+    fetchDiscounts('${widget.name}');
+    print(widget.name);
     _isRedirecting = true;
   }
 
@@ -211,6 +216,14 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
         email = "Error: $e";
       });
     }
+  }
+
+  Future<void> fetchDiscounts(String name) async {
+    final data = await vouchers.getTheDiscountsAsListOfLike(name);
+    setState(() {
+      vouchersList = data;
+      print(data);
+    });
   }
 
   @override
@@ -358,6 +371,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                             height: 20,
                                           ),
                                           Container(
+                                            padding: null,
                                             child: Stack(
                                               children: [
                                                 Container(
@@ -754,6 +768,14 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                           ),
                                         )
                                       ],
+                                    ),
+                                    Row(
+                                      children: vouchersList.map((item) {
+                                        return SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Text('${item['discount']}'),
+                                        );
+                                      }).toList(),
                                     ),
                                     const SizedBox(
                                       height: 30,
