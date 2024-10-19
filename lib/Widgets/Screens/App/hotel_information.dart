@@ -12,17 +12,20 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
+import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelInformationScreen extends StatefulWidget {
   final int text;
   final String? name;
   final int id;
+  final String? price;
   const HotelInformationScreen({
     super.key,
     required this.text,
     this.name,
     required this.id,
+    this.price,
   });
 
   @override
@@ -368,72 +371,74 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                     SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: Row(
-                                        children: imageUrlForAmenities.entries
-                                            .map((entry) {
-                                      return Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 35,
-                                          ),
-                                          Container(
-                                            padding: null,
-                                            child: Stack(
-                                              children: [
-                                                Container(
-                                                  height: 150,
-                                                  width: 350,
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: NetworkImage(
-                                                          entry.value ?? ''),
-                                                    ),
-                                                    color: Colors.blue,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                      Radius.circular(10),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  bottom: 0,
-                                                  left: 0,
-                                                  right: 0,
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
+                                          children: imageUrlForAmenities.entries
+                                              .map((entry) {
+                                        return Row(
+                                          children: [
+                                            const SizedBox(
+                                              width: 35,
+                                            ),
+                                            Container(
+                                              padding: null,
+                                              child: Stack(
+                                                children: [
+                                                  Container(
+                                                    height: 150,
+                                                    width: 350,
                                                     decoration: BoxDecoration(
-                                                      color: Colors.black
-                                                          .withOpacity(0.12),
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: NetworkImage(
+                                                            entry.value ?? ''),
+                                                      ),
+                                                      color: Colors.blue,
                                                       borderRadius:
                                                           const BorderRadius
-                                                              .only(
-                                                        bottomLeft:
-                                                            Radius.circular(10),
-                                                        bottomRight:
-                                                            Radius.circular(10),
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      amenities[entry.key] ??
-                                                          '',
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                              .all(
+                                                        Radius.circular(10),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Positioned(
+                                                    bottom: 0,
+                                                    left: 0,
+                                                    right: 0,
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black
+                                                            .withOpacity(0.12),
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  10),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        amenities[entry.key] ??
+                                                            '',
+                                                        style: const TextStyle(
+                                                          fontSize: 18,
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          
-                                        ],
-                                      );
-                                    }).toList()),
+                                          ],
+                                        );
+                                      }).toList()),
                                     ),
                                     const SizedBox(
                                       height: 30,
@@ -779,64 +784,92 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                     const SizedBox(
                                       height: 20,
                                     ),
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: vouchersList.map((item) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            print('Coupon tapped: ${item['discount']}%');
-                                          },
-                                          child: Container(
-                                            width: 200,
-                                            margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                                            padding: const EdgeInsets.all(16.0),
-                                            decoration: BoxDecoration(
-                                              color: Colors.teal,
-                                              borderRadius: BorderRadius.circular(12.0),
-                                              boxShadow: const [
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: vouchersList.map((item) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              final cleanedPriceString =
+                                                  price.replaceAll(',', '');
+                                              final int priceValue =
+                                                  int.tryParse(
+                                                          cleanedPriceString) ??
+                                                      0;
+
+                                              int discountPercentage =
+                                                  item['discount'];
+                                              int discountAmount = (priceValue *
+                                                      discountPercentage) ~/
+                                                  100;
+                                              int finalPrice =
+                                                  priceValue - discountAmount;
+                                              final formattedPrice =
+                                                  NumberFormat('#,##0')
+                                                      .format(finalPrice);
+
+                                              setState(() {
+                                                price = formattedPrice;
+                                              });
+                                            },
+                                            child: Container(
+                                              width: 200,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
+                                              decoration: BoxDecoration(
+                                                color: Colors.teal,
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                                boxShadow: const [
                                                   BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(0, 4),
-                                                  blurRadius: 8.0,
-                                                ),
-                                              ],
+                                                    color: Colors.black26,
+                                                    offset: Offset(0, 4),
+                                                    blurRadius: 8.0,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${item['discount']}% OFF',
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 8.0),
+                                                  Text(
+                                                    '${item['hotelName']}',
+                                                    style: const TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 31, 20, 20),
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 12.0),
+                                                  const Text(
+                                                    'Use voucher',
+                                                    style: TextStyle(
+                                                      color: Colors.white70,
+                                                      fontSize: 14,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  '${item['discount']}% OFF',
-                                                  style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 8.0),
-                                                Text(
-                                                  '${item['hotelName']}',
-                                                  style: const TextStyle(
-                                                    color: Color.fromARGB(255, 31, 20, 20),
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 12.0),
-                                                const Text(
-                                                  'Use voucher',
-                                                  style: TextStyle(
-                                                    color: Colors.white70,
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      }).toList(),
+                                          );
+                                        }).toList(),
+                                      ),
                                     ),
-                                  ),
                                     const SizedBox(
                                       height: 30,
                                     ),
@@ -882,7 +915,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                 AppRoutes
                                                     .navigateToHotelBookingScreen(
                                                         context,
-                                                        id: widget.text);
+                                                        id: widget.text,
+                                                        price: price);
                                               }),
                                         )
                                       ],

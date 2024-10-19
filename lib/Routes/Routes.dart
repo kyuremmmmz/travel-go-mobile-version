@@ -180,12 +180,13 @@ class AppRoutes {
   }
 
   static void navigateToHotelBookingScreen(BuildContext route,
-      {required int id}) {
+      {required int id, required String price}) {
     Navigator.push(
         route,
         MaterialPageRoute(
             builder: (route) => HotelBookingArea(
                   id: id,
+                  price: price,
                 )));
   }
 
