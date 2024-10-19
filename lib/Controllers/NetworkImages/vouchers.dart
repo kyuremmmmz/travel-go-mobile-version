@@ -25,7 +25,8 @@ class Vouchers {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getTheDiscountsAsListOfLike(String name) async {
+  Future<List<Map<String, dynamic>>> getTheDiscountsAsListOfLike(
+      String name) async {
     final response = await supabase
         .from('discounts')
         .select('*')
@@ -49,5 +50,9 @@ class Vouchers {
       }
       return result;
     }
+  }
+
+  Future<void> deleteDiscount(int id) async {
+    return await supabase.from('discounts').delete().eq('id', id);
   }
 }
