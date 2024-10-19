@@ -43,20 +43,20 @@ class _WelcomePageState extends State<WelcomePage> {
         children: <Widget>[
           Positioned(
             top: -90.h,
-            right: -30,
-            left: -30,
+            right: -30.w,
+            left: -30.w,
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
                   'assets/images/Background.png',
                   fit: BoxFit.cover,
-                  height: 470.h,
-                  width: 510.w,
+                  height: MediaQuery.of(context).size.height - 350.h,
+                  width: MediaQuery.of(context).size.width,
                 ),
               ),
               Container(
-                height: 470.h,
-                width: 510.w,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width + 100.w,
                 color: Colors.black.withOpacity(0.2),
               )
             ]),
@@ -65,10 +65,10 @@ class _WelcomePageState extends State<WelcomePage> {
             top: 300.h,
             right: 0,
             left: 0,
-            height: 800.h,
+            height: MediaQuery.of(context).size.height,
             child: Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: 20.h),
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 255, 255, 255),
                 boxShadow: [
@@ -90,22 +90,24 @@ class _WelcomePageState extends State<WelcomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.only(bottom: 20, right: 90),
+                      padding: EdgeInsets.only(bottom: 20.h, right: 50.h),
                       child: Column(
                         children: <Widget>[
                           Container(
-                            padding: const EdgeInsets.only(right: 50, top: 20),
-                            child: Text(
-                              'Welcome to',
-                              style: TextStyle(
-                                fontSize: 35.sp,
-                                fontWeight: FontWeight.w900,
+                            padding: EdgeInsets.only(right: 50.h, top: 20.h),
+                            child: FittedBox(
+                              child: Text(
+                                'Welcome to',
+                                style: TextStyle(
+                                  fontSize: 35.sp,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                                textAlign: TextAlign.left,
                               ),
-                              textAlign: TextAlign.left,
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.only(right: 95),
+                            padding: EdgeInsets.only(right: 95.w),
                             child: ShaderMask(
                               shaderCallback: (bounds) {
                                 return gradient.createShader(Rect.fromLTWH(
@@ -122,15 +124,15 @@ class _WelcomePageState extends State<WelcomePage> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 15,
+                          SizedBox(
+                            height: 15.h,
                           ),
                           Container(
                             padding: EdgeInsets.only(top: 5.h, left: 35.w),
-                            width: 700.w,
+                            width: MediaQuery.of(context).size.width,
                             child: Text(
                               'Travel and get more experience here in Pangasinan! \n \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
-                              textAlign: TextAlign.left,
+                              textAlign: TextAlign.justify,
                               style: TextStyle(
                                 fontSize: 14.sp,
                               ),
@@ -139,8 +141,8 @@ class _WelcomePageState extends State<WelcomePage> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Container(
                       padding: EdgeInsets.only(bottom: 300.h),
@@ -160,18 +162,17 @@ class _WelcomePageState extends State<WelcomePage> {
                                   ),
                                 ],
                               ),
-                              width: 270.w,
-                              height: 40.h,
+                              width: MediaQuery.of(context).size.width - 120.w,
                               child: Bluebottle(
                                 color: ElevatedButton.styleFrom(
                                   backgroundColor:
                                       const Color.fromARGB(255, 50, 190, 255),
                                 ),
                                 text: Text(
-                                  'Sign In',
+                                  'Log In',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 13.sp,
+                                    fontSize: 18.sp,
                                   ),
                                 ),
                               ),
@@ -192,14 +193,13 @@ class _WelcomePageState extends State<WelcomePage> {
                                   ),
                                 ],
                               ),
-                              width: 270.w,
-                              height: 40.h,
+                              width: MediaQuery.of(context).size.width - 120.w,
                               child: Greenbutton(
                                 text: Text(
                                   'Sign Up',
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 13.sp,
+                                    fontSize: 18.sp,
                                   ),
                                 ),
                                 color: ElevatedButton.styleFrom(

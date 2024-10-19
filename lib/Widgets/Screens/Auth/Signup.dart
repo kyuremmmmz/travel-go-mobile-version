@@ -71,13 +71,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Image.asset(
                   'assets/images/Background.png',
                   fit: BoxFit.cover,
-                  height: 470.h,
-                  width: 500.w,
+                  height: MediaQuery.of(context).size.height - 350.h,
+                  width: MediaQuery.of(context).size.width,
                 ),
               ),
               Container(
-                height: 470.h,
-                width: 500.w,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width + 100.w,
                 color: Colors.black.withOpacity(0.5),
               )
             ]),
@@ -104,19 +104,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
           Positioned(
               top: 185.h,
               right: 50.w,
-              child: Text(
-                'Travel and get more experience here in Pangasinan!',
-                textAlign: TextAlign.center,
+              child: Text('Travel and get more experience here in Pangasinan!',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                  color: Colors.white, 
-                  fontWeight: FontWeight.w300,
-                  fontSize: 12.sp)
-              )),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w300,
+                      fontSize: 12.sp))),
           Positioned(
             bottom: -320.h,
             right: 0,
             left: 0,
-            height: 800.h,
+            height: MediaQuery.of(context).size.height,
             child: Container(
               padding: EdgeInsets.only(
                 top: 0.w,
@@ -134,7 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 40.h, // the space between the img and email area
                     ),
                     Container(
-                      width: 350.w, // email line area
+                      width: MediaQuery.of(context).size.width - 30.w,
                       padding: EdgeInsets.only(top: 0.w),
                       child: TextFormField(
                         controller: _emailController,
@@ -148,7 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }
                           signUp.sign(context, value);
                           return null;
-                          },
+                        },
                         decoration: const InputDecoration(
                             labelText: 'Email',
                             alignLabelWithHint: true,
@@ -173,7 +171,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 30.h,
                     ),
                     Container(
-                      width: 350.w, // full name line area
+                      width: MediaQuery.of(context).size.width -
+                          30.w, // full name line area
                       padding: EdgeInsets.only(top: 0.w),
                       child: plainTextField(
                         colorr: Colors.black,
@@ -185,7 +184,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 30.h,
                     ),
                     SizedBox(
-                      width: 350.w, // password line area
+                      width: MediaQuery.of(context).size.width -
+                          30.w, // password line area
                       child: passwordTextField(
                         text: 'Password',
                         password: _passwordController,
@@ -196,7 +196,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     Container(
                         padding: null,
-                        width: 300.w,
+                        width: MediaQuery.of(context).size.width - 100.w,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             boxShadow: [
@@ -210,7 +210,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: BlueButtonWithoutFunction(
                           text: Text(
                             'Sign Up',
-                            style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18.sp),
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
