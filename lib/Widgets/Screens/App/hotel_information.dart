@@ -362,13 +362,18 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    Column(
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
                                         children: imageUrlForAmenities.entries
                                             .map((entry) {
-                                      return Column(
+                                      return Row(
                                         children: [
                                           const SizedBox(
-                                            height: 20,
+                                            width: 35,
                                           ),
                                           Container(
                                             padding: null,
@@ -386,7 +391,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                     color: Colors.blue,
                                                     borderRadius:
                                                         const BorderRadius.all(
-                                                      Radius.circular(30),
+                                                      Radius.circular(10),
                                                     ),
                                                   ),
                                                 ),
@@ -405,9 +410,9 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                           const BorderRadius
                                                               .only(
                                                         bottomLeft:
-                                                            Radius.circular(30),
+                                                            Radius.circular(10),
                                                         bottomRight:
-                                                            Radius.circular(30),
+                                                            Radius.circular(10),
                                                       ),
                                                     ),
                                                     child: Text(
@@ -425,9 +430,11 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                               ],
                                             ),
                                           ),
+                                          
                                         ],
                                       );
                                     }).toList()),
+                                    ),
                                     const SizedBox(
                                       height: 30,
                                     ),
@@ -769,14 +776,67 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                         )
                                       ],
                                     ),
-                                    Row(
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: vouchersList.map((item) {
-                                        return SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Text('${item['discount']}'),
+                                        return GestureDetector(
+                                          onTap: () {
+                                            print('Coupon tapped: ${item['discount']}%');
+                                          },
+                                          child: Container(
+                                            width: 200,
+                                            margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                                            padding: const EdgeInsets.all(16.0),
+                                            decoration: BoxDecoration(
+                                              color: Colors.teal,
+                                              borderRadius: BorderRadius.circular(12.0),
+                                              boxShadow: const [
+                                                  BoxShadow(
+                                                  color: Colors.black26,
+                                                  offset: Offset(0, 4),
+                                                  blurRadius: 8.0,
+                                                ),
+                                              ],
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  '${item['discount']}% OFF',
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 8.0),
+                                                Text(
+                                                  '${item['hotelName']}',
+                                                  style: const TextStyle(
+                                                    color: Color.fromARGB(255, 31, 20, 20),
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 12.0),
+                                                const Text(
+                                                  'Use voucher',
+                                                  style: TextStyle(
+                                                    color: Colors.white70,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         );
                                       }).toList(),
                                     ),
+                                  ),
                                     const SizedBox(
                                       height: 30,
                                     ),
