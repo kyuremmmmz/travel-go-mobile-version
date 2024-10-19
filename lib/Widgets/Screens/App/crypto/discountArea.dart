@@ -242,7 +242,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  ' as of ${formattedDate}',
+                                                  ' as of $formattedDate',
                                                   style: const TextStyle(
                                                     fontSize: 11,
                                                   ),
