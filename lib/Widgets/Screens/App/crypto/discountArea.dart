@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
+import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/VoucherButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
@@ -34,13 +35,21 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
 
   String? email;
   String? img;
+  List res = [];
 
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
   final data = FoodAreaBackEnd();
-
+  final fetchDiscounts = Vouchers();
   final _searchController = TextEditingController();
   late Usersss users = Usersss();
+
+  Future<void> fetchDiscount() async {
+    final response = await fetchDiscounts.getTheDiscountsAsList();
+    setState(() {
+      res = response;
+    });
+  }
 
   Future<void> emailFetching() async {
     try {
@@ -66,6 +75,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
   void initState() {
     super.initState();
     emailFetching();
+    fetchDiscount();
   }
 
   Future<void> _isRedirecting() async {
@@ -93,26 +103,7 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
           ),
         ),
         drawer: const DrawerMenuWidget(),
-        body: FutureBuilder(
-            future: _isRedirecting(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (snapshot.hasError) {
-                final error = snapshot.error;
-                return Text('Error: $error');
-              } else if (snapshot.connectionState == ConnectionState.none) {
-                return const Center(
-                  child: Text(
-                    'No connection to the server',
-                    style: TextStyle(fontSize: 20, color: Colors.red),
-                    textAlign: TextAlign.center,
-                  ),
-                );
-              } else {
-                return Stack(children: [
+        body: Stack(children: [
                   const Positioned.fill(
                     child: Column(
                       children: <Widget>[
@@ -293,8 +284,10 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                               width: 400,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  const Text(
+                                children: res.map((items){
+                                  return Column(
+                                    children: [
+                                      const Text(
                                     'Available Vouchers',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
@@ -312,7 +305,9 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                                       image: const AssetImage(
                                           'assets/images/icon/beach.png'),
                                       oppressed: () => 'Test')
-                                ],
+                                    ],
+                                  );
+                                }).toList()
                               ),
                             ),
                           ],
@@ -320,8 +315,8 @@ class _discountAreaScreenState extends State<discountAreaScreen> {
                       ),
                     ],
                   ),
-                ]);
-              }
-            }));
-  }
-}
+                ]
+              )
+            );
+          }
+        }
