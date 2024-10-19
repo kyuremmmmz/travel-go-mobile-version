@@ -64,7 +64,9 @@ class Paypal {
             await supabase.from('hotel_booking').update({
               'paymet_status': 'paid',
             }).eq('phone', phone);
-
+            await supabase.from('booking_history').update({
+              'paymet_status': 'paid',
+            }).eq('phone', phone);
             debugPrint("onSuccess: $params");
             final user = supabase.auth.currentUser;
             final timestamp = getter();

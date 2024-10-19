@@ -588,7 +588,8 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                                                         price: amount,
                                                         payment: amount,
                                                         hotelorplace:
-                                                            widget.country,
+                                                            widget.country, 
+                                                        age: widget.age,
                                                       );
                                                       Booking().flightBooking(
                                                           widget.name,

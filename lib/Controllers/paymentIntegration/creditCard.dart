@@ -19,6 +19,9 @@ class CreditcardBackend {
     await supabase.from('hotel_booking').update({
       'paymet_status': 'Paid',
     }).eq('phone', phone);
+    await supabase.from('booking_history').update({
+      'paymet_status': 'Paid',
+    }).eq('phone', phone);
     return response;
   }
 
