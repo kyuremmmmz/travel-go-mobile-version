@@ -202,7 +202,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                       height: 100,
                                       child: Center(
                                         child: Center(
-                                          child: CircularProgressIndicator(),
+                                          child: CircularProgressIndicator(
+                                            color: Colors.blue,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -233,9 +235,32 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                             label: "Food Places",
                             oppressed: () => print('Food Places clicked'),
                           ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: datass.map((value) {
+                          Row( 
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: isLoading
+                                ? [
+                                    const SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                    const SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                      child: Center(
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                            color: Colors.blue,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                  ]
+                                :
+                              datass.map((value) {
                                 final id = value['id'];
                                 return PlaceButtonSquare(
                                     place: value['img'],
@@ -258,7 +283,29 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           ),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: dataOfFestivals.map((value) {
+                              children: isLoading
+                                ? [
+                                    const SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                    const SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                      child: Center(
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                            color: Colors.blue,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                  ]
+                                : dataOfFestivals.map((value) {
                                 final id = value['id'];
                                 return PlaceButtonSquare(
                                     place: value['img'],

@@ -10,7 +10,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-
 class DiscountArea extends StatelessWidget {
   const DiscountArea({super.key});
 
@@ -37,7 +36,6 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   String? email;
   String? img;
   List res = [];
-  
 
   final data = FoodAreaBackEnd();
   final fetchDiscounts = Vouchers();
@@ -152,11 +150,48 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
                   const SizedBox(
                     height: 30,
                   ),
+                  Container(
+                    padding: const EdgeInsets.only(right: 140),
+                    child: const Text(
+                      'Available Flight Vouchers',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  transactionHistory()
                 ],
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget transactionHistory() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: res.map((items) {
+          final date = calculateRemainingTime(items['expiry']);
+          return Container(
+            padding: const EdgeInsets.all(20),
+            width: 400,
+            child: VoucherButton(
+              voucherTitle:
+                  'Enjoy up to ${items['discount']}% off at ${items['hotelName']}!',
+              description:
+                  'Book now and experience luxury at a discounted rate',
+              expiring: date,
+              image: items['ishotel'] == true
+                  ? const AssetImage('assets/images/icon/hotel.png')
+                  : const AssetImage('assets/images/icon/beach.png'),
+              oppressed: () => 'Test',
+            ),
+          );
+        }).toList(),
       ),
     );
   }
