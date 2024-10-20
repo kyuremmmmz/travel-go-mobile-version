@@ -8,7 +8,6 @@ import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 
@@ -131,11 +130,12 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
           ),
           SingleChildScrollView(
             child: Container(
+              padding: null,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: 130),
+                  const SizedBox(height: 130),
                   buildUserCard(),
                   const SizedBox(height: 30),
                   Container(
