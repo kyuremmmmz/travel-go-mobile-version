@@ -64,25 +64,26 @@ class _LoginScreenState extends State<LoginScreen> {
             top: -85.w,
             right: -30.h,
             left: -30.h,
-            child: Stack(
-              children: [
+            child: Stack(children: [
+
               Align(
                 child: Image.asset(
                   'assets/images/Background.png',
                   fit: BoxFit.cover, // Cover the whole container with the image
-                  height: 470.h,
-                  width: 500.w,
+                  height: MediaQuery.of(context).size.height - 350.h,
+                  width: MediaQuery.of(context).size.width,
                 ),
               ),
               Container(
-                height: 470.h,
-                width: 500.w,
-                color: Colors.black.withOpacity(0.5), // Semi-transparent black overlay
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width + 100.w,
+                color: Colors.black
+                    .withOpacity(0.5), // Semi-transparent black overlay
               )
             ]),
           ),
           Positioned(
-            top: 130.h,
+            bottom: MediaQuery.of(context).size.height - 230.h,
             right: 85.w,
             child: Text(
               textAlign: TextAlign.center,
@@ -101,29 +102,30 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Positioned(
-              top: 185.h,
+              bottom: MediaQuery.of(context).size.height - 250.h,
               right: 50.w,
               child: Text(
                 textAlign: TextAlign.center,
                 'Travel and get more experience here in Pangasinan!', // the caption area next the trevel go text
                 style: TextStyle(
-                  color: Colors.white, 
-                  fontWeight: FontWeight.w300,
-                  fontSize: 12.sp),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 12.sp),
               )),
           Positioned(
             bottom: -320.h,
             right: 0,
             left: 0,
-            height: 800.h,
+            height: MediaQuery.of(context).size.height,
             child: Container(
               padding: EdgeInsets.only(
-                top: 0.w,
-                left: 0.h,
-                bottom: 0.w,
-                right: 0.h,
+                top: 0.h,
+                left: 0.w,
+                bottom: 0.h,
+                right: 0.w,
               ),
-              decoration: const BoxDecoration(color: Color.fromARGB(255, 255, 255, 255)),
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255)),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -131,8 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 40.h, // space between the img and email
                     ),
                     Container(
-                      width: 350.w, // the  width of the line 
-                      padding: EdgeInsets.only(top: 0.w),
+                      width: MediaQuery.of(context).size.width - 30.w,
+                      padding: EdgeInsets.only(top: 0.h),
                       child: plainTextField(
                         colorr: Colors.black,
                         text: 'Email',
@@ -140,10 +142,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 30.h, // Space between the email and password fields
+                      height:
+                          30.h, // Space between the email and password fields
                     ),
                     SizedBox(
-                      width: 350.w,
+                      width: MediaQuery.of(context).size.width - 30.w,
                       child: passwordTextField(
                         text:
                             'Password', // Placeholder text for the password field
@@ -171,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Container(
                         padding: null,
-                        width: 300.w,
+                        width: MediaQuery.of(context).size.width - 100.w,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(
                                 30), // Rounded corners for the button
@@ -185,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ]),
                         child: BlueButtonWithoutFunction(
                           text: Text(
-                            'Sign In',
+                            'Log In',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.sp), // Style for the button text
