@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'ResponsiveScreen/ResponsiveScreen.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
@@ -247,10 +248,10 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                   Stack(
                     children: [
                       Positioned(
-                        top: 160,
+                        top: Responsive().infoSizePictureTop(context),
                         child: Container(
-                          height: 300,
-                          width: 500,
+                          height: Responsive().infoSizePictureHeight(context),
+                          width: Responsive().infoSizePictureWidth(context),
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.cover,
@@ -265,7 +266,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                         bottom: 0,
                         left: 0,
                         right: 0,
-                        height: 390,
+                        height: Responsive().scrollableContainerInfoHeight(context),
                         child: Container(
                           padding: const EdgeInsets.only(left: 0, top: 30),
                           width: 500,
@@ -448,8 +449,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                   ),
                                                 ],
                                               )),
-                                          const SizedBox(
-                                            width: 80,
+                                          SizedBox(
+                                            width: Responsive().sizedBoxRatingWidth(context),
                                           ),
                                           Row(
                                               children:
@@ -758,52 +759,54 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                     const SizedBox(
                                       height: 30,
                                     ),
-                                    Row(
-                                      children: [
-                                        const SizedBox(
-                                          width: 30,
-                                        ),
-                                        RichText(
-                                            text: TextSpan(children: [
-                                          TextSpan(
-                                              text:
-                                                  'PHP ${price.toString()} - 6,000',
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 21,
-                                                  fontWeight: FontWeight.bold)),
-                                          const TextSpan(
-                                              text: '\nEstimated Expenses',
-                                              style: TextStyle(
-                                                  color: Colors.blue,
-                                                  fontSize: 13))
-                                        ])),
-                                        Container(
-                                          width: 200,
-                                          padding:
-                                              const EdgeInsets.only(left: 50),
-                                          child: BlueButtonWithoutFunction(
-                                              text: const Text(
-                                                'Place Booking',
+                                    SizedBox(
+                                      width: Responsive().screenWidth(context),
+                                      child:  
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          RichText(
+                                              text: TextSpan(children: [
+                                            TextSpan(
+                                                text:
+                                                    'PHP ${price.toString()} - 6,000',
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 21,
+                                                    fontWeight: FontWeight.bold)),
+                                            const TextSpan(
+                                                text: '\nEstimated Expenses',
                                                 style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.blue,
-                                              ),
-                                              oppressed: () {
-                                                HotelBooking().passTheHotelData(
-                                                    widget.text);
-                                                AppRoutes
-                                                    .navigateToHotelBookingScreen(
-                                                        context,
-                                                        id: widget.text);
-                                              }),
-                                        )
-                                      ],
+                                                    color: Colors.blue,
+                                                    fontSize: 13))
+                                          ])),
+                                          Container(
+                                            width: Responsive().placeBookingWidth(context),
+                                            padding:
+                                                const EdgeInsets.only(left: 50),
+                                            child: BlueButtonWithoutFunction(
+                                                text: const Text(
+                                                  'Place Booking',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.blue,
+                                                ),
+                                                oppressed: () {
+                                                  HotelBooking().passTheHotelData(
+                                                      widget.text);
+                                                  AppRoutes
+                                                      .navigateToHotelBookingScreen(
+                                                          context,
+                                                          id: widget.text);
+                                                }),
+                                          )
+                                        ],
+                                      )
                                     )
                                   ],
                                 ),
