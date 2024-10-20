@@ -792,6 +792,18 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                     const SizedBox(
                                       height: 20,
                                     ),
+                                    Container(
+                                      padding:
+                                          const EdgeInsets.only(right: 115),
+                                      child: const Text(
+                                        'Discount Vouchers Available',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
                                     SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: vouchersList.isEmpty ? Center(
