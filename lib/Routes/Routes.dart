@@ -223,7 +223,7 @@ class AppRoutes {
 
   static void navigateToDiscountArea(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const discountArea()));
+        context, MaterialPageRoute(builder: (context) => const DiscountArea()));
   }
 
   static void navigateToNextScreen(BuildContext context,
