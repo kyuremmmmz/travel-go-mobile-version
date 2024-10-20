@@ -77,7 +77,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 // Method to fetch images and place names
   Future<void> fetchImage() async {
     setState(() {
-      isLoading = true;
+      isLoading = false;
     });
     try {
       final datas = await data.fetchImageandText();
@@ -269,15 +269,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   FestivalsAboutScreen(
-                                                      id: id
-                                                    )
-                                                  )
-                                                );
-                                              }
-                                            );
-                                          }
-                                        ).toList()
-                                      ),
+                                                      id: id)));
+                                    });
+                              }).toList()),
                           SizedBox(height: 10.h),
                         ],
                       ),

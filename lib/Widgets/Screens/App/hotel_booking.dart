@@ -15,9 +15,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelBookingArea extends StatelessWidget {
   final int id;
+  final String? price;
   const HotelBookingArea({
     super.key,
-    required this.id,
+    required this.id, 
+    this.price,
   });
 
   @override
@@ -27,6 +29,7 @@ class HotelBookingArea extends StatelessWidget {
       title: 'Travel Go',
       home: HotelBookingAreaScreen(
         id: id,
+        price: price,
       ),
     );
   }
@@ -34,9 +37,11 @@ class HotelBookingArea extends StatelessWidget {
 
 class HotelBookingAreaScreen extends StatefulWidget {
   final int id;
+  final String? price;
   const HotelBookingAreaScreen({
     super.key,
-    required this.id,
+    required this.id, 
+    this.price,
   });
 
   @override
@@ -127,8 +132,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         amount = 0;
       });
     } else {
-      int basePrice =
-          int.parse(data['hotel_price'].toString().replaceAll(',', ''));
+      int basePrice = int.parse(widget.price.toString().replaceAll(',', ''));
       int additionalCost = 0;
 
       switch (_vehicleTypeController.text.trim()) {
@@ -862,7 +866,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                                 .text
                                                                 .trim() ==
                                                             "Pay Online") {
-                                                              BookinghistoryBackend()
+                                                      BookinghistoryBackend()
                                                           .insertBooking(
                                                         _nameController.text
                                                             .trim(),
@@ -894,7 +898,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                         _vehicleTypeController
                                                             .text
                                                             .trim(),
-                                                        int.parse(_age.text.trim()),
+                                                        int.parse(
+                                                            _age.text.trim()),
                                                         amount,
                                                       );
                                                       HotelBooking()
@@ -929,10 +934,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                         _vehicleTypeController
                                                             .text
                                                             .trim(),
-                                                            amount,
-                                                        int.parse(_age.text
-                                                              .trim()),
-                                                        
+                                                        amount,
+                                                        int.parse(
+                                                            _age.text.trim()),
                                                       );
                                                       AppRoutes
                                                           .navigateToLinkedBankAccount(
@@ -951,8 +955,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                         price: amount,
                                                         payment: amount,
                                                         hotelorplace:
-                                                            _hotel.text, 
-                                                        age: int.parse(_age.text.trim()),
+                                                            _hotel.text,
+                                                        age: int.parse(
+                                                            _age.text.trim()),
                                                       );
                                                     } else {
                                                       print('nigga');

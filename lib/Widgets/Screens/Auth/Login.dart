@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart'; // Import thr material design widgets
 import 'package:TravelGo/Controllers/Auth/login.dart'; // Import login logic
-import 'package:TravelGo/Widgets/Textfield/passwordField.dart'; // import passowrd widget
 import 'package:TravelGo/Routes/Routes.dart'; // Import routes for navigation
+import 'package:TravelGo/Widgets/Textfield/passwordField.dart'; // import passowrd widget
+import 'package:flutter/material.dart'; // Import thr material design widgets
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+
 import '../../Textfield/plainTextField.dart'; //Import plain text widget
 import './../../Buttons/DefaultButtons/BlueButton.dart'; // Import custom blue button widget
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 void main() async {
   WidgetsFlutterBinding
@@ -60,6 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: <Widget>[
           Positioned(
+
             top: -85.h,
             right: -30.w,
             left: -30.w,
@@ -204,14 +206,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                     password: _passwordController.text.trim())
                                 .loginUser(context); // Call the login function
                           },
-                        ))
+                      )
+                    )
                   ],
                 ),
               ),
-            ),
-          )
-        ],
-      ),
+            )
+          ),
+        ]
+      )
     );
   }
 }

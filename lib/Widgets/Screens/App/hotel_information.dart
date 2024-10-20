@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
@@ -11,17 +12,20 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
+import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelInformationScreen extends StatefulWidget {
   final int text;
   final String? name;
   final int id;
+  final String? price;
   const HotelInformationScreen({
     super.key,
     required this.text,
     this.name,
     required this.id,
+    this.price,
   });
 
   @override
@@ -59,9 +63,12 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
   int ratings = 0;
   String? commentImg;
   StreamSubscription? sub;
+  StreamSubscription? supa;
   List<Map<String, dynamic>> list = [];
+  List vouchersList = [];
   late RatingsAndComments rating = RatingsAndComments();
   bool _isRedirecting = false;
+  final vouchers = Vouchers();
   final supabase = Supabase.instance.client;
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
@@ -133,6 +140,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     fetchSpecificData(widget.text);
     fetchWithoutFunct();
     _realTimeFetch();
+    fetchDiscountReal();
+    print(widget.name);
     _isRedirecting = true;
   }
 
@@ -211,6 +220,21 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
         email = "Error: $e";
       });
     }
+  }
+
+  Future<void> fetchDiscountReal() async {
+    supa = supabase.from('discounts').stream(primaryKey: ['id']).listen(
+        (List<Map<String, dynamic>> comment) async {
+      await fetchDiscounts(comment);
+    });
+  }
+
+  Future<void> fetchDiscounts(List<Map<String, dynamic>> name) async {
+    final data = await vouchers.getTheDiscountsAsListOfLike(name);
+    setState(() {
+      vouchersList = data;
+      print(data);
+    });
   }
 
   @override
@@ -349,71 +373,81 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                    Column(
-                                        children: imageUrlForAmenities.entries
-                                            .map((entry) {
-                                      return Column(
-                                        children: [
-                                          const SizedBox(
-                                            height: 20,
-                                          ),
-                                          Container(
-                                            child: Stack(
-                                              children: [
-                                                Container(
-                                                  height: 150,
-                                                  width: 350,
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: NetworkImage(
-                                                          entry.value ?? ''),
-                                                    ),
-                                                    color: Colors.blue,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                      Radius.circular(30),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  bottom: 0,
-                                                  left: 0,
-                                                  right: 0,
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                          children: imageUrlForAmenities.entries
+                                              .map((entry) {
+                                        return Row(
+                                          children: [
+                                            const SizedBox(
+                                              width: 35,
+                                            ),
+                                            Container(
+                                              padding: null,
+                                              child: Stack(
+                                                children: [
+                                                  Container(
+                                                    height: 150,
+                                                    width: 350,
                                                     decoration: BoxDecoration(
-                                                      color: Colors.black
-                                                          .withOpacity(0.12),
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: NetworkImage(
+                                                            entry.value ?? ''),
+                                                      ),
+                                                      color: Colors.blue,
                                                       borderRadius:
                                                           const BorderRadius
-                                                              .only(
-                                                        bottomLeft:
-                                                            Radius.circular(30),
-                                                        bottomRight:
-                                                            Radius.circular(30),
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      amenities[entry.key] ??
-                                                          '',
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                              .all(
+                                                        Radius.circular(10),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Positioned(
+                                                    bottom: 0,
+                                                    left: 0,
+                                                    right: 0,
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.black
+                                                            .withOpacity(0.12),
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  10),
+                                                        ),
+                                                      ),
+                                                      child: Text(
+                                                        amenities[entry.key] ??
+                                                            '',
+                                                        style: const TextStyle(
+                                                          fontSize: 18,
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      );
-                                    }).toList()),
+                                          ],
+                                        );
+                                      }).toList()),
+                                    ),
                                     const SizedBox(
                                       height: 30,
                                     ),
@@ -756,6 +790,96 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                       ],
                                     ),
                                     const SizedBox(
+                                      height: 20,
+                                    ),
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: vouchersList.map((item) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              final cleanedPriceString =
+                                                  price.replaceAll(',', '');
+                                              final int priceValue =
+                                                  int.tryParse(
+                                                          cleanedPriceString) ??
+                                                      0;
+                                              int discountPercentage =
+                                                  item['discount'];
+                                              int discountAmount = (priceValue *
+                                                      discountPercentage) ~/
+                                                  100;
+                                              int finalPrice =
+                                                  priceValue - discountAmount;
+                                              final formattedPrice =
+                                                  NumberFormat('#,##0')
+                                                      .format(finalPrice);
+
+                                              setState(() {
+                                                price = formattedPrice;
+                                              });
+                                              vouchers
+                                                  .deleteDiscount(item['id']);
+                                            },
+                                            child: Container(
+                                              width: 200,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
+                                              decoration: BoxDecoration(
+                                                color: Colors.teal,
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                    color: Colors.black26,
+                                                    offset: Offset(0, 4),
+                                                    blurRadius: 8.0,
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${item['discount']}% OFF',
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 8.0),
+                                                  Text(
+                                                    '${item['hotelName']}',
+                                                    style: const TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 31, 20, 20),
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 12.0),
+                                                  const Text(
+                                                    'Use voucher',
+                                                    style: TextStyle(
+                                                      color: Colors.white70,
+                                                      fontSize: 14,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                    const SizedBox(
                                       height: 30,
                                     ),
                                     Row(
@@ -800,7 +924,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                 AppRoutes
                                                     .navigateToHotelBookingScreen(
                                                         context,
-                                                        id: widget.text);
+                                                        id: widget.text,
+                                                        price: price);
                                               }),
                                         )
                                       ],
