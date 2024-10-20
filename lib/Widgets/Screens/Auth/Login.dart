@@ -62,7 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: <Widget>[
           Positioned(
-<<<<<<< HEAD
             top: 20.h,
             right: -30,
             left: -30,
@@ -89,63 +88,10 @@ class _LoginScreenState extends State<LoginScreen> {
                Container(
                 height: 470.h,
                 width: 510.w,
-=======
-            top: -85.w,
-            right: -30.h,
-            left: -30.h,
-            child: Stack(children: [
-
-              Align(
-                child: Image.asset(
-                  'assets/images/Background.png',
-                  fit: BoxFit.cover, // Cover the whole container with the image
-                  height: MediaQuery.of(context).size.height - 350.h,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width + 100.w,
-                color: Colors.black
-                    .withOpacity(0.5), // Semi-transparent black overlay
->>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
               )
             ]),
           ),
           Positioned(
-<<<<<<< HEAD
-=======
-            bottom: MediaQuery.of(context).size.height - 230.h,
-            right: 85.w,
-            child: Text(
-              textAlign: TextAlign.center,
-              'TRAVEL GO', // the logo area
-              style: TextStyle(
-                  fontSize: 40.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      offset: Offset(5.0.w, 5.0.h), // Shadow position
-                      blurRadius: 12.0.w,
-                      color: Colors.black,
-                    )
-                  ]),
-            ),
-          ),
-          Positioned(
-              bottom: MediaQuery.of(context).size.height - 250.h,
-              right: 50.w,
-              child: Text(
-                textAlign: TextAlign.center,
-                'Travel and get more experience here in Pangasinan!', // the caption area next the trevel go text
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 12.sp),
-              )),
-          Positioned(
->>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
             bottom: -320.h,
             right: 0,
             left: 0,
@@ -157,11 +103,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 bottom: 0.h,
                 right: 0.w,
               ),
-<<<<<<< HEAD
-=======
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255)),
->>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
               child: SingleChildScrollView(
                 child: Column(
                   children: [
