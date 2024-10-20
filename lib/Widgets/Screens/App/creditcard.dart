@@ -91,7 +91,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
     await CreditcardBackend().payViaCredit(
       widget.price,
       widget.price,
-      widget.hotelorplace,
+      widget.nameoftheplace,
       widget.name,
       widget.phone,
     );
@@ -109,6 +109,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
     var cardHolderKey;
     var cardNumberKey;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Credit Card'),
       ),
@@ -308,6 +309,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
                 onPressed: _value
                     ? () {
                         creditCard();
+                        print(widget.phone);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

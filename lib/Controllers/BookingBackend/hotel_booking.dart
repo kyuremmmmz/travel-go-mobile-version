@@ -56,35 +56,42 @@ class HotelBooking {
   }
 
   Future<PostgrestResponse<dynamic>?> insertBooking(
-      String fullname,
-      String emailAddress,
-      int phoneNumber,
-      String hotel,
-      String checkIn,
-      String checkOut,
-      String paymentMethod,
-      String paymentStatus,
-      int numberOfAdult,
-      int numberOfChildren,
-      String room,
-      var price) async {
+    String fullname,
+    String emailAddress,
+    int phoneNumber,
+    String hotel,
+    String checkIn,
+    String checkOut,
+    String paymentMethod,
+    String paymentStatus,
+    int numberOfAdult,
+    int numberOfChildren,
+    String room,
+    int price,
+    int age,
+  ) async {
     try {
-      final user = supabase.auth.currentUser;
-      final response = await supabase.from('hotel_booking').insert({
-        'name': fullname,
-        'gmail': emailAddress,
-        'phone': phoneNumber,
-        'price': price,
-        'paymet_status': paymentStatus,
-        'hotel': hotel,
-        'booking_id': user!.id,
-        'checkin': checkIn,
-        'checkout': checkOut,
-        'number_of_adults': numberOfAdult,
-        'number_of_children': numberOfChildren,
-        'room_type': room
-      });
-      return response;
+      if (age < 18) {
+        throw Exception("tangina mo gago");
+      } else {
+        final user = supabase.auth.currentUser;
+        final response = await supabase.from('hotel_booking').insert({
+          'name': fullname,
+          'gmail': emailAddress,
+          'phone': phoneNumber,
+          'price': price,
+          'paymet_status': paymentStatus,
+          'hotel': hotel,
+          'booking_id': user!.id,
+          'checkin': checkIn,
+          'checkout': checkOut,
+          'number_of_adults': numberOfAdult,
+          'number_of_children': numberOfChildren,
+          'room_type': room,
+          'age': age,
+        });
+        return response;
+      }
     } catch (e) {
       SnackBar(content: Text('error: $e'));
     }

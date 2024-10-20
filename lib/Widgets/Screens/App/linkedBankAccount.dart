@@ -1,7 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/material.dart';
-import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/paymentIntegration/paypal.dart';
@@ -9,6 +6,9 @@ import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/AccountButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
+import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LinkedBankScreen extends StatefulWidget {
   final String name;
@@ -17,17 +17,19 @@ class LinkedBankScreen extends StatefulWidget {
   final String nameoftheplace;
   final int price;
   final int payment;
+  final int age;
 
   const LinkedBankScreen({
     super.key,
+    String? origin,
+    String? destination,
     required this.name,
     required this.phone,
     required this.hotelorplace,
     required this.nameoftheplace,
     required this.price,
     required this.payment,
-    String? origin,
-    String? destination,
+    required this.age,
   });
 
   @override
@@ -80,7 +82,6 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
       });
     }
   }
-
 
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
@@ -167,15 +168,16 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                         details: "0193129031903",
                         color: const Color.fromRGBO(39, 92, 135, 1),
                         image: mastercardIcon,
-                        oppressed: () =>
-                            AppRoutes.navigateToCreditCard(
-                              context, 
-                              hotelorplace: widget.hotelorplace, 
-                              name: widget.name, 
-                              phone: widget.phone, 
-                              nameoftheplace: widget.nameoftheplace, 
-                              price: widget.price, 
-                              payment: widget.price, ),
+                        oppressed: () => AppRoutes.navigateToCreditCard(
+                          context,
+                          hotelorplace: widget.hotelorplace,
+                          name: widget.name,
+                          phone: widget.phone,
+                          nameoftheplace: widget.nameoftheplace,
+                          price: widget.price,
+                          payment: widget.price, 
+                          age: widget.age,
+                        ),
                       ),
                       AccountButton(
                         header: "PayPal",

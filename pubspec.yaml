@@ -37,6 +37,8 @@ dependencies:
   flutter_switch: ^0.3.2
   coingecko_api: ^1.1.1+1
   image_picker: ^1.1.2
+  flutter_web3: ^2.1.9
+  coupon_uikit: ^0.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -71,7 +71,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
               children: <Widget>[
                 CircleAvatar(
                   radius: 40,
-                  backgroundImage: NetworkImage('$img'),
+                  backgroundImage: img == null ? const AssetImage('assets/images/icon/food_place.png') : NetworkImage('$img'),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -133,13 +133,6 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
               Navigator.pop(context);
               AppRoutes.navigateToLogin(context);
               Usersss().signout(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Test'),
-            onTap: () {
-              Navigator.pop(context);
             },
           ),
         ],

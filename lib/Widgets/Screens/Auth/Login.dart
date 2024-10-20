@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart'; // Import thr material design widgets
 import 'package:TravelGo/Controllers/Auth/login.dart'; // Import login logic
-import 'package:TravelGo/Widgets/Textfield/passwordField.dart'; // import passowrd widget
 import 'package:TravelGo/Routes/Routes.dart'; // Import routes for navigation
+import 'package:TravelGo/Widgets/Textfield/passwordField.dart'; // import passowrd widget
+import 'package:flutter/material.dart'; // Import thr material design widgets
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+
 import '../../Textfield/plainTextField.dart'; //Import plain text widget
 import './../../Buttons/DefaultButtons/BlueButton.dart'; // Import custom blue button widget
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 void main() async {
   WidgetsFlutterBinding
@@ -61,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: <Widget>[
           Positioned(
+<<<<<<< HEAD
             top: 20.h,
             right: -30,
             left: -30,
@@ -87,21 +89,79 @@ class _LoginScreenState extends State<LoginScreen> {
                Container(
                 height: 470.h,
                 width: 510.w,
+=======
+            top: -85.w,
+            right: -30.h,
+            left: -30.h,
+            child: Stack(children: [
+
+              Align(
+                child: Image.asset(
+                  'assets/images/Background.png',
+                  fit: BoxFit.cover, // Cover the whole container with the image
+                  height: MediaQuery.of(context).size.height - 350.h,
+                  width: MediaQuery.of(context).size.width,
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width + 100.w,
+                color: Colors.black
+                    .withOpacity(0.5), // Semi-transparent black overlay
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
               )
             ]),
           ),
           Positioned(
+<<<<<<< HEAD
+=======
+            bottom: MediaQuery.of(context).size.height - 230.h,
+            right: 85.w,
+            child: Text(
+              textAlign: TextAlign.center,
+              'TRAVEL GO', // the logo area
+              style: TextStyle(
+                  fontSize: 40.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  shadows: [
+                    Shadow(
+                      offset: Offset(5.0.w, 5.0.h), // Shadow position
+                      blurRadius: 12.0.w,
+                      color: Colors.black,
+                    )
+                  ]),
+            ),
+          ),
+          Positioned(
+              bottom: MediaQuery.of(context).size.height - 250.h,
+              right: 50.w,
+              child: Text(
+                textAlign: TextAlign.center,
+                'Travel and get more experience here in Pangasinan!', // the caption area next the trevel go text
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 12.sp),
+              )),
+          Positioned(
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
             bottom: -320.h,
             right: 0,
             left: 0,
-            height: 800.h,
+            height: MediaQuery.of(context).size.height,
             child: Container(
               padding: EdgeInsets.only(
-                top: 0.w,
-                left: 0.h,
-                bottom: 0.w,
-                right: 0.h,
+                top: 0.h,
+                left: 0.w,
+                bottom: 0.h,
+                right: 0.w,
               ),
+<<<<<<< HEAD
+=======
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255)),
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -109,8 +169,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 40.h, // space between the img and email
                     ),
                     Container(
-                      width: 350.w, // the  width of the line 
-                      padding: EdgeInsets.only(top: 0.w),
+                      width: MediaQuery.of(context).size.width - 30.w,
+                      padding: EdgeInsets.only(top: 0.h),
                       child: plainTextField(
                         colorr: Colors.black,
                         text: 'Email',
@@ -118,10 +178,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 30.h, // Space between the email and password fields
+                      height:
+                          30.h, // Space between the email and password fields
                     ),
                     SizedBox(
-                      width: 350.w,
+                      width: MediaQuery.of(context).size.width - 30.w,
                       child: passwordTextField(
                         text:
                             'Password', // Placeholder text for the password field
@@ -149,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Container(
                         padding: null,
-                        width: 300.w,
+                        width: MediaQuery.of(context).size.width - 100.w,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(
                                 30), // Rounded corners for the button
@@ -163,14 +224,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             ]),
                         child: BlueButtonWithoutFunction(
                           text: Text(
-                            'Sign In',
+                            'Log In',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18.sp), // Style for the button text
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                 const Color.fromARGB(255, 50, 190, 255),
+                                const Color.fromARGB(255, 50, 190, 255),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
