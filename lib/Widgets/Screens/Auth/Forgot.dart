@@ -123,11 +123,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             style: TextStyle(
                               fontSize: 13.sp,
                               fontWeight: FontWeight.w400,
-                              color: Colors.black,
+                              color: const Color.fromARGB(255, 255, 255, 255),
                             ),
                           ),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF44CAF9), 
+                      ),
                           oppressed: () => Usersss().sendVerificationCode(
                               _emailController.text.trim(), context)),
                     ),
