@@ -56,11 +56,40 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFDEEFFC),
       resizeToAvoidBottomInset:
           false, // this avoid resizing the body when the keyboard appears
       body: Stack(
         children: <Widget>[
           Positioned(
+<<<<<<< HEAD
+            top: 20.h,
+            right: -30,
+            left: -30,
+            child: Stack(children: <Widget>[
+              Align(
+                child: Image.asset(
+                  'assets/images/icon/newlogo.png',
+                  fit: BoxFit.cover,
+                  height: 152.h,
+                  width: 200.w,
+                ),
+              ),
+             Positioned(
+                top: 100,
+                bottom: 50, // Adjust the position of the second image
+                right: -30,
+                left: -30,  // Change as needed
+                child: Image.asset(
+                  'assets/images/icon/airplanelogo.png', // Replace with your image path
+                  height: 450.h, // Adjust the size
+                  width: 350.w,  // Adjust the size
+                ),
+              ),
+               Container(
+                height: 470.h,
+                width: 510.w,
+=======
             top: -85.w,
             right: -30.h,
             left: -30.h,
@@ -79,10 +108,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: MediaQuery.of(context).size.width + 100.w,
                 color: Colors.black
                     .withOpacity(0.5), // Semi-transparent black overlay
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
               )
             ]),
           ),
           Positioned(
+<<<<<<< HEAD
+=======
             bottom: MediaQuery.of(context).size.height - 230.h,
             right: 85.w,
             child: Text(
@@ -113,6 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontSize: 12.sp),
               )),
           Positioned(
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
             bottom: -320.h,
             right: 0,
             left: 0,
@@ -124,8 +157,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 bottom: 0.h,
                 right: 0.w,
               ),
+<<<<<<< HEAD
+=======
               decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 255, 255, 255)),
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
               child: SingleChildScrollView(
                 child: Column(
                   children: [

@@ -38,18 +38,44 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color(0xFFDEEFFC),
       body: Stack(
         children: <Widget>[
           Positioned(
+<<<<<<< HEAD
+            top: 20.h,
+            right: -30,
+            left: -30,
+=======
             top: -90.h,
             right: -30.w,
             left: -30.w,
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
-                  'assets/images/Background.png',
+                  'assets/images/icon/newlogo.png',
                   fit: BoxFit.cover,
+<<<<<<< HEAD
+                  height: 152.h,
+                  width: 200.w,
+                ),
+              ),
+              Positioned(
+                top: 100,
+                bottom: 50, // Adjust the position of the second image
+                right: -30,
+                left: -30,  // Change as needed
+                child: Image.asset(
+                  'assets/images/icon/airplanelogo.png', // Replace with your image path
+                  height: 450.h, // Adjust the size
+                  width: 350.w,  // Adjust the size
+                ),
+              ),
+              Container(
+                height: 470.h,
+                width: 510.w,
+=======
                   height: MediaQuery.of(context).size.height - 350.h,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -58,13 +84,19 @@ class _WelcomePageState extends State<WelcomePage> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width + 100.w,
                 color: Colors.black.withOpacity(0.2),
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
               )
             ]),
           ),
           Positioned(
-            top: 300.h,
+            top: 350.h,
             right: 0,
             left: 0,
+<<<<<<< HEAD
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.only(top: 10),
+=======
             height: MediaQuery.of(context).size.height,
             child: Container(
               alignment: Alignment.center,
@@ -84,6 +116,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   topRight: Radius.circular(60),
                 ),
               ),
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,6 +127,15 @@ class _WelcomePageState extends State<WelcomePage> {
                       child: Column(
                         children: <Widget>[
                           Container(
+<<<<<<< HEAD
+                            padding: const EdgeInsets.only(right: 50, top: 20),
+                            child: Text(
+                              'Welcome to',
+                              style: TextStyle(
+                                color: const Color(0xFF2D3F4E),
+                                fontSize: 35.sp,
+                                fontWeight: FontWeight.w900,
+=======
                             padding: EdgeInsets.only(right: 50.h, top: 20.h),
                             child: FittedBox(
                               child: Text(
@@ -103,26 +145,48 @@ class _WelcomePageState extends State<WelcomePage> {
                                   fontWeight: FontWeight.w900,
                                 ),
                                 textAlign: TextAlign.left,
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
                               ),
                             ),
                           ),
                           Container(
+<<<<<<< HEAD
+                            padding: const EdgeInsets.only(right: 95),
+=======
                             padding: EdgeInsets.only(right: 95.w),
                             child: ShaderMask(
                               shaderCallback: (bounds) {
                                 return gradient.createShader(Rect.fromLTWH(
                                     0, 0, bounds.width, bounds.height));
                               },
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
                               child: Text(
                                 'TRAVEL GO',
                                 style: TextStyle(
-                                  color: Colors.lightBlue,
+                                  color: const Color(0xFF44CAF9),
                                   fontSize: 25.sp,
                                   fontWeight: FontWeight.w900,
                                 ),
                                 textAlign: TextAlign.left,
                               ),
                             ),
+<<<<<<< HEAD
+                          const SizedBox(
+                            height: 15,
+                          ),
+                  Container(
+                    width: 700.w,
+                    padding: EdgeInsets.only(top: 5.h, left: 30.w), // Adjusted padding, no left/right padding
+                    child: Text(
+                      'Travel and get more experience here in Pangasinan! \n \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
+                      textAlign: TextAlign.left, // Keep the alignment to left
+                      style: TextStyle(
+                        color: const Color(0xFF2D3F4E),
+                        fontSize: 13.sp,
+                      ),
+                    ),
+                  ),
+=======
                           ),
                           SizedBox(
                             height: 15.h,
@@ -138,6 +202,7 @@ class _WelcomePageState extends State<WelcomePage> {
                               ),
                             ),
                           ),
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
                         ],
                       ),
                     ),
@@ -145,11 +210,11 @@ class _WelcomePageState extends State<WelcomePage> {
                       height: 20.h,
                     ),
                     Container(
-                      padding: EdgeInsets.only(bottom: 300.h),
+                      padding: EdgeInsets.only(bottom: 900.h),
                       child: Column(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(bottom: 20.h),
+                            padding: EdgeInsets.only(top: 0.h, bottom: 20.h),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
@@ -179,7 +244,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 10.h, bottom: 30.h),
+                            padding: EdgeInsets.only(top: 0.h, bottom: 30.h),
                             child: Container(
                               padding: EdgeInsets.only(top: 0.h),
                               decoration: BoxDecoration(
@@ -203,7 +268,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                   ),
                                 ),
                                 color: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFDFEFF2),
+                                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
                                 ),
                               ),
                             ),

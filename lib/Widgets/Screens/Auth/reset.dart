@@ -29,13 +29,14 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+    backgroundColor: const Color(0xFFDEEFFC),
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Positioned(
               right: 20.w,
               left: -20.w,
+              top: 60.h,
               child: Column(
                 children: [
                   SizedBox(
@@ -51,7 +52,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ),
                   ),
                   Container(
-                    padding: null,
+                    padding: EdgeInsets.only(top: 20.h),
                     child: Text(
                         textAlign: TextAlign.justify,
                         'Your new password must be different from \nprevious used passwords.',
@@ -61,7 +62,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 ],
               )),
           Positioned(
-              bottom: 0,
+              bottom: -20,
               left: -1,
               right: -1,
               child: Container(
@@ -71,11 +72,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                     Container(
                       height: 550.h,
                       width: 410.w,
-                      decoration: const BoxDecoration(
-                          color: Color(0xFF44CAF9),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(50),
-                              topRight: Radius.circular(50))),
                       child: Column(
                         children: [
                           SizedBox(
@@ -122,10 +118,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                             child: BlueButtonWithoutFunction(
                                 text: Text(
                                   'Reset Password',
-                                  style: TextStyle(color: Colors.black, fontSize: 15.sp,),
+                                  style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255), fontSize: 15.sp,),
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white),
+                                  backgroundColor: const Color(0xFF44CAF9),
+                                        shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0), // Adjust the radius as needed
+                                    ),
+                                  ),
                                 oppressed: () => Usersss().resetPasssword(
                                     _resetTokenController.text.trim(),
                                     _emailController.text.trim(),

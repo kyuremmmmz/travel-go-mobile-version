@@ -20,9 +20,11 @@ class _TitleMenuState extends State<TitleMenu> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
+@override
+Widget build(BuildContext context) {
+  return Container(
+    // color: Colors.white, // Add your desired background color here just incase po 
+    child: Column(
       children: [
         Text(
           'TRAVEL GO', // The home Travel Go Icon
@@ -34,8 +36,7 @@ class _TitleMenuState extends State<TitleMenu> {
               Shadow(
                 offset: Offset(2.0.h, -2.0.h), // Position of the shadow (x, y)
                 blurRadius: 20, // Blur effect of the shadow
-                color: const Color.fromARGB(
-                    128, 117, 116, 116), // Shadow color with opacity
+                color: const Color.fromARGB(128, 117, 116, 116), // Shadow color with opacity
               ),
             ],
           ),
@@ -66,12 +67,15 @@ class _TitleMenuState extends State<TitleMenu> {
                     "Northwestern part of Luzon Island, Philippines",
                     style: TextStyle(fontSize: 11.sp),
                   ),
+                  SizedBox(height: 10.h), // bottom padding for text
                 ],
               ),
             ],
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
+
 }

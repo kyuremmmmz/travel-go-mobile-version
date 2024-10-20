@@ -59,18 +59,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFDEEFFC),
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: -85.w,
-            right: -30.h,
-            left: -30.h,
-            child: Stack(children: [
+            top: 20.h,
+            right: -30,
+            left: -30,
+            child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
-                  'assets/images/Background.png',
+                  'assets/images/icon/newlogo.png',
                   fit: BoxFit.cover,
+<<<<<<< HEAD
+                  height: 152.h,
+                  width: 200.w,
+                ),
+              ),
+              Positioned(
+                top: 100,
+                bottom: 50, // Adjust the position of the second image
+                right: -30,
+                left: -30,  // Change as needed
+                child: Image.asset(
+                  'assets/images/icon/airplanelogo.png', // Replace with your image path
+                  height: 450.h, // Adjust the size
+                  width: 350.w,  // Adjust the size
+                ),
+              ),
+              Container(
+                height: 470.h,
+                width: 510.w,
+=======
                   height: MediaQuery.of(context).size.height - 350.h,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -79,10 +100,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width + 100.w,
                 color: Colors.black.withOpacity(0.5),
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
               )
             ]),
           ),
           Positioned(
+<<<<<<< HEAD
+=======
             top: 130.h,
             right: 85.w,
             child: Text(
@@ -111,6 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontWeight: FontWeight.w300,
                       fontSize: 12.sp))),
           Positioned(
+>>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
             bottom: -320.h,
             right: 0,
             left: 0,
@@ -122,7 +147,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 bottom: 0.w,
                 right: 0.h,
               ),
-              decoration: const BoxDecoration(color: Colors.white),
               child: SingleChildScrollView(
                   child: Form(
                 key: _formKey,
@@ -162,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ))),
                         style: const TextStyle(
                           fontSize: 15,
-                          color: Colors.black,
+                          color: Color.fromARGB(255, 0, 0, 0),
                         ),
                         keyboardType: TextInputType.emailAddress,
                       ),
