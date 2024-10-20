@@ -144,7 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ))),
                         style: const TextStyle(
                           fontSize: 15,
-                          color: Color(0xFF2D3F4E),
+                          color: Color.fromARGB(255, 0, 0, 0),
                         ),
                         keyboardType: TextInputType.emailAddress,
                       ),
