@@ -180,7 +180,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                           price: widget.price,
                           payment: widget.price,
                           age: widget.age,
-                          bookingId: ''
+                          bookingId: '${widget.bookingId}',
                         ),
                       ),
                       AccountButton(
