@@ -6,7 +6,29 @@ import 'package:http/http.dart' as http;
 class Searchcontroller {
   Future<List<dynamic>> fetchSuggestions(String query) async {
     try {
-      final response = await supabase.from('places').select('*');
+      final response = await supabase.from('places').select('*').ilike('place_name', '%$query%');
+
+      if (response.isNotEmpty) {
+        final data = response;
+        List datas = List.from(data);
+        for (var quesries in datas) {
+          final place = quesries['place_name'];
+          quesries['place_name'] = place;
+        }
+        return datas;
+      } else {
+        throw Exception('Failed to load suggestions');
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print('Error: $e');
+      return [];
+    }
+  }
+
+  Future<List<dynamic>> fetchHotelSuggestions(String query) async {
+    try {
+      final response = await supabase.from('hotels').select('*');
 
       if (response.isNotEmpty) {
         final data = response;
