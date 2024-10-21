@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'ResponsiveScreen/ResponsiveScreen.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
@@ -289,9 +291,9 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                           left: 30, right: 30),
                                       child: Text(
                                         text ?? 'No data available',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: 25,
+                                            fontSize: Responsive().titleFontSize(),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -311,27 +313,43 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                 name: '$located',
                                                 id: widget.id);
                                           },
-                                          child: Text(
-                                              located ?? 'I cant locate it'),
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                located ?? 'I cant locate it',
+                                                style: TextStyle(
+                                                  fontSize: Responsive().aboutFontSize(),
+                                                  decoration: TextDecoration.underline,
+                                                  color: Colors.blue),
+                                              ),
+                                              FaIcon(
+                                                FontAwesomeIcons.map,
+                                                size: Responsive().clickToOpenFontSize(),
+                                                color: Colors.red,
+                                              ),
+                                            ],
+                                          )
                                         )
                                       ],
                                     ),
                                     const SizedBox(height: 20),
                                     Container(
                                       padding:
-                                          const EdgeInsets.only(right: 300),
-                                      child: const Text(
+                                          EdgeInsets.only(right: Responsive().aboutPlacement()),
+                                      child: Text(
                                         'About',
                                         style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: Responsive().headerFontSize(),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.only(left: 30),
+                                      padding: const EdgeInsets.only(left: 30, right: 30),
                                       child: Text(
                                         description ?? 'No Description',
-                                        textAlign: TextAlign.left,
+                                        textAlign: TextAlign.justify,
+                                        style: TextStyle(fontSize: Responsive().aboutFontSize()),
                                       ),
                                     ),
                                     const SizedBox(
@@ -342,11 +360,11 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                     ),
                                     Container(
                                       padding:
-                                          const EdgeInsets.only(right: 250),
-                                      child: const Text(
+                                          EdgeInsets.only(right: Responsive().amenitiesPlacement(),),
+                                      child: Text(
                                         'Amenities',
                                         style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: Responsive().headerFontSize(),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -362,8 +380,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                             child: Stack(
                                               children: [
                                                 Container(
-                                                  height: 150,
-                                                  width: 350,
+                                                  height: Responsive().amenitiesBoxHeight(),
+                                                  width: Responsive().amenitiesBoxWidth(),
                                                   decoration: BoxDecoration(
                                                     image: DecorationImage(
                                                       fit: BoxFit.cover,
@@ -759,7 +777,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                     const SizedBox(
                                       height: 30,
                                     ),
-                                    SizedBox(
+                                    Container(
+                                      padding: EdgeInsets.only(left: Responsive().placeBookingPadding(), right: Responsive().placeBookingPadding()),
                                       width: Responsive().screenWidth(context),
                                       child:  
                                       Row(
@@ -770,26 +789,26 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                             TextSpan(
                                                 text:
                                                     'PHP ${price.toString()} - 6,000',
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 21,
+                                                    fontSize: Responsive().bookingPrice(),
                                                     fontWeight: FontWeight.bold)),
-                                            const TextSpan(
+                                            TextSpan(
                                                 text: '\nEstimated Expenses',
                                                 style: TextStyle(
                                                     color: Colors.blue,
-                                                    fontSize: 13))
+                                                    fontSize: Responsive().aboutFontSize()))
                                           ])),
                                           Container(
                                             width: Responsive().placeBookingWidth(context),
                                             padding:
                                                 const EdgeInsets.only(left: 50),
                                             child: BlueButtonWithoutFunction(
-                                                text: const Text(
+                                                text: Text(
                                                   'Place Booking',
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 14,
+                                                      fontSize: Responsive().aboutFontSize(),
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -807,7 +826,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                           )
                                         ],
                                       )
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
