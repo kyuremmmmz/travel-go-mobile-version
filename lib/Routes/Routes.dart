@@ -274,6 +274,6 @@ class AppRoutes {
 
   static void navigateToBookingHistory(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const Bookinghistory()));
+        MaterialPageRoute(builder: (context) => const BookingHistory()));
   }
 }

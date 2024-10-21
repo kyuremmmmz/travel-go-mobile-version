@@ -92,7 +92,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        // title: const Text('Settings'), //SETTINGS AREA JUST IN CASE PALAGYAN
         toolbarHeight: 40,
         leading: Builder(
           builder: (BuildContext context) => IconButton(
@@ -110,9 +110,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  const SizedBox(height: 30),
                   const TitleMenu(),
-                  const SizedBox(height: 30),
                   Center(
                     child: GestureDetector(
                       onTap: () {
