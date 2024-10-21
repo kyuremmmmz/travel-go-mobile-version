@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/hotelSearch.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
@@ -263,7 +264,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                     child: Column(
                       children: <Widget>[
                         TitleMenu(),
-                        SearchMenu(),
+                        HotelSearchMenu(),
                         SizedBox(height: 30),
                       ],
                     ),

@@ -57,16 +57,16 @@ class _HotelSearchMenuState extends State<HotelSearchMenu> {
                 ),
               ),
               suggestionsCallback: (pattern) async {
-                return await Searchcontroller().fetchSuggestions(pattern);
+                return await Searchcontroller().fetchHotelSuggestions(pattern);
               },
               itemBuilder: (context, dynamic suggestion) {
                 return ListTile(
-                  title: Text(suggestion['place_name'] ?? 'No title'),
-                  subtitle: Text(suggestion['locatedIn'] ?? 'No address'),
+                  title: Text(suggestion['hotel_name'] ?? 'No title'),
+                  subtitle: Text(suggestion['hotel_located'] ?? 'No address'),
                 );
               },
               onSuggestionSelected: (dynamic suggestion) {
-                _searchController.text = suggestion['place_name'] ?? 'No title';
+                _searchController.text = suggestion['hotel_name'] ?? 'No title';
                 FocusScope.of(context).unfocus();
               },
             ),

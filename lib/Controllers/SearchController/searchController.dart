@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:TravelGo/main.dart';
-import 'package:http/http.dart' as http;
 
 class Searchcontroller {
   Future<List<dynamic>> fetchSuggestions(String query) async {
@@ -28,14 +25,14 @@ class Searchcontroller {
 
   Future<List<dynamic>> fetchHotelSuggestions(String query) async {
     try {
-      final response = await supabase.from('hotels').select('*');
+      final response = await supabase.from('hotels').select('*').ilike('hotel_name', '%$query%');
 
       if (response.isNotEmpty) {
         final data = response;
         List datas = List.from(data);
         for (var quesries in datas) {
-          final place = quesries['place_name'];
-          quesries['place_name'] = place;
+          final place = quesries['hotel_name'];
+          quesries['hotel_name'] = place;
         }
         return datas;
       } else {
