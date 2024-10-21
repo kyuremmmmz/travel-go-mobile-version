@@ -108,13 +108,12 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
                               text:
                                   "Did not receive the email? Check your spam \nfilter or ",
                               style: TextStyle(color: Colors.black)),
-TextSpan(
-  text: "try another email address.",
-  style: const TextStyle(color: Color(0xFF44CAF9)), // Corrected line
-  recognizer: TapGestureRecognizer()
-    ..onTap = () => AppRoutes.navigateToForgotPassword(context), // Add Route for trying email address or change
-),
-
+                        TextSpan(
+                          text: "try another email address.",
+                          style: const TextStyle(color: Color(0xFF44CAF9)), 
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => AppRoutes.navigateToForgotPassword(context), // Add Route for trying email address or change
+                        ),
                         ]),
                       ),
                     ],

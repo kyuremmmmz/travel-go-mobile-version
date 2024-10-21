@@ -72,7 +72,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Image.asset(
                   'assets/images/icon/newlogo.png',
                   fit: BoxFit.cover,
-<<<<<<< HEAD
                   height: 152.h,
                   width: 200.w,
                 ),
@@ -91,51 +90,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                 height: 470.h,
                 width: 510.w,
-=======
-                  height: MediaQuery.of(context).size.height - 350.h,
-                  width: MediaQuery.of(context).size.width,
-                ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width + 100.w,
-                color: Colors.black.withOpacity(0.5),
->>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
               )
             ]),
           ),
           Positioned(
-<<<<<<< HEAD
-=======
-            top: 130.h,
-            right: 85.w,
-            child: Text(
-              textAlign: TextAlign.center,
-              'TRAVEL GO',
-              style: TextStyle(
-                  fontSize: 40.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      offset: Offset(5.0.w, 5.0.h), // Shadow position
-                      blurRadius: 12.0.w,
-                      color: Colors.black,
-                    )
-                  ]),
-            ),
-          ),
-          Positioned(
-              top: 185.h,
-              right: 50.w,
-              child: Text('Travel and get more experience here in Pangasinan!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 12.sp))),
-          Positioned(
->>>>>>> 6e640f50c2dce116101aa14592e955ff4c52c306
             bottom: -320.h,
             right: 0,
             left: 0,
