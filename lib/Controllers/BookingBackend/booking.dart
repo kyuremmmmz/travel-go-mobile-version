@@ -95,6 +95,7 @@ class Booking {
     String plane,
     String airPort,
     String travelType,
+    String bookingId
   ) async {
     final response = await supabase.from('flightBooking').insert({
       'firstName': firstName,
@@ -115,6 +116,7 @@ class Booking {
       'plane': plane,
       'airPort': airPort,
       'traveltype': travelType,
+      'booking_id' : bookingId
     });
     if (response != null) {
       return response;

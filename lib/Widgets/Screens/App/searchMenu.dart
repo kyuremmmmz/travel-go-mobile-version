@@ -60,12 +60,12 @@ Widget build(BuildContext context) {
             },
             itemBuilder: (context, dynamic suggestion) {
               return ListTile(
-                title: Text(suggestion['title'] ?? 'No title'),
-                subtitle: Text(suggestion['address'] ?? 'No address'),
+                title: Text(suggestion['place_name'] ?? 'No title'),
+                subtitle: Text(suggestion['locatedIn'] ?? 'No address'),
               );
             },
             onSuggestionSelected: (dynamic suggestion) {
-              _searchController.text = suggestion['title'] ?? 'No title';
+              _searchController.text = suggestion['place_name'] ?? 'No title';
               FocusScope.of(context).unfocus();
             },
           ),

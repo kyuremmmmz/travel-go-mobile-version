@@ -5,6 +5,7 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/VoucherButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
+import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -52,7 +53,8 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   }
 
   Future<void> fetchDiscount() async {
-    final response = await fetchDiscounts.getTheDiscountsAsList();
+    final user =  supabase.auth.currentUser!.id;
+    final response = await fetchDiscounts.getTheDiscountsAsList(user);
     setState(() {
       res = response;
       formattedDate = DateFormat('MMMM dd').format(dateNoww);

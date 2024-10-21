@@ -4,7 +4,23 @@ import 'package:intl/intl.dart';
 import 'package:postgrest/src/types.dart';
 
 class BookingSection extends StatefulWidget {
-  const BookingSection({super.key});
+  final String departureDay;
+  final String departureDate;
+  final String checkedInDate;
+  final int price;
+  final String locationName;
+  final String locationAddress;
+  final VoidCallback oppressed;
+  const BookingSection({
+    super.key,
+    required this.departureDay,
+    required this.departureDate,
+    required this.checkedInDate,
+    required this.price,
+    required this.locationName,
+    required this.locationAddress,
+    required this.oppressed,
+    });
 
   @override
   State<BookingSection> createState() => _BookingSectionState();
@@ -46,7 +62,7 @@ class _BookingSectionState extends State<BookingSection> {
     return Container(
       padding: null,
       width: 330,
-      height: 280,
+      height: 580,
       child: list.isEmpty
           ? const Center(
               child: Text('No Booking History'),

@@ -33,7 +33,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future<void> _updateProfile() async {
     final userId = Supabase.instance.client.auth.currentUser!.id;
-
+    await supabase.from('profiles').update({
+      'full_name': _nameController.text
+    }).eq('id', userId);
     final response = await supabase.auth.updateUser(
       UserAttributes(email: _emailController.text),
     );

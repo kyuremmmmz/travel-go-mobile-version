@@ -9,14 +9,14 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main(phone) async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(OrderReceipt(Phone: phone));
+  runApp(OrderReceipt(bookingId: phone));
 }
 
 class OrderReceipt extends StatelessWidget {
-  final int Phone;
+  final String? bookingId;
   const OrderReceipt({
     super.key,
-    required this.Phone,
+    required this.bookingId,
   });
 
   @override
@@ -24,16 +24,16 @@ class OrderReceipt extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel',
-      home: OrderReceiptScreen(Phone: Phone),
+      home: OrderReceiptScreen(bookingId: bookingId),
     );
   }
 }
 
 class OrderReceiptScreen extends StatefulWidget {
-  final int Phone;
+  final String? bookingId;
   const OrderReceiptScreen({
     super.key,
-    required this.Phone,
+    this.bookingId,
   });
 
   @override
@@ -58,7 +58,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   void initState() {
     super.initState();
     emailFetching();
-    finalReceipt(widget.Phone);
+    finalReceipt('${widget.bookingId}');
   }
 
   void main() async {
@@ -104,7 +104,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
     }
   }
 
-  Future<void> finalReceipt(int uid) async {
+  Future<void> finalReceipt(String uid) async {
     try {
       final response = await book.paymentReceipt(uid);
       if (response != null) {
