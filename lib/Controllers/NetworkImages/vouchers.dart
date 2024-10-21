@@ -2,8 +2,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Vouchers {
   final supabase = Supabase.instance.client;
-  Future<List<Map<String, dynamic>>> getTheDiscountsAsList() async {
-    final response = await supabase.from('discounts').select('*');
+  Future<List<Map<String, dynamic>>> getTheDiscountsAsList(String uid) async {
+    final response = await supabase.from('discounts').select('*').eq('uid', uid);
     if (response.isEmpty) {
       return [];
     } else {
