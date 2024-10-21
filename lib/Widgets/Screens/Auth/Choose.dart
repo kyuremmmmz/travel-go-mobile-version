@@ -42,7 +42,7 @@ class _WelcomePageState extends State<WelcomePage> {
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: 20.h,
+            top: 0.h,
             right: -30,
             left: -30,
             child: Stack(children: <Widget>[
@@ -50,7 +50,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: Image.asset(
                   'assets/images/icon/newlogo.png',
                   fit: BoxFit.cover,
-                  height: 152.h,
+                  height: 200.h,
                   width: 200.w,
                 ),
               ),
@@ -58,11 +58,11 @@ class _WelcomePageState extends State<WelcomePage> {
                 top: 100,
                 bottom: 50, // Adjust the position of the second image
                 right: -30,
-                left: -30,  // Change as needed
+                left: -30, // Change as needed
                 child: Image.asset(
                   'assets/images/icon/airplanelogo.png', // Replace with your image path
                   height: 450.h, // Adjust the size
-                  width: 350.w,  // Adjust the size
+                  width: 350.w, // Adjust the size
                 ),
               ),
               Container(
@@ -100,31 +100,35 @@ class _WelcomePageState extends State<WelcomePage> {
                           ),
                           Container(
                             padding: const EdgeInsets.only(right: 95),
-                              child: Text(
-                                'TRAVEL GO',
-                                style: TextStyle(
-                                  color: const Color(0xFF44CAF9),
-                                  fontSize: 25.sp,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                                textAlign: TextAlign.left,
+                            child: Text(
+                              'TRAVEL GO',
+                              style: TextStyle(
+                                color: const Color(0xFF44CAF9),
+                                fontSize: 25.sp,
+                                fontWeight: FontWeight.w900,
                               ),
+                              textAlign: TextAlign.left,
                             ),
+                          ),
                           const SizedBox(
                             height: 15,
                           ),
-                  Container(
-                    width: 700.w,
-                    padding: EdgeInsets.only(top: 5.h, left: 30.w), // Adjusted padding, no left/right padding
-                    child: Text(
-                      'Travel and get more experience here in Pangasinan! \n \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
-                      textAlign: TextAlign.left, // Keep the alignment to left
-                      style: TextStyle(
-                        color: const Color(0xFF2D3F4E),
-                        fontSize: 13.sp,
-                      ),
-                    ),
-                  ),
+                          Container(
+                            width: 700.w,
+                            padding: EdgeInsets.only(
+                                top: 5.h,
+                                left: 30
+                                    .w), // Adjusted padding, no left/right padding
+                            child: Text(
+                              'Travel and get more experience here in Pangasinan! \n \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
+                              textAlign: TextAlign
+                                  .justify, // Keep the alignment to justify
+                              style: TextStyle(
+                                color: const Color(0xFF2D3F4E),
+                                fontSize: 13.sp,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -190,7 +194,8 @@ class _WelcomePageState extends State<WelcomePage> {
                                   ),
                                 ),
                                 color: ElevatedButton.styleFrom(
-                                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                                  backgroundColor:
+                                      Color.fromARGB(255, 255, 255, 255),
                                 ),
                               ),
                             ),

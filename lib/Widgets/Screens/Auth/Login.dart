@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: 20.h,
+            top: 0.h,
             right: -30,
             left: -30,
             child: Stack(children: <Widget>[
@@ -70,22 +70,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Image.asset(
                   'assets/images/icon/newlogo.png',
                   fit: BoxFit.cover,
-                  height: 152.h,
+                  height: 200.h,
                   width: 200.w,
                 ),
               ),
-             Positioned(
+              Positioned(
                 top: 100,
                 bottom: 50, // Adjust the position of the second image
                 right: -30,
-                left: -30,  // Change as needed
+                left: -30, // Change as needed
                 child: Image.asset(
                   'assets/images/icon/airplanelogo.png', // Replace with your image path
                   height: 450.h, // Adjust the size
-                  width: 350.w,  // Adjust the size
+                  width: 350.w, // Adjust the size
                 ),
               ),
-               Container(
+              Container(
                 height: 470.h,
                 width: 510.w,
               )
