@@ -13,6 +13,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class LinkedBankScreen extends StatefulWidget {
   final String name;
   final int phone;
+  final String? bookingId;
   final String hotelorplace;
   final String nameoftheplace;
   final int price;
@@ -30,6 +31,7 @@ class LinkedBankScreen extends StatefulWidget {
     required this.price,
     required this.payment,
     required this.age,
+    this.bookingId,
   });
 
   @override
@@ -75,6 +77,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
       widget.name,
       widget.phone,
       widget.nameoftheplace,
+      widget.bookingId
     );
     if (mounted) {
       setState(() {
@@ -175,8 +178,9 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                           phone: widget.phone,
                           nameoftheplace: widget.nameoftheplace,
                           price: widget.price,
-                          payment: widget.price, 
+                          payment: widget.price,
                           age: widget.age,
+                          bookingId: '${widget.bookingId}',
                         ),
                       ),
                       AccountButton(
@@ -230,7 +234,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      OrderReceipt(Phone: widget.phone)));
+                                      OrderReceipt(bookingId: widget.bookingId)));
                         } else {
                           AppRoutes.navigateToNotPaid(context);
                         }

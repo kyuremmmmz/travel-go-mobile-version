@@ -14,7 +14,8 @@ class Paypal {
       int price,
       String name,
       int phone,
-      String place) async {
+      String place,
+      String? bookingId) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) => UsePaypal(
@@ -78,7 +79,8 @@ class Paypal {
               'phone': phone,
               'name': name,
               'price': price,
-              'pay_via' : 'paypal'
+              'pay_via' : 'paypal',
+              'booking_id' : bookingId
             });
 
             

@@ -39,7 +39,9 @@ class Signup {
             emailRedirectTo: kIsWeb
                 ? null
                 : "io.supabase.flutterquickstart://login-callback/",
-            data: {'full_name': fullName});
+            data: {
+              'full_name': fullName,
+              });
       }
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

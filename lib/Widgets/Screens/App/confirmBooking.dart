@@ -22,6 +22,7 @@ class Confirmbooking extends StatelessWidget {
   final String? specialReq;
   final int price;
   final String last;
+  final String bookingId;
 
   const Confirmbooking({
     super.key,
@@ -37,6 +38,7 @@ class Confirmbooking extends StatelessWidget {
     this.specialReq,
     required this.price,
     required this.last,
+    required this.bookingId,
   });
 
   @override
@@ -56,6 +58,7 @@ class Confirmbooking extends StatelessWidget {
           paymentMethod: paymentMethod,
           price: price,
           last: last,
+          bookingId: bookingId,
         ));
   }
 }
@@ -73,6 +76,7 @@ class ConfirmBookingAreaScreen extends StatefulWidget {
   final String paymentMethod;
   final String? specialReq;
   final int price;
+  final String bookingId;
   const ConfirmBookingAreaScreen({
     super.key,
     required this.id,
@@ -87,6 +91,7 @@ class ConfirmBookingAreaScreen extends StatefulWidget {
     required this.paymentMethod,
     this.specialReq,
     required this.price,
+    required this.bookingId,
   });
 
   @override
@@ -588,7 +593,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                                                         price: amount,
                                                         payment: amount,
                                                         hotelorplace:
-                                                            widget.country, 
+                                                            widget.country,
                                                         age: widget.age,
                                                       );
                                                       Booking().flightBooking(
@@ -609,7 +614,8 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                                                           widget.paymentMethod,
                                                           'Cebu Pacific',
                                                           widget.country,
-                                                          'Road Trip');
+                                                          'Road Trip',
+                                                          widget.bookingId);
                                                     } else {
                                                       debugPrint('nigga');
                                                     }
