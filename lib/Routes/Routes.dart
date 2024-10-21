@@ -243,7 +243,8 @@ class AppRoutes {
       required numberOfAdults,
       required paymentMethod,
       required price,
-      required last}) {
+      required last,
+      String? bookingId}) {
     if (age < 18) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -266,6 +267,7 @@ class AppRoutes {
                     paymentMethod: paymentMethod,
                     price: price,
                     last: last,
+                    bookingId: '$bookingId',
                   )));
     }
   }
