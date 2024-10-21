@@ -1,3 +1,5 @@
+import 'package:TravelGo/Widgets/Screens/Stateless/email.dart';
+import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -33,7 +35,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future<void> _updateProfile() async {
     final userId = Supabase.instance.client.auth.currentUser!.id;
-
+    await supabase.from('profiles').update({
+      'full_name': _nameController.text
+    }).eq('id', userId);
     final response = await supabase.auth.updateUser(
       UserAttributes(email: _emailController.text),
     );

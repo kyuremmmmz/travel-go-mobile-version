@@ -12,6 +12,7 @@ class Creditcard extends StatelessWidget {
   final String nameoftheplace;
   final int price;
   final int payment;
+  final String booking_id;
   const Creditcard({
     super.key,
     required this.name,
@@ -20,6 +21,7 @@ class Creditcard extends StatelessWidget {
     required this.nameoftheplace,
     required this.price,
     required this.payment,
+    required this.booking_id,
     String? origin,
     String? destination,
   });
@@ -39,6 +41,7 @@ class Creditcard extends StatelessWidget {
         nameoftheplace: nameoftheplace,
         price: price,
         payment: payment,
+        booking_id: booking_id,
       ),
     );
   }
@@ -51,6 +54,7 @@ class CreditCardFormScreen extends StatefulWidget {
   final String nameoftheplace;
   final int price;
   final int payment;
+  final String booking_id;
   const CreditCardFormScreen({
     super.key,
     required this.name,
@@ -59,6 +63,7 @@ class CreditCardFormScreen extends StatefulWidget {
     required this.nameoftheplace,
     required this.price,
     required this.payment,
+    required this.booking_id,
     String? origin,
     String? destination,
   });
@@ -94,6 +99,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
       widget.nameoftheplace,
       widget.name,
       widget.phone,
+      widget.booking_id
     );
     if (mounted) {
       setState(() {
@@ -314,7 +320,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    OrderReceipt(Phone: widget.phone)));
+                                    OrderReceipt(bookingId: widget.booking_id)));
                       }
                     : null,
                 child: const Text(
