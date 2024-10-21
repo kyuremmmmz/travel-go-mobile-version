@@ -62,7 +62,7 @@ class _BookingSectionState extends State<BookingSection> {
     return Container(
       padding: null,
       width: 330,
-      height: 280,
+      height: 580,
       child: list.isEmpty
           ? const Center(
               child: Text('No Booking History'),

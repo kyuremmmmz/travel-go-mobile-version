@@ -15,6 +15,7 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    backgroundColor: const Color(0xFFDEEFFC),
       body: Stack(
         children: <Widget>[
           Positioned(
@@ -49,11 +50,6 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
               child: Container(
                   height: 500.h,
                   width: 373.w,
-                  decoration: BoxDecoration(
-                      color: Color(0xFF44CAF9),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50.w),
-                          topRight: Radius.circular(50.w))),
                   child: Column(
                     children: [
                       SizedBox(
@@ -75,15 +71,14 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
                       child:  BlueButtonWithoutFunction(
                         text: Text(
                           'Next',
-                          style: TextStyle(color: Colors.black,
+                          style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255),
                           fontWeight: FontWeight.w400,
                           fontSize: 18.sp),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 255, 255, 255),
+                              backgroundColor: const Color(0xFF44CAF9), 
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(15),
                           ),
                         ),
                         oppressed: () => AppRoutes.navigateToResetScreen(
@@ -113,13 +108,13 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
                               text:
                                   "Did not receive the email? Check your spam \nfilter or ",
                               style: TextStyle(color: Colors.black)),
-                          TextSpan(
-                              text: "try another email address.",
-                              style: const TextStyle(color: Colors.white),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => AppRoutes.navigateToForgotPassword(
-                                    context) // Add Route for trying email address or change
-                              )
+TextSpan(
+  text: "try another email address.",
+  style: const TextStyle(color: Color(0xFF44CAF9)), // Corrected line
+  recognizer: TapGestureRecognizer()
+    ..onTap = () => AppRoutes.navigateToForgotPassword(context), // Add Route for trying email address or change
+),
+
                         ]),
                       ),
                     ],

@@ -38,59 +38,53 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color(0xFFDEEFFC),
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: -90.h,
+            top: 20.h,
             right: -30,
             left: -30,
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
-                  'assets/images/Background.png',
+                  'assets/images/icon/newlogo.png',
                   fit: BoxFit.cover,
-                  height: 470.h,
-                  width: 510.w,
+                  height: 152.h,
+                  width: 200.w,
+                ),
+              ),
+              Positioned(
+                top: 100,
+                bottom: 50, // Adjust the position of the second image
+                right: -30,
+                left: -30,  // Change as needed
+                child: Image.asset(
+                  'assets/images/icon/airplanelogo.png', // Replace with your image path
+                  height: 450.h, // Adjust the size
+                  width: 350.w,  // Adjust the size
                 ),
               ),
               Container(
                 height: 470.h,
                 width: 510.w,
-                color: Colors.black.withOpacity(0.2),
               )
             ]),
           ),
           Positioned(
-            top: 300.h,
+            top: 350.h,
             right: 0,
             left: 0,
-            height: 800.h,
             child: Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.only(top: 20),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 255, 255),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    spreadRadius: 5,
-                    blurRadius: 8,
-                    offset: const Offset(0, 10),
-                  )
-                ],
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(60),
-                  topRight: Radius.circular(60),
-                ),
-              ),
+              padding: const EdgeInsets.only(top: 10),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.only(bottom: 20, right: 90),
+                      padding: EdgeInsets.only(bottom: 20.h, right: 50.h),
                       child: Column(
                         children: <Widget>[
                           Container(
@@ -98,56 +92,51 @@ class _WelcomePageState extends State<WelcomePage> {
                             child: Text(
                               'Welcome to',
                               style: TextStyle(
+                                color: const Color(0xFF2D3F4E),
                                 fontSize: 35.sp,
                                 fontWeight: FontWeight.w900,
                               ),
-                              textAlign: TextAlign.left,
                             ),
                           ),
                           Container(
                             padding: const EdgeInsets.only(right: 95),
-                            child: ShaderMask(
-                              shaderCallback: (bounds) {
-                                return gradient.createShader(Rect.fromLTWH(
-                                    0, 0, bounds.width, bounds.height));
-                              },
                               child: Text(
                                 'TRAVEL GO',
                                 style: TextStyle(
-                                  color: Colors.lightBlue,
+                                  color: const Color(0xFF44CAF9),
                                   fontSize: 25.sp,
                                   fontWeight: FontWeight.w900,
                                 ),
                                 textAlign: TextAlign.left,
                               ),
                             ),
-                          ),
                           const SizedBox(
                             height: 15,
                           ),
-                          Container(
-                            padding: EdgeInsets.only(top: 5.h, left: 35.w),
-                            width: 700.w,
-                            child: Text(
-                              'Travel and get more experience here in Pangasinan! \n \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                              ),
-                            ),
-                          ),
+                  Container(
+                    width: 700.w,
+                    padding: EdgeInsets.only(top: 5.h, left: 30.w), // Adjusted padding, no left/right padding
+                    child: Text(
+                      'Travel and get more experience here in Pangasinan! \n \nExplore the stunning beaches, rich culture, and hidden gems of Pangasinan with ease! It simplifies your journey, offering seamless booking options, accurate travel cost estimates, and insider tips to make your trip unforgettable.',
+                      textAlign: TextAlign.left, // Keep the alignment to left
+                      style: TextStyle(
+                        color: const Color(0xFF2D3F4E),
+                        fontSize: 13.sp,
+                      ),
+                    ),
+                  ),
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 20.h,
                     ),
                     Container(
-                      padding: EdgeInsets.only(bottom: 300.h),
+                      padding: EdgeInsets.only(bottom: 900.h),
                       child: Column(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(bottom: 20.h),
+                            padding: EdgeInsets.only(top: 0.h, bottom: 20.h),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
@@ -160,25 +149,24 @@ class _WelcomePageState extends State<WelcomePage> {
                                   ),
                                 ],
                               ),
-                              width: 270.w,
-                              height: 40.h,
+                              width: MediaQuery.of(context).size.width - 120.w,
                               child: Bluebottle(
                                 color: ElevatedButton.styleFrom(
                                   backgroundColor:
                                       const Color.fromARGB(255, 50, 190, 255),
                                 ),
                                 text: Text(
-                                  'Sign In',
+                                  'Log In',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 13.sp,
+                                    fontSize: 18.sp,
                                   ),
                                 ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 10.h, bottom: 30.h),
+                            padding: EdgeInsets.only(top: 0.h, bottom: 30.h),
                             child: Container(
                               padding: EdgeInsets.only(top: 0.h),
                               decoration: BoxDecoration(
@@ -192,18 +180,17 @@ class _WelcomePageState extends State<WelcomePage> {
                                   ),
                                 ],
                               ),
-                              width: 270.w,
-                              height: 40.h,
+                              width: MediaQuery.of(context).size.width - 120.w,
                               child: Greenbutton(
                                 text: Text(
                                   'Sign Up',
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 13.sp,
+                                    fontSize: 18.sp,
                                   ),
                                 ),
                                 color: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFDFEFF2),
+                                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
                                 ),
                               ),
                             ),

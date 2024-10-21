@@ -140,6 +140,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                                       builder: (context) =>
                                                           HotelInformationScreen(
                                                             text: place['id'],
+                                                            name: place['hotel_name'],
                                                             id: place['id'],
                                                           )),
                                                 );

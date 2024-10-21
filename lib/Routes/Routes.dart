@@ -85,7 +85,8 @@ class AppRoutes {
       required String hotelorplace,
       required int age,
       String? origin,
-      String? destination}) {
+      String? destination,
+      String? bookingId}) {
     try {
       if (age < 18) {
         throw Exception('You must be 18 years old or older');
@@ -103,6 +104,7 @@ class AppRoutes {
                       origin: origin,
                       destination: destination,
                       age: age,
+                      bookingId: bookingId,
                     )));
       }
       return;
@@ -132,12 +134,14 @@ class AppRoutes {
     required DateTime date,
     required String ref,
     required String payment,
+    required String bookingId
   }) {
     Navigator.push(
         route,
         MaterialPageRoute(
             builder: (context) => OrderReceipt(
-                  Phone: phone,
+                  bookingId: bookingId,
+
                 )));
   }
 
@@ -180,12 +184,13 @@ class AppRoutes {
   }
 
   static void navigateToHotelBookingScreen(BuildContext route,
-      {required int id}) {
+      {required int id, required String price}) {
     Navigator.push(
         route,
         MaterialPageRoute(
             builder: (route) => HotelBookingArea(
                   id: id,
+                  price: price,
                 )));
   }
 
@@ -196,7 +201,8 @@ class AppRoutes {
       required String nameoftheplace,
       required int price,
       required int payment,
-      required int age}) {
+      required int age,
+      required String bookingId}) {
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -207,6 +213,7 @@ class AppRoutes {
                   nameoftheplace: nameoftheplace,
                   price: price,
                   payment: payment,
+                  booking_id: bookingId,
                 )));
   }
 
@@ -222,7 +229,7 @@ class AppRoutes {
 
   static void navigateToDiscountArea(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const discountArea()));
+        context, MaterialPageRoute(builder: (context) => const DiscountArea()));
   }
 
   static void navigateToNextScreen(BuildContext context,

@@ -71,7 +71,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
               children: <Widget>[
                 CircleAvatar(
                   radius: 40,
-                  backgroundImage: NetworkImage('$img'),
+                  backgroundImage: img == null ? const AssetImage('assets/images/icon/food_place.png') : NetworkImage('$img'),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -91,7 +91,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             title: const Text('Profile'),
             onTap: () {
               Navigator.pop(context);
-              // For testing screens
+              AppRoutes.navigateToDiscountArea(context);
             },
           ),
           ListTile(
@@ -100,14 +100,6 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToMainMenu(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.wallet),
-            title: const Text('My Wallet'),
-            onTap: () {
-              Navigator.pop(context);
-              AppRoutes.navigateToDiscountArea(context);
             },
           ),
           ListTile(

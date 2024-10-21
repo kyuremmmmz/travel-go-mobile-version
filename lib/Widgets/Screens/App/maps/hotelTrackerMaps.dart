@@ -18,11 +18,13 @@ class Map extends StatelessWidget {
   final String? location;
   final int id;
   final int text;
+  final String? price;
   const Map({
     super.key,
     required this.location,
     required this.id,
     required this.text,
+    this.price,
   });
 
   @override
@@ -39,10 +41,11 @@ class Map extends StatelessWidget {
 class HotelMapPage extends StatefulWidget {
   final String? location;
   final int id;
+  final String? price;
   const HotelMapPage({
     super.key,
     required this.location,
-    required this.id,
+    required this.id, this.price,
   });
 
   @override
@@ -386,7 +389,9 @@ class _HotelMapPageState extends State<HotelMapPage> {
                                                                   .navigateToHotelBookingScreen(
                                                                       context,
                                                                       id: widget
-                                                                          .id);
+                                                                          .id,
+                                                                      price:
+                                                                          '${widget.price}');
                                                             }),
                                                   )
                                                 ],
@@ -602,7 +607,8 @@ class _HotelMapPageState extends State<HotelMapPage> {
                                   HotelBooking().passTheHotelData(widget.id);
                                   AppRoutes.navigateToHotelBookingScreen(
                                       context,
-                                      id: widget.id);
+                                      id: widget.id,
+                                      price: '');
                                 }),
                           )
                         ],
@@ -651,8 +657,8 @@ class _HotelMapPageState extends State<HotelMapPage> {
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height - 300,
-                width: MediaQuery.of(context).size.width,
+                height: 500,
+                width: 400,
                 child: FlutterMap(
                   options: MapOptions(
                     initialCenter: routePoints.isNotEmpty
@@ -685,6 +691,7 @@ class _HotelMapPageState extends State<HotelMapPage> {
                   ],
                 ),
               ),
+              const SizedBox(height: 30),
               SizedBox(
                 width: 200,
                 child: ElevatedButton(

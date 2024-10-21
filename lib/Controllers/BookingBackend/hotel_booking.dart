@@ -69,6 +69,7 @@ class HotelBooking {
     String room,
     int price,
     int age,
+    String bookingId
   ) async {
     try {
       if (age < 18) {
@@ -82,13 +83,14 @@ class HotelBooking {
           'price': price,
           'paymet_status': paymentStatus,
           'hotel': hotel,
-          'booking_id': user!.id,
+          'booking_uid': user!.id,
           'checkin': checkIn,
           'checkout': checkOut,
           'number_of_adults': numberOfAdult,
           'number_of_children': numberOfChildren,
           'room_type': room,
           'age': age,
+          'booking_id': bookingId
         });
         return response;
       }
@@ -98,11 +100,17 @@ class HotelBooking {
     return null;
   }
 
-  Future<Map<String, dynamic>?> paymentReceipt(int uid) async {
+  Future<String> bookingIDgenerator(int generateBooking) async {
+    int newId = generateBooking + 1;
+    String format = newId.toString().padLeft(5, '0');
+    return 'BK$format';
+  }
+
+  Future<Map<String, dynamic>?> paymentReceipt(String uid) async {
     final response = await supabase
         .from('payment_table')
         .select('*')
-        .eq('phone', uid)
+        .eq('booking_id', uid)
         .single();
     if (response.isEmpty) {
       return null;

@@ -15,9 +15,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelBookingArea extends StatelessWidget {
   final int id;
+  final String? price;
   const HotelBookingArea({
     super.key,
     required this.id,
+    this.price,
   });
 
   @override
@@ -27,6 +29,7 @@ class HotelBookingArea extends StatelessWidget {
       title: 'Travel Go',
       home: HotelBookingAreaScreen(
         id: id,
+        price: price,
       ),
     );
   }
@@ -34,9 +37,11 @@ class HotelBookingArea extends StatelessWidget {
 
 class HotelBookingAreaScreen extends StatefulWidget {
   final int id;
+  final String? price;
   const HotelBookingAreaScreen({
     super.key,
     required this.id,
+    this.price,
   });
 
   @override
@@ -65,7 +70,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final supabase = Supabase.instance.client;
   var amount = 0;
   String? strAmount;
-
+  String? idCast;
   String? hotel;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
@@ -120,6 +125,37 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     }
   }
 
+  Future<void> insert() async {
+    final getId = await supabase.from('hotel_booking').select('*');
+    int ids = getId.length;
+    final hotel = await booking.bookingIDgenerator(ids);
+    idCast = hotel;
+    booking.insertBooking(
+        _nameController.text.trim(),
+        _emailController.text.trim(),
+        int.parse(_numberController.text.trim()),
+        _hotel.text.trim(),
+        _checkInController.text.trim(),
+        _checkOutController.text.trim(),
+        _paymentMethodController.text.trim(),
+        _isWaiting ? "Not Paid" : "Paid",
+        int.parse(_number_of_adult.text.trim()),
+        int.parse(_number_of_children.text.trim()),
+        _vehicleTypeController.text.trim(),
+        amount,
+        int.parse(_age.text.trim()),
+        hotel);
+    AppRoutes.navigateToLinkedBankAccount(context,
+        name: _nameController.text.trim(),
+        phone: int.parse(_numberController.text.trim()),
+        nameoftheplace: _emailController.text.trim(),
+        price: amount,
+        payment: amount,
+        hotelorplace: _hotel.text,
+        age: int.parse(_age.text.trim()),
+        bookingId: idCast);
+  }
+
   Future<void> fetchInt(int id) async {
     final data = await booking.passTheHotelData(id);
     if (data == null) {
@@ -127,8 +163,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         amount = 0;
       });
     } else {
-      int basePrice =
-          int.parse(data['hotel_price'].toString().replaceAll(',', ''));
+      int basePrice = int.parse(widget.price.toString().replaceAll(',', ''));
       int additionalCost = 0;
 
       switch (_vehicleTypeController.text.trim()) {
@@ -862,7 +897,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                                 .text
                                                                 .trim() ==
                                                             "Pay Online") {
-                                                              BookinghistoryBackend()
+                                                      BookinghistoryBackend()
                                                           .insertBooking(
                                                         _nameController.text
                                                             .trim(),
@@ -894,66 +929,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                         _vehicleTypeController
                                                             .text
                                                             .trim(),
-                                                        int.parse(_age.text.trim()),
+                                                        int.parse(
+                                                            _age.text.trim()),
                                                         amount,
                                                       );
-                                                      HotelBooking()
-                                                          .insertBooking(
-                                                        _nameController.text
-                                                            .trim(),
-                                                        _emailController.text
-                                                            .trim(),
-                                                        int.parse(
-                                                            _numberController
-                                                                .text
-                                                                .trim()),
-                                                        _hotel.text.trim(),
-                                                        _checkInController.text
-                                                            .trim(),
-                                                        _checkOutController.text
-                                                            .trim(),
-                                                        _paymentMethodController
-                                                            .text
-                                                            .trim(),
-                                                        _isWaiting
-                                                            ? "Not Paid"
-                                                            : "Paid",
-                                                        int.parse(
-                                                            _number_of_adult
-                                                                .text
-                                                                .trim()),
-                                                        int.parse(
-                                                            _number_of_children
-                                                                .text
-                                                                .trim()),
-                                                        _vehicleTypeController
-                                                            .text
-                                                            .trim(),
-                                                            amount,
-                                                        int.parse(_age.text
-                                                              .trim()),
-                                                        
-                                                      );
-                                                      AppRoutes
-                                                          .navigateToLinkedBankAccount(
-                                                        context,
-                                                        name: _nameController
-                                                            .text
-                                                            .trim(),
-                                                        phone: int.parse(
-                                                            _numberController
-                                                                .text
-                                                                .trim()),
-                                                        nameoftheplace:
-                                                            _emailController
-                                                                .text
-                                                                .trim(),
-                                                        price: amount,
-                                                        payment: amount,
-                                                        hotelorplace:
-                                                            _hotel.text, 
-                                                        age: int.parse(_age.text.trim()),
-                                                      );
+                                                      insert();
                                                     } else {
                                                       print('nigga');
                                                     }

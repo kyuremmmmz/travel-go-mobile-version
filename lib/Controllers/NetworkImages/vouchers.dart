@@ -2,8 +2,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Vouchers {
   final supabase = Supabase.instance.client;
-  Future<List<Map<String, dynamic>>> getTheDiscountsAsList() async {
-    final response = await supabase.from('discounts').select('*');
+  Future<List<Map<String, dynamic>>> getTheDiscountsAsList(String uid) async {
+    final response = await supabase.from('discounts').select('*').eq('uid', uid);
     if (response.isEmpty) {
       return [];
     } else {
@@ -23,5 +23,39 @@ class Vouchers {
       }
       return result;
     }
+  }
+
+  Future<List<Map<String, dynamic>>> getTheDiscountsAsListOfLike(
+      List<Map<String, dynamic>> nameList) async {
+    final hotelNames = nameList.map((name) => name['hotelName'].toString()).toList();
+
+    if (hotelNames.isEmpty) {
+      return [];
+    }
+
+    final response = await supabase
+        .from('discounts')
+        .select('*')
+        .ilike('hotelName', '%${hotelNames.first}%');
+
+    if (response.isEmpty) {
+      return [];
+    } else {
+      List<Map<String, dynamic>> result =
+          List<Map<String, dynamic>>.from(response as List);
+
+      for (var datas in result) {
+        datas['hotelName'] = datas['hotelName'];
+        datas['discount'] = datas['discount'];
+        datas['expiry'] = datas['expiry'];
+        datas['ishotel'] = datas['ishotel'];
+      }
+      return result;
+    }
+  }
+
+
+  Future<void> deleteDiscount(int id) async {
+    return await supabase.from('discounts').delete().eq('id', id);
   }
 }
