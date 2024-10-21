@@ -87,9 +87,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             (place) {
               if (place['place_name'] != null &&
                   place['place_name'].toString().length > 18) {
-                place['place_name'] = place['place_name']
-                    .toString()
-                    .substring(0, 18);
+                place['place_name'] =
+                    place['place_name'].toString().substring(0, 18);
               }
               return place;
             },
@@ -174,7 +173,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               children: <Widget>[
                 const TitleMenu(),
                 const SearchMenu(),
-                SizedBox(height: 30.h),
+                SizedBox(height: 10.h),
                 Expanded(
                   child: Scrollbar(
                     thumbVisibility: true,
@@ -235,44 +234,45 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                             label: "Food Places",
                             oppressed: () => print('Food Places clicked'),
                           ),
-                          Row( 
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: isLoading
-                                ? [
-                                    const SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                    const SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                      child: Center(
+                                  ? [
+                                      const SizedBox(
+                                        width: 100,
+                                        height: 100,
+                                      ),
+                                      const SizedBox(
+                                        width: 100,
+                                        height: 100,
                                         child: Center(
-                                          child: CircularProgressIndicator(
-                                            color: Colors.blue,
+                                          child: Center(
+                                            child: CircularProgressIndicator(
+                                              color: Colors.blue,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                  ]
-                                :
-                              datass.map((value) {
-                                final id = value['id'];
-                                return PlaceButtonSquare(
-                                    place: value['img'],
-                                    image: Image.network(value['imgUrl']).image,
-                                    oppressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  FoodAreaAboutScreen(id: id)));
-                                    });
-                              }).toList()),
+                                      const SizedBox(
+                                        width: 100,
+                                        height: 100,
+                                      ),
+                                    ]
+                                  : datass.map((value) {
+                                      final id = value['id'];
+                                      return PlaceButtonSquare(
+                                          place: value['img'],
+                                          image: Image.network(value['imgUrl'])
+                                              .image,
+                                          oppressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        FoodAreaAboutScreen(
+                                                            id: id)));
+                                          });
+                                    }).toList()),
                           CategorySelect(
                             label: "Festival and Events",
                             oppressed: () => Navigator.push(
@@ -284,41 +284,42 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: isLoading
-                                ? [
-                                    const SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                    const SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                      child: Center(
+                                  ? [
+                                      const SizedBox(
+                                        width: 100,
+                                        height: 100,
+                                      ),
+                                      const SizedBox(
+                                        width: 100,
+                                        height: 100,
                                         child: Center(
-                                          child: CircularProgressIndicator(
-                                            color: Colors.blue,
+                                          child: Center(
+                                            child: CircularProgressIndicator(
+                                              color: Colors.blue,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                  ]
-                                : dataOfFestivals.map((value) {
-                                final id = value['id'];
-                                return PlaceButtonSquare(
-                                    place: value['img'],
-                                    image: Image.network(value['imgUrl']).image,
-                                    oppressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  FestivalsAboutScreen(
-                                                      id: id)));
-                                    });
-                              }).toList()),
+                                      const SizedBox(
+                                        width: 100,
+                                        height: 100,
+                                      ),
+                                    ]
+                                  : dataOfFestivals.map((value) {
+                                      final id = value['id'];
+                                      return PlaceButtonSquare(
+                                          place: value['img'],
+                                          image: Image.network(value['imgUrl'])
+                                              .image,
+                                          oppressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        FestivalsAboutScreen(
+                                                            id: id)));
+                                          });
+                                    }).toList()),
                           SizedBox(height: 10.h),
                         ],
                       ),
