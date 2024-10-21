@@ -1,5 +1,3 @@
-import 'package:TravelGo/Widgets/Screens/Stateless/email.dart';
-import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
