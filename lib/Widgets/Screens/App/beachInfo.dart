@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'ResponsiveScreen/ResponsiveScreen.dart';
@@ -26,7 +27,7 @@ class BeachInfo extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel',
-      home: FoodAreaAboutScreen(
+      home: BeachareaAboutScreen(
         id: id,
       ),
     );
@@ -34,20 +35,20 @@ class BeachInfo extends StatelessWidget {
 }
 
 // ignore: must_be_immutable
-class FoodAreaAboutScreen extends StatefulWidget {
+class BeachareaAboutScreen extends StatefulWidget {
   String? name;
   int id;
-  FoodAreaAboutScreen({
+  BeachareaAboutScreen({
     super.key,
     this.name,
     required this.id,
   });
 
   @override
-  State<FoodAreaAboutScreen> createState() => _FoodAreaAboutScreenState();
+  State<BeachareaAboutScreen> createState() => _BeachareaAboutScreenState();
 }
 
-class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
+class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
@@ -64,7 +65,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
   var id;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
-  final data = FoodAreaBackEnd();
+  final data = BeachImages();
 
   final _searchController = TextEditingController();
   late Usersss users = Usersss();
@@ -90,7 +91,7 @@ class _FoodAreaAboutScreenState extends State<FoodAreaAboutScreen> {
   }
 
   Future<void> fetchImage() async {
-    final datas = await data.getFood();
+    final datas = await data.fetchBeaches();
     setState(() {
       place = datas.map(
         (place) {

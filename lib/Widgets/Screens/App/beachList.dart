@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
@@ -6,11 +7,14 @@ import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Beaches extends StatefulWidget {
-  const Beaches({super.key});
+
+  const Beaches({
+    super.key,
+  });
 
   @override
   State<Beaches> createState() => _BeachesState();
@@ -116,7 +120,8 @@ class _BeachesState extends State<Beaches> {
                                       style: TextStyle(
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
-                                        color: const Color.fromARGB(255, 49, 49, 49),
+                                        color: const Color.fromARGB(
+                                            255, 49, 49, 49),
                                       ),
                                     ),
                                   ),
@@ -142,8 +147,10 @@ class _BeachesState extends State<Beaches> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          BeachInfo(
+                                                          BeachareaAboutScreen(
                                                             id: place['id'],
+                                                            name: place[
+                                                                'beach_name'],
                                                           )),
                                                 );
                                               }

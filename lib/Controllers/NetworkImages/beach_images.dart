@@ -37,8 +37,7 @@ class BeachImages {
 
   Future<Map<String, dynamic>?> getSpecificData(int id) async {
     try {
-      final response =
-          await supabase.from('Beaches').select('*').eq('id', id).single();
+      final response = await supabase.from('Beaches').select('*').eq('id', id).single();
 
       if (response.isNotEmpty) {
         final datas = response;
@@ -57,15 +56,10 @@ class BeachImages {
         var text = datas['beach_name'];
         var image = datas['image'];
         var located = datas['beach_located'];
-        int price = datas['beach_price'];
-        var priceQ = NumberFormat('#,###');
-        final formattedPrice = priceQ.format(price);
         final imageUrl = await getter(image);
         datas['image'] = imageUrl;
         datas['beach_name'] = text;
         datas['beach_located'] = located;
-        datas['beach_price'] = formattedPrice;
-        debugPrint("$priceQ");
         return datas;
       } else {
         debugPrint('No data found for $id');
