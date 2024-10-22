@@ -22,13 +22,15 @@ class _SearchMenuState extends State<SearchMenu> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
+@override
+Widget build(BuildContext context) {
+  return Container(
+    // color: Colors.white, // Add your desired background color here just incase po 
+    child: Column(
       children: [
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: 23.w), // Search bar in Home Main Fron-end Dito
+              horizontal: 23.w), // Search bar in Home Main Front-end Dito
           child: TypeAheadField(
             textFieldConfiguration: TextFieldConfiguration(
               controller: _searchController,
@@ -50,7 +52,7 @@ class _SearchMenuState extends State<SearchMenu> {
                   borderSide: BorderSide.none, // Removed the border
                 ),
                 filled: true,
-                fillColor: const Color(0XffDEDEDE),
+                fillColor: const Color(0XffDEDEDE), // Background color of the text field
               ),
             ),
             suggestionsCallback: (pattern) async {
@@ -58,17 +60,18 @@ class _SearchMenuState extends State<SearchMenu> {
             },
             itemBuilder: (context, dynamic suggestion) {
               return ListTile(
-                title: Text(suggestion['title'] ?? 'No title'),
-                subtitle: Text(suggestion['address'] ?? 'No address'),
+                title: Text(suggestion['place_name'] ?? 'No title'),
+                subtitle: Text(suggestion['locatedIn'] ?? 'No address'),
               );
             },
             onSuggestionSelected: (dynamic suggestion) {
-              _searchController.text = suggestion['title'] ?? 'No title';
+              _searchController.text = suggestion['place_name'] ?? 'No title';
               FocusScope.of(context).unfocus();
             },
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
 }

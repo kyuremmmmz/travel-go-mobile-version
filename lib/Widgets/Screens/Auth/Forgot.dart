@@ -24,6 +24,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+  backgroundColor: const Color(0xFFDEEFFC),
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
@@ -60,11 +61,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               child: Container(
                 height: 500.h,
                 width: 375.w,
-                decoration: BoxDecoration(
-                    color: Color(0xFF44CAF9),
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50.h),
-                        topRight: Radius.circular(50.w))),
                 child: Column(
                   children: [
                     SizedBox(
@@ -88,11 +84,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         controller: _emailController,
                         style: InputDecoration(
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(50.h)), // Keep border radius
+                            borderRadius: BorderRadius.all(Radius.circular(20.h)), // Keep border radius
                             borderSide: BorderSide.none,  // Remove the border line
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(50.h)), // Keep border radius
+                            borderRadius: BorderRadius.all(Radius.circular(20.h)), // Keep border radius
                             borderSide: BorderSide.none,  // Remove the border line when focused
                           ),
                           hintText: "Email Address",
@@ -127,11 +123,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             style: TextStyle(
                               fontSize: 13.sp,
                               fontWeight: FontWeight.w400,
-                              color: Colors.black,
+                              color: const Color.fromARGB(255, 255, 255, 255),
                             ),
                           ),
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF44CAF9), 
+                      ),
                           oppressed: () => Usersss().sendVerificationCode(
                               _emailController.text.trim(), context)),
                     ),

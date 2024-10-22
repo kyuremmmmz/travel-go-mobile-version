@@ -3,7 +3,7 @@ import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
-// CODE AREA 
+// CODE AREA
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -35,7 +35,9 @@ class _CategoriesState extends State<Categories> {
                     image: hotelIcon,
                     oppressed: () =>
                         {AppRoutes.navigateToHotelScreen(context)}),
-                CategoryLabel(label: 'Hotels', fontSize: 12.0.sp), // Specify font size here
+                CategoryLabel(
+                    label: 'Hotels',
+                    fontSize: 11.0.sp), // Specify font size here
               ],
             ),
             Column(
@@ -43,7 +45,7 @@ class _CategoriesState extends State<Categories> {
                 BlueIconButtonDefault(
                     image: foodIcon,
                     oppressed: () => AppRoutes.navigateTofoodArea(context)),
-                 CategoryLabel(label: 'Food Place', fontSize: 11.0.sp),
+                CategoryLabel(label: 'Food Place', fontSize: 11.0.sp),
               ],
             ),
             Column(
@@ -52,7 +54,7 @@ class _CategoriesState extends State<Categories> {
                   image: beachIcon,
                   oppressed: () => {AppRoutes.navigateToBeachesScreen(context)},
                 ),
-                 CategoryLabel(label: 'Beaches', fontSize: 11.0.sp),
+                CategoryLabel(label: 'Beaches', fontSize: 11.0.sp),
               ],
             ),
             Column(
@@ -62,7 +64,8 @@ class _CategoriesState extends State<Categories> {
                   oppressed: () =>
                       {AppRoutes.navigateToFestivalsScreen(context)},
                 ),
-                 CategoryLabel(label: 'Festivals and \nEvents', fontSize: 11.0.sp),
+                CategoryLabel(
+                    label: 'Festivals and \nEvents', fontSize: 11.0.sp),
               ],
             ),
           ],
@@ -72,11 +75,10 @@ class _CategoriesState extends State<Categories> {
   }
 }
 
-
 class CategoryLabel extends StatelessWidget {
   final String label;
   final double fontSize; // Add fontSize parameter of the categories
-  
+
   const CategoryLabel({
     super.key,
     required this.label,
@@ -102,7 +104,6 @@ class CategoryLabel extends StatelessWidget {
   }
 }
 
-
 class CategorySelect extends StatelessWidget {
   final String label;
   final VoidCallback oppressed;
@@ -113,39 +114,41 @@ class CategorySelect extends StatelessWidget {
     required this.oppressed,
   });
 
-@override
-Widget build(BuildContext context) {
-  return Column(
-    children: [
-      SizedBox(height: 30.h),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 9.0), // Add padding to left and right
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label,
-              style: TextStyle( // Text area for the categories, Popular places, food places, and Festival and events. 
-                fontWeight: FontWeight.bold,
-                fontSize: 16.sp, // Add font size
-              ),
-            ),
-            GestureDetector(
-              onTap: oppressed,
-              child: const Text(
-                'View all',
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 30.h),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: 9.0), // Add padding to left and right
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                label,
                 style: TextStyle(
-                  color: Color(0xFF2196F3),
+                  // Text area for the categories, Popular places, food places, and Festival and events.
                   fontWeight: FontWeight.bold,
-                  fontSize: 13, // Add font size
+                  fontSize: 16.sp, // Add font size
                 ),
               ),
-            ),
-          ],
+              GestureDetector(
+                onTap: oppressed,
+                child: const Text(
+                  'View all',
+                  style: TextStyle(
+                    color: Color(0xFF2196F3),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13, // Add font size
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      const SizedBox(height: 20),
-    ],
-  );
-}
+        const SizedBox(height: 20),
+      ],
+    );
+  }
 }

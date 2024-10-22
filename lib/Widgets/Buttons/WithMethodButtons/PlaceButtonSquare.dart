@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness // The flutter material package for UI
+
+// PLACES, FOODPLACES, FESTIVALS AND EVENTS SQUARE BUTTON AREA WITH SHADOW BOX
 
 // ignore: must_be_immutable
 class PlaceButtonSquare extends StatefulWidget{
@@ -17,31 +20,53 @@ class PlaceButtonSquare extends StatefulWidget{
 }
 
 class _PlaceButtonSquareState extends State<PlaceButtonSquare> {
-
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(20)),
-      child: Material(
-      child: Ink.image(
-        fit: BoxFit.fill,
-        width: 110,
-        height: 110,
-        image: widget.image,
-        child: InkWell(
-          onTap: widget.oppressed,
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(widget.place, 
-              style: const TextStyle(
-                color: Colors.white,
-              ),)
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(15)), // Rounded corners
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2), // Shadow color
+            spreadRadius: 2, // Spread radius of the shadow
+            blurRadius: 5, // Blur radius of the shadow
+            offset: Offset(0, 3), // Shadow position (x, y)
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        child: Material(
+          child: Ink.image(
+            fit: BoxFit.fill,
+            width: 100.w,
+            height: 100.h,
+            image: widget.image,
+            child: InkWell(
+              onTap: widget.oppressed,
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Container(
+                    width: 100.w, 
+                    height: 35.h, 
+                    child: Text(
+                      widget.place,
+                      style: TextStyle(
+                        fontSize: 12.sp, 
+                        color: Colors.white,
+                      ),
+                      overflow: TextOverflow.ellipsis, // Optional: handle overflow
+                      maxLines: 2, // Optional: limit the number of lines
+                    ),
+                  ),
+                ),
+              ),
             ),
-          )
-        )
-      ),),
+          ),
+        ),
+      ),
     );
   }
 }

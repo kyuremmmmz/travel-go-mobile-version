@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-
 import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'ResponsiveScreen/ResponsiveScreen.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/hotelSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
@@ -263,7 +264,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                     child: Column(
                       children: <Widget>[
                         TitleMenu(),
-                        SearchMenu(),
+                        HotelSearchMenu(),
                         SizedBox(height: 30),
                       ],
                     ),
@@ -271,10 +272,10 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                   Stack(
                     children: [
                       Positioned(
-                        top: 160,
+                        top: Responsive().infoSizePictureTop(context),
                         child: Container(
-                          height: 300,
-                          width: 500,
+                          height: Responsive().infoSizePictureHeight(context),
+                          width: Responsive().infoSizePictureWidth(context),
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.cover,
@@ -289,7 +290,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                         bottom: 0,
                         left: 0,
                         right: 0,
-                        height: 390,
+                        height: Responsive().scrollableContainerInfoHeight(context),
                         child: Container(
                           padding: const EdgeInsets.only(left: 0, top: 30),
                           width: 500,
@@ -312,9 +313,9 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                           left: 30, right: 30),
                                       child: Text(
                                         text ?? 'No data available',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: 25,
+                                            fontSize: Responsive().titleFontSize(),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -334,27 +335,43 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                 name: '$located',
                                                 id: widget.id);
                                           },
-                                          child: Text(
-                                              located ?? 'I cant locate it'),
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                located ?? 'I cant locate it',
+                                                style: TextStyle(
+                                                  fontSize: Responsive().aboutFontSize(),
+                                                  decoration: TextDecoration.underline,
+                                                  color: Colors.blue),
+                                              ),
+                                              FaIcon(
+                                                FontAwesomeIcons.map,
+                                                size: Responsive().clickToOpenFontSize(),
+                                                color: Colors.red,
+                                              ),
+                                            ],
+                                          )
                                         )
                                       ],
                                     ),
                                     const SizedBox(height: 20),
                                     Container(
                                       padding:
-                                          const EdgeInsets.only(right: 300),
-                                      child: const Text(
+                                          EdgeInsets.only(right: Responsive().aboutPlacement()),
+                                      child: Text(
                                         'About',
                                         style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: Responsive().headerFontSize(),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.only(left: 30),
+                                      padding: const EdgeInsets.only(left: 30, right: 30),
                                       child: Text(
                                         description ?? 'No Description',
-                                        textAlign: TextAlign.left,
+                                        textAlign: TextAlign.justify,
+                                        style: TextStyle(fontSize: Responsive().aboutFontSize()),
                                       ),
                                     ),
                                     const SizedBox(
@@ -365,11 +382,11 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                     ),
                                     Container(
                                       padding:
-                                          const EdgeInsets.only(right: 250),
-                                      child: const Text(
+                                          EdgeInsets.only(right: Responsive().amenitiesPlacement(),),
+                                      child: Text(
                                         'Amenities',
                                         style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: Responsive().headerFontSize(),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -391,8 +408,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                               child: Stack(
                                                 children: [
                                                   Container(
-                                                    height: 150,
-                                                    width: 350,
+                                                    height: Responsive().amenitiesBoxHeight(),
+                                                    width: Responsive().amenitiesBoxWidth(),
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                         fit: BoxFit.cover,
@@ -482,8 +499,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                   ),
                                                 ],
                                               )),
-                                          const SizedBox(
-                                            width: 80,
+                                          SizedBox(
+                                            width: Responsive().sizedBoxRatingWidth(context),
                                           ),
                                           Row(
                                               children:
@@ -792,144 +809,179 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                     const SizedBox(
                                       height: 20,
                                     ),
+                                    Container(
+                                      padding:
+                                          const EdgeInsets.only(right: 115),
+                                      child: const Text(
+                                        'Discount Vouchers Available',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
                                     SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: vouchersList.map((item) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              final cleanedPriceString =
-                                                  price.replaceAll(',', '');
-                                              final int priceValue =
-                                                  int.tryParse(
-                                                          cleanedPriceString) ??
-                                                      0;
-                                              int discountPercentage =
-                                                  item['discount'];
-                                              int discountAmount = (priceValue *
-                                                      discountPercentage) ~/
-                                                  100;
-                                              int finalPrice =
-                                                  priceValue - discountAmount;
-                                              final formattedPrice =
-                                                  NumberFormat('#,##0')
-                                                      .format(finalPrice);
+                                      child: vouchersList.isEmpty ? Center(
+                                        child: Text('No vouchers available for the $text'),
+                                      )
+                                      :
+                                      Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children:
+                                                  vouchersList.map((item) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    final cleanedPriceString =
+                                                        price.replaceAll(
+                                                            ',', '');
+                                                    final int priceValue =
+                                                        int.tryParse(
+                                                                cleanedPriceString) ??
+                                                            0;
+                                                    int discountPercentage =
+                                                        item['discount'];
+                                                    int discountAmount =
+                                                        (priceValue *
+                                                                discountPercentage) ~/
+                                                            100;
+                                                    int finalPrice =
+                                                        priceValue -
+                                                            discountAmount;
+                                                    final formattedPrice =
+                                                        NumberFormat('#,##0')
+                                                            .format(finalPrice);
 
-                                              setState(() {
-                                                price = formattedPrice;
-                                              });
-                                              vouchers
-                                                  .deleteDiscount(item['id']);
-                                            },
-                                            child: Container(
-                                              width: 200,
-                                              margin:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8.0),
-                                              padding:
-                                                  const EdgeInsets.all(16.0),
-                                              decoration: BoxDecoration(
-                                                color: Colors.teal,
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                                boxShadow: const [
-                                                  BoxShadow(
-                                                    color: Colors.black26,
-                                                    offset: Offset(0, 4),
-                                                    blurRadius: 8.0,
-                                                  ),
-                                                ],
-                                              ),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '${item['discount']}% OFF',
-                                                    style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                    setState(() {
+                                                      price = formattedPrice;
+                                                    });
+                                                    vouchers.deleteDiscount(
+                                                        item['id']);
+                                                  },
+                                                  child: Container(
+                                                    width: 200,
+                                                    margin: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 8.0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16.0),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.teal,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color: Colors.black26,
+                                                          offset: Offset(0, 4),
+                                                          blurRadius: 8.0,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          '${item['discount']}% OFF',
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            height: 8.0),
+                                                        Text(
+                                                          '${item['hotelName']}',
+                                                          style:
+                                                              const TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    31,
+                                                                    20,
+                                                                    20),
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            height: 12.0),
+                                                        const Text(
+                                                          'Use voucher',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Colors.white70,
+                                                            fontSize: 14,
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                  const SizedBox(height: 8.0),
-                                                  Text(
-                                                    '${item['hotelName']}',
-                                                    style: const TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 31, 20, 20),
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 12.0),
-                                                  const Text(
-                                                    'Use voucher',
-                                                    style: TextStyle(
-                                                      color: Colors.white70,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                );
+                                              }).toList(),
                                             ),
-                                          );
-                                        }).toList(),
-                                      ),
                                     ),
                                     const SizedBox(
                                       height: 30,
                                     ),
-                                    Row(
-                                      children: [
-                                        const SizedBox(
-                                          width: 30,
-                                        ),
-                                        RichText(
-                                            text: TextSpan(children: [
-                                          TextSpan(
-                                              text:
-                                                  'PHP ${price.toString()} - 6,000',
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 21,
-                                                  fontWeight: FontWeight.bold)),
-                                          const TextSpan(
-                                              text: '\nEstimated Expenses',
-                                              style: TextStyle(
-                                                  color: Colors.blue,
-                                                  fontSize: 13))
-                                        ])),
-                                        Container(
-                                          width: 200,
-                                          padding:
-                                              const EdgeInsets.only(left: 50),
-                                          child: BlueButtonWithoutFunction(
-                                              text: const Text(
-                                                'Place Booking',
+                                    Container(
+                                      padding: EdgeInsets.only(left: Responsive().placeBookingPadding(), right: Responsive().placeBookingPadding()),
+                                      width: Responsive().screenWidth(context),
+                                      child:  
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          RichText(
+                                              text: TextSpan(children: [
+                                            TextSpan(
+                                                text:
+                                                    'PHP ${price.toString()} - 6,000',
                                                 style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.blue,
-                                              ),
-                                              oppressed: () {
-                                                HotelBooking().passTheHotelData(
-                                                    widget.text);
-                                                AppRoutes
-                                                    .navigateToHotelBookingScreen(
-                                                        context,
-                                                        id: widget.text,
+                                                    color: Colors.black,
+                                                    fontSize: Responsive().bookingPrice(),
+                                                    fontWeight: FontWeight.bold)),
+                                            TextSpan(
+                                                text: '\nEstimated Expenses',
+                                                style: TextStyle(
+                                                    color: Colors.blue,
+                                                    fontSize: Responsive().aboutFontSize()))
+                                          ])),
+                                          Container(
+                                            width: Responsive().placeBookingWidth(context),
+                                            padding:
+                                                const EdgeInsets.only(left: 50),
+                                            child: BlueButtonWithoutFunction(
+                                                text: Text(
+                                                  'Place Booking',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: Responsive().aboutFontSize(),
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.blue,
+                                                ),
+                                                oppressed: () {
+                                                  HotelBooking().passTheHotelData(
+                                                      widget.text);
+                                                  AppRoutes
+                                                      .navigateToHotelBookingScreen(
+                                                          context,
+                                                          id: widget.text,
                                                         price: price);
-                                              }),
-                                        )
-                                      ],
-                                    )
+                                                }),
+                                          )
+                                        ],
+                                      )
+                                    ),
                                   ],
                                 ),
                               ),

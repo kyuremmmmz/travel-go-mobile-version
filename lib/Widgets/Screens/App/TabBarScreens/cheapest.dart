@@ -16,7 +16,7 @@ class _CheapestState extends State<Cheapest> {
   List<Map<String, dynamic>> imgUrl = [];
 
   Future<void> fetchBest() async {
-    final result = await flights.flightListBest();
+    final result = await flights.flightList();
     if (result.isNotEmpty) {
       setState(() {
         imgUrl = result;
@@ -69,7 +69,7 @@ class _CheapestState extends State<Cheapest> {
                 height: 50,
               ),
               Container(
-                padding: const EdgeInsets.only(right: 70),
+                padding: const EdgeInsets.only(right: 50),
                 child: Card(
                     margin: EdgeInsets.zero,
                     color: const Color.fromARGB(255, 223, 234, 252),
@@ -80,7 +80,7 @@ class _CheapestState extends State<Cheapest> {
                         side: BorderSide(color: Colors.black)),
                     child: Container(
                       padding: null,
-                      width: 280,
+                      width: 300,
                       height: 50,
                       child: const Row(
                         children: [
@@ -88,7 +88,7 @@ class _CheapestState extends State<Cheapest> {
                             width: 10,
                           ),
                           Text(
-                            'Best',
+                            'Cheapest',
                             style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.blue,

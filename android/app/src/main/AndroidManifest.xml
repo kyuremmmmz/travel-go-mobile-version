@@ -10,11 +10,12 @@
 
     <application
         android:requestLegacyExternalStorage="true"
-        android:label="itransit"
+        android:label="Travel Go"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/newicon">
 
         <activity
+            android:label="Travel Go"
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"

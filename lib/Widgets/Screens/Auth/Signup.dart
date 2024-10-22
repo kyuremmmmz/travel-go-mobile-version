@@ -59,57 +59,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFDEEFFC),
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: -85.w,
-            right: -30.h,
-            left: -30.h,
-            child: Stack(children: [
+            top: 0.h,
+            right: -30,
+            left: -30,
+            child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
-                  'assets/images/Background.png',
+                  'assets/images/icon/newlogo.png',
                   fit: BoxFit.cover,
-                  height: MediaQuery.of(context).size.height - 350.h,
-                  width: MediaQuery.of(context).size.width,
+                  height: 200.h,
+                  width: 200.w,
+                ),
+              ),
+              Positioned(
+                top: 100,
+                bottom: 50, // Adjust the position of the second image
+                right: -30,
+                left: -30, // Change as needed
+                child: Image.asset(
+                  'assets/images/icon/airplanelogo.png', // Replace with your image path
+                  height: 450.h, // Adjust the size
+                  width: 350.w, // Adjust the size
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width + 100.w,
-                color: Colors.black.withOpacity(0.5),
+                height: 470.h,
+                width: 510.w,
               )
             ]),
           ),
-          Positioned(
-            top: 130.h,
-            right: 85.w,
-            child: Text(
-              textAlign: TextAlign.center,
-              'TRAVEL GO',
-              style: TextStyle(
-                  fontSize: 40.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  shadows: [
-                    Shadow(
-                      offset: Offset(5.0.w, 5.0.h), // Shadow position
-                      blurRadius: 12.0.w,
-                      color: Colors.black,
-                    )
-                  ]),
-            ),
-          ),
-          Positioned(
-              top: 185.h,
-              right: 50.w,
-              child: Text('Travel and get more experience here in Pangasinan!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 12.sp))),
           Positioned(
             bottom: -320.h,
             right: 0,
@@ -122,7 +105,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 bottom: 0.w,
                 right: 0.h,
               ),
-              decoration: const BoxDecoration(color: Colors.white),
               child: SingleChildScrollView(
                   child: Form(
                 key: _formKey,
@@ -162,7 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ))),
                         style: const TextStyle(
                           fontSize: 15,
-                          color: Colors.black,
+                          color: Color.fromARGB(255, 0, 0, 0),
                         ),
                         keyboardType: TextInputType.emailAddress,
                       ),

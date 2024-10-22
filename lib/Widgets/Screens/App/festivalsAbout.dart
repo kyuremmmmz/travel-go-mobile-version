@@ -6,7 +6,10 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'ResponsiveScreen/ResponsiveScreen.dart';
 
 // ignore: must_be_immutable
 class FestivalsAbout extends StatelessWidget {
@@ -205,10 +208,10 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                     Stack(
                       children: [
                         Positioned(
-                          top: 160,
+                          top: Responsive().infoSizePictureTop(context),
                           child: Container(
-                            height: 300,
-                            width: 500,
+                            height: Responsive().infoSizePictureHeight(context),
+                            width: Responsive().infoSizePictureWidth(context),
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
@@ -223,7 +226,7 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                           bottom: 0,
                           left: 0,
                           right: 0,
-                          height: 390,
+                          height: Responsive().scrollableContainerInfoHeight(context),
                           child: Container(
                             padding: const EdgeInsets.only(left: 0, top: 30),
                             width: 500,
@@ -246,9 +249,9 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                                             left: 30, right: 30),
                                         child: Text(
                                           foodName ?? 'No data available',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 25,
+                                              fontSize:  Responsive().titleFontSize(),
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -268,27 +271,44 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                                                     name: '$located',
                                                     id: id);
                                               },
-                                              child: Text(located ??
-                                                  'I cant locate it'))
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    located ?? 'I cant locate it',
+                                                    style: TextStyle(
+                                                      fontSize: Responsive().aboutFontSize(),
+                                                      decoration: TextDecoration.underline,
+                                                      color: Colors.blue),
+                                                  ),
+                                                  FaIcon(
+                                                    FontAwesomeIcons.map,
+                                                    size: Responsive().clickToOpenFontSize(),
+                                                    color: Colors.red,
+                                                  ),
+                                              ],
+                                            ) 
+                                          )
                                         ],
                                       ),
                                       const SizedBox(height: 20),
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(right: 300),
-                                        child: const Text(
+                                            EdgeInsets.only(right: Responsive().aboutPlacement()),
+                                        child: Text(
                                           'About',
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: Responsive().headerFontSize(),
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(left: 30),
+                                            const EdgeInsets.only(left: 30, right: 30),
                                         child: Text(
                                           description ?? 'No Description',
-                                          textAlign: TextAlign.left,
+                                          textAlign: TextAlign.justify,
+                                          style: TextStyle(fontSize: Responsive().aboutFontSize()),
                                         ),
                                       ),
                                       const SizedBox(
@@ -296,11 +316,11 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                                       ),
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(right: 188),
-                                        child: const Text(
+                                            EdgeInsets.only(right: Responsive().highlightsPlacement()),
+                                        child: Text(
                                           'Festival Highlights',
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: Responsive().headerFontSize(),
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -316,8 +336,8 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                                               child: Stack(
                                                 children: [
                                                   Container(
-                                                    height: 150,
-                                                    width: 350,
+                                                    height: Responsive().amenitiesBoxHeight(),
+                                                    width: Responsive().amenitiesBoxWidth(),
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                         fit: BoxFit.cover,
@@ -376,22 +396,23 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                                         height: 30,
                                       ),
                                       Container(
-                                        padding: const EdgeInsets.only(
-                                          right: 179,
+                                        padding: EdgeInsets.only(
+                                          right: Responsive().festivalTipsPlacement(),
                                         ),
-                                        child: const Text(
+                                        child: Text(
                                           'Tips for the Visitors',
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: Responsive().headerFontSize(),
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                       Container(
                                         padding:
-                                            const EdgeInsets.only(left: 30),
+                                            const EdgeInsets.only(left: 30, right: 30),
                                         child: Text(
                                           menu ?? 'No Description',
-                                          textAlign: TextAlign.left,
+                                          textAlign: TextAlign.justify,
+                                          style: TextStyle(fontSize: Responsive().aboutFontSize()),
                                         ),
                                       ),
                                       const SizedBox(

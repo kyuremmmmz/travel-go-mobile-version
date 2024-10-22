@@ -22,6 +22,7 @@ class _HotelScreenState extends State<HotelScreen> {
   late Usersss users = Usersss();
   late HotelImages images = HotelImages();
   List<Map<String, dynamic>> data = [];
+  bool isLoading = false;
 
   Future<void> redirecting() async {
     Future.delayed(const Duration(seconds: 7));
@@ -31,6 +32,7 @@ class _HotelScreenState extends State<HotelScreen> {
     final datas = await images.fetchHotels();
     setState(() {
       data = datas;
+      isLoading = false;
     });
   }
 
@@ -39,6 +41,7 @@ class _HotelScreenState extends State<HotelScreen> {
     super.initState();
     emailFetching();
     places();
+    isLoading = true;
   }
 
   Future<void> emailFetching() async {
@@ -75,22 +78,11 @@ class _HotelScreenState extends State<HotelScreen> {
           ),
         ),
         drawer: const DrawerMenuWidget(),
-        body: FutureBuilder(
-            future: redirecting(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (snapshot.connectionState == ConnectionState.none) {
-                return const Center(
-                  child: Text(
-                    'No internet connection',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                );
-              } else {
-                return Stack(children: [
+        body: isLoading == true ? const Center(
+          child: CircularProgressIndicator(
+            color: Colors.blue,
+          ),
+        ) : Stack(children: [
                   Positioned.fill(
                       child: Column(children: <Widget>[
                     const TitleMenu(),
@@ -140,7 +132,8 @@ class _HotelScreenState extends State<HotelScreen> {
                                                       builder: (context) =>
                                                           HotelInformationScreen(
                                                             text: place['id'],
-                                                            name: place['hotel_name'],
+                                                            name: place[
+                                                                'hotel_name'],
                                                             id: place['id'],
                                                           )),
                                                 );
@@ -208,8 +201,8 @@ class _HotelScreenState extends State<HotelScreen> {
                                   ),
                                 ]))))
                   ]))
-                ]);
+                ])
+                );
               }
-            }));
-  }
-}
+            }
+
