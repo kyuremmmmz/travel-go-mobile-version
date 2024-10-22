@@ -24,13 +24,13 @@ class _PlaceButtonSquareState extends State<PlaceButtonSquare> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)), // Rounded corners
+        borderRadius: const BorderRadius.all(Radius.circular(15)), // Rounded corners
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2), // Shadow color
             spreadRadius: 2, // Spread radius of the shadow
             blurRadius: 5, // Blur radius of the shadow
-            offset: Offset(0, 3), // Shadow position (x, y)
+            offset: const Offset(0, 3), // Shadow position (x, y)
           ),
         ],
       ),
@@ -48,7 +48,7 @@ class _PlaceButtonSquareState extends State<PlaceButtonSquare> {
                 alignment: Alignment.bottomLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: Container(
+                  child: SizedBox(
                     width: 100.w, 
                     height: 35.h, 
                     child: Text(

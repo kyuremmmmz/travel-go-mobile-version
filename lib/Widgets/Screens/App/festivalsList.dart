@@ -113,7 +113,7 @@ class _FestivalState extends State<Festival> {
                                       style: TextStyle(
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(255, 49, 49, 49),
+                                        color: const Color.fromARGB(255, 49, 49, 49),
                                       ),
                                     ),
                                   ),

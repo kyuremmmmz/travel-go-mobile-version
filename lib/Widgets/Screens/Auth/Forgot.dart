@@ -58,7 +58,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               )),
           Positioned(
               bottom: 0.w,
-              child: Container(
+              child: SizedBox(
                 height: 500.h,
                 width: 375.w,
                 child: Column(
@@ -144,7 +144,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             'Back to Log In',
                             style: TextStyle(
                               fontSize: 12.sp,
-                                color: Color.fromARGB(255, 82, 79, 79)),
+                                color: const Color.fromARGB(255, 82, 79, 79)),
                           ),
                         ))
                   ],

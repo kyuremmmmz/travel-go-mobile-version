@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 350.w, // Adjust the size
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 470.h,
                 width: 510.w,
               )

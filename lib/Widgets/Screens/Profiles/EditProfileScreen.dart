@@ -7,11 +7,11 @@ class EditProfileScreen extends StatefulWidget {
   final String? currentAvatarUrl;
 
   const EditProfileScreen({
-    Key? key,
+    super.key,
     this.currentName,
     this.currentEmail,
     this.currentAvatarUrl,
-  }) : super(key: key);
+  });
 
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -124,7 +124,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            Container(
+            SizedBox(
               width: 200,
               child: ElevatedButton(
               onPressed: _updateProfile,
@@ -143,7 +143,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             )
             ),
             const SizedBox(height: 20),
-            Container(
+            SizedBox(
               width: 200,
               child: TextButton(
               style: TextButton.styleFrom(

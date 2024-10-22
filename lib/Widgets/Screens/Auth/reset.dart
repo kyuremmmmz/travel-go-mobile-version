@@ -69,7 +69,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 padding: null,
                 child: Column(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 550.h,
                       width: 410.w,
                       child: Column(

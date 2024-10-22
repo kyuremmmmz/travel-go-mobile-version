@@ -31,7 +31,7 @@ class Map extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Map'),
+        title: const Text('Map'),
       ),
       body: HotelMapPage(location: location, id: id),
     );

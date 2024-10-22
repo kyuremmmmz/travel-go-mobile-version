@@ -295,7 +295,7 @@ class _CheapestState extends State<Cheapest> {
                                             backgroundImage: NetworkImage(
                                                 data['airplane_img']),
                                           ),
-                                          Text('NAIA')
+                                          const Text('NAIA')
                                         ],
                                       ),
                                       const SizedBox(

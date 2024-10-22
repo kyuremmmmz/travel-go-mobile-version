@@ -170,7 +170,7 @@ class _BookingSectionState extends State<BookingSection> {
                                             ),
                                             Text(
                                               formattedNexttDate,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 11,
                                                 color: Colors.blue,
                                               ),
@@ -222,7 +222,7 @@ class _BookingSectionState extends State<BookingSection> {
                                     ),
                                     Text(
                                       formattedCheckInDate,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 11, color: Colors.blue),
                                     ),
                                     Text(

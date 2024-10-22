@@ -25,7 +25,7 @@ class DiscountArea extends StatelessWidget {
 }
 
 class DiscountAreaScreen extends StatefulWidget {
-  const DiscountAreaScreen({Key? key}) : super(key: key);
+  const DiscountAreaScreen({super.key});
 
   @override
   State<DiscountAreaScreen> createState() => _DiscountAreaScreenState();

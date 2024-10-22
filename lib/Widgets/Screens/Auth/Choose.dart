@@ -65,7 +65,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   width: 350.w, // Adjust the size
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 470.h,
                 width: 510.w,
               )
@@ -195,7 +195,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                 ),
                                 color: ElevatedButton.styleFrom(
                                   backgroundColor:
-                                      Color.fromARGB(255, 255, 255, 255),
+                                      const Color.fromARGB(255, 255, 255, 255),
                                 ),
                               ),
                             ),

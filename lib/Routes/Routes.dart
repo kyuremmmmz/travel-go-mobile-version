@@ -180,7 +180,7 @@ class AppRoutes {
 
   static void navigateToAccountSettings(BuildContext route) {
     Navigator.push(route,
-        MaterialPageRoute(builder: (context) => AccountSettingsScreen()));
+        MaterialPageRoute(builder: (context) => const AccountSettingsScreen()));
   }
 
   static void navigateToHotelBookingScreen(BuildContext route,

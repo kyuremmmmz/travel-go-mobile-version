@@ -31,7 +31,7 @@ class _VoucherButtonState extends State<VoucherButton> {
         width: 280,
         height: 100,
         decoration: BoxDecoration(
-          color: Color.fromRGBO(194,228,231,100),
+          color: const Color.fromRGBO(194,228,231,100),
           border: Border.all(color: Colors.black,),
           borderRadius: BorderRadius.circular(10),  
         ),

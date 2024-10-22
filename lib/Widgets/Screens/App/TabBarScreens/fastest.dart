@@ -475,7 +475,7 @@ class _FastestState extends State<Fastest> {
                                         ),
                                         const Text(
                                           'PHP 1,800',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         ),

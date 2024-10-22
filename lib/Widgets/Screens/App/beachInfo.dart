@@ -3,7 +3,6 @@ import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'ResponsiveScreen/ResponsiveScreen.dart';
-import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
