@@ -1,3 +1,4 @@
+import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart'; // The flutter material package for UI e stateless wdiget for festivals
 import 'package:supabase_flutter/supabase_flutter.dart'; // Importing the Supabase Flutter package for database functionality.
@@ -52,6 +53,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   late FestivalsImages festivals = FestivalsImages();
   List<Map<String, dynamic>> dataOfFestivals = [];
   bool isLoading = false;
+  final voucher = Vouchers();
+  Map<String, dynamic>? voucherHolder;
   // Method to fetch user email
   Future<void> emailFetching() async {
     try {
@@ -104,6 +107,14 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     }
   }
 
+  Future<void> voucherState() async {
+    final data = await voucher.insertRandomlyThevouchers();
+    setState(() {
+      voucherHolder = data;
+      SnackBar(content: Text('You received $voucherHolder'));
+    });
+  }
+
   Future<List<Map<String, dynamic>>?> fetchFoods(BuildContext context) async {
     final datas = await images.getFood();
     if (datas.isEmpty) {
@@ -148,6 +159,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     fetchImage(); // fetching the images on initialization
     fetchFoods(context); // fetching food areas on initialization
     fetchFestivals(context); // Fetching festivals on initialization
+    voucherState(); // Fetching random vouchers on initialization
     isLoading = true;
   }
 

@@ -35,7 +35,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
-      final userEmail = supabase.auth.currentUser!.newEmail;
+      final userEmail = supabase.auth.currentUser!.email;
       final userId = supabase.auth.currentUser!.id;
       if (mounted) {
         setState(() {
