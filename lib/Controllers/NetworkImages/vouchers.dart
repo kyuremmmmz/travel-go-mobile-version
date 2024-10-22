@@ -6,7 +6,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class Vouchers {
   final supabase = Supabase.instance.client;
   Future<List<Map<String, dynamic>>> getTheDiscountsAsList(String uid) async {
-    final response = await supabase.from('discounts').select('*').eq('uid', uid);
+    final response =
+        await supabase.from('discounts').select('*').eq('uid', uid);
     if (response.isEmpty) {
       return [];
     } else {
@@ -30,9 +31,17 @@ class Vouchers {
     }
   }
 
+  Future<Map<String, dynamic>?> updateVoucherToclaim(int id) async {
+    final response = await supabase
+        .from('discounts')
+        .update({'claimed': 'claimed'}).eq('id', id);
+    return response;
+  }
+
   Future<List<Map<String, dynamic>>> getTheDiscountsAsListOfLikeReal(
       List<Map<String, dynamic>> nameList, String? hotelName) async {
-    final hotelNames = nameList.map((name) => name['hotelName'].toString()).toList();
+    final hotelNames =
+        nameList.map((name) => name['hotelName'].toString()).toList();
 
     if (hotelNames.isEmpty) {
       return [];
@@ -58,7 +67,6 @@ class Vouchers {
     }
   }
 
-
   Future<List<Map<String, dynamic>>> getTheDiscountsAsListOfLike(
       String nameList) async {
     final response =
@@ -78,7 +86,7 @@ class Vouchers {
       return result;
     }
   }
-  
+
   Future<Map<String, dynamic>?> insertRandomlyThevouchers() async {
     final uid = supabase.auth.currentUser!.id;
     final today = DateTime.now();
@@ -97,9 +105,7 @@ class Vouchers {
     }
 
     if (voucherGivenTodayResponse.isNotEmpty) {
-      const SnackBar(content:  Text(
-        'Voucher given today'
-      ));
+      const SnackBar(content: Text('Voucher given today'));
     }
 
     final random = Random();
@@ -110,8 +116,8 @@ class Vouchers {
       'uid': uid,
       'ishotel': true,
       'hotelName': randomHotelName,
-      'discount': 10 + random.nextInt(41), 
-      'expiry': DateTime.now().add(const Duration(days: 30)).toIso8601String(), 
+      'discount': 10 + random.nextInt(41),
+      'expiry': DateTime.now().add(const Duration(days: 30)).toIso8601String(),
       'claimed': 'not claimed',
     });
     return insertion;
