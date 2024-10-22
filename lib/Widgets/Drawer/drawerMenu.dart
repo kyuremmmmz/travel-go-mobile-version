@@ -56,7 +56,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
     fetchImage();
   }
 
-  @override
+  @override // 3 LINES BUTTON AREA
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
@@ -71,7 +71,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
               children: <Widget>[
                 CircleAvatar(
                   radius: 40,
-                  backgroundImage: img == null ? const AssetImage('assets/images/icon/food_place.png') : NetworkImage('$img'),
+                  backgroundImage: img == null ? const AssetImage('assets/images/icon/user.png') : NetworkImage('$img'), // Ditong area yung sa profile may magp-popup na other img before niya ma fetch yung nilagay mo gege
                 ),
                 const SizedBox(height: 10),
                 Text(

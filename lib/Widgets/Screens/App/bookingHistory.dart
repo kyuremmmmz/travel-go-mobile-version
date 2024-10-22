@@ -13,6 +13,7 @@ class BookingHistory extends StatefulWidget {
 class _BookingHistoryState extends State<BookingHistory> {
   @override
   Widget build(BuildContext context) {
+    // title: const Text('History'), //SETTINGS AREA JUST IN CASE PALAGYAN
      return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40,
@@ -25,7 +26,7 @@ class _BookingHistoryState extends State<BookingHistory> {
           ),
         ),
       ),
-      drawer: const DrawerMenuWidget(),
+      drawer: const DrawerMenuWidget(), // ditong area ang 3 lines
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
