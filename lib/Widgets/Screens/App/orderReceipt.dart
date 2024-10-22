@@ -1,3 +1,4 @@
+import 'package:TravelGo/Controllers/TRGO_POINTS/Trgo.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
@@ -21,10 +22,14 @@ class OrderReceipt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Travel',
-      home: OrderReceiptScreen(bookingId: bookingId),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Order Receipt'
+        ),
+      ),
+      endDrawer: const DrawerMenuWidget(),
+      body: OrderReceiptScreen(bookingId: bookingId),
     );
   }
 }
@@ -111,7 +116,8 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
         if (mounted) {
           final data = response;
           setState(() {
-            amount = data['payment'] != null ? data['payment'].toString() : 'N/A';
+            amount =
+                data['payment'] != null ? data['payment'].toString() : 'N/A';
             phone = data['phone'] ?? 'Unknown';
             ref = data['reference_number'] ?? 'N/A';
             paid_via = data['pay_via'] ?? 'Unknown';
@@ -131,18 +137,6 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 40,
-        leading: Builder(
-          builder: (BuildContext context) => IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-        ),
-      ),
-      drawer: const DrawerMenuWidget(),
       body: Stack(
         children: [
           Positioned.fill(

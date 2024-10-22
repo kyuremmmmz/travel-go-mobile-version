@@ -1,12 +1,13 @@
 import 'dart:math';
 
+import 'package:TravelGo/Controllers/TRGO_POINTS/Trgo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal/flutter_paypal.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Paypal {
   final supabase = Supabase.instance.client;
-
+  final points = Trgo();
   Future<void> pay(
       BuildContext context,
       int total,
@@ -79,11 +80,9 @@ class Paypal {
               'phone': phone,
               'name': name,
               'price': price,
-              'pay_via' : 'paypal',
-              'booking_id' : bookingId
+              'pay_via': 'paypal',
+              'booking_id': bookingId
             });
-
-            
           },
           onError: (error) {
             debugPrint("onError: $error");

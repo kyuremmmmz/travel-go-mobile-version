@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Controllers/TRGO_POINTS/Trgo.dart';
 import 'package:TravelGo/Controllers/paymentIntegration/paypal.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
@@ -230,6 +231,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                       ),
                       oppressed: () {
                         if (isPaymentSuccess) {
+                          Trgo().trgoPoints(context);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
