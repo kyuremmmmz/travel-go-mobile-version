@@ -16,10 +16,9 @@ class SignUpscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Travel Go Pangasinan',
-      debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
+    return const Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SignUpScreen(),
     );
   }
 }
