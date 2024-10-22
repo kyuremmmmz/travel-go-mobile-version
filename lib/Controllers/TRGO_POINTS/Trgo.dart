@@ -8,7 +8,7 @@ class Trgo {
   Future<Map<String, dynamic>?> trgoPoints(BuildContext context) async {
     try {
       final user = supabase.auth.currentUser!.id;
-      double points = 0.05;
+      double points = 0.02;
       final query = await supabase
           .from('TRGO_POINTS')
           .select('points')
@@ -36,7 +36,7 @@ class Trgo {
     } catch (e) {
       print(e);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('your points is already full go and withdraw it'),
+        content: Text('$e'),
       ));
       return null;
     }
