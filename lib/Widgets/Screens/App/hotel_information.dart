@@ -231,7 +231,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
   }
 
   Future<void> fetchDiscounts(List<Map<String, dynamic>> name) async {
-    final data = await vouchers.getTheDiscountsAsListOfLike(name);
+    final data = await vouchers.getTheDiscountsAsListOfLikeReal(name, '${widget.name}');
     setState(() {
       vouchersList = data;
       print(data);
@@ -290,7 +290,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                         bottom: 0,
                         left: 0,
                         right: 0,
-                        height: Responsive().scrollableContainerInfoHeight(context),
+                        height:
+                            Responsive().scrollableContainerInfoHeight(context),
                         child: Container(
                           padding: const EdgeInsets.only(left: 0, top: 30),
                           width: 500,
@@ -315,7 +316,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                         text ?? 'No data available',
                                         style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: Responsive().titleFontSize(),
+                                            fontSize:
+                                                Responsive().titleFontSize(),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -329,49 +331,56 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                           color: Colors.red,
                                         ),
                                         GestureDetector(
-                                          onTap: () {
-                                            AppRoutes.navigateToHotelMapPage(
-                                                context,
-                                                name: '$located',
-                                                id: widget.id);
-                                          },
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                located ?? 'I cant locate it',
-                                                style: TextStyle(
-                                                  fontSize: Responsive().aboutFontSize(),
-                                                  decoration: TextDecoration.underline,
-                                                  color: Colors.blue),
-                                              ),
-                                              FaIcon(
-                                                FontAwesomeIcons.map,
-                                                size: Responsive().clickToOpenFontSize(),
-                                                color: Colors.red,
-                                              ),
-                                            ],
-                                          )
-                                        )
+                                            onTap: () {
+                                              AppRoutes.navigateToHotelMapPage(
+                                                  context,
+                                                  name: '$located',
+                                                  id: widget.id);
+                                            },
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  located ?? 'I cant locate it',
+                                                  style: TextStyle(
+                                                      fontSize: Responsive()
+                                                          .aboutFontSize(),
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      color: Colors.blue),
+                                                ),
+                                                FaIcon(
+                                                  FontAwesomeIcons.map,
+                                                  size: Responsive()
+                                                      .clickToOpenFontSize(),
+                                                  color: Colors.red,
+                                                ),
+                                              ],
+                                            ))
                                       ],
                                     ),
                                     const SizedBox(height: 20),
                                     Container(
-                                      padding:
-                                          EdgeInsets.only(right: Responsive().aboutPlacement()),
+                                      padding: EdgeInsets.only(
+                                          right: Responsive().aboutPlacement()),
                                       child: Text(
                                         'About',
                                         style: TextStyle(
-                                            fontSize: Responsive().headerFontSize(),
+                                            fontSize:
+                                                Responsive().headerFontSize(),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Container(
-                                      padding: const EdgeInsets.only(left: 30, right: 30),
+                                      padding: const EdgeInsets.only(
+                                          left: 30, right: 30),
                                       child: Text(
                                         description ?? 'No Description',
                                         textAlign: TextAlign.justify,
-                                        style: TextStyle(fontSize: Responsive().aboutFontSize()),
+                                        style: TextStyle(
+                                            fontSize:
+                                                Responsive().aboutFontSize()),
                                       ),
                                     ),
                                     const SizedBox(
@@ -381,12 +390,15 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                       height: 20,
                                     ),
                                     Container(
-                                      padding:
-                                          EdgeInsets.only(right: Responsive().amenitiesPlacement(),),
+                                      padding: EdgeInsets.only(
+                                        right:
+                                            Responsive().amenitiesPlacement(),
+                                      ),
                                       child: Text(
                                         'Amenities',
                                         style: TextStyle(
-                                            fontSize: Responsive().headerFontSize(),
+                                            fontSize:
+                                                Responsive().headerFontSize(),
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -408,8 +420,10 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                               child: Stack(
                                                 children: [
                                                   Container(
-                                                    height: Responsive().amenitiesBoxHeight(),
-                                                    width: Responsive().amenitiesBoxWidth(),
+                                                    height: Responsive()
+                                                        .amenitiesBoxHeight(),
+                                                    width: Responsive()
+                                                        .amenitiesBoxWidth(),
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                         fit: BoxFit.cover,
@@ -500,7 +514,8 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                 ],
                                               )),
                                           SizedBox(
-                                            width: Responsive().sizedBoxRatingWidth(context),
+                                            width: Responsive()
+                                                .sizedBoxRatingWidth(context),
                                           ),
                                           Row(
                                               children:
@@ -823,15 +838,84 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                     ),
                                     SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
-                                      child: vouchersList.isEmpty ? Center(
-                                        child: Text('No vouchers available for the $text'),
-                                      )
-                                      :
-                                      Row(
+                                      child: vouchersList.isEmpty
+                                          ? Center(
+                                              child: Text(
+                                                  'No vouchers available for the $text'),
+                                            )
+                                          : Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children:
                                                   vouchersList.map((item) {
+                                                if (item['claimed'] ==
+                                                    'not claimed') {
+                                                  Container(
+                                                    width: 200,
+                                                    margin: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 8.0),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            16.0),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.teal,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          color: Colors.black26,
+                                                          offset: Offset(0, 4),
+                                                          blurRadius: 8.0,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          '${item['discount']}% OFF',
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            height: 8.0),
+                                                        Text(
+                                                          '${item['hotelName']}',
+                                                          style:
+                                                              const TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    31,
+                                                                    20,
+                                                                    20),
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                            height: 12.0),
+                                                        const Text(
+                                                          'voucher',
+                                                          style: TextStyle(
+                                                            color:
+                                                                Colors.white70,
+                                                            fontSize: 14,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                }
+
                                                 return GestureDetector(
                                                   onTap: () {
                                                     final cleanedPriceString =
@@ -932,56 +1016,68 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                       height: 30,
                                     ),
                                     Container(
-                                      padding: EdgeInsets.only(left: Responsive().placeBookingPadding(), right: Responsive().placeBookingPadding()),
-                                      width: Responsive().screenWidth(context),
-                                      child:  
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          RichText(
-                                              text: TextSpan(children: [
-                                            TextSpan(
-                                                text:
-                                                    'PHP ${price.toString()} - 6,000',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: Responsive().bookingPrice(),
-                                                    fontWeight: FontWeight.bold)),
-                                            TextSpan(
-                                                text: '\nEstimated Expenses',
-                                                style: TextStyle(
-                                                    color: Colors.blue,
-                                                    fontSize: Responsive().aboutFontSize()))
-                                          ])),
-                                          Container(
-                                            width: Responsive().placeBookingWidth(context),
-                                            padding:
-                                                const EdgeInsets.only(left: 50),
-                                            child: BlueButtonWithoutFunction(
-                                                text: Text(
-                                                  'Place Booking',
+                                        padding: EdgeInsets.only(
+                                            left: Responsive()
+                                                .placeBookingPadding(),
+                                            right: Responsive()
+                                                .placeBookingPadding()),
+                                        width:
+                                            Responsive().screenWidth(context),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            RichText(
+                                                text: TextSpan(children: [
+                                              TextSpan(
+                                                  text:
+                                                      'PHP ${price.toString()} - 6,000',
                                                   style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: Responsive().aboutFontSize(),
+                                                      color: Colors.black,
+                                                      fontSize: Responsive()
+                                                          .bookingPrice(),
                                                       fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Colors.blue,
-                                                ),
-                                                oppressed: () {
-                                                  HotelBooking().passTheHotelData(
-                                                      widget.text);
-                                                  AppRoutes
-                                                      .navigateToHotelBookingScreen(
-                                                          context,
-                                                          id: widget.text,
-                                                        price: price);
-                                                }),
-                                          )
-                                        ],
-                                      )
-                                    ),
+                                                          FontWeight.bold)),
+                                              TextSpan(
+                                                  text: '\nEstimated Expenses',
+                                                  style: TextStyle(
+                                                      color: Colors.blue,
+                                                      fontSize: Responsive()
+                                                          .aboutFontSize()))
+                                            ])),
+                                            Container(
+                                              width: Responsive()
+                                                  .placeBookingWidth(context),
+                                              padding: const EdgeInsets.only(
+                                                  left: 50),
+                                              child: BlueButtonWithoutFunction(
+                                                  text: Text(
+                                                    'Place Booking',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: Responsive()
+                                                            .aboutFontSize(),
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Colors.blue,
+                                                  ),
+                                                  oppressed: () {
+                                                    HotelBooking()
+                                                        .passTheHotelData(
+                                                            widget.text);
+                                                    AppRoutes
+                                                        .navigateToHotelBookingScreen(
+                                                            context,
+                                                            id: widget.text,
+                                                            price: price);
+                                                  }),
+                                            )
+                                          ],
+                                        )),
                                   ],
                                 ),
                               ),

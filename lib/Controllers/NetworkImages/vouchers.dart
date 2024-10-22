@@ -6,8 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class Vouchers {
   final supabase = Supabase.instance.client;
   Future<List<Map<String, dynamic>>> getTheDiscountsAsList(String uid) async {
-    final response =
-        await supabase.from('discounts').select('*').eq('uid', uid);
+    final response = await supabase.from('discounts').select('*').eq('uid', uid);
     if (response.isEmpty) {
       return [];
     } else {
@@ -31,10 +30,9 @@ class Vouchers {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getTheDiscountsAsListOfLike(
-      List<Map<String, dynamic>> nameList) async {
-    final hotelNames =
-        nameList.map((name) => name['hotelName'].toString()).toList();
+  Future<List<Map<String, dynamic>>> getTheDiscountsAsListOfLikeReal(
+      List<Map<String, dynamic>> nameList, String? hotelName) async {
+    final hotelNames = nameList.map((name) => name['hotelName'].toString()).toList();
 
     if (hotelNames.isEmpty) {
       return [];
@@ -43,7 +41,7 @@ class Vouchers {
     final response = await supabase
         .from('discounts')
         .select('*')
-        .ilike('hotelName', '%${hotelNames.first}%');
+        .ilike('hotelName', '%$hotelName%');
     if (response.isEmpty) {
       return [];
     } else {
@@ -60,6 +58,27 @@ class Vouchers {
     }
   }
 
+
+  Future<List<Map<String, dynamic>>> getTheDiscountsAsListOfLike(
+      String nameList) async {
+    final response =
+        await supabase.from('discounts').select('*').eq('hotelName', nameList);
+    if (response.isEmpty) {
+      return [];
+    } else {
+      List<Map<String, dynamic>> result =
+          List<Map<String, dynamic>>.from(response as List);
+
+      for (var datas in result) {
+        datas['hotelName'] = datas['hotelName'];
+        datas['discount'] = datas['discount'];
+        datas['expiry'] = datas['expiry'];
+        datas['ishotel'] = datas['ishotel'];
+      }
+      return result;
+    }
+  }
+  
   Future<Map<String, dynamic>?> insertRandomlyThevouchers() async {
     final uid = supabase.auth.currentUser!.id;
     final today = DateTime.now();
