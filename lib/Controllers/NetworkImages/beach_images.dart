@@ -11,9 +11,7 @@ class BeachImages {
         return [];
       } else {
         final data = response;
-
-        List<Map<String, dynamic>> result =
-            List<Map<String, dynamic>>.from(data as List);
+        List<Map<String, dynamic>> result = List<Map<String, dynamic>>.from(data as List);
         for (var datas in result) {
           var name = datas['beach_name'];
           var imgUrl = datas['image'];
