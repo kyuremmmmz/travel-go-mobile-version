@@ -36,6 +36,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   final _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final signUp = Signup();
@@ -87,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: 350.w, // Adjust the size
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 470.h,
                 width: 510.w,
               )
@@ -120,13 +121,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'please enter your email address';
+                            return 'Email address is required';
                           }
 
                           if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                            return 'please enter valid email address';
+                            return 'Please enter valid email address';
                           }
-                          signUp.sign(context, value);
                           return null;
                         },
                         decoration: const InputDecoration(
@@ -150,31 +150,74 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 30.h,
+                      height: 10.h,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width -
                           30.w, // full name line area
                       padding: EdgeInsets.only(top: 0.w),
                       child: plainTextField(
+                        controller: _nameController,
+                        validator: (value) {
+                          if (value == null || value.toString().isEmpty) {
+                            return 'Name is required';
+                          }
+                          if (value.length <= 5) {
+                            return 'Name is too short';
+                          }
+                          return null;
+                        },
                         colorr: Colors.black,
                         text: 'Full name',
-                        controller: _nameController,
                       ),
                     ),
                     SizedBox(
-                      height: 30.h,
+                      height: 10.h,
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width -
                           30.w, // password line area
                       child: passwordTextField(
+                        controller: _passwordController,
+                        validator: (value) {
+                          if (value == null || value.toString().isEmpty) {
+                            return 'Password is required';
+                          }
+                          if (value.length <= 5) {
+                            return 'Password must be atleast 6 characters';
+                          }
+                          return null;
+                        },
                         text: 'Password',
                         password: _passwordController,
                       ),
                     ),
                     SizedBox(
-                      height: 70.h,
+                      height: 10.h,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width -
+                          30.w, // password line area
+                      child: passwordTextField(
+                        controller: _passwordController,
+                        validator: (value) {
+                          if (value == null || value.toString().isEmpty) {
+                            return 'Confirm Password is required';
+                          }
+                          if (value.length <= 5) {
+                            return 'Password must be atleast 6 characters';
+                          }
+                          if (value == _passwordController) {
+                            return "Password doesn't match";
+                          }
+                          return null;
+                        },
+                        text: 'Confirm Password',
+                        password: _confirmPasswordController,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50.h,
                     ),
                     Container(
                         padding: null,
@@ -203,11 +246,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           oppressed: () async {
-                            await Signup(
-                                    email: _emailController.text.trim(),
-                                    fullName: _nameController.text.trim(),
-                                    password: _passwordController.text.trim())
-                                .sign(context, _emailController.text);
+                            if (_formKey.currentState!.validate()) {
+                              await Signup(
+                                      email: _emailController.text.trim(),
+                                      fullName: _nameController.text.trim(),
+                                      password: _confirmPasswordController.text
+                                          .trim())
+                                  .sign(context, _emailController.text);
+                            }
                           },
                         ))
                   ],
