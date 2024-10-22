@@ -882,7 +882,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                                                   ),
                                                                   const SizedBox(height: 12.0),
                                                                   const Text(
-                                                                    'Claim nigga voucher',
+                                                                    'Claim Voucher',
                                                                     style: TextStyle(
                                                                       color: Colors.white70,
                                                                       fontSize: 14,

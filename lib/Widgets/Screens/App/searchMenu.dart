@@ -62,6 +62,12 @@ Widget build(BuildContext context) {
               return ListTile(
                 title: Text(suggestion['place_name'] ?? 'No title'),
                 subtitle: Text(suggestion['locatedIn'] ?? 'No address'),
+                leading: Image.network(
+                  suggestion['image']?? 'No image',
+                  fit: BoxFit.cover,
+                  width: 70.w,
+                  height: 70.h,
+                )
               );
             },
             onSuggestionSelected: (dynamic suggestion) {
