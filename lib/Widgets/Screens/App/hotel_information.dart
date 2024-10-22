@@ -837,181 +837,125 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                       ),
                                     ),
                                     SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: vouchersList.isEmpty
-                                          ? Center(
-                                              child: Text(
-                                                  'No vouchers available for the $text'),
-                                            )
-                                          : Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children:
-                                                  vouchersList.map((item) {
-                                                if (item['claimed'] ==
-                                                    'not claimed') {
-                                                  Container(
-                                                    width: 200,
-                                                    margin: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 8.0),
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            16.0),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.teal,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      boxShadow: const [
-                                                        BoxShadow(
-                                                          color: Colors.black26,
-                                                          offset: Offset(0, 4),
-                                                          blurRadius: 8.0,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          '${item['discount']}% OFF',
-                                                          style:
-                                                              const TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 8.0),
-                                                        Text(
-                                                          '${item['hotelName']}',
-                                                          style:
-                                                              const TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    31,
-                                                                    20,
-                                                                    20),
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 12.0),
-                                                        const Text(
-                                                          'voucher',
-                                                          style: TextStyle(
-                                                            color:
-                                                                Colors.white70,
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                }
+                                                scrollDirection: Axis.horizontal,
+                                                child: vouchersList.isEmpty
+                                                    ? Center(
+                                                        child: Text('No vouchers available for the $text'),
+                                                      )
+                                                    : Row(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: vouchersList.map((item) {
+                                                          if (item['claimed'] == 'not claimed') {
+                                                            return Container(
+                                                              width: 200,
+                                                              margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                              padding: const EdgeInsets.all(16.0),
+                                                              decoration: BoxDecoration(
+                                                                color: Colors.teal,
+                                                                borderRadius: BorderRadius.circular(12.0),
+                                                                boxShadow: const [
+                                                                  BoxShadow(
+                                                                    color: Colors.black26,
+                                                                    offset: Offset(0, 4),
+                                                                    blurRadius: 8.0,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              child: Column(
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  Text(
+                                                                    '${item['discount']}% OFF',
+                                                                    style: const TextStyle(
+                                                                      color: Colors.white,
+                                                                      fontSize: 20,
+                                                                      fontWeight: FontWeight.bold,
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(height: 8.0),
+                                                                  Text(
+                                                                    '${item['hotelName']}',
+                                                                    style: const TextStyle(
+                                                                      color: Color.fromARGB(255, 31, 20, 20),
+                                                                      fontSize: 12,
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(height: 12.0),
+                                                                  const Text(
+                                                                    'Claim nigga voucher',
+                                                                    style: TextStyle(
+                                                                      color: Colors.white70,
+                                                                      fontSize: 14,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          } else {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                final cleanedPriceString = price.replaceAll(',', '');
+                                                                final int priceValue = int.tryParse(cleanedPriceString) ?? 0;
+                                                                int discountPercentage = item['discount'];
+                                                                int discountAmount = (priceValue * discountPercentage) ~/ 100;
+                                                                int finalPrice = priceValue - discountAmount;
+                                                                final formattedPrice = NumberFormat('#,##0').format(finalPrice);
 
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    final cleanedPriceString =
-                                                        price.replaceAll(
-                                                            ',', '');
-                                                    final int priceValue =
-                                                        int.tryParse(
-                                                                cleanedPriceString) ??
-                                                            0;
-                                                    int discountPercentage =
-                                                        item['discount'];
-                                                    int discountAmount =
-                                                        (priceValue *
-                                                                discountPercentage) ~/
-                                                            100;
-                                                    int finalPrice =
-                                                        priceValue -
-                                                            discountAmount;
-                                                    final formattedPrice =
-                                                        NumberFormat('#,##0')
-                                                            .format(finalPrice);
-
-                                                    setState(() {
-                                                      price = formattedPrice;
-                                                    });
-                                                    vouchers.deleteDiscount(
-                                                        item['id']);
-                                                  },
-                                                  child: Container(
-                                                    width: 200,
-                                                    margin: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 8.0),
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            16.0),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.teal,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      boxShadow: const [
-                                                        BoxShadow(
-                                                          color: Colors.black26,
-                                                          offset: Offset(0, 4),
-                                                          blurRadius: 8.0,
-                                                        ),
-                                                      ],
+                                                                setState(() {
+                                                                  price = formattedPrice;
+                                                                });
+                                                                vouchers.deleteDiscount(item['id']);
+                                                              },
+                                                              child: Container(
+                                                                width: 200,
+                                                                margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                                padding: const EdgeInsets.all(16.0),
+                                                                decoration: BoxDecoration(
+                                                                  color: Colors.teal,
+                                                                  borderRadius: BorderRadius.circular(12.0),
+                                                                  boxShadow: const [
+                                                                    BoxShadow(
+                                                                      color: Colors.black26,
+                                                                      offset: Offset(0, 4),
+                                                                      blurRadius: 8.0,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text(
+                                                                      '${item['discount']}% OFF',
+                                                                      style: const TextStyle(
+                                                                        color: Colors.white,
+                                                                        fontSize: 20,
+                                                                        fontWeight: FontWeight.bold,
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(height: 8.0),
+                                                                    Text(
+                                                                      '${item['hotelName']}',
+                                                                      style: const TextStyle(
+                                                                        color: Color.fromARGB(255, 31, 20, 20),
+                                                                        fontSize: 12,
+                                                                      ),
+                                                                    ),
+                                                                    const SizedBox(height: 12.0),
+                                                                    const Text(
+                                                                      'Use voucher',
+                                                                      style: TextStyle(
+                                                                        color: Colors.white70,
+                                                                        fontSize: 14,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                        }).toList(),
+                                                      ),
                                                     ),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          '${item['discount']}% OFF',
-                                                          style:
-                                                              const TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 8.0),
-                                                        Text(
-                                                          '${item['hotelName']}',
-                                                          style:
-                                                              const TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    31,
-                                                                    20,
-                                                                    20),
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 12.0),
-                                                        const Text(
-                                                          'Use voucher',
-                                                          style: TextStyle(
-                                                            color:
-                                                                Colors.white70,
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                            ),
-                                    ),
                                     const SizedBox(
                                       height: 30,
                                     ),
