@@ -1,5 +1,6 @@
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/Booking/BookingSection.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 
 class Bookinghistory extends StatefulWidget {
@@ -15,29 +16,15 @@ class _BookinghistoryState extends State<Bookinghistory> {
     return Scaffold(
       appBar: AppBar(
         bottom: const PreferredSize(
-        preferredSize: Size(50, 40), 
-        child: Column(
-          children: [
-            Text(
-                  'TRAVEL GO',
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  "Northwestern part of Luzon Island, Philippines",
-                  style: TextStyle(fontSize: 16),
-                ),
-            ],
-          )
-        ),
+            preferredSize: Size(50, 60),
+            child: Column(
+              children: [TitleMenu()],
+            )),
       ),
       endDrawer: const DrawerMenuWidget(),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Center(
+          child: SingleChildScrollView(
+        child: Center(
           child: Column(
             children: [
               const SizedBox(
@@ -62,12 +49,11 @@ class _BookinghistoryState extends State<Bookinghistory> {
                 locationName: 'The Monarch Hotel',
                 locationAddress: 'Calasiao, Pangasinan, Philippines',
                 oppressed: () => print('test'),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        )
-      ),
+        ),
+      )),
     );
   }
 }

@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 class passwordTextField extends StatefulWidget {
   final String? text;
   final TextEditingController? password;
+  final dynamic validator;
+
   const passwordTextField({
     super.key,
     required this.text,
     required this.password,
+    required this.validator,
+    required TextEditingController controller,
   });
 
   @override
@@ -23,6 +27,7 @@ class _numberTextFieldState extends State<passwordTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.password,
+      validator: widget.validator,
       decoration: InputDecoration(
           labelText: widget.text,
           suffixIcon: IconButton(
@@ -40,12 +45,9 @@ class _numberTextFieldState extends State<passwordTextField> {
           alignLabelWithHint: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
           border: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black)
-          ),
+              borderSide: BorderSide(color: Colors.black)),
           focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black)
-          )
-        ),
+              borderSide: BorderSide(color: Colors.black))),
       style: const TextStyle(
         fontSize: 15,
         color: Colors.black,

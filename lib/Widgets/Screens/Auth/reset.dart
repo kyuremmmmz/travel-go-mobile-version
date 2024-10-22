@@ -6,7 +6,6 @@ import 'package:TravelGo/Widgets/Textfield/plainTextField.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
-
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
 
@@ -29,7 +28,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    backgroundColor: const Color(0xFFDEEFFC),
+      backgroundColor: const Color(0xFFDEEFFC),
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
@@ -47,17 +46,18 @@ class _ResetPasswordState extends State<ResetPassword> {
                     padding: null,
                     child: Text(
                       'Create New Password',
-                      style:
-                          TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 30.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 20.h),
                     child: Text(
-                        textAlign: TextAlign.justify,
-                        'Your new password must be different from \nprevious used passwords.',
-                        style: 
-                            TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w400),),
+                      textAlign: TextAlign.justify,
+                      'Your new password must be different from \nprevious used passwords.',
+                      style: TextStyle(
+                          fontSize: 15.sp, fontWeight: FontWeight.w400),
+                    ),
                   )
                 ],
               )),
@@ -79,7 +79,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           ),
                           Container(
                             padding: null,
-                            width: 350.w, // the width of the line 
+                            width: 350.w, // the width of the line
                             child: numberTextField(
                               text: 'Reset Token',
                               controller: _resetTokenController,
@@ -95,6 +95,12 @@ class _ResetPasswordState extends State<ResetPassword> {
                               colorr: Colors.black,
                               text: 'Email',
                               controller: _emailController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Email address is required';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           SizedBox(
@@ -104,8 +110,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                             padding: null,
                             width: 350.w,
                             child: passwordTextField(
+                              controller: _passwordController,
                               text: 'New Password', // Password
                               password: _passwordController,
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Password is required';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           SizedBox(
@@ -118,14 +131,19 @@ class _ResetPasswordState extends State<ResetPassword> {
                             child: BlueButtonWithoutFunction(
                                 text: Text(
                                   'Reset Password',
-                                  style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255), fontSize: 15.sp,),
+                                  style: TextStyle(
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
+                                    fontSize: 15.sp,
+                                  ),
                                 ),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF44CAF9),
-                                        shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0), // Adjust the radius as needed
-                                    ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        18.0), // Adjust the radius as needed
                                   ),
+                                ),
                                 oppressed: () => Usersss().resetPasssword(
                                     _resetTokenController.text.trim(),
                                     _emailController.text.trim(),

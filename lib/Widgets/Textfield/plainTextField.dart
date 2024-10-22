@@ -5,12 +5,14 @@ class plainTextField extends StatefulWidget {
   final String? text;
   final TextEditingController? controller;
   final Color? colorr;
+  final dynamic validator;
 
   const plainTextField({
     super.key,
     required this.text,
     required this.controller,
     required this.colorr,
+    required this.validator,
   });
 
   @override
@@ -23,6 +25,7 @@ class _numberTextFieldState extends State<plainTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
+      validator: widget.validator,
       decoration: InputDecoration(
           labelText: widget.text,
           alignLabelWithHint: true,
