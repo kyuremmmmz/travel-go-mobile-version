@@ -106,13 +106,24 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                       height: 40.h, // the space between the img and email area
                     ),
                     Container(
+                      padding: EdgeInsets.only(right: 80.w),
+                      child: Text(
+                        'User Credentials',
+                        style: TextStyle(
+                          color: const Color(0xFF2D3F4E),
+                          fontSize: 30.sp,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    Container(
                       width: MediaQuery.of(context).size.width - 30.w,
                       padding: EdgeInsets.only(top: 0.w),
                       child: TextFormField(
                         controller: _nameController,
                         validator: (value) {
                           if (value == null || value.toString().isEmpty) {
-                            return 'Full Name is required';
+                            return 'Full name is required';
                           }
                           if (value.length <= 5) {
                             return 'Name is too short';
@@ -120,7 +131,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                           return null;
                         },
                         decoration: const InputDecoration(
-                            labelText: 'Full name',
+                            labelText: 'Full Name',
                             alignLabelWithHint: true,
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 5.0),
@@ -150,7 +161,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                         controller: _userNameController,
                         validator: (value) {
                           if (value == null || value.toString().isEmpty) {
-                            return 'User Name is required';
+                            return 'User name is required';
                           }
                           if (value.length <= 5) {
                             return 'Name is too short';
@@ -158,7 +169,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                           return null;
                         },
                         colorr: Colors.black,
-                        text: 'User name',
+                        text: 'User Name',
                       ),
                     ),
                     SizedBox(
@@ -170,8 +181,8 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                       child: TextFormField(
                         controller: _phoneController,
                         validator: (value) {
-                          if (value == null && value.toString().isEmpty) {
-                            return 'Please fill the field age';
+                          if (value == null || value.toString().isEmpty) {
+                            return 'Phone Number is required';
                           }
                           return null;
                         },
@@ -192,10 +203,9 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                           fontSize: 15,
                           color: Color.fromARGB(255, 0, 0, 0),
                         ),
-                        keyboardType: TextInputType.name,
+                        keyboardType: TextInputType.phone,
                       ),
                     ),
-                    
                     SizedBox(
                       height: 50.h,
                     ),
@@ -213,41 +223,41 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                               )
                             ]),
                         child: BlueButtonWithoutFunction(
-                          text: Text(
-                            'Next',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 18.sp),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 50, 190, 255),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                            text: Text(
+                              'Next',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18.sp),
                             ),
-                          ),
-                          oppressed: () async {
-                            
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignUpScreen(
-                                          fullName: _nameController.text.trim(),
-                                          phoneNumber: int.parse(_phoneController.text.trim()), 
-                                          userName: _userNameController.text.trim(),
-                                          error: Text('$text'),
-                                          )
-                                        )
-                                      );
-                                    },
-                                  )
-                                )
-                            ],
-                          ),
-                        )),
-                      ),
-                    )
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 50, 190, 255),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                            oppressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignUpScreen(
+                                              fullName:
+                                                  _nameController.text.trim(),
+                                              phoneNumber: int.parse(
+                                                  _phoneController.text.trim()),
+                                              userName: _userNameController.text
+                                                  .trim(),
+                                              error: Text('$text'),
+                                            )));
+                              }
+                            }))
                   ],
                 ),
-              );
-            }
-          }
+              )),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

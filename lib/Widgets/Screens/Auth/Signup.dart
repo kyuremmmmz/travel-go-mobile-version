@@ -93,8 +93,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         children: <Widget>[
           Positioned(
             top: 0.h,
-            right: -30,
-            left: -30,
+            right: 0,
+            left: 0,
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
@@ -107,22 +107,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Positioned(
                 top: 100,
                 bottom: 50, // Adjust the position of the second image
-                right: -30,
-                left: -30, // Change as needed
+                right: 0,
+                left: 0, // Change as needed
                 child: Image.asset(
                   'assets/images/icon/airplanelogo.png', // Replace with your image path
-                  height: 450.h, // Adjust the size
-                  width: 350.w, // Adjust the size
                 ),
               ),
               SizedBox(
-                height: 470.h,
-                width: 510.w,
+                height: 400.h, // Adjust the size
               )
             ]),
           ),
           Positioned(
-            bottom: -320.h,
+            bottom: -270.h,
             right: 0,
             left: 0,
             height: MediaQuery.of(context).size.height,
@@ -138,12 +135,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 40.h, // the space between the img and email area
+                    Container(
+                      padding: EdgeInsets.only(right: 80.w),
+                      child: Text(
+                        'Create Account',
+                        style: TextStyle(
+                          color: const Color(0xFF2D3F4E),
+                          fontSize: 35.sp,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
                     ),
                     Container(
+                        padding: EdgeInsets.only(right: 150.w),
+                        child: const Text(
+                          'Please Sign Up to continue.',
+                          style: TextStyle(
+                            color: Color(0xFF3564C0),
+                          ),
+                        )),
+                    SizedBox(
                       width: MediaQuery.of(context).size.width - 30.w,
-                      padding: EdgeInsets.only(top: 0.w),
                       child: TextFormField(
                         controller: _emailController,
                         validator: (value) {
@@ -177,17 +189,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 10.h,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width -
-                          30.w, // full name line area
-                      padding: EdgeInsets.only(top: 0.w),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    SizedBox(
                       width: MediaQuery.of(context).size.width -
                           30.w, // password line area
                       child: passwordTextField(
@@ -204,9 +205,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         text: 'Password',
                         password: _passwordController,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width -
