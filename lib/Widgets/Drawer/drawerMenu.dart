@@ -2,6 +2,7 @@ import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DrawerMenuWidget extends StatefulWidget {
@@ -59,68 +60,89 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      width: 300.w,
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: img == null ? const AssetImage('assets/images/icon/food_place.png') : NetworkImage('$img'),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  // ignore: unnecessary_null_comparison
-                  email != null ? '$email' : 'Loading...',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+          SizedBox(
+            height: 220.0,
+            child: DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: img == null
+                        ? const AssetImage('assets/images/icon/newicon.png')
+                        : NetworkImage('$img'),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 10),
+                  Text(
+                    // ignore: unnecessary_null_comparison
+                    email != null ? '$email' : 'Loading...',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Profile'),
+            leading: Icon(Icons.person, size: 20.sp),
+            title: Text(
+              'Profile',
+              style: TextStyle(fontSize: 16.sp),
+            ),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToDiscountArea(context);
             },
           ),
           ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Home'),
+            leading: Icon(Icons.home, size: 20.sp),
+            title: Text(
+              'Home',
+              style: TextStyle(fontSize: 16.sp),
+            ),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToMainMenu(context);
             },
           ),
           ListTile(
-            leading: const Icon(Icons.history),
-            title: const Text('Recent Bookings'),
+            leading: Icon(Icons.history, size: 20.sp),
+            title: Text(
+              'Recent Bookings',
+              style: TextStyle(fontSize: 16.sp),
+            ),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToBookingHistory(context);
             },
           ),
           ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
+            leading: Icon(Icons.settings, size: 20.sp),
+            title: Text(
+              'Settings',
+              style: TextStyle(fontSize: 16.sp),
+            ),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToAccountSettings(context);
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
+            leading: Icon(Icons.logout, size: 20.sp),
+            title: Text(
+              'Logout',
+              style: TextStyle(fontSize: 16.sp),
+            ),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToLogin(context);
