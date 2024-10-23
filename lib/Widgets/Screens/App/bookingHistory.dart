@@ -2,6 +2,7 @@ import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/Booking/BookingSection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil for responsive
 
 class BookingHistory extends StatefulWidget {
   const BookingHistory({super.key});
@@ -16,7 +17,8 @@ class _BookingHistoryState extends State<BookingHistory> {
     // title: const Text('History'), //SETTINGS AREA JUST IN CASE PALAGYAN
      return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 40,
+        toolbarHeight: 40.h,
+        //backgroundColor: Color(0xFFF1FCFF),
         leading: Builder(
           builder: (BuildContext context) => IconButton(
             icon: const Icon(Icons.menu),
@@ -31,15 +33,16 @@ class _BookingHistoryState extends State<BookingHistory> {
         child: Column(
           children: <Widget>[
             const TitleMenu(),
-            const Text(
+            Text(
               'My Bookings',
               style: TextStyle(
-                fontSize: 24,
-                color: Color.fromARGB(255, 41, 39, 39),
+                height: 5.h,
+                fontSize: 18.sp,
+                color: Color(0xFF534D4D),
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
             BookingSection(
               departureDay: '11th',
               departureDate: 'October, 2024, Monday',
