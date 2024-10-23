@@ -79,6 +79,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
     );
 
     await mailer.sendEmailWithAttachment(
+      context,
       subject: 'Your Booking Receipt',
       body: 'Please find your receipt attached.',
       recipientEmail: '$gmail',

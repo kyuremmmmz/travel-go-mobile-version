@@ -147,7 +147,7 @@ class Mailer {
     return filePath;
   }
 
-  Future<void> sendEmailWithAttachment({
+  Future<void> sendEmailWithAttachment(BuildContext context,{
     required String subject,
     required String body,
     required String recipientEmail,
@@ -172,6 +172,12 @@ class Mailer {
 
       try {
         final sendReport = await send(message, smtpServer);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content:  Text(
+            'Email sent successfully!',
+            
+          ))
+        );
         debugPrint('Email sent: $sendReport');
       } catch (e) {
         debugPrint('Error sending email: $e');
