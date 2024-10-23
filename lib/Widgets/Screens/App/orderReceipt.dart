@@ -1,3 +1,4 @@
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
@@ -111,7 +112,8 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
         if (mounted) {
           final data = response;
           setState(() {
-            amount = data['payment'] != null ? data['payment'].toString() : 'N/A';
+            amount =
+                data['payment'] != null ? data['payment'].toString() : 'N/A';
             phone = data['phone'] ?? 'Unknown';
             ref = data['reference_number'] ?? 'N/A';
             paid_via = data['pay_via'] ?? 'Unknown';
@@ -148,26 +150,8 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
           Positioned.fill(
             child: Column(
               children: <Widget>[
-                Text(
-                  'TRAVEL GO',
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        offset: const Offset(3.0, 3.0),
-                        blurRadius: 4.0,
-                        color: Colors.black.withOpacity(0.5),
-                      ),
-                    ],
-                  ),
-                ),
-                const Text(
-                  "Northwestern part of Luzon Island, Philippines",
-                  style: TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 30),
+                const TitleMenu(),
+                const SizedBox(height: 10),
                 Expanded(
                   child: Scrollbar(
                     thumbVisibility: true,
