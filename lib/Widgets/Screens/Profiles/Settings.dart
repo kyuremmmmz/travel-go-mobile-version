@@ -7,6 +7,7 @@ import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil for responsive
 import 'dart:io';
 
 class AccountSettingsScreen extends StatefulWidget {
@@ -58,12 +59,11 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     }
   }
 
-
   Future<Future<String?>> insert(String id) async {
     final response = users.editProfile(id);
     return response;
   }
-  
+
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
     if (mounted) {
@@ -72,8 +72,6 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       });
     }
   }
-
-  
 
   @override
   void dispose() {
@@ -92,7 +90,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        // title: const Text('Settings'), //SETTINGS AREA JUST IN CASE PALAGYAN
         toolbarHeight: 40,
         leading: Builder(
           builder: (BuildContext context) => IconButton(
@@ -110,9 +108,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  const SizedBox(height: 30),
                   const TitleMenu(),
-                  const SizedBox(height: 30),
                   Center(
                     child: GestureDetector(
                       onTap: () {
@@ -124,16 +120,17 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                         backgroundImage: _profileImage != null
                             ? FileImage(_profileImage!)
                             : (img == null
-                                ? const AssetImage('assets/images/icon/bus.png')
+                                ? const AssetImage(
+                                    'assets/images/icon/user.png')
                                 : NetworkImage('$img')) as ImageProvider,
                         child: _profileImage == null
                             ? const Icon(Icons.add_a_photo,
-                                size: 30, color: Colors.white)
+                                size: 30, color: Colors.white) // the photo
                             : null,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 0),
                   buildSectionTitle(context, 'Account Settings'),
                   buildAccountDetails(),
                   const SizedBox(height: 30),
@@ -162,30 +159,34 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   }
 
   Widget buildSectionTitle(BuildContext context, String title) {
+    // DESIGN ARE OF THE ACCOUNT AND NOTIFICATION TEXT
     return Container(
       padding: const EdgeInsets.all(15),
       width: 330,
       height: 50,
       decoration: BoxDecoration(
-        color: const Color.fromRGBO(68, 202, 249, 100),
+        color: Color(0xFF44CAF9),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Text(
         title,
         textAlign: TextAlign.left,
         style: const TextStyle(
+          height: 0,
           color: Colors.white,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w400,
+          fontSize: 18,
         ),
       ),
     );
   }
 
   Widget buildAccountDetails() {
+    // ACCOUNT SETTINGS INFO AREA
     return Container(
-      width: 290,
-      height: 175,
-      margin: const EdgeInsets.only(right: 15, left: 15),
+      width: 290.w,
+      height: 175.h,
+      margin: EdgeInsets.only(right: 15.h, left: 15.h),
       padding: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: const Color.fromRGBO(241, 241, 241, 100),
@@ -199,20 +200,32 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           buildAccountInfoRow('Name', email ?? 'Unknown'),
-          const Divider(color: Colors.black),
+          const Divider(
+            color: Color(0xFF929292),
+            thickness: 0.5,
+          ),
           InkWell(
             onTap: () => {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>  EditProfileScreen(
-                currentAvatarUrl: img,
-                currentEmail: gmail,
-                currentName: email,
-              )))
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EditProfileScreen(
+                            currentAvatarUrl: img,
+                            currentEmail: gmail,
+                            currentName: email,
+                          )))
             },
             child: const Row(children: [Text('Edit Profile')]),
           ),
-          const Divider(color: Colors.black),
+          const Divider(
+            color: Color(0xFF929292),
+            thickness: 0.5,
+          ), // the edit profile line divider
           buildAccountInfoRow('Email:', gmail ?? 'Unknown'),
-          const Divider(color: Colors.black),
+          const Divider(
+            color: Color(0xFF929292),
+            thickness: 0.5,
+          ),
           InkWell(
             onTap: () => 'test',
             child: const Row(children: [Text('Change Password')]),
@@ -236,6 +249,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   }
 
   Widget buildNotificationSettings() {
+    // NOTIFICATION SETTINGS INFO AREA
     return Container(
       width: 290,
       height: 175,

@@ -2,6 +2,7 @@ import 'package:TravelGo/Controllers/NetworkImages/bookingHistory.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:postgrest/src/types.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil for responsive
 
 class BookingSection extends StatefulWidget {
   final String departureDay;
@@ -61,8 +62,8 @@ class _BookingSectionState extends State<BookingSection> {
   Widget build(BuildContext context) {
     return Container(
       padding: null,
-      width: 330,
-      height: 580,
+      width: 330.w,
+      height: 380.h,
       child: list.isEmpty
           ? const Center(
               child: Text('No Booking History'),

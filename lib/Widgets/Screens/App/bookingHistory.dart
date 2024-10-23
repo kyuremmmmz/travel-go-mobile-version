@@ -1,59 +1,60 @@
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/Booking/BookingSection.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil for responsive
 
-class Bookinghistory extends StatefulWidget {
-  const Bookinghistory({super.key});
+class BookingHistory extends StatefulWidget {
+  const BookingHistory({super.key});
 
   @override
-  State<Bookinghistory> createState() => _BookinghistoryState();
+  State<BookingHistory> createState() => _BookingHistoryState();
 }
 
-class _BookinghistoryState extends State<Bookinghistory> {
+class _BookingHistoryState extends State<BookingHistory> {
   @override
   Widget build(BuildContext context) {
+    // title: const Text('History'), //SETTINGS AREA JUST IN CASE PALAGYAN
     return Scaffold(
       appBar: AppBar(
-        bottom: const PreferredSize(
-            preferredSize: Size(50, 60),
-            child: Column(
-              children: [TitleMenu()],
-            )),
-      ),
-      endDrawer: const DrawerMenuWidget(),
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              const Text(
-                'My Bookings',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Color.fromARGB(255, 41, 39, 39),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              BookingSection(
-                departureDay: '11th',
-                departureDate: 'October, 2024, Monday',
-                checkedInDate: 'October 12, 2024, 9:00 AM',
-                price: 999900,
-                locationName: 'The Monarch Hotel',
-                locationAddress: 'Calasiao, Pangasinan, Philippines',
-                oppressed: () => print('test'),
-              ),
-            ],
+        toolbarHeight: 40.h,
+        //backgroundColor: Color(0xFFF1FCFF),
+        leading: Builder(
+          builder: (BuildContext context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
           ),
         ),
-      )),
+      ),
+      drawer: const DrawerMenuWidget(), // ditong area ang 3 lines
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            const TitleMenu(),
+            Text(
+              'My Bookings',
+              style: TextStyle(
+                height: 5.h,
+                fontSize: 18.sp,
+                color: Color(0xFF534D4D),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 30.h),
+            BookingSection(
+              departureDay: '11th',
+              departureDate: 'October, 2024, Monday',
+              checkedInDate: 'October 12, 2024, 9:00 AM',
+              price: 999900,
+              locationName: 'The Monarch Hotel',
+              locationAddress: 'Calasiao, Pangasinan, Philippines',
+              oppressed: () => print('test'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

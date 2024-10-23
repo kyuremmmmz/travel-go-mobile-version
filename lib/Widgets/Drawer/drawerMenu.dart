@@ -57,7 +57,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
     fetchImage();
   }
 
-  @override
+  @override // 3 LINES BUTTON AREA
   Widget build(BuildContext context) {
     return Drawer(
       width: 300.w,
