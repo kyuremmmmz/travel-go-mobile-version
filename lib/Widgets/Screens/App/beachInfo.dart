@@ -320,7 +320,7 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
                                       ),
                                       Container(
                                         padding:
-                                            EdgeInsets.only(right: Responsive().amenitiesPlacement()),
+                                            EdgeInsets.only(right: Responsive().accomodationPlacement()),
                                         child: Text(
                                           'Accomodations',
                                           style: TextStyle(
