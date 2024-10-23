@@ -82,15 +82,15 @@ class CategoryLabel extends StatelessWidget {
   const CategoryLabel({
     super.key,
     required this.label,
-    this.fontSize = 14.0, // Default font size
+    this.fontSize = 14.0, // Default font size for vehicleAvailability
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 8.w, bottom: 5.h),
+      padding: EdgeInsets.only(top: 1.w),
       child: SizedBox(
-        height: 35.h,
+        height: 30.w,
         child: Text(
           label,
           textAlign: TextAlign.center,
@@ -147,7 +147,7 @@ class CategorySelect extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 10.w),
       ],
     );
   }

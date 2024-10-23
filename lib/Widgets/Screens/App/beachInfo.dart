@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'ResponsiveScreen/ResponsiveScreen.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
@@ -226,7 +225,8 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
                           bottom: 0,
                           left: 0,
                           right: 0,
-                          height: Responsive().scrollableContainerInfoHeight(context),
+                          height: Responsive()
+                              .scrollableContainerInfoHeight(context),
                           child: Container(
                             padding: const EdgeInsets.only(left: 0, top: 30),
                             width: 500,
@@ -251,7 +251,8 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
                                           foodName ?? 'No data available',
                                           style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: Responsive().titleFontSize(),
+                                              fontSize:
+                                                  Responsive().titleFontSize(),
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -272,43 +273,52 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
                                                     id: id);
                                               },
                                               child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
                                                 children: [
                                                   Text(
-                                                    located ?? 'I cant locate it',
+                                                    located ??
+                                                        'I cant locate it',
                                                     style: TextStyle(
-                                                      fontSize: Responsive().aboutFontSize(),
-                                                      decoration: TextDecoration.underline,
-                                                      color: Colors.blue),
+                                                        fontSize: Responsive()
+                                                            .aboutFontSize(),
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                        color: Colors.blue),
                                                   ),
                                                   FaIcon(
                                                     FontAwesomeIcons.map,
-                                                    size: Responsive().clickToOpenFontSize(),
+                                                    size: Responsive()
+                                                        .clickToOpenFontSize(),
                                                     color: Colors.red,
                                                   ),
-                                              ],
-                                            ) 
-                                          )
+                                                ],
+                                              ))
                                         ],
                                       ),
                                       const SizedBox(height: 20),
                                       Container(
-                                        padding:
-                                            EdgeInsets.only(right: Responsive().aboutPlacement()),
+                                        padding: EdgeInsets.only(
+                                            right:
+                                                Responsive().aboutPlacement()),
                                         child: Text(
                                           'About',
                                           style: TextStyle(
-                                              fontSize: Responsive().headerFontSize(),
+                                              fontSize:
+                                                  Responsive().headerFontSize(),
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                       Container(
-                                        padding:
-                                            const EdgeInsets.only(left: 30, right: 30),
+                                        padding: const EdgeInsets.only(
+                                            left: 30, right: 30),
                                         child: Text(
                                           description ?? 'No Description',
                                           textAlign: TextAlign.justify,
-                                          style: TextStyle(fontSize: Responsive().aboutFontSize()),
+                                          style: TextStyle(
+                                              fontSize:
+                                                  Responsive().aboutFontSize()),
                                         ),
                                       ),
                                       const SizedBox(
@@ -323,7 +333,8 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
                                         child: Text(
                                           'Accomodations',
                                           style: TextStyle(
-                                              fontSize: Responsive().headerFontSize(),
+                                              fontSize:
+                                                  Responsive().headerFontSize(),
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -340,8 +351,10 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
                                               child: Stack(
                                                 children: [
                                                   Container(
-                                                    height: Responsive().amenitiesBoxHeight(),
-                                                    width: Responsive().amenitiesBoxWidth(),
+                                                    height: Responsive()
+                                                        .amenitiesBoxHeight(),
+                                                    width: Responsive()
+                                                        .amenitiesBoxWidth(),
                                                     decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                         fit: BoxFit.cover,

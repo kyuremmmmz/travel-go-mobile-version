@@ -10,8 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../ResponsiveScreen/ResponsiveScreen.dart';
+import '../ResponsiveScreen/ResponsiveScreen.dart'; // Import ScreenUtil for responsive
 
 class DiscountArea extends StatelessWidget {
   const DiscountArea({super.key});
@@ -27,7 +28,7 @@ class DiscountArea extends StatelessWidget {
 }
 
 class DiscountAreaScreen extends StatefulWidget {
-  const DiscountAreaScreen({Key? key}) : super(key: key);
+  const DiscountAreaScreen({super.key});
 
   @override
   State<DiscountAreaScreen> createState() => _DiscountAreaScreenState();
@@ -109,7 +110,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 40,
+        toolbarHeight: 40.h,
         leading: Builder(
           builder: (BuildContext context) => IconButton(
             icon: const Icon(Icons.menu),
@@ -122,11 +123,11 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
       drawer: const DrawerMenuWidget(),
       body: Stack(
         children: [
-          const Positioned.fill(
+          Positioned.fill(
             child: Column(
               children: <Widget>[
-                TitleMenu(),
-                SizedBox(height: 30),
+                const TitleMenu(),
+                SizedBox(height: 30.h),
               ],
             ),
           ),
@@ -137,15 +138,16 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const SizedBox(height: 130),
+                   SizedBox(height: 130.h),
                   buildUserCard(),
-                  const SizedBox(height: 30),
+                   SizedBox(height: 30.h),
                   Container(
-                    padding: const EdgeInsets.only(right: 200),
-                    child: const Text(
+                    padding: EdgeInsets.only(right: 155.w),
+                    child: Text(
                       'Available Vouchers',
                       style: TextStyle(
-                        fontSize: 20,
+                        color: const Color(0xFF333131),
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -155,11 +157,12 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
                     height: 30,
                   ),
                   Container(
-                    padding: const EdgeInsets.only(right: 140),
-                    child: const Text(
+                    padding: EdgeInsets.only(right: 100.w),
+                    child: Text(
                       'Available Flight Vouchers',
                       style: TextStyle(
-                        fontSize: 20,
+                        color: const Color(0xFF333131),
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -216,26 +219,37 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
         ));
   }
 
-  Widget buildUserCard() {
+  Widget buildUserCard() { // SPEND WISE BOX AREA 
     return Container(
-      padding: const EdgeInsets.only(right: 10, left: 10, top: 20, bottom: 20),
-      height: Responsive().discountUserCardHeight(),
-      width: Responsive().discountUserCardWidth(),
+      padding: EdgeInsets.only(right: 10.w, left: 10.w, top: 20.h, bottom: 20.h),
+      height: 215.h,
+      width: 340.w,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
+        border: Border.all(color: Colors.black,
+        width: 0.2.w, // border line thickness
+        ),
+      boxShadow: [
+      BoxShadow(
+            color: Colors.grey.withOpacity(0.5), // Shadow color with opacity
+            blurRadius: 4,   // Blur radius
+            offset: Offset(0.w, 4.h), // Shadow position (x, y)
+          ),
+        ],
         borderRadius: BorderRadius.circular(20),
-        color: const Color.fromRGBO(241, 252, 255, 100),
+        color: const Color(0xFFF1FCFF),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           buildUserInfo(),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           buildPointsInfo(),
         ],
       ),
     );
   }
+
+// PROFILE
 
   Widget buildUserInfo() {
     return Row(
@@ -244,26 +258,26 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
         CircleAvatar(
           radius: Responsive().discountProfileRadius(),
           backgroundImage: img == null
-              ? const AssetImage('assets/images/icon/food_place.png')
+              ? const AssetImage('assets/images/icon/user.png')
               : NetworkImage('$img'),
         ),
-        const SizedBox(width: 15),
+        SizedBox(width: 15.w, height: 50.h),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Spend wise and use',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: Responsive().discountProfileTextFontSize(),
-                color: const Color.fromRGBO(5, 103, 180, 100),
+                fontWeight: FontWeight.w500, // medium fontweight
+                fontSize: 12.sp,
+                color: const Color(0xFF0567B4),
               ),
             ),
             Text(
-              email ?? 'Loading...',
+              email ?? 'Loading...', // NAME OF THE USER AREA
               style: TextStyle(
-                color: Colors.black,
-                fontSize: Responsive().discountProfileNameFontSize(),
+                color: const Color(0xFF333131),
+                fontSize: 23.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -273,23 +287,25 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     );
   }
 
-  Widget buildPointsInfo() {
+  Widget buildPointsInfo() { // TRAVEL GO POINTS BOX AREA
     return Container(
-      padding: const EdgeInsets.all(3),
-      height: Responsive().discountPointsInfoHeight(),
-      width: Responsive().discountPointsInfoWidth(),
+      padding: EdgeInsets.all(10.w),
+      height: 90.h,
+      width: 350.w,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
+        border: Border.all(color: Colors.black,
+        width: 0.5, // border line thickness
+        ),
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
       ),
       child: Row(
         children: [
-          const SizedBox(
-            width: 30,
-            child: FaIcon(
-              FontAwesomeIcons.coins,
-              color: Colors.yellow,
+          SizedBox(
+            width: 30.w,
+            child: const FaIcon(
+              FontAwesomeIcons.coins, // THE ICON OF THE COINS
+              color: Color(0xFFFFD989),
             ),
           ),
           Expanded(
@@ -308,45 +324,56 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   }
 
   Widget buildPointsHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Travel Go Points',
-          style: TextStyle(
-            fontSize: Responsive().discountPointsHeaderFontSize(),
-            fontWeight: FontWeight.bold,
+    return Padding(
+      padding: EdgeInsets.only(bottom: 2.w, right: 5.h), // Add padding below the header
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+           Text(
+            'Travel Go Points',
+            style: TextStyle(
+              fontSize: 13.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        Text(
-          '56.04 as of $formattedDate',
-          style: TextStyle(
-            fontSize: Responsive().discountPointsHeaderFontSize(),
-            fontWeight: FontWeight.bold,
+          Text(
+            '56.04 as of $formattedDate',
+            style: TextStyle(
+              fontSize: 13.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Widget buildPointsProgress() {
-    return const LinearProgressIndicator(
-      value: 0.58,
-      backgroundColor: Colors.grey,
-      color: Colors.yellow,
+  Widget buildPointsProgress() { // AREA OF YELLOW LINE
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 2.h), // Add vertical padding for space above and below the progress bar
+      child: LinearProgressIndicator(
+        value: 0.58,
+        backgroundColor: const Color(0xFFD9D9D9),
+        borderRadius: BorderRadius.circular(5.w),
+        color: const Color(0xFFFFD989),
+      ),
     );
   }
 
   Widget buildPointsInfoText() {
-    return Text(
-      'Earn 1,000 points and enjoy PHP100 discount on your next booking! \nStart collecting points now and save big!',
-      style: TextStyle(
-        fontSize: Responsive().discountPointsTextFontSize(),
-        color: const Color.fromRGBO(5, 103, 180, 100),
+    return Padding(
+      padding: EdgeInsets.only(top: 5.w, right: 15.h), // Add padding above the info text
+      child: const Text(
+        'Earn 1,000 points and enjoy PHP100 discount on your next booking! \nStart collecting points now and save big!',
+        style: TextStyle(
+          fontSize: 8,
+          color: Color(0xFF0567B4),
+        ),
+        textAlign: TextAlign.justify,
       ),
-      textAlign: TextAlign.justify,
     );
   }
+
 
   Widget buildDiscountList() {
     return SingleChildScrollView(
@@ -356,7 +383,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
           final date = calculateRemainingTime(items['expiry']);
           return Container(
             padding: const EdgeInsets.all(20),
-            width: 400,
+            width: 400.w,
             child: VoucherButton(
               voucherTitle:
                   'Enjoy up to ${items['discount']}% off at ${items['hotelName']}!',

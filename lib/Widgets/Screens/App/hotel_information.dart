@@ -149,6 +149,14 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     print(widget.name);
     _isRedirecting = true;
   }
+  @override
+  void dispose() {
+    _searchController.dispose();
+    sub?.cancel();
+    supa?.cancel();
+    super.dispose();
+  }
+
 
   Future<void> fetchSpecificData(int id) async {
     try {
@@ -193,12 +201,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     }
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
+  
   Future<String?> getter(String image) async {
     final response =
         supabase.storage.from('hotel_amenities_url').getPublicUrl(image);

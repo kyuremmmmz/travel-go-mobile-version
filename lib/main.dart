@@ -37,8 +37,8 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 }
 
-const url1 = 'https://vcjjjjspxbjhddafiphg.supabase.co';
-const apikey1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZjampqanNweGJqaGRkYWZpcGhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjgyMTA3ODAsImV4cCI6MjA0Mzc4Njc4MH0.gOvz5oX5Gv6bkV5T8uQ27P_OANk7rvGbU1nukOcKxDQ';
+const url1 = 'https://tglolshdsrixggmpvujc.supabase.co';
+const apikey1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnbG9sc2hkc3JpeGdnbXB2dWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk2NDk4NjcsImV4cCI6MjA0NTIyNTg2N30.XfbqqyLUu-qEZhi9kEHv5HQ3ZHBTeJKgXWnfd1VXT88';
 // ignore: camel_case_types
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

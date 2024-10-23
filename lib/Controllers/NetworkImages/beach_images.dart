@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class BeachImages {
@@ -12,9 +11,7 @@ class BeachImages {
         return [];
       } else {
         final data = response;
-
-        List<Map<String, dynamic>> result =
-            List<Map<String, dynamic>>.from(data as List);
+        List<Map<String, dynamic>> result = List<Map<String, dynamic>>.from(data as List);
         for (var datas in result) {
           var name = datas['beach_name'];
           var imgUrl = datas['image'];
@@ -37,7 +34,8 @@ class BeachImages {
 
   Future<Map<String, dynamic>?> getSpecificData(int id) async {
     try {
-      final response = await supabase.from('Beaches').select('*').eq('id', id).single();
+      final response =
+          await supabase.from('Beaches').select('*').eq('id', id).single();
 
       if (response.isNotEmpty) {
         final datas = response;

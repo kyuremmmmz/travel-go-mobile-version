@@ -344,7 +344,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
+                          SizedBox(
                               width: 380,
                               child: Text(
                                 'Destination :  $destination',
@@ -356,7 +356,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
+                          SizedBox(
                             width: 380,
                             child: Text(
                               'Departure Date:  $departure',
@@ -369,7 +369,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
+                          SizedBox(
                             width: 380,
                             child: Text(
                               'Arrival Date:  $arrival',
@@ -382,7 +382,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
+                          SizedBox(
                             width: 380,
                             child: Text(
                               'Return Date:  $returnDate',
@@ -395,7 +395,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
+                          SizedBox(
                             width: 380,
                             child: Text(
                               'Departure Time :  $departureTime',
@@ -409,7 +409,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                             height: 10,
                           ),
 
-                          Container(
+                          SizedBox(
                             width: 380,
                             child: Text(
                               'Arrival Time :  $arrivalTime',
@@ -422,7 +422,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
+                          SizedBox(
                             width: 380,
                             child: Text(
                               'Return Time :  $returnTime',

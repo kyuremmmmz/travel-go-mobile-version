@@ -297,7 +297,7 @@ class _BestState extends State<Best> {
                                             backgroundImage: NetworkImage(
                                                 data['airplane_img']),
                                           ),
-                                          Text('NAIA')
+                                          const Text('NAIA')
                                         ],
                                       ),
                                       const SizedBox(

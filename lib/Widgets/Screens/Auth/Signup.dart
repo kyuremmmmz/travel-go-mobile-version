@@ -1,33 +1,60 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Controllers/Auth/signup.dart';
 import 'package:TravelGo/Widgets/Textfield/passwordField.dart';
-
-import '../../Textfield/plainTextField.dart';
-import './../../Buttons/DefaultButtons/BlueButton.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const SignUpscreen());
-}
+import './../../Buttons/DefaultButtons/BlueButton.dart';
 
 class SignUpscreen extends StatelessWidget {
-  const SignUpscreen({super.key});
+  late final String? fullName;
+  late final int? phoneNumber;
+  late final String? email;
+  late final String? password;
+  late final Text error;
+  late final String? userName;
+  SignUpscreen(
+      {super.key,
+      this.fullName,
+      this.phoneNumber,
+      this.email,
+      this.password,
+      required this.error,
+      this.userName});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Travel Go Pangasinan',
-      debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SignUpScreen(
+        error: error,
+        fullName: fullName,
+        phoneNumber: phoneNumber,
+        email: email,
+        password: password,
+        context: context,
+      ),
     );
   }
 }
 
 class SignUpScreen extends StatefulWidget {
   final BuildContext? context;
-  final String? email;
-  const SignUpScreen({super.key, this.context, this.email});
+  late final String? fullName;
+  late final int? phoneNumber;
+  late final String? email;
+  late final String? password;
+  late final Text error;
+  late final String? userName;
+  SignUpScreen({
+    super.key,
+    this.fullName,
+    this.phoneNumber,
+    this.email,
+    this.password,
+    required this.error,
+    this.context,
+    this.userName,
+  });
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -36,6 +63,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   final _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final signUp = Signup();
@@ -65,8 +93,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         children: <Widget>[
           Positioned(
             top: 0.h,
-            right: -30,
-            left: -30,
+            right: 0,
+            left: 0,
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
@@ -79,22 +107,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Positioned(
                 top: 100,
                 bottom: 50, // Adjust the position of the second image
-                right: -30,
-                left: -30, // Change as needed
+                right: 0,
+                left: 0, // Change as needed
                 child: Image.asset(
                   'assets/images/icon/airplanelogo.png', // Replace with your image path
-                  height: 450.h, // Adjust the size
-                  width: 350.w, // Adjust the size
                 ),
               ),
-              Container(
-                height: 470.h,
-                width: 510.w,
+              SizedBox(
+                height: 400.h, // Adjust the size
               )
             ]),
           ),
           Positioned(
-            bottom: -320.h,
+            bottom: -270.h,
             right: 0,
             left: 0,
             height: MediaQuery.of(context).size.height,
@@ -110,23 +135,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 40.h, // the space between the img and email area
+                    Container(
+                      padding: EdgeInsets.only(right: 80.w),
+                      child: Text(
+                        'Create Account',
+                        style: TextStyle(
+                          color: const Color(0xFF2D3F4E),
+                          fontSize: 35.sp,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
                     ),
                     Container(
+                        padding: EdgeInsets.only(right: 150.w),
+                        child: const Text(
+                          'Please Sign Up to continue.',
+                          style: TextStyle(
+                            color: Color(0xFF3564C0),
+                          ),
+                        )),
+                    SizedBox(
                       width: MediaQuery.of(context).size.width - 30.w,
-                      padding: EdgeInsets.only(top: 0.w),
                       child: TextFormField(
                         controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'please enter your email address';
+                            return 'Email address is required';
                           }
 
                           if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                            return 'please enter valid email address';
+                            return 'Please enter valid email address';
                           }
-                          signUp.sign(context, value);
                           return null;
                         },
                         decoration: const InputDecoration(
@@ -150,31 +189,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 30.h,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width -
-                          30.w, // full name line area
-                      padding: EdgeInsets.only(top: 0.w),
-                      child: plainTextField(
-                        colorr: Colors.black,
-                        text: 'Full name',
-                        controller: _nameController,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    SizedBox(
                       width: MediaQuery.of(context).size.width -
                           30.w, // password line area
                       child: passwordTextField(
+                        controller: _passwordController,
+                        validator: (value) {
+                          if (value == null || value.toString().isEmpty) {
+                            return 'Password is required';
+                          }
+                          if (value.length <= 5) {
+                            return 'Password must be atleast 6 characters';
+                          }
+                          return null;
+                        },
                         text: 'Password',
                         password: _passwordController,
                       ),
                     ),
                     SizedBox(
-                      height: 70.h,
+                      width: MediaQuery.of(context).size.width -
+                          30.w, // password line area
+                      child: passwordTextField(
+                        controller: _passwordController,
+                        validator: (value) {
+                          if (value == null || value.toString().isEmpty) {
+                            return 'Confirm Password is required';
+                          }
+                          if (value.length <= 5) {
+                            return 'Password must be atleast 6 characters';
+                          }
+                          if (value != _passwordController.text) {
+                            return "Password doesn't match";
+                          } else {
+                            return null;
+                          }
+                        },
+                        text: 'Confirm Password',
+                        password: _confirmPasswordController,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50.h,
                     ),
                     Container(
                         padding: null,
@@ -203,11 +258,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           oppressed: () async {
-                            await Signup(
-                                    email: _emailController.text.trim(),
-                                    fullName: _nameController.text.trim(),
-                                    password: _passwordController.text.trim())
-                                .sign(context, _emailController.text);
+                            if (_formKey.currentState!.validate()) {
+                              await Signup(
+                                      email: _emailController.text.trim(),
+                                      fullName: widget.fullName,
+                                      password: _confirmPasswordController.text
+                                          .trim(),
+                                      phoneNumber: widget.phoneNumber,
+                                      username: widget.userName)
+                                  .sign(
+                                context,
+                                _emailController.text,
+                              );
+                            }
+                            print(widget.fullName);
+                            print(widget.phoneNumber);
+                            print(widget.userName);
                           },
                         ))
                   ],

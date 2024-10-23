@@ -47,7 +47,7 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
           Positioned(
               bottom: -150.w,
               height:630.h, // the height of the blue contianer
-              child: Container(
+              child: SizedBox(
                   height: 500.h,
                   width: 373.w,
                   child: Column(
@@ -65,7 +65,7 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
                       SizedBox(
                         height: 25.h // the space between the caption and next
                       ),
-                      Container(
+                      SizedBox(
                         height: 35.h,
                         width: 160.w, // Set your desired width here
                       child:  BlueButtonWithoutFunction(
@@ -95,7 +95,7 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
                           'Skip I\'ll confirm later',
                           style: TextStyle(
                               fontSize: 13.sp,
-                              color: Color(0xFF534D4D)),
+                              color: const Color(0xFF534D4D)),
                         ),
                       ),
                       SizedBox(
@@ -108,13 +108,12 @@ class _CheckEmailScreenState extends State<CheckEmailScreen> {
                               text:
                                   "Did not receive the email? Check your spam \nfilter or ",
                               style: TextStyle(color: Colors.black)),
-TextSpan(
-  text: "try another email address.",
-  style: const TextStyle(color: Color(0xFF44CAF9)), // Corrected line
-  recognizer: TapGestureRecognizer()
-    ..onTap = () => AppRoutes.navigateToForgotPassword(context), // Add Route for trying email address or change
-),
-
+                        TextSpan(
+                          text: "try another email address.",
+                          style: const TextStyle(color: Color(0xFF44CAF9)), 
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => AppRoutes.navigateToForgotPassword(context), // Add Route for trying email address or change
+                        ),
                         ]),
                       ),
                     ],
