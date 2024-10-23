@@ -22,62 +22,62 @@ class _SearchMenuState extends State<SearchMenu> {
     super.dispose();
   }
 
-@override
-Widget build(BuildContext context) {
-  return Container(
-    // color: Colors.white, // Add your desired background color here just incase po 
-    child: Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: 23.w), // Search bar in Home Main Front-end Dito
-          child: TypeAheadField(
-            textFieldConfiguration: TextFieldConfiguration(
-              controller: _searchController,
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                    onPressed: () async {
-                      await data.fetchinSearch(
-                          _searchController.text.trim(), context);
-                    },
-                    icon: const Icon(
-                      Icons.search,
-                    )),
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 0.w, horizontal: 10.w),
-                hintStyle: const TextStyle(color: Colors.black54),
-                hintText: 'Search Destination',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(50.h)),
-                  borderSide: BorderSide.none, // Removed the border
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // color: Colors.white, // Add your desired background color here just incase po
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: 20.w), // Search bar in Home Main Front-end Dito
+            child: TypeAheadField(
+              textFieldConfiguration: TextFieldConfiguration(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                      onPressed: () async {
+                        await data.fetchinSearch(
+                            _searchController.text.trim(), context);
+                      },
+                      icon: const Icon(
+                        Icons.search,
+                      )),
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 0.w, horizontal: 10.w),
+                  hintStyle: const TextStyle(color: Colors.black54),
+                  hintText: 'Search Destination',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(50.h)),
+                    borderSide: BorderSide.none, // Removed the border
+                  ),
+                  filled: true,
+                  fillColor: const Color(
+                      0XffDEDEDE), // Background color of the text field
                 ),
-                filled: true,
-                fillColor: const Color(0XffDEDEDE), // Background color of the text field
               ),
+              suggestionsCallback: (pattern) async {
+                return await Searchcontroller().fetchSuggestions(pattern);
+              },
+              itemBuilder: (context, dynamic suggestion) {
+                return ListTile(
+                    title: Text(suggestion['place_name'] ?? 'No title'),
+                    subtitle: Text(suggestion['locatedIn'] ?? 'No address'),
+                    leading: Image.network(
+                      suggestion['image'] ?? 'No image',
+                      fit: BoxFit.cover,
+                      width: 70.w,
+                      height: 70.h,
+                    ));
+              },
+              onSuggestionSelected: (dynamic suggestion) {
+                _searchController.text = suggestion['place_name'] ?? 'No title';
+                FocusScope.of(context).unfocus();
+              },
             ),
-            suggestionsCallback: (pattern) async {
-              return await Searchcontroller().fetchSuggestions(pattern);
-            },
-            itemBuilder: (context, dynamic suggestion) {
-              return ListTile(
-                title: Text(suggestion['place_name'] ?? 'No title'),
-                subtitle: Text(suggestion['locatedIn'] ?? 'No address'),
-                leading: Image.network(
-                  suggestion['image']?? 'No image',
-                  fit: BoxFit.cover,
-                  width: 70.w,
-                  height: 70.h,
-                )
-              );
-            },
-            onSuggestionSelected: (dynamic suggestion) {
-              _searchController.text = suggestion['place_name'] ?? 'No title';
-              FocusScope.of(context).unfocus();
-            },
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 }

@@ -34,35 +34,32 @@ class _TitleMenuState extends State<TitleMenu> {
               width: 200.w,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 59.0.w),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(
-                      'assets/images/icon/placeholder.png',
-                      width: 13.w,
-                      height: 13.h,
-                    ),
-                    SizedBox(height: 10.h), // the bottom padding for image
-                  ],
-                ),
-                SizedBox(width: 5.w), // Space between image and text
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Northwestern part of Luzon Island, Philippines",
-                      style: TextStyle(fontSize: 11.sp),
-                    ),
-                    SizedBox(height: 10.h), // bottom padding for text
-                  ],
-                ),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/images/icon/placeholder.png',
+                    width: 12.sp,
+                    height: 12.sp,
+                  ),
+                  SizedBox(height: 10.h), // the bottom padding for image
+                ],
+              ),
+              SizedBox(width: 5.w), // Space between image and text
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Northwestern part of Luzon Island, Philippines",
+                    style: TextStyle(fontSize: 11.sp),
+                  ),
+                  SizedBox(height: 10.h), // bottom padding for text
+                ],
+              ),
+            ],
           ),
         ],
       ),
