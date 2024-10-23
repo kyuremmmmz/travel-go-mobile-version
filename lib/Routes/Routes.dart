@@ -23,7 +23,6 @@ import 'package:flutter/material.dart';
 import '../Widgets/Screens/App/foodAreaAbout.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
-import '../Widgets/Screens/Auth/Signup.dart';
 import './../Widgets/Screens/App/linkedBankAccount.dart';
 import '../../Widgets/Screens/App/crypto/discountArea.dart';
 

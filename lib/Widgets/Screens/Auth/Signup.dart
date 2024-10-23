@@ -3,8 +3,6 @@ import 'package:TravelGo/Controllers/Auth/signup.dart';
 import 'package:TravelGo/Widgets/Textfield/passwordField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
-
-import '../../Textfield/plainTextField.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';
 
 class SignUpscreen extends StatelessWidget {

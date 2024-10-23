@@ -1,9 +1,6 @@
-import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Screens/Auth/Signup.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/Auth/signup.dart';
-import 'package:TravelGo/Widgets/Textfield/passwordField.dart';
-
 import '../../Textfield/plainTextField.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
