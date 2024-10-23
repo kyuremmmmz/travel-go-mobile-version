@@ -7,6 +7,7 @@ import 'package:TravelGo/Widgets/Screens/App/hotel_booking.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/hotelTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/notPaid.dart';
 import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
+import 'package:TravelGo/Widgets/Screens/Auth/UserCredentials.dart';
 import 'package:TravelGo/Widgets/Screens/Profiles/Settings.dart';
 import 'package:TravelGo/Widgets/Screens/Stateless/beaches_stateless.dart';
 import 'package:TravelGo/Widgets/Screens/Stateless/email.dart';
@@ -34,7 +35,7 @@ class AppRoutes {
     Navigator.push(
         route,
         MaterialPageRoute(
-          builder: (context) => const SignUpscreen(),
+          builder: (context) => const UserCredentialsScreen(),
         ));
   }
 
@@ -51,10 +52,6 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const Forgotpassword()));
   }
 
-  static void searchScreenNavigator(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
-  }
 
   static void navigateToEmailScreen(BuildContext context) {
     Navigator.push(

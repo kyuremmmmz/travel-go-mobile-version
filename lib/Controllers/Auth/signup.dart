@@ -6,21 +6,17 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class Signup {
   late final String? fullName;
   late final int? phoneNumber;
-  late final int? age;
-  late final String? address;
+  late final String? username;
   late final String? email;
   late final String? password;
   late final Text error;
-  late final String? userName;
 
   Signup({
     this.email,
     this.fullName,
     this.password,
     this.phoneNumber,
-    this.age,
-    this.address,
-    this.userName
+    this.username,
   });
 
   bool validator(String email) {
@@ -45,10 +41,10 @@ class Signup {
                 ? null
                 : "io.supabase.flutterquickstart://login-callback/",
             data: {
-              'full_name': fullName,
-              'phone_number' : phoneNumber,
-              'user_name' : userName,
-              });
+                  'full_name': fullName, 
+                  'phone_number': phoneNumber,
+                  'username': username
+                  });
       }
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -63,6 +59,7 @@ class Signup {
           content: Text('Error: $error'),
         ),
       );
+      print(error);
     }
     return 'Success';
   }

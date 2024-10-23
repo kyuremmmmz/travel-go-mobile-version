@@ -1,3 +1,5 @@
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Screens/Auth/Signup.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/Auth/signup.dart';
 import 'package:TravelGo/Widgets/Textfield/passwordField.dart';
@@ -37,14 +39,17 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
   final _userNameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _ageController = TextEditingController();
+  final _addresController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final signUp = Signup();
+  Text? text;
   @override
   void dispose() {
     _nameController.dispose();
     _userNameController.dispose();
     _phoneController.dispose();
     _ageController.dispose();
+    _addresController.dispose();
     super.dispose();
   }
 
@@ -73,19 +78,8 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                 child: Image.asset(
                   'assets/images/icon/newlogo.png',
                   fit: BoxFit.cover,
-                  height: 200.h,
+                  height: 300.h,
                   width: 200.w,
-                ),
-              ),
-              Positioned(
-                top: 100,
-                bottom: 50, // Adjust the position of the second image
-                right: -30,
-                left: -30, // Change as needed
-                child: Image.asset(
-                  'assets/images/icon/airplanelogo.png', // Replace with your image path
-                  height: 450.h, // Adjust the size
-                  width: 350.w, // Adjust the size
                 ),
               ),
               SizedBox(
@@ -95,7 +89,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
             ]),
           ),
           Positioned(
-            bottom: -320.h,
+            top: 220.h,
             right: 0,
             left: 0,
             height: MediaQuery.of(context).size.height,
@@ -119,6 +113,15 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                       padding: EdgeInsets.only(top: 0.w),
                       child: TextFormField(
                         controller: _nameController,
+                        validator: (value) {
+                          if (value == null || value.toString().isEmpty) {
+                            return 'Full Name is required';
+                          }
+                          if (value.length <= 5) {
+                            return 'Name is too short';
+                          }
+                          return null;
+                        },
                         decoration: const InputDecoration(
                             labelText: 'Full name',
                             alignLabelWithHint: true,
@@ -136,7 +139,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                           fontSize: 15,
                           color: Color.fromARGB(255, 0, 0, 0),
                         ),
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.name,
                       ),
                     ),
                     SizedBox(
@@ -158,7 +161,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                           return null;
                         },
                         colorr: Colors.black,
-                        text: 'Full name',
+                        text: 'User name',
                       ),
                     ),
                     SizedBox(
@@ -168,9 +171,15 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                       width: MediaQuery.of(context).size.width -
                           30.w, // password line area
                       child: TextFormField(
-                        controller: _ageController,
+                        controller: _phoneController,
+                        validator: (value) {
+                          if (value == null && value.toString().isEmpty) {
+                            return 'Please fill the field age';
+                          }
+                          return null;
+                        },
                         decoration: const InputDecoration(
-                            labelText: 'Age',
+                            labelText: 'Phone Number',
                             alignLabelWithHint: true,
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 5.0),
@@ -186,37 +195,10 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                           fontSize: 15,
                           color: Color.fromARGB(255, 0, 0, 0),
                         ),
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.name,
                       ),
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width -
-                          30.w, // password line area
-                      child: TextFormField(
-                        controller: _nameController,
-                        decoration: const InputDecoration(
-                            labelText: 'Full name',
-                            alignLabelWithHint: true,
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 5.0),
-                            labelStyle:
-                                TextStyle(fontSize: 15, color: Colors.black),
-                            border: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black)),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Colors.black,
-                            ))),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                    ),
+                    
                     SizedBox(
                       height: 50.h,
                     ),
@@ -235,7 +217,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                             ]),
                         child: BlueButtonWithoutFunction(
                           text: Text(
-                            'Sign Up',
+                            'Next',
                             style:
                                 TextStyle(color: Colors.white, fontSize: 18.sp),
                           ),
@@ -248,15 +230,27 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                           ),
                           oppressed: () async {
                             
-                          },
-                        ))
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUpScreen(
+                                          fullName: _nameController.text.trim(),
+                                          phoneNumber: int.parse(_phoneController.text.trim()), 
+                                          userName: _userNameController.text.trim(),
+                                          error: Text('$text'),
+                                          )
+                                        )
+                                      );
+                                    },
+                                  )
+                                )
+                            ],
+                          ),
+                        )),
+                      ),
+                    )
                   ],
                 ),
-              )),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
+              );
+            }
+          }

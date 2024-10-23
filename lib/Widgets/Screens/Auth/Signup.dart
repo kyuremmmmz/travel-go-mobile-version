@@ -1,32 +1,62 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Controllers/Auth/signup.dart';
 import 'package:TravelGo/Widgets/Textfield/passwordField.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 import '../../Textfield/plainTextField.dart';
 import './../../Buttons/DefaultButtons/BlueButton.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const SignUpscreen());
-}
 
 class SignUpscreen extends StatelessWidget {
-  const SignUpscreen({super.key});
+  late final String? fullName;
+  late final int? phoneNumber;
+  late final String? email;
+  late final String? password;
+  late final Text error;
+  late final String? userName;
+  SignUpscreen(
+      {super.key,
+      this.fullName,
+      this.phoneNumber,
+      this.email,
+      this.password,
+      required this.error,
+      this.userName});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SignUpScreen(),
+      body: SignUpScreen(
+        error: error,
+        fullName: fullName,
+        phoneNumber: phoneNumber,
+        email: email,
+        password: password,
+        context: context,
+      ),
     );
   }
 }
 
 class SignUpScreen extends StatefulWidget {
   final BuildContext? context;
-  final String? email;
-  const SignUpScreen({super.key, this.context, this.email});
+  late final String? fullName;
+  late final int? phoneNumber;
+  late final String? email;
+  late final String? password;
+  late final Text error;
+  late final String? userName;
+  SignUpScreen({
+    super.key,
+    this.fullName,
+    this.phoneNumber,
+    this.email,
+    this.password,
+    required this.error,
+    this.context,
+    this.userName,
+  });
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -155,20 +185,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       width: MediaQuery.of(context).size.width -
                           30.w, // full name line area
                       padding: EdgeInsets.only(top: 0.w),
-                      child: plainTextField(
-                        controller: _nameController,
-                        validator: (value) {
-                          if (value == null || value.toString().isEmpty) {
-                            return 'Name is required';
-                          }
-                          if (value.length <= 5) {
-                            return 'Name is too short';
-                          }
-                          return null;
-                        },
-                        colorr: Colors.black,
-                        text: 'Full name',
-                      ),
                     ),
                     SizedBox(
                       height: 10.h,
@@ -248,11 +264,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             if (_formKey.currentState!.validate()) {
                               await Signup(
                                       email: _emailController.text.trim(),
-                                      fullName: _nameController.text.trim(),
+                                      fullName: widget.fullName,
                                       password: _confirmPasswordController.text
-                                          .trim())
-                                  .sign(context, _emailController.text);
+                                          .trim(),
+                                      phoneNumber: widget.phoneNumber,
+                                      username: widget.userName)
+                                  .sign(
+                                context,
+                                _emailController.text,
+                              );
                             }
+                            print(widget.fullName);
+                            print(widget.phoneNumber);
+                            print(widget.userName);
                           },
                         ))
                   ],
