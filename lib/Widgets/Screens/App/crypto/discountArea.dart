@@ -11,6 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../ResponsiveScreen/ResponsiveScreen.dart';
+
 class DiscountArea extends StatelessWidget {
   const DiscountArea({super.key});
 
@@ -217,8 +219,8 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   Widget buildUserCard() {
     return Container(
       padding: const EdgeInsets.only(right: 10, left: 10, top: 20, bottom: 20),
-      height: 225,
-      width: 350,
+      height: Responsive().discountUserCardHeight(),
+      width: Responsive().discountUserCardWidth(),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(20),
@@ -240,7 +242,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         CircleAvatar(
-          radius: 30,
+          radius: Responsive().discountProfileRadius(),
           backgroundImage: img == null
               ? const AssetImage('assets/images/icon/food_place.png')
               : NetworkImage('$img'),
@@ -249,19 +251,19 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Spend wise and use',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 13,
-                color: Color.fromRGBO(5, 103, 180, 100),
+                fontSize: Responsive().discountProfileTextFontSize(),
+                color: const Color.fromRGBO(5, 103, 180, 100),
               ),
             ),
             Text(
               email ?? 'Loading...',
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.black,
-                fontSize: 25,
+                fontSize: Responsive().discountProfileNameFontSize(),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -274,8 +276,8 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   Widget buildPointsInfo() {
     return Container(
       padding: const EdgeInsets.all(3),
-      height: 70,
-      width: 350,
+      height: Responsive().discountPointsInfoHeight(),
+      width: Responsive().discountPointsInfoWidth(),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
         borderRadius: BorderRadius.circular(10),
@@ -295,6 +297,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
               children: [
                 buildPointsHeader(),
                 buildPointsProgress(),
+                const SizedBox(height: 5),
                 buildPointsInfoText(),
               ],
             ),
@@ -308,17 +311,17 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
+        Text(
           'Travel Go Points',
           style: TextStyle(
-            fontSize: 13,
+            fontSize: Responsive().discountPointsHeaderFontSize(),
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
           '56.04 as of $formattedDate',
-          style: const TextStyle(
-            fontSize: 13,
+          style: TextStyle(
+            fontSize: Responsive().discountPointsHeaderFontSize(),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -335,11 +338,11 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   }
 
   Widget buildPointsInfoText() {
-    return const Text(
+    return Text(
       'Earn 1,000 points and enjoy PHP100 discount on your next booking! \nStart collecting points now and save big!',
       style: TextStyle(
-        fontSize: 8,
-        color: Color.fromRGBO(5, 103, 180, 100),
+        fontSize: Responsive().discountPointsTextFontSize(),
+        color: const Color.fromRGBO(5, 103, 180, 100),
       ),
       textAlign: TextAlign.justify,
     );

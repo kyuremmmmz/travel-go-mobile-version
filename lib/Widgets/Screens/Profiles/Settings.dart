@@ -9,6 +9,8 @@ import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'dart:io';
 
+import '../App/ResponsiveScreen/ResponsiveScreen.dart';
+
 class AccountSettingsScreen extends StatefulWidget {
   const AccountSettingsScreen({super.key});
 
@@ -119,7 +121,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                         insert('$uid');
                       },
                       child: CircleAvatar(
-                        radius: 45,
+                        radius: Responsive().settingProfileRadius(),
                         backgroundColor: Colors.grey[300],
                         backgroundImage: _profileImage != null
                             ? FileImage(_profileImage!)
@@ -164,8 +166,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   Widget buildSectionTitle(BuildContext context, String title) {
     return Container(
       padding: const EdgeInsets.all(15),
-      width: 330,
-      height: 50,
+      width: Responsive().settingTitleWidth(), //330  
+      height: Responsive().settingTitleHeight(), //50
       decoration: BoxDecoration(
         color: const Color.fromRGBO(68, 202, 249, 100),
         borderRadius: BorderRadius.circular(30),
@@ -183,8 +185,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
 
   Widget buildAccountDetails() {
     return Container(
-      width: 290,
-      height: 175,
+      width: Responsive().settingSelectionWidth(),//290,
+      height: Responsive().settingSelectionHeight(),//175,
       margin: const EdgeInsets.only(right: 15, left: 15),
       padding: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
@@ -237,8 +239,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
 
   Widget buildNotificationSettings() {
     return Container(
-      width: 290,
-      height: 175,
+      width: Responsive().settingSelectionWidth(),
+      height: Responsive().settingSelectionHeight(),
       margin: const EdgeInsets.only(right: 15, left: 15),
       padding: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(

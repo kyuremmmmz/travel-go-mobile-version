@@ -62,4 +62,46 @@ class Responsive{
   double placeBookingPadding(){
     return 5.sp;
   }
+  double settingSelectionWidth(){
+    return 258.sp;
+  }
+  double settingSelectionHeight(){
+    return 155.sp;
+  }
+  double settingTitleWidth(){
+    return 300.sp;
+  }
+  double settingTitleHeight(){
+    return 45.sp;
+  }
+  double settingProfileRadius(){
+    return 40.sp;
+  }
+  double discountProfileNameFontSize(){
+    return 21.sp;
+  }
+  double discountProfileTextFontSize(){
+    return 12.sp;
+  }
+  double discountProfileRadius(){
+    return 29.sp;
+  }
+  double discountPointsInfoHeight(){
+    return 65.h;
+  }
+  double discountPointsInfoWidth(){
+    return 300.w;
+  }
+  double discountPointsHeaderFontSize(){
+    return 11.sp;
+  }
+  double discountPointsTextFontSize(){
+    return 8.sp;
+  }
+  double discountUserCardHeight(){
+    return 195.h;
+  }
+  double discountUserCardWidth(){
+    return 330.w;
+  }
 }
