@@ -68,8 +68,8 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
         children: <Widget>[
           Positioned(
             top: 0.h,
-            right: -30,
-            left: -30,
+            right: 0,
+            left: 0,
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
@@ -79,10 +79,6 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                   width: 200.w,
                 ),
               ),
-              SizedBox(
-                height: 470.h,
-                width: 510.w,
-              )
             ]),
           ),
           Positioned(

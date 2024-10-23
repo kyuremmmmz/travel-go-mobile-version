@@ -100,22 +100,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Image.asset(
                   'assets/images/icon/newlogo.png',
                   fit: BoxFit.cover,
-                  height: 200.h,
+                  height: 300.h,
                   width: 200.w,
                 ),
               ),
-              Positioned(
-                top: 100,
-                bottom: 50, // Adjust the position of the second image
-                right: 0,
-                left: 0, // Change as needed
-                child: Image.asset(
-                  'assets/images/icon/airplanelogo.png', // Replace with your image path
-                ),
-              ),
-              SizedBox(
-                height: 400.h, // Adjust the size
-              )
             ]),
           ),
           Positioned(
