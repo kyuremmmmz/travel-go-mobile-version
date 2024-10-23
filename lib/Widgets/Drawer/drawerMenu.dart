@@ -65,7 +65,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           SizedBox(
-            height: 220.0,
+            height: 220.sp,
             child: DrawerHeader(
               decoration: const BoxDecoration(
                 color: Colors.blue,
@@ -74,7 +74,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    radius: 40,
+                    radius: 40.sp,
                     backgroundImage: img == null
                         ? const AssetImage('assets/images/icon/newicon.png')
                         : NetworkImage('$img'),
