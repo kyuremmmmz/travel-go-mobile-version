@@ -64,8 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Positioned(
             top: 0.h,
-            right: -30.w,
-            left: -30.w,
+            right: 0.w,
+            left: 0.w,
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
@@ -78,22 +78,19 @@ class _LoginScreenState extends State<LoginScreen> {
               Positioned(
                 top: 100,
                 bottom: 50, // Adjust the position of the second image
-                right: -30,
-                left: -30, // Change as needed
+                right: 0,
+                left: 0, // Change as needed
                 child: Image.asset(
                   'assets/images/icon/airplanelogo.png', // Replace with your image path
-                  height: 450.h, // Adjust the size
-                  width: 350.w, // Adjust the size
                 ),
               ),
               SizedBox(
-                height: 470.h,
-                width: 510.w,
+                height: 470.h, // Adjust the image size
               )
             ]),
           ),
           Positioned(
-              bottom: -320.h,
+              bottom: -330.h,
               right: 0,
               left: 0,
               height: MediaQuery.of(context).size.height,
@@ -109,12 +106,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 40.h, // space between the img and email
+                        Container(
+                          padding: EdgeInsets.only(right: 30.w),
+                          child: Text(
+                            'Welcome traveler!',
+                            style: TextStyle(
+                              color: const Color(0xFF2D3F4E),
+                              fontSize: 35.sp,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
                         ),
                         Container(
+                            padding: EdgeInsets.only(right: 150.w),
+                            child: const Text(
+                              'Please Sign In to continue.',
+                              style: TextStyle(
+                                color: Color(0xFF3564C0),
+                              ),
+                            )),
+                        Container(
                           width: MediaQuery.of(context).size.width - 30.w,
-                          padding: EdgeInsets.only(top: 0.h),
                           child: plainTextField(
                             controller: _emailController,
                             validator: (value) {
@@ -128,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 30
+                          height: 10
                               .h, // Space between the email and password fields
                         ),
                         SizedBox(
@@ -148,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(top: 25.w, left: 240.w),
+                          padding: EdgeInsets.only(top: 10.h, left: 240.w),
                           child: GestureDetector(
                             onTap: () => {
                               AppRoutes.navigateToForgotPassword(context)
