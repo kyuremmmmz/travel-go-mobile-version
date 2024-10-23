@@ -222,10 +222,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           if (value.length <= 5) {
                             return 'Password must be atleast 6 characters';
                           }
-                          if (value == _passwordController) {
+                          if (value != _passwordController.text) {
                             return "Password doesn't match";
+                          }else{
+                            return null;
                           }
-                          return null;
+                          
                         },
                         text: 'Confirm Password',
                         password: _confirmPasswordController,
