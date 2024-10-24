@@ -117,8 +117,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
         if (mounted) {
           final data = response;
           setState(() {
-            amount =
-                data['payment'] != null ? data['payment'].toString() : 'N/A';
+            amount = data['payment'] != null ? data['payment'].toString() : 'N/A';
             phone = data['phone'] ?? 'Unknown';
             ref = data['reference_number'] ?? 'N/A';
             paid_via = data['pay_via'] ?? 'Unknown';

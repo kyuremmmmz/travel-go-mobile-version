@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -56,21 +58,20 @@ class HotelBooking {
   }
 
   Future<PostgrestResponse<dynamic>?> insertBooking(
-    String fullname,
-    String emailAddress,
-    int phoneNumber,
-    String hotel,
-    String checkIn,
-    String checkOut,
-    String paymentMethod,
-    String paymentStatus,
-    int numberOfAdult,
-    int numberOfChildren,
-    String room,
-    int price,
-    int age,
-    String bookingId
-  ) async {
+      String fullname,
+      String emailAddress,
+      int phoneNumber,
+      String hotel,
+      String checkIn,
+      String checkOut,
+      String paymentMethod,
+      String paymentStatus,
+      int numberOfAdult,
+      int numberOfChildren,
+      String room,
+      int price,
+      int age,
+      String bookingId) async {
     try {
       if (age < 18) {
         throw Exception("tangina mo gago");
@@ -100,10 +101,10 @@ class HotelBooking {
     return null;
   }
 
-  Future<String> bookingIDgenerator(int generateBooking) async {
-    int newId = generateBooking + 1;
-    String format = newId.toString().padLeft(5, '0');
-    return 'BK$format';
+  Future<String> bookingIDgenerator() async {
+    Random random = Random();
+    int randomInt = random.nextInt(9000) + 10000;
+    return 'BK$randomInt';
   }
 
   Future<Map<String, dynamic>?> paymentReceipt(String uid) async {
