@@ -215,6 +215,7 @@ class _AllflightsState extends State<Allflights> {
                                                                                 ],
                                                                               ),
                                                                               Container(
+                                                                                padding: null,
                                                                                 child: Text(
                                                                                   '${data['airplane']} . ${data['date']}',
                                                                                   style: const TextStyle(fontSize: 9),
@@ -365,6 +366,7 @@ class _AllflightsState extends State<Allflights> {
                                                                                 ],
                                                                               ),
                                                                               Container(
+                                                                                padding: null,
                                                                                 child: Text(
                                                                                   '${data['place']} .${data['return_date']}',
                                                                                   style: const TextStyle(fontSize: 9),
