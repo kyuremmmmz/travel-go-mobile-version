@@ -107,18 +107,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(right: 30.w),
+                          padding: EdgeInsets.only(right: 110.w, bottom: 0.w, top: 60.w),
                           child: Text(
                             'Welcome traveler!',
                             style: TextStyle(
                               color: const Color(0xFF2D3F4E),
-                              fontSize: 35.sp,
+                              fontSize: 28.sp,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
                         ),
                         Container(
-                            padding: EdgeInsets.only(right: 150.w),
+                            padding: EdgeInsets.only(right: 170.w, top: 0.w, bottom: 30.w),
                             child: const Text(
                               'Please Sign In to continue.',
                               style: TextStyle(
