@@ -27,9 +27,7 @@ class Data {
       }
       return datas;
     }
-    
   }
-
 
   Future<String> getter(String imageUrl) async {
     try {

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+import 'package:TravelGo/Widgets/Screens/App/ResponsiveScreen/ResponsiveScreen.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
@@ -13,6 +14,7 @@ import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/flights.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class InformationScreen extends StatefulWidget {
@@ -169,7 +171,6 @@ class _InformationScreenState extends State<InformationScreen> {
     }
   }
 
-
   @override
   void dispose() {
     _searchController.dispose();
@@ -289,13 +290,32 @@ class _InformationScreenState extends State<InformationScreen> {
                                         ),
                                         GestureDetector(
                                             onTap: () {
-                                              AppRoutes.navigateToTesting(
+                                              AppRoutes.navigateToExploreMaPage(
                                                   context,
                                                   name: '$located',
                                                   id: widget.text);
                                             },
-                                            child: Text(
-                                                located ?? 'I cant locate it'))
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  located ?? 'I cant locate it',
+                                                  style: TextStyle(
+                                                      fontSize: Responsive()
+                                                          .aboutFontSize(),
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      color: Colors.blue),
+                                                ),
+                                                FaIcon(
+                                                  FontAwesomeIcons.map,
+                                                  size: Responsive()
+                                                      .clickToOpenFontSize(),
+                                                  color: Colors.red,
+                                                ),
+                                              ],
+                                            ))
                                       ],
                                     ),
                                     const SizedBox(height: 20),

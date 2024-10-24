@@ -4,6 +4,7 @@ import 'package:TravelGo/Widgets/Screens/App/booking_area.dart';
 import 'package:TravelGo/Widgets/Screens/App/confirmBooking.dart';
 import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotel_booking.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/exploreTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/hotelTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/notPaid.dart';
 import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
@@ -50,7 +51,6 @@ class AppRoutes {
     Navigator.push(
         route, MaterialPageRoute(builder: (context) => const Forgotpassword()));
   }
-
 
   static void navigateToEmailScreen(BuildContext context) {
     Navigator.push(
@@ -117,27 +117,32 @@ class AppRoutes {
             builder: (context) => HotelMapPage(location: name, id: id)));
   }
 
+  static void navigateToExploreMaPage(BuildContext route,
+      {required String name, required int id}) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+            builder: (context) => ExploreMaPage(location: name, id: id)));
+  }
+
   static void navigateToTesting(BuildContext route,
       {required String name, required int id}) {
     Navigator.push(route,
         MaterialPageRoute(builder: (context) => Mapa(location: name, id: id)));
   }
 
-  static void navigateToOrderReceipt(
-    BuildContext route, {
-    required String name,
-    required int phone,
-    required DateTime date,
-    required String ref,
-    required String payment,
-    required String bookingId
-  }) {
+  static void navigateToOrderReceipt(BuildContext route,
+      {required String name,
+      required int phone,
+      required DateTime date,
+      required String ref,
+      required String payment,
+      required String bookingId}) {
     Navigator.push(
         route,
         MaterialPageRoute(
             builder: (context) => OrderReceipt(
                   bookingId: bookingId,
-
                 )));
   }
 
