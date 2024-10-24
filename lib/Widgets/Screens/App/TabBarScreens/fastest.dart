@@ -25,10 +25,13 @@ class _FastestState extends State<Fastest> {
               TitleMenu(),
             ],
           ),
+          
           Center(
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
+            child: Column(
+              mainAxisSize: MainAxisSize.min, 
+              children: [
               const SizedBox(
-                height: 120,
+                height: 150,
               ),
               Center(
                 child: Card(

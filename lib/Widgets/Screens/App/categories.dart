@@ -17,6 +17,7 @@ class _CategoriesState extends State<Categories> {
   final String foodIcon = "assets/images/icon/food_place.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
   final String festivalIcon = "assets/images/icon/food.png";
+  final String planeIcon = "assets/images/icon/plane.png";
 
   @override
   Widget build(BuildContext context) {
@@ -26,50 +27,81 @@ class _CategoriesState extends State<Categories> {
           label: "Categories",
           oppressed: () => debugPrint('Categories clicked'),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                BlueIconButtonDefault(
-                    image: hotelIcon,
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                children: [
+                  BlueIconButtonDefault(
+                      image: hotelIcon,
+                      oppressed: () =>
+                          {AppRoutes.navigateToHotelScreen(context)}),
+                  CategoryLabel(
+                      label: 'Hotels',
+                      fontSize: 11.0.sp), // Specify font size here
+                ],
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                children: [
+                  BlueIconButtonDefault(
+                      image: foodIcon,
+                      oppressed: () => AppRoutes.navigateTofoodArea(context)),
+                  CategoryLabel(label: 'Food Place', fontSize: 11.0.sp),
+                ],
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                children: [
+                  BlueIconButtonDefault(
+                    image: beachIcon,
                     oppressed: () =>
-                        {AppRoutes.navigateToHotelScreen(context)}),
-                CategoryLabel(
-                    label: 'Hotels',
-                    fontSize: 11.0.sp), // Specify font size here
-              ],
-            ),
-            Column(
-              children: [
-                BlueIconButtonDefault(
-                    image: foodIcon,
-                    oppressed: () => AppRoutes.navigateTofoodArea(context)),
-                CategoryLabel(label: 'Food Place', fontSize: 11.0.sp),
-              ],
-            ),
-            Column(
-              children: [
-                BlueIconButtonDefault(
-                  image: beachIcon,
-                  oppressed: () => {AppRoutes.navigateToBeachesScreen(context)},
-                ),
-                CategoryLabel(label: 'Beaches', fontSize: 11.0.sp),
-              ],
-            ),
-            Column(
-              children: [
-                BlueIconButtonDefault(
-                  image: festivalIcon,
-                  oppressed: () =>
-                      {AppRoutes.navigateToFestivalsScreen(context)},
-                ),
-                CategoryLabel(
-                    label: 'Festivals and \nEvents', fontSize: 11.0.sp),
-              ],
-            ),
-          ],
-        ),
+                        {AppRoutes.navigateToBeachesScreen(context)},
+                  ),
+                  CategoryLabel(label: 'Beaches', fontSize: 11.0.sp),
+                ],
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                children: [
+                  BlueIconButtonDefault(
+                    image: festivalIcon,
+                    oppressed: () =>
+                        {AppRoutes.navigateToFestivalsScreen(context)},
+                  ),
+                  CategoryLabel(
+                      label: 'Festivals and \nEvents', fontSize: 11.0.sp),
+                ],
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Column(
+                children: [
+                  BlueIconButtonDefault(
+                    image: planeIcon,
+                    oppressed: () =>
+                        {
+                          AppRoutes.nagigateToFlightScreen(context)
+                        },
+                  ),
+                  CategoryLabel(label: 'Flights', fontSize: 11.0.sp),
+                ],
+              ),
+            ],
+          ),
+        )
       ],
     );
   }

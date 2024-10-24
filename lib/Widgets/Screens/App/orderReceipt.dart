@@ -117,8 +117,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
         if (mounted) {
           final data = response;
           setState(() {
-            amount =
-                data['payment'] != null ? data['payment'].toString() : 'N/A';
+            amount = data['payment'] != null ? data['payment'].toString() : 'N/A';
             phone = data['phone'] ?? 'Unknown';
             ref = data['reference_number'] ?? 'N/A';
             paid_via = data['pay_via'] ?? 'Unknown';
@@ -271,7 +270,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                             ),
                                             RowDetails(
                                               row1: 'CONTACT NUMBER',
-                                              row2: '$phone',
+                                              row2: '+63 0$phone',
                                             ),
                                             RowDetails(
                                               row1: 'EMAIL',

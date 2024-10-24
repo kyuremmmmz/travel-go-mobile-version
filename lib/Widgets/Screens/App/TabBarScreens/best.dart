@@ -44,6 +44,9 @@ class _BestState extends State<Best> {
               ),
               const Row(
                 children: [
+                  SizedBox(
+                    width: 60,
+                  ),
                   TitleMenu(),
                 ],
               ),
