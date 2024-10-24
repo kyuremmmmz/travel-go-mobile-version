@@ -126,9 +126,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   }
 
   Future<void> insert() async {
-    final getId = await supabase.from('hotel_booking').select('*');
-    int ids = getId.length;
-    final hotel = await booking.bookingIDgenerator(ids);
+    final hotel = await booking.bookingIDgenerator();
     idCast = hotel;
     booking.insertBooking(
         _nameController.text.trim(),
