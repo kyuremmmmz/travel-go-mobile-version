@@ -43,6 +43,9 @@ class _CheapestState extends State<Cheapest> {
                 height: 30,
               ),
               const Row(children: [
+                SizedBox(
+                  width: 60,
+                ),
                 TitleMenu(),
               ]),
               Center(
