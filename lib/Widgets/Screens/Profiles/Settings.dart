@@ -1,6 +1,5 @@
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Screens/Profiles/EditProfileScreen.dart';
-import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
