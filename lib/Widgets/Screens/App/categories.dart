@@ -92,7 +92,9 @@ class _CategoriesState extends State<Categories> {
                   BlueIconButtonDefault(
                     image: planeIcon,
                     oppressed: () =>
-                        {AppRoutes.navigateToFestivalsScreen(context)},
+                        {
+                          AppRoutes.nagigateToFlightScreen(context)
+                        },
                   ),
                   CategoryLabel(label: 'Flights', fontSize: 11.0.sp),
                 ],
