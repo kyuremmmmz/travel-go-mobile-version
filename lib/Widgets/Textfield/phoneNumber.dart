@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: camel_case_types
 class PhonenumberTextField extends StatefulWidget {
@@ -29,8 +30,8 @@ class _numberTextFieldState extends State<PhonenumberTextField> {
       decoration: InputDecoration(
           prefixIcon: widget.icon,
           labelText: widget.text,
-          labelStyle: const TextStyle(
-            fontSize: 12,
+          labelStyle: TextStyle(
+            fontSize: 12.sp,
           ),
           floatingLabelStyle: const TextStyle(color: Colors.black),
           filled: true,
@@ -42,7 +43,7 @@ class _numberTextFieldState extends State<PhonenumberTextField> {
             color: Colors.black,
           ))),
       keyboardType: TextInputType.phone,
-      style: const TextStyle(fontSize: 12),
+      style: TextStyle(fontSize: 12.sp),
     );
   }
 }

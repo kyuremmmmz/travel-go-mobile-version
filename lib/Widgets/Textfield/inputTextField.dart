@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: camel_case_types
 class inputTextField extends StatefulWidget {
@@ -51,17 +52,14 @@ class _numberTextFieldState extends State<inputTextField> {
       controller: widget.controller,
       decoration: InputDecoration(
           prefixIcon: widget.icon,
-          filled: true,
-          fillColor: Colors.white,
-          hintText: widget.text,
-          alignLabelWithHint: true,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          labelStyle: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
+          labelText: widget.text,
+          labelStyle: TextStyle(
+            fontSize: 12.sp,
             color: Colors.black,
           ),
+          floatingLabelStyle: const TextStyle(color: Colors.black),
+          filled: true,
+          fillColor: Colors.white,
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(color: Colors.white)),
@@ -71,10 +69,7 @@ class _numberTextFieldState extends State<inputTextField> {
                 color: Colors.white,
               ))),
       focusNode: _focusNode,
-      style: TextStyle(
-        fontSize: 12,
-        color: widget.colorr,
-      ),
+      style: TextStyle(fontSize: 12.sp, color: widget.colorr),
       keyboardType: TextInputType.emailAddress,
     );
   }

@@ -9,6 +9,7 @@ import 'package:TravelGo/Widgets/Textfield/inputTextField.dart';
 import 'package:TravelGo/Widgets/Textfield/phoneNumber.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -237,7 +238,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     }
   }
 
-  Future<void> niggaModal(BuildContext context) async {
+  Future<void> hotelBookModal(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -285,7 +286,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         });
   }
 
-  Future<void> niggaModalRoomType(BuildContext context) async {
+  Future<void> hotelBookModalRoomType(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -371,7 +372,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 40,
+          toolbarHeight: 40.h,
           leading: Builder(
             builder: (BuildContext context) => IconButton(
               icon: const Icon(Icons.menu),
@@ -387,7 +388,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
           child: Column(
             children: <Widget>[
               const TitleMenu(),
-              const SizedBox(height: 30),
               Expanded(
                 child: Scrollbar(
                   thumbVisibility: true,
@@ -406,12 +406,12 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           Align(
                             alignment: Alignment.topRight,
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 8, right: 10),
+                              padding: EdgeInsets.only(top: 8.h, right: 10.w),
                               child: IconButton(
-                                iconSize: 20,
+                                iconSize: 20.sp,
                                 icon: SizedBox(
-                                  height: 20,
-                                  width: 20,
+                                  height: 20.sp,
+                                  width: 20.sp,
                                   child: Image.asset(xButtonIcon),
                                 ),
                                 onPressed:
@@ -419,28 +419,26 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               ),
                             ),
                           ),
-                          const Text(
+                          Text(
                             'Hotel Booking Form',
                             style: TextStyle(
-                              fontSize: 30,
+                              fontSize: 28.sp,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const Text(
+                          Text(
                             "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 14,
-                              color: Color.fromARGB(255, 82, 79, 79),
+                              fontSize: 13.sp,
+                              color: const Color.fromARGB(255, 82, 79, 79),
                             ),
                           ),
-                          const SizedBox(
-                            height: 30,
-                          ),
+                          SizedBox(height: 30.h),
                           // ignore: sized_box_for_whitespace
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: const BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
@@ -460,11 +458,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               controller: _nameController,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: const BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50)),
@@ -482,11 +478,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               controller: _emailController,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: const BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50)),
@@ -503,18 +497,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               icon: const Icon(FontAwesomeIcons.phone),
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                          ),
-                          Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: const BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50)),
@@ -533,11 +518,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               },
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: const BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50)),
@@ -554,11 +537,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               },
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: const BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50)),
@@ -575,11 +556,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               },
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                              width: 380,
+                              width: 350.w,
                               decoration: const BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
@@ -593,36 +572,30 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   }
                                   return null;
                                 },
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
+                                style: TextStyle(
+                                    fontSize: 12.sp, color: Colors.black),
                                 controller: _checkInController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(
                                       borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
+                                  focusedBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.blue)),
                                   hintText: 'Check In Date',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
+                                  hintStyle: TextStyle(fontSize: 12.sp),
                                   prefixIcon:
-                                      Icon(Icons.calendar_today_outlined),
+                                      const Icon(Icons.calendar_today_outlined),
                                 ),
                                 readOnly: true,
                                 onTap: () {
                                   setter();
                                 },
                               )),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                              width: 380,
+                              width: 350.w,
                               decoration: const BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
@@ -636,36 +609,30 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   }
                                   return null;
                                 },
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
+                                style: TextStyle(
+                                    fontSize: 12.sp, color: Colors.black),
                                 controller: _checkOutController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(
                                       borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
+                                  focusedBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.blue)),
                                   hintText: 'Check Out Date',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
+                                  hintStyle: TextStyle(fontSize: 12.sp),
                                   prefixIcon:
-                                      Icon(Icons.calendar_today_outlined),
+                                      const Icon(Icons.calendar_today_outlined),
                                 ),
                                 readOnly: true,
                                 onTap: () {
                                   checkout();
                                 },
                               )),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                              width: 380,
+                              width: 350.w,
                               decoration: const BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
@@ -678,35 +645,29 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   }
                                   return null;
                                 },
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
+                                style: TextStyle(
+                                    fontSize: 12.sp, color: Colors.black),
                                 controller: _paymentMethodController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(
                                       borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
+                                  focusedBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.blue)),
                                   hintText: 'Payment Method',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  prefixIcon: Icon(Icons.payment_rounded),
+                                  hintStyle: TextStyle(fontSize: 12.sp),
+                                  prefixIcon: const Icon(Icons.payment_rounded),
                                 ),
                                 readOnly: true,
                                 onTap: () {
-                                  niggaModal(context);
+                                  hotelBookModal(context);
                                 },
                               )),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                              width: 380,
+                              width: 350.w,
                               decoration: const BoxDecoration(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
@@ -719,35 +680,29 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   }
                                   return null;
                                 },
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
+                                style: TextStyle(
+                                    fontSize: 12.sp, color: Colors.black),
                                 controller: _vehicleTypeController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(
                                       borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
+                                  focusedBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.blue)),
                                   hintText: 'Room Type',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  prefixIcon: Icon(Icons.room_outlined),
+                                  hintStyle: TextStyle(fontSize: 12.sp),
+                                  prefixIcon: const Icon(Icons.room_outlined),
                                 ),
                                 readOnly: true,
                                 onTap: () {
-                                  niggaModalRoomType(context);
+                                  hotelBookModalRoomType(context);
                                 },
                               )),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: const BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50)),
@@ -758,54 +713,57 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               controller: _originController,
                             ),
                           ),
-                          const SizedBox(
-                            height: 0,
-                          ),
                           Theme(
                             data: ThemeData(
                               checkboxTheme: const CheckboxThemeData(
-                                shape: CircleBorder(),
-                              ),
+                                  shape: CircleBorder()),
                             ),
                             child: Align(
                               alignment: Alignment.center,
                               child: ListTileTheme(
-                                horizontalTitleGap: 0.0,
-                                child: CheckboxListTile(
-                                  activeColor: Colors.green,
-                                  title: RichText(
-                                    text: TextSpan(children: <TextSpan>[
-                                      const TextSpan(
-                                        text:
-                                            "I have reviewed my booking details and agree to the ",
-                                        style: TextStyle(
-                                            fontSize: 12, color: Colors.black),
-                                      ),
-                                      TextSpan(
-                                        text: "Terms of Service.",
-                                        style: const TextStyle(
-                                            fontSize: 12, color: Colors.white),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () => AppRoutes
-                                              .navigateToForgotPassword(
-                                                  context),
-                                      ),
-                                    ]),
+                                contentPadding:
+                                    EdgeInsets.only(left: 20.w, right: 10.w),
+                                horizontalTitleGap: 0,
+                                child: Transform.scale(
+                                  scale: 1.1,
+                                  child: CheckboxListTile(
+                                    activeColor: Colors.green,
+                                    title: RichText(
+                                      text: TextSpan(children: <TextSpan>[
+                                        TextSpan(
+                                          text:
+                                              "I have reviewed my booking details and agree to the ",
+                                          style: TextStyle(
+                                              fontSize: 12.sp,
+                                              color: Colors.black),
+                                        ),
+                                        TextSpan(
+                                          text: "Terms of Service.",
+                                          style: TextStyle(
+                                              fontSize: 13.sp,
+                                              color: Colors.white),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () => AppRoutes
+                                                .navigateToForgotPassword(
+                                                    context),
+                                        ),
+                                      ]),
+                                    ),
+                                    value: _value,
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        _value = value ?? false;
+                                      });
+                                    },
+                                    controlAffinity:
+                                        ListTileControlAffinity.leading,
                                   ),
-                                  value: _value,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      _value = value ?? false;
-                                    });
-                                  },
-                                  controlAffinity:
-                                      ListTileControlAffinity.leading,
                                 ),
                               ),
                             ),
                           ),
                           Container(
-                            height: 100,
+                            height: 90.sp,
                             width: double.infinity, // Adjust width as needed
                             decoration: const BoxDecoration(
                               color: Colors.white,
@@ -815,16 +773,14 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 10, top: 30),
+                              padding: EdgeInsets.only(left: 10.w, top: 25.sp),
                               child: Row(
                                 children: [
-                                  const SizedBox(
-                                    width: 30,
-                                  ),
+                                  SizedBox(width: 10.w),
                                   Column(
                                     children: [
                                       SizedBox(
-                                        height: 50,
+                                        height: 50.sp,
                                         child: Image.asset(adventureIcon),
                                       ),
                                     ],
@@ -832,32 +788,32 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   Column(
                                     children: [
                                       SizedBox(
-                                        height: 20,
+                                        height: 20.sp,
                                         child: Image.asset(suitcaseIcon),
                                       ),
                                       SizedBox(
-                                        height: 30,
+                                        height: 30.sp,
                                         child: Image.asset(planeTicketIcon),
                                       ),
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
+                                    padding: EdgeInsets.only(
+                                        left: 10.w, right: 10.w),
                                     child: Column(
                                       children: [
                                         GestureDetector(
                                           onTap: () {
                                             fetchInt(widget.id);
                                           },
-                                          child: const Row(
+                                          child: Row(
                                             children: [
                                               Text(
                                                 "Total Amount",
                                                 textAlign: TextAlign.right,
                                                 style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Color.fromARGB(
+                                                    fontSize: 16.sp,
+                                                    color: const Color.fromARGB(
                                                         255, 26, 169, 235),
                                                     fontWeight:
                                                         FontWeight.w700),
@@ -869,8 +825,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                           children: [
                                             Text(
                                               'PHP $strAmount',
-                                              style: const TextStyle(
-                                                fontSize: 20,
+                                              style: TextStyle(
+                                                fontSize: 20.sp,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -883,7 +839,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   Column(
                                     children: [
                                       SizedBox(
-                                        width: 150,
+                                        height: 40.sp,
+                                        width: 130.sp,
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.blue),
@@ -937,12 +894,12 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                     }
                                                   }
                                                 : null,
-                                            child: const Text(
+                                            child: Text(
                                               'Place Booking',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 12),
+                                                  fontSize: 12.sp),
                                             )),
                                       ),
                                     ],
