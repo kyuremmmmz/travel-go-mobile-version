@@ -183,6 +183,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
 
   Future<void> insert() async {
     final confirmId = await booking.bookingIDgenerator();
+    confirm = confirmId;
     AppRoutes.navigateToLinkedBankAccount(
       context,
       name: widget.name,
@@ -192,6 +193,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
       payment: amount,
       hotelorplace: widget.country,
       age: widget.age,
+      bookingId: confirm
     );
     Booking().flightBooking(
         widget.name,
