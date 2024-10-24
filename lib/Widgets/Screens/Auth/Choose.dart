@@ -88,7 +88,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       child: Column(
                         children: <Widget>[
                           Container(
-                            padding: const EdgeInsets.only(right: 50, top: 20),
+                            padding: EdgeInsets.only(right: 85.w, top: 20.w),
                             child: Text(
                               'Welcome to',
                               style: TextStyle(
@@ -99,9 +99,9 @@ class _WelcomePageState extends State<WelcomePage> {
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.only(right: 95),
+                            padding: EdgeInsets.only(right: 135.w),
                             child: Text(
-                              'TRAVEL GO',
+                              'TRAVEL GO', // First main Travel Go Title
                               style: TextStyle(
                                 color: const Color(0xFF44CAF9),
                                 fontSize: 25.sp,
