@@ -9,6 +9,7 @@ import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/AccountButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class LinkedBankScreen extends StatefulWidget {
@@ -163,7 +164,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                 ),
                 const SizedBox(height: 30),
                 SizedBox(
-                  height: 420,
+                  height: 420.h,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

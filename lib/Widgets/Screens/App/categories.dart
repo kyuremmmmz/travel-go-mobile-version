@@ -1,12 +1,15 @@
 import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Buttons/DefaultButtons/GreyedListButton.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 // CODE AREA
 
+// ignore: must_be_immutable
 class Categories extends StatefulWidget {
-  const Categories({super.key});
+  late String? category; 
+  Categories({super.key, this.category});
 
   @override
   State<Categories> createState() => _CategoriesState();
@@ -18,9 +21,14 @@ class _CategoriesState extends State<Categories> {
   final String hotelIcon = "assets/images/icon/hotel.png";
   final String festivalIcon = "assets/images/icon/food.png";
   final String planeIcon = "assets/images/icon/plane.png";
+  late bool inHotelList = false;
+  late bool inFoodList = false;
+  late bool inBeachList = false;
+  late bool inFestivalList = false;
 
   @override
   Widget build(BuildContext context) {
+    checkCategory();
     return Column(
       children: [
         CategorySelect(
@@ -37,10 +45,11 @@ class _CategoriesState extends State<Categories> {
               ),
               Column(
                 children: [
-                  BlueIconButtonDefault(
+                  inHotelList ? GreyedButton(image: hotelIcon) : BlueIconButtonDefault(
                       image: hotelIcon,
-                      oppressed: () =>
-                          {AppRoutes.navigateToHotelScreen(context)}),
+                      oppressed: () => 
+                          {AppRoutes.navigateToHotelScreen(context)}
+                  ),
                   CategoryLabel(
                       label: 'Hotels',
                       fontSize: 11.0.sp), // Specify font size here
@@ -51,7 +60,7 @@ class _CategoriesState extends State<Categories> {
               ),
               Column(
                 children: [
-                  BlueIconButtonDefault(
+                  inFoodList ? GreyedButton(image: foodIcon) : BlueIconButtonDefault(
                       image: foodIcon,
                       oppressed: () => AppRoutes.navigateTofoodArea(context)),
                   CategoryLabel(label: 'Food Place', fontSize: 11.0.sp),
@@ -62,7 +71,7 @@ class _CategoriesState extends State<Categories> {
               ),
               Column(
                 children: [
-                  BlueIconButtonDefault(
+                  inBeachList ? GreyedButton(image: beachIcon) : BlueIconButtonDefault(
                     image: beachIcon,
                     oppressed: () =>
                         {AppRoutes.navigateToBeachesScreen(context)},
@@ -75,7 +84,7 @@ class _CategoriesState extends State<Categories> {
               ),
               Column(
                 children: [
-                  BlueIconButtonDefault(
+                  inFestivalList ? GreyedButton(image: festivalIcon) : BlueIconButtonDefault(
                     image: festivalIcon,
                     oppressed: () =>
                         {AppRoutes.navigateToFestivalsScreen(context)},
@@ -104,6 +113,23 @@ class _CategoriesState extends State<Categories> {
         )
       ],
     );
+  }
+
+  void checkCategory(){
+    switch (widget.category){
+      case 'hotel':
+        inHotelList = true;
+        break;
+      case 'foodplace':
+        inFoodList = true;
+        break;
+      case 'beach':
+        inBeachList = true;
+        break;
+      case 'festival':
+        inFestivalList = true;
+        break;
+    }
   }
 }
 
@@ -163,17 +189,6 @@ class CategorySelect extends StatelessWidget {
                   // Text area for the categories, Popular places, food places, and Festival and events.
                   fontWeight: FontWeight.bold,
                   fontSize: 16.sp, // Add font size
-                ),
-              ),
-              GestureDetector(
-                onTap: oppressed,
-                child: const Text(
-                  'View all',
-                  style: TextStyle(
-                    color: Color(0xFF2196F3),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13, // Add font size
-                  ),
                 ),
               ),
             ],

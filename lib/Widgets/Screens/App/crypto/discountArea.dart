@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil for responsive
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../ResponsiveScreen/ResponsiveScreen.dart'; // Import ScreenUtil for responsive
 
 class DiscountArea extends StatelessWidget {
   const DiscountArea({super.key});
@@ -124,7 +126,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
           Positioned.fill(
             child: Column(
               children: <Widget>[
-                TitleMenu(),
+                const TitleMenu(),
                 SizedBox(height: 30.h),
               ],
             ),
@@ -144,7 +146,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
                     child: Text(
                       'Available Vouchers',
                       style: TextStyle(
-                        color: Color(0xFF333131),
+                        color: const Color(0xFF333131),
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -159,7 +161,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
                     child: Text(
                       'Available Flight Vouchers',
                       style: TextStyle(
-                        color: Color(0xFF333131),
+                        color: const Color(0xFF333131),
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -254,7 +256,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         CircleAvatar(
-          radius: 30,
+          radius: Responsive().discountProfileRadius(),
           backgroundImage: img == null
               ? const AssetImage('assets/images/icon/user.png')
               : NetworkImage('$img'),
@@ -268,13 +270,13 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
               style: TextStyle(
                 fontWeight: FontWeight.w500, // medium fontweight
                 fontSize: 12.sp,
-                color: Color(0xFF0567B4),
+                color: const Color(0xFF0567B4),
               ),
             ),
             Text(
               email ?? 'Loading...', // NAME OF THE USER AREA
               style: TextStyle(
-                color: Color(0xFF333131),
+                color: const Color(0xFF333131),
                 fontSize: 23.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -301,7 +303,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
         children: [
           SizedBox(
             width: 30.w,
-            child: FaIcon(
+            child: const FaIcon(
               FontAwesomeIcons.coins, // THE ICON OF THE COINS
               color: Color(0xFFFFD989),
             ),
@@ -311,6 +313,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
               children: [
                 buildPointsHeader(),
                 buildPointsProgress(),
+                const SizedBox(height: 5),
                 buildPointsInfoText(),
               ],
             ),
@@ -350,7 +353,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
       padding: EdgeInsets.symmetric(vertical: 2.h), // Add vertical padding for space above and below the progress bar
       child: LinearProgressIndicator(
         value: 0.58,
-        backgroundColor: Color(0xFFD9D9D9),
+        backgroundColor: const Color(0xFFD9D9D9),
         borderRadius: BorderRadius.circular(5.w),
         color: const Color(0xFFFFD989),
       ),
@@ -360,7 +363,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   Widget buildPointsInfoText() {
     return Padding(
       padding: EdgeInsets.only(top: 5.w, right: 15.h), // Add padding above the info text
-      child: Text(
+      child: const Text(
         'Earn 1,000 points and enjoy PHP100 discount on your next booking! \nStart collecting points now and save big!',
         style: TextStyle(
           fontSize: 8,

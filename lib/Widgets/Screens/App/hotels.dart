@@ -94,7 +94,7 @@ class _HotelScreenState extends State<HotelScreen> {
                             child: SingleChildScrollView(
                                 padding: EdgeInsets.symmetric(horizontal: 25.w),
                                 child: Column(children: <Widget>[
-                                  const Categories(),
+                                  Categories(category: 'hotel',),
                                   SizedBox(height: 10.h),
                                   Container(
                                     padding: EdgeInsets.only(

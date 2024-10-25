@@ -194,7 +194,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                       child: Column(
                         children: <Widget>[
                           const DismissableFindMoreLocation(),
-                          const Categories(),
+                          Categories(),
                           CategorySelect(
                             label: "Popular Places",
                             oppressed: () =>

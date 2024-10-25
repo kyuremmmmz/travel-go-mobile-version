@@ -62,4 +62,22 @@ class Responsive{
   double placeBookingPadding(){
     return 5.sp;
   }
+  double settingSelectionWidth(){
+    return 258.sp;
+  }
+  double settingSelectionHeight(){
+    return 155.sp;
+  }
+  double settingTitleWidth(){
+    return 300.sp;
+  }
+  double settingTitleHeight(){
+    return 45.sp;
+  }
+  double settingProfileRadius(){
+    return 40.sp;
+  }
+  double discountProfileRadius(){
+    return 29.sp;
+  }
 }

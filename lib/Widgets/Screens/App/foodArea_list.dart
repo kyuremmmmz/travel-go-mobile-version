@@ -104,7 +104,7 @@ class _FoodAreaState extends State<FoodArea> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 25),
                                 child: Column(children: <Widget>[
-                                  const Categories(),
+                                  Categories(category: 'foodplace'),
                                   SizedBox(height: 20.h),
                                   Container(
                                     padding: EdgeInsets.only(
