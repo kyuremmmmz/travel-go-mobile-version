@@ -22,7 +22,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   final String gcashIcon = "assets/images/icon/gcash.png";
   final String mastercardIcon = "assets/images/icon/mastercard.png";
   final _searchController = TextEditingController();
-  String? email;
+  String? eemail;
   String? gmail;
   String? uid;
   String? img;
@@ -40,7 +40,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       final userId = supabase.auth.currentUser!.id;
       if (mounted) {
         setState(() {
-          email = useremail.isNotEmpty
+          eemail = useremail.isNotEmpty
               ? useremail[0]['full_name'].toString()
               : "Anonymous User";
           gmail = userEmail;
@@ -53,7 +53,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          email = "error: $e";
+          eemail = "error: $e";
         });
       }
     }
@@ -199,7 +199,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          buildAccountInfoRow('Name', email ?? 'Unknown'),
+          buildAccountInfoRow('Name', eemail ?? 'Unknown'),
           const Divider(
             color: Color(0xFF929292),
             thickness: 0.5,
@@ -212,7 +212,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                       builder: (context) => EditProfileScreen(
                             currentAvatarUrl: img,
                             currentEmail: gmail,
-                            currentName: email,
+                            currentName: eemail,
                           )))
             },
             child: const Row(children: [Text('Edit Profile')]),
