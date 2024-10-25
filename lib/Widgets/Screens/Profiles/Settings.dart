@@ -113,26 +113,48 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               child: Column(
                 children: <Widget>[
                   const TitleMenu(),
-                  Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        insert('$uid');
-                      },
-                      child: CircleAvatar(
-                        radius: 45,
-                        backgroundColor: Colors.grey[400],
-                        backgroundImage: _profileImage != null
-                            ? FileImage(_profileImage!)
-                            : (img == null
-                                ? const AssetImage('assets/images/icon/user.png')
-                                : NetworkImage('$img')) as ImageProvider,
-                        child: _profileImage == null
-                            ? const Icon(Icons.add_a_photo,
-                                size: 30, color: Colors.white,)// the photo
-                            : null,
-                      ),
-                    ),
-                  ),
+Padding(
+  padding: EdgeInsets.only(top: 20.0), // Adjust padding as needed
+  child: Center(
+    child: GestureDetector(
+      onTap: () {
+        insert('$uid');
+      },
+      child: Container(
+        width: 180, // CircleAvatar diameter (2 * radius) + border width
+        height: 180,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: Color(0xFF44CAF9), // Set your desired border color
+            width: 4.0, // Set your desired border width
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFF44CAF9).withOpacity(0.2), // Shadow color and opacity
+              spreadRadius: 4, // Spread of the shadow
+              blurRadius: 10, // Softness of the shadow
+              offset: Offset(0, 4), // Positioning the shadow (x, y)
+            ),
+          ],
+        ),
+        child: CircleAvatar(
+          radius: 85, // Adjust radius to fit within the border
+          backgroundColor: Colors.grey[400],
+          backgroundImage: _profileImage != null
+              ? FileImage(_profileImage!)
+              : (img == null
+                  ? const AssetImage('assets/images/icon/user.png')
+                  : NetworkImage('$img')) as ImageProvider,
+          child: _profileImage == null
+              ? const Icon(Icons.add_a_photo, size: 30, color: Colors.white)
+              : null,
+        ),
+      ),
+    ),
+  ),
+),
+
                 SizedBox(height: 30.h),
                 Padding(
                   padding: EdgeInsets.only(right: 50.0.w), // Apply only right margin
@@ -145,32 +167,31 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   child: buildSectionTitle(context, 'Notification Settings'),
                 ),
                 buildNotificationSettings(),
-Padding(
-  padding: EdgeInsets.only(top: 30.h), // Apply the desired right margin
-  child: Container(
-    width: 140.w, // Set your desired width here
-    height: 40.h, // Set your desired height here
-    child: BlueButtonWithoutFunction(
-      text: Text(
-        'Back',
-        style: TextStyle(
-          fontSize: 18.sp,
-          color: Colors.white,
-        ),
-      ),
-      style: const ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(
-          Color(0xFF44CAF9),
-        ),
-      ),
-      oppressed: () {
-        Navigator.pop(context);
-        AppRoutes.navigateToMainMenu(context);
-      },
-    ),
-  ),
-),
-
+                Padding(
+                  padding: EdgeInsets.only(top: 30.h), // Apply the desired right margin
+                  child: Container(
+                    width: 140.w, // Set your desired width here
+                    height: 40.h, // Set your desired height here
+                    child: BlueButtonWithoutFunction(
+                      text: Text(
+                        'Back',
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          color: Colors.white,
+                        ),
+                      ),
+                      style: const ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(
+                          Color(0xFF44CAF9),
+                        ),
+                      ),
+                      oppressed: () {
+                        Navigator.pop(context);
+                        AppRoutes.navigateToMainMenu(context);
+                          },
+                        ),
+                      ),
+                    ),
                    SizedBox(height: 50.h),
                 ],
               ),
