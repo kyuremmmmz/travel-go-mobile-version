@@ -75,7 +75,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                 child: Image.asset(
                   'assets/images/icon/newlogo.png',
                   fit: BoxFit.cover,
-                  height: 300.h,
+                  height: 200.h,
                   width: 200.w,
                 ),
               ),
@@ -108,7 +108,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                     Container(
                       padding: EdgeInsets.only(right: 80.w),
                       child: Text(
-                        'User Credentials',
+                        'Set Up Your Profile',
                         style: TextStyle(
                           color: const Color(0xFF2D3F4E),
                           fontSize: 30.sp,
