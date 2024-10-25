@@ -79,6 +79,17 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                   width: 200.w,
                 ),
               ),
+              Positioned(
+                top: 100,
+                bottom: 50, // Adjust the position of the second image
+                right: -30,
+                left: -30, // Change as needed
+                child: Image.asset(
+                  'assets/images/icon/pogi.png', // Replace with your image path
+                  height: 450.h, // Adjust the size
+                  width: 350.w, // Adjust the size
+                ),
+              ),
               SizedBox(
                 height: 470.h,
                 width: 510.w,
@@ -86,7 +97,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
             ]),
           ),
           Positioned(
-            top: 220.h,
+            top: 350.h,
             right: 0,
             left: 0,
             height: MediaQuery.of(context).size.height,
@@ -106,16 +117,33 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                       height: 40.h, // the space between the img and email area
                     ),
                     Container(
-                      padding: EdgeInsets.only(right: 80.w),
-                      child: Text(
-                        'Set Up Your Profile',
-                        style: TextStyle(
-                          color: const Color(0xFF2D3F4E),
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.w900,
+                    padding: EdgeInsets.only(right: 50.w, left: 15.w, top: 15.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Set Up Your Profile',
+                          style: TextStyle(
+                            color: const Color(0xFF2D3F4E),
+                            fontSize: 30.sp,
+                            fontWeight: FontWeight.w900,
+                          ),
                         ),
-                      ),
+                        SizedBox(height: 5), // Add some space between the title and the message
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20, top: 5.h), // Adjust vertical padding as needed
+                          child: Text(
+                            'Welcome! Let’s get your profile set up so you can make the most of your experience.',
+                            style: TextStyle(
+                              color: const Color(0xFF3564C0), // Adjust color as needed
+                              fontSize: 12.sp, // Adjust font size as necessary
+                              fontWeight: FontWeight.w400, // Change weight if desired
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
                     Container(
                       width: MediaQuery.of(context).size.width - 30.w,
                       padding: EdgeInsets.only(top: 0.w),

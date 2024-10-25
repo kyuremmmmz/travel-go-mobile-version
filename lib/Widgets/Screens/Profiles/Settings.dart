@@ -113,47 +113,47 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               child: Column(
                 children: <Widget>[
                   const TitleMenu(),
-Padding(
-  padding: EdgeInsets.only(top: 20.0), // Adjust padding as needed
-  child: Center(
-    child: GestureDetector(
-      onTap: () {
-        insert('$uid');
-      },
-      child: Container(
-        width: 180, // CircleAvatar diameter (2 * radius) + border width
-        height: 180,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: Color(0xFF44CAF9), // Set your desired border color
-            width: 4.0, // Set your desired border width
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0xFF44CAF9).withOpacity(0.2), // Shadow color and opacity
-              spreadRadius: 4, // Spread of the shadow
-              blurRadius: 10, // Softness of the shadow
-              offset: Offset(0, 4), // Positioning the shadow (x, y)
-            ),
-          ],
-        ),
-        child: CircleAvatar(
-          radius: 85, // Adjust radius to fit within the border
-          backgroundColor: Colors.grey[400],
-          backgroundImage: _profileImage != null
-              ? FileImage(_profileImage!)
-              : (img == null
-                  ? const AssetImage('assets/images/icon/user.png')
-                  : NetworkImage('$img')) as ImageProvider,
-          child: _profileImage == null
-              ? const Icon(Icons.add_a_photo, size: 30, color: Colors.white)
-              : null,
-        ),
-      ),
-    ),
-  ),
-),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0), // Adjust padding as needed
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        insert('$uid');
+                      },
+                      child: Container(
+                        width: 180, // CircleAvatar diameter (2 * radius) + border width
+                        height: 180,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Color(0xFF44CAF9), // Set your desired border color
+                            width: 4.0, // Set your desired border width
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF44CAF9).withOpacity(0.2), // Shadow color and opacity
+                              spreadRadius: 4, // Spread of the shadow
+                              blurRadius: 10, // Softness of the shadow
+                              offset: Offset(0, 4), // Positioning the shadow (x, y)
+                            ),
+                          ],
+                        ),
+                        child: CircleAvatar(
+                          radius: 85, // Adjust radius to fit within the border
+                          backgroundColor: Colors.grey[400],
+                          backgroundImage: _profileImage != null
+                              ? FileImage(_profileImage!)
+                              : (img == null
+                                  ? const AssetImage('assets/images/icon/user.png')
+                                  : NetworkImage('$img')) as ImageProvider,
+                          child: _profileImage == null
+                              ? const Icon(Icons.add_a_photo, size: 30, color: Colors.white)
+                              : null,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
 
                 SizedBox(height: 30.h),
                 Padding(
