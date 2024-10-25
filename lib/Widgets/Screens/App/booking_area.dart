@@ -3,10 +3,12 @@ import 'package:TravelGo/Controllers/BookingBackend/booking.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Textfield/inputTextField.dart';
 import 'package:TravelGo/Widgets/Textfield/phoneNumber.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -132,51 +134,47 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
     });
   }
 
-  Future<void> niggaModal(BuildContext context) async {
+  Future<void> flightsPaymentModal(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
         builder: (context) {
-          return Container(
-            padding: null,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                const SizedBox(
-                  height: 30,
+          return SizedBox(
+              height: 500.h,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    SizedBox(height: 30.h),
+                    Text(
+                      'Payment Method',
+                      style: TextStyle(fontSize: 20.sp),
+                    ),
+                    SizedBox(height: 20.h),
+                    ListTile(
+                      leading: Icon(Icons.mobile_friendly_rounded, size: 20.sp),
+                      title:
+                          Text('Pay Online', style: TextStyle(fontSize: 16.sp)),
+                      onTap: () {
+                        setState(() {
+                          _paymentMethodController.text = "Pay Online";
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.share_arrival_time, size: 20.sp),
+                      title: Text('Pay Upon Arrival',
+                          style: TextStyle(fontSize: 16.sp)),
+                      onTap: () {
+                        setState(() {
+                          _paymentMethodController.text = "Pay Upon Arrival";
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: null,
-                  child: const Text(
-                    'Payment Method',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ListTile(
-                  leading: const Icon(Icons.mobile_friendly_rounded),
-                  title: const Text('Pay Online'),
-                  onTap: () {
-                    setState(() {
-                      _paymentMethodController.text = "Pay Online";
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.share_arrival_time),
-                  title: const Text('Pay Upon Arrival'),
-                  onTap: () {
-                    setState(() {
-                      _paymentMethodController.text = "Pay Upon Arrival";
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-              ],
-            ),
-          );
+              ));
         });
   }
 
@@ -184,7 +182,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: 40,
+          toolbarHeight: 40.h,
           leading: Builder(
             builder: (BuildContext context) => IconButton(
               icon: const Icon(Icons.menu),
@@ -199,19 +197,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
           key: _validator,
           child: Column(
             children: <Widget>[
-              const Text(
-                'TRAVEL GO',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Text(
-                "Northwestern part of Luzon Island, Philippines",
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 30),
+              const TitleMenu(),
               Expanded(
                 child: Scrollbar(
                   thumbVisibility: true,
@@ -230,41 +216,40 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           Align(
                             alignment: Alignment.topRight,
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 8, right: 10),
+                              padding: EdgeInsets.only(top: 8.h, right: 10.w),
                               child: IconButton(
-                                iconSize: 20,
+                                iconSize: 20.sp,
                                 icon: SizedBox(
-                                  height: 20,
-                                  width: 20,
+                                  height: 20.sp,
+                                  width: 20.sp,
                                   child: Image.asset(xButtonIcon),
                                 ),
-                                onPressed:
-                                    () {}, // change routes to InformationScreen later
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  AppRoutes.navigateToMainMenu(context);
+                                }, // change routes to InformationScreen later
                               ),
                             ),
                           ),
-                          const Text(
+                          Text(
                             'User Credentials',
                             style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                fontSize: 30.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
-                          const Text(
+                          Text(
                             "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 14,
-                              color: Color.fromARGB(255, 82, 79, 79),
+                              fontSize: 14.sp,
+                              color: const Color.fromARGB(255, 82, 79, 79),
                             ),
                           ),
-                          const SizedBox(
-                            height: 30,
-                          ),
+                          SizedBox(height: 30.h),
                           // ignore: sized_box_for_whitespace
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
@@ -291,11 +276,9 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               controller: _nameController,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
@@ -322,11 +305,9 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               controller: _lastNameController,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(50)),
@@ -351,11 +332,9 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               controller: _emailController,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(50)),
@@ -379,11 +358,9 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               icon: const Icon(FontAwesomeIcons.phone),
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(50)),
@@ -409,11 +386,9 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               icon: const Icon(FontAwesomeIcons.personCane),
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
@@ -440,26 +415,18 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               controller: _country,
                             ),
                           ),
-
-                          Container(
-                            width: 380,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           SizedBox(
-                            width: 380,
+                            width: 350.w,
                             child: PhonenumberTextField(
                               icon: const Icon(FontAwesomeIcons.children),
                               controller: _number_of_children,
                               text: 'Number of children:',
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(50)),
@@ -477,16 +444,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               text: 'Number of Adults:',
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           SizedBox(
-                              width: 380,
+                              width: 350.w,
                               child: TextFormField(
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
+                                style: TextStyle(
+                                    fontSize: 12.sp, color: Colors.black),
                                 validator: (value) {
                                   if (value.toString().isEmpty) {
                                     return 'Oops, payment method is required';
@@ -494,30 +457,26 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                   return null;
                                 },
                                 controller: _paymentMethodController,
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(
                                       borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
+                                  focusedBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.blue)),
                                   hintText: 'Payment Method',
                                   filled: true,
                                   fillColor: Colors.white,
-                                  hintStyle: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                  prefixIcon: Icon(Icons.payment_rounded),
+                                  hintStyle: TextStyle(fontSize: 12.sp),
+                                  prefixIcon: const Icon(Icons.payment_rounded),
                                 ),
                                 readOnly: true,
                                 onTap: () {
-                                  niggaModal(context);
+                                  flightsPaymentModal(context);
                                 },
                               )),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10.h),
                           Container(
-                            width: 380,
+                            width: 350.w,
                             decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(50)),
@@ -535,9 +494,6 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               controller: _originController,
                             ),
                           ),
-                          const SizedBox(
-                            height: 0,
-                          ),
                           Theme(
                             data: ThemeData(
                               checkboxTheme: const CheckboxThemeData(
@@ -547,42 +503,48 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                             child: Align(
                               alignment: Alignment.center,
                               child: ListTileTheme(
-                                horizontalTitleGap: 0.0,
-                                child: CheckboxListTile(
-                                  activeColor: Colors.green,
-                                  title: RichText(
-                                    text: TextSpan(children: <TextSpan>[
-                                      const TextSpan(
-                                        text:
-                                            "I have reviewed my booking details and agree to the ",
-                                        style: TextStyle(
-                                            fontSize: 12, color: Colors.black),
+                                  contentPadding:
+                                      EdgeInsets.only(left: 20.w, right: 10.w),
+                                  horizontalTitleGap: 0,
+                                  child: Transform.scale(
+                                    scale: 1.1,
+                                    child: CheckboxListTile(
+                                      activeColor: Colors.green,
+                                      title: RichText(
+                                        text: TextSpan(children: <TextSpan>[
+                                          TextSpan(
+                                            text:
+                                                "I have reviewed my booking details and agree to the ",
+                                            style: TextStyle(
+                                                fontSize: 12.sp,
+                                                color: Colors.black),
+                                          ),
+                                          TextSpan(
+                                            text: "Terms of Service.",
+                                            style: TextStyle(
+                                                fontSize: 12.sp,
+                                                color: Colors.white),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () => AppRoutes
+                                                  .navigateToForgotPassword(
+                                                      context),
+                                          ),
+                                        ]),
                                       ),
-                                      TextSpan(
-                                        text: "Terms of Service.",
-                                        style: const TextStyle(
-                                            fontSize: 12, color: Colors.white),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () => AppRoutes
-                                              .navigateToForgotPassword(
-                                                  context),
-                                      ),
-                                    ]),
-                                  ),
-                                  value: _value,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      _value = value ?? false;
-                                    });
-                                  },
-                                  controlAffinity:
-                                      ListTileControlAffinity.leading,
-                                ),
-                              ),
+                                      value: _value,
+                                      onChanged: (bool? value) {
+                                        setState(() {
+                                          _value = value ?? false;
+                                        });
+                                      },
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                    ),
+                                  )),
                             ),
                           ),
                           Container(
-                            height: 100,
+                            height: 90.sp,
                             width: double.infinity, // Adjust width as needed
                             decoration: const BoxDecoration(
                               color: Colors.white,
@@ -592,16 +554,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 10, top: 30),
+                              padding: EdgeInsets.only(left: 10.w, top: 25.sp),
                               child: Row(
                                 children: [
-                                  const SizedBox(
-                                    width: 30,
-                                  ),
+                                  SizedBox(width: 10.w),
                                   Column(
                                     children: [
                                       SizedBox(
-                                        height: 50,
+                                        height: 50.sp,
                                         child: Image.asset(adventureIcon),
                                       ),
                                     ],
@@ -609,11 +569,11 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                   Column(
                                     children: [
                                       SizedBox(
-                                        height: 20,
+                                        height: 20.sp,
                                         child: Image.asset(suitcaseIcon),
                                       ),
                                       SizedBox(
-                                        height: 30,
+                                        height: 30.sp,
                                         child: Image.asset(planeTicketIcon),
                                       ),
                                     ],
@@ -623,14 +583,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                         left: 10, right: 10),
                                     child: Column(
                                       children: [
-                                        const Row(
+                                        Row(
                                           children: [
                                             Text(
                                               "Total Amount",
                                               textAlign: TextAlign.right,
                                               style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Color.fromARGB(
+                                                  fontSize: 16.sp,
+                                                  color: const Color.fromARGB(
                                                       255, 26, 169, 235),
                                                   fontWeight: FontWeight.w700),
                                             ),
@@ -640,8 +600,8 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                           children: [
                                             Text(
                                               'PHP $strAmount',
-                                              style: const TextStyle(
-                                                fontSize: 20,
+                                              style: TextStyle(
+                                                fontSize: 20.sp,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -651,10 +611,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                       ],
                                     ),
                                   ),
+                                  SizedBox(width: 5.w),
                                   Column(
                                     children: [
                                       SizedBox(
-                                        width: 150,
+                                        height: 40.sp,
+                                        width: 130.sp,
                                         child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.blue),
@@ -662,8 +624,13 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                                 ? () {
                                                     if (_validator.currentState!
                                                             .validate() ||
-                                                        _paymentMethodController.text.trim() == "Pay Online" ||
-                                                        int.parse(_age.text.trim()) <= 18) {
+                                                        _paymentMethodController
+                                                                .text
+                                                                .trim() ==
+                                                            "Pay Online" ||
+                                                        int.parse(_age.text
+                                                                .trim()) <=
+                                                            18) {
                                                       AppRoutes.navigateToNextScreen(
                                                           context,
                                                           id: widget.id,
@@ -696,12 +663,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                                     }
                                                   }
                                                 : null,
-                                            child: const Text(
+                                            child: Text(
                                               'Next',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 12),
+                                                  fontSize: 12.sp),
                                             )),
                                       ),
                                     ],

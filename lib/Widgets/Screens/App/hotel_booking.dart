@@ -402,8 +402,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   width: 20.sp,
                                   child: Image.asset(xButtonIcon),
                                 ),
-                                onPressed:
-                                    () {}, // change routes to InformationScreen later
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  AppRoutes.navigateToMainMenu(context);
+                                }, // change routes to InformationScreen later
                               ),
                             ),
                           ),
@@ -824,6 +826,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                       ],
                                     ),
                                   ),
+                                  SizedBox(width: 5.w),
                                   Column(
                                     children: [
                                       SizedBox(
