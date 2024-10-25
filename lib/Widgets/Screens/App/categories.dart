@@ -191,17 +191,6 @@ class CategorySelect extends StatelessWidget {
                   fontSize: 16.sp, // Add font size
                 ),
               ),
-              GestureDetector(
-                onTap: oppressed,
-                child: const Text(
-                  'View all',
-                  style: TextStyle(
-                    color: Color(0xFF2196F3),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13, // Add font size
-                  ),
-                ),
-              ),
             ],
           ),
         ),

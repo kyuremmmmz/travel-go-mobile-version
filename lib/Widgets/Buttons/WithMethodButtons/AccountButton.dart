@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class AccountButton extends StatefulWidget{ // use Image.asset
@@ -30,8 +31,8 @@ class _AccountButtonState extends State<AccountButton> {
         child: InkWell(
           onTap: widget.oppressed,
           child: Container(
-            height: 125,
-            width: 300,
+            height: 120.h,
+            width: 290.w,
             color: widget.color,
             child: Padding(
               padding: const EdgeInsets.all(20),
