@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // ignore: camel_case_types
 class PhonenumberTextField extends StatefulWidget {
   final String? text;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final Icon? icon;
   final FormFieldValidator? validator;
   const PhonenumberTextField({
@@ -22,6 +22,24 @@ class PhonenumberTextField extends StatefulWidget {
 
 // ignore: camel_case_types
 class _numberTextFieldState extends State<PhonenumberTextField> {
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        FocusScope.of(context).unfocus();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -42,6 +60,7 @@ class _numberTextFieldState extends State<PhonenumberTextField> {
               borderSide: BorderSide(
             color: Colors.black,
           ))),
+      focusNode: _focusNode,
       keyboardType: TextInputType.phone,
       style: TextStyle(fontSize: 12.sp),
     );

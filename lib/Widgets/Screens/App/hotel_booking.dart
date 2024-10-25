@@ -435,9 +435,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                             ),
                             child: inputTextField(
                               validator: (value) {
-                                if (value == null ||
-                                    value.toString().isEmpty ||
-                                    value.length <= 5) {
+                                if (value == null || value.toString().isEmpty) {
                                   return 'Please enter your name';
                                 }
                                 return null;
@@ -478,7 +476,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                             child: PhonenumberTextField(
                               validator: (value) {
                                 if (value == null || value.toString().isEmpty) {
-                                  return 'Please enter an active phone number';
+                                  return 'Please enter your phone number';
                                 }
                                 return null;
                               },
@@ -502,7 +500,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 if (value == null || value.toString().isEmpty) {
                                   return 'Enter your age';
                                 } else if (int.parse(value) <= 17) {
-                                  return 'You are $value you must be 18 years old to book';
+                                  return 'You are $value, you must be 18 years or above';
                                 }
                                 return null;
                               },
@@ -558,7 +556,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   if (value == null ||
                                       value.toString().isEmpty ||
                                       value.length <= 5) {
-                                    return 'Please select Check-in Date';
+                                    return 'Please select Check-In Date';
                                   }
                                   return null;
                                 },
@@ -595,7 +593,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   if (value == null ||
                                       value.toString().isEmpty ||
                                       value.length <= 5) {
-                                    return 'Please Select Check-Out Date';
+                                    return 'Please select Check-Out Date';
                                   }
                                   return null;
                                 },
@@ -629,9 +627,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               ),
                               child: TextFormField(
                                 validator: (value) {
-                                  if (value == null ||
-                                      value.toString().isEmpty) {
-                                    return 'Please select a method';
+                                  if (value.toString().isEmpty) {
+                                    return 'Payment method is required';
                                   }
                                   return null;
                                 },
@@ -666,7 +663,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                 validator: (value) {
                                   if (value == null ||
                                       value.toString().isEmpty) {
-                                    return 'Please select a type';
+                                    return 'Please select a Room Type';
                                   }
                                   return null;
                                 },
@@ -838,48 +835,57 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                             onPressed: _value
                                                 ? () {
                                                     if (_validator.currentState!
-                                                            .validate() ||
-                                                        _paymentMethodController
-                                                                .text
-                                                                .trim() ==
-                                                            "Pay Online") {
-                                                      BookinghistoryBackend()
-                                                          .insertBooking(
-                                                        _nameController.text
-                                                            .trim(),
-                                                        _emailController.text
-                                                            .trim(),
-                                                        int.parse(
-                                                            _numberController
-                                                                .text
-                                                                .trim()),
-                                                        _hotel.text.trim(),
-                                                        _checkInController.text
-                                                            .trim(),
-                                                        _checkOutController.text
-                                                            .trim(),
-                                                        _paymentMethodController
-                                                            .text
-                                                            .trim(),
-                                                        _isWaiting
-                                                            ? "Not Paid"
-                                                            : "Paid",
-                                                        int.parse(
-                                                            _number_of_adult
-                                                                .text
-                                                                .trim()),
-                                                        int.parse(
-                                                            _number_of_children
-                                                                .text
-                                                                .trim()),
-                                                        _vehicleTypeController
-                                                            .text
-                                                            .trim(),
-                                                        int.parse(
-                                                            _age.text.trim()),
-                                                        amount,
-                                                      );
-                                                      insert();
+                                                        .validate()) {
+                                                      if (_paymentMethodController
+                                                              .text
+                                                              .trim() ==
+                                                          "Pay Online") {
+                                                        BookinghistoryBackend()
+                                                            .insertBooking(
+                                                          _nameController.text
+                                                              .trim(),
+                                                          _emailController.text
+                                                              .trim(),
+                                                          int.parse(
+                                                              _numberController
+                                                                  .text
+                                                                  .trim()),
+                                                          _hotel.text.trim(),
+                                                          _checkInController
+                                                              .text
+                                                              .trim(),
+                                                          _checkOutController
+                                                              .text
+                                                              .trim(),
+                                                          _paymentMethodController
+                                                              .text
+                                                              .trim(),
+                                                          _isWaiting
+                                                              ? "Not Paid"
+                                                              : "Paid",
+                                                          int.parse(
+                                                              _number_of_adult
+                                                                  .text
+                                                                  .trim()),
+                                                          int.parse(
+                                                              _number_of_children
+                                                                  .text
+                                                                  .trim()),
+                                                          _vehicleTypeController
+                                                              .text
+                                                              .trim(),
+                                                          int.parse(
+                                                              _age.text.trim()),
+                                                          amount,
+                                                        );
+                                                        insert();
+                                                      } else if (_paymentMethodController
+                                                              .text
+                                                              .trim() ==
+                                                          "Pay Upon Arrival") {
+                                                        print(
+                                                            'Pay Upon Arrival is empty');
+                                                      }
                                                     } else {
                                                       print('nigga');
                                                     }

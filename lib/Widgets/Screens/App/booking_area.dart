@@ -250,23 +250,13 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           // ignore: sized_box_for_whitespace
                           Container(
                             width: 350.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                                    BorderRadius.all(Radius.circular(10))),
                             child: inputTextField(
                               validator: (value) {
-                                if (value == null ||
-                                    value.toString().isEmpty ||
-                                    value.length <= 5) {
-                                  return 'please enter your name';
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter your name';
                                 }
                                 return null;
                               },
@@ -279,23 +269,13 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           SizedBox(height: 10.h),
                           Container(
                             width: 350.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                                    BorderRadius.all(Radius.circular(10))),
                             child: inputTextField(
                               validator: (value) {
-                                if (value == null ||
-                                    value.toString().isEmpty ||
-                                    value.length <= 5) {
-                                  return 'please enter your name';
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter your name';
                                 }
                                 return null;
                               },
@@ -308,21 +288,13 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           SizedBox(height: 10.h),
                           Container(
                             width: 350.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                                    BorderRadius.all(Radius.circular(50))),
                             child: inputTextField(
                               validator: (value) {
                                 if (value == null || value.toString().isEmpty) {
-                                  return 'please enter valid email address';
+                                  return 'Please enter a valid email address';
                                 }
                                 return null;
                               },
@@ -335,22 +307,14 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           SizedBox(height: 10.h),
                           Container(
                             width: 350.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                                    BorderRadius.all(Radius.circular(50))),
                             child: PhonenumberTextField(
                               text: 'Phone Number:',
                               validator: (value) {
                                 if (value == null || value.toString().isEmpty) {
-                                  return 'Enter your phone number';
+                                  return 'Please enter your phone number';
                                 }
                                 return null;
                               },
@@ -361,23 +325,15 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           SizedBox(height: 10.h),
                           Container(
                             width: 350.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                                    BorderRadius.all(Radius.circular(50))),
                             child: PhonenumberTextField(
                               validator: (value) {
                                 if (value == null || value.toString().isEmpty) {
                                   return 'Enter your age';
                                 } else if (int.parse(value) <= 17) {
-                                  return 'You are $value you must be 18 years old to book';
+                                  return 'You are $value, you must be 18 years or above';
                                 }
                                 return null;
                               },
@@ -389,22 +345,12 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           SizedBox(height: 10.h),
                           Container(
                             width: 350.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                                    BorderRadius.all(Radius.circular(10))),
                             child: inputTextField(
                               validator: (value) {
-                                if (value == null ||
-                                    value.toString().isEmpty ||
-                                    value.length <= 5) {
+                                if (value == null || value.toString().isEmpty) {
                                   return 'Please enter your Country';
                                 }
                                 return null;
@@ -422,26 +368,30 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                               icon: const Icon(FontAwesomeIcons.children),
                               controller: _number_of_children,
                               text: 'Number of children:',
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           SizedBox(height: 10.h),
                           Container(
                             width: 350.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                                    BorderRadius.all(Radius.circular(50))),
                             child: PhonenumberTextField(
                               icon: const Icon(FontAwesomeIcons.peopleGroup),
                               controller: _number_of_adult,
                               text: 'Number of Adults:',
+                              validator: (value) {
+                                if (value == null || value.toString().isEmpty) {
+                                  return 'Please enter a number';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           SizedBox(height: 10.h),
@@ -452,7 +402,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                     fontSize: 12.sp, color: Colors.black),
                                 validator: (value) {
                                   if (value.toString().isEmpty) {
-                                    return 'Oops, payment method is required';
+                                    return 'Payment method is required';
                                   }
                                   return null;
                                 },
@@ -477,17 +427,9 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                           SizedBox(height: 10.h),
                           Container(
                             width: 350.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
+                                    BorderRadius.all(Radius.circular(50))),
                             child: inputTextField(
                               colorr: Colors.black,
                               text: 'Special Requests: (Optional)',
@@ -623,41 +565,43 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
                                             onPressed: _value
                                                 ? () {
                                                     if (_validator.currentState!
-                                                            .validate() ||
-                                                        _paymentMethodController
-                                                                .text
-                                                                .trim() ==
-                                                            "Pay Online" ||
-                                                        int.parse(_age.text
-                                                                .trim()) <=
-                                                            18) {
-                                                      AppRoutes.navigateToNextScreen(
-                                                          context,
-                                                          id: widget.id,
-                                                          name: _nameController
+                                                        .validate()) {
+                                                      if (_paymentMethodController
                                                               .text
-                                                              .trim(),
-                                                          email:
-                                                              _emailController
-                                                                  .text
-                                                                  .trim(),
-                                                          phone: int.parse(
-                                                              _phone.text
-                                                                  .trim()),
-                                                          age: int.parse(
-                                                              _age.text.trim()),
-                                                          country: _country.text
-                                                              .trim(),
-                                                          numberOfChildren:
-                                                              int.parse(
-                                                                  _number_of_children
-                                                                      .text
-                                                                      .trim()),
-                                                          numberOfAdults:
-                                                              int.parse(_number_of_adult.text.trim()),
-                                                          paymentMethod: _paymentMethodController.text.trim(),
-                                                          price: amount,
-                                                          last: _lastNameController.text.trim());
+                                                              .trim() ==
+                                                          "Pay Online") {
+                                                        AppRoutes.navigateToNextScreen(
+                                                            context,
+                                                            id: widget.id,
+                                                            name: _nameController
+                                                                .text
+                                                                .trim(),
+                                                            email: _emailController
+                                                                .text
+                                                                .trim(),
+                                                            phone: int.parse(
+                                                                _phone.text
+                                                                    .trim()),
+                                                            age: int.parse(_age.text
+                                                                .trim()),
+                                                            country: _country.text
+                                                                .trim(),
+                                                            numberOfChildren: int.parse(
+                                                                _number_of_children
+                                                                    .text
+                                                                    .trim()),
+                                                            numberOfAdults:
+                                                                int.parse(_number_of_adult.text.trim()),
+                                                            paymentMethod: _paymentMethodController.text.trim(),
+                                                            price: amount,
+                                                            last: _lastNameController.text.trim());
+                                                      } else if (_paymentMethodController
+                                                              .text
+                                                              .trim() ==
+                                                          "Pay Upon Arrival") {
+                                                        print(
+                                                            'Pay Upon Arrival is empty');
+                                                      }
                                                     } else {
                                                       debugPrint('nigga');
                                                     }
