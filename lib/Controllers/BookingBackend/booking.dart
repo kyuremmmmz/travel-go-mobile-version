@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -76,27 +78,33 @@ class Booking {
     }
   }
 
+  Future<String> bookingIDgenerator() async {
+    Random random = Random();
+    int randomInt = random.nextInt(9000) + 10000;
+    int randomInt2 = random.nextInt(9000) + 10000;
+    return 'FLBK$randomInt-$randomInt2';
+  }
+
   Future<PostgrestResponse?> flightBooking(
-    String firstName,
-    String lastName,
-    String country,
-    int phoneNumber,
-    int age,
-    String email,
-    String origin,
-    String returnDate,
-    String departureDate,
-    String departureTime,
-    String arrivalTime,
-    String arrivalDate,
-    String destination,
-    int payment,
-    String paymentMethod,
-    String plane,
-    String airPort,
-    String travelType,
-    String bookingId
-  ) async {
+      String firstName,
+      String lastName,
+      String country,
+      int phoneNumber,
+      int age,
+      String email,
+      String origin,
+      String returnDate,
+      String departureDate,
+      String departureTime,
+      String arrivalTime,
+      String arrivalDate,
+      String destination,
+      int payment,
+      String paymentMethod,
+      String plane,
+      String airPort,
+      String travelType,
+      String bookingId) async {
     final response = await supabase.from('flightBooking').insert({
       'firstName': firstName,
       'lastName': lastName,
@@ -116,11 +124,11 @@ class Booking {
       'plane': plane,
       'airPort': airPort,
       'traveltype': travelType,
-      'booking_id' : bookingId
+      'bookingId': bookingId
     });
     if (response != null) {
       return response;
-    }else{
+    } else {
       return null;
     }
   }

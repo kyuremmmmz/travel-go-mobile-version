@@ -130,6 +130,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   String? airPort;
   String? airLine;
   String? hotel;
+  String? confirm;
   late Usersss users = Usersss();
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
   final String adventureIcon = "assets/images/icon/adventure.png";
@@ -178,6 +179,42 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
         email = "error: $e";
       });
     }
+  }
+
+  Future<void> insert() async {
+    final confirmId = await booking.bookingIDgenerator();
+    confirm = confirmId;
+    AppRoutes.navigateToLinkedBankAccount(
+      context,
+      name: widget.name,
+      phone: widget.phone,
+      nameoftheplace: widget.email,
+      price: amount,
+      payment: amount,
+      hotelorplace: widget.country,
+      age: widget.age,
+      bookingId: confirm
+    );
+    Booking().flightBooking(
+        widget.name,
+        widget.last,
+        widget.country,
+        widget.phone,
+        widget.age,
+        widget.email,
+        '$origin',
+        '$returnDate',
+        '$departure',
+        '$departureTime',
+        '$arrivalTime',
+        '$arrival',
+        '$destination',
+        amount,
+        widget.paymentMethod,
+        'Cebu Pacific',
+        widget.country,
+        'Road Trip',
+        confirmId);
   }
 
   Future<void> fethHotel(
@@ -583,39 +620,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
                                                             .validate() ||
                                                         widget.paymentMethod ==
                                                             "Pay Online") {
-                                                      AppRoutes
-                                                          .navigateToLinkedBankAccount(
-                                                        context,
-                                                        name: widget.name,
-                                                        phone: widget.phone,
-                                                        nameoftheplace:
-                                                            widget.email,
-                                                        price: amount,
-                                                        payment: amount,
-                                                        hotelorplace:
-                                                            widget.country,
-                                                        age: widget.age,
-                                                      );
-                                                      Booking().flightBooking(
-                                                          widget.name,
-                                                          widget.last,
-                                                          widget.country,
-                                                          widget.phone,
-                                                          widget.age,
-                                                          widget.email,
-                                                          '$origin',
-                                                          '$returnDate',
-                                                          '$departure',
-                                                          '$departureTime',
-                                                          '$arrivalTime',
-                                                          '$arrival',
-                                                          '$destination',
-                                                          amount,
-                                                          widget.paymentMethod,
-                                                          'Cebu Pacific',
-                                                          widget.country,
-                                                          'Road Trip',
-                                                          widget.bookingId);
+                                                      insert();
                                                     } else {
                                                       debugPrint('nigga');
                                                     }

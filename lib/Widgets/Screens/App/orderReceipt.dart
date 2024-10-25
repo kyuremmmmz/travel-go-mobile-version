@@ -270,7 +270,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                             ),
                                             RowDetails(
                                               row1: 'CONTACT NUMBER',
-                                              row2: '$phone',
+                                              row2: '+63 0$phone',
                                             ),
                                             RowDetails(
                                               row1: 'EMAIL',
