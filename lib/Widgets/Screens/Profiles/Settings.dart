@@ -10,8 +10,6 @@ import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil for responsive
 import 'dart:io';
 
-import '../App/ResponsiveScreen/ResponsiveScreen.dart';
-
 class AccountSettingsScreen extends StatefulWidget {
   const AccountSettingsScreen({super.key});
 
@@ -38,7 +36,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
-      final userEmail = supabase.auth.currentUser!.email;
+      final userEmail = supabase.auth.currentUser!.newEmail;
       final userId = supabase.auth.currentUser!.id;
       if (mounted) {
         setState(() {
@@ -120,7 +118,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                         insert('$uid');
                       },
                       child: CircleAvatar(
-                        radius: Responsive().settingProfileRadius(),
+                        radius: 45,
                         backgroundColor: Colors.grey[300],
                         backgroundImage: _profileImage != null
                             ? FileImage(_profileImage!)
@@ -165,8 +163,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   Widget buildSectionTitle(BuildContext context, String title) { // DESIGN ARE OF THE ACCOUNT AND NOTIFICATION TEXT
     return Container(
       padding: const EdgeInsets.all(15),
-      width: Responsive().settingTitleWidth(), //330  
-      height: Responsive().settingTitleHeight(), //50
+      width: 330,
+      height: 50,
       decoration: BoxDecoration(
         color: Color(0xFF44CAF9),
         borderRadius: BorderRadius.circular(30),
@@ -187,9 +185,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
 
   Widget buildAccountDetails() { // ACCOUNT SETTINGS INFO AREA
     return Container(
-      width: Responsive().settingSelectionWidth(),//290,
-      height: Responsive().settingSelectionHeight(),//175,
-      margin: const EdgeInsets.only(right: 15, left: 15),
+      width: 290.w,
+      height: 175.h,
+      margin: EdgeInsets.only(right: 15.h, left: 15.h),
       padding: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: const Color.fromRGBO(241, 241, 241, 100),
@@ -246,8 +244,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
 
   Widget buildNotificationSettings() { // NOTIFICATION SETTINGS INFO AREA
     return Container(
-      width: Responsive().settingSelectionWidth(),
-      height: Responsive().settingSelectionHeight(),
+      width: 290,
+      height: 175,
       margin: const EdgeInsets.only(right: 15, left: 15),
       padding: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
