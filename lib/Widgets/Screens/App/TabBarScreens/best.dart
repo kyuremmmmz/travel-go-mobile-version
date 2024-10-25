@@ -2,6 +2,7 @@ import 'package:TravelGo/Controllers/NetworkImages/flightsBackend.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Best extends StatefulWidget {
   final int id;
@@ -15,7 +16,7 @@ class _BestState extends State<Best> {
   final flights = Flightsbackend();
   List<Map<String, dynamic>> imgUrl = [];
 
-  Future<void> fetchBest() async {
+  Future<void> fetchFlights() async {
     final result = await flights.flightListBest();
     if (result.isNotEmpty) {
       setState(() {
@@ -26,7 +27,7 @@ class _BestState extends State<Best> {
 
   @override
   void initState() {
-    fetchBest();
+    fetchFlights();
     super.initState();
   }
 
@@ -39,420 +40,296 @@ class _BestState extends State<Best> {
             children: imgUrl.map((data) {
           return Center(
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              const SizedBox(
-                height: 30,
-              ),
-              const Row(
-                children: [
-                  SizedBox(
-                    width: 60,
-                  ),
-                  TitleMenu(),
-                ],
-              ),
-              Center(
-                child: Card(
-                  color: const Color.fromARGB(255, 195, 213, 245),
-                  shape: RoundedRectangleBorder(
-                      side: const BorderSide(
-                          width: 1, color: Color.fromARGB(255, 0, 0, 0)),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Container(
-                      padding: null,
-                      height: 50,
-                      width: 207,
-                      child: const Center(
-                        child: Text(
-                          'Choose your Flight',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
+              SizedBox(height: 30.h),
+              Row(children: [
+                Padding(
+                    padding: EdgeInsetsDirectional.symmetric(horizontal: 60.w),
+                    child: const TitleMenu()),
+              ]),
+              SizedBox(height: 50.h),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20.w),
+                  child: Card(
+                      margin: EdgeInsets.zero,
+                      color: const Color.fromARGB(255, 223, 234, 252),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30)),
+                          side: BorderSide(color: Colors.black)),
+                      child: Container(
+                        padding: null,
+                        width: 300.sp,
+                        height: 50.sp,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              'Best',
+                              style: TextStyle(
+                                  fontSize: 16.sp,
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(width: 10.w),
+                            Text(
+                              'Flexible ticket upgrade available',
+                              style: TextStyle(
+                                  fontSize: 13.sp, color: Colors.green),
+                            )
+                          ],
                         ),
                       )),
                 ),
               ),
-              const SizedBox(
-                height: 50,
-              ),
-              Container(
-                padding: const EdgeInsets.only(right: 70),
-                child: Card(
-                    margin: EdgeInsets.zero,
-                    color: const Color.fromARGB(255, 223, 234, 252),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30)),
-                        side: BorderSide(color: Colors.black)),
-                    child: Container(
-                      padding: null,
-                      width: 280,
-                      height: 50,
-                      child: const Row(
-                        children: [
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Best',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'Flexible ticket upgrade available',
-                            style: TextStyle(color: Colors.green),
-                          )
-                        ],
-                      ),
-                    )),
-              ),
-              Container(
-                padding: null,
-                child: Card(
-                    color: const Color.fromARGB(255, 232, 240, 253),
-                    margin: EdgeInsets.zero,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(30),
-                            bottomRight: Radius.circular(30),
-                            bottomLeft: Radius.circular(30)),
-                        side: BorderSide(color: Colors.black)),
-                    child: Container(
-                      padding: null,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                    padding: EdgeInsets.only(left: 20.w),
+                    child: Card(
+                      color: const Color.fromARGB(255, 232, 240, 253),
+                      margin: EdgeInsets.zero,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(30),
+                              bottomRight: Radius.circular(30),
+                              bottomLeft: Radius.circular(30)),
+                          side: BorderSide(color: Colors.black)),
                       child: Column(
                         children: [
-                          Container(
-                              padding: null,
-                              width: 350,
-                              height: 250,
+                          SizedBox(
+                              width: 330.sp,
                               child: Column(
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        top: 10, right: 150),
-                                    child: const Text(
-                                      'Your Flight to Pangasinan ',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          top: 10.h, left: 10.w),
+                                      child: Text(
+                                        'Your Flight to Pangasinan',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20.sp),
+                                      ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
+                                  SizedBox(height: 20.h),
                                   Row(
                                     children: [
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
+                                      SizedBox(width: 10.w),
                                       Column(
                                         children: [
                                           CircleAvatar(
                                             backgroundImage: NetworkImage(
                                                 data['airplane_img']),
+                                            radius: 20.sp,
                                           ),
-                                          Text(data['airport'])
+                                          Text(
+                                            data['airport'],
+                                            style: TextStyle(fontSize: 12.sp),
+                                          )
                                         ],
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 30),
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                                padding: const EdgeInsets.only(
-                                                    right: 50, top: 10),
-                                                child: Row(
-                                                  children: [
-                                                    Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 12),
-                                                        child: Row(
-                                                          children: [
-                                                            Container(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        bottom:
-                                                                            0),
-                                                                child: Column(
-                                                                  children: [
-                                                                    Row(
-                                                                      children: [
-                                                                        Text(
-                                                                          data[
-                                                                              'departure'],
-                                                                          style: const TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontWeight: FontWeight.bold,
-                                                                              fontSize: 12),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          width:
-                                                                              5,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    Container(
-                                                                      child:
-                                                                          Text(
-                                                                        '${data['airplane']} . ${data['date']}',
-                                                                        style: const TextStyle(
-                                                                            fontSize:
-                                                                                9),
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                )),
-                                                            const SizedBox(
-                                                              width: 12,
-                                                            ),
-                                                            const Icon(
-                                                              Icons
-                                                                  .flight_takeoff,
-                                                              size: 18,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Container(
-                                                              width: 50,
-                                                              height: 2,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            const Icon(
-                                                              Icons.flight_land,
-                                                              size: 18,
-                                                            ),
-                                                          ],
-                                                        )),
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                bottom: 0),
-                                                        child: Column(
-                                                          children: [
-                                                            const SizedBox(
-                                                              height: 12,
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Text(
-                                                                  data[
-                                                                      'arrival'],
-                                                                  style: const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          12),
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 5,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Container(
-                                                              padding: null,
-                                                              child: Text(
-                                                                '${data['place']} . ${data['date_departure']}',
-                                                                style:
-                                                                    const TextStyle(
-                                                                        fontSize:
-                                                                            9),
+                                      SizedBox(width: 10.w),
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                  padding: EdgeInsets.only(
+                                                      top: 12.h),
+                                                  child: Row(
+                                                    children: [
+                                                      Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                data[
+                                                                    'departure'],
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        12.sp),
                                                               ),
-                                                            )
-                                                          ],
-                                                        )),
-                                                  ],
-                                                )),
-                                          ],
-                                        ),
+                                                              SizedBox(
+                                                                  width: 5.w),
+                                                            ],
+                                                          ),
+                                                          Text(
+                                                            '${data['airplane']} . ${data['date']}',
+                                                            style: TextStyle(
+                                                                fontSize: 9.sp),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      SizedBox(width: 12.w),
+                                                      Icon(
+                                                        Icons.flight_takeoff,
+                                                        size: 18.sp,
+                                                      ),
+                                                      SizedBox(width: 10.w),
+                                                      Container(
+                                                        width: 50.w,
+                                                        height: 2.h,
+                                                        color: Colors.black,
+                                                      ),
+                                                      SizedBox(width: 10.w),
+                                                      Icon(
+                                                        Icons.flight_land,
+                                                        size: 18.sp,
+                                                      ),
+                                                    ],
+                                                  )),
+                                              SizedBox(width: 10.w),
+                                              Column(
+                                                children: [
+                                                  SizedBox(height: 12.h),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        data['arrival'],
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 12.sp),
+                                                      ),
+                                                      SizedBox(width: 5.w),
+                                                    ],
+                                                  ),
+                                                  Text(
+                                                    '${data['place']} . ${data['date_departure']}',
+                                                    style: TextStyle(
+                                                        fontSize: 9.sp),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
+                                  SizedBox(height: 30.h),
                                   Row(
                                     children: [
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
+                                      SizedBox(width: 10.w),
                                       Column(
                                         children: [
                                           CircleAvatar(
                                             backgroundImage: NetworkImage(
                                                 data['airplane_img']),
+                                            radius: 20.sp,
                                           ),
-                                          const Text('NAIA')
+                                          Text(
+                                            data['airport'],
+                                            style: TextStyle(fontSize: 12.sp),
+                                          )
                                         ],
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 30),
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                                padding: const EdgeInsets.only(
-                                                    right: 50, top: 10),
-                                                child: Row(
-                                                  children: [
-                                                    Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 12),
-                                                        child: Row(
-                                                          children: [
-                                                            Container(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        bottom:
-                                                                            0),
-                                                                child: Column(
-                                                                  children: [
-                                                                    Row(
-                                                                      children: [
-                                                                        Text(
-                                                                          data[
-                                                                              'return'],
-                                                                          style: const TextStyle(
-                                                                              color: Colors.black,
-                                                                              fontWeight: FontWeight.bold,
-                                                                              fontSize: 12),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          width:
-                                                                              5,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    Container(
-                                                                      child:
-                                                                          Text(
-                                                                        '${data['place']} .${data['return_date']}',
-                                                                        style: const TextStyle(
-                                                                            fontSize:
-                                                                                9),
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                )),
-                                                            const SizedBox(
-                                                              width: 12,
-                                                            ),
-                                                            const Icon(
-                                                              Icons
-                                                                  .flight_takeoff,
-                                                              size: 18,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            Container(
-                                                              width: 50,
-                                                              height: 2,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 10,
-                                                            ),
-                                                            const Icon(
-                                                              Icons.flight_land,
-                                                              size: 18,
-                                                            ),
-                                                          ],
-                                                        )),
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Container(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                bottom: 0),
-                                                        child: Column(
-                                                          children: [
-                                                            const SizedBox(
-                                                              height: 12,
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Text(
-                                                                  data[
-                                                                      'return_arrival'],
-                                                                  style: const TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          12),
-                                                                ),
-                                                                const SizedBox(
-                                                                  width: 5,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Container(
-                                                              padding: null,
-                                                              child: Text(
-                                                                '${data['airplane']} . ${data['date_arrival']}',
-                                                                style:
-                                                                    const TextStyle(
-                                                                        fontSize:
-                                                                            9),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        )),
-                                                  ],
-                                                )),
-                                          ],
-                                        ),
+                                      SizedBox(width: 10.w),
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            data['return'],
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize:
+                                                                    12.sp),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 5,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Text(
+                                                        '${data['place']} .${data['return_date']}',
+                                                        style: TextStyle(
+                                                            fontSize: 9.sp),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  SizedBox(width: 12.w),
+                                                  Icon(Icons.flight_takeoff,
+                                                      size: 18.sp),
+                                                  SizedBox(width: 10.w),
+                                                  Container(
+                                                    width: 50.w,
+                                                    height: 2.h,
+                                                    color: Colors.black,
+                                                  ),
+                                                  SizedBox(width: 10.w),
+                                                  Icon(Icons.flight_land,
+                                                      size: 18.sp),
+                                                ],
+                                              ),
+                                              SizedBox(width: 10.w),
+                                              Column(
+                                                children: [
+                                                  const SizedBox(height: 12),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        data['return_arrival'],
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 12.sp),
+                                                      ),
+                                                      SizedBox(width: 5.w),
+                                                    ],
+                                                  ),
+                                                  Text(
+                                                    '${data['airplane']} . ${data['date_arrival']}',
+                                                    style: TextStyle(
+                                                        fontSize: 9.sp),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
+                                  SizedBox(height: 30.h),
                                   Container(
-                                    padding: const EdgeInsets.only(left: 10),
+                                    padding: EdgeInsets.only(left: 10.w),
                                     child: Row(
                                       children: [
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
+                                        SizedBox(width: 10.w),
                                         Text(
                                           '${data['price'].toString()} PHP',
-                                          style: const TextStyle(
-                                              fontSize: 20,
+                                          style: TextStyle(
+                                              fontSize: 20.sp,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        const SizedBox(
-                                          width: 130,
-                                        ),
-                                        Container(
-                                            padding: null,
-                                            height: 30,
+                                        SizedBox(width: 100.w),
+                                        SizedBox(
+                                            height: 30.sp,
                                             child: ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                     side: const BorderSide(
@@ -469,17 +346,19 @@ class _BestState extends State<Best> {
                                                 onPressed: () {
                                                   AppRoutes
                                                       .navigateToBookingArea(
-                                                          id: widget.id,
+                                                          id: data['id'],
                                                           context);
                                                 },
-                                                child: const Text(
+                                                child: Text(
                                                   'Select',
                                                   style: TextStyle(
-                                                      color: Colors.black),
+                                                      color: Colors.black,
+                                                      fontSize: 16.sp),
                                                 )))
                                       ],
                                     ),
-                                  )
+                                  ),
+                                  SizedBox(height: 20.h)
                                 ],
                               )),
                         ],

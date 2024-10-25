@@ -4,7 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class Flightsbackend {
   final supabase = Supabase.instance.client;
 
-  Future<List<Map<String, dynamic>>> flightList() async {
+  Future<List<Map<String, dynamic>>> flightListCheapest() async {
     final response = await supabase
         .from('flightsList')
         .select('*')
@@ -204,9 +204,7 @@ class Flightsbackend {
   }
 
   Future<List<Map<String, dynamic>>> allFlights() async {
-    final response = await supabase
-        .from('flightsList')
-        .select('*');
+    final response = await supabase.from('flightsList').select('*');
     if (response.isEmpty) {
       return [];
     } else {
