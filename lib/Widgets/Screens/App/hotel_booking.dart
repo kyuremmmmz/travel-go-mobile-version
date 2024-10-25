@@ -104,7 +104,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     emailFetching();
     fetchInt(widget.id);
     fethHotel(widget.id);
-    fetchEwan(widget.id);
+    fetchLocated(widget.id);
   }
 
   Future<void> emailFetching() async {
@@ -201,7 +201,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     });
   }
 
-  Future<void> fetchEwan(
+  Future<void> fetchLocated(
     int id,
   ) async {
     final data = await booking.passTheHotelData(id);
@@ -242,47 +242,43 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     await showModalBottomSheet(
         context: context,
         builder: (context) {
-          return Container(
-            padding: null,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                const SizedBox(
-                  height: 30,
+          return SizedBox(
+              height: 500.h,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    SizedBox(height: 30.h),
+                    Text(
+                      'Payment Method',
+                      style: TextStyle(fontSize: 20.sp),
+                    ),
+                    SizedBox(height: 20.h),
+                    ListTile(
+                      leading: Icon(Icons.mobile_friendly_rounded, size: 20.sp),
+                      title:
+                          Text('Pay Online', style: TextStyle(fontSize: 16.sp)),
+                      onTap: () {
+                        setState(() {
+                          _paymentMethodController.text = "Pay Online";
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.share_arrival_time, size: 20.sp),
+                      title: Text('Pay Upon Arrival',
+                          style: TextStyle(fontSize: 16.sp)),
+                      onTap: () {
+                        setState(() {
+                          _paymentMethodController.text = "Pay Upon Arrival";
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: null,
-                  child: const Text(
-                    'Payment Method',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ListTile(
-                  leading: const Icon(Icons.mobile_friendly_rounded),
-                  title: const Text('Pay Online'),
-                  onTap: () {
-                    setState(() {
-                      _paymentMethodController.text = "Pay Online";
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.share_arrival_time),
-                  title: const Text('Pay Upon Arrival'),
-                  onTap: () {
-                    setState(() {
-                      _paymentMethodController.text = "Pay Upon Arrival";
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-              ],
-            ),
-          );
+              ));
         });
   }
 
@@ -290,81 +286,73 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     await showModalBottomSheet(
         context: context,
         builder: (context) {
-          return Container(
-            padding: null,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                const SizedBox(
-                  height: 30,
+          return SizedBox(
+              height: 500.h,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    SizedBox(height: 30.h),
+                    Text(
+                      'Room Type',
+                      style: TextStyle(fontSize: 20.sp),
+                    ),
+                    SizedBox(height: 20.h),
+                    ListTile(
+                      leading: Icon(FontAwesomeIcons.medal,
+                          size: 20.sp, color: Colors.amber),
+                      title: Text('Deluxe Suite',
+                          style: TextStyle(fontSize: 16.sp)),
+                      onTap: () {
+                        setState(() {
+                          _vehicleTypeController.text = "Deluxe Suite";
+                          fetchInt(widget.id);
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(FontAwesomeIcons.crown,
+                          size: 20.sp, color: Colors.amber),
+                      title: Text('Premiere Suite',
+                          style: TextStyle(fontSize: 16.sp)),
+                      onTap: () {
+                        setState(() {
+                          _vehicleTypeController.text = "Premiere Suite ";
+                          fetchInt(widget.id);
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(FontAwesomeIcons.gem,
+                          size: 20.sp, color: Colors.green),
+                      title: Text('Executive Suite',
+                          style: TextStyle(fontSize: 16.sp)),
+                      onTap: () {
+                        setState(() {
+                          _vehicleTypeController.text = "Executive Suite ";
+                          fetchInt(widget.id);
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(FontAwesomeIcons.diamond,
+                          size: 20.sp, color: Colors.blueAccent),
+                      title: Text('Presidential Suite',
+                          style: TextStyle(fontSize: 16.sp)),
+                      onTap: () {
+                        setState(() {
+                          _vehicleTypeController.text = "Presidential Suite";
+                          fetchInt(widget.id);
+                          Navigator.pop(context);
+                        });
+                      },
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: null,
-                  child: const Text(
-                    'Room Type',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ListTile(
-                  leading: const Icon(
-                    FontAwesomeIcons.medal,
-                    color: Colors.amber,
-                  ),
-                  title: const Text('Deluxe Suite'),
-                  onTap: () {
-                    setState(() {
-                      _vehicleTypeController.text = "Deluxe Suite";
-                      fetchInt(widget.id);
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-                ListTile(
-                  leading:
-                      const Icon(FontAwesomeIcons.crown, color: Colors.amber),
-                  title: const Text('Premiere Suite '),
-                  onTap: () {
-                    setState(() {
-                      _vehicleTypeController.text = "Premiere Suite ";
-                      fetchInt(widget.id);
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(
-                    FontAwesomeIcons.gem,
-                    color: Colors.green,
-                  ),
-                  title: const Text('Executive Suite '),
-                  onTap: () {
-                    setState(() {
-                      _vehicleTypeController.text = "Executive Suite ";
-                      fetchInt(widget.id);
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(
-                    FontAwesomeIcons.diamond,
-                    color: Colors.blueAccent,
-                  ),
-                  title: const Text('Presidential Suite'),
-                  onTap: () {
-                    setState(() {
-                      _vehicleTypeController.text = "Presidential Suite";
-                      fetchInt(widget.id);
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-              ],
-            ),
-          );
+              ));
         });
   }
 
