@@ -117,7 +117,7 @@ class _ExplorenowState extends State<Explorenow> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 25),
                                 child: Column(children: <Widget>[
-                                  const Categories(),
+                                  Categories(),
                                   // MEDYO MAGULO DITO NAK, CLICKING THE POPLUAR PLACES DITO FRONT-END
                                   SizedBox(height: 10.h),
                                   Container(

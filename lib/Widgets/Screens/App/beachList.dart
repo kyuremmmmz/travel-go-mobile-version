@@ -110,7 +110,7 @@ class _BeachesState extends State<Beaches> {
                             child: SingleChildScrollView(
                                 padding: EdgeInsets.symmetric(horizontal: 25.w),
                                 child: Column(children: <Widget>[
-                                  const Categories(),
+                                  Categories(category: 'beach',),
                                   SizedBox(height: 20.h),
                                   Container(
                                     padding: EdgeInsets.only(

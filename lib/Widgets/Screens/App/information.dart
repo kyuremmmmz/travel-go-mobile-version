@@ -348,7 +348,7 @@ class _InformationScreenState extends State<InformationScreen> {
                                     Container(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 25),
-                                      child: const Categories(),
+                                      child: Categories(),
                                     ),
                                     Column(
                                       children: [

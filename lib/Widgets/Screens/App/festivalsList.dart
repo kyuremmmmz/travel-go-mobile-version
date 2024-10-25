@@ -103,7 +103,7 @@ class _FestivalState extends State<Festival> {
                             child: SingleChildScrollView(
                                 padding: EdgeInsets.symmetric(horizontal: 25.h),
                                 child: Column(children: <Widget>[
-                                  const Categories(),
+                                  Categories(category: 'festival',),
                                   SizedBox(height: 20.h),
                                   Container(
                                     padding: EdgeInsets.only(
