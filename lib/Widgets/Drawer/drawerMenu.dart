@@ -74,11 +74,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-<<<<<<< HEAD
                     radius: 40.sp,
-=======
-                    radius: 50,
->>>>>>> e46e9351476bb326be13f4b6e6a6b2f4067a0107
                     backgroundImage: img == null
                         ? const AssetImage('assets/images/icon/user.png')
                         : NetworkImage('$img'),
