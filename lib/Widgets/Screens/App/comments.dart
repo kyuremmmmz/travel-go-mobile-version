@@ -328,9 +328,8 @@ class _CommentsState extends State<Comments> {
                             children: [
                               SizedBox(width: 20.w),
                               CircleAvatar(
-                                  backgroundImage: NetworkImage(imgUrl == "null"
-                                      ? avatarDefaultIcon
-                                      : imgUrl),
+                                  backgroundImage: imgUrl == "null" ? AssetImage(avatarDefaultIcon) : NetworkImage(
+                                      imgUrl),
                                   radius: 20.sp),
                               SizedBox(width: 10.w),
                               Column(
