@@ -1,3 +1,4 @@
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
@@ -6,6 +7,7 @@ import 'package:TravelGo/Controllers/mail/Mailer.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/TextWidgets/rowDetails.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main(phone) async {
@@ -24,9 +26,7 @@ class OrderReceipt extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Order Receipt'
-        ),
+        title: const Text('Order Receipt'),
       ),
       endDrawer: const DrawerMenuWidget(),
       body: OrderReceiptScreen(bookingId: bookingId),
@@ -47,6 +47,7 @@ class OrderReceiptScreen extends StatefulWidget {
 
 class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   final String xButtonIcon = "assets/images/icon/ButtonX.png";
+  final String logoIcon = "assets/images/icon/newlogo-crop.png";
   final String receiptBackground = "assets/images/backgrounds/Receipt.png";
   var email;
   String? paid_via;
@@ -117,7 +118,8 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
         if (mounted) {
           final data = response;
           setState(() {
-            amount = data['payment'] != null ? data['payment'].toString() : 'N/A';
+            amount =
+                data['payment'] != null ? data['payment'].toString() : 'N/A';
             phone = data['phone'] ?? 'Unknown';
             ref = data['reference_number'] ?? 'N/A';
             paid_via = data['pay_via'] ?? 'Unknown';
@@ -143,17 +145,15 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
             child: Column(
               children: <Widget>[
                 const TitleMenu(),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 Expanded(
                   child: Scrollbar(
                     thumbVisibility: true,
                     child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
                       child: Column(
                         children: <Widget>[
                           Container(
-                            height: 600,
-                            width: 320,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: Image.asset(receiptBackground).image,
@@ -171,67 +171,64 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Text(
+                                        Text(
                                           'Booking Confirmed!',
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
-                                            fontSize: 15,
+                                            fontSize: 15.sp,
                                             fontWeight: FontWeight.bold,
-                                            color:
-                                                Color.fromRGBO(0, 107, 146, 1),
+                                            color: const Color.fromRGBO(
+                                                0, 107, 146, 1),
                                           ),
                                         ),
                                         Text(
                                           '$date',
                                           textAlign: TextAlign.left,
-                                          style: const TextStyle(
-                                            fontSize: 10,
+                                          style: TextStyle(
+                                            fontSize: 10.sp,
                                           ),
                                         ),
                                       ],
                                     ),
                                     IconButton(
-                                      alignment: Alignment.topRight,
-                                      iconSize: 20,
-                                      icon: SizedBox(
-                                        height: 20,
-                                        width: 20,
-                                        child: Image.asset(xButtonIcon),
-                                      ),
-                                      onPressed: () =>
-                                          print(''), // Add route later
-                                    ),
+                                        alignment: Alignment.topRight,
+                                        iconSize: 20.sp,
+                                        icon: SizedBox(
+                                          height: 20.sp,
+                                          width: 20.sp,
+                                          child: Image.asset(xButtonIcon),
+                                        ),
+                                        onPressed: () => {
+                                              Navigator.pop(context),
+                                              AppRoutes.navigateToMainMenu(
+                                                  context)
+                                            }),
                                   ],
                                 ),
-                                const SizedBox(height: 40),
-                                const Text(
-                                  'Thank You for Your Booking!',
+                                SizedBox(height: 30.h),
+                                Text(
+                                  'Thank You for Booking!',
                                   style: TextStyle(
-                                    color: Color.fromRGBO(8, 44, 72, 1),
-                                    fontSize: 16,
+                                    color: const Color.fromRGBO(8, 44, 72, 1),
+                                    fontSize: 20.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const SizedBox(height: 10),
                                 SizedBox(
-                                  height: 40,
-                                  width: 40,
-                                  child: Image.asset(xButtonIcon),
+                                  width: 150.sp,
+                                  child: Image.asset(logoIcon),
                                 ),
-                                const SizedBox(height: 40),
+                                SizedBox(height: 10.h),
                                 Container(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  height: 150,
-                                  width: 250,
+                                  width: 260.sp,
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(color: Colors.black)),
                                   child: Column(
                                     children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(
-                                            right: 10, left: 10),
+                                      Padding(
+                                        padding: EdgeInsets.all(10.sp),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -240,28 +237,28 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                               'BILLER',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 13,
+                                                fontSize: 13.sp,
                                               ),
                                             ),
                                             Text(
                                               'Travel Go',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 13,
-                                                color: Color.fromRGBO(
+                                                fontSize: 13.sp,
+                                                color: const Color.fromRGBO(
                                                     5, 103, 180, 1),
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                      const Divider(
-                                        height: 10,
+                                      Divider(
+                                        height: 1.h,
                                         color: Colors.black,
                                         thickness: 1,
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.all(10),
+                                        padding: EdgeInsets.all(10.sp),
                                         child: Column(
                                           children: [
                                             RowDetails(
@@ -280,17 +277,17 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                               row1: 'AMOUNT',
                                               row2: amount,
                                             ),
+                                            SizedBox(height: 5.h)
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(height: 10),
+                                SizedBox(height: 10.h),
                                 Container(
-                                  padding: const EdgeInsets.all(10),
-                                  height: 100,
-                                  width: 250,
+                                  padding: EdgeInsets.all(10.sp),
+                                  width: 260.sp,
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(20),
@@ -308,19 +305,19 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'TOTAL AMOUNT: $amount',
-                                                style: const TextStyle(
+                                                'TOTAL AMOUNT:',
+                                                style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 10,
+                                                  fontSize: 10.sp,
                                                 ),
                                               ),
                                               Text(
                                                 'Paid using $paid_via',
                                                 textAlign: TextAlign.start,
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 6,
-                                                  color: Color.fromRGBO(
+                                                  fontSize: 6.sp,
+                                                  color: const Color.fromRGBO(
                                                       5, 103, 180, 1),
                                                 ),
                                               ),
@@ -328,29 +325,31 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                           ),
                                           Text(
                                             'PHP $amount',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 10,
-                                              color: Color.fromRGBO(
+                                              fontSize: 12.sp,
+                                              color: const Color.fromRGBO(
                                                   5, 103, 180, 1),
                                             ),
                                           )
                                         ],
                                       ),
+                                      SizedBox(height: 5.h),
                                       RowDetails(
                                           row1: 'Date paid', row2: '$date'),
+                                      SizedBox(height: 5.h),
                                       RowDetails(
                                           row1: 'Reference no.', row2: ref),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(height: 20),
+                                SizedBox(height: 20.h),
                                 BlueButtonWithoutFunction(
-                                  text: const Text(
+                                  text: Text(
                                     'Email My Receipt',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 15,
+                                      fontSize: 15.sp,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -362,6 +361,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                     main();
                                   },
                                 ),
+                                SizedBox(height: 20.h)
                               ],
                             ),
                           ),
