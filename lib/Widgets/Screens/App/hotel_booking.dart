@@ -224,7 +224,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   }
 
   Future<void> checkout() async {
-    final checkIndate = DateTime.now();
+    print(_checkInController.text);
+    final checkIndate = DateTime.parse(_checkInController.text);
     final picked = await showDatePicker(
         // ignore: use_build_context_synchronously
         context: context,

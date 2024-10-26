@@ -1043,7 +1043,7 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
                                             Responsive().screenWidth(context),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             RichText(
                                                 text: TextSpan(children: [
