@@ -5,16 +5,16 @@ import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Comments extends StatefulWidget {
+class HotelComments extends StatefulWidget {
   final int text;
 
-  const Comments({super.key, required this.text});
+  const HotelComments({super.key, required this.text});
 
   @override
-  State<Comments> createState() => _CommentsState();
+  State<HotelComments> createState() => _HotelCommentsState();
 }
 
-class _CommentsState extends State<Comments> {
+class _HotelCommentsState extends State<HotelComments> {
   final _commentController = TextEditingController();
   late RatingsAndComments rating = RatingsAndComments();
   int totalRatings = 0;
@@ -57,12 +57,12 @@ class _CommentsState extends State<Comments> {
 
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "places", '$text', widget.text, '$email', '$imgUrl');
+        commentType = "hotel", '$text', widget.text, '$email', '$imgUrl');
   }
 
   Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
     try {
-      final data = await rating.fetchComments(widget.text, 'places');
+      final data = await rating.fetchComments(widget.text, 'hotel');
       final totalRatings = await rating.fetchRatingsAsSum();
       final img = await users.fetchUser();
       final images = img[0]['full_name'];
@@ -328,11 +328,11 @@ class _CommentsState extends State<Comments> {
                             children: [
                               SizedBox(width: 20.w),
                               CircleAvatar(
-                                  backgroundImage: imgUrl == "null" 
-                                  || imgUrl.contains('null') 
-                                  || imgUrl.isEmpty
-                                  ? AssetImage(avatarDefaultIcon) 
-                                  : NetworkImage(imgUrl),
+                                  backgroundImage: imgUrl == "null" ||
+                                          imgUrl.contains('null') ||
+                                          imgUrl.isEmpty
+                                      ? AssetImage(avatarDefaultIcon)
+                                      : NetworkImage(imgUrl),
                                   radius: 20.sp),
                               SizedBox(width: 10.w),
                               Column(
