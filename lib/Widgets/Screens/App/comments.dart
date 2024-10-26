@@ -329,6 +329,8 @@ class _CommentsState extends State<Comments> {
                               SizedBox(width: 20.w),
                               CircleAvatar(
                                   backgroundImage: imgUrl == "null" 
+                                  && imgUrl.contains('null') 
+                                  && imgUrl.isEmpty
                                   ? AssetImage(avatarDefaultIcon) 
                                   : NetworkImage(imgUrl),
                                   radius: 20.sp),
