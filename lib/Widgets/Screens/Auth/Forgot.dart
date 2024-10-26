@@ -40,7 +40,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       style: TextStyle(
                           fontSize: 36.sp,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                          color: const Color(0xFF2D3F4E),),
                     ),
                   ),
                   SizedBox(

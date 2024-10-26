@@ -93,12 +93,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         children: <Widget>[
           Positioned(
             top: 0.h,
-            right: 0,
-            left: 0,
+            right: -30,
+            left: -30,
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
-                  'assets/images/icon/newlogo.png',
+                  'assets/images/icon/newlogo2.png',
                   fit: BoxFit.cover,
                   height: 300.h,
                   width: 200.w,
@@ -107,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ]),
           ),
           Positioned(
-            bottom: -270.h,
+            top: 420.h,
             right: 0,
             left: 0,
             height: MediaQuery.of(context).size.height,
@@ -124,7 +124,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(right: 80.w),
+                      padding: EdgeInsets.only(right: 100.w),
                       child: Text(
                         'Create Account',
                         style: TextStyle(
@@ -135,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     Container(
-                        padding: EdgeInsets.only(right: 150.w),
+                        padding: EdgeInsets.only(right: 170.w, bottom: 20.w),
                         child: const Text(
                           'Please Sign Up to continue.',
                           style: TextStyle(
