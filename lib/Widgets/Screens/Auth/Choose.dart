@@ -48,7 +48,7 @@ class _WelcomePageState extends State<WelcomePage> {
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
-                  'assets/images/icon/newlogo.png',
+                  'assets/images/icon/newlogo2.png',
                   fit: BoxFit.cover,
                   height: 200.h,
                   width: 200.w,
@@ -60,7 +60,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 right: -30,
                 left: -30, // Change as needed
                 child: Image.asset(
-                  'assets/images/icon/airplanelogo.png', // Replace with your image path
+                  'assets/images/icon/airplanelogo2.png', // Replace with your image path
                   height: 450.h, // Adjust the size
                   width: 350.w, // Adjust the size
                 ),

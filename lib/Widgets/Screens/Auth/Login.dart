@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
-                  'assets/images/icon/newlogo.png',
+                  'assets/images/icon/newlogo2.png',
                   fit: BoxFit.cover,
                   height: 200.h,
                   width: 200.w,
@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 right: 0,
                 left: 0, // Change as needed
                 child: Image.asset(
-                  'assets/images/icon/airplanelogo.png', // Replace with your image path
+                  'assets/images/icon/airplanelogo2.png', // Replace with your image path
                 ),
               ),
               SizedBox(
@@ -127,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             )),
                         Container(
+                          padding: EdgeInsets.only(top: 0.w, left: 5, right: 5),
                           width: MediaQuery.of(context).size.width - 30.w,
                           child: plainTextField(
                             controller: _emailController,
@@ -141,11 +142,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 10
-                              .h, // Space between the email and password fields
+                          height: 5.h, // Space between the email and password fields
                         ),
-                        SizedBox(
+                        Container(
                           width: MediaQuery.of(context).size.width - 30.w,
+                          padding: EdgeInsets.only(top: 0.0, left: 5.0, right: 5.0), // Customize padding as needed
                           child: passwordTextField(
                             controller: _passwordController,
                             validator: (value) {
@@ -154,10 +155,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                               return null;
                             },
-                            text:
-                                'Password', // Placeholder text for the password field
-                            password:
-                                _passwordController, // Controller for the password field
+                            text: 'Password', // Placeholder text for the password field
+                            password: _passwordController, // Controller for the password field
                           ),
                         ),
                         Container(

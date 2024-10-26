@@ -28,7 +28,7 @@ class _TitleMenuState extends State<TitleMenu> {
         children: [
           Align(
             child: Image.asset(
-              'assets/images/icon/newlogo.png',
+              'assets/images/icon/newlogo2.png',
               fit: BoxFit.cover,
               height: 80.w, // height with screenutil width to avoid stretch
               width: 200.w,

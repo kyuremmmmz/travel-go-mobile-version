@@ -73,7 +73,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
-                  'assets/images/icon/newlogo.png',
+                  'assets/images/icon/newlogo2.png',
                   fit: BoxFit.cover,
                   height: 200.h,
                   width: 200.w,
@@ -85,7 +85,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                 right: -30,
                 left: -30, // Change as needed
                 child: Image.asset(
-                  'assets/images/icon/pogi.png', // Replace with your image path
+                  'assets/images/icon/pogi2.png', // Replace with your image path
                   height: 450.h, // Adjust the size
                   width: 350.w, // Adjust the size
                 ),
@@ -129,14 +129,14 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                             fontWeight: FontWeight.w900,
                           ),
                         ),
-                        SizedBox(height: 5), // Add some space between the title and the message
+                        SizedBox(height: 5.h), // Add some space between the title and the message
                         Padding(
-                          padding: EdgeInsets.only(bottom: 20, top: 5.h), // Adjust vertical padding as needed
+                          padding: EdgeInsets.only(bottom: 20, top: 0.h), // Adjust vertical padding as needed
                           child: Text(
                             'Welcome! Let’s get your profile set up so you can make the most of your experience.',
                             style: TextStyle(
                               color: const Color(0xFF3564C0), // Adjust color as needed
-                              fontSize: 12.sp, // Adjust font size as necessary
+                              fontSize: 11.sp, // Adjust font size as necessary
                               fontWeight: FontWeight.w400, // Change weight if desired
                             ),
                           ),
@@ -146,7 +146,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                   ),
                     Container(
                       width: MediaQuery.of(context).size.width - 30.w,
-                      padding: EdgeInsets.only(top: 0.w),
+                      padding: EdgeInsets.only(top: 0.w, left: 5, right: 5),
                       child: TextFormField(
                         controller: _nameController,
                         validator: (value) {
@@ -184,7 +184,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                     Container(
                       width: MediaQuery.of(context).size.width -
                           30.w, // full name line area
-                      padding: EdgeInsets.only(top: 0.w),
+                      padding: EdgeInsets.only(top: 0.w, left: 5, right: 5),
                       child: plainTextField(
                         controller: _userNameController,
                         validator: (value) {
@@ -203,42 +203,43 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width -
-                          30.w, // password line area
-                      child: TextFormField(
-                        controller: _phoneController,
-                        validator: (value) {
-                          if (value == null || value.toString().isEmpty) {
-                            return 'Phone Number is required';
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
+                    Container(
+                        padding: EdgeInsets.only(top: 0.0, left: 5.0, right: 5.0), // Customize padding as needed
+                        width: MediaQuery.of(context).size.width - 30.w, // password line area
+                        child: TextFormField(
+                          controller: _phoneController,
+                          validator: (value) {
+                            if (value == null || value.toString().isEmpty) {
+                              return 'Phone Number is required';
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
                             labelText: 'Phone Number',
                             alignLabelWithHint: true,
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 5.0),
-                            labelStyle:
-                                TextStyle(fontSize: 15, color: Colors.black),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 5.0),
+                            labelStyle: TextStyle(fontSize: 15, color: Colors.black),
                             border: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black)),
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
                             focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Colors.black,
-                            ))),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Color.fromARGB(255, 0, 0, 0),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                          keyboardType: TextInputType.phone,
                         ),
-                        keyboardType: TextInputType.phone,
                       ),
-                    ),
-                    SizedBox(
-                      height: 50.h,
-                    ),
+                      SizedBox(
+                        height: 50.h,
+                      ),
                     Container(
-                        padding: null,
+                        padding: EdgeInsets.only(top: 0.w, left: 5, right: 5), //container of Next button to 
                         width: MediaQuery.of(context).size.width - 100.w,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
