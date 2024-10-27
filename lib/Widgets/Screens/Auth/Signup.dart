@@ -107,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ]),
           ),
           Positioned(
-            top: 420.h,
+            top: 220.h,
             right: 0,
             left: 0,
             height: MediaQuery.of(context).size.height,
@@ -143,6 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         )),
                     SizedBox(
+                      height: 70,
                       width: MediaQuery.of(context).size.width - 30.w,
                       child: TextFormField(
                         controller: _emailController,
@@ -177,6 +178,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     SizedBox(
+                      height: 70,
                       width: MediaQuery.of(context).size.width -
                           30.w, // password line area
                       child: passwordTextField(

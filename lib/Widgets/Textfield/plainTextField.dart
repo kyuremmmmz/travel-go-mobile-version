@@ -28,6 +28,9 @@ class _numberTextFieldState extends State<plainTextField> {
       validator: widget.validator,
       decoration: InputDecoration(
           labelText: widget.text,
+          floatingLabelStyle: TextStyle(
+            color: widget.colorr,
+          ),
           alignLabelWithHint: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
           labelStyle: const TextStyle(fontSize: 15, color: Colors.black),
@@ -38,7 +41,7 @@ class _numberTextFieldState extends State<plainTextField> {
             color: Colors.black,
           ))),
       style: TextStyle(
-        fontSize: 12,
+        fontSize: 16,
         color: widget.colorr,
       ),
       keyboardType: TextInputType.emailAddress,
