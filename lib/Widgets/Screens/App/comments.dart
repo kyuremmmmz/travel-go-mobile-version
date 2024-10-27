@@ -83,7 +83,7 @@ class _CommentsState extends State<Comments> {
 
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "places", '$text', widget.text, '$email', '$imgUrl');
+        commentType = 'places', '$text', widget.text, '$email', '$imgUrl');
   }
 
   Future<void> fetchSpecificData(int name) async {
@@ -248,6 +248,7 @@ class _CommentsState extends State<Comments> {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       padding: EdgeInsets.only(left: 20.w, top: 15.h),
@@ -260,9 +261,8 @@ class _CommentsState extends State<Comments> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 60.w),
                     Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 15.h),
+                      padding: EdgeInsets.only(right: 20.w, top: 15.h),
                       child: GestureDetector(
                         onTap: () {
                           showAdaptiveDialog(
@@ -395,8 +395,10 @@ class _CommentsState extends State<Comments> {
                         },
                         child: Text(
                           'Write a comment',
-                          style:
-                              TextStyle(fontSize: 13.sp, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 13.sp,
+                              decoration: TextDecoration.underline,
+                              color: Colors.black),
                         ),
                       ),
                     ),

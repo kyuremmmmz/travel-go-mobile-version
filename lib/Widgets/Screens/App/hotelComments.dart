@@ -53,7 +53,7 @@ class _HotelCommentsState extends State<HotelComments> {
   final supabase = Supabase.instance.client;
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "hotel", '$text', widget.text, '$email', '$imgUrl');
+        commentType = 'hotel', '$text', widget.text, '$email', '$imgUrl');
   }
 
   Future<void> fetchWithoutFunct() async {
@@ -80,7 +80,6 @@ class _HotelCommentsState extends State<HotelComments> {
       await fetchRatings(comment);
     });
   }
-
 
   Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
     try {
@@ -204,8 +203,6 @@ class _HotelCommentsState extends State<HotelComments> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -267,6 +264,7 @@ class _HotelCommentsState extends State<HotelComments> {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       padding: EdgeInsets.only(left: 20.w, top: 15.h),
@@ -279,9 +277,8 @@ class _HotelCommentsState extends State<HotelComments> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 60.w),
                     Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 15.h),
+                      padding: EdgeInsets.only(right: 20.w, top: 15.h),
                       child: GestureDetector(
                         onTap: () {
                           showAdaptiveDialog(
@@ -414,8 +411,10 @@ class _HotelCommentsState extends State<HotelComments> {
                         },
                         child: Text(
                           'Write a comment',
-                          style:
-                              TextStyle(fontSize: 13.sp, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 13.sp,
+                              decoration: TextDecoration.underline,
+                              color: Colors.black),
                         ),
                       ),
                     ),
