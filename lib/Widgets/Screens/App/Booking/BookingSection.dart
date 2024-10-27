@@ -216,8 +216,8 @@ class _BookingSectionState extends State<BookingSection> {
                                     const SizedBox(height: 30),
                                     Text(
                                       '${item['hotel']}',
-                                      style: const TextStyle(
-                                        fontSize: 20,
+                                      style: TextStyle(
+                                        fontSize: ((100*5.3) / item['hotel'].length).sp,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
