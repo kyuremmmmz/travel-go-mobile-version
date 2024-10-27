@@ -63,9 +63,9 @@ class _InformationScreenState extends State<InformationScreen> {
     _isRedirecting = true;
   }
 
-  Future<void> fetchSpecificData(int name) async {
+  Future<void> fetchSpecificData(int id) async {
     try {
-      final dataList = await data.fetchSpecificDataInSingle(name);
+      final dataList = await data.fetchSpecificDataInSingle(id);
 
       if (dataList == null) {
         setState(() {
@@ -219,10 +219,11 @@ class _InformationScreenState extends State<InformationScreen> {
                                             color: Colors.red, size: 20.sp),
                                         GestureDetector(
                                             onTap: () {
-                                              AppRoutes.navigateToExploreMaPage(
-                                                  context,
-                                                  name: '$located',
-                                                  id: widget.text);
+                                              AppRoutes
+                                                  .navigateToExploreMapPage(
+                                                      context,
+                                                      name: '$located',
+                                                      id: widget.text);
                                             },
                                             child: Row(
                                               crossAxisAlignment:

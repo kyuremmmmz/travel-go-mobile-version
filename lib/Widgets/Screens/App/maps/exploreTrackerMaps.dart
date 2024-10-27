@@ -30,16 +30,16 @@ class ExploreMap extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Map'),
       ),
-      body: ExploreMaPage(location: location, id: id),
+      body: ExploreMapPage(location: location, id: id),
     );
   }
 }
 
-class ExploreMaPage extends StatefulWidget {
+class ExploreMapPage extends StatefulWidget {
   final String? location;
   final int id;
   final String? price;
-  const ExploreMaPage({
+  const ExploreMapPage({
     super.key,
     required this.location,
     required this.id,
@@ -47,10 +47,10 @@ class ExploreMaPage extends StatefulWidget {
   });
 
   @override
-  State<ExploreMaPage> createState() => _ExploreMaPageState();
+  State<ExploreMapPage> createState() => _ExploreMapPageState();
 }
 
-class _ExploreMaPageState extends State<ExploreMaPage> {
+class _ExploreMapPageState extends State<ExploreMapPage> {
   final start = TextEditingController();
   final end = TextEditingController();
   List<LatLng> routePoints = [const LatLng(15.91667, 120.33333)];
@@ -102,6 +102,27 @@ class _ExploreMaPageState extends State<ExploreMaPage> {
     } catch (e) {
       print('Exception occurred: $e');
     }
+  }
+
+  Future<void> places(int id) async {
+    final data = await images.fetchSpecificDataInSingle(id);
+    setState(() {
+      placeName = data?['place_name'];
+      price = data?['price'];
+      located = data?['locatedIn'];
+      id = data?['id'];
+      for (var i = 1; i <= 20; i++) {
+        final key = 'amenity$i';
+        final keyUrl = 'amenity${i}Url';
+        final value = data?[key];
+        final imageUrlValue = data?[keyUrl];
+        if (value != null) {
+          amenities[key] = value;
+          imageUrlForAmenities[key] = imageUrlValue;
+          print(imageUrlForAmenities);
+        }
+      }
+    });
   }
 
   Future<void> getMarkers() async {
@@ -184,6 +205,7 @@ class _ExploreMaPageState extends State<ExploreMaPage> {
   void initState() {
     super.initState();
     getMarkers();
+    places(widget.id);
   }
 
   Future<void> detailsModal(BuildContext context) async {

@@ -74,7 +74,8 @@ class AppRoutes {
   }
 
   static void nagigateToFlightScreen(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const Allflights()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Allflights()));
   }
 
   static void navigateToLinkedBankAccount(BuildContext route,
@@ -122,12 +123,12 @@ class AppRoutes {
             builder: (context) => HotelMapPage(location: name, id: id)));
   }
 
-  static void navigateToExploreMaPage(BuildContext route,
+  static void navigateToExploreMapPage(BuildContext route,
       {required String name, required int id}) {
     Navigator.push(
         route,
         MaterialPageRoute(
-            builder: (context) => ExploreMaPage(location: name, id: id)));
+            builder: (context) => ExploreMapPage(location: name, id: id)));
   }
 
   static void navigateToTesting(BuildContext route,
