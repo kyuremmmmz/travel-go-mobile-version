@@ -166,6 +166,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 40.h,
         leading: Builder(
@@ -190,7 +191,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   child: Scrollbar(
                     thumbVisibility: true,
                     child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(horizontal: 25.h),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: Column(
                         children: <Widget>[
                           const DismissableFindMoreLocation(),

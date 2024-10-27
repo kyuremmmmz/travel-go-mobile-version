@@ -28,10 +28,9 @@ class _TitleMenuState extends State<TitleMenu> {
         children: [
           Align(
             child: Image.asset(
-              'assets/images/icon/newlogo2.png',
+              'assets/images/icon/newlogo-crop.png',
               fit: BoxFit.cover,
-              height: 80.w, // height with screenutil width to avoid stretch
-              width: 200.w,
+              height: 80.sp, // height with screenutil width to avoid stretch
             ),
           ),
           Row(
@@ -45,7 +44,6 @@ class _TitleMenuState extends State<TitleMenu> {
                     width: 12.sp,
                     height: 12.sp,
                   ),
-                  SizedBox(height: 10.h), // the bottom padding for image
                 ],
               ),
               SizedBox(width: 5.w), // Space between image and text
@@ -56,11 +54,11 @@ class _TitleMenuState extends State<TitleMenu> {
                     "Northwestern part of Luzon Island, Philippines",
                     style: TextStyle(fontSize: 11.sp),
                   ),
-                  SizedBox(height: 10.h), // bottom padding for text
                 ],
               ),
             ],
           ),
+          SizedBox(height: 10.h) // the bottom padding for image & text
         ],
       ),
     );
