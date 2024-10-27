@@ -45,7 +45,8 @@ class HotelMapPage extends StatefulWidget {
   const HotelMapPage({
     super.key,
     required this.location,
-    required this.id, this.price,
+    required this.id,
+    this.price,
   });
 
   @override
