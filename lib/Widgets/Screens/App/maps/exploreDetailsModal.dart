@@ -65,21 +65,20 @@ class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
         thumbVisibility: true,
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(left: 10.w, right: 10.w),
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: Column(
               children: [
                 Text(
                   'Place Details',
                   style: TextStyle(fontSize: 20.sp),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
+                SizedBox(height: 10.h),
                 Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Text(
                     placeName ?? 'No data available',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 25.sp,

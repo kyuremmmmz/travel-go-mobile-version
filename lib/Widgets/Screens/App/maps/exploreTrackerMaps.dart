@@ -238,18 +238,22 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
               const TitleMenu(),
               SizedBox(height: 10.h),
               Container(
-                padding: EdgeInsets.only(right: 250.w),
-                child: Text(
-                  'Location Guide:',
-                  textAlign: TextAlign.left,
-                  style:
-                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Text(
-                '$located',
-                style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
-              ),
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 20.w),
+                  child: Text(
+                    'Location Guide:',
+                    textAlign: TextAlign.left,
+                    style:
+                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                  )),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  child: Text(
+                    '$located',
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                  )),
               SizedBox(
                 height: 500.h,
                 // width: 400.w,

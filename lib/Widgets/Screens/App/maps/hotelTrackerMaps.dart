@@ -645,18 +645,22 @@ class _HotelMapPageState extends State<HotelMapPage> {
               const TitleMenu(),
               const SizedBox(height: 30),
               Container(
-                padding: EdgeInsets.only(right: 250.w, bottom: 5.h),
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.only(left: 20.w),
                 child: const Text(
                   'Location Guide:',
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               ),
-              Text(
-                '$located',
-                style:
-                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  child: Text(
+                    '$located',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
+                  )),
               SizedBox(
                 height: 500,
                 width: 400,
