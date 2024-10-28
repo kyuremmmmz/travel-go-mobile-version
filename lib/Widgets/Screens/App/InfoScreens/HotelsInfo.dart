@@ -589,17 +589,10 @@ class _HotelsInfoState extends State<HotelsInfo> {
                                               }).toList(),
                                             ),
                                     ),
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
+                                    SizedBox(height: 20.h),
                                     Container(
-                                        padding: EdgeInsets.only(
-                                            left: Responsive()
-                                                .placeBookingPadding(),
-                                            right: Responsive()
-                                                .placeBookingPadding()),
-                                        width:
-                                            Responsive().screenWidth(context),
+                                        padding:
+                                            Responsive().horizontalPadding(),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -622,38 +615,32 @@ class _HotelsInfoState extends State<HotelsInfo> {
                                                       fontSize: Responsive()
                                                           .aboutFontSize()))
                                             ])),
-                                            Container(
-                                              width: Responsive().buttonWidth(),
-                                              padding:
-                                                  EdgeInsets.only(left: 50.w),
-                                              child: BlueButtonWithoutFunction(
-                                                  text: Text(
-                                                    'Place Booking',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: Responsive()
-                                                            .aboutFontSize(),
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    backgroundColor:
-                                                        Colors.blue,
-                                                  ),
-                                                  oppressed: () {
-                                                    HotelBooking()
-                                                        .passTheHotelData(
-                                                            widget.text);
-                                                    AppRoutes
-                                                        .navigateToHotelBookingScreen(
-                                                            context,
-                                                            id: widget.text,
-                                                            price: price);
-                                                  }),
-                                            )
+                                            BlueButtonWithoutFunction(
+                                                text: Text(
+                                                  'Place Booking',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: Responsive()
+                                                          .aboutFontSize(),
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.blue,
+                                                ),
+                                                oppressed: () {
+                                                  HotelBooking()
+                                                      .passTheHotelData(
+                                                          widget.text);
+                                                  AppRoutes
+                                                      .navigateToHotelBookingScreen(
+                                                          context,
+                                                          id: widget.text,
+                                                          price: price);
+                                                })
                                           ],
                                         )),
+                                    SizedBox(height: 10.h),
                                   ],
                                 ),
                               ]),

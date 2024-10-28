@@ -39,10 +39,6 @@ class Responsive {
     return MediaQuery.of(context).size.width - 295;
   }
 
-  double buttonWidth() {
-    return 200.w;
-  }
-
   double highlightsPlacement() {
     return 165.w;
   }

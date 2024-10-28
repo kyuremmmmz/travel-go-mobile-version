@@ -284,53 +284,55 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                   SizedBox(height: 10.h),
                                   Comments(text: widget.text),
                                   SizedBox(height: 20.h),
-                                  Row(
-                                    children: [
-                                      SizedBox(width: 25.w),
-                                      RichText(
-                                          text: TextSpan(children: [
-                                        TextSpan(
-                                            text:
-                                                'PHP ${price.toString()} - 6,000',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: Responsive()
-                                                    .headerFontSize(),
-                                                fontWeight: FontWeight.bold)),
-                                        TextSpan(
-                                            text: '\nEstimated Expenses',
-                                            style: TextStyle(
-                                                color: Colors.blue,
-                                                fontSize: Responsive()
-                                                    .aboutFontSize()))
-                                      ])),
-                                      Container(
-                                        width: Responsive().buttonWidth(),
-                                        padding: EdgeInsets.only(left: 50.w),
-                                        child: BlueButtonWithoutFunction(
-                                            text: Text(
-                                              'See Tickets',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: Responsive()
-                                                      .aboutFontSize(),
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.blue,
-                                            ),
-                                            oppressed: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Flight(
-                                                            id: widget.text,
-                                                          )));
-                                            }),
-                                      )
-                                    ],
-                                  )
+                                  Container(
+                                      padding: Responsive().horizontalPadding(),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          RichText(
+                                              text: TextSpan(children: [
+                                            TextSpan(
+                                                text:
+                                                    'PHP ${price.toString()} - 6,000',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: Responsive()
+                                                        .headerFontSize(),
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            TextSpan(
+                                                text: '\nEstimated Expenses',
+                                                style: TextStyle(
+                                                    color: Colors.blue,
+                                                    fontSize: Responsive()
+                                                        .aboutFontSize()))
+                                          ])),
+                                          BlueButtonWithoutFunction(
+                                              text: Text(
+                                                'See Tickets',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: Responsive()
+                                                        .aboutFontSize(),
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.blue,
+                                              ),
+                                              oppressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Flight(
+                                                              id: widget.text,
+                                                            )));
+                                              })
+                                        ],
+                                      )),
+                                  SizedBox(height: 10.h),
                                 ],
                               ),
                             ),
