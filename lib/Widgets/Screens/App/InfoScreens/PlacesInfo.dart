@@ -280,7 +280,9 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                               fontSize: 15.sp,
                                             ))
                                       ]))),
-                                  Categories(),
+                                  Container(
+                                      padding: Responsive().horizontalPadding(),
+                                      child: Categories()),
                                   SizedBox(height: 10.h),
                                   Comments(text: widget.text),
                                   SizedBox(height: 20.h),
