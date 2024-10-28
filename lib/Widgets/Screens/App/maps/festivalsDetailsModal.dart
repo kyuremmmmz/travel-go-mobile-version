@@ -1,35 +1,38 @@
-import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
+import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BeachDetailsModal extends StatefulWidget {
+class FestivalsDetailsModal extends StatefulWidget {
   final int id;
   final String? price;
-  const BeachDetailsModal({super.key, required this.id, this.price});
+  const FestivalsDetailsModal({super.key, required this.id, this.price});
 
   @override
-  State<BeachDetailsModal> createState() => _BeachDetailsModalState();
+  State<FestivalsDetailsModal> createState() => _FestivalsDetailsModalState();
 }
 
-class _BeachDetailsModalState extends State<BeachDetailsModal> {
-  late BeachImages images = BeachImages();
-  String? placeName;
+class _FestivalsDetailsModalState extends State<FestivalsDetailsModal> {
+  late FestivalsImages images = FestivalsImages();
+  String? festivalName;
   var price;
   String? located;
   String? description;
+  String? menu;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
 
   Future<void> places(int id) async {
     final data = await images.getSpecificData(id);
     setState(() {
-      placeName = data?['beach_name'];
-      price = data?['beach_price'];
-      located = data?['locatedIn'];
+      festivalName = data?['img'];
+      price = data?['price'];
+      located = data?['Located'];
       id = data?['id'];
+      description = data?['Description'];
+      menu = data?['TipsForVisitors'];
       for (var i = 1; i <= 20; i++) {
-        final key = 'dine$i';
-        final keyUrl = 'dine${i}Url';
+        final key = 'Dine$i';
+        final keyUrl = 'DineUrl$i';
         final value = data?[key];
         final imageUrlValue = data?[keyUrl];
         if (value != null) {
@@ -67,7 +70,7 @@ class _BeachDetailsModalState extends State<BeachDetailsModal> {
             child: Column(
               children: [
                 Text(
-                  'Beach Details',
+                  'Festivals & Events Details',
                   style: TextStyle(fontSize: 20.sp),
                 ),
                 SizedBox(height: 10.h),
@@ -75,7 +78,7 @@ class _BeachDetailsModalState extends State<BeachDetailsModal> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Text(
-                    placeName ?? 'No data available',
+                    festivalName ?? 'No data available',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
@@ -162,7 +165,27 @@ class _BeachDetailsModalState extends State<BeachDetailsModal> {
                     ],
                   );
                 }).toList()),
-                SizedBox(height: 10.h)
+                SizedBox(height: 30.h),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10.w),
+                  child: Text(
+                    'Tips for the Visitors',
+                    style:
+                        TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                  child: Text(
+                    menu ?? 'No Tips',
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.h),
               ],
             ),
           ),

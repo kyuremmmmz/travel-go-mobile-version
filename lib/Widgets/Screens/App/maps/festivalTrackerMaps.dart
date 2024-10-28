@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
+import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/maps/foodPlacesDetailsModal.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/festivalsDetailsModal.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -11,12 +11,12 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 
-class FoodPlaceMap extends StatelessWidget {
+class FestivalsMap extends StatelessWidget {
   final String? location;
   final int id;
   final int text;
   final String? price;
-  const FoodPlaceMap({
+  const FestivalsMap({
     super.key,
     required this.location,
     required this.id,
@@ -30,16 +30,16 @@ class FoodPlaceMap extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Map'),
       ),
-      body: FoodPlaceMapPage(location: location, id: id),
+      body: FestivalsMapPage(location: location, id: id),
     );
   }
 }
 
-class FoodPlaceMapPage extends StatefulWidget {
+class FestivalsMapPage extends StatefulWidget {
   final String? location;
   final int id;
   final String? price;
-  const FoodPlaceMapPage({
+  const FestivalsMapPage({
     super.key,
     required this.location,
     required this.id,
@@ -47,23 +47,23 @@ class FoodPlaceMapPage extends StatefulWidget {
   });
 
   @override
-  State<FoodPlaceMapPage> createState() => _FoodPlaceMapPageState();
+  State<FestivalsMapPage> createState() => _FestivalsMapPageState();
 }
 
-class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
+class _FestivalsMapPageState extends State<FestivalsMapPage> {
   final start = TextEditingController();
   final end = TextEditingController();
   List<LatLng> routePoints = [const LatLng(15.91667, 120.33333)];
-  String? foodAreaName;
+  String? placeName;
   String? located;
   String? text;
   String? description;
   var price;
   List<Marker> markers = [];
-  var imageUrlForDine = <String, dynamic>{};
-  var dine = <String, dynamic>{};
-  final data = FoodAreaBackEnd();
-  late FoodAreaBackEnd images = FoodAreaBackEnd();
+  var imageUrlForAmenities = <String, dynamic>{};
+  var amenities = <String, dynamic>{};
+  final data = FestivalsImages();
+  late FestivalsImages images = FestivalsImages();
   Future<void> func() async {
     try {
       List<Location> startR = await locationFromAddress(start.text.trim());
@@ -106,28 +106,28 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
   Future<void> places(int id) async {
     final data = await images.getSpecificData(id);
     setState(() {
-      foodAreaName = data?['img'];
+      placeName = data?['img'];
       price = data?['price'];
-      located = data?['located'];
-      description = data?['description'];
+      located = data?['Located'];
+      id = data?['id'];
     });
   }
 
   Future<void> getMarkers() async {
     try {
-      final foodAreas = await images.getFood();
-
-      if (foodAreas.isNotEmpty) {
+      final beaches = await images.fetchFestivals();
+      print(widget.location);
+      if (beaches.isNotEmpty) {
         List<Marker> fetchedMarkers = [];
 
-        for (var foodArea in foodAreas) {
-          var foodAreaName = foodArea['img'];
-          var foodAreaPrice = foodArea['price'];
+        for (var beach in beaches) {
+          var beachName = beach['img'];
+          var beachPrice = beach['price'];
           var numberFormat = NumberFormat('#,###');
-          var finalPrice = numberFormat.format(foodAreaPrice);
-          foodArea['price'] = finalPrice;
-          foodArea['img'] = foodAreaName;
-          List<Location> locations = await locationFromAddress(foodArea['img']);
+          var finalPrice = numberFormat.format(beachPrice);
+          beach['price'] = finalPrice;
+          beach['img'] = beachName;
+          List<Location> locations = await locationFromAddress(beach['img']);
           if (locations.isNotEmpty) {
             double lat = locations[0].latitude;
             double lng = locations[0].longitude;
@@ -149,7 +149,7 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
                           onTap: () {
                             showModalBottomSheet(
                                 context: context,
-                                builder: (context) => FoodPlacesDetailsModal(
+                                builder: (context) => FestivalsDetailsModal(
                                       id: widget.id,
                                     ));
                           },
@@ -175,7 +175,7 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
         });
       }
     } catch (error) {
-      print('Error fetching places: $error');
+      print('Error fetching festivals: $error');
     }
   }
 
@@ -196,7 +196,7 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
   Future<void> detailsModal(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
-        builder: (context) => FoodPlacesDetailsModal(
+        builder: (context) => FestivalsDetailsModal(
               id: widget.id,
             ));
   }
@@ -241,7 +241,6 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
                   )),
               SizedBox(
                 height: 500.h,
-                // width: 400.w,
                 child: FlutterMap(
                   options: MapOptions(
                     initialCenter: routePoints.isNotEmpty

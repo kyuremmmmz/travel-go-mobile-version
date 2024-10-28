@@ -7,6 +7,7 @@ import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotel_booking.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/beachTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/exploreTrackerMaps.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/festivalTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/foodPlacesTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/hotelTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/notPaid.dart';
@@ -146,6 +147,14 @@ class AppRoutes {
         route,
         MaterialPageRoute(
             builder: (context) => BeachMapPage(location: name, id: id)));
+  }
+
+  static void navigateToFestivalsMapPage(BuildContext route,
+      {required String name, required int id}) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+            builder: (context) => FestivalsMapPage(location: name, id: id)));
   }
 
   static void navigateToTesting(BuildContext route,
