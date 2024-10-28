@@ -1,19 +1,19 @@
-import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ExploreDetailsModal extends StatefulWidget {
+class BeachDetailsModal extends StatefulWidget {
   final int id;
   final String? price;
-  const ExploreDetailsModal({super.key, required this.id, this.price});
+  const BeachDetailsModal({super.key, required this.id, this.price});
 
   @override
-  State<ExploreDetailsModal> createState() => _ExploreDetailsModalState();
+  State<BeachDetailsModal> createState() => _BeachDetailsModalState();
 }
 
-class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
-  late Data images = Data();
+class _BeachDetailsModalState extends State<BeachDetailsModal> {
+  late BeachImages images = BeachImages();
   String? placeName;
   var price;
   String? located;
@@ -22,12 +22,11 @@ class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
   var imageUrlForAmenities = <String, dynamic>{};
 
   Future<void> places(int id) async {
-    final data = await images.fetchSpecificDataInSingle(id);
+    final data = await images.getSpecificData(id);
     setState(() {
-      placeName = data?['place_name'];
-      price = data?['price'];
+      placeName = data?['beach_name'];
+      price = data?['beach_price'];
       located = data?['locatedIn'];
-      description = data?['description'];
       id = data?['id'];
       for (var i = 1; i <= 20; i++) {
         final key = 'amenity$i';
@@ -69,7 +68,7 @@ class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
             child: Column(
               children: [
                 Text(
-                  'Place Details',
+                  'Beach Details',
                   style: TextStyle(fontSize: 20.sp),
                 ),
                 SizedBox(height: 10.h),
@@ -110,7 +109,7 @@ class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(left: 10.w),
                   child: Text(
-                    'Amenities',
+                    'Accomodations',
                     style:
                         TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                   ),

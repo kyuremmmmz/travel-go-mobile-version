@@ -11,12 +11,12 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 
-class Map extends StatelessWidget {
+class HotelMap extends StatelessWidget {
   final String? location;
   final int id;
   final int text;
   final String? price;
-  const Map({
+  const HotelMap({
     super.key,
     required this.location,
     required this.id,
@@ -28,7 +28,7 @@ class Map extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Map'),
+        title: Text('Map'),
       ),
       body: HotelMapPage(location: location, id: id),
     );
@@ -104,6 +104,28 @@ class _HotelMapPageState extends State<HotelMapPage> {
     }
   }
 
+  Future<void> places(int id) async {
+    final data = await images.fetchDataInSingle(id);
+    setState(() {
+      placeName = data?['hotel_name'];
+      price = data?['hotel_price'];
+      located = data?['hotel_located'];
+      description = data?['hotel_description'];
+      id = data?['id'];
+      for (var i = 1; i <= 20; i++) {
+        final key = 'amenity$i';
+        final keyUrl = 'amenity${i}Url';
+        final value = data?[key];
+        final imageUrlValue = data?[keyUrl];
+        if (value != null) {
+          amenities[key] = value;
+          imageUrlForAmenities[key] = imageUrlValue;
+          print(imageUrlForAmenities);
+        }
+      }
+    });
+  }
+
   Future<void> getMarkers() async {
     try {
       final hotels = await images.fetchHotelsByplace('${widget.location}');
@@ -129,12 +151,12 @@ class _HotelMapPageState extends State<HotelMapPage> {
             fetchedMarkers.add(
               Marker(
                 point: LatLng(lat, lng),
-                width: 80.w,
-                height: 80.h,
+                width: 80,
+                height: 80,
                 child: Column(
                   children: [
                     Container(
-                        width: 80.w,
+                        width: 80,
                         decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius:
@@ -184,6 +206,7 @@ class _HotelMapPageState extends State<HotelMapPage> {
   void initState() {
     super.initState();
     getMarkers();
+    places(widget.id);
   }
 
   Future<void> detailsModal(BuildContext context) async {
@@ -216,21 +239,24 @@ class _HotelMapPageState extends State<HotelMapPage> {
               const TitleMenu(),
               SizedBox(height: 10.h),
               Container(
-                padding: EdgeInsets.only(right: 250.w),
-                child: Text(
-                  'Location Guide:',
-                  textAlign: TextAlign.left,
-                  style:
-                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Text(
-                '$located',
-                style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
-              ),
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 20.w),
+                  child: Text(
+                    'Location Guide:',
+                    textAlign: TextAlign.left,
+                    style:
+                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                  )),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  child: Text(
+                    '$located',
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                  )),
               SizedBox(
                 height: 500.h,
-                // width: 400.w,
                 child: FlutterMap(
                   options: MapOptions(
                     initialCenter: routePoints.isNotEmpty
@@ -280,8 +306,7 @@ class _HotelMapPageState extends State<HotelMapPage> {
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold),
                     )),
-              ),
-              SizedBox(height: 10.h),
+              )
             ],
           ),
         ),

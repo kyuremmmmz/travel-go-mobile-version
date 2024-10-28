@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/information.dart';
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/PlacesInfo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
@@ -128,7 +128,8 @@ class _ExplorenowState extends State<Explorenow> {
                                       style: TextStyle(
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
-                                        color: const Color.fromARGB(255, 49, 49, 49),
+                                        color: const Color.fromARGB(
+                                            255, 49, 49, 49),
                                       ),
                                     ),
                                   ),
@@ -153,7 +154,7 @@ class _ExplorenowState extends State<Explorenow> {
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        InformationScreen(
+                                                        PlacesInfo(
                                                       text: place['id'],
                                                       name: place['place_name'],
                                                     ),

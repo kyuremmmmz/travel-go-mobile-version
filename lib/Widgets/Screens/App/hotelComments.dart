@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
+import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
-import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class HotelComments extends StatefulWidget {
   final int text;
@@ -15,30 +17,54 @@ class HotelComments extends StatefulWidget {
 }
 
 class _HotelCommentsState extends State<HotelComments> {
-  final _commentController = TextEditingController();
-  late RatingsAndComments rating = RatingsAndComments();
-  int totalRatings = 0;
-  List<Map<String, dynamic>> list = [];
-  double ratingsTotal = 0.0;
-  int userRatings = 0;
-  int ratings = 0;
-  late String commentType;
-  String? text;
+  final _searchController = TextEditingController();
   String? email;
+  String? description;
+  String? text;
+  String? hasCar;
+  String? imageUrl;
+  String? hasMotor;
+  String? located;
+  String? availability;
+  final _commentController = TextEditingController();
+  var price;
+  var id;
+  var amenities = <String, dynamic>{};
+  var imageUrlForAmenities = <String, dynamic>{};
+  final data = HotelImages();
+  late Usersss users = Usersss();
+  String? img;
   String? imgUrl;
+  String? comments;
+  int userRatings = 0;
+  double ratingsTotal = 0.0;
+  late String commentType;
+  int totalRatings = 0;
+  int ratings = 0;
   String? commentImg;
   StreamSubscription? sub;
-  late Usersss users = Usersss();
+  StreamSubscription? supa;
+  List<Map<String, dynamic>> list = [];
+  List vouchersList = [];
+  late RatingsAndComments rating = RatingsAndComments();
   final String avatarDefaultIcon = "assets/images/icon/user.png";
+  bool _isRedirecting = false;
+  final vouchers = Vouchers();
+  final supabase = Supabase.instance.client;
+  Future<void> commentInserttion() async {
+    rating.postComment(_commentController.text.trim(), ratings,
+        commentType = 'hotel', '$text', widget.text, '$email', '$imgUrl');
+  }
 
-  @override
-  void initState() {
-    super.initState();
-    _realTimeFetch();
+  Future<void> fetchWithoutFunct() async {
+    final response = await users.fetchUserWithoutgetter();
+    setState(() {
+      imgUrl = response[0]['avatar_url'];
+    });
   }
 
   Future<void> stateComments() async {
-    final data = await rating.fetchComments(widget.text, 'places');
+    final data = await rating.fetchComments(widget.text, 'hotel');
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
@@ -55,11 +81,6 @@ class _HotelCommentsState extends State<HotelComments> {
     });
   }
 
-  Future<void> commentInserttion() async {
-    rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "hotel", '$text', widget.text, '$email', '$imgUrl');
-  }
-
   Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
     try {
       final data = await rating.fetchComments(widget.text, 'hotel');
@@ -74,6 +95,7 @@ class _HotelCommentsState extends State<HotelComments> {
         final validCount = count > 5.0 ? 5.0 : count;
 
         setState(() {
+          _isRedirecting = false;
           list = data;
           ratingsTotal = validCount;
           userRatings = records;
@@ -81,6 +103,7 @@ class _HotelCommentsState extends State<HotelComments> {
         });
       } else {
         setState(() {
+          _isRedirecting = false;
           ratingsTotal = 0;
           userRatings = 0;
           commentImg = imgUrl;
@@ -92,10 +115,92 @@ class _HotelCommentsState extends State<HotelComments> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    emailFetching();
+    fetchSpecificData(widget.text);
+    fetchWithoutFunct();
+    _realTimeFetch();
+    _isRedirecting = true;
+  }
+
+  @override
   void dispose() {
-    _commentController.dispose();
+    _searchController.dispose();
     sub?.cancel();
+    supa?.cancel();
     super.dispose();
+  }
+
+  Future<void> fetchSpecificData(int id) async {
+    try {
+      final dataList = await data.fetchDataInSingle(id);
+
+      if (dataList == null) {
+        setState(() {
+          _isRedirecting = false;
+          description = "No description available";
+        });
+      } else {
+        setState(() {
+          _isRedirecting = false;
+          description = dataList['hotel_description'];
+          text = dataList['hotel_name'];
+          id = dataList['id'];
+          imageUrl = dataList['image'].toString();
+          hasCar = dataList['car_availability'].toString();
+          hasMotor = dataList['tricycle_availability'].toString();
+          located = dataList['hotel_located'];
+          price = dataList['hotel_price'];
+          availability = dataList['availability'];
+          for (var i = 1; i <= 20; i++) {
+            final key = 'amenity$i';
+            final keyUrl = 'amenity${i}Url';
+            final value = dataList[key];
+            final imageUrlValue = dataList[keyUrl];
+            if (value != null) {
+              amenities[key] = value;
+              imageUrlForAmenities[key] = imageUrlValue;
+              print(imageUrlForAmenities);
+            }
+          }
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _isRedirecting = false;
+        description = "Error fetching data";
+      });
+      print('Error in fetchSpecificData: $e');
+    }
+  }
+
+  Future<String?> getter(String image) async {
+    final response =
+        supabase.storage.from('hotel_amenities_url').getPublicUrl(image);
+    if (response.isEmpty) {
+      return 'null';
+    }
+    return response;
+  }
+
+  Future<void> emailFetching() async {
+    try {
+      final PostgrestList useremail = await users.fetchUser();
+      if (useremail.isNotEmpty) {
+        setState(() {
+          email = useremail[0]['full_name'].toString();
+        });
+      } else {
+        setState(() {
+          email = "Anonymous User";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        email = "Error: $e";
+      });
+    }
   }
 
   @override
@@ -159,6 +264,7 @@ class _HotelCommentsState extends State<HotelComments> {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       padding: EdgeInsets.only(left: 20.w, top: 15.h),
@@ -171,9 +277,8 @@ class _HotelCommentsState extends State<HotelComments> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 60.w),
                     Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 15.h),
+                      padding: EdgeInsets.only(right: 20.w, top: 15.h),
                       child: GestureDetector(
                         onTap: () {
                           showAdaptiveDialog(
@@ -306,8 +411,10 @@ class _HotelCommentsState extends State<HotelComments> {
                         },
                         child: Text(
                           'Write a comment',
-                          style:
-                              TextStyle(fontSize: 13.sp, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 13.sp,
+                              decoration: TextDecoration.underline,
+                              color: Colors.black),
                         ),
                       ),
                     ),

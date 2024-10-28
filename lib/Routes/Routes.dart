@@ -5,7 +5,9 @@ import 'package:TravelGo/Widgets/Screens/App/booking_area.dart';
 import 'package:TravelGo/Widgets/Screens/App/confirmBooking.dart';
 import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotel_booking.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/beachTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/exploreTrackerMaps.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/foodPlacesTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/hotelTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/notPaid.dart';
 import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
@@ -21,8 +23,7 @@ import 'package:TravelGo/Widgets/Screens/Stateless/hotel_stateless.dart';
 import 'package:TravelGo/Widgets/Screens/Stateless/reset.dart';
 import 'package:TravelGo/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
 import 'package:flutter/material.dart';
-
-import '../Widgets/Screens/App/foodAreaAbout.dart';
+import '../Widgets/Screens/App/InfoScreens/FoodAreaInfo.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import './../Widgets/Screens/App/linkedBankAccount.dart';
@@ -74,7 +75,8 @@ class AppRoutes {
   }
 
   static void nagigateToFlightScreen(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const Allflights()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Allflights()));
   }
 
   static void navigateToLinkedBankAccount(BuildContext route,
@@ -122,12 +124,28 @@ class AppRoutes {
             builder: (context) => HotelMapPage(location: name, id: id)));
   }
 
-  static void navigateToExploreMaPage(BuildContext route,
+  static void navigateToExploreMapPage(BuildContext route,
       {required String name, required int id}) {
     Navigator.push(
         route,
         MaterialPageRoute(
-            builder: (context) => ExploreMaPage(location: name, id: id)));
+            builder: (context) => ExploreMapPage(location: name, id: id)));
+  }
+
+  static void navigateToFoodPlaceMapPage(BuildContext route,
+      {required String name, required int id}) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+            builder: (context) => FoodPlaceMapPage(location: name, id: id)));
+  }
+
+  static void navigateToBeachMapPage(BuildContext route,
+      {required String name, required int id}) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+            builder: (context) => BeachMapPage(location: name, id: id)));
   }
 
   static void navigateToTesting(BuildContext route,
@@ -165,11 +183,11 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const HotelStateless()));
   }
 
-  static void navigateToFoodAreaAbout(BuildContext route, {required int id}) {
+  static void navigateToFoodAreaInfo(BuildContext route, {required int id}) {
     Navigator.push(
         route,
         MaterialPageRoute(
-            builder: (context) => FoodAreaAbout(
+            builder: (context) => FoodAreaInfo(
                   id: id,
                 )));
   }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class GreyedButton extends StatefulWidget{
-
+class GreyedButton extends StatefulWidget {
   late String image; // use the location of image
-  GreyedButton
-  ({
+  GreyedButton({
     super.key,
     required this.image,
   });
@@ -14,8 +12,6 @@ class GreyedButton extends StatefulWidget{
 }
 
 class _GreyedButtonState extends State<GreyedButton> {
-  
-  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,15 +25,12 @@ class _GreyedButtonState extends State<GreyedButton> {
         color: Colors.transparent,
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: 
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                  child: Image.asset(widget.image),
-                  )
-                ),
+            padding: const EdgeInsets.all(10),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              child: Image.asset(widget.image),
+            )),
       ),
     );
   }
-
 }

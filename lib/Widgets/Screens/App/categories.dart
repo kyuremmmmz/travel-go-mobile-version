@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
 // ignore: must_be_immutable
 class Categories extends StatefulWidget {
-  late String? category; 
+  late String? category;
   Categories({super.key, this.category});
 
   @override
@@ -37,86 +37,88 @@ class _CategoriesState extends State<Categories> {
         ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                children: [
-                  inHotelList ? GreyedButton(image: hotelIcon) : BlueIconButtonDefault(
-                      image: hotelIcon,
-                      oppressed: () => 
-                          {AppRoutes.navigateToHotelScreen(context)}
-                  ),
-                  CategoryLabel(
-                      label: 'Hotels',
-                      fontSize: 11.0.sp), // Specify font size here
-                ],
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                children: [
-                  inFoodList ? GreyedButton(image: foodIcon) : BlueIconButtonDefault(
-                      image: foodIcon,
-                      oppressed: () => AppRoutes.navigateTofoodArea(context)),
-                  CategoryLabel(label: 'Food Place', fontSize: 11.0.sp),
-                ],
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                children: [
-                  inBeachList ? GreyedButton(image: beachIcon) : BlueIconButtonDefault(
-                    image: beachIcon,
-                    oppressed: () =>
-                        {AppRoutes.navigateToBeachesScreen(context)},
-                  ),
-                  CategoryLabel(label: 'Beaches', fontSize: 11.0.sp),
-                ],
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                children: [
-                  inFestivalList ? GreyedButton(image: festivalIcon) : BlueIconButtonDefault(
-                    image: festivalIcon,
-                    oppressed: () =>
-                        {AppRoutes.navigateToFestivalsScreen(context)},
-                  ),
-                  CategoryLabel(
-                      label: 'Festivals and \nEvents', fontSize: 11.0.sp),
-                ],
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                children: [
-                  BlueIconButtonDefault(
-                    image: planeIcon,
-                    oppressed: () =>
-                        {
-                          AppRoutes.nagigateToFlightScreen(context)
-                        },
-                  ),
-                  CategoryLabel(label: 'Flights', fontSize: 11.0.sp),
-                ],
-              ),
-            ],
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 5.h),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(25.sp)),
+              color: Colors.grey[100],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    inHotelList
+                        ? GreyedButton(image: hotelIcon)
+                        : BlueIconButtonDefault(
+                            image: hotelIcon,
+                            oppressed: () =>
+                                {AppRoutes.navigateToHotelScreen(context)}),
+                    CategoryLabel(
+                        label: 'Hotels',
+                        fontSize: 11.0.sp), // Specify font size here
+                  ],
+                ),
+                SizedBox(width: 10.w),
+                Column(
+                  children: [
+                    inFoodList
+                        ? GreyedButton(image: foodIcon)
+                        : BlueIconButtonDefault(
+                            image: foodIcon,
+                            oppressed: () =>
+                                AppRoutes.navigateTofoodArea(context)),
+                    CategoryLabel(label: 'Food Place', fontSize: 11.0.sp),
+                  ],
+                ),
+                SizedBox(width: 10.w),
+                Column(
+                  children: [
+                    inBeachList
+                        ? GreyedButton(image: beachIcon)
+                        : BlueIconButtonDefault(
+                            image: beachIcon,
+                            oppressed: () =>
+                                {AppRoutes.navigateToBeachesScreen(context)},
+                          ),
+                    CategoryLabel(label: 'Beaches', fontSize: 11.0.sp),
+                  ],
+                ),
+                SizedBox(width: 10.w),
+                Column(
+                  children: [
+                    inFestivalList
+                        ? GreyedButton(image: festivalIcon)
+                        : BlueIconButtonDefault(
+                            image: festivalIcon,
+                            oppressed: () =>
+                                {AppRoutes.navigateToFestivalsScreen(context)},
+                          ),
+                    CategoryLabel(
+                        label: 'Festivals and \nEvents', fontSize: 11.0.sp),
+                  ],
+                ),
+                SizedBox(width: 10.w),
+                Column(
+                  children: [
+                    BlueIconButtonDefault(
+                      image: planeIcon,
+                      oppressed: () =>
+                          {AppRoutes.nagigateToFlightScreen(context)},
+                    ),
+                    CategoryLabel(label: 'Flights', fontSize: 11.0.sp),
+                  ],
+                ),
+              ],
+            ),
           ),
         )
       ],
     );
   }
 
-  void checkCategory(){
-    switch (widget.category){
+  void checkCategory() {
+    switch (widget.category) {
       case 'hotel':
         inHotelList = true;
         break;

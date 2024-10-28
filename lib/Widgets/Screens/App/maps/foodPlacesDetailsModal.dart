@@ -1,43 +1,42 @@
-import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
-import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ExploreDetailsModal extends StatefulWidget {
+class FoodPlacesDetailsModal extends StatefulWidget {
   final int id;
   final String? price;
-  const ExploreDetailsModal({super.key, required this.id, this.price});
+  const FoodPlacesDetailsModal({super.key, required this.id, this.price});
 
   @override
-  State<ExploreDetailsModal> createState() => _ExploreDetailsModalState();
+  State<FoodPlacesDetailsModal> createState() => _FoodPlacesDetailsModalState();
 }
 
-class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
-  late Data images = Data();
-  String? placeName;
+class _FoodPlacesDetailsModalState extends State<FoodPlacesDetailsModal> {
+  late FoodAreaBackEnd images = FoodAreaBackEnd();
+  String? foodAreaName;
   var price;
   String? located;
   String? description;
-  var amenities = <String, dynamic>{};
-  var imageUrlForAmenities = <String, dynamic>{};
+  var dine = <String, dynamic>{};
+  var imageUrlForDine = <String, dynamic>{};
 
   Future<void> places(int id) async {
-    final data = await images.fetchSpecificDataInSingle(id);
+    final data = await images.getSpecificData(id);
     setState(() {
-      placeName = data?['place_name'];
+      foodAreaName = data?['img'];
       price = data?['price'];
-      located = data?['locatedIn'];
+      located = data?['located'];
       description = data?['description'];
       id = data?['id'];
       for (var i = 1; i <= 20; i++) {
-        final key = 'amenity$i';
-        final keyUrl = 'amenity${i}Url';
-        final value = data?[key];
-        final imageUrlValue = data?[keyUrl];
-        if (value != null) {
-          amenities[key] = value;
-          imageUrlForAmenities[key] = imageUrlValue;
-          print(imageUrlForAmenities);
+        final dineT = 'dine$i';
+        final dineImg = 'dineUrl$i';
+        final img = data?[dineT];
+        final imgUrl = data?[dineImg];
+        if (img != null) {
+          dine[dineT] = img;
+          imageUrlForDine[dineT] = imgUrl;
+          print(imageUrlForDine);
         }
       }
     });
@@ -77,7 +76,7 @@ class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Text(
-                    placeName ?? 'No data available',
+                    foodAreaName ?? 'No data available',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
@@ -110,13 +109,13 @@ class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(left: 10.w),
                   child: Text(
-                    'Amenities',
+                    'Accomodations',
                     style:
                         TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Column(
-                    children: imageUrlForAmenities.entries.map((entry) {
+                    children: imageUrlForDine.entries.map((entry) {
                   return Column(
                     children: [
                       SizedBox(height: 20.h),
@@ -150,7 +149,7 @@ class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
                                 ),
                               ),
                               child: Text(
-                                amenities[entry.key] ?? '',
+                                dine[entry.key] ?? '',
                                 style: TextStyle(
                                   fontSize: 18.sp,
                                   color: Colors.white,
@@ -164,41 +163,7 @@ class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
                     ],
                   );
                 }).toList()),
-                SizedBox(height: 30.h),
-                Row(
-                  children: [
-                    SizedBox(width: 10.w),
-                    RichText(
-                        text: TextSpan(children: [
-                      TextSpan(
-                          text: 'PHP ${price.toString()} - 6,000',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 21.sp,
-                              fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: '\nEstimated Expenses',
-                          style: TextStyle(color: Colors.blue, fontSize: 13.sp))
-                    ])),
-                    SizedBox(width: 20.w),
-                    SizedBox(
-                      width: 150.h,
-                      child: BlueButtonWithoutFunction(
-                          text: Text(
-                            'Place Booking',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                          ),
-                          oppressed: () {}),
-                    )
-                  ],
-                ),
-                SizedBox(height: 10.h)
+                SizedBox(height: 30.h)
               ],
             ),
           ),

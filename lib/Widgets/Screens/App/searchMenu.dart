@@ -34,18 +34,20 @@ class _SearchMenuState extends State<SearchMenu> {
             child: TypeAheadField(
               textFieldConfiguration: TextFieldConfiguration(
                 controller: _searchController,
+                style: TextStyle(fontSize: 16.sp),
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                       onPressed: () async {
                         await data.fetchinSearch(
                             _searchController.text.trim(), context);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.search,
+                        size: 25.sp,
                       )),
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 0.w, horizontal: 10.w),
-                  hintStyle: const TextStyle(color: Colors.black54),
+                      EdgeInsets.symmetric(vertical: 0, horizontal: 10.w),
+                  hintStyle: TextStyle(fontSize: 16.sp, color: Colors.black54),
                   hintText: 'Search Destination',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(50.h)),
@@ -60,15 +62,18 @@ class _SearchMenuState extends State<SearchMenu> {
                 return await Searchcontroller().fetchSuggestions(pattern);
               },
               itemBuilder: (context, dynamic suggestion) {
-                return ListTile(
-                    title: Text(suggestion['place_name'] ?? 'No title'),
-                    subtitle: Text(suggestion['locatedIn'] ?? 'No address'),
-                    leading: Image.network(
-                      suggestion['image'] ?? 'No image',
-                      fit: BoxFit.cover,
-                      width: 70.w,
-                      height: 70.h,
-                    ));
+                return SingleChildScrollView(
+                    child: ListTile(
+                        title: Text(suggestion['place_name'] ?? 'No title',
+                            style: TextStyle(fontSize: 16.sp)),
+                        subtitle: Text(suggestion['locatedIn'] ?? 'No address',
+                            style: TextStyle(fontSize: 12.sp)),
+                        leading: Image.network(
+                          suggestion['image'] ?? 'No image',
+                          fit: BoxFit.cover,
+                          width: 70.sp,
+                          height: 70.sp,
+                        )));
               },
               onSuggestionSelected: (dynamic suggestion) {
                 _searchController.text = suggestion['place_name'] ?? 'No title';

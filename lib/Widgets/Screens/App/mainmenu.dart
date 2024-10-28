@@ -10,10 +10,10 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/PlaceButtonSquare.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/festivalsAbout.dart';
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/FestivalsInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
-import 'package:TravelGo/Widgets/Screens/App/foodAreaAbout.dart';
-import 'package:TravelGo/Widgets/Screens/App/information.dart';
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/FoodAreaInfo.dart';
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/PlacesInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Screens/Stateless/festivalsStateless.dart';
 
@@ -166,6 +166,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 40.h,
         leading: Builder(
@@ -190,7 +191,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   child: Scrollbar(
                     thumbVisibility: true,
                     child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(horizontal: 25.h),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: Column(
                         children: <Widget>[
                           const DismissableFindMoreLocation(),
@@ -235,7 +236,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                InformationScreen(text: id),
+                                                PlacesInfo(text: id),
                                           ),
                                         );
                                       },
@@ -281,8 +282,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        FoodAreaAboutScreen(
-                                                            id: id)));
+                                                        FoodAreaInfo(id: id)));
                                           });
                                     }).toList()),
                           CategorySelect(
@@ -328,8 +328,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        FestivalsAboutScreen(
-                                                            id: id)));
+                                                        FestivalsInfo(id: id)));
                                           });
                                     }).toList()),
                           SizedBox(height: 10.h),

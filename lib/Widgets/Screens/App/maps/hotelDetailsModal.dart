@@ -67,7 +67,7 @@ class _HotelDetailsModalState extends State<HotelDetailsModal> {
         thumbVisibility: true,
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(left: 10.w, right: 10.w),
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: Column(
               children: [
                 Text(
@@ -79,9 +79,10 @@ class _HotelDetailsModalState extends State<HotelDetailsModal> {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Text(
                     placeName ?? 'No data available',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 25.sp,

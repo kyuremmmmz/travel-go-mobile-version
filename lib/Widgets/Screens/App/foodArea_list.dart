@@ -4,7 +4,7 @@ import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
-import 'package:TravelGo/Widgets/Screens/App/foodAreaAbout.dart';
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/FoodAreaInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
@@ -114,7 +114,8 @@ class _FoodAreaState extends State<FoodArea> {
                                       style: TextStyle(
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
-                                        color: const Color.fromARGB(255, 49, 49, 49),
+                                        color: const Color.fromARGB(
+                                            255, 49, 49, 49),
                                       ),
                                     ),
                                   ),
@@ -139,7 +140,7 @@ class _FoodAreaState extends State<FoodArea> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          FoodAreaAboutScreen(
+                                                          FoodAreaInfo(
                                                             id: place['id'],
                                                           )),
                                                 );

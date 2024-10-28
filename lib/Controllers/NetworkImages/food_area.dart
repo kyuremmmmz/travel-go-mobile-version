@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class FoodAreaBackEnd {
@@ -10,7 +11,8 @@ class FoodAreaBackEnd {
       return [];
     } else {
       final data = response;
-      List<Map<String, dynamic>> list = List<Map<String, dynamic>>.from(data as List);
+      List<Map<String, dynamic>> list =
+          List<Map<String, dynamic>>.from(data as List);
       for (var data in list) {
         var img = data['imgUrl'];
         final imageUrl = await getter(img);
@@ -19,6 +21,34 @@ class FoodAreaBackEnd {
         data['img'] = text;
       }
       return list;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> fetchFoodAreaByplace(
+      String located) async {
+    try {
+      final response =
+          await supabase.from('food_area').select('*').eq('located', located);
+      if (response.isEmpty) {
+        debugPrint('no food area found');
+        return [];
+      } else {
+        final data = response;
+
+        List<Map<String, dynamic>> map =
+            List<Map<String, dynamic>>.from(data as List);
+        for (var map in data) {
+          var place = map['img'];
+          var image = map['imgUrl'];
+          var imageUrl = await getter(image);
+          map['imgUrl'] = imageUrl;
+          map['img'] = place;
+        }
+        return map;
+      }
+    } catch (e) {
+      debugPrint('Error fetching food area: $e');
+      return [];
     }
   }
 

@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
 import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Comments extends StatefulWidget {
   final int text;
@@ -15,6 +17,30 @@ class Comments extends StatefulWidget {
 }
 
 class _CommentsState extends State<Comments> {
+  final _searchController = TextEditingController();
+  final String beachIcon = "assets/images/icon/beach.png";
+  final String foodIcon = "assets/images/icon/food_place.png";
+  final String hotelIcon = "assets/images/icon/hotel.png";
+  final String festivalIcon = "assets/images/icon/food.png";
+  final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
+  String? email;
+  String? userEmail;
+  String? description;
+  String? text;
+  String? img;
+  String? imgUrl;
+  String? hasCar;
+  String? imageUrl;
+  String? comments;
+  String? hasMotor;
+  String? located;
+  var id;
+  String? availability;
+  String? price;
+  final data = Data();
+  late Usersss users = Usersss();
+  final supabase = Supabase.instance.client;
+  bool _isRedirecting = false;
   final _commentController = TextEditingController();
   late RatingsAndComments rating = RatingsAndComments();
   int totalRatings = 0;
@@ -23,18 +49,18 @@ class _CommentsState extends State<Comments> {
   int userRatings = 0;
   int ratings = 0;
   late String commentType;
-  String? text;
-  String? email;
-  String? imgUrl;
   String? commentImg;
   StreamSubscription? sub;
-  late Usersss users = Usersss();
   final String avatarDefaultIcon = "assets/images/icon/user.png";
 
   @override
   void initState() {
     super.initState();
+    emailFetching();
+    fetchSpecificData(widget.text);
+    fetchWithoutFunct();
     _realTimeFetch();
+    _isRedirecting = true;
   }
 
   Future<void> stateComments() async {
@@ -57,7 +83,69 @@ class _CommentsState extends State<Comments> {
 
   Future<void> commentInserttion() async {
     rating.postComment(_commentController.text.trim(), ratings,
-        commentType = "places", '$text', widget.text, '$email', '$imgUrl');
+        commentType = 'places', '$text', widget.text, '$email', '$imgUrl');
+  }
+
+  Future<void> fetchSpecificData(int name) async {
+    try {
+      final dataList = await data.fetchSpecificDataInSingle(name);
+
+      if (dataList == null) {
+        setState(() {
+          _isRedirecting = false;
+          description = "No description available";
+        });
+      } else {
+        setState(() {
+          _isRedirecting = false;
+          description = dataList['description'];
+          text = dataList['place_name'];
+          imageUrl = dataList['image'].toString();
+          hasCar = dataList['car_availability'].toString();
+          hasMotor = dataList['tricycle_availability'].toString();
+          located = dataList['locatedIn'];
+          price = dataList['price'];
+          availability = dataList['availability'];
+        });
+      }
+    } catch (e) {
+      setState(() {
+        description = "Error fetching data";
+        _isRedirecting = false;
+      });
+      print('Error in fetchSpecificData: $e');
+    } finally {
+      setState(() {
+        _isRedirecting = false;
+      });
+    }
+  }
+
+  Future<void> fetchWithoutFunct() async {
+    final response = await users.fetchUserWithoutgetter();
+    setState(() {
+      imgUrl = response[0]['avatar_url'];
+    });
+  }
+
+  Future<void> emailFetching() async {
+    try {
+      final PostgrestList useremail = await users.fetchUser();
+      if (useremail.isNotEmpty) {
+        setState(() {
+          email = useremail[0]['full_name'].toString();
+          img = useremail[0]['avatar_url'].toString();
+        });
+      } else {
+        setState(() {
+          email = "Anonymous User";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        email = "Error: $e";
+      });
+    }
   }
 
   Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
@@ -93,6 +181,7 @@ class _CommentsState extends State<Comments> {
 
   @override
   void dispose() {
+    _searchController.dispose();
     _commentController.dispose();
     sub?.cancel();
     super.dispose();
@@ -159,6 +248,7 @@ class _CommentsState extends State<Comments> {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       padding: EdgeInsets.only(left: 20.w, top: 15.h),
@@ -171,9 +261,8 @@ class _CommentsState extends State<Comments> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 60.w),
                     Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 15.h),
+                      padding: EdgeInsets.only(right: 20.w, top: 15.h),
                       child: GestureDetector(
                         onTap: () {
                           showAdaptiveDialog(
@@ -306,8 +395,10 @@ class _CommentsState extends State<Comments> {
                         },
                         child: Text(
                           'Write a comment',
-                          style:
-                              TextStyle(fontSize: 13.sp, color: Colors.black),
+                          style: TextStyle(
+                              fontSize: 13.sp,
+                              decoration: TextDecoration.underline,
+                              color: Colors.black),
                         ),
                       ),
                     ),
@@ -328,11 +419,11 @@ class _CommentsState extends State<Comments> {
                             children: [
                               SizedBox(width: 20.w),
                               CircleAvatar(
-                                  backgroundImage: imgUrl == "null" 
-                                  || imgUrl.contains('null') 
-                                  || imgUrl.isEmpty
-                                  ? AssetImage(avatarDefaultIcon) 
-                                  : NetworkImage(imgUrl),
+                                  backgroundImage: imgUrl == "null" ||
+                                          imgUrl.contains('null') ||
+                                          imgUrl.isEmpty
+                                      ? AssetImage(avatarDefaultIcon)
+                                      : NetworkImage(imgUrl),
                                   radius: 20.sp),
                               SizedBox(width: 10.w),
                               Column(
