@@ -104,7 +104,7 @@ class _AllflightsState extends State<Allflights> {
                                         width: 10.w,
                                       ),
                                       Text(
-                                        'All',
+                                        data['ticket_type'],
                                         style: TextStyle(
                                             fontSize: 16.sp,
                                             color: Colors.blue,
