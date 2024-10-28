@@ -1,10 +1,7 @@
 import 'dart:convert';
-
-import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
-import 'package:TravelGo/Routes/Routes.dart';
-import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/hotelDetailsModal.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -14,12 +11,12 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 
-class Map extends StatelessWidget {
+class HotelMap extends StatelessWidget {
   final String? location;
   final int id;
   final int text;
   final String? price;
-  const Map({
+  const HotelMap({
     super.key,
     required this.location,
     required this.id,
@@ -168,242 +165,9 @@ class _HotelMapPageState extends State<HotelMapPage> {
                           onTap: () {
                             showModalBottomSheet(
                                 context: context,
-                                builder: (context) {
-                                  return Container(
-                                    padding:
-                                        const EdgeInsets.only(left: 0, top: 30),
-                                    width: 500,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(50),
-                                        topRight: Radius.circular(50),
-                                      ),
-                                    ),
-                                    child: Scrollbar(
-                                      thumbVisibility: true,
-                                      child: SingleChildScrollView(
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 0),
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                padding: null,
-                                                child: const Text(
-                                                  'Booking Details',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 30, right: 30),
-                                                child: Text(
-                                                  placeName ??
-                                                      'No data available',
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 25,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 20),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                    right: 300),
-                                                child: const Text(
-                                                  'About',
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                    left: 30),
-                                                child: Text(
-                                                  description ??
-                                                      'No Description',
-                                                  textAlign: TextAlign.left,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
-                                              const SizedBox(
-                                                height: 20,
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.only(
-                                                    right: 250),
-                                                child: const Text(
-                                                  'Amenities',
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              Column(
-                                                  children: imageUrlForAmenities
-                                                      .entries
-                                                      .map((entry) {
-                                                return Column(
-                                                  children: [
-                                                    const SizedBox(
-                                                      height: 20,
-                                                    ),
-                                                    Container(
-                                                      child: Stack(
-                                                        children: [
-                                                          Container(
-                                                            height: 150,
-                                                            width: 350,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              image:
-                                                                  DecorationImage(
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                                image: NetworkImage(
-                                                                    entry.value ??
-                                                                        ''),
-                                                              ),
-                                                              color:
-                                                                  Colors.blue,
-                                                              borderRadius:
-                                                                  const BorderRadius
-                                                                      .all(
-                                                                Radius.circular(
-                                                                    30),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Positioned(
-                                                            bottom: 0,
-                                                            left: 0,
-                                                            right: 0,
-                                                            child: Container(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(10),
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        0.12),
-                                                                borderRadius:
-                                                                    const BorderRadius
-                                                                        .only(
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          30),
-                                                                  bottomRight: Radius
-                                                                      .circular(
-                                                                          30),
-                                                                ),
-                                                              ),
-                                                              child: Text(
-                                                                amenities[entry
-                                                                        .key] ??
-                                                                    '',
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontSize: 18,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              }).toList()),
-                                              const SizedBox(
-                                                height: 30,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  const SizedBox(
-                                                    width: 30,
-                                                  ),
-                                                  RichText(
-                                                      text: TextSpan(children: [
-                                                    TextSpan(
-                                                        text:
-                                                            'PHP ${price.toString()} - 6,000',
-                                                        style: const TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 21,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                    const TextSpan(
-                                                        text:
-                                                            '\nEstimated Expenses',
-                                                        style: TextStyle(
-                                                            color: Colors.blue,
-                                                            fontSize: 13))
-                                                  ])),
-                                                  Container(
-                                                    width: 200,
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 50),
-                                                    child:
-                                                        BlueButtonWithoutFunction(
-                                                            text: const Text(
-                                                              'Place Booking',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                            style:
-                                                                ElevatedButton
-                                                                    .styleFrom(
-                                                              backgroundColor:
-                                                                  Colors.blue,
-                                                            ),
-                                                            oppressed: () {
-                                                              HotelBooking()
-                                                                  .passTheHotelData(
-                                                                      widget
-                                                                          .id);
-                                                              AppRoutes
-                                                                  .navigateToHotelBookingScreen(
-                                                                      context,
-                                                                      id: widget
-                                                                          .id,
-                                                                      price:
-                                                                          '${widget.price}');
-                                                            }),
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                });
+                                builder: (context) => HotelDetailsModal(
+                                      id: widget.id,
+                                    ));
                           },
                           child: Text(
                             '₱$finalPrice',
@@ -448,179 +212,9 @@ class _HotelMapPageState extends State<HotelMapPage> {
   Future<void> detailsModal(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
-        builder: (context) {
-          return Container(
-            padding: const EdgeInsets.only(left: 0, top: 30),
-            width: 500,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(50),
-                topRight: Radius.circular(50),
-              ),
-            ),
-            child: Scrollbar(
-              thumbVisibility: true,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 0),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: null,
-                        child: const Text(
-                          'Booking Details',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: Text(
-                          placeName ?? 'No data available',
-                          style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Container(
-                        padding: const EdgeInsets.only(right: 300),
-                        child: const Text(
-                          'About',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Text(
-                          description ?? 'No Description',
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(right: 250),
-                        child: const Text(
-                          'Amenities',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Column(
-                          children: imageUrlForAmenities.entries.map((entry) {
-                        return Column(
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    height: 150,
-                                    width: 350,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(entry.value ?? ''),
-                                      ),
-                                      color: Colors.blue,
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(30),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    left: 0,
-                                    right: 0,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.12),
-                                        borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(30),
-                                          bottomRight: Radius.circular(30),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        amenities[entry.key] ?? '',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      }).toList()),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        children: [
-                          const SizedBox(
-                            width: 30,
-                          ),
-                          RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                                text: 'PHP ${price.toString()} - 6,000',
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.bold)),
-                            const TextSpan(
-                                text: '\nEstimated Expenses',
-                                style:
-                                    TextStyle(color: Colors.blue, fontSize: 13))
-                          ])),
-                          Container(
-                            width: 200,
-                            padding: const EdgeInsets.only(left: 50),
-                            child: BlueButtonWithoutFunction(
-                                text: const Text(
-                                  'Place Booking',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                ),
-                                oppressed: () {
-                                  HotelBooking().passTheHotelData(widget.id);
-                                  AppRoutes.navigateToHotelBookingScreen(
-                                      context,
-                                      id: widget.id,
-                                      price: '');
-                                }),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
-        });
+        builder: (context) => HotelDetailsModal(
+              id: widget.id,
+            ));
   }
 
   @override
@@ -643,27 +237,26 @@ class _HotelMapPageState extends State<HotelMapPage> {
           child: Column(
             children: [
               const TitleMenu(),
-              const SizedBox(height: 30),
+              SizedBox(height: 10.h),
               Container(
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(left: 20.w),
-                child: const Text(
-                  'Location Guide:',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 20.w),
+                  child: Text(
+                    'Location Guide:',
+                    textAlign: TextAlign.left,
+                    style:
+                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                  )),
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Text(
                     '$located',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
                   )),
               SizedBox(
-                height: 500,
-                width: 400,
+                height: 500.h,
                 child: FlutterMap(
                   options: MapOptions(
                     initialCenter: routePoints.isNotEmpty
@@ -696,9 +289,9 @@ class _HotelMapPageState extends State<HotelMapPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 10.h),
               SizedBox(
-                width: 200,
+                width: 150.w,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -706,11 +299,11 @@ class _HotelMapPageState extends State<HotelMapPage> {
                     onPressed: () async {
                       detailsModal(context);
                     },
-                    child: const Text(
+                    child: Text(
                       'See Details',
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.bold),
                     )),
               )

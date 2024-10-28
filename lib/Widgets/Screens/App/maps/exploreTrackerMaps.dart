@@ -63,7 +63,6 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
   var imageUrlForAmenities = <String, dynamic>{};
   var amenities = <String, dynamic>{};
   final data = Data();
-
   late Data images = Data();
   Future<void> func() async {
     try {
@@ -256,7 +255,6 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
                   )),
               SizedBox(
                 height: 500.h,
-                // width: 400.w,
                 child: FlutterMap(
                   options: MapOptions(
                     initialCenter: routePoints.isNotEmpty

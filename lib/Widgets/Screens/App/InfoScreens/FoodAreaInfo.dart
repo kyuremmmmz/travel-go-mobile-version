@@ -230,10 +230,11 @@ class _FoodAreaInfoState extends State<FoodAreaInfo> {
                                                 Responsive().headerFontSize()),
                                         GestureDetector(
                                             onTap: () {
-                                              AppRoutes.navigateToTesting(
-                                                  context,
-                                                  name: '$located',
-                                                  id: id);
+                                              AppRoutes
+                                                  .navigateToFoodPlaceMapPage(
+                                                      context,
+                                                      name: '$located',
+                                                      id: widget.id);
                                             },
                                             child: Row(
                                               crossAxisAlignment:

@@ -6,6 +6,7 @@ import 'package:TravelGo/Widgets/Screens/App/confirmBooking.dart';
 import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotel_booking.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/exploreTrackerMaps.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/foodPlacesTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/hotelTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/notPaid.dart';
 import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
@@ -128,6 +129,14 @@ class AppRoutes {
         route,
         MaterialPageRoute(
             builder: (context) => ExploreMapPage(location: name, id: id)));
+  }
+
+  static void navigateToFoodPlaceMapPage(BuildContext route,
+      {required String name, required int id}) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+            builder: (context) => FoodPlaceMapPage(location: name, id: id)));
   }
 
   static void navigateToTesting(BuildContext route,
