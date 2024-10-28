@@ -1,4 +1,5 @@
 import 'package:TravelGo/Controllers/Transactions/BackendTransactions.dart';
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -12,12 +13,14 @@ class Transactions extends StatefulWidget {
 class _TransactionsState extends State<Transactions> {
   List<Map<String, dynamic>> transactions = [];
   Backendtransactions trans = Backendtransactions();
+
   Future<void> mapTheData() async {
     final response = await trans.getTheTransactionsDetails();
     setState(() {
       transactions = response;
     });
   }
+
   String formatDate(String date) {
     final DateTime parsedDate = DateTime.parse(date);
     final DateFormat formatter = DateFormat('MMM dd, yyyy');
@@ -36,29 +39,45 @@ class _TransactionsState extends State<Transactions> {
       appBar: AppBar(
         title: const Text('Transactions'),
       ),
-      body: transactions.isEmpty? const Center(
-        child: CircularProgressIndicator(
-          color: Colors.blue,
-        ),
-      ) : ListView(
-        padding: const EdgeInsets.all(10.0),
-        children: transactions.map((item) {
-          return  _buildTransactionItem(
-            title: item['name'],
-            date: formatDate(item['date_of_payment']),
-            amount:  '${item['price']}',
-            icon: item['pay_via'] == 'paypal' ? Icons.paypal : Icons.credit_card,
-          );
-        }).toList(),
-      ),
+      body: transactions.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            )
+          : ListView(
+              padding: const EdgeInsets.all(10.0),
+              children: transactions.map((item) {
+                return _buildTransactionItem(
+                  title: item['name'],
+                  date: formatDate(item['date_of_payment']),
+                  amount: '${item['price']}',
+                  icon: item['pay_via'] == 'paypal'
+                      ? Icons.paypal
+                      : Icons.credit_card,
+                  name: item['name'],
+                  phone: item['phone'],
+                  ref: item['reference_number'],
+                  payment: item['price'].toString(),
+                  bookingId: item['booking_id'], 
+                  data: item['date_of_payment'],
+                );
+              }).toList(),
+            ),
     );
   }
 
   Widget _buildTransactionItem({
     required String title,
     required String date,
+    required String data,
     required String amount,
     required IconData icon,
+    required String name,
+    required int phone,
+    required String ref,
+    required String payment,
+    required String bookingId,
   }) {
     return Card(
       elevation: 4,
@@ -79,7 +98,13 @@ class _TransactionsState extends State<Transactions> {
           ),
         ),
         onTap: () {
-          // Handle transaction click
+          AppRoutes.navigateToOrderReceipt(context,
+              name: name,
+              phone: phone,
+              date: DateTime.parse(data),
+              ref: ref,
+              payment: payment.toString(),
+              bookingId: bookingId);
         },
       ),
     );
