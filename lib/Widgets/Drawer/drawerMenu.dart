@@ -127,6 +127,17 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
             },
           ),
           ListTile(
+            leading: Icon(Icons.swap_horiz, size: 20.sp),
+            title: Text(
+              'Transactions',
+              style: TextStyle(fontSize: 16.sp),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              AppRoutes.navigateToTransactionsScreen(context);
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.settings, size: 20.sp),
             title: Text(
               'Settings',
