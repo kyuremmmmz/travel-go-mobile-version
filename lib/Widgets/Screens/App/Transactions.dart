@@ -21,6 +21,12 @@ class _TransactionsState extends State<Transactions> {
     });
   }
 
+  String formatPrice(int price) {
+    final num = NumberFormat('#,###');
+    final price2 = num.format(price);
+    return price2;
+  }
+
   String formatDate(String date) {
     final DateTime parsedDate = DateTime.parse(date);
     final DateFormat formatter = DateFormat('MMM dd, yyyy');
@@ -51,15 +57,15 @@ class _TransactionsState extends State<Transactions> {
                 return _buildTransactionItem(
                   title: item['name'],
                   date: formatDate(item['date_of_payment']),
-                  amount: '${item['price']}',
+                  amount: 'PHP ${formatPrice(item['price'])}',
                   icon: item['pay_via'] == 'paypal'
                       ? Icons.paypal
                       : Icons.credit_card,
                   name: item['name'],
-                  phone: item['phone'],
+                  phone: item['phone'].toString(),
                   ref: item['reference_number'],
                   payment: item['price'].toString(),
-                  bookingId: item['booking_id'], 
+                  bookingId: item['booking_id'],
                   data: item['date_of_payment'],
                 );
               }).toList(),
@@ -74,7 +80,7 @@ class _TransactionsState extends State<Transactions> {
     required String amount,
     required IconData icon,
     required String name,
-    required int phone,
+    required String phone,
     required String ref,
     required String payment,
     required String bookingId,
@@ -100,7 +106,7 @@ class _TransactionsState extends State<Transactions> {
         onTap: () {
           AppRoutes.navigateToOrderReceipt(context,
               name: name,
-              phone: phone,
+              phone: int.parse(phone),
               date: DateTime.parse(data),
               ref: ref,
               payment: payment.toString(),
