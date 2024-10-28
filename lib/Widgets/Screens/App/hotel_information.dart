@@ -110,9 +110,6 @@ class _HotelInformationScreenState extends State<HotelInformationScreen> {
     try {
       final data = await rating.fetchComments(widget.text, 'hotel');
       final totalRatings = await rating.fetchRatingsAsSum();
-      final img = await users.fetchUser();
-      final images = img[0]['full_name'];
-      final imgUrl = await users.fetchImageForComments(images);
       final records = data.length;
 
       if (records > 0) {

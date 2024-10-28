@@ -85,11 +85,7 @@ class _HotelCommentsState extends State<HotelComments> {
     try {
       final data = await rating.fetchComments(widget.text, 'hotel');
       final totalRatings = await rating.fetchRatingsAsSum();
-      final img = await users.fetchUser();
-      final images = img[0]['full_name'];
-      final imgUrl = await users.fetchImageForComments(images);
       final records = data.length;
-
       if (records > 0) {
         final count = totalRatings / records;
         final validCount = count > 5.0 ? 5.0 : count;
