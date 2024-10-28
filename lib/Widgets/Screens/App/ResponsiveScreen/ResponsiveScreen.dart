@@ -1,83 +1,115 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Responsive{
-  double screenWidth(context){
+class Responsive {
+  double screenWidth(context) {
     return MediaQuery.of(context).size.width;
   }
-  double infoSizePictureTop(context) {
-    return MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height / 10) * 8.04;
+
+  double infoSizePictureTop() {
+    return 170.h;
   }
-  double infoSizePictureHeight(context) {
-    return MediaQuery.of(context).size.height - 560;
+
+  double infoSizePictureHeight() {
+    return 200.sp;
   }
-  double infoSizePictureWidth(context) {
-    return MediaQuery.of(context).size.width + 91;
+
+  double infoSizePictureWidth() {
+    return 500.sp;
   }
-  double scrollableContainerInfoHeight(context) {
-    return MediaQuery.of(context).size.height - ((MediaQuery.of(context).size.height / 10) * 5.5);
+
+  double scrollableContainerInfoTop() {
+    return 350.h;
   }
+
+  EdgeInsets containerPaddingTop() {
+    return EdgeInsets.only(top: 30.h);
+  }
+
+  BorderRadius borderRadiusTop() {
+    return BorderRadius.only(
+        topLeft: Radius.circular(25.sp), topRight: Radius.circular(25.sp));
+  }
+
+  EdgeInsets horizontalPadding() {
+    return EdgeInsets.symmetric(horizontal: 30.w);
+  }
+
   double sizedBoxRatingWidth(context) {
     return MediaQuery.of(context).size.width - 295;
   }
-  double placeBookingWidth(context) {
+
+  double buttonWidth() {
     return 200.w;
   }
-  double accomodationPlacement(){
-    return 186.w;
-  }
-  double highlightsPlacement(){
+
+  double highlightsPlacement() {
     return 165.w;
   }
-  double festivalTipsPlacement(){
+
+  double festivalTipsPlacement() {
     return 155.w;
   }
-  double aboutPlacement(){
-    return 270.w;
+
+  double headerFontSize() {
+    return 20.sp;
   }
-  double amenitiesPlacement(){
-    return 230.w;
-  }
-  double headerFontSize(){
-    return 19.sp;
-  }
-  double titleFontSize(){
+
+  double titleFontSize() {
     return 23.sp;
   }
-  double clickToOpenFontSize(){
+
+  double clickToOpenFontSize() {
     return 10.sp;
   }
-  double aboutFontSize(){
+
+  double aboutFontSize() {
     return 13.sp;
   }
-  double bookingPrice(){
-    return 19.sp;
-  }
-  double amenitiesBoxHeight(){
+
+  double amenitiesBoxHeight() {
     return 120.sp;
   }
-  double amenitiesBoxWidth(){
+
+  double amenitiesBoxWidth() {
     return 320.sp;
   }
-  double placeBookingPadding(){
+
+  BorderRadius amenitiesBorderRadius() {
+    return BorderRadius.all(Radius.circular(15.sp));
+  }
+
+  BorderRadius amenitiesTextBorderRadius() {
+    return BorderRadius.only(
+        bottomLeft: Radius.circular(15.sp),
+        bottomRight: Radius.circular(15.sp));
+  }
+
+  double placeBookingPadding() {
     return 5.sp;
   }
-  double settingSelectionWidth(){
+
+  double settingSelectionWidth() {
     return 258.sp;
   }
-  double settingSelectionHeight(){
+
+  double settingSelectionHeight() {
     return 155.sp;
   }
-  double settingTitleWidth(){
+
+  double settingTitleWidth() {
     return 300.sp;
   }
-  double settingTitleHeight(){
+
+  double settingTitleHeight() {
     return 45.sp;
   }
-  double settingProfileRadius(){
+
+  double settingProfileRadius() {
     return 40.sp;
   }
-  double discountProfileRadius(){
+
+  double discountProfileRadius() {
     return 29.sp;
   }
 }
