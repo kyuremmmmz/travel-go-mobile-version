@@ -2,7 +2,7 @@
 import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/beachInfo.dart';
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/BeachInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
@@ -11,7 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Beaches extends StatefulWidget {
-
   const Beaches({
     super.key,
   });
@@ -110,7 +109,9 @@ class _BeachesState extends State<Beaches> {
                             child: SingleChildScrollView(
                                 padding: EdgeInsets.symmetric(horizontal: 25.w),
                                 child: Column(children: <Widget>[
-                                  Categories(category: 'beach',),
+                                  Categories(
+                                    category: 'beach',
+                                  ),
                                   SizedBox(height: 20.h),
                                   Container(
                                     padding: EdgeInsets.only(
@@ -147,7 +148,7 @@ class _BeachesState extends State<Beaches> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          BeachareaAboutScreen(
+                                                          BeachInfo(
                                                             id: place['id'],
                                                             name: place[
                                                                 'beach_name'],

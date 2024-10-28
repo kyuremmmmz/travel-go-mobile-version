@@ -1,46 +1,42 @@
-import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
-import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
-import 'package:TravelGo/Routes/Routes.dart';
-import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:TravelGo/Widgets/Screens/App/ResponsiveScreen/ResponsiveScreen.dart';
+import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HotelDetailsModal extends StatefulWidget {
+class FoodPlacesDetailsModal extends StatefulWidget {
   final int id;
   final String? price;
-  const HotelDetailsModal({super.key, required this.id, this.price});
+  const FoodPlacesDetailsModal({super.key, required this.id, this.price});
 
   @override
-  State<HotelDetailsModal> createState() => _HotelDetailsModalState();
+  State<FoodPlacesDetailsModal> createState() => _FoodPlacesDetailsModalState();
 }
 
-class _HotelDetailsModalState extends State<HotelDetailsModal> {
-  late HotelImages images = HotelImages();
-  String? placeName;
+class _FoodPlacesDetailsModalState extends State<FoodPlacesDetailsModal> {
+  late FoodAreaBackEnd images = FoodAreaBackEnd();
+  String? foodAreaName;
   var price;
   String? located;
   String? description;
-  var amenities = <String, dynamic>{};
-  var imageUrlForAmenities = <String, dynamic>{};
+  var dine = <String, dynamic>{};
+  var imageUrlForDine = <String, dynamic>{};
 
   Future<void> places(int id) async {
-    final data = await images.fetchDataInSingle(id);
+    final data = await images.getSpecificData(id);
     setState(() {
-      placeName = data?['hotel_name'];
-      price = data?['hotel_price'];
-      located = data?['hotel_located'];
-      description = data?['hotel_description'];
+      foodAreaName = data?['img'];
+      price = data?['price'];
+      located = data?['located'];
+      description = data?['description'];
       id = data?['id'];
       for (var i = 1; i <= 20; i++) {
-        final key = 'amenity$i';
-        final keyUrl = 'amenity${i}Url';
-        final value = data?[key];
-        final imageUrlValue = data?[keyUrl];
-        if (value != null) {
-          amenities[key] = value;
-          imageUrlForAmenities[key] = imageUrlValue;
-          print(imageUrlForAmenities);
+        final dineT = 'dine$i';
+        final dineImg = 'dineUrl$i';
+        final img = data?[dineT];
+        final imgUrl = data?[dineImg];
+        if (img != null) {
+          dine[dineT] = img;
+          imageUrlForDine[dineT] = imgUrl;
+          print(imageUrlForDine);
         }
       }
     });
@@ -72,17 +68,15 @@ class _HotelDetailsModalState extends State<HotelDetailsModal> {
             child: Column(
               children: [
                 Text(
-                  'Booking Details',
+                  'Place Details',
                   style: TextStyle(fontSize: 20.sp),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
+                SizedBox(height: 10.h),
                 Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Text(
-                    placeName ?? 'No data available',
+                    foodAreaName ?? 'No data available',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
@@ -115,13 +109,13 @@ class _HotelDetailsModalState extends State<HotelDetailsModal> {
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(left: 10.w),
                   child: Text(
-                    'Amenities',
+                    'Accomodations',
                     style:
                         TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Column(
-                    children: imageUrlForAmenities.entries.map((entry) {
+                    children: imageUrlForDine.entries.map((entry) {
                   return Column(
                     children: [
                       SizedBox(height: 20.h),
@@ -155,7 +149,7 @@ class _HotelDetailsModalState extends State<HotelDetailsModal> {
                                 ),
                               ),
                               child: Text(
-                                amenities[entry.key] ?? '',
+                                dine[entry.key] ?? '',
                                 style: TextStyle(
                                   fontSize: 18.sp,
                                   color: Colors.white,
@@ -169,45 +163,7 @@ class _HotelDetailsModalState extends State<HotelDetailsModal> {
                     ],
                   );
                 }).toList()),
-                SizedBox(height: 30.h),
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RichText(
-                            text: TextSpan(children: [
-                          TextSpan(
-                              text: 'PHP ${price.toString()} - 6,000',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: Responsive().headerFontSize(),
-                                  fontWeight: FontWeight.bold)),
-                          TextSpan(
-                              text: '\nEstimated Expenses',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: Responsive().aboutFontSize()))
-                        ])),
-                        BlueButtonWithoutFunction(
-                            text: Text(
-                              'Place Booking',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: Responsive().aboutFontSize(),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                            ),
-                            oppressed: () {
-                              HotelBooking().passTheHotelData(widget.id);
-                              AppRoutes.navigateToHotelBookingScreen(context,
-                                  id: widget.id, price: price);
-                            })
-                      ],
-                    )),
-                SizedBox(height: 10.h)
+                SizedBox(height: 30.h)
               ],
             ),
           ),

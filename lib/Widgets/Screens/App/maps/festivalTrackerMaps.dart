@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
+import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/maps/ExploreDetailsModal.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/festivalsDetailsModal.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -11,12 +11,12 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 
-class ExploreMap extends StatelessWidget {
+class FestivalsMap extends StatelessWidget {
   final String? location;
   final int id;
   final int text;
   final String? price;
-  const ExploreMap({
+  const FestivalsMap({
     super.key,
     required this.location,
     required this.id,
@@ -30,16 +30,16 @@ class ExploreMap extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Map'),
       ),
-      body: ExploreMapPage(location: location, id: id),
+      body: FestivalsMapPage(location: location, id: id),
     );
   }
 }
 
-class ExploreMapPage extends StatefulWidget {
+class FestivalsMapPage extends StatefulWidget {
   final String? location;
   final int id;
   final String? price;
-  const ExploreMapPage({
+  const FestivalsMapPage({
     super.key,
     required this.location,
     required this.id,
@@ -47,10 +47,10 @@ class ExploreMapPage extends StatefulWidget {
   });
 
   @override
-  State<ExploreMapPage> createState() => _ExploreMapPageState();
+  State<FestivalsMapPage> createState() => _FestivalsMapPageState();
 }
 
-class _ExploreMapPageState extends State<ExploreMapPage> {
+class _FestivalsMapPageState extends State<FestivalsMapPage> {
   final start = TextEditingController();
   final end = TextEditingController();
   List<LatLng> routePoints = [const LatLng(15.91667, 120.33333)];
@@ -62,8 +62,8 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
   List<Marker> markers = [];
   var imageUrlForAmenities = <String, dynamic>{};
   var amenities = <String, dynamic>{};
-  final data = Data();
-  late Data images = Data();
+  final data = FestivalsImages();
+  late FestivalsImages images = FestivalsImages();
   Future<void> func() async {
     try {
       List<Location> startR = await locationFromAddress(start.text.trim());
@@ -104,30 +104,30 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
   }
 
   Future<void> places(int id) async {
-    final data = await images.fetchSpecificDataInSingle(id);
+    final data = await images.getSpecificData(id);
     setState(() {
-      placeName = data?['place_name'];
+      placeName = data?['img'];
       price = data?['price'];
-      located = data?['locatedIn'];
+      located = data?['Located'];
+      id = data?['id'];
     });
   }
 
   Future<void> getMarkers() async {
     try {
-      final places = await images.fetchImageandText();
-
-      if (places.isNotEmpty) {
+      final beaches = await images.fetchFestivals();
+      print(widget.location);
+      if (beaches.isNotEmpty) {
         List<Marker> fetchedMarkers = [];
 
-        for (var place in places) {
-          var placeName = place['place_name'];
-          var placePrice = place['price'];
+        for (var beach in beaches) {
+          var beachName = beach['img'];
+          var beachPrice = beach['price'];
           var numberFormat = NumberFormat('#,###');
-          var finalPrice = numberFormat.format(placePrice);
-          place['price'] = finalPrice;
-          place['place_name'] = placeName;
-          List<Location> locations =
-              await locationFromAddress(place['place_name']);
+          var finalPrice = numberFormat.format(beachPrice);
+          beach['price'] = finalPrice;
+          beach['img'] = beachName;
+          List<Location> locations = await locationFromAddress(beach['img']);
           if (locations.isNotEmpty) {
             double lat = locations[0].latitude;
             double lng = locations[0].longitude;
@@ -149,7 +149,7 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
                           onTap: () {
                             showModalBottomSheet(
                                 context: context,
-                                builder: (context) => ExploreDetailsModal(
+                                builder: (context) => FestivalsDetailsModal(
                                       id: widget.id,
                                     ));
                           },
@@ -175,7 +175,7 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
         });
       }
     } catch (error) {
-      print('Error fetching places: $error');
+      print('Error fetching festivals: $error');
     }
   }
 
@@ -196,7 +196,7 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
   Future<void> detailsModal(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
-        builder: (context) => ExploreDetailsModal(
+        builder: (context) => FestivalsDetailsModal(
               id: widget.id,
             ));
   }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
-import 'package:TravelGo/Widgets/Screens/App/hotel_information.dart';
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/HotelsInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
@@ -78,130 +78,131 @@ class _HotelScreenState extends State<HotelScreen> {
           ),
         ),
         drawer: const DrawerMenuWidget(),
-        body: isLoading == true ? const Center(
-          child: CircularProgressIndicator(
-            color: Colors.blue,
-          ),
-        ) : Stack(children: [
-                  Positioned.fill(
-                      child: Column(children: <Widget>[
-                    const TitleMenu(),
-                    const SearchMenu(),
-                    SizedBox(height: 30.h),
-                    Expanded(
-                        child: Scrollbar(
-                            thumbVisibility: true,
-                            child: SingleChildScrollView(
-                                padding: EdgeInsets.symmetric(horizontal: 25.w),
-                                child: Column(children: <Widget>[
-                                  Categories(category: 'hotel',),
-                                  SizedBox(height: 10.h),
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                        right: 190.w, bottom: 5.h),
-                                    child: Text(
-                                      'Popular Hotels',
-                                      style: TextStyle(
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: const Color.fromARGB(255, 49, 49, 49),
-                                      ),
+        body: isLoading == true
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              )
+            : Stack(children: [
+                Positioned.fill(
+                    child: Column(children: <Widget>[
+                  const TitleMenu(),
+                  const SearchMenu(),
+                  SizedBox(height: 30.h),
+                  Expanded(
+                      child: Scrollbar(
+                          thumbVisibility: true,
+                          child: SingleChildScrollView(
+                              padding: EdgeInsets.symmetric(horizontal: 25.w),
+                              child: Column(children: <Widget>[
+                                Categories(
+                                  category: 'hotel',
+                                ),
+                                SizedBox(height: 10.h),
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      right: 190.w, bottom: 5.h),
+                                  child: Text(
+                                    'Popular Hotels',
+                                    style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          const Color.fromARGB(255, 49, 49, 49),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 15.h,
-                                  ),
-                                  Column(
-                                    children: data.map((place) {
-                                      final imageUrl = place['image'];
-                                      final text =
-                                          place['hotel_name'] ?? 'Unknown';
-                                      return Column(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () async {
-                                              final placeData =
-                                                  await HotelImages()
-                                                      .fetchDataInSingle(
-                                                          place['id']);
-                                              if (placeData != null) {
-                                                Navigator.push(
-                                                  // ignore: use_build_context_synchronously
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          HotelInformationScreen(
-                                                            text: place['id'],
-                                                            name: place['hotel_name'],
-                                                            id: place['id'],
-                                                          )),
-                                                );
-                                              }
-                                            },
-                                            child: Stack(
-                                              // area of the popular hotels images
-                                              children: [
-                                                Container(
-                                                  height: 150.h,
-                                                  width: 600.w,
+                                ),
+                                SizedBox(
+                                  height: 15.h,
+                                ),
+                                Column(
+                                  children: data.map((place) {
+                                    final imageUrl = place['image'];
+                                    final text =
+                                        place['hotel_name'] ?? 'Unknown';
+                                    return Column(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () async {
+                                            final placeData =
+                                                await HotelImages()
+                                                    .fetchDataInSingle(
+                                                        place['id']);
+                                            if (placeData != null) {
+                                              Navigator.push(
+                                                // ignore: use_build_context_synchronously
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HotelsInfo(
+                                                          text: place['id'],
+                                                          name: place[
+                                                              'hotel_name'],
+                                                          id: place['id'],
+                                                        )),
+                                              );
+                                            }
+                                          },
+                                          child: Stack(
+                                            // area of the popular hotels images
+                                            children: [
+                                              Container(
+                                                height: 150.h,
+                                                width: 600.w,
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image:
+                                                        NetworkImage(imageUrl),
+                                                  ),
+                                                  color: Colors.blue,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(15
+                                                        .w), // radius area of hotels images
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                bottom: 0,
+                                                left: 0,
+                                                right: 0,
+                                                child: Container(
+                                                  padding: EdgeInsets.all(10.w),
                                                   decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: NetworkImage(
-                                                          imageUrl),
-                                                    ),
-                                                    color: Colors.blue,
+                                                    color: Colors.black
+                                                        .withOpacity(0.12),
                                                     borderRadius:
-                                                        BorderRadius.all(
-                                                      Radius.circular(15
-                                                          .w), // radius area of hotels images
+                                                        BorderRadius.only(
+                                                      bottomLeft:
+                                                          Radius.circular(30.w),
+                                                      bottomRight:
+                                                          Radius.circular(30.w),
+                                                    ),
+                                                  ),
+                                                  child: Text(
+                                                    // color area of text in each hotels.
+                                                    text,
+                                                    style: TextStyle(
+                                                      fontSize: 16.sp,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
                                                 ),
-                                                Positioned(
-                                                  bottom: 0,
-                                                  left: 0,
-                                                  right: 0,
-                                                  child: Container(
-                                                    padding:
-                                                        EdgeInsets.all(10.w),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.black
-                                                          .withOpacity(0.12),
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(
-                                                                30.w),
-                                                        bottomRight:
-                                                            Radius.circular(
-                                                                30.w),
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      // color area of text in each hotels.
-                                                      text,
-                                                      style: TextStyle(
-                                                        fontSize: 16.sp,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                          SizedBox(height: 20.h),
-                                        ],
-                                      );
-                                    }).toList(),
-                                  ),
-                                ]))))
-                  ]))
-                ])
-                );
-              }
-            }
-
+                                        ),
+                                        SizedBox(height: 20.h),
+                                      ],
+                                    );
+                                  }).toList(),
+                                ),
+                              ]))))
+                ]))
+              ]));
+  }
+}
