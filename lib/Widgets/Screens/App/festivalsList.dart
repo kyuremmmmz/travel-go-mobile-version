@@ -5,7 +5,7 @@ import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/festivalsAbout.dart';
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/FestivalsInfo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
 
@@ -103,7 +103,9 @@ class _FestivalState extends State<Festival> {
                             child: SingleChildScrollView(
                                 padding: EdgeInsets.symmetric(horizontal: 25.h),
                                 child: Column(children: <Widget>[
-                                  Categories(category: 'festival',),
+                                  Categories(
+                                    category: 'festival',
+                                  ),
                                   SizedBox(height: 20.h),
                                   Container(
                                     padding: EdgeInsets.only(
@@ -113,7 +115,8 @@ class _FestivalState extends State<Festival> {
                                       style: TextStyle(
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
-                                        color: const Color.fromARGB(255, 49, 49, 49),
+                                        color: const Color.fromARGB(
+                                            255, 49, 49, 49),
                                       ),
                                     ),
                                   ),
@@ -138,7 +141,7 @@ class _FestivalState extends State<Festival> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          FestivalsAboutScreen(
+                                                          FestivalsInfo(
                                                             id: place['id'],
                                                           )),
                                                 );

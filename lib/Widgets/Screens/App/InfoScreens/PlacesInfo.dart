@@ -17,20 +17,20 @@ import 'package:TravelGo/Widgets/Screens/App/flights.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class InformationScreen extends StatefulWidget {
+class PlacesInfo extends StatefulWidget {
   final int text;
   final String? name;
-  const InformationScreen({
+  const PlacesInfo({
     super.key,
     required this.text,
     this.name,
   });
 
   @override
-  State<InformationScreen> createState() => _InformationScreenState();
+  State<PlacesInfo> createState() => _PlacesInfoState();
 }
 
-class _InformationScreenState extends State<InformationScreen> {
+class _PlacesInfoState extends State<PlacesInfo> {
   final _searchController = TextEditingController();
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food_place.png";

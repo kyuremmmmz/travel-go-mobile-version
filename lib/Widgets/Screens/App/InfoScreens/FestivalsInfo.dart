@@ -1,53 +1,31 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'ResponsiveScreen/ResponsiveScreen.dart';
+import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:flutter/material.dart';
+import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../ResponsiveScreen/ResponsiveScreen.dart';
 
 // ignore: must_be_immutable
-class BeachInfo extends StatelessWidget {
+class FestivalsInfo extends StatefulWidget {
   String? name;
   int id;
-  BeachInfo({
+  FestivalsInfo({
     super.key,
     this.name,
     required this.id,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Travel',
-      home: BeachareaAboutScreen(
-        id: id,
-      ),
-    );
-  }
+  State<FestivalsInfo> createState() => _FestivalsInfoState();
 }
 
-// ignore: must_be_immutable
-class BeachareaAboutScreen extends StatefulWidget {
-  String? name;
-  int id;
-  BeachareaAboutScreen({
-    super.key,
-    this.name,
-    required this.id,
-  });
-
-  @override
-  State<BeachareaAboutScreen> createState() => _BeachareaAboutScreenState();
-}
-
-class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
+class _FestivalsInfoState extends State<FestivalsInfo> {
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
@@ -55,16 +33,16 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
 
   String? email;
   String? description;
+  String? menu;
   String? placeName;
   String? imageUrl;
+  var id;
   String? located;
   String? foodName;
   String? price;
-  // ignore: prefer_typing_uninitialized_variables
-  var id;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
-  final data = BeachImages();
+  final data = FestivalsImages();
 
   final _searchController = TextEditingController();
   late Usersss users = Usersss();
@@ -90,14 +68,12 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
   }
 
   Future<void> fetchImage() async {
-    final datas = await data.fetchBeaches();
+    final datas = await data.fetchFestivals();
     setState(() {
       place = datas.map(
         (place) {
-          if (place['beach_name'] != null &&
-              place['beach_name'].toString().length > 50) {
-            place['beach_name'] =
-                place['beach_name'].toString().substring(0, 50);
+          if (place['img'] != null && place['img'].toString().length > 50) {
+            place['img'] = place['img'].toString().substring(0, 50);
           }
           return place;
         },
@@ -115,21 +91,22 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
         });
       } else {
         setState(() {
-          description = dataList['description'];
-          foodName = dataList['beach_name'];
-          imageUrl = dataList['image'].toString();
+          description = dataList['Description'];
+          foodName = dataList['img'];
+          imageUrl = dataList['imgUrl'].toString();
+          located = dataList['Located'];
           id = dataList['id'];
-          located = dataList['beach_located'];
-          price = dataList['beach_price'];
+          menu = dataList['TipsForVisitors'];
+          price = dataList['price'];
           for (var i = 1; i <= 20; i++) {
-            final key = 'dine$i';
-            final keyUrl = 'dineUrl$i';
+            final key = 'Dine$i';
+            final keyUrl = 'DineUrl$i';
             final value = dataList[key];
             final imageUrlValue = dataList[keyUrl];
             if (value != null) {
               amenities[key] = value;
               imageUrlForAmenities[key] = imageUrlValue;
-              debugPrint("$imageUrlForAmenities");
+              print(imageUrlForAmenities);
             }
           }
         });
@@ -138,7 +115,7 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
       setState(() {
         description = "Error fetching data";
       });
-      debugPrint('Error in fetchSpecificData: $e');
+      print('Error in fetchSpecificData: $e');
     }
   }
 
@@ -163,6 +140,7 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           toolbarHeight: 40.h,
           leading: Builder(
@@ -309,7 +287,7 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
                                       alignment: Alignment.centerLeft,
                                       padding: EdgeInsets.only(left: 30.w),
                                       child: Text(
-                                        'Accomodations',
+                                        'Festival Highlights',
                                         style: TextStyle(
                                             fontSize:
                                                 Responsive().headerFontSize(),
@@ -366,6 +344,28 @@ class _BeachareaAboutScreenState extends State<BeachareaAboutScreen> {
                                         ],
                                       );
                                     }).toList()),
+                                    SizedBox(height: 20.h),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      padding: EdgeInsets.only(left: 30.w),
+                                      child: Text(
+                                        'Tips for the Visitors',
+                                        style: TextStyle(
+                                            fontSize:
+                                                Responsive().headerFontSize(),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: Responsive().horizontalPadding(),
+                                      child: Text(
+                                        menu ?? 'No Description',
+                                        textAlign: TextAlign.justify,
+                                        style: TextStyle(
+                                            fontSize:
+                                                Responsive().aboutFontSize()),
+                                      ),
+                                    ),
                                     SizedBox(height: 20.h),
                                   ],
                                 ),

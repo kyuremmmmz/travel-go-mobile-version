@@ -4,7 +4,7 @@ import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Widgets/Screens/App/comments.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'ResponsiveScreen/ResponsiveScreen.dart';
+import '../ResponsiveScreen/ResponsiveScreen.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotelSearch.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +17,12 @@ import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class HotelInformationScreen extends StatefulWidget {
+class HotelsInfo extends StatefulWidget {
   final int text;
   final String? name;
   final int id;
   final String? price;
-  const HotelInformationScreen({
+  const HotelsInfo({
     super.key,
     required this.text,
     this.name,
@@ -31,10 +31,10 @@ class HotelInformationScreen extends StatefulWidget {
   });
 
   @override
-  State<HotelInformationScreen> createState() => _HotelInformationScreenState();
+  State<HotelsInfo> createState() => _HotelsInfoState();
 }
 
-class _HotelInformationScreenState extends State<HotelInformationScreen> {
+class _HotelsInfoState extends State<HotelsInfo> {
   final _searchController = TextEditingController();
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food.png";

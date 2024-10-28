@@ -1,54 +1,31 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart';
-import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
-import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
-import 'package:TravelGo/Routes/Routes.dart';
-import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'ResponsiveScreen/ResponsiveScreen.dart';
+import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
+import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import '../ResponsiveScreen/ResponsiveScreen.dart';
 
 // ignore: must_be_immutable
-class FestivalsAbout extends StatelessWidget {
+class FoodAreaInfo extends StatefulWidget {
   String? name;
   int id;
-  FestivalsAbout({
+  FoodAreaInfo({
     super.key,
     this.name,
     required this.id,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Travel',
-      home: FestivalsAboutScreen(
-        id: id,
-      ),
-    );
-  }
+  State<FoodAreaInfo> createState() => _FoodAreaInfoState();
 }
 
-// ignore: must_be_immutable
-class FestivalsAboutScreen extends StatefulWidget {
-  String? name;
-  int id;
-  FestivalsAboutScreen({
-    super.key,
-    this.name,
-    required this.id,
-  });
-
-  @override
-  State<FestivalsAboutScreen> createState() => _FestivalsAboutScreenState();
-}
-
-class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
+class _FoodAreaInfoState extends State<FoodAreaInfo> {
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food.png";
   final String hotelIcon = "assets/images/icon/hotel.png";
@@ -56,7 +33,6 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
 
   String? email;
   String? description;
-  String? menu;
   String? placeName;
   String? imageUrl;
   var id;
@@ -65,7 +41,7 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
   String? price;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
-  final data = FestivalsImages();
+  final data = FoodAreaBackEnd();
 
   final _searchController = TextEditingController();
   late Usersss users = Usersss();
@@ -91,7 +67,7 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
   }
 
   Future<void> fetchImage() async {
-    final datas = await data.fetchFestivals();
+    final datas = await data.getFood();
     setState(() {
       place = datas.map(
         (place) {
@@ -114,16 +90,16 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
         });
       } else {
         setState(() {
-          description = dataList['Description'];
+          description = dataList['description'];
           foodName = dataList['img'];
           imageUrl = dataList['imgUrl'].toString();
-          located = dataList['Located'];
+
+          located = dataList['located'];
           id = dataList['id'];
-          menu = dataList['TipsForVisitors'];
           price = dataList['price'];
           for (var i = 1; i <= 20; i++) {
-            final key = 'Dine$i';
-            final keyUrl = 'DineUrl$i';
+            final key = 'dine$i';
+            final keyUrl = 'dineUrl$i';
             final value = dataList[key];
             final imageUrlValue = dataList[keyUrl];
             if (value != null) {
@@ -163,12 +139,11 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           toolbarHeight: 40.h,
           leading: Builder(
             builder: (BuildContext context) => IconButton(
-              icon: const Icon(Icons.menu),
+              icon: Icon(Icons.menu, size: 24.sp),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -310,7 +285,7 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                                       alignment: Alignment.centerLeft,
                                       padding: EdgeInsets.only(left: 30.w),
                                       child: Text(
-                                        'Festival Highlights',
+                                        'Accomodations',
                                         style: TextStyle(
                                             fontSize:
                                                 Responsive().headerFontSize(),
@@ -367,28 +342,6 @@ class _FestivalsAboutScreenState extends State<FestivalsAboutScreen> {
                                         ],
                                       );
                                     }).toList()),
-                                    SizedBox(height: 20.h),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      padding: EdgeInsets.only(left: 30.w),
-                                      child: Text(
-                                        'Tips for the Visitors',
-                                        style: TextStyle(
-                                            fontSize:
-                                                Responsive().headerFontSize(),
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: Responsive().horizontalPadding(),
-                                      child: Text(
-                                        menu ?? 'No Description',
-                                        textAlign: TextAlign.justify,
-                                        style: TextStyle(
-                                            fontSize:
-                                                Responsive().aboutFontSize()),
-                                      ),
-                                    ),
                                     SizedBox(height: 20.h),
                                   ],
                                 ),

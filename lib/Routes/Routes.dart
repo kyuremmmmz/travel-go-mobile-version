@@ -21,8 +21,7 @@ import 'package:TravelGo/Widgets/Screens/Stateless/hotel_stateless.dart';
 import 'package:TravelGo/Widgets/Screens/Stateless/reset.dart';
 import 'package:TravelGo/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
 import 'package:flutter/material.dart';
-
-import '../Widgets/Screens/App/foodAreaAbout.dart';
+import '../Widgets/Screens/App/InfoScreens/FoodAreaInfo.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
 import '../Widgets/Screens/Auth/Login.dart';
 import './../Widgets/Screens/App/linkedBankAccount.dart';
@@ -166,11 +165,11 @@ class AppRoutes {
         route, MaterialPageRoute(builder: (context) => const HotelStateless()));
   }
 
-  static void navigateToFoodAreaAbout(BuildContext route, {required int id}) {
+  static void navigateToFoodAreaInfo(BuildContext route, {required int id}) {
     Navigator.push(
         route,
         MaterialPageRoute(
-            builder: (context) => FoodAreaAbout(
+            builder: (context) => FoodAreaInfo(
                   id: id,
                 )));
   }
