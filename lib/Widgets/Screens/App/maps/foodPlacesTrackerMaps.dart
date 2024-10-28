@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/maps/ExploreDetailsModal.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/foodPlacesDetailsModal.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -163,7 +163,7 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
                           onTap: () {
                             showModalBottomSheet(
                                 context: context,
-                                builder: (context) => ExploreDetailsModal(
+                                builder: (context) => FoodPlacesDetailsModal(
                                       id: widget.id,
                                     ));
                           },
@@ -210,7 +210,7 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
   Future<void> detailsModal(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
-        builder: (context) => ExploreDetailsModal(
+        builder: (context) => FoodPlacesDetailsModal(
               id: widget.id,
             ));
   }
