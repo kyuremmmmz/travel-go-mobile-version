@@ -1,5 +1,6 @@
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Screens/Profiles/EditProfileScreen.dart';
+import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -22,7 +23,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   final String gcashIcon = "assets/images/icon/gcash.png";
   final String mastercardIcon = "assets/images/icon/mastercard.png";
   final _searchController = TextEditingController();
-  String? eemail;
+  String? email;
   String? gmail;
   String? uid;
   String? img;
@@ -40,7 +41,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       final userId = supabase.auth.currentUser!.id;
       if (mounted) {
         setState(() {
-          eemail = useremail.isNotEmpty
+          email = useremail.isNotEmpty
               ? useremail[0]['full_name'].toString()
               : "Anonymous User";
           gmail = userEmail;
@@ -53,17 +54,18 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          eemail = "error: $e";
+          email = "error: $e";
         });
       }
     }
   }
 
+
   Future<Future<String?>> insert(String id) async {
     final response = users.editProfile(id);
     return response;
   }
-
+  
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
     if (mounted) {
@@ -72,6 +74,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       });
     }
   }
+
+  
 
   @override
   void dispose() {
@@ -116,19 +120,36 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                       onTap: () {
                         insert('$uid');
                       },
-                      child: CircleAvatar(
-                        radius: 45,
-                        backgroundColor: Colors.grey[300],
-                        backgroundImage: _profileImage != null
-                            ? FileImage(_profileImage!)
-                            : (img == null
-                                ? const AssetImage(
-                                    'assets/images/icon/user.png')
-                                : NetworkImage('$img')) as ImageProvider,
-                        child: _profileImage == null
-                            ? const Icon(Icons.add_a_photo,
-                                size: 30, color: Colors.white) // the photo
-                            : null,
+                      child: Container(
+                        width: 180, // CircleAvatar diameter (2 * radius) + border width
+                        height: 180,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Color(0xFF44CAF9), // Set your desired border color
+                            width: 4.0, // Set your desired border width
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF44CAF9).withOpacity(0.2), // Shadow color and opacity
+                              spreadRadius: 4, // Spread of the shadow
+                              blurRadius: 10, // Softness of the shadow
+                              offset: Offset(0, 4), // Positioning the shadow (x, y)
+                            ),
+                          ],
+                        ),
+                        child: CircleAvatar(
+                          radius: 85, // Adjust radius to fit within the border
+                          backgroundColor: Colors.grey[400],
+                          backgroundImage: _profileImage != null
+                              ? FileImage(_profileImage!)
+                              : (img == null
+                                  ? const AssetImage('assets/images/icon/user.png')
+                                  : NetworkImage('$img')) as ImageProvider,
+                          child: _profileImage == null
+                              ? const Icon(Icons.add_a_photo, size: 30, color: Colors.white)
+                              : null,
+                        ),
                       ),
                     ),
                   ),
@@ -181,8 +202,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     );
   }
 
-  Widget buildSectionTitle(BuildContext context, String title) {
-    // DESIGN ARE OF THE ACCOUNT AND NOTIFICATION TEXT
+  Widget buildSectionTitle(BuildContext context, String title) { // DESIGN ARE OF THE ACCOUNT AND NOTIFICATION TEXT
     return Container(
       padding: EdgeInsets.all(15.w),
       width: 330,
@@ -194,6 +214,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       child: Text(
         title,
         textAlign: TextAlign.left,
+        
         style: const TextStyle(
           height: 1,
           color: Color(0xFF44CAF9),
@@ -204,8 +225,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     );
   }
 
-  Widget buildAccountDetails() {
-    // ACCOUNT SETTINGS INFO AREA
+  Widget buildAccountDetails() { // ACCOUNT SETTINGS INFO AREA
     return Container(
       width: 390.w,
       height: 220.h,
@@ -216,42 +236,84 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
         border: Border.all(color: Colors.black, 
         width: 0.5,
         ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          buildAccountInfoRow('Name', eemail ?? 'Unknown'),
-          const Divider(
-            color: Color(0xFF929292),
-            thickness: 0.5,
-          ),
-          InkWell(
-            onTap: () => {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => EditProfileScreen(
-                            currentAvatarUrl: img,
-                            currentEmail: gmail,
-                            currentName: eemail,
-                          )))
-            },
-            child: const Row(children: [Text('Edit Profile')]),
-          ),
-          const Divider(
-            color: Color(0xFF929292),
-            thickness: 0.5,
-          ), // the edit profile line divider
-          buildAccountInfoRow('Email:', gmail ?? 'Unknown'),
-          const Divider(
-            color: Color(0xFF929292),
-            thickness: 0.5,
-          ),
-          InkWell(
-            onTap: () => 'test',
-            child: const Row(children: [Text('Change Password')]),
+        borderRadius: BorderRadius.all(Radius.circular(10),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5), // Shadow color with opacity
+            spreadRadius: 0, // How much the shadow spreads
+            blurRadius: 4, // Softness of the shadow
+            offset: Offset(0, 4), // Offset of the shadow (x, y)
           ),
         ],
+      ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0.w), // Apply left and right padding to all children
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 0), // Adjust top and bottom padding here
+              child: Text(
+                'Name: ',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 0), // Adjust top and bottom padding here
+              child: Text(email ?? 'Unknown'),
+            ),
+          ],
+        ),
+
+      const Divider(color: Color(0xFF929292), thickness: 0.5),
+      InkWell(
+        onTap: () => {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EditProfileScreen(
+                currentAvatarUrl: img,
+                currentEmail: gmail,
+                currentName: email,
+              ),
+            ),
+          )
+        },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              Text('Edit Profile', style: TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          ),
+        ),
+        const Divider(color: Color(0xFF929292), thickness: 0.5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('Email: ', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(gmail ?? 'Unknown'),
+          ],
+        ),
+        const Divider(color: Color(0xFF929292), thickness: 0.5),
+        InkWell(
+          onTap: () => 'test',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              Text('Change Password', style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -269,8 +331,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     );
   }
 
-  Widget buildNotificationSettings() {
-    // NOTIFICATION SETTINGS INFO AREA
+  Widget buildNotificationSettings() { // NOTIFICATION SETTINGS INFO AREA
     return Container(
       width: 390.w,
       height: 220.h,

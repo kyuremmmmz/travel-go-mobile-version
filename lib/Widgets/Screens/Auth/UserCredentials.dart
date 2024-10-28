@@ -68,8 +68,8 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
         children: <Widget>[
           Positioned(
             top: 0.h,
-            right: 0,
-            left: 0,
+            right: -30,
+            left: -30,
             child: Stack(children: <Widget>[
               Align(
                 child: Image.asset(
@@ -79,6 +79,21 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                   width: 200.w,
                 ),
               ),
+              Positioned(
+                top: 100,
+                bottom: 50, // Adjust the position of the second image
+                right: -30,
+                left: -30, // Change as needed
+                child: Image.asset(
+                  'assets/images/icon/pogi2.png', // Replace with your image path
+                  height: 450.h, // Adjust the size
+                  width: 350.w, // Adjust the size
+                ),
+              ),
+              SizedBox(
+                height: 470.h,
+                width: 510.w,
+              )
             ]),
           ),
           Positioned(
