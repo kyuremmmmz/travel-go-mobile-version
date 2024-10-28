@@ -232,7 +232,7 @@ class _BeachInfoState extends State<BeachInfo> {
                                                 Responsive().headerFontSize()),
                                         GestureDetector(
                                             onTap: () {
-                                              AppRoutes.navigateToTesting(
+                                              AppRoutes.navigateToBeachMapPage(
                                                   context,
                                                   name: '$located',
                                                   id: id);
