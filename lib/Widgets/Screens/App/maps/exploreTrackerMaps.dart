@@ -109,18 +109,6 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
       placeName = data?['place_name'];
       price = data?['price'];
       located = data?['locatedIn'];
-      id = data?['id'];
-      for (var i = 1; i <= 20; i++) {
-        final key = 'amenity$i';
-        final keyUrl = 'amenity${i}Url';
-        final value = data?[key];
-        final imageUrlValue = data?[keyUrl];
-        if (value != null) {
-          amenities[key] = value;
-          imageUrlForAmenities[key] = imageUrlValue;
-          print(imageUrlForAmenities);
-        }
-      }
     });
   }
 
@@ -134,12 +122,10 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
         for (var place in places) {
           var placeName = place['place_name'];
           var placePrice = place['price'];
-          var des = place['description'];
           var numberFormat = NumberFormat('#,###');
           var finalPrice = numberFormat.format(placePrice);
           place['price'] = finalPrice;
           place['place_name'] = placeName;
-          place['description'] = des;
           List<Location> locations =
               await locationFromAddress(place['place_name']);
           if (locations.isNotEmpty) {

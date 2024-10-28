@@ -2,6 +2,7 @@ import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Widgets/Screens/App/ResponsiveScreen/ResponsiveScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -169,43 +170,43 @@ class _HotelDetailsModalState extends State<HotelDetailsModal> {
                   );
                 }).toList()),
                 SizedBox(height: 30.h),
-                Row(
-                  children: [
-                    SizedBox(width: 10.w),
-                    RichText(
-                        text: TextSpan(children: [
-                      TextSpan(
-                          text: 'PHP ${price.toString()} - 6,000',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 21.sp,
-                              fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: '\nEstimated Expenses',
-                          style: TextStyle(color: Colors.blue, fontSize: 13.sp))
-                    ])),
-                    SizedBox(width: 20.w),
-                    SizedBox(
-                      width: 150.h,
-                      child: BlueButtonWithoutFunction(
-                          text: Text(
-                            'Place Booking',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                          ),
-                          oppressed: () {
-                            HotelBooking().passTheHotelData(widget.id);
-                            AppRoutes.navigateToHotelBookingScreen(context,
-                                id: widget.id, price: '${widget.price}');
-                          }),
-                    )
-                  ],
-                ),
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                              text: 'PHP ${price.toString()} - 6,000',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: Responsive().headerFontSize(),
+                                  fontWeight: FontWeight.bold)),
+                          TextSpan(
+                              text: '\nEstimated Expenses',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: Responsive().aboutFontSize()))
+                        ])),
+                        BlueButtonWithoutFunction(
+                            text: Text(
+                              'Place Booking',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: Responsive().aboutFontSize(),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                            ),
+                            oppressed: () {
+                              HotelBooking().passTheHotelData(widget.id);
+                              AppRoutes.navigateToHotelBookingScreen(context,
+                                  id: widget.id, price: price);
+                            })
+                      ],
+                    )),
                 SizedBox(height: 10.h)
               ],
             ),
