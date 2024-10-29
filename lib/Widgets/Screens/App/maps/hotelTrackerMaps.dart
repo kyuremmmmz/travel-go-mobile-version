@@ -111,6 +111,7 @@ class _HotelMapPageState extends State<HotelMapPage> {
       price = data?['hotel_price'];
       located = data?['hotel_located'];
       description = data?['hotel_description'];
+      id = data?['id'];
     });
   }
 
@@ -137,12 +138,12 @@ class _HotelMapPageState extends State<HotelMapPage> {
             fetchedMarkers.add(
               Marker(
                 point: LatLng(lat, lng),
-                width: 80,
-                height: 80,
+                width: 80.w,
+                height: 80.h,
                 child: Column(
                   children: [
                     Container(
-                        width: 80,
+                        width: 80.w,
                         decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius:

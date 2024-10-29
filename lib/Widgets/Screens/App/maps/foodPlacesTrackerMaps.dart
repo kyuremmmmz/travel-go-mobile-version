@@ -110,6 +110,7 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
       price = data?['price'];
       located = data?['located'];
       description = data?['description'];
+      id = data?['id'];
     });
   }
 
@@ -175,7 +176,7 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
         });
       }
     } catch (error) {
-      print('Error fetching places: $error');
+      print('Error fetching food places: $error');
     }
   }
 

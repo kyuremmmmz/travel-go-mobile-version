@@ -109,6 +109,7 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
       placeName = data?['place_name'];
       price = data?['price'];
       located = data?['locatedIn'];
+      id = data?['id'];
     });
   }
 
@@ -175,7 +176,7 @@ class _ExploreMapPageState extends State<ExploreMapPage> {
         });
       }
     } catch (error) {
-      print('Error fetching places: $error');
+      print('Error fetching explore places: $error');
     }
   }
 
