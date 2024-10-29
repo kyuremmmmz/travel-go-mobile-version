@@ -65,6 +65,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     super.initState();
     emailFetching();
     fetchDiscount();
+    gett();
   }
 
   Future<void> fetchDiscount() async {
@@ -217,7 +218,16 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
 
   Widget buildUserCard() {
     // SPEND WISE BOX AREA
-    return Container(
+    return TrgoPoints == 0.0 ? GestureDetector(
+      onTap: () {
+        tr.createPoints(context);
+      },
+      child: const Center(
+        child:  Text(
+          'Create TRGO Points'
+        ),
+      ),
+    ) : Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
       width: 340.w,
       decoration: BoxDecoration(
