@@ -2,6 +2,7 @@
 import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Controllers/TRGO_POINTS/Trgo.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/VoucherButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
@@ -40,22 +41,34 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   String? email;
   String? img;
   List res = [];
+  List result = [];
 
   final data = FoodAreaBackEnd();
   final fetchDiscounts = Vouchers();
+  final tr = Trgo();
   final _searchController = TextEditingController();
   late Usersss users = Usersss();
   var dateNoww = DateTime.now();
   String formattedDate = '';
-  double TrgoPoints = 123.45;
+  double TrgoPoints = 0.0;
+  bool _isRedirecting = false;
   // 1000 is full progress bar
   // value of points and progress bar, except the decimal point
+  Future<void> gett() async {
+    final response = await tr.getThePointsOfMine();
+    setState(() {
+      _isRedirecting = false;
+      TrgoPoints = response[0]['points'];
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     emailFetching();
     fetchDiscount();
+    gett();
+    _isRedirecting = true;
   }
 
   Future<void> fetchDiscount() async {
@@ -74,15 +87,18 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
         setState(() {
           email = useremail[0]['full_name'].toString();
           img = useremail[0]['avatar_url'].toString();
+          _isRedirecting = false;
         });
       } else {
         setState(() {
           email = "Anonymous User";
+          _isRedirecting = false;
         });
       }
     } catch (e) {
       setState(() {
         email = "error: $e";
+        _isRedirecting = false;
       });
     }
   }
@@ -124,7 +140,13 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
         ),
       ),
       drawer: const DrawerMenuWidget(),
-      body: Stack(
+      body:  _isRedirecting == true
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            )
+          : Stack(
         children: [
           Positioned.fill(
               child: SingleChildScrollView(
@@ -208,33 +230,43 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
 
   Widget buildUserCard() {
     // SPEND WISE BOX AREA
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
-      width: 340.w,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black,
-          width: 0.2.sp, // border line thickness
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5), // Shadow color with opacity
-            blurRadius: 4, // Blur radius
-            offset: Offset(0.w, 4.h), // Shadow position (x, y)
-          ),
-        ],
-        borderRadius: BorderRadius.circular(20),
-        color: const Color(0xFFF1FCFF),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          buildUserInfo(),
-          SizedBox(height: 10.h),
-          buildPointsInfo(),
-        ],
-      ),
-    );
+    return TrgoPoints == 0.0
+        ? GestureDetector(
+            onTap: () {
+              tr.createPoints(context);
+            },
+            child: const Center(
+              child: Text('Create TRGO Points'),
+            ),
+          )
+        : Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+            width: 340.w,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 0.2.sp, // border line thickness
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color:
+                      Colors.grey.withOpacity(0.5), // Shadow color with opacity
+                  blurRadius: 4, // Blur radius
+                  offset: Offset(0.w, 4.h), // Shadow position (x, y)
+                ),
+              ],
+              borderRadius: BorderRadius.circular(20),
+              color: const Color(0xFFF1FCFF),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildUserInfo(),
+                SizedBox(height: 10.h),
+                buildPointsInfo(),
+              ],
+            ),
+          );
   }
 
 // PROFILE
