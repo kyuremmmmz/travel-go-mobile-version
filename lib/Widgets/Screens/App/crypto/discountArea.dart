@@ -127,11 +127,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _isRedirecting == true ? const Center(
-      child: CircularProgressIndicator(
-        color: Colors.blue,
-      ),
-    ) : Scaffold(
+    return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40.h,
         leading: Builder(
@@ -144,7 +140,13 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
         ),
       ),
       drawer: const DrawerMenuWidget(),
-      body: Stack(
+      body:  _isRedirecting == true
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.blue,
+              ),
+            )
+          : Stack(
         children: [
           Positioned.fill(
               child: SingleChildScrollView(
