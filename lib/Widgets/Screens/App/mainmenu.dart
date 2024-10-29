@@ -1,4 +1,6 @@
+import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
 import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/BeachInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart'; // The flutter material package for UI e stateless wdiget for festivals
 import 'package:supabase_flutter/supabase_flutter.dart'; // Importing the Supabase Flutter package for database functionality.
@@ -50,7 +52,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   final data = Data(); // instance of the data controller
   late FoodAreaBackEnd images = FoodAreaBackEnd();
   List<Map<String, dynamic>> datass = [];
-  List<Map<String, dynamic>> beaches = [];
+  final databeach = BeachImages();
+  List<Map<String, dynamic>> placebeach = [];
   late FestivalsImages festivals = FestivalsImages();
   List<Map<String, dynamic>> dataOfFestivals = [];
   bool isLoading = false;
@@ -133,6 +136,23 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     }
   }
 
+  Future<List<Map<String, dynamic>>?> fetchBeach(BuildContext context) async {
+    final datas = await databeach.fetchBeaches();
+    if (datas.isNotEmpty) {
+      setState(() {
+        placebeach = datas.map((beach) {
+          if (beach['beach_name'] != null &&
+              beach['beach_name'].toString().length > 18) {
+            beach['beach_name'] =
+                beach['beach_name'].toString().substring(0, 18);
+          }
+          return beach;
+        }).toList();
+      });
+    }
+    return null;
+  }
+
 // Method to fetch food area
   Future<List<Map<String, dynamic>>?> fetchFestivals(
       BuildContext context) async {
@@ -159,6 +179,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     emailFetching(); // Fetching user email and initialization
     fetchImage(); // fetching the images on initialization
     fetchFoods(context); // fetching food areas on initialization
+    fetchBeach(context);
     fetchFestivals(context); // Fetching festivals on initialization
     voucherState(); // Fetching random vouchers on initialization
     isLoading = true;
@@ -192,147 +213,175 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   child: Scrollbar(
                     thumbVisibility: true,
                     child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: Column(
                         children: <Widget>[
                           const DismissableFindMoreLocation(),
-                          Categories(),
-                          CategorySelect(
-                            label: "Popular Places",
-                            oppressed: () =>
-                                AppRoutes.navigateToExploreNowScreen(context),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: isLoading
-                                ? [
-                                    const SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                    const SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                      child: Center(
-                                        child: Center(
-                                          child: CircularProgressIndicator(
-                                            color: Colors.blue,
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.symmetric(horizontal: 20.w),
+                              child: Categories()),
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 20.w),
+                              child: CategorySelect(
+                                label: "Popular Places",
+                                oppressed: () =>
+                                    AppRoutes.navigateToExploreNowScreen(
+                                        context),
+                              )),
+                          SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: isLoading
+                                    ? [
+                                        SizedBox(
+                                          width: 100.w,
+                                          height: 100.h,
+                                          child: const Center(
+                                            child: CircularProgressIndicator(
+                                              color: Colors.blue,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                    ),
-                                  ]
-                                : place.map((place) {
-                                    final id = place['id'];
-                                    return PlaceButtonSquare(
-                                      place: place['place_name'],
-                                      image:
-                                          Image.network(place['image']).image,
-                                      oppressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                PlacesInfo(text: id),
-                                          ),
+                                      ]
+                                    : place.map((place) {
+                                        final id = place['id'];
+                                        return PlaceButtonSquare(
+                                          place: place['place_name'],
+                                          image: Image.network(place['image'])
+                                              .image,
+                                          oppressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PlacesInfo(text: id),
+                                              ),
+                                            );
+                                          },
                                         );
-                                      },
-                                    );
-                                  }).toList(),
-                          ),
-                          CategorySelect(
-                            label: "Food Places",
-                            oppressed: () => print('Food Places clicked'),
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: isLoading
-                                  ? [
-                                      const SizedBox(
-                                        width: 100,
-                                        height: 100,
-                                      ),
-                                      const SizedBox(
-                                        width: 100,
-                                        height: 100,
-                                        child: Center(
-                                          child: Center(
-                                            child: CircularProgressIndicator(
-                                              color: Colors.blue,
+                                      }).toList(),
+                              )),
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 20.w),
+                              child: CategorySelect(
+                                label: "Food Places",
+                                oppressed: () =>
+                                    AppRoutes.navigateTofoodArea(context),
+                              )),
+                          SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                  children: isLoading
+                                      ? [
+                                          SizedBox(
+                                            width: 100.w,
+                                            height: 100.h,
+                                            child: const Center(
+                                              child: CircularProgressIndicator(
+                                                color: Colors.blue,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 100,
-                                        height: 100,
-                                      ),
-                                    ]
-                                  : datass.map((value) {
-                                      final id = value['id'];
-                                      return PlaceButtonSquare(
-                                          place: value['img'],
-                                          image: Image.network(value['imgUrl'])
-                                              .image,
-                                          oppressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        FoodAreaInfo(id: id)));
-                                          });
-                                    }).toList()),
-                          CategorySelect(
-                            label: "Festival and Events",
-                            oppressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const FestivalsStateless())),
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: isLoading
-                                  ? [
-                                      const SizedBox(
-                                        width: 100,
-                                        height: 100,
-                                      ),
-                                      const SizedBox(
-                                        width: 100,
-                                        height: 100,
-                                        child: Center(
-                                          child: Center(
-                                            child: CircularProgressIndicator(
-                                              color: Colors.blue,
+                                        ]
+                                      : datass.map((value) {
+                                          final id = value['id'];
+                                          return PlaceButtonSquare(
+                                              place: value['img'],
+                                              image:
+                                                  Image.network(value['imgUrl'])
+                                                      .image,
+                                              oppressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            FoodAreaInfo(
+                                                                id: id)));
+                                              });
+                                        }).toList())),
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 20.w),
+                              child: CategorySelect(
+                                label: "Beach Destinations",
+                                oppressed: () =>
+                                    AppRoutes.navigateToBeachesScreen(context),
+                              )),
+                          SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                  children: isLoading
+                                      ? [
+                                          SizedBox(
+                                            width: 100.w,
+                                            height: 100.h,
+                                            child: const Center(
+                                              child: CircularProgressIndicator(
+                                                color: Colors.blue,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 100,
-                                        height: 100,
-                                      ),
-                                    ]
-                                  : dataOfFestivals.map((value) {
-                                      final id = value['id'];
-                                      return PlaceButtonSquare(
-                                          place: value['img'],
-                                          image: Image.network(value['imgUrl'])
-                                              .image,
-                                          oppressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        FestivalsInfo(id: id)));
-                                          });
-                                    }).toList()),
-                          SizedBox(height: 10.h),
+                                        ]
+                                      : placebeach.map((beach) {
+                                          final id = beach['id'];
+                                          return PlaceButtonSquare(
+                                              place: beach['beach_name'],
+                                              image:
+                                                  Image.network(beach['image'])
+                                                      .image,
+                                              oppressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            BeachInfo(id: id)));
+                                              });
+                                        }).toList())),
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 20.w),
+                              child: CategorySelect(
+                                label: "Festival and Events",
+                                oppressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const FestivalsStateless())),
+                              )),
+                          SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                  children: isLoading
+                                      ? [
+                                          SizedBox(
+                                            width: 100.w,
+                                            height: 100.h,
+                                            child: const Center(
+                                              child: CircularProgressIndicator(
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                          ),
+                                        ]
+                                      : dataOfFestivals.map((value) {
+                                          final id = value['id'];
+                                          return PlaceButtonSquare(
+                                              place: value['img'],
+                                              image:
+                                                  Image.network(value['imgUrl'])
+                                                      .image,
+                                              oppressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            FestivalsInfo(
+                                                                id: id)));
+                                              });
+                                        }).toList())),
+                          SizedBox(height: 30.h),
                         ],
                       ),
                     ),
@@ -371,6 +420,7 @@ class _DismissableFindMoreLocationState
             child: Container(
               height: 200.h,
               width: 390.w,
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               decoration: const BoxDecoration(
                 color: Color(0xFF2196F3),
                 borderRadius: BorderRadius.all(Radius.circular(30)),
