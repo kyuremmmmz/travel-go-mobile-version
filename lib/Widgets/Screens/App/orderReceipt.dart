@@ -5,7 +5,6 @@ import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/mail/Mailer.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/TextWidgets/rowDetails.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -28,7 +27,6 @@ class OrderReceipt extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Order Receipt'),
       ),
-      endDrawer: const DrawerMenuWidget(),
       body: OrderReceiptScreen(bookingId: bookingId),
     );
   }

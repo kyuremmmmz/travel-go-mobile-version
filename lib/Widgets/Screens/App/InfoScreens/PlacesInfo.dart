@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:TravelGo/Widgets/Screens/App/ResponsiveScreen/ResponsiveScreen.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
-import 'package:TravelGo/Widgets/Screens/App/comments.dart';
+import 'package:TravelGo/Widgets/Screens/App/comments/comments.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/vehicleAvailability.dart';
