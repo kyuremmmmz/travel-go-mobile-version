@@ -1,6 +1,7 @@
 import 'package:TravelGo/Controllers/Transactions/BackendTransactions.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class Transactions extends StatefulWidget {
@@ -87,18 +88,23 @@ class _TransactionsState extends State<Transactions> {
   }) {
     return Card(
       elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 8),
+      margin: EdgeInsets.symmetric(vertical: 8.h),
       child: ListTile(
-        leading: Icon(icon, size: 40, color: Colors.blueAccent),
+        leading: Icon(icon, size: 40.sp, color: Colors.blueAccent),
         title: Text(
           title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
         ),
-        subtitle: Text(date),
+        subtitle: Text(
+          date,
+          style: TextStyle(
+            fontSize: 8.sp,
+          ),
+        ),
         trailing: Text(
           amount.toString(),
-          style: const TextStyle(
-            fontSize: 16,
+          style: TextStyle(
+            fontSize: 16.sp,
             fontWeight: FontWeight.bold,
             color: Colors.green,
           ),
