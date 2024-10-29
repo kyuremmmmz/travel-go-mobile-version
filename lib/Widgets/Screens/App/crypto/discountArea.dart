@@ -57,8 +57,8 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   Future<void> gett() async {
     final response = await tr.getThePointsOfMine();
     setState(() {
-      TrgoPoints = response[0]['points'];
       _isRedirecting = false;
+      TrgoPoints = response[0]['points'];
     });
   }
 
