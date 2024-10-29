@@ -1,70 +1,70 @@
 import 'dart:async';
-import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
-import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
+import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
+import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class HotelComments extends StatefulWidget {
+class Comments extends StatefulWidget {
   final int text;
 
-  const HotelComments({super.key, required this.text});
+  const Comments({super.key, required this.text});
 
   @override
-  State<HotelComments> createState() => _HotelCommentsState();
+  State<Comments> createState() => _CommentsState();
 }
 
-class _HotelCommentsState extends State<HotelComments> {
+class _CommentsState extends State<Comments> {
   final _searchController = TextEditingController();
+  final String beachIcon = "assets/images/icon/beach.png";
+  final String foodIcon = "assets/images/icon/food_place.png";
+  final String hotelIcon = "assets/images/icon/hotel.png";
+  final String festivalIcon = "assets/images/icon/food.png";
+  final String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   String? email;
+  String? userEmail;
   String? description;
   String? text;
-  String? hasCar;
-  String? imageUrl;
-  String? hasMotor;
-  String? located;
-  String? availability;
-  final _commentController = TextEditingController();
-  var price;
-  var id;
-  var amenities = <String, dynamic>{};
-  var imageUrlForAmenities = <String, dynamic>{};
-  final data = HotelImages();
-  late Usersss users = Usersss();
   String? img;
   String? imgUrl;
+  String? hasCar;
+  String? imageUrl;
   String? comments;
-  int userRatings = 0;
-  double ratingsTotal = 0.0;
-  late String commentType;
+  String? hasMotor;
+  String? located;
+  var id;
+  String? availability;
+  String? price;
+  final data = Data();
+  late Usersss users = Usersss();
+  final supabase = Supabase.instance.client;
+  bool _isRedirecting = false;
+  final _commentController = TextEditingController();
+  late RatingsAndComments rating = RatingsAndComments();
   int totalRatings = 0;
+  List<Map<String, dynamic>> list = [];
+  double ratingsTotal = 0.0;
+  int userRatings = 0;
   int ratings = 0;
+  late String commentType;
   String? commentImg;
   StreamSubscription? sub;
-  StreamSubscription? supa;
-  List<Map<String, dynamic>> list = [];
-  List vouchersList = [];
-  late RatingsAndComments rating = RatingsAndComments();
   final String avatarDefaultIcon = "assets/images/icon/user.png";
-  bool _isRedirecting = false;
-  final vouchers = Vouchers();
-  final supabase = Supabase.instance.client;
-  Future<void> commentInserttion() async {
-    rating.postComment(_commentController.text.trim(), ratings,
-        commentType = 'hotel', '$text', widget.text, '$email', '$imgUrl');
-  }
 
-  Future<void> fetchWithoutFunct() async {
-    final response = await users.fetchUserWithoutgetter();
-    setState(() {
-      imgUrl = response[0]['avatar_url'];
-    });
+  @override
+  void initState() {
+    super.initState();
+    emailFetching();
+    fetchSpecificData(widget.text);
+    fetchWithoutFunct();
+    _realTimeFetch();
+    _isRedirecting = true;
   }
 
   Future<void> stateComments() async {
-    final data = await rating.fetchComments(widget.text, 'hotel');
+    final data = await rating.fetchComments(widget.text, 'places');
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
@@ -81,56 +81,14 @@ class _HotelCommentsState extends State<HotelComments> {
     });
   }
 
-  Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
+  Future<void> commentInserttion() async {
+    rating.postComment(_commentController.text.trim(), ratings,
+        commentType = 'places', '$text', widget.text, '$email', '$imgUrl');
+  }
+
+  Future<void> fetchSpecificData(int name) async {
     try {
-      final data = await rating.fetchComments(widget.text, 'hotel');
-      final totalRatings = await rating.fetchRatingsAsSum();
-      final records = data.length;
-      if (records > 0) {
-        final count = totalRatings / records;
-        final validCount = count > 5.0 ? 5.0 : count;
-
-        setState(() {
-          _isRedirecting = false;
-          list = data;
-          ratingsTotal = validCount;
-          userRatings = records;
-          commentImg = imgUrl;
-        });
-      } else {
-        setState(() {
-          _isRedirecting = false;
-          ratingsTotal = 0;
-          userRatings = 0;
-          commentImg = imgUrl;
-        });
-      }
-    } catch (e) {
-      print('Error fetching ratings: $e');
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    emailFetching();
-    fetchSpecificData(widget.text);
-    fetchWithoutFunct();
-    _realTimeFetch();
-    _isRedirecting = true;
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    sub?.cancel();
-    supa?.cancel();
-    super.dispose();
-  }
-
-  Future<void> fetchSpecificData(int id) async {
-    try {
-      final dataList = await data.fetchDataInSingle(id);
+      final dataList = await data.fetchSpecificDataInSingle(name);
 
       if (dataList == null) {
         setState(() {
@@ -140,44 +98,34 @@ class _HotelCommentsState extends State<HotelComments> {
       } else {
         setState(() {
           _isRedirecting = false;
-          description = dataList['hotel_description'];
-          text = dataList['hotel_name'];
-          id = dataList['id'];
+          description = dataList['description'];
+          text = dataList['place_name'];
           imageUrl = dataList['image'].toString();
           hasCar = dataList['car_availability'].toString();
           hasMotor = dataList['tricycle_availability'].toString();
-          located = dataList['hotel_located'];
-          price = dataList['hotel_price'];
+          located = dataList['locatedIn'];
+          price = dataList['price'];
           availability = dataList['availability'];
-          for (var i = 1; i <= 20; i++) {
-            final key = 'amenity$i';
-            final keyUrl = 'amenity${i}Url';
-            final value = dataList[key];
-            final imageUrlValue = dataList[keyUrl];
-            if (value != null) {
-              amenities[key] = value;
-              imageUrlForAmenities[key] = imageUrlValue;
-              print(imageUrlForAmenities);
-            }
-          }
         });
       }
     } catch (e) {
       setState(() {
-        _isRedirecting = false;
         description = "Error fetching data";
+        _isRedirecting = false;
       });
       print('Error in fetchSpecificData: $e');
+    } finally {
+      setState(() {
+        _isRedirecting = false;
+      });
     }
   }
 
-  Future<String?> getter(String image) async {
-    final response =
-        supabase.storage.from('hotel_amenities_url').getPublicUrl(image);
-    if (response.isEmpty) {
-      return 'null';
-    }
-    return response;
+  Future<void> fetchWithoutFunct() async {
+    final response = await users.fetchUserWithoutgetter();
+    setState(() {
+      imgUrl = response[0]['avatar_url'];
+    });
   }
 
   Future<void> emailFetching() async {
@@ -186,6 +134,7 @@ class _HotelCommentsState extends State<HotelComments> {
       if (useremail.isNotEmpty) {
         setState(() {
           email = useremail[0]['full_name'].toString();
+          img = useremail[0]['avatar_url'].toString();
         });
       } else {
         setState(() {
@@ -197,6 +146,42 @@ class _HotelCommentsState extends State<HotelComments> {
         email = "Error: $e";
       });
     }
+  }
+
+  Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
+    try {
+      final data = await rating.fetchComments(widget.text, 'places');
+      final totalRatings = await rating.fetchRatingsAsSum();
+      final records = data.length;
+
+      if (records > 0) {
+        final count = totalRatings / records;
+        final validCount = count > 5.0 ? 5.0 : count;
+
+        setState(() {
+          list = data;
+          ratingsTotal = validCount;
+          userRatings = records;
+          commentImg = imgUrl;
+        });
+      } else {
+        setState(() {
+          ratingsTotal = 0;
+          userRatings = 0;
+          commentImg = imgUrl;
+        });
+      }
+    } catch (e) {
+      print('Error fetching ratings: $e');
+    }
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _commentController.dispose();
+    sub?.cancel();
+    super.dispose();
   }
 
   @override

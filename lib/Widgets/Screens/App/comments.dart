@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
-import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -152,9 +151,6 @@ class _CommentsState extends State<Comments> {
     try {
       final data = await rating.fetchComments(widget.text, 'places');
       final totalRatings = await rating.fetchRatingsAsSum();
-      final img = await users.fetchUser();
-      final images = img[0]['full_name'];
-      final imgUrl = await users.fetchImageForComments(images);
       final records = data.length;
 
       if (records > 0) {

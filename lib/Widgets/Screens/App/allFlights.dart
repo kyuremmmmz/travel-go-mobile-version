@@ -79,6 +79,8 @@ class _AllflightsState extends State<Allflights> {
                   ),
                   Column(
                       children: imgUrl.map((data) {
+                    final textt = data['ticket_type'];
+                    final text2 = textt[0].toUpperCase() + textt.substring(1);
                     return Center(
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
                         SizedBox(height: 20.h),
@@ -104,7 +106,7 @@ class _AllflightsState extends State<Allflights> {
                                         width: 10.w,
                                       ),
                                       Text(
-                                        data['ticket_type'],
+                                        text2,
                                         style: TextStyle(
                                             fontSize: 16.sp,
                                             color: Colors.blue,

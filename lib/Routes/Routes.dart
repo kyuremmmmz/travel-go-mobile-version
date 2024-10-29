@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/Transactions.dart';
 import 'package:TravelGo/Widgets/Screens/App/allFlights.dart';
 import 'package:TravelGo/Widgets/Screens/App/bookingHistory.dart';
 import 'package:TravelGo/Widgets/Screens/App/booking_area.dart';
@@ -308,5 +309,9 @@ class AppRoutes {
   static void navigateToBookingHistory(BuildContext context) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const BookingHistory()));
+  }
+
+  static void navigateToTransactionsScreen(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const Transactions()));
   }
 }
