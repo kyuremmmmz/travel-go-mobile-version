@@ -51,12 +51,14 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   var dateNoww = DateTime.now();
   String formattedDate = '';
   double TrgoPoints = 0.0;
+  bool _isRedirecting = false;
   // 1000 is full progress bar
   // value of points and progress bar, except the decimal point
   Future<void> gett() async {
     final response = await tr.getThePointsOfMine();
     setState(() {
       TrgoPoints = response[0]['points'];
+      _isRedirecting = false;
     });
   }
 
@@ -66,6 +68,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     emailFetching();
     fetchDiscount();
     gett();
+    _isRedirecting = true;
   }
 
   Future<void> fetchDiscount() async {
@@ -84,15 +87,18 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
         setState(() {
           email = useremail[0]['full_name'].toString();
           img = useremail[0]['avatar_url'].toString();
+          _isRedirecting = false;
         });
       } else {
         setState(() {
           email = "Anonymous User";
+          _isRedirecting = false;
         });
       }
     } catch (e) {
       setState(() {
         email = "error: $e";
+        _isRedirecting = false;
       });
     }
   }
@@ -121,7 +127,11 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return _isRedirecting == true ? const Center(
+      child: CircularProgressIndicator(
+        color: Colors.blue,
+      ),
+    ) : Scaffold(
       appBar: AppBar(
         toolbarHeight: 40.h,
         leading: Builder(
@@ -218,42 +228,43 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
 
   Widget buildUserCard() {
     // SPEND WISE BOX AREA
-    return TrgoPoints == 0.0 ? GestureDetector(
-      onTap: () {
-        tr.createPoints(context);
-      },
-      child: const Center(
-        child:  Text(
-          'Create TRGO Points'
-        ),
-      ),
-    ) : Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
-      width: 340.w,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.black,
-          width: 0.2.sp, // border line thickness
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5), // Shadow color with opacity
-            blurRadius: 4, // Blur radius
-            offset: Offset(0.w, 4.h), // Shadow position (x, y)
-          ),
-        ],
-        borderRadius: BorderRadius.circular(20),
-        color: const Color(0xFFF1FCFF),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          buildUserInfo(),
-          SizedBox(height: 10.h),
-          buildPointsInfo(),
-        ],
-      ),
-    );
+    return TrgoPoints == 0.0
+        ? GestureDetector(
+            onTap: () {
+              tr.createPoints(context);
+            },
+            child: const Center(
+              child: Text('Create TRGO Points'),
+            ),
+          )
+        : Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+            width: 340.w,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 0.2.sp, // border line thickness
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color:
+                      Colors.grey.withOpacity(0.5), // Shadow color with opacity
+                  blurRadius: 4, // Blur radius
+                  offset: Offset(0.w, 4.h), // Shadow position (x, y)
+                ),
+              ],
+              borderRadius: BorderRadius.circular(20),
+              color: const Color(0xFFF1FCFF),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildUserInfo(),
+                SizedBox(height: 10.h),
+                buildPointsInfo(),
+              ],
+            ),
+          );
   }
 
 // PROFILE
