@@ -23,6 +23,102 @@ class _VehiclAavailabilityState extends State<VehicleAvailability> {
   String? availability;
   final data = Data();
 
+  void showModal(BuildContext context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return Container(
+              height: 700,
+              width: 700,
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  const Text(
+                    'Caculate my Trip Powered by Gemini AI',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    decoration:   const InputDecoration(
+                      labelText: 'Origin',
+                      filled: true,
+                      fillColor:  Color.fromARGB(255, 235, 242, 247),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.blue
+                        )
+                      ),
+                    ),
+                  ),
+                  
+                  Center(
+                    child: Container(
+                        height: 50,
+                        width: 2,
+                        color: Colors.black,
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Destination',
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 235, 242, 247),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue)),
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      height: 50,
+                      width: 2,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Center(
+                    child: Card(
+                      color: const Color.fromARGB(255, 235, 242, 247),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          20
+                        )
+                      ),
+                      child:  Container(
+                        height: 50,
+                        width: 200,
+                        margin: const EdgeInsets.only(
+                          top: 20
+                        ),
+                        child: const Text(
+                          textAlign: TextAlign.center,
+                          '5 hours',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black
+                          ),
+                        ),
+                      )
+                    )
+                  )
+                ],
+              ));
+        });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,11 +157,11 @@ class _VehiclAavailabilityState extends State<VehicleAvailability> {
             Column(
               children: [
                 BlueIconButtonDefault(
-                  image: 'assets/images/icon/motorbike.png',
-                  oppressed: () => print('Motorcycle clicked'),
-                ),
-                CategoryLabel(
-                    label: hasMotor == "true" ? 'Motorcycle' : 'Unavailable'),
+                    image: 'assets/images/icon/motorbike.png',
+                    oppressed: () => {
+                      showModal(context)
+                    }),
+                const CategoryLabel(label: 'Motorcycle'),
               ],
             ),
             const SizedBox(
