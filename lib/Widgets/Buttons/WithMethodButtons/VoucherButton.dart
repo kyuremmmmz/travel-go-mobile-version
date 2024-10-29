@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
-class VoucherButton extends StatefulWidget{
+class VoucherButton extends StatefulWidget {
   late ImageProvider image; // use Image.asset
   late VoidCallback oppressed;
   late String voucherTitle;
   late String description;
   late String expiring;
-  VoucherButton
-  ({
+  VoucherButton({
     super.key,
     required this.voucherTitle,
     required this.description,
@@ -21,48 +21,51 @@ class VoucherButton extends StatefulWidget{
 }
 
 class _VoucherButtonState extends State<VoucherButton> {
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: widget.oppressed,
-      child: 
-        Container(
-        width: 280,
-        height: 100,
+      child: Container(
+        // width: 280.w,
+        // height: 100.h,
         decoration: BoxDecoration(
-          color: const Color.fromRGBO(194,228,231,100),
-          border: Border.all(color: Colors.black,),
-          borderRadius: BorderRadius.circular(10),  
+          color: const Color.fromRGBO(194, 228, 231, 100),
+          border: Border.all(
+            color: Colors.black,
+          ),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              width: 100,
+              width: 100.sp,
+              height: 100.sp,
               decoration: BoxDecoration(
                 color: Colors.white,
-                border: Border.all(color: const Color.fromARGB(255, 175, 175, 175), width: 0.5),
-                borderRadius: BorderRadius.circular(10),  
+                border: Border.all(
+                    color: const Color.fromARGB(255, 175, 175, 175),
+                    width: 0.5.w),
+                borderRadius: BorderRadius.circular(10),
               ),
-              child: 
-                Column(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: Image(image: widget.image,),
+                    width: 60.sp,
+                    height: 60.sp,
+                    child: Image(
+                      image: widget.image,
+                    ),
                   )
                 ],
               ),
             ),
-            
+            SizedBox(width: 5.w), // Spacing between icon and text
             Container(
-              padding: const EdgeInsets.all(5),
-              width: 258,
-              child: 
-              Column(
+              padding: EdgeInsets.symmetric(vertical: 5.h),
+              width: 230.w,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
@@ -72,39 +75,32 @@ class _VoucherButtonState extends State<VoucherButton> {
                           widget.voucherTitle,
                           overflow: TextOverflow.clip,
                           maxLines: 2,
-                          style: const TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.bold
-                          ),
+                          style: TextStyle(
+                              fontSize: 19.sp, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      
                     ],
                   ),
                   Row(
                     children: [
                       Text(
                         widget.description,
-                        style: const TextStyle(
-                          fontSize: 9,
-                          color: Color.fromRGBO(5, 103, 180, 100),
+                        style: TextStyle(
+                          fontSize: 9.sp,
+                          color: const Color.fromRGBO(5, 103, 180, 100),
                         ),
                       )
                     ],
                   ),
                   Row(
                     children: [
-                      const Text(
+                      Text(
                         'Expiring: ',
-                        style: TextStyle(
-                          fontSize: 9
-                        ),
+                        style: TextStyle(fontSize: 9.sp),
                       ),
                       Text(
                         widget.expiring,
-                        style: const TextStyle(
-                          fontSize: 9
-                        ),
+                        style: TextStyle(fontSize: 9.sp),
                       ),
                     ],
                   ),
