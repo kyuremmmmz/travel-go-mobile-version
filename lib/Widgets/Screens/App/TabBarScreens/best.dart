@@ -69,7 +69,7 @@ class _BestState extends State<Best> {
                               width: 10.w,
                             ),
                             Text(
-                              'Best',
+                              data['ticket_type'],
                               style: TextStyle(
                                   fontSize: 16.sp,
                                   color: Colors.blue,

@@ -109,69 +109,63 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               child: Column(
                 children: <Widget>[
                   const TitleMenu(),
-                Padding(
-                  padding: EdgeInsets.only(top: 20.0), // Adjust padding as needed
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        insert('$uid');
-                      },
-                      child: CircleAvatar(
-                        radius: 45,
-                        backgroundColor: Colors.grey[300],
-                        backgroundImage: _profileImage != null
-                            ? FileImage(_profileImage!)
-                            : (img == null
-                                ? const AssetImage(
-                                    'assets/images/icon/user.png')
-                                : NetworkImage('$img')) as ImageProvider,
-                        child: _profileImage == null
-                            ? const Icon(Icons.add_a_photo,
-                                size: 30, color: Colors.white) // the photo
-                            : null,
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: 20.h), // Adjust padding as needed
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          insert('$uid');
+                        },
+                        child: CircleAvatar(
+                          radius: 45.sp,
+                          backgroundColor: Colors.grey[300],
+                          backgroundImage: _profileImage != null
+                              ? FileImage(_profileImage!)
+                              : (img == null
+                                  ? const AssetImage(
+                                      'assets/images/icon/user.png')
+                                  : NetworkImage('$img')) as ImageProvider,
+                          child: _profileImage == null
+                              ? Icon(Icons.add_a_photo,
+                                  size: 30.sp, color: Colors.white) // the photo
+                              : null,
+                        ),
                       ),
                     ),
                   ),
-                ),
-
-                SizedBox(height: 30.h),
-                Padding(
-                  padding: EdgeInsets.only(right: 50.0.w), // Apply only right margin
-                  child: buildSectionTitle(context, 'Account Settings'),
-                ),
-                buildAccountDetails(),
-                SizedBox(height: 30.h),
-                Padding(
-                  padding: EdgeInsets.only(right: 50.0.w), // Apply only right margin
-                  child: buildSectionTitle(context, 'Notification Settings'),
-                ),
-                buildNotificationSettings(),
-                Padding(
-                  padding: EdgeInsets.only(top: 30.h), // Apply the desired right margin
-                  child: Container(
-                    width: 140.w, // Set your desired width here
-                    height: 40.h, // Set your desired height here
-                    child: BlueButtonWithoutFunction(
-                      text: Text(
-                        'Back',
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          color: Colors.white,
+                  buildSectionTitle(context, 'Account Settings'),
+                  buildAccountDetails(),
+                  SizedBox(height: 30.h),
+                  buildSectionTitle(context, 'Notification Settings'),
+                  buildNotificationSettings(),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 30.h), // Apply the desired right margin
+                    child: Container(
+                      width: 140.w, // Set your desired width here
+                      // height: 40.h, // Set your desired height here
+                      child: BlueButtonWithoutFunction(
+                        text: Text(
+                          'Back',
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                          Color(0xFF44CAF9),
+                        style: const ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                            Color(0xFF44CAF9),
+                          ),
                         ),
-                      ),
-                      oppressed: () {
-                        Navigator.pop(context);
-                        AppRoutes.navigateToMainMenu(context);
-                          },
-                        ),
+                        oppressed: () {
+                          Navigator.pop(context);
+                          AppRoutes.navigateToMainMenu(context);
+                        },
                       ),
                     ),
-                   SizedBox(height: 50.h),
+                  ),
+                  SizedBox(height: 50.h),
                 ],
               ),
             ),
@@ -184,21 +178,21 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   Widget buildSectionTitle(BuildContext context, String title) {
     // DESIGN ARE OF THE ACCOUNT AND NOTIFICATION TEXT
     return Container(
+      alignment: Alignment.centerLeft,
       padding: EdgeInsets.all(15.w),
-      width: 330,
-      height: 50,
+      height: 50.h,
       //decoration: BoxDecoration(
-        //color: Color(0xFF44CAF9),
-        // borderRadius: BorderRadius.circular(30),
+      //color: Color(0xFF44CAF9),
+      // borderRadius: BorderRadius.circular(30),
       // ), just incase
       child: Text(
         title,
         textAlign: TextAlign.left,
-        style: const TextStyle(
+        style: TextStyle(
           height: 1,
-          color: Color(0xFF44CAF9),
+          color: const Color(0xFF44CAF9),
           fontWeight: FontWeight.w800,
-          fontSize: 18,
+          fontSize: 18.sp,
         ),
       ),
     );
@@ -208,23 +202,20 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     // ACCOUNT SETTINGS INFO AREA
     return Container(
       width: 390.w,
-      height: 220.h,
-      margin: EdgeInsets.only(right: 15.h, left: 15.h),
-      padding: const EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.symmetric(horizontal: 13.w),
+      padding: EdgeInsets.only(bottom: 10.h),
       decoration: BoxDecoration(
         color: const Color(0xFFF1F1F1),
-        border: Border.all(color: Colors.black, 
-        width: 0.5,
+        border: Border.all(
+          color: Colors.black,
+          width: 0.5.w,
         ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           buildAccountInfoRow('Name', eemail ?? 'Unknown'),
-          const Divider(
-            color: Color(0xFF929292),
-            thickness: 0.5,
-          ),
+          Divider(color: const Color(0xFF929292), thickness: 0.5.h),
           InkWell(
             onTap: () => {
               Navigator.push(
@@ -236,20 +227,26 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             currentName: eemail,
                           )))
             },
-            child: const Row(children: [Text('Edit Profile')]),
+            child: Row(children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  child: Text('Edit Profile',
+                      style: TextStyle(fontSize: 16.sp, color: Colors.blue)))
+            ]),
           ),
-          const Divider(
-            color: Color(0xFF929292),
-            thickness: 0.5,
-          ), // the edit profile line divider
+          Divider(
+              color: const Color(0xFF929292),
+              thickness: 0.5.h), // the edit profile line divider
           buildAccountInfoRow('Email:', gmail ?? 'Unknown'),
-          const Divider(
-            color: Color(0xFF929292),
-            thickness: 0.5,
-          ),
+          Divider(color: const Color(0xFF929292), thickness: 0.5.h),
           InkWell(
-            onTap: () => 'test',
-            child: const Row(children: [Text('Change Password')]),
+            onTap: () => print('test Change Password'),
+            child: Row(children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  child: Text('Change Password',
+                      style: TextStyle(fontSize: 16.sp, color: Colors.blue)))
+            ]),
           ),
         ],
       ),
@@ -258,12 +255,12 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
 
   Widget buildAccountInfoRow(String label, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: EdgeInsets.all(5.sp),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label),
-          Text(value),
+          Text(label, style: TextStyle(fontSize: 16.sp)),
+          Text(value, style: TextStyle(fontSize: 12.sp)),
         ],
       ),
     );
@@ -273,82 +270,85 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     // NOTIFICATION SETTINGS INFO AREA
     return Container(
       width: 390.w,
-      height: 220.h,
-      margin: EdgeInsets.only(right: 15.h, left: 15.h),
-      padding: const EdgeInsets.only(bottom: 10),
+      margin: EdgeInsets.symmetric(horizontal: 13.w),
+      padding: EdgeInsets.only(bottom: 10.h),
       decoration: BoxDecoration(
         color: const Color(0xFFF1F1F1),
-        border: Border.all(color: Colors.black, 
-        width: 0.5,
+        border: Border.all(
+          color: Colors.black,
+          width: 0.5.w,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(10),
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.sp),
         ),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5), // Shadow color with opacity
             spreadRadius: 0, // How much the shadow spreads
             blurRadius: 4, // Softness of the shadow
-            offset: Offset(0, 4), // O
+            offset: const Offset(0, 4), // O
           ),
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0), // Apply left and right padding to all children
-child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          InkWell(
-            onTap: () => 'test',
-            child: Padding( // Add padding only around "About"
-              padding: const EdgeInsets.only(top: 10, bottom: 0),
+        padding: EdgeInsets.symmetric(
+            horizontal: 16.w), // Apply left and right padding to all children
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InkWell(
+              onTap: () => print('test About'),
+              child: Padding(
+                // Add padding only around "About"
+                padding: EdgeInsets.only(top: 10.h, bottom: 0),
+                child: Row(
+                  children: [
+                    Text('About',
+                        style: TextStyle(
+                            fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+            ),
+            Divider(color: Colors.black, thickness: 0.5.h),
+            InkWell(
+              onTap: () => print('test Rate My App'),
+              child: Row(
+                children: [
+                  Text('Rate My App',
+                      style: TextStyle(
+                          fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+            Divider(color: Colors.black, thickness: 0.5.h),
+            InkWell(
+              onTap: () => print('test Contact'),
               child: Row(
                 children: [
                   Text(
-                    'About',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    'Contact',
+                    style:
+                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-          ),
-          const Divider(color: Colors.black, thickness: 0.5),
-          InkWell(
-            onTap: () => 'test',
-            child: const Row(
-              children: [
-                Text(
-                  'Rate My App',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
+            Divider(color: Colors.black, thickness: 0.5.h),
+            InkWell(
+              onTap: () => print('test Share with Friends'),
+              child: Row(
+                children: [
+                  Text(
+                    'Share with Friends',
+                    style:
+                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const Divider(color: Colors.black, thickness: 0.5),
-          InkWell(
-            onTap: () => 'test',
-            child: const Row(
-              children: [
-                Text(
-                  'Contact',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-          const Divider(color: Colors.black, thickness: 0.5),
-          InkWell(
-            onTap: () => 'test',
-            child: const Row(
-              children: [
-                Text(
-                  'Share with Friends',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }

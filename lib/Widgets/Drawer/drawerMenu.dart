@@ -67,38 +67,30 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
           SizedBox(
             height: 220.sp,
             child: DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 40.sp,
-                    backgroundImage: img == null
-                        ? const AssetImage('assets/images/icon/user.png')
-                        : NetworkImage('$img'),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    // ignore: unnecessary_null_comparison
-                    email != null ? '$email' : 'Loading...',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircleAvatar(
+                          radius: 40.sp,
+                          backgroundImage: img == null
+                              ? const AssetImage('assets/images/icon/user.png')
+                              : NetworkImage('$img')),
+                      const SizedBox(height: 10),
+                      Text(
+                          // ignore: unnecessary_null_comparison
+                          email != null ? '$email' : 'Loading...',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.bold))
+                    ])),
           ),
           ListTile(
             leading: Icon(Icons.person, size: 20.sp),
-            title: Text(
-              'Profile',
-              style: TextStyle(fontSize: 16.sp),
-            ),
+            title: Text('Profile', style: TextStyle(fontSize: 16.sp)),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToDiscountArea(context);
@@ -106,10 +98,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
           ),
           ListTile(
             leading: Icon(Icons.home, size: 20.sp),
-            title: Text(
-              'Home',
-              style: TextStyle(fontSize: 16.sp),
-            ),
+            title: Text('Home', style: TextStyle(fontSize: 16.sp)),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToMainMenu(context);
@@ -117,10 +106,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
           ),
           ListTile(
             leading: Icon(Icons.history, size: 20.sp),
-            title: Text(
-              'Recent Bookings',
-              style: TextStyle(fontSize: 16.sp),
-            ),
+            title: Text('Recent Bookings', style: TextStyle(fontSize: 16.sp)),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToBookingHistory(context);
@@ -128,10 +114,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
           ),
           ListTile(
             leading: Icon(Icons.swap_horiz, size: 20.sp),
-            title: Text(
-              'Transactions',
-              style: TextStyle(fontSize: 16.sp),
-            ),
+            title: Text('Transactions', style: TextStyle(fontSize: 16.sp)),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToTransactionsScreen(context);
@@ -139,27 +122,50 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
           ),
           ListTile(
             leading: Icon(Icons.settings, size: 20.sp),
-            title: Text(
-              'Settings',
-              style: TextStyle(fontSize: 16.sp),
-            ),
+            title: Text('Settings', style: TextStyle(fontSize: 16.sp)),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToAccountSettings(context);
             },
           ),
           ListTile(
-            leading: Icon(Icons.logout, size: 20.sp),
-            title: Text(
-              'Logout',
-              style: TextStyle(fontSize: 16.sp),
-            ),
-            onTap: () {
-              Navigator.pop(context);
-              AppRoutes.navigateToLogin(context);
-              Usersss().signout(context);
-            },
-          ),
+              leading: Icon(Icons.logout, size: 20.sp),
+              title: Text('Logout', style: TextStyle(fontSize: 16.sp)),
+              onTap: () {
+                showAdaptiveDialog(
+                    context: context,
+                    builder: (context) {
+                      return StatefulBuilder(builder: (context, setState) {
+                        return AlertDialog(
+                          title: Text('Log Out',
+                              style: TextStyle(fontSize: 20.sp)),
+                          content: SingleChildScrollView(
+                              child: ListBody(children: <Widget>[
+                            Text('Are you sure you want to Log Out?',
+                                style: TextStyle(fontSize: 16.sp))
+                          ])),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Log Out',
+                                  style: TextStyle(fontSize: 16.sp)),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                AppRoutes.navigateToWelcomePage(context);
+                                Usersss().signout(context);
+                              },
+                            ),
+                            TextButton(
+                              child: Text('Cancel',
+                                  style: TextStyle(fontSize: 16.sp)),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                    });
+              }),
         ],
       ),
     );

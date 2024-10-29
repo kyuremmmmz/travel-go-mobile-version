@@ -24,6 +24,7 @@ import 'package:TravelGo/Widgets/Screens/Stateless/forgot.dart';
 import 'package:TravelGo/Widgets/Screens/Stateless/hotel_stateless.dart';
 import 'package:TravelGo/Widgets/Screens/Stateless/reset.dart';
 import 'package:TravelGo/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
+import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import '../Widgets/Screens/App/InfoScreens/FoodAreaInfo.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
@@ -48,6 +49,14 @@ class AppRoutes {
         route,
         MaterialPageRoute(
           builder: (context) => const LoginScreen(),
+        ));
+  }
+
+  static void navigateToWelcomePage(BuildContext route) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+          builder: (context) => const WelcomePage(),
         ));
   }
 
@@ -312,6 +321,7 @@ class AppRoutes {
   }
 
   static void navigateToTransactionsScreen(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const Transactions()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Transactions()));
   }
 }

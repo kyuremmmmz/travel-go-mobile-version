@@ -69,7 +69,7 @@ class _CheapestState extends State<Cheapest> {
                               width: 10.w,
                             ),
                             Text(
-                              'Cheapest',
+                              data['ticket_type'],
                               style: TextStyle(
                                   fontSize: 16.sp,
                                   color: Colors.blue,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: camel_case_types
 class passwordTextField extends StatefulWidget {
@@ -36,22 +37,16 @@ class _numberTextFieldState extends State<passwordTextField> {
                   _IsObsucure = !_IsObsucure;
                 });
               },
-              icon: Icon(
-                _IsObsucure ? Icons.visibility : Icons.visibility_off,
-                color: Colors.black,
-                size: 25,
-              )),
-          labelStyle: const TextStyle(fontSize: 15, color: Colors.black),
+              icon: Icon(_IsObsucure ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.black, size: 25.sp)),
+          labelStyle: TextStyle(fontSize: 15.sp, color: Colors.black),
           alignLabelWithHint: true,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
+          contentPadding: EdgeInsets.symmetric(horizontal: 5.w),
           border: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black)),
           focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black))),
-      style: const TextStyle(
-        fontSize: 15,
-        color: Colors.black,
-      ),
+      style: TextStyle(fontSize: 15.sp, color: Colors.black),
       obscureText: _IsObsucure,
     );
   }
