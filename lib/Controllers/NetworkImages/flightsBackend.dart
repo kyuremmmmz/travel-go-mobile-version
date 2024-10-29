@@ -8,7 +8,7 @@ class Flightsbackend {
     final response = await supabase
         .from('flightsList')
         .select('*')
-        .eq('ticket_type', 'cheapest');
+        .eq('ticket_type', 'Cheapest');
     if (response.isEmpty) {
       return [];
     } else {
@@ -107,7 +107,7 @@ class Flightsbackend {
     final response = await supabase
         .from('flightsList')
         .select('*')
-        .eq('ticket_type', 'best');
+        .eq('ticket_type', 'Best');
     if (response.isEmpty) {
       return [];
     } else {
@@ -303,7 +303,7 @@ class Flightsbackend {
     final response = await supabase
         .from('flightsList')
         .select('*')
-        .eq('ticket_type', 'fastest');
+        .eq('ticket_type', 'Fastest');
     if (response.isEmpty) {
       return [];
     } else {

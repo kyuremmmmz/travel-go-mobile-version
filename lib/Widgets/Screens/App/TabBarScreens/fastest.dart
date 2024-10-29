@@ -69,7 +69,7 @@ class _FastestState extends State<Fastest> {
                               width: 10.w,
                             ),
                             Text(
-                              'Fastest',
+                              data['ticket_type'],
                               style: TextStyle(
                                   fontSize: 16.sp,
                                   color: Colors.blue,
