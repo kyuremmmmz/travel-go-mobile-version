@@ -50,6 +50,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   final data = Data(); // instance of the data controller
   late FoodAreaBackEnd images = FoodAreaBackEnd();
   List<Map<String, dynamic>> datass = [];
+  List<Map<String, dynamic>> beaches = [];
   late FestivalsImages festivals = FestivalsImages();
   List<Map<String, dynamic>> dataOfFestivals = [];
   bool isLoading = false;

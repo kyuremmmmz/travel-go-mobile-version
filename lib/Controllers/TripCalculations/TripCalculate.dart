@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class Tripcalculate {
   Future<String?> calculateData(String origin, String destination, String vehicle) async {
-    final uri = Uri.parse('http://10.0.2.2:5000/calculate');
+    final uri = Uri.parse('https://travel-go-gemini-api-3.onrender.com/calculate');
     final response = await http.post(uri,
         headers: {'content-type': 'application/json'},
         body: json.encode({
