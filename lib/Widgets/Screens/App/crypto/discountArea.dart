@@ -2,6 +2,7 @@
 import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
+import 'package:TravelGo/Controllers/TRGO_POINTS/Trgo.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/VoucherButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
@@ -40,16 +41,24 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   String? email;
   String? img;
   List res = [];
+  List result = [];
 
   final data = FoodAreaBackEnd();
   final fetchDiscounts = Vouchers();
+  final tr = Trgo();
   final _searchController = TextEditingController();
   late Usersss users = Usersss();
   var dateNoww = DateTime.now();
   String formattedDate = '';
-  double TrgoPoints = 123.45;
+  double TrgoPoints = 0.0;
   // 1000 is full progress bar
   // value of points and progress bar, except the decimal point
+  Future<void> gett() async {
+    final response = await tr.getThePointsOfMine();
+    setState(() {
+      TrgoPoints = response[0]['points'];
+    });
+  }
 
   @override
   void initState() {

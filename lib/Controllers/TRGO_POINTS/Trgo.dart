@@ -16,7 +16,7 @@ class Trgo {
       double currentPoints =
           (query != null && query['points'] != null) ? query['points'] : 0;
       double updatedPoints = currentPoints + points;
-      final response = await supabase.from('TRGO_POINTS').update({
+      final response = await supabase.from('TRGO_POINTS').upsert({
         'uid': user,
         'points': updatedPoints,
         'money': 0,
@@ -38,6 +38,24 @@ class Trgo {
         content: Text('$e'),
       ));
       return null;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getThePointsOfMine() async {
+    final user = supabase.auth.currentUser!.id;
+    final response =
+        await supabase.from('TRGO_POINTS').select('*').eq('uid', user);
+    if (response.isEmpty) {
+      return [];
+    } else {
+      final data = response;
+
+      List<Map<String, dynamic>> result = List<Map<String, dynamic>>.from(data as List);
+      for (var datas in result) {
+        final points =  datas['points'];
+        datas['points'] = points;
+      }
+      return result;
     }
   }
 }
