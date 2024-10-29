@@ -62,86 +62,53 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFDEEFFC),
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0.h,
-            right: 0,
-            left: 0,
-            child: Stack(children: <Widget>[
-              Align(
-                child: Image.asset(
-                  'assets/images/icon/newlogo2.png',
-                  fit: BoxFit.cover,
-                  height: 200.h,
-                  width: 200.w,
+        backgroundColor: const Color(0xFFDEEFFC),
+        resizeToAvoidBottomInset: false,
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 50.h),
+                child: Align(
+                  child: Image.asset('assets/images/icon/newlogo-crop.png',
+                      fit: BoxFit.cover, height: 120.sp),
                 ),
               ),
-            ]),
-          ),
-          Positioned(
-            top: 200.h,
-            right: 0,
-            left: 0,
-            height: MediaQuery.of(context).size.height,
-            child: Container(
-              padding: EdgeInsets.only(
-                top: 0.w,
-                left: 0.h,
-                bottom: 0.w,
-                right: 0.h,
-              ),
-              child: SingleChildScrollView(
-                  child: Form(
+              Form(
                 key: _formKey,
                 child: Column(
                   children: [
+                    Container(
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.only(left: 20.w),
+                        child: Text(
+                          'Set Up Your Profile',
+                          style: TextStyle(
+                            color: const Color(0xFF2D3F4E),
+                            fontSize: 30.sp,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        )),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(horizontal: 30.w),
+                      child: Text(
+                        'Welcome, new traveler! Let’s get your profile set up so you can make the most of your experience.',
+                        style: TextStyle(
+                          color:
+                              const Color(0xFF3564C0), // Adjust color as needed
+                          fontSize: 13.sp, // Adjust font size as necessary
+                          fontWeight:
+                              FontWeight.w400, // Change weight if desired
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     SizedBox(
-                      height: 10.h, // the space between the img and email area
-                    ),
+                        height: 15
+                            .h), // Add some space between the title and the message
                     Container(
-                      padding: EdgeInsets.only(
-                        right: 50.w,
-                        left: 15.w,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Set Up Your Profile',
-                            style: TextStyle(
-                              color: const Color(0xFF2D3F4E),
-                              fontSize: 30.sp,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          SizedBox(
-                              height: 5
-                                  .h), // Add some space between the title and the message
-                          Padding(
-                            padding: EdgeInsets.only(
-                                bottom: 20,
-                                top: 0.h), // Adjust vertical padding as needed
-                            child: Text(
-                              'Welcome! Let’s get your profile set up so you can make the most of your experience.',
-                              style: TextStyle(
-                                color: const Color(
-                                    0xFF3564C0), // Adjust color as needed
-                                fontSize:
-                                    11.sp, // Adjust font size as necessary
-                                fontWeight:
-                                    FontWeight.w400, // Change weight if desired
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 30.w,
-                      padding: EdgeInsets.only(top: 0.w, left: 5, right: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: TextFormField(
                         controller: _nameController,
                         validator: (value) {
@@ -153,23 +120,22 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                           }
                           return null;
                         },
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                             labelText: 'Full Name',
                             alignLabelWithHint: true,
                             contentPadding:
-                                EdgeInsets.symmetric(horizontal: 5.0),
+                                EdgeInsets.symmetric(horizontal: 5.w),
                             labelStyle:
-                                TextStyle(fontSize: 15, color: Colors.black),
-                            border: UnderlineInputBorder(
+                                TextStyle(fontSize: 15.sp, color: Colors.black),
+                            border: const UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black)),
-                            focusedBorder: UnderlineInputBorder(
+                            focusedBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide(
                               color: Colors.black,
                             ))),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            color: const Color.fromARGB(255, 0, 0, 0)),
                         keyboardType: TextInputType.name,
                       ),
                     ),
@@ -177,9 +143,8 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                       height: 10.h,
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width -
-                          30.w, // full name line area
-                      padding: EdgeInsets.only(top: 0.w, left: 5, right: 5),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.w), // full name line area
                       child: plainTextField(
                         controller: _userNameController,
                         validator: (value) {
@@ -199,12 +164,8 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                       height: 10.h,
                     ),
                     Container(
-                      padding: const EdgeInsets.only(
-                          top: 0.0,
-                          left: 5.0,
-                          right: 5.0), // Customize padding as needed
-                      width: MediaQuery.of(context).size.width -
-                          30.w, // password line area
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.w), // password line area
                       child: TextFormField(
                         controller: _phoneController,
                         validator: (value) {
@@ -213,37 +174,29 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                           }
                           return null;
                         },
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'Phone Number',
                           alignLabelWithHint: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 5.0),
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 5.0),
                           labelStyle:
-                              TextStyle(fontSize: 15, color: Colors.black),
-                          border: UnderlineInputBorder(
+                              TextStyle(fontSize: 15.sp, color: Colors.black),
+                          border: const UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black)),
+                          focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                           ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
-                          ),
                         ),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Color.fromARGB(255, 0, 0, 0),
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: const Color.fromARGB(255, 0, 0, 0),
                         ),
                         keyboardType: TextInputType.phone,
                       ),
                     ),
-                    SizedBox(
-                      height: 50.h,
-                    ),
+                    SizedBox(height: 50.h),
                     Container(
-                        padding: EdgeInsets.only(
-                            top: 0.w,
-                            left: 5,
-                            right: 5), //container of Next button to
-                        width: MediaQuery.of(context).size.width - 100.w,
+                        width: 250.w, //container of Next button to
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             boxShadow: [
@@ -282,14 +235,13 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                                               error: Text('$text'),
                                             )));
                               }
-                            }))
+                            })),
+                    SizedBox(height: 50.h)
                   ],
                 ),
-              )),
-            ),
-          )
-        ],
-      ),
-    );
+              ),
+            ],
+          ),
+        ));
   }
 }
