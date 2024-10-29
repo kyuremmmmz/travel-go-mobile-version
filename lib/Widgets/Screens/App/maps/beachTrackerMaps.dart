@@ -123,12 +123,10 @@ class _BeachMapPageState extends State<BeachMapPage> {
         for (var beach in beaches) {
           var beachName = beach['beach_name'];
           var beachPrice = beach['beach_price'];
-          var des = beach['description'];
           var numberFormat = NumberFormat('#,###');
           var finalPrice = numberFormat.format(beachPrice);
           beach['beach_price'] = finalPrice;
           beach['beach_name'] = beachName;
-          beach['description'] = des;
           List<Location> locations =
               await locationFromAddress(beach['beach_name']);
           if (locations.isNotEmpty) {
@@ -178,7 +176,7 @@ class _BeachMapPageState extends State<BeachMapPage> {
         });
       }
     } catch (error) {
-      print('Error fetching places: $error');
+      print('Error fetching beaches: $error');
     }
   }
 

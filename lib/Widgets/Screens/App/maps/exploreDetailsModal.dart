@@ -1,5 +1,7 @@
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
+import 'package:TravelGo/Widgets/Screens/App/ResponsiveScreen/ResponsiveScreen.dart';
+import 'package:TravelGo/Widgets/Screens/App/flights.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -165,39 +167,46 @@ class _ExploreDetailsModalState extends State<ExploreDetailsModal> {
                   );
                 }).toList()),
                 SizedBox(height: 30.h),
-                Row(
-                  children: [
-                    SizedBox(width: 10.w),
-                    RichText(
-                        text: TextSpan(children: [
-                      TextSpan(
-                          text: 'PHP ${price.toString()} - 6,000',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 21.sp,
-                              fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: '\nEstimated Expenses',
-                          style: TextStyle(color: Colors.blue, fontSize: 13.sp))
-                    ])),
-                    SizedBox(width: 20.w),
-                    SizedBox(
-                      width: 150.h,
-                      child: BlueButtonWithoutFunction(
-                          text: Text(
-                            'Place Booking',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                          ),
-                          oppressed: () {}),
-                    )
-                  ],
-                ),
+                Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                              text: 'PHP ${price.toString()} - 6,000',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: Responsive().headerFontSize(),
+                                  fontWeight: FontWeight.bold)),
+                          TextSpan(
+                              text: '\nEstimated Expenses',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: Responsive().aboutFontSize()))
+                        ])),
+                        BlueButtonWithoutFunction(
+                            text: Text(
+                              'See Tickets',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: Responsive().aboutFontSize(),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                            ),
+                            oppressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Flight(
+                                            id: widget.id,
+                                          )));
+                            })
+                      ],
+                    )),
                 SizedBox(height: 10.h)
               ],
             ),

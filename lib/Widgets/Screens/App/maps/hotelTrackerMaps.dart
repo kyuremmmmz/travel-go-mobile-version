@@ -111,18 +111,6 @@ class _HotelMapPageState extends State<HotelMapPage> {
       price = data?['hotel_price'];
       located = data?['hotel_located'];
       description = data?['hotel_description'];
-      id = data?['id'];
-      for (var i = 1; i <= 20; i++) {
-        final key = 'amenity$i';
-        final keyUrl = 'amenity${i}Url';
-        final value = data?[key];
-        final imageUrlValue = data?[keyUrl];
-        if (value != null) {
-          amenities[key] = value;
-          imageUrlForAmenities[key] = imageUrlValue;
-          print(imageUrlForAmenities);
-        }
-      }
     });
   }
 
@@ -136,12 +124,10 @@ class _HotelMapPageState extends State<HotelMapPage> {
         for (var hotel in hotels) {
           var hotelName = hotel['hotel_name'];
           var hotelPrice = hotel['hotel_price'];
-          var des = hotel['hotel_description'];
           var numberFormat = NumberFormat('#,###');
           var finalPrice = numberFormat.format(hotelPrice);
           hotel['hotel_price'] = finalPrice;
           hotel['hotel_name'] = hotelName;
-          hotel['description'] = des;
           List<Location> locations =
               await locationFromAddress(hotel['hotel_name']);
           if (locations.isNotEmpty) {

@@ -260,7 +260,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                                 Responsive().aboutFontSize())),
                                   ),
                                   SizedBox(height: 20.h),
-                                  VehicleAvailability(text: widget.text),
+                                  VehicleAvailability(text: widget.text, name: located,),
                                   Container(
                                       alignment: Alignment.centerLeft,
                                       padding: EdgeInsets.only(left: 30.w),
