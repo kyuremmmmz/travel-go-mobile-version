@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async'; // Import for StreamController
+
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/TripCalculations/TripCalculate.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:flutter/material.dart';
-import 'dart:async'; // Import for StreamController
 
 class VehicleAvailability extends StatefulWidget {
   final int text;
@@ -23,8 +24,8 @@ class _VehiclAavailabilityState extends State<VehicleAvailability> {
   final origin = TextEditingController();
   final data = Data();
   final trips = Tripcalculate();
-  final _resultController = StreamController<String?>();
-
+  final _resultController = StreamController<String?>.broadcast();
+  final motor = 'MotorCycle';
   @override
   void dispose() {
     origin.dispose();
@@ -32,13 +33,13 @@ class _VehiclAavailabilityState extends State<VehicleAvailability> {
     super.dispose();
   }
 
-  Future<void> calculateTrip() async {
-    final cal = await trips.calculateData(origin.text.trim(), '${widget.name}');
+  Future<void> calculateTrip(String vehicle) async {
+    final cal = await trips.calculateData(origin.text.trim(), '${widget.name}', vehicle);
     final cleaN = cal?.replaceAll('##', '').replaceAll('**', '');
     _resultController.add(cleaN);
   }
 
-  void showModal(BuildContext context) {
+  void showModal(BuildContext context, String vehicle) {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -140,10 +141,20 @@ class _VehiclAavailabilityState extends State<VehicleAvailability> {
               ),
               Center(
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 100, 172, 231)
+                  ),
                   onPressed: () {
-                    calculateTrip();
+                    calculateTrip(vehicle);
                   },
-                  child: const Text('Calculate'),
+                  child: const Text(
+                    'Calculate',
+                    style: TextStyle(
+                      color: Colors.white
+                    ),),
                 ),
               )
             ],
@@ -188,7 +199,7 @@ class _VehiclAavailabilityState extends State<VehicleAvailability> {
                 children: [
                   BlueIconButtonDefault(
                     image: 'assets/images/icon/motorbike.png',
-                    oppressed: () => {showModal(context)},
+                    oppressed: () => {showModal(context, 'Motorcycle')},
                   ),
                   const CategoryLabel(label: 'Motorcycle'),
                 ],
@@ -200,7 +211,7 @@ class _VehiclAavailabilityState extends State<VehicleAvailability> {
                 children: [
                   BlueIconButtonDefault(
                     image: 'assets/images/icon/plane.png',
-                    oppressed: () => print('Planes clicked'),
+                    oppressed: () => {showModal(context, 'Plane')},
                   ),
                   const CategoryLabel(label: 'Planes'),
                 ],

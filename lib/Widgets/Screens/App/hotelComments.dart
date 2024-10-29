@@ -64,7 +64,7 @@ class _HotelCommentsState extends State<HotelComments> {
   }
 
   Future<void> stateComments() async {
-    final data = await rating.fetchComments(widget.text, 'hotel');
+    final data = await rating.fetchComments(widget.text, 'hotels');
     final records = data.length;
     final count = totalRatings / records;
     setState(() {
@@ -83,7 +83,7 @@ class _HotelCommentsState extends State<HotelComments> {
 
   Future<void> fetchRatings(List<Map<String, dynamic>> data) async {
     try {
-      final data = await rating.fetchComments(widget.text, 'hotel');
+      final data = await rating.fetchComments(widget.text, 'hotels');
       final totalRatings = await rating.fetchRatingsAsSum();
       final records = data.length;
       if (records > 0) {
