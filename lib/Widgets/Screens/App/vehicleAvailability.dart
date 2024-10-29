@@ -135,6 +135,9 @@ class _VehiclAavailabilityState extends State<VehicleAvailability> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
               Center(
                 child: ElevatedButton(
                   onPressed: () {
