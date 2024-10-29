@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: camel_case_types
 class plainTextField extends StatefulWidget {
@@ -28,22 +29,17 @@ class _numberTextFieldState extends State<plainTextField> {
       validator: widget.validator,
       decoration: InputDecoration(
           labelText: widget.text,
-          floatingLabelStyle: TextStyle(
-            color: widget.colorr,
-          ),
+          floatingLabelStyle: TextStyle(color: widget.colorr),
           alignLabelWithHint: true,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 5.0),
-          labelStyle: const TextStyle(fontSize: 15, color: Colors.black),
+          contentPadding: EdgeInsets.symmetric(horizontal: 5.w),
+          labelStyle: TextStyle(fontSize: 15.sp, color: Colors.black),
           border: const UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black)),
           focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
             color: Colors.black,
           ))),
-      style: TextStyle(
-        fontSize: 16,
-        color: widget.colorr,
-      ),
+      style: TextStyle(fontSize: 16.sp, color: widget.colorr),
       keyboardType: TextInputType.emailAddress,
     );
   }

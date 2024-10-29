@@ -57,173 +57,139 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFDEEFFC),
-      resizeToAvoidBottomInset:
-          false, // this avoid resizing the body when the keyboard appears
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0.h,
-            right: 0.w,
-            left: 0.w,
-            child: Stack(children: <Widget>[
-              Align(
+        backgroundColor: const Color(0xFFDEEFFC),
+        resizeToAvoidBottomInset:
+            false, // this avoid resizing the body when the keyboard appears
+        body: SingleChildScrollView(
+          child: Column(children: <Widget>[
+            Container(
+                padding: EdgeInsets.only(top: 30.h),
+                child: Align(
+                  child: Image.asset('assets/images/icon/newlogo-crop.png',
+                      fit: BoxFit.cover, height: 100.sp),
+                )),
+            Positioned(
+                top: 0,
                 child: Image.asset(
-                  'assets/images/icon/newlogo2.png',
-                  fit: BoxFit.cover,
-                  height: 200.h,
-                  width: 200.w,
-                ),
-              ),
-              Positioned(
-                top: 100,
-                bottom: 50, // Adjust the position of the second image
-                right: 0,
-                left: 0, // Change as needed
-                child: Image.asset(
-                  'assets/images/icon/airplanelogo2.png', // Replace with your image path
-                ),
-              ),
-              SizedBox(
-                height: 470.h, // Adjust the image size
-              )
-            ]),
-          ),
-          Positioned(
-              bottom: -330.h,
-              right: 0,
-              left: 0,
-              height: MediaQuery.of(context).size.height,
-              child: Container(
-                padding: EdgeInsets.only(
-                  top: 0.h,
-                  left: 0.w,
-                  bottom: 0.h,
-                  right: 0.w,
-                ),
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(right: 90.w, bottom: 0.w, top: 60.w),
-                          child: Text(
-                            'Welcome Traveler!',
-                            style: TextStyle(
-                              color: const Color(0xFF2D3F4E),
-                              fontSize: 30.sp,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                        ),
-                        Container(
-                            padding: EdgeInsets.only(right: 170.w, top: 0.w, bottom: 30.w),
-                            child: Text(
-                              'Please Sign In to continue.',
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                color: Color(0xFF3564C0),
-                              ),
-                            )),
-                        Container(
-                          padding: EdgeInsets.only(top: 0.w, left: 5, right: 5),
-                          width: MediaQuery.of(context).size.width - 30.w,
-                          child: plainTextField(
-                            controller: _emailController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Email address is required';
-                              }
-                              return null;
-                            },
-                            colorr: Colors.black,
-                            text: 'Email',
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5.h, // Space between the email and password fields
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width - 30.w,
-                          padding: EdgeInsets.only(top: 0.0, left: 5.0, right: 5.0), // Customize padding as needed
-                          child: passwordTextField(
-                            controller: _passwordController,
-                            validator: (value) {
-                              if (value == null || value.toString().isEmpty) {
-                                return 'Password is required';
-                              }
-                              return null;
-                            },
-                            text: 'Password', // Placeholder text for the password field
-                            password: _passwordController, // Controller for the password field
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10.h, left: 240.w),
-                          child: GestureDetector(
-                            onTap: () => {
-                              AppRoutes.navigateToForgotPassword(context)
-                            }, // Navigate to the forgot password screen
-                            child: Text(
-                              'Forgot password?',
-                              style: TextStyle(
-                                  fontSize: 12.sp,
-                                  color: Colors
-                                      .grey), // Style for the forgot password text
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 70.h, // Space above the sign-in button
-                        ),
-                        Container(
-                            padding: null,
-                            width: MediaQuery.of(context).size.width - 100.w,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    30), // Rounded corners for the button
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: BlueButtonWithoutFunction(
-                              text: Text(
-                                'Log In',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize:
-                                        18.sp), // Style for the button text
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromARGB(255, 50, 190, 255),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                              oppressed: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  Login(
-                                          email: _emailController.text.trim(),
-                                          password:
-                                              _passwordController.text.trim())
-                                      .loginUser(
-                                          context); // Call the login function
-                                }
-                              },
-                            ))
-                      ],
+                    'assets/images/icon/airplanelogo-crop.png', // Replace with your image path
+                    fit: BoxFit.cover,
+                    height: 220.sp // Adjust the image size
+                    )),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(left: 20.w),
+                    child: Text(
+                      'Welcome Traveler!',
+                      style: TextStyle(
+                          color: const Color(0xFF2D3F4E),
+                          fontSize: 30.sp,
+                          fontWeight: FontWeight.w900),
                     ),
                   ),
-                ),
-              ))
-        ],
-      ),
-    );
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.only(left: 30.w, bottom: 10.h),
+                      child: Text(
+                        'Please Log In to continue.',
+                        style: TextStyle(
+                            fontSize: 14.sp, color: const Color(0xFF3564C0)),
+                      )),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: plainTextField(
+                      controller: _emailController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email address is required';
+                        }
+                        return null;
+                      },
+                      colorr: Colors.black,
+                      text: 'Email',
+                    ),
+                  ),
+                  SizedBox(
+                      height: 5.h // Space between the email and password fields
+                      ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    // Customize padding as needed
+                    child: passwordTextField(
+                      controller: _passwordController,
+                      validator: (value) {
+                        if (value == null || value.toString().isEmpty) {
+                          return 'Password is required';
+                        }
+                        return null;
+                      },
+                      text:
+                          'Password', // Placeholder text for the password field
+                      password:
+                          _passwordController, // Controller for the password field
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10.h, left: 240.w),
+                    child: GestureDetector(
+                      onTap: () => {
+                        AppRoutes.navigateToForgotPassword(context)
+                      }, // Navigate to the forgot password screen
+                      child: Text(
+                        'Forgot password?',
+                        style: TextStyle(
+                            fontSize: 12.sp,
+                            color: Colors
+                                .grey), // Style for the forgot password text
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 70.h // Space above the Log-in button
+                      ),
+                  Container(
+                      width: 250.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                              30), // Rounded corners for the button
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 5,
+                              offset: const Offset(0, 5),
+                            )
+                          ]),
+                      child: BlueButtonWithoutFunction(
+                        text: Text('Log In',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.sp) // Style for the button text
+                            ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 50, 190, 255),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        oppressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            Login(
+                                    email: _emailController.text.trim(),
+                                    password: _passwordController.text.trim())
+                                .loginUser(context); // Call the login function
+                          }
+                        },
+                      )),
+                  SizedBox(height: 70.h // Space below the Log-in button
+                      )
+                ],
+              ),
+            ),
+          ]),
+        ));
   }
 }
