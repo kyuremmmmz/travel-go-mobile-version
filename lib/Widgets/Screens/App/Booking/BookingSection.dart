@@ -8,7 +8,7 @@ class BookingSection extends StatefulWidget {
   final String departureDay;
   final String departureDate;
   final String checkedInDate;
-  final int price;
+  final double price;
   final String locationName;
   final String locationAddress;
   final VoidCallback oppressed;
@@ -21,7 +21,7 @@ class BookingSection extends StatefulWidget {
     required this.locationName,
     required this.locationAddress,
     required this.oppressed,
-    });
+  });
 
   @override
   State<BookingSection> createState() => _BookingSectionState();
@@ -83,11 +83,9 @@ class _BookingSectionState extends State<BookingSection> {
                 if (checkIn != null) {
                   try {
                     String cleanedCheckIn = checkIn
-                        .replaceAll(
-                            '-', '-') 
+                        .replaceAll('-', '-')
                         .replaceAll('T', ' ')
-                        .replaceAll(
-                            RegExp(r'\.\d+'), '');
+                        .replaceAll(RegExp(r'\.\d+'), '');
                     final date = DateTime.parse(cleanedCheckIn);
                     formattedCheckInDate =
                         DateFormat('MMMM dd, yyyy, h:mm a').format(date);
@@ -100,11 +98,9 @@ class _BookingSectionState extends State<BookingSection> {
                   try {
                     String cleanedCheckOut = checkOut
                         .replaceAll('T', ' ')
-                        .replaceAll(
-                            RegExp(r'\.\d+'), '');
+                        .replaceAll(RegExp(r'\.\d+'), '');
                     final date = DateTime.parse(cleanedCheckOut);
-                    formattedCheckOutDate =
-                        DateFormat('dd').format(date);
+                    formattedCheckOutDate = DateFormat('dd').format(date);
                   } catch (e) {
                     formattedCheckOutDate = 'Invalid date format: $e';
                   }
@@ -114,13 +110,12 @@ class _BookingSectionState extends State<BookingSection> {
                   try {
                     String cleanedCheckOut = checkOut
                         .replaceAll('T', ' ')
-                        .replaceAll(
-                            RegExp(r'\.\d+'), ''); 
+                        .replaceAll(RegExp(r'\.\d+'), '');
                     final date = DateTime.parse(cleanedCheckOut);
 
                     final nextDate = date.add(const Duration(days: 0));
-                    formattedNexttDate = DateFormat('MMMM yyyy, EEEE')
-                        .format(nextDate); 
+                    formattedNexttDate =
+                        DateFormat('MMMM yyyy, EEEE').format(nextDate);
                   } catch (e) {
                     formattedCheckOutDate = 'Invalid date format: $e';
                   }
@@ -134,7 +129,8 @@ class _BookingSectionState extends State<BookingSection> {
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      final located = snapshot.data!['hotel_located'] ?? 'Unknown location';
+                      final located =
+                          snapshot.data!['hotel_located'] ?? 'Unknown location';
                       return SizedBox(
                         height: 280,
                         child: Stack(
@@ -167,7 +163,8 @@ class _BookingSectionState extends State<BookingSection> {
                                           children: [
                                             Text(
                                               '${formattedCheckOutDate}th',
-                                              style: const TextStyle(fontSize: 19),
+                                              style:
+                                                  const TextStyle(fontSize: 19),
                                             ),
                                             Text(
                                               formattedNexttDate,
@@ -266,11 +263,9 @@ class _BookingSectionState extends State<BookingSection> {
                                         255, 225, 242, 250),
                                     border: Border.all(
                                         color: const Color.fromRGBO(
-                                            176, 234, 253, 100
-                                            )
-                                          )
-                                        ),
-                                child: Image.asset("assets/images/icon/plane.png"),
+                                            176, 234, 253, 100))),
+                                child:
+                                    Image.asset("assets/images/icon/plane.png"),
                               ),
                             ),
                           ],
