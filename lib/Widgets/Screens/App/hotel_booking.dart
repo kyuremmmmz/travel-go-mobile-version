@@ -210,8 +210,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
 
     final pts = await tr.getThePointsOfMine();
     setState(() {
-      trgopoint = pts[0]['points'];
+      final trgopoint = pts[0]['points'];
       updatePoint = trgopoint - 100.0;
+      pts[0]['points'] = updatePoint;
       final numberFormat = NumberFormat('#,##0.##');
       final numbers = numberFormat.format(discountTotal);
       discountAmount = numbers;
@@ -226,7 +227,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
               amountDisplay = strAmount, // String
               amountNumber = amount // number
             );
-      //trgopoint = trgopoint + 100; // SAMPLE LANG TO +100 PTS
     });
   }
 
@@ -929,8 +929,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     ],
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 10.w, right: 10.w),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 5.w),
                                     child: Column(
                                       children: [
                                         GestureDetector(
@@ -954,7 +954,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                         ),
                                         Row(children: [
                                           Text(
-                                            'PHP $amountNumber',
+                                            'PHP $amountDisplay',
                                             style: TextStyle(
                                               fontSize: 18.sp,
                                               color: Colors.black,
@@ -965,7 +965,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 5.w),
                                   Column(
                                     children: [
                                       SizedBox(
@@ -1021,6 +1020,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                           amount,
                                                         );
                                                         insert();
+                                                        tr.getThePointsOfMine();
                                                       } else if (_paymentMethodController
                                                               .text
                                                               .trim() ==

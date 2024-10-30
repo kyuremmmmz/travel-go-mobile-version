@@ -201,18 +201,18 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                             Color.fromRGBO(68, 202, 249, 1)),
                       ),
                       oppressed: () {
-                        Future.delayed(Duration(seconds: 5), () {
-                          if (isPaymentSuccess) {
+                        if (isPaymentSuccess) {
+                          Future.delayed(const Duration(seconds: 5), () {
                             Trgo().trgoPoints(context);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => OrderReceipt(
                                         bookingId: widget.bookingId)));
-                          } else {
-                            AppRoutes.navigateToNotPaid(context);
-                          }
-                        });
+                          });
+                        } else {
+                          AppRoutes.navigateToNotPaid(context);
+                        }
                       }),
                 )
               ],

@@ -13,7 +13,8 @@ class Trgo {
           .select('points')
           .eq('uid', user)
           .maybeSingle();
-      double currentPoints = (query != null && query['points'] != null) ? query['points'] : 0;
+      double currentPoints =
+          (query != null && query['points'] != null) ? query['points'] : 0;
       double updatedPoints = currentPoints + points;
       final response = await supabase.from('TRGO_POINTS').update({
         'uid': user,
@@ -86,9 +87,10 @@ class Trgo {
     } else {
       final data = response;
 
-      List<Map<String, dynamic>> result = List<Map<String, dynamic>>.from(data as List);
+      List<Map<String, dynamic>> result =
+          List<Map<String, dynamic>>.from(data as List);
       for (var datas in result) {
-        final points =  datas['points'];
+        final points = datas['points'];
         datas['points'] = points;
       }
       return result;
