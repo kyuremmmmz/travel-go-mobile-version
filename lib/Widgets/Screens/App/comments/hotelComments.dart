@@ -49,6 +49,7 @@ class _HotelCommentsState extends State<HotelComments> {
   late RatingsAndComments rating = RatingsAndComments();
   final String avatarDefaultIcon = "assets/images/icon/user.png";
   bool _isRedirecting = false;
+  int total = 0;
   final vouchers = Vouchers();
   final supabase = Supabase.instance.client;
   Future<void> commentInserttion() async {
@@ -217,10 +218,10 @@ class _HotelCommentsState extends State<HotelComments> {
                   ),
                   SizedBox(width: 5.w),
                   Text(
-                    'OUT OF 5',
+                    '( $total )',
                     style: TextStyle(
                         color: const Color.fromARGB(255, 49, 49, 49),
-                        fontSize: 12.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold),
                   ),
                 ],
