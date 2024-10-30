@@ -246,7 +246,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                               child: Categories()),
                           Container(
                               alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 20.w),
+                              padding: EdgeInsets.only(top: 10.h, left: 20.w),
                               child: CategorySelect(
                                 label: "Popular Places",
                                 oppressed: () =>
@@ -297,7 +297,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                             }).toList()))),
                           Container(
                               alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 20.w),
+                              padding: EdgeInsets.only(top: 10.h, left: 20.w),
                               child: CategorySelect(
                                 label: "Popular Hotels",
                                 oppressed: () =>
@@ -348,7 +348,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                             }).toList()))),
                           Container(
                               alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 20.w),
+                              padding: EdgeInsets.only(top: 10.h, left: 20.w),
                               child: CategorySelect(
                                 label: "Food Places",
                                 oppressed: () =>
@@ -396,7 +396,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                             }).toList()))),
                           Container(
                               alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 20.w),
+                              padding: EdgeInsets.only(top: 10.h, left: 20.w),
                               child: CategorySelect(
                                 label: "Beach Destinations",
                                 oppressed: () =>
@@ -444,7 +444,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                             }).toList()))),
                           Container(
                               alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 20.w),
+                              padding: EdgeInsets.only(top: 10.h, left: 20.w),
                               child: CategorySelect(
                                 label: "Festival and Events",
                                 oppressed: () => Navigator.push(
@@ -530,7 +530,7 @@ class _DismissableFindMoreLocationState
     return _isVisible
         ? Center(
             child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 10.h),
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Color(0xFF2196F3),

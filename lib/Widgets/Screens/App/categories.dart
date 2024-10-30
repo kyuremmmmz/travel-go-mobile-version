@@ -178,7 +178,6 @@ class CategorySelect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 30.h),
         Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: 9.0), // Add padding to left and right
