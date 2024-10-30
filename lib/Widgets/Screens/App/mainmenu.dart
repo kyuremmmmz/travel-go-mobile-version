@@ -1,6 +1,8 @@
 import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
+import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
 import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Widgets/Screens/App/InfoScreens/BeachInfo.dart';
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/HotelsInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:flutter/material.dart'; // The flutter material package for UI e stateless wdiget for festivals
 import 'package:supabase_flutter/supabase_flutter.dart'; // Importing the Supabase Flutter package for database functionality.
@@ -50,6 +52,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   late Usersss users = Usersss(); // Instance of unserss controller
   List<Map<String, dynamic>> place = []; // list to hold place data
   final data = Data(); // instance of the data controller
+  final datahotel = HotelImages();
+  List<Map<String, dynamic>> placehotel = [];
   late FoodAreaBackEnd images = FoodAreaBackEnd();
   List<Map<String, dynamic>> datass = [];
   final databeach = BeachImages();
@@ -119,6 +123,25 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     });
   }
 
+  Future<List<Map<String, dynamic>>?> fetchHotels(BuildContext context) async {
+    final datas = await datahotel.fetchHotels();
+    if (datas.isEmpty) {
+      return [];
+    } else {
+      setState(() {
+        placehotel = datas.map((hotel) {
+          if (hotel['hotel_name'] != null &&
+              hotel['hotel_name'].toString().length > 18) {
+            hotel['hotel_name'] =
+                hotel['hotel_name'].toString().substring(0, 18);
+          }
+          return hotel;
+        }).toList();
+      });
+      return null;
+    }
+  }
+
   Future<List<Map<String, dynamic>>?> fetchFoods(BuildContext context) async {
     final datas = await images.getFood();
     if (datas.isEmpty) {
@@ -178,6 +201,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     super.initState(); //calling the parent class's initState method
     emailFetching(); // Fetching user email and initialization
     fetchImage(); // fetching the images on initialization
+    fetchHotels(context);
     fetchFoods(context); // fetching food areas on initialization
     fetchBeach(context);
     fetchFestivals(context); // Fetching festivals on initialization
@@ -232,8 +256,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Container(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10.w),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5.h, horizontal: 10.w),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.sp)),
+                                    color: Colors.grey[100],
+                                  ),
                                   child: Row(
                                       children: isLoading
                                           ? [
@@ -270,6 +299,57 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                               alignment: Alignment.centerLeft,
                               padding: EdgeInsets.only(left: 20.w),
                               child: CategorySelect(
+                                label: "Popular Hotels",
+                                oppressed: () =>
+                                    AppRoutes.navigateToHotelScreen(context),
+                              )),
+                          SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5.h, horizontal: 10.w),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.sp)),
+                                    color: Colors.grey[100],
+                                  ),
+                                  child: Row(
+                                      children: isLoading
+                                          ? [
+                                              SizedBox(
+                                                width: 100.w,
+                                                height: 100.h,
+                                                child: const Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    color: Colors.blue,
+                                                  ),
+                                                ),
+                                              ),
+                                            ]
+                                          : placehotel.map((hotel) {
+                                              final id = hotel['id'];
+                                              return PlaceButtonSquare(
+                                                  place: hotel['hotel_name'],
+                                                  image: Image.network(
+                                                          hotel['image'])
+                                                      .image,
+                                                  oppressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    HotelsInfo(
+                                                                      id: id,
+                                                                      text: id,
+                                                                    )));
+                                                  });
+                                            }).toList()))),
+                          Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 20.w),
+                              child: CategorySelect(
                                 label: "Food Places",
                                 oppressed: () =>
                                     AppRoutes.navigateTofoodArea(context),
@@ -277,8 +357,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Container(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10.w),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5.h, horizontal: 10.w),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.sp)),
+                                    color: Colors.grey[100],
+                                  ),
                                   child: Row(
                                       children: isLoading
                                           ? [
@@ -320,8 +405,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Container(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10.w),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5.h, horizontal: 10.w),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.sp)),
+                                    color: Colors.grey[100],
+                                  ),
                                   child: Row(
                                       children: isLoading
                                           ? [
@@ -366,8 +456,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                           SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Container(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 10.w),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5.h, horizontal: 10.w),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(20.sp)),
+                                    color: Colors.grey[100],
+                                  ),
                                   child: Row(
                                       children: isLoading
                                           ? [
@@ -448,7 +543,7 @@ class _DismissableFindMoreLocationState
                           children: [
                             Container(
                               alignment: Alignment.topLeft,
-                              padding: EdgeInsets.only(left: 10.w),
+                              padding: EdgeInsets.only(left: 5.w),
                               child: Text(
                                 'Find more location \naround you',
                                 style: TextStyle(
@@ -460,7 +555,7 @@ class _DismissableFindMoreLocationState
                             ),
                             Container(
                               alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 20.w),
+                              padding: EdgeInsets.only(left: 15.w),
                               child: Text(
                                 'Find your next adventure around Pangasinan \nand create unforgettable memories!',
                                 style: TextStyle(
@@ -475,7 +570,7 @@ class _DismissableFindMoreLocationState
                         Container(
                             alignment: Alignment.centerRight,
                             padding: EdgeInsets.only(top: 5.h),
-                            width: 100.w,
+                            width: 110.w,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -496,9 +591,10 @@ class _DismissableFindMoreLocationState
                                     },
                                   ),
                                 ),
-                                SizedBox(
+                                Container(
+                                  padding: EdgeInsets.only(right: 10.w),
                                   height: 100.sp,
-                                  width: 80.sp,
+                                  width: 100.sp,
                                   child: Image.asset(adventureIcon),
                                 ),
                               ],
@@ -533,6 +629,6 @@ class _DismissableFindMoreLocationState
                   ),
                 )),
           )
-        : Container();
+        : const SizedBox(height: 0);
   }
 }
