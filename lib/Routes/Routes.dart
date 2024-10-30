@@ -94,13 +94,14 @@ class AppRoutes {
       {required String name,
       required int phone,
       required String nameoftheplace,
-      required int price,
-      required int payment,
+      required double price,
+      required double payment,
       required String hotelorplace,
       required int age,
       String? origin,
       String? destination,
-      String? bookingId}) {
+      String? bookingId,
+      required double points}) {
     try {
       if (age < 18) {
         throw Exception('You must be 18 years old or older');
@@ -119,6 +120,7 @@ class AppRoutes {
                       destination: destination,
                       age: age,
                       bookingId: bookingId,
+                      points: points,
                     )));
       }
       return;
@@ -242,8 +244,8 @@ class AppRoutes {
       required int phone,
       required String hotelorplace,
       required String nameoftheplace,
-      required int price,
-      required int payment,
+      required double price,
+      required double payment,
       required int age,
       required String bookingId}) {
     Navigator.push(

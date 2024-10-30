@@ -69,7 +69,7 @@ class HotelBooking {
       int numberOfAdult,
       int numberOfChildren,
       String room,
-      int price,
+      double price,
       int age,
       String bookingId) async {
     try {

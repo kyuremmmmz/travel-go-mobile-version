@@ -117,7 +117,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   String? email;
   String? place;
   final supabase = Supabase.instance.client;
-  var amount = 0;
+  double amount = 0;
   String? strAmount;
   String? origin;
   String? destination;
@@ -138,6 +138,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
   bool _value = false;
   Booking booking = Booking();
+  double updatePoint = 0;
 
   @override
   void dispose() {
@@ -184,17 +185,16 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   Future<void> insert() async {
     final confirmId = await booking.bookingIDgenerator();
     confirm = confirmId;
-    AppRoutes.navigateToLinkedBankAccount(
-      context,
-      name: widget.name,
-      phone: widget.phone,
-      nameoftheplace: widget.email,
-      price: amount,
-      payment: amount,
-      hotelorplace: widget.country,
-      age: widget.age,
-      bookingId: confirm
-    );
+    AppRoutes.navigateToLinkedBankAccount(context,
+        name: widget.name,
+        phone: widget.phone,
+        nameoftheplace: widget.email,
+        price: amount,
+        payment: amount,
+        hotelorplace: widget.country,
+        age: widget.age,
+        bookingId: confirm,
+        points: updatePoint);
     Booking().flightBooking(
         widget.name,
         widget.last,
@@ -238,7 +238,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
     });
   }
 
-  Future<void> niggaModal(BuildContext context) async {
+  Future<void> paymentModal(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
         builder: (context) {

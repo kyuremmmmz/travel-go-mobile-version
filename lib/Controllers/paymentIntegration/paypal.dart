@@ -10,9 +10,9 @@ class Paypal {
   final points = Trgo();
   Future<void> pay(
       BuildContext context,
-      int total,
+      double total,
       String placeorhotel,
-      int price,
+      double price,
       String name,
       int phone,
       String place,
