@@ -359,7 +359,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
             vertical: 2
                 .h), // Add vertical padding for space above and below the progress bar
         child: LinearProgressIndicator(
-            value: 0.001 * TrgoPoints,
+            value: TrgoPoints,
             backgroundColor: const Color(0xFFD9D9D9),
             borderRadius: BorderRadius.circular(5.w),
             color: const Color(0xFFFFD989)));
