@@ -15,22 +15,32 @@ class Trgo {
           .maybeSingle();
       double currentPoints =
           (query != null && query['points'] != null) ? query['points'] : 0;
-      double updatedPoints = currentPoints + points;
-      final response = await supabase.from('TRGO_POINTS').update({
-        'uid': user,
-        'points': updatedPoints,
-        'money': 0,
-      }).eq('uid', user);
-
-      if (response == null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-            'Points added successfully! Current points: $points',
-          ),
-        ));
-        return response;
-      } else {
+      if (currentPoints == 1.0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'You have reached the maximum points limit. Current points: $currentPoints',
+            ),
+          ));
         return null;
+      } else {
+        double updatedPoints = currentPoints + points;
+        final response = await supabase.from('TRGO_POINTS').update({
+          'uid': user,
+          'points': updatedPoints,
+          'money': 0,
+        }).eq('uid', user);
+
+        if (response == null) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              'Points added successfully! Current points: $points',
+            ),
+          ));
+          return response;
+        } else {
+          return null;
+        }
       }
     } catch (e) {
       print(e);
@@ -106,13 +116,13 @@ class Trgo {
       final user = supabase.auth.currentUser!.id;
       final query = await supabase
           .from('TRGO_POINTS')
-          .select('points')
+          .select('money')
           .eq('uid', user)
           .maybeSingle();
       if (query == null || query['points'] == null) {
         return null;
       } else {
-        final data = double.parse(query['points'].toString());
+        final data = double.parse(query['m'].toString());
         if (data == 1.0) {
           final response = await supabase.from('TRGO_POINTS').update({
             'uid': user,
