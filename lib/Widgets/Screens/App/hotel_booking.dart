@@ -113,7 +113,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     emailFetching();
     fetchInt(widget.id);
     getPoints();
-    fethHotel(widget.id);
+    fetchHotel(widget.id);
     fetchLocated(widget.id);
   }
 
@@ -233,9 +233,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     }
   }
 
-  Future<void> fethHotel(
-    int id,
-  ) async {
+  Future<void> fetchHotel(int id) async {
     final data = await booking.passTheHotelData(id);
     setState(() {
       hotel = data!['hotel_name'];

@@ -63,10 +63,9 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   }
 
   Future<void> update() async {
-    final response = await tr.updatePointsToMoney(context);
     setState(() {
+      tr.updatePointsToMoney(context);
       _isRedirecting = false;
-      TrgoPoints = response!['points'];
     });
   }
 
@@ -195,7 +194,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     );
   }
 
-  Widget transactionHistory() {
+  Widget transactionHistory() { // Availble Flight Vouchers Area
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -406,7 +405,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
               expiring: date,
               image: items['ishotel'] == true
                   ? const AssetImage('assets/images/icon/hotel.png')
-                  : const AssetImage('assets/images/icon/ButtonX.png'),
+                  : const AssetImage('assets/images/icon/beach.png'),
               oppressed: () => 'Test',
             ),
           );

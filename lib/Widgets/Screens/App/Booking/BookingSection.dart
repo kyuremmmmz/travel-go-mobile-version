@@ -61,9 +61,9 @@ class _BookingSectionState extends State<BookingSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: null,
+      padding: const EdgeInsets.only(top: 20, bottom: 20.0),
       width: 330.w,
-      height: 380.h,
+      height: 580.h,
       child: list.isEmpty
           ? const Center(
               child: Text('No Booking History'),
@@ -132,22 +132,19 @@ class _BookingSectionState extends State<BookingSection> {
                       final located =
                           snapshot.data!['hotel_located'] ?? 'Unknown location';
                       return SizedBox(
-                        height: 280,
+                        height: 280.h,
                         child: Stack(
                           children: [
                             Positioned(
-                              top: 40,
+                              top: 20.w,
                               child: Container(
-                                padding:
-                                    const EdgeInsets.only(top: 35, left: 15),
-                                width: 330,
-                                height: 230,
+                                padding: EdgeInsets.only(top: 35.h, left: 15.h),
+                                width: 330.w,
+                                height: 250.h,
                                 decoration: BoxDecoration(
-                                    color: const Color.fromRGBO(
-                                        241, 252, 255, 100),
-                                    border: Border.all(
-                                        color: const Color.fromRGBO(
-                                            176, 234, 253, 100))),
+                                    color: Color(0xFFF1FCFF),
+                                    border:
+                                        Border.all(color: Color(0xFFE1F2FA))),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -163,14 +160,13 @@ class _BookingSectionState extends State<BookingSection> {
                                           children: [
                                             Text(
                                               '${formattedCheckOutDate}th',
-                                              style:
-                                                  const TextStyle(fontSize: 19),
+                                              style: TextStyle(fontSize: 19.sp),
                                             ),
                                             Text(
                                               formattedNexttDate,
-                                              style: const TextStyle(
-                                                fontSize: 11,
-                                                color: Colors.blue,
+                                              style: TextStyle(
+                                                fontSize: 11.sp,
+                                                color: Color(0xFF2196F3),
                                               ),
                                             )
                                           ],
@@ -180,8 +176,8 @@ class _BookingSectionState extends State<BookingSection> {
                                             ClipPath(
                                               clipper: LeftPointClipper(),
                                               child: Container(
-                                                width: 30,
-                                                height: 50,
+                                                width: 28.w,
+                                                height: 48.h,
                                                 decoration: const BoxDecoration(
                                                   color: Color.fromRGBO(
                                                       68, 202, 249, 100),
@@ -189,13 +185,13 @@ class _BookingSectionState extends State<BookingSection> {
                                               ),
                                             ),
                                             Container(
-                                              padding: const EdgeInsets.only(
-                                                  right: 5),
+                                              //Arrow area
+                                              padding:
+                                                  EdgeInsets.only(right: 5.w),
                                               alignment: Alignment.center,
-                                              width: 100,
-                                              height: 50,
-                                              color: const Color.fromRGBO(
-                                                  68, 202, 249, 100),
+                                              width: 98.w,
+                                              height: 48.h,
+                                              color: Color(0xFF44CAF9),
                                               child: Text(
                                                 'PHP $priceFormatted',
                                                 textAlign: TextAlign.center,
@@ -210,38 +206,50 @@ class _BookingSectionState extends State<BookingSection> {
                                         )
                                       ],
                                     ),
-                                    const SizedBox(height: 30),
+                                    SizedBox(height: 30.h),
                                     Text(
                                       '${item['hotel']}',
-                                      style: const TextStyle(
-                                        fontSize: 20,
+                                      style: TextStyle(
+                                        fontSize: 20.sp,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(
                                       formattedCheckInDate,
-                                      style: const TextStyle(
-                                          fontSize: 11, color: Colors.blue),
+                                      style: TextStyle(
+                                          fontSize: 11.sp, color: Colors.blue),
                                     ),
                                     Text(
                                       '$located',
-                                      style: const TextStyle(
-                                        fontSize: 11,
+                                      style: TextStyle(
+                                        fontSize: 11.sp,
                                       ),
                                     ),
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: 20.h),
                                     Container(
-                                      padding: const EdgeInsets.only(right: 10),
+                                      padding: EdgeInsets.only(right: 10.w),
                                       child: Align(
                                         alignment: Alignment.bottomRight,
                                         child: InkWell(
                                           onTap: () {
                                             print('hello');
                                           },
-                                          child: const Text(
-                                            'BOOK AGAIN',
-                                            style:
-                                                TextStyle(color: Colors.blue),
+                                          child: Container(
+                                            // New container for width and height
+                                            width:
+                                                100.w, // Set responsive width
+                                            height:
+                                                20.h, // Set responsive height
+                                            alignment: Alignment
+                                                .center, // Center the text within the container
+                                            child: Text(
+                                              'BOOK AGAIN',
+                                              style: TextStyle(
+                                                fontSize: 15
+                                                    .sp, // Responsive font size
+                                                color: Colors.blue,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -251,12 +259,12 @@ class _BookingSectionState extends State<BookingSection> {
                               ),
                             ),
                             Positioned(
-                              top: 0,
-                              left: 125,
+                              top: 0.h,
+                              left: 125.h,
                               child: Container(
-                                padding: const EdgeInsets.all(15),
-                                height: 75,
-                                width: 75,
+                                padding: EdgeInsets.all(15.h),
+                                height: 75.h,
+                                width: 75.w,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: const Color.fromARGB(

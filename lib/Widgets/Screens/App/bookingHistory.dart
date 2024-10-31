@@ -14,11 +14,9 @@ class BookingHistory extends StatefulWidget {
 class _BookingHistoryState extends State<BookingHistory> {
   @override
   Widget build(BuildContext context) {
-    // title: const Text('History'), //SETTINGS AREA JUST IN CASE PALAGYAN
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 40.h,
-        //backgroundColor: Color(0xFFF1FCFF),
         leading: Builder(
           builder: (BuildContext context) => IconButton(
             icon: const Icon(Icons.menu),
@@ -28,7 +26,7 @@ class _BookingHistoryState extends State<BookingHistory> {
           ),
         ),
       ),
-      drawer: const DrawerMenuWidget(), // ditong area ang 3 lines
+      drawer: const DrawerMenuWidget(),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -38,11 +36,11 @@ class _BookingHistoryState extends State<BookingHistory> {
               style: TextStyle(
                 height: 5.h,
                 fontSize: 18.sp,
-                color: Color(0xFF534D4D),
+                color: const Color(0xFF534D4D),
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(height: 30.h),
+            SizedBox(height: 10.h), // Add space below 'My Bookings' text
             BookingSection(
               departureDay: '11th',
               departureDate: 'October, 2024, Monday',
