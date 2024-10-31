@@ -46,13 +46,13 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
   final String paypalIcon = "assets/images/icon/paypal.png";
   final String gcashIcon = "assets/images/icon/gcash.png";
   final String mastercardIcon = "assets/images/icon/mastercard.png";
+  final String trgo = "assets/images/icon/newlogo-crop.png";
   final _searchController = TextEditingController();
   String? email;
   late Usersss users = Usersss();
   List<Map<String, dynamic>> place = [];
   final data = Data();
   late bool isPaymentSuccess = false;
-
   Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
@@ -134,46 +134,63 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                 ),
                 SizedBox(height: 30.sp),
                 SizedBox(
-                  height: 420.h,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AccountButton(
-                        header: "Master Cards",
-                        details: "0193129031903",
-                        color: const Color.fromRGBO(39, 92, 135, 1),
-                        image: mastercardIcon,
-                        oppressed: () => AppRoutes.navigateToCreditCard(
-                          context,
-                          hotelorplace: widget.hotelorplace,
-                          name: widget.name,
-                          phone: widget.phone,
-                          nameoftheplace: widget.nameoftheplace,
-                          price: widget.price,
-                          payment: widget.price,
-                          age: widget.age,
-                          bookingId: '${widget.bookingId}',
-                        ),
+                    height: 420.h,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AccountButton(
+                            header: "Master Cards",
+                            details: "0193129031903",
+                            color: const Color.fromRGBO(39, 92, 135, 1),
+                            image: mastercardIcon,
+                            oppressed: () => AppRoutes.navigateToCreditCard(
+                              context,
+                              hotelorplace: widget.hotelorplace,
+                              name: widget.name,
+                              phone: widget.phone,
+                              nameoftheplace: widget.nameoftheplace,
+                              price: widget.price,
+                              payment: widget.price,
+                              age: widget.age,
+                              bookingId: '${widget.bookingId}',
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          AccountButton(
+                            header: "PayPal",
+                            details: "0193129031903",
+                            color: const Color.fromRGBO(5, 103, 180, 1),
+                            image: paypalIcon,
+                            oppressed: () {
+                              paymentHandler();
+                            },
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          AccountButton(
+                            header: "Gcash",
+                            details: "0193129031903",
+                            color: const Color.fromRGBO(57, 167, 255, 1),
+                            image: gcashIcon,
+                            oppressed: () => print('uwu'),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          AccountButton(
+                            header: "TRGO COINS",
+                            details: "Use TRGO coins to pay my travel cost",
+                            color: const Color.fromARGB(255, 99, 208, 223),
+                            image: trgo,
+                            oppressed: () => print('this will be redirect'),
+                          ),
+                        ],
                       ),
-                      AccountButton(
-                        header: "PayPal",
-                        details: "0193129031903",
-                        color: const Color.fromRGBO(5, 103, 180, 1),
-                        image: paypalIcon,
-                        oppressed: () {
-                          paymentHandler();
-                        },
-                      ),
-                      AccountButton(
-                        header: "Gcash",
-                        details: "0193129031903",
-                        color: const Color.fromRGBO(57, 167, 255, 1),
-                        image: gcashIcon,
-                        oppressed: () => print('uwu'),
-                      ),
-                    ],
-                  ),
-                ),
+                    )),
                 const SizedBox(
                   height: 30,
                 ),
@@ -202,14 +219,12 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                       ),
                       oppressed: () {
                         if (isPaymentSuccess) {
-                          Future.delayed(const Duration(seconds: 5), () {
-                            Trgo().trgoPoints(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => OrderReceipt(
-                                        bookingId: widget.bookingId)));
-                          });
+                          Trgo().trgoPoints(context);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OrderReceipt(
+                                      bookingId: widget.bookingId)));
                         } else {
                           AppRoutes.navigateToNotPaid(context);
                         }

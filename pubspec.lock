@@ -406,6 +406,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.9.3"
+  flutter_smartcar_auth:
+    dependency: "direct main"
+    description:
+      name: flutter_smartcar_auth
+      sha256: "200e01e300c0eedf70dc8aa44c0902ed0ba281d635d022e98e88dc59aea5fcf0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   flutter_spinkit:
     dependency: transitive
     description:

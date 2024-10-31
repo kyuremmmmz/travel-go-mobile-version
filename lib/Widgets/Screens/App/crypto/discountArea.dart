@@ -58,7 +58,15 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     final response = await tr.getThePointsOfMine();
     setState(() {
       _isRedirecting = false;
-      TrgoPoints = response[0]['points'];
+      TrgoPoints = response!['points'];
+    });
+  }
+
+  Future<void> update() async {
+    final response = await tr.updatePointsToMoney(context);
+    setState(() {
+      _isRedirecting = false;
+      TrgoPoints = response!['points'];
     });
   }
 
@@ -68,6 +76,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     emailFetching();
     fetchDiscount();
     gett();
+    update();
     _isRedirecting = true;
   }
 
@@ -359,7 +368,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
             vertical: 2
                 .h), // Add vertical padding for space above and below the progress bar
         child: LinearProgressIndicator(
-            value: 0.01 * TrgoPoints,
+            value: TrgoPoints,
             backgroundColor: const Color(0xFFD9D9D9),
             borderRadius: BorderRadius.circular(5.w),
             color: const Color(0xFFFFD989)));
@@ -370,7 +379,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
       padding: EdgeInsets.only(
           top: 5.w, right: 15.h), // Add padding above the info text
       child: Text(
-        'Earn 1,000 points and enjoy PHP100 discount on your next booking! \nStart collecting points now and save big!',
+        'Earn points and enjoy discounts on your next booking! \nStart collecting points now and save big!',
         style: TextStyle(
           fontSize: 8.sp,
           color: const Color(0xFF0567B4),

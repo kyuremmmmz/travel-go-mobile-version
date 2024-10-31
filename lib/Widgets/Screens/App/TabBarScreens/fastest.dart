@@ -1,6 +1,5 @@
 import 'package:TravelGo/Controllers/NetworkImages/flightsBackend.dart';
 import 'package:TravelGo/Routes/Routes.dart';
-import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,16 +35,11 @@ class _FastestState extends State<Fastest> {
     return SafeArea(
         child: Scrollbar(
       child: SingleChildScrollView(
-        child: Stack(
+        child: Column(
             children: imgUrl.map((data) {
           return Center(
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               SizedBox(height: 30.h),
-              Row(children: [
-                Padding(
-                    padding: EdgeInsetsDirectional.symmetric(horizontal: 60.w),
-                    child: const TitleMenu()),
-              ]),
               SizedBox(height: 50.h),
               Align(
                 alignment: Alignment.centerLeft,
@@ -132,7 +126,7 @@ class _FastestState extends State<Fastest> {
                                           Text(
                                             data['airport'],
                                             style: TextStyle(fontSize: 12.sp),
-                                          )
+                                          ),
                                         ],
                                       ),
                                       SizedBox(width: 10.w),
@@ -306,7 +300,8 @@ class _FastestState extends State<Fastest> {
                                                     '${data['airplane']} . ${data['date_arrival']}',
                                                     style: TextStyle(
                                                         fontSize: 9.sp),
-                                                  )
+                                                  ),
+                                                  
                                                 ],
                                               ),
                                             ],
@@ -315,11 +310,33 @@ class _FastestState extends State<Fastest> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 30.h),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 10.w, left: 20.w),
+                                    child: Row(
+                                      children: [
+                                        data['cancelled'] == true
+                                              ? const Text(
+                                                  'Cancelled',
+                                                  style: TextStyle(
+                                                      color: Colors.red),
+                                                )
+                                              : const Text(
+                                                  'On Board',
+                                                  style: TextStyle(
+                                                      color: Colors.blue,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20),
+                                                )
+                                      ],
+                                    )
+                                  ),
+                                  SizedBox(height: 10.h),
                                   Container(
                                     padding: EdgeInsets.only(left: 10.w),
                                     child: Row(
                                       children: [
+                                        
                                         SizedBox(width: 10.w),
                                         Text(
                                           '${data['price'].toString()} PHP',

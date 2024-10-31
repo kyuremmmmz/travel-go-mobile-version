@@ -82,14 +82,12 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final String suitcaseIcon = "assets/images/icon/suitcase.png";
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
   bool _value = false;
-  final tr = Trgo();
+  final trgo = Trgo();
   double trgopoint = 0;
-  double updatePoint = 0;
-  get discountCompute => toDouble(amount)! * 0.2;
-  get discountTotal => toDouble(amount)! - discountCompute;
+  double discountSaved = 1000;
+  get discountTotal => amount - discountSaved;
   String? amountDisplay;
   String? discountAmount;
-  String? discountSaved;
   HotelBooking booking = HotelBooking();
   @override
   void dispose() {
@@ -114,6 +112,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     super.initState();
     emailFetching();
     fetchInt(widget.id);
+    getPoints();
     fethHotel(widget.id);
     fetchLocated(widget.id);
   }
@@ -168,7 +167,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
       hotelorplace: _hotel.text,
       age: int.parse(_age.text.trim()),
       bookingId: idCast,
-      points: updatePoint,
+      points: trgopoint,
     );
   }
 
@@ -207,27 +206,31 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         strAmount = numbers;
       });
     }
+  }
 
-    final pts = await tr.getThePointsOfMine();
-    setState(() {
-      final trgopoint = pts[0]['points'];
-      updatePoint = trgopoint - 100.0;
-      pts[0]['points'] = updatePoint;
-      final numberFormat = NumberFormat('#,##0.##');
-      final numbers = numberFormat.format(discountTotal);
-      discountAmount = numbers;
-      final numbers2 = numberFormat.format(discountCompute);
-      discountSaved = numbers2;
-      _pointsController.text == "Travel Go Points Used"
-          ? (
-              amountDisplay = discountAmount, //this is String
-              amountNumber = discountTotal // this is number
-            )
-          : (
-              amountDisplay = strAmount, // String
-              amountNumber = amount // number
-            );
-    });
+  Future<void> getPoints() async {
+    final response = await trgo.getThePointsOfMine();
+    if (response == null) {
+      setState(() {
+        amount = 0;
+      });
+    } else {
+      setState(() {
+        trgopoint = response['points'];
+        final numberFormat = NumberFormat('#,##0.##');
+        final numbers = numberFormat.format(discountTotal);
+        discountAmount = numbers;
+        _pointsController.text == "Travel Go Points Used"
+            ? (
+                amountDisplay = discountAmount, //this is String
+                amountNumber = discountTotal // this is number
+              )
+            : (
+                amountDisplay = strAmount, // String
+                amountNumber = amount // number
+              );
+      });
+    }
   }
 
   Future<void> fethHotel(
@@ -341,10 +344,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                     ListTile(
                       leading: Icon(FontAwesomeIcons.medal,
                           size: 20.sp, color: Colors.amber),
-                      title: Text('Deluxe Suite PHP 6,000',
+                      title: Text('Deluxe Suite (PHP 6,000)',
                           style: TextStyle(fontSize: 16.sp)),
                       onTap: () {
                         setState(() {
+                          getPoints();
                           _vehicleTypeController.text = "Deluxe Suite";
                           fetchInt(widget.id);
                           Navigator.pop(context);
@@ -354,10 +358,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                     ListTile(
                       leading: Icon(FontAwesomeIcons.crown,
                           size: 20.sp, color: Colors.amber),
-                      title: Text('Premiere Suite PHP 8,000',
+                      title: Text('Premiere Suite (PHP 8,000)',
                           style: TextStyle(fontSize: 16.sp)),
                       onTap: () {
                         setState(() {
+                          getPoints();
                           _vehicleTypeController.text = "Premiere Suite ";
                           fetchInt(widget.id);
                           Navigator.pop(context);
@@ -367,10 +372,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                     ListTile(
                       leading: Icon(FontAwesomeIcons.gem,
                           size: 20.sp, color: Colors.green),
-                      title: Text('Executive Suite PHP 9,000',
+                      title: Text('Executive Suite (PHP 9,000)',
                           style: TextStyle(fontSize: 16.sp)),
                       onTap: () {
                         setState(() {
+                          getPoints();
                           _vehicleTypeController.text = "Executive Suite ";
                           fetchInt(widget.id);
                           Navigator.pop(context);
@@ -380,10 +386,11 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                     ListTile(
                       leading: Icon(FontAwesomeIcons.diamond,
                           size: 20.sp, color: Colors.blueAccent),
-                      title: Text('Presidential Suite PHP 10,000',
+                      title: Text('Presidential Suite (PHP 10,000)',
                           style: TextStyle(fontSize: 16.sp)),
                       onTap: () {
                         setState(() {
+                          getPoints();
                           _vehicleTypeController.text = "Presidential Suite";
                           fetchInt(widget.id);
                           Navigator.pop(context);
@@ -783,7 +790,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                             content: SingleChildScrollView(
                                                 child:
                                                     ListBody(children: <Widget>[
-                                              if (trgopoint < 100) ...[
+                                              if (trgopoint < 1) ...[
                                                 Text('Insufficient Points!',
                                                     style: TextStyle(
                                                         fontSize: 16.sp))
@@ -793,17 +800,13 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                     style: TextStyle(
                                                         fontSize: 16.sp)),
                                                 Text(
-                                                    'Saved: \nPHP $discountSaved\n',
-                                                    style: TextStyle(
-                                                        fontSize: 16.sp)),
-                                                Text(
                                                     'Discounted Price: \nPHP $discountAmount',
                                                     style: TextStyle(
                                                         fontSize: 16.sp))
                                               ]
                                             ])),
                                             actions: <Widget>[
-                                              if (trgopoint < 100) ...[
+                                              if (trgopoint < 1) ...[
                                                 TextButton(
                                                   child: Text('Back',
                                                       style: TextStyle(
@@ -819,6 +822,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                           fontSize: 16.sp)),
                                                   onPressed: () {
                                                     setState(() {
+                                                      getPoints();
                                                       fetchInt(widget.id);
                                                       _pointsController.text =
                                                           "Travel Go Points Used";
@@ -904,8 +908,10 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(left: 10.w, top: 25.sp),
+                              padding: EdgeInsets.only(top: 25.h),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SizedBox(width: 10.w),
                                   Column(
@@ -933,24 +939,18 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                         EdgeInsets.symmetric(horizontal: 5.w),
                                     child: Column(
                                       children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            fetchInt(widget.id);
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                "Total Amount",
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                    fontSize: 16.sp,
-                                                    color: const Color.fromARGB(
-                                                        255, 26, 169, 235),
-                                                    fontWeight:
-                                                        FontWeight.w700),
-                                              ),
-                                            ],
-                                          ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Total Amount",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(
+                                                  fontSize: 16.sp,
+                                                  color: const Color.fromARGB(
+                                                      255, 26, 169, 235),
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                          ],
                                         ),
                                         Row(children: [
                                           Text(
@@ -981,6 +981,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                               .text
                                                               .trim() ==
                                                           "Pay Online") {
+                                                        trgo.spendPoints(
+                                                            context);
                                                         BookinghistoryBackend()
                                                             .insertBooking(
                                                           _nameController.text
@@ -1020,16 +1022,26 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                           amount,
                                                         );
                                                         insert();
-                                                        tr.getThePointsOfMine();
                                                       } else if (_paymentMethodController
                                                               .text
                                                               .trim() ==
                                                           "Pay Upon Arrival") {
-                                                        print(
-                                                            'Pay Upon Arrival is empty');
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                const SnackBar(
+                                                          content: Text(
+                                                              'Pay Upon Arrival is currently unavailable.'),
+                                                        ));
                                                       }
                                                     } else {
-                                                      print('nigga');
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              const SnackBar(
+                                                        content: Text(
+                                                            'Please fill up the required fields.'),
+                                                      ));
                                                     }
                                                   }
                                                 : null,

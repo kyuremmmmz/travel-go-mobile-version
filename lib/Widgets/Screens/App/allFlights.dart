@@ -35,17 +35,17 @@ class _AllflightsState extends State<Allflights> {
 
   @override
   Widget build(BuildContext context) {
-    return _isRedirecting
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Colors.blue,
-            ),
-          )
-        : Scaffold(
+    return  Scaffold(
             appBar: AppBar(
               title: const Text('All Flights'),
             ),
-            body: SafeArea(
+            body: _isRedirecting
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              )
+            : SafeArea(
               child: SingleChildScrollView(
                   child: Column(
                 children: [
@@ -389,7 +389,31 @@ class _AllflightsState extends State<Allflights> {
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(height: 30.h),
+                                            Container(
+                                                padding: EdgeInsets.only(
+                                                    top: 10.w, left: 20.w),
+                                                child: Row(
+                                                  children: [
+                                                    data['cancelled'] == true
+                                                        ? const Text(
+                                                            'Cancelled',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.red),
+                                                          )
+                                                        : const Text(
+                                                            'On Board',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.blue,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 20),
+                                                          )
+                                                  ],
+                                                )),
+                                            SizedBox(height: 10.h),
                                             Container(
                                               padding:
                                                   EdgeInsets.only(left: 10.w),

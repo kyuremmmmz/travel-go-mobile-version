@@ -36,7 +36,7 @@ class _BestState extends State<Best> {
     return SafeArea(
         child: Scrollbar(
       child: SingleChildScrollView(
-        child: Stack(
+        child: Column(
             children: imgUrl.map((data) {
           return Center(
             child: Column(mainAxisSize: MainAxisSize.min, children: [
