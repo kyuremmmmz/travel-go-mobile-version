@@ -69,7 +69,7 @@ class BookinghistoryBackend {
       final response = await supabase
           .from('booking_history')
           .select('*')
-          .eq('booking_id', user!.id);
+          .eq('booking_id', user!.id).eq('paymet_status', 'Paid');
       if (response.isNotEmpty) {
         final data = response;
         final List<Map<String, dynamic>> dataList =

@@ -78,6 +78,28 @@ class Trgo {
     }
   }
 
+  Future<Map<String, dynamic>?> fetchMoney() async {
+    try {
+      final user = supabase.auth.currentUser!.id;
+      final query = await supabase
+          .from('TRGO_POINTS')
+          .select('money')
+          .eq('uid', user)
+          .maybeSingle();
+      if (query == null || query['money'] == null) {
+        return null;
+      } else {
+        final result = query;
+        final money = result['money'];
+        result['money'] = money;
+        return result;
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
   Future<Map<String, dynamic>?> updatePointsToMoney(
       BuildContext context) async {
     try {
@@ -111,16 +133,18 @@ class Trgo {
 
   Future<Map<String, dynamic>?> getThePointsOfMine() async {
     final user = supabase.auth.currentUser!.id;
-    final response =
-        await supabase.from('TRGO_POINTS').select('points').eq('uid', user).single();
+    final response = await supabase
+        .from('TRGO_POINTS')
+        .select('points')
+        .eq('uid', user)
+        .single();
     if (response.isEmpty) {
       return null;
     } else {
       final data = response;
       final points = data['points'];
-        data['points'] = points;
+      data['points'] = points;
       return data;
-      }
     }
   }
-
+}

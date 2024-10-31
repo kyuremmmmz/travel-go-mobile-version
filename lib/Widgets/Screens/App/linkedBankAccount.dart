@@ -7,6 +7,7 @@ import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/AccountButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/crypto/wallet.dart';
 import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,6 +52,8 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
   List<Map<String, dynamic>> place = [];
   final data = Data();
   late bool isPaymentSuccess = false;
+  var money = 0;
+  final trGoMoney = Trgo();
   Future<void> emailFetching() async {
     try {
       final PostgrestList useremail = await users.fetchUser();
@@ -89,6 +92,16 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
     }
   }
 
+  Future<void> fethMoney() async {
+    final response = await trGoMoney.fetchMoney();
+    if (mounted) {
+      setState(() {
+        money = response!['money'];
+        print(money);
+      });
+    }
+  }
+
   @override
   void dispose() {
     _searchController.dispose();
@@ -100,6 +113,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
     super.initState();
     emailFetching();
     fetchImage();
+    fethMoney();
   }
 
   @override
@@ -208,7 +222,11 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                             details: "Use TRGO coins to pay my travel cost",
                             color: const Color.fromARGB(255, 99, 208, 223),
                             image: trgo,
-                            oppressed: () => print('this will be redirect'),
+                            oppressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WalletPaymentScreen(
+                                        walletBalance: double.parse(money.toString())))),
                           ),
                         ],
                       ),
