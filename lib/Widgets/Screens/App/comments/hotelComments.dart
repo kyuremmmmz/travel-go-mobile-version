@@ -3,6 +3,7 @@ import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
 import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -488,17 +489,18 @@ class _HotelCommentsState extends State<HotelComments> {
                             ),
                           ),
                           Container(
-                          margin: EdgeInsets.only(
-                            left: 35.w,
-                          ),
+                          margin: EdgeInsets.only(left: 35.w),
                           width: 500,
                           padding: EdgeInsets.symmetric(
                               vertical: 10.h, horizontal: 30.w),
-                          child: Text(
-                            '${place['comment']}',
+                          child: ExpandableText(
+                            place['comment'],
                             style: TextStyle(fontSize: 14.sp),
-                            overflow: TextOverflow.ellipsis,
                             maxLines: 5,
+                            expandText: 'show more',
+                            collapseText: 'show less',
+                            linkColor: Colors.blue,
+                            animation: true,
                           ),
                         ),
                         ],
