@@ -110,7 +110,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                 children: <Widget>[
                   const TitleMenu(),
                   Padding(
-                    padding:
+                    padding: const
                         EdgeInsets.only(top: 20.0), // Adjust padding as needed
                     child: Center(
                       child: GestureDetector(
@@ -124,17 +124,17 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: Color(
+                              color: const Color(
                                   0xFF44CAF9), // Set your desired border color
                               width: 4.0, // Set your desired border width
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Color(0xFF44CAF9).withOpacity(
+                                color: const Color(0xFF44CAF9).withOpacity(
                                     0.2), // Shadow color and opacity
                                 spreadRadius: 4, // Spread of the shadow
                                 blurRadius: 10, // Softness of the shadow
-                                offset: Offset(
+                                offset: const Offset(
                                     0, 4), // Positioning the shadow (x, y)
                               ),
                             ],
@@ -244,7 +244,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
           color: Colors.black,
           width: 0.5,
         ),
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
         boxShadow: [
@@ -266,8 +266,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(
+                const Padding(
+                  padding:  EdgeInsets.only(
                       top: 10, bottom: 0), // Adjust top and bottom padding here
                   child: Text(
                     'Name: ',
@@ -295,7 +295,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   ),
                 )
               },
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: const [
@@ -309,14 +309,14 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Email: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                const Text('Email: ', style: TextStyle(fontWeight: FontWeight.bold)),
                 Text(gmail ?? 'Unknown'),
               ],
             ),
             const Divider(color: Color(0xFF929292), thickness: 0.5),
             InkWell(
               onTap: () => 'test',
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: const [
@@ -357,7 +357,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
           color: Colors.black,
           width: 0.5,
         ),
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
         boxShadow: [
@@ -365,7 +365,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
             color: Colors.grey.withOpacity(0.5), // Shadow color with opacity
             spreadRadius: 0, // How much the shadow spreads
             blurRadius: 4, // Softness of the shadow
-            offset: Offset(0, 4), // O
+            offset: const Offset(0, 4), // O
           ),
         ],
       ),
@@ -377,7 +377,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
           children: [
             InkWell(
               onTap: () => 'test',
-              child: Padding(
+              child: const Padding(
                 // Add padding only around "About"
                 padding: const EdgeInsets.only(top: 10, bottom: 0),
                 child: Row(
