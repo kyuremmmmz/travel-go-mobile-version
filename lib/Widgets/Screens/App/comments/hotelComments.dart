@@ -202,7 +202,9 @@ class _HotelCommentsState extends State<HotelComments> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return _isRedirecting == true ? const Center(
+      child: CircularProgressIndicator(),
+    )  : Column(
       children: [
         Row(children: [
           Container(
@@ -218,7 +220,7 @@ class _HotelCommentsState extends State<HotelComments> {
                   ),
                   SizedBox(width: 5.w),
                   Text(
-                    '( $total )',
+                    '( $userRatings )',
                     style: TextStyle(
                         color: const Color.fromARGB(255, 49, 49, 49),
                         fontSize: 16.sp,
