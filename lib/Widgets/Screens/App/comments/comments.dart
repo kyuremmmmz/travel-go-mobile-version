@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
+import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -233,21 +234,17 @@ class _CommentsState extends State<Comments> {
             }
           }))
         ]),
-        SizedBox(height: 10.h),
-        SingleChildScrollView(
-          child: Container(
-            width: 330.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: const Color.fromARGB(255, 203, 231, 255),
-            ),
+        Container(
+          width: 403,
+          child: Card(
+            color: const Color.fromARGB(255, 203, 231, 255),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 15.h),
+                      padding: EdgeInsets.only(left: 20.w, top: 15.h, bottom: 20.h),
                       child: Text(
                         '$userRatings Comments',
                         style: TextStyle(
@@ -258,7 +255,7 @@ class _CommentsState extends State<Comments> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(right: 20.w, top: 15.h),
+                      padding: EdgeInsets.only(left: 20.w, top: 15.h, bottom: 20.h),
                       child: GestureDetector(
                         onTap: () {
                           showAdaptiveDialog(
@@ -400,77 +397,89 @@ class _CommentsState extends State<Comments> {
                     ),
                   ],
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: list.map((place) {
-                    final int ratings = place['rating'];
-                    final String name = place['full_name'];
-                    final String imgUrl = place['avatar_url'];
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(top: 20.h),
-                          child: Row(
-                            children: [
-                              SizedBox(width: 20.w),
-                              CircleAvatar(
-                                  backgroundImage: imgUrl == "null" ||
-                                          imgUrl.contains('null') ||
-                                          imgUrl.isEmpty
-                                      ? AssetImage(avatarDefaultIcon)
-                                      : NetworkImage(imgUrl),
-                                  radius: 20.sp),
-                              SizedBox(width: 10.w),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.only(right: 10.w),
-                                    child: Text(
-                                      name, // Using dynamic name here
-                                      style: TextStyle(
-                                          color: const Color.fromARGB(
-                                              255, 53, 52, 52),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16.sp),
+              ]
+            ),
+        ),
+        ),
+        const SizedBox(height:0),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.w),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: list.map((place) {
+                final int ratings = place['rating'];
+                final String name = place['full_name'];
+                final String imgUrl = place['avatar_url'];
+                
+                return Card(
+                  margin: EdgeInsets.only(right: 25.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 20.w),
+                      Container(
+                        padding: EdgeInsets.only(top: 20.h),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            CircleAvatar(
+                              backgroundImage: imgUrl == "null" || imgUrl.contains('null') || imgUrl.isEmpty
+                                  ? AssetImage(avatarDefaultIcon) as ImageProvider
+                                  : NetworkImage(imgUrl),
+                              radius: 20.sp,
+                            ),
+                            SizedBox(width: 10.w),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(right: 10.w),
+                                  child: Text(
+                                    name,
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 53, 52, 52),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.sp,
                                     ),
                                   ),
-                                  Row(
-                                    children: [
-                                      ...List.generate(5, (index) {
-                                        return Icon(
-                                            index < ratings
-                                                ? Icons.star
-                                                : Icons.star_border_outlined,
-                                            color: Colors.yellow,
-                                            size: 25.sp);
-                                      }),
-                                      Text(
-                                        ' $ratings OUT OF 5',
-                                        style: TextStyle(fontSize: 12.sp),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                ),
+                                Row(
+                                  children: [
+                                    ...List.generate(5, (index) {
+                                      return Icon(
+                                        index < ratings ? Icons.star : Icons.star_border_outlined,
+                                        color: Colors.yellow,
+                                        size: 25.sp,
+                                      );
+                                    }),
+                                    Text(
+                                      ' $ratings OUT OF 5',
+                                      style: TextStyle(fontSize: 12.sp),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 20.w),
-                          child:
-                              Text('${place['comment']}', // Display the comment
-                                  style: TextStyle(fontSize: 14.sp),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 5),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 25.w),
+                        child: Text(
+                          '${place['comment']}',
+                          style: TextStyle(fontSize: 14.sp),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 5,
                         ),
-                      ],
-                    );
-                  }).toList(),
-                )
-              ],
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
             ),
           ),
         )

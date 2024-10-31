@@ -19,6 +19,7 @@ class Trgo {
           (query != null && query['points'] != null) ? query['points'] : 0.0;
 
       if (currentPoints >= 1.0) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(

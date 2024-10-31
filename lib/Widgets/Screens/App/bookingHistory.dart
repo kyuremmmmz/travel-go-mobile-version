@@ -38,7 +38,7 @@ class _BookingHistoryState extends State<BookingHistory> {
               style: TextStyle(
                 height: 5.h,
                 fontSize: 18.sp,
-                color: Color(0xFF534D4D),
+                color: const Color(0xFF534D4D),
                 fontWeight: FontWeight.w500,
               ),
             ),
