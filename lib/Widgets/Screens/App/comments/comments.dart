@@ -472,18 +472,19 @@ class _CommentsState extends State<Comments> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(
-                              left: 35.w,
-                            ),
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 30.w),
-                            child: Text(
-                              '${place['comment']}',
-                              style: TextStyle(fontSize: 14.sp),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 5,
-                            ),
+                          margin: EdgeInsets.only(
+                            left: 35.w,
                           ),
+                          width: 500,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 30.w),
+                          child: Text(
+                            '${place['comment']}',
+                            style: TextStyle(fontSize: 14.sp),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                          ),
+                        ),
                         ],
                       ),
                     ),
