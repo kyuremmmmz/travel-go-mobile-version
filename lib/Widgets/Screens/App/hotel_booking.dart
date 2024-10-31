@@ -155,6 +155,24 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         bookingId: idCast);
   }
 
+  Future<void> bookingHistory() async {
+    BookinghistoryBackend().insertBooking(
+      _nameController.text.trim(),
+      _emailController.text.trim(),
+      int.parse(_numberController.text.trim()),
+      _hotel.text.trim(),
+      _checkInController.text.trim(),
+      _checkOutController.text.trim(),
+      _paymentMethodController.text.trim(),
+      _isWaiting ? "Not Paid" : "Paid",
+      int.parse(_number_of_adult.text.trim()),
+      int.parse(_number_of_children.text.trim()),
+      _vehicleTypeController.text.trim(),
+      int.parse(_age.text.trim()),
+      amount,
+    );
+  }
+
   Future<void> fetchInt(int id) async {
     final data = await booking.passTheHotelData(id);
     if (data == null) {
@@ -841,45 +859,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                               .text
                                                               .trim() ==
                                                           "Pay Online") {
-                                                        BookinghistoryBackend()
-                                                            .insertBooking(
-                                                          _nameController.text
-                                                              .trim(),
-                                                          _emailController.text
-                                                              .trim(),
-                                                          int.parse(
-                                                              _numberController
-                                                                  .text
-                                                                  .trim()),
-                                                          _hotel.text.trim(),
-                                                          _checkInController
-                                                              .text
-                                                              .trim(),
-                                                          _checkOutController
-                                                              .text
-                                                              .trim(),
-                                                          _paymentMethodController
-                                                              .text
-                                                              .trim(),
-                                                          _isWaiting
-                                                              ? "Not Paid"
-                                                              : "Paid",
-                                                          int.parse(
-                                                              _number_of_adult
-                                                                  .text
-                                                                  .trim()),
-                                                          int.parse(
-                                                              _number_of_children
-                                                                  .text
-                                                                  .trim()),
-                                                          _vehicleTypeController
-                                                              .text
-                                                              .trim(),
-                                                          int.parse(
-                                                              _age.text.trim()),
-                                                          amount,
-                                                        );
                                                         insert();
+                                                        bookingHistory();
                                                       } else if (_paymentMethodController
                                                               .text
                                                               .trim() ==
