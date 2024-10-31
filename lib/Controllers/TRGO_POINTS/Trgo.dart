@@ -87,11 +87,11 @@ class Trgo {
           .select('points')
           .eq('uid', user)
           .maybeSingle();
-      if (query == null) {
+      if (query == null || query['points'] == null) {
         return null;
       } else {
-        final data = query;
-        if (data.containsValue(1.0)) {
+        final data = double.parse(query['points'].toString());
+        if (data == 1.0) {
           final response = await supabase.from('TRGO_POINTS').update({
             'uid': user,
             'points': 0.01,
@@ -99,7 +99,7 @@ class Trgo {
           }).eq('uid', user);
           return response;
         }
-        return data;
+        return null;
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
