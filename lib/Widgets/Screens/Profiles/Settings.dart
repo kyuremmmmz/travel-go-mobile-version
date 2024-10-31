@@ -22,7 +22,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   final String gcashIcon = "assets/images/icon/gcash.png";
   final String mastercardIcon = "assets/images/icon/mastercard.png";
   final _searchController = TextEditingController();
-  String? eemail;
+  String? email;
   String? gmail;
   String? uid;
   String? img;
@@ -40,7 +40,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       final userId = supabase.auth.currentUser!.id;
       if (mounted) {
         setState(() {
-          eemail = useremail.isNotEmpty
+          email = useremail.isNotEmpty
               ? useremail[0]['full_name'].toString()
               : "Anonymous User";
           gmail = userEmail;
@@ -53,7 +53,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     } catch (e) {
       if (mounted) {
         setState(() {
-          eemail = "error: $e";
+          email = "error: $e";
         });
       }
     }
@@ -111,40 +111,73 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   const TitleMenu(),
                   Padding(
                     padding:
-                        EdgeInsets.only(top: 20.h), // Adjust padding as needed
+                        EdgeInsets.only(top: 20.0), // Adjust padding as needed
                     child: Center(
                       child: GestureDetector(
                         onTap: () {
                           insert('$uid');
                         },
-                        child: CircleAvatar(
-                          radius: 45.sp,
-                          backgroundColor: Colors.grey[300],
-                          backgroundImage: _profileImage != null
-                              ? FileImage(_profileImage!)
-                              : (img == null
-                                  ? const AssetImage(
-                                      'assets/images/icon/user.png')
-                                  : NetworkImage('$img')) as ImageProvider,
-                          child: _profileImage == null
-                              ? Icon(Icons.add_a_photo,
-                                  size: 30.sp, color: Colors.white) // the photo
-                              : null,
+                        child: Container(
+                          width:
+                              180, // CircleAvatar diameter (2 * radius) + border width
+                          height: 180,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Color(
+                                  0xFF44CAF9), // Set your desired border color
+                              width: 4.0, // Set your desired border width
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xFF44CAF9).withOpacity(
+                                    0.2), // Shadow color and opacity
+                                spreadRadius: 4, // Spread of the shadow
+                                blurRadius: 10, // Softness of the shadow
+                                offset: Offset(
+                                    0, 4), // Positioning the shadow (x, y)
+                              ),
+                            ],
+                          ),
+                          child: CircleAvatar(
+                            radius:
+                                85, // Adjust radius to fit within the border
+                            backgroundColor: Colors.grey[400],
+                            backgroundImage: _profileImage != null
+                                ? FileImage(_profileImage!)
+                                : (img == null
+                                    ? const AssetImage(
+                                        'assets/images/icon/user.png')
+                                    : NetworkImage('$img')) as ImageProvider,
+                            child: _profileImage == null
+                                ? const Icon(Icons.add_a_photo,
+                                    size: 30, color: Colors.white)
+                                : null,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  buildSectionTitle(context, 'Account Settings'),
+                  SizedBox(height: 30.h),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        right: 50.0.w), // Apply only right margin
+                    child: buildSectionTitle(context, 'Account Settings'),
+                  ),
                   buildAccountDetails(),
                   SizedBox(height: 30.h),
-                  buildSectionTitle(context, 'Notification Settings'),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        right: 50.0.w), // Apply only right margin
+                    child: buildSectionTitle(context, 'Notification Settings'),
+                  ),
                   buildNotificationSettings(),
                   Padding(
                     padding: EdgeInsets.only(
                         top: 30.h), // Apply the desired right margin
                     child: Container(
                       width: 140.w, // Set your desired width here
-                      // height: 40.h, // Set your desired height here
+                      height: 40.h, // Set your desired height here
                       child: BlueButtonWithoutFunction(
                         text: Text(
                           'Back',
@@ -178,9 +211,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   Widget buildSectionTitle(BuildContext context, String title) {
     // DESIGN ARE OF THE ACCOUNT AND NOTIFICATION TEXT
     return Container(
-      alignment: Alignment.centerLeft,
       padding: EdgeInsets.all(15.w),
-      height: 50.h,
+      width: 330,
+      height: 50,
       //decoration: BoxDecoration(
       //color: Color(0xFF44CAF9),
       // borderRadius: BorderRadius.circular(30),
@@ -188,11 +221,11 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       child: Text(
         title,
         textAlign: TextAlign.left,
-        style: TextStyle(
+        style: const TextStyle(
           height: 1,
-          color: const Color(0xFF44CAF9),
+          color: Color(0xFF44CAF9),
           fontWeight: FontWeight.w800,
-          fontSize: 18.sp,
+          fontSize: 18,
         ),
       ),
     );
@@ -202,65 +235,110 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     // ACCOUNT SETTINGS INFO AREA
     return Container(
       width: 390.w,
-      margin: EdgeInsets.symmetric(horizontal: 13.w),
-      padding: EdgeInsets.only(bottom: 10.h),
+      height: 220.h,
+      margin: EdgeInsets.only(right: 15.h, left: 15.h),
+      padding: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: const Color(0xFFF1F1F1),
         border: Border.all(
           color: Colors.black,
-          width: 0.5.w,
+          width: 0.5,
         ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          buildAccountInfoRow('Name', eemail ?? 'Unknown'),
-          Divider(color: const Color(0xFF929292), thickness: 0.5.h),
-          InkWell(
-            onTap: () => {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => EditProfileScreen(
-                            currentAvatarUrl: img,
-                            currentEmail: gmail,
-                            currentName: eemail,
-                          )))
-            },
-            child: Row(children: [
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  child: Text('Edit Profile',
-                      style: TextStyle(fontSize: 16.sp, color: Colors.blue)))
-            ]),
-          ),
-          Divider(
-              color: const Color(0xFF929292),
-              thickness: 0.5.h), // the edit profile line divider
-          buildAccountInfoRow('Email:', gmail ?? 'Unknown'),
-          Divider(color: const Color(0xFF929292), thickness: 0.5.h),
-          InkWell(
-            onTap: () => print('test Change Password'),
-            child: Row(children: [
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  child: Text('Change Password',
-                      style: TextStyle(fontSize: 16.sp, color: Colors.blue)))
-            ]),
+        borderRadius: BorderRadius.all(
+          Radius.circular(10),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5), // Shadow color with opacity
+            spreadRadius: 0, // How much the shadow spreads
+            blurRadius: 4, // Softness of the shadow
+            offset: Offset(0, 4), // Offset of the shadow (x, y)
           ),
         ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: 16.0.w), // Apply left and right padding to all children
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 0), // Adjust top and bottom padding here
+                  child: Text(
+                    'Name: ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 0), // Adjust top and bottom padding here
+                  child: Text(email ?? 'Unknown'),
+                ),
+              ],
+            ),
+            const Divider(color: Color(0xFF929292), thickness: 0.5),
+            InkWell(
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditProfileScreen(
+                      currentAvatarUrl: img,
+                      currentEmail: gmail,
+                      currentName: email,
+                    ),
+                  ),
+                )
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Text('Edit Profile',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+            const Divider(color: Color(0xFF929292), thickness: 0.5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Email: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(gmail ?? 'Unknown'),
+              ],
+            ),
+            const Divider(color: Color(0xFF929292), thickness: 0.5),
+            InkWell(
+              onTap: () => 'test',
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Text('Change Password',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget buildAccountInfoRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.all(5.sp),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: TextStyle(fontSize: 16.sp)),
-          Text(value, style: TextStyle(fontSize: 12.sp)),
+          Text(label),
+          Text(value),
         ],
       ),
     );
@@ -270,79 +348,80 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     // NOTIFICATION SETTINGS INFO AREA
     return Container(
       width: 390.w,
-      margin: EdgeInsets.symmetric(horizontal: 13.w),
-      padding: EdgeInsets.only(bottom: 10.h),
+      height: 220.h,
+      margin: EdgeInsets.only(right: 15.h, left: 15.h),
+      padding: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
         color: const Color(0xFFF1F1F1),
         border: Border.all(
           color: Colors.black,
-          width: 0.5.w,
+          width: 0.5,
         ),
         borderRadius: BorderRadius.all(
-          Radius.circular(10.sp),
+          Radius.circular(10),
         ),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5), // Shadow color with opacity
             spreadRadius: 0, // How much the shadow spreads
             blurRadius: 4, // Softness of the shadow
-            offset: const Offset(0, 4), // O
+            offset: Offset(0, 4), // O
           ),
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: 16.w), // Apply left and right padding to all children
+        padding: const EdgeInsets.symmetric(
+            horizontal: 16.0), // Apply left and right padding to all children
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
-              onTap: () => print('test About'),
+              onTap: () => 'test',
               child: Padding(
                 // Add padding only around "About"
-                padding: EdgeInsets.only(top: 10.h, bottom: 0),
+                padding: const EdgeInsets.only(top: 10, bottom: 0),
                 child: Row(
                   children: [
-                    Text('About',
-                        style: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                    Text(
+                      'About',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
             ),
-            Divider(color: Colors.black, thickness: 0.5.h),
+            const Divider(color: Colors.black, thickness: 0.5),
             InkWell(
-              onTap: () => print('test Rate My App'),
-              child: Row(
-                children: [
-                  Text('Rate My App',
-                      style: TextStyle(
-                          fontSize: 16.sp, fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
-            Divider(color: Colors.black, thickness: 0.5.h),
-            InkWell(
-              onTap: () => print('test Contact'),
-              child: Row(
+              onTap: () => 'test',
+              child: const Row(
                 children: [
                   Text(
-                    'Contact',
-                    style:
-                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                    'Rate My App',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-            Divider(color: Colors.black, thickness: 0.5.h),
+            const Divider(color: Colors.black, thickness: 0.5),
             InkWell(
-              onTap: () => print('test Share with Friends'),
-              child: Row(
+              onTap: () => 'test',
+              child: const Row(
+                children: [
+                  Text(
+                    'Contact',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(color: Colors.black, thickness: 0.5),
+            InkWell(
+              onTap: () => 'test',
+              child: const Row(
                 children: [
                   Text(
                     'Share with Friends',
-                    style:
-                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

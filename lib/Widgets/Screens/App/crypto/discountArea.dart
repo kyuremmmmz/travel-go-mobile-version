@@ -194,7 +194,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     );
   }
 
-  Widget transactionHistory() {
+  Widget transactionHistory() { // Availble Flight Vouchers Area
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -398,15 +398,11 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
             padding: const EdgeInsets.all(20),
             width: 375.w,
             child: VoucherButton(
-              voucherTitle:
-                  'Enjoy up to ${items['discount']}% off at ${items['hotelName']}!',
-              description:
-                  'Book now and experience luxury at a discounted rate',
               expiring: date,
               image: items['ishotel'] == true
                   ? const AssetImage('assets/images/icon/hotel.png')
                   : const AssetImage('assets/images/icon/ButtonX.png'),
-              oppressed: () => 'Test',
+              oppressed: () => 'Test', voucherTitle: 'ewan ko', description: 'ano to',
             ),
           );
         }).toList(),
