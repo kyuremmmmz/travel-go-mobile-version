@@ -91,10 +91,10 @@ class Trgo {
         return null;
       } else {
         final data = query;
-        if (data.containsValue(1)) {
+        if (data.containsValue(1.0)) {
           final response = await supabase.from('TRGO_POINTS').update({
             'uid': user,
-            'points': 0.0,
+            'points': 0.01,
             'money': 1000,
           }).eq('uid', user);
           return response;
@@ -112,7 +112,7 @@ class Trgo {
   Future<Map<String, dynamic>?> getThePointsOfMine() async {
     final user = supabase.auth.currentUser!.id;
     final response =
-        await supabase.from('TRGO_POINTS').select('*').eq('uid', user).single();
+        await supabase.from('TRGO_POINTS').select('points').eq('uid', user).single();
     if (response.isEmpty) {
       return null;
     } else {

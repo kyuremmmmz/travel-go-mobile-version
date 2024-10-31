@@ -76,6 +76,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     emailFetching();
     fetchDiscount();
     gett();
+    update();
     _isRedirecting = true;
   }
 
