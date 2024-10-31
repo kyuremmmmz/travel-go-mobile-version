@@ -42,7 +42,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                 ),
               ),
             ),
-            SizedBox(height: 0.h), // Add space below 'My Bookings' text
+            SizedBox(height: 10.h), // Add space below 'My Bookings' text
             BookingSection(
               departureDay: '11th',
               departureDate: 'October, 2024, Monday',

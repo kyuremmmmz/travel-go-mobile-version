@@ -145,7 +145,7 @@ class _BookingSectionState extends State<BookingSection> {
                                 padding:
                                     EdgeInsets.only(top: 35.h, left: 15.h),
                                 width: 330.w,
-                                height: 230.h,
+                                height: 250.h,
                                 decoration: BoxDecoration(
                                     color: Color(0xFFF1FCFF),
                                     border: Border.all(
@@ -229,25 +229,30 @@ class _BookingSectionState extends State<BookingSection> {
                                         fontSize: 11.sp,
                                       ),
                                     ),
-                                    SizedBox(height: 20.h),
-                                    Container(
-                                      padding: EdgeInsets.only(right: 10.w),
-                                      child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: InkWell(
-                                          onTap: () {
-                                            print('hello');
-                                          },
-                                          child: Text(
-                                            'BOOK AGAIN',
-                                            style:
-                                                TextStyle(
-                                                  fontSize: 15.sp,
-                                                  color: Colors.blue),
+                                SizedBox(height: 20.h),
+                                Container(
+                                  padding: EdgeInsets.only(right: 10.w),
+                                  child: Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: InkWell(
+                                      onTap: () {
+                                        print('hello');
+                                      },
+                                      child: Container( // New container for width and height
+                                        width: 100.w,   // Set responsive width
+                                        height: 20.h,   // Set responsive height
+                                        alignment: Alignment.center, // Center the text within the container
+                                        child: Text(
+                                          'BOOK AGAIN',
+                                          style: TextStyle(
+                                            fontSize: 15.sp, // Responsive font size
+                                            color: Colors.blue,
                                           ),
                                         ),
                                       ),
                                     ),
+                                  ),
+                                ),
                                   ],
                                 ),
                               ),
