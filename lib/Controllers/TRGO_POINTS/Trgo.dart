@@ -109,22 +109,18 @@ class Trgo {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getThePointsOfMine() async {
+  Future<Map<String, dynamic>?> getThePointsOfMine() async {
     final user = supabase.auth.currentUser!.id;
     final response =
-        await supabase.from('TRGO_POINTS').select('*').eq('uid', user);
+        await supabase.from('TRGO_POINTS').select('*').eq('uid', user).single();
     if (response.isEmpty) {
-      return [];
+      return null;
     } else {
       final data = response;
-
-      List<Map<String, dynamic>> result =
-          List<Map<String, dynamic>>.from(data as List);
-      for (var datas in result) {
-        final points = datas['points'];
-        datas['points'] = points;
+      final points = data['points'];
+        data['points'] = points;
+      return data;
       }
-      return result;
     }
   }
-}
+

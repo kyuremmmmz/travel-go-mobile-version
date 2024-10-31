@@ -58,7 +58,15 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     final response = await tr.getThePointsOfMine();
     setState(() {
       _isRedirecting = false;
-      TrgoPoints = response[0]['points'];
+      TrgoPoints = response!['points'];
+    });
+  }
+
+  Future<void> update() async {
+    final response = await tr.updatePointsToMoney(context);
+    setState(() {
+      _isRedirecting = false;
+      TrgoPoints = response!['points'];
     });
   }
 
@@ -140,49 +148,49 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
         ),
       ),
       drawer: const DrawerMenuWidget(),
-      body:  _isRedirecting == true
+      body: _isRedirecting == true
           ? const Center(
               child: CircularProgressIndicator(
                 color: Colors.blue,
               ),
             )
           : Stack(
-        children: [
-          Positioned.fill(
-              child: SingleChildScrollView(
-            child: Column(children: <Widget>[
-              const TitleMenu(),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: 30.h),
-                  buildUserCard(),
-                  SizedBox(height: 30.h),
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.only(left: 20.w),
-                      child: Text('Available Discount Vouchers',
-                          style: TextStyle(
-                              color: const Color(0xFF333131),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold))),
-                  buildDiscountList(),
-                  SizedBox(height: 10.h),
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.only(left: 20.w),
-                      child: Text('Available Flight Vouchers',
-                          style: TextStyle(
-                              color: const Color(0xFF333131),
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold))),
-                  transactionHistory()
-                ],
-              ),
-            ]),
-          ))
-        ],
-      ),
+              children: [
+                Positioned.fill(
+                    child: SingleChildScrollView(
+                  child: Column(children: <Widget>[
+                    const TitleMenu(),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(height: 30.h),
+                        buildUserCard(),
+                        SizedBox(height: 30.h),
+                        Container(
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.only(left: 20.w),
+                            child: Text('Available Discount Vouchers',
+                                style: TextStyle(
+                                    color: const Color(0xFF333131),
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold))),
+                        buildDiscountList(),
+                        SizedBox(height: 10.h),
+                        Container(
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.only(left: 20.w),
+                            child: Text('Available Flight Vouchers',
+                                style: TextStyle(
+                                    color: const Color(0xFF333131),
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold))),
+                        transactionHistory()
+                      ],
+                    ),
+                  ]),
+                ))
+              ],
+            ),
     );
   }
 
