@@ -2,21 +2,20 @@ import 'dart:async';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
-import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class Comments extends StatefulWidget {
+class FestivalComments extends StatefulWidget {
   final int text;
 
-  const Comments({super.key, required this.text});
+  const FestivalComments({super.key, required this.text});
 
   @override
-  State<Comments> createState() => _CommentsState();
+  State<FestivalComments> createState() => _FestivalCommentsState();
 }
 
-class _CommentsState extends State<Comments> {
+class _FestivalCommentsState extends State<FestivalComments> {
   final _searchController = TextEditingController();
   final String beachIcon = "assets/images/icon/beach.png";
   final String foodIcon = "assets/images/icon/food_place.png";
@@ -152,9 +151,6 @@ class _CommentsState extends State<Comments> {
     try {
       final data = await rating.fetchComments(widget.text, 'places');
       final totalRatings = await rating.fetchRatingsAsSum();
-      final img = await users.fetchUser();
-      final images = img[0]['full_name'];
-      final imgUrl = await users.fetchImageForComments(images);
       final records = data.length;
 
       if (records > 0) {

@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
+import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/maps/hotelDetailsModal.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/festivalsDetailsModal.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -11,12 +11,12 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 
-class HotelMap extends StatelessWidget {
+class FestivalsMap extends StatelessWidget {
   final String? location;
   final int id;
   final int text;
   final String? price;
-  const HotelMap({
+  const FestivalsMap({
     super.key,
     required this.location,
     required this.id,
@@ -28,18 +28,18 @@ class HotelMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Map'),
+        title: const Text('Map'),
       ),
-      body: HotelMapPage(location: location, id: id),
+      body: FestivalsMapPage(location: location, id: id),
     );
   }
 }
 
-class HotelMapPage extends StatefulWidget {
+class FestivalsMapPage extends StatefulWidget {
   final String? location;
   final int id;
   final String? price;
-  const HotelMapPage({
+  const FestivalsMapPage({
     super.key,
     required this.location,
     required this.id,
@@ -47,10 +47,10 @@ class HotelMapPage extends StatefulWidget {
   });
 
   @override
-  State<HotelMapPage> createState() => _HotelMapPageState();
+  State<FestivalsMapPage> createState() => _FestivalsMapPageState();
 }
 
-class _HotelMapPageState extends State<HotelMapPage> {
+class _FestivalsMapPageState extends State<FestivalsMapPage> {
   final start = TextEditingController();
   final end = TextEditingController();
   List<LatLng> routePoints = [const LatLng(15.91667, 120.33333)];
@@ -62,9 +62,8 @@ class _HotelMapPageState extends State<HotelMapPage> {
   List<Marker> markers = [];
   var imageUrlForAmenities = <String, dynamic>{};
   var amenities = <String, dynamic>{};
-  final data = HotelImages();
-
-  late HotelImages images = HotelImages();
+  final data = FestivalsImages();
+  late FestivalsImages images = FestivalsImages();
   Future<void> func() async {
     try {
       List<Location> startR = await locationFromAddress(start.text.trim());
@@ -105,32 +104,30 @@ class _HotelMapPageState extends State<HotelMapPage> {
   }
 
   Future<void> places(int id) async {
-    final data = await images.fetchDataInSingle(id);
+    final data = await images.getSpecificData(id);
     setState(() {
-      placeName = data?['hotel_name'];
-      price = data?['hotel_price'];
-      located = data?['hotel_located'];
-      description = data?['hotel_description'];
+      placeName = data?['img'];
+      price = data?['price'];
+      located = data?['Located'];
       id = data?['id'];
     });
   }
 
   Future<void> getMarkers() async {
     try {
-      final hotels = await images.fetchHotelsByplace('${widget.location}');
-
-      if (hotels.isNotEmpty) {
+      final beaches = await images.fetchFestivals();
+      print(widget.location);
+      if (beaches.isNotEmpty) {
         List<Marker> fetchedMarkers = [];
 
-        for (var hotel in hotels) {
-          var hotelName = hotel['hotel_name'];
-          var hotelPrice = hotel['hotel_price'];
+        for (var beach in beaches) {
+          var beachName = beach['img'];
+          var beachPrice = beach['price'];
           var numberFormat = NumberFormat('#,###');
-          var finalPrice = numberFormat.format(hotelPrice);
-          hotel['hotel_price'] = finalPrice;
-          hotel['hotel_name'] = hotelName;
-          List<Location> locations =
-              await locationFromAddress(hotel['hotel_name']);
+          var finalPrice = numberFormat.format(beachPrice);
+          beach['price'] = finalPrice;
+          beach['img'] = beachName;
+          List<Location> locations = await locationFromAddress(beach['img']);
           if (locations.isNotEmpty) {
             double lat = locations[0].latitude;
             double lng = locations[0].longitude;
@@ -152,7 +149,7 @@ class _HotelMapPageState extends State<HotelMapPage> {
                           onTap: () {
                             showModalBottomSheet(
                                 context: context,
-                                builder: (context) => HotelDetailsModal(
+                                builder: (context) => FestivalsDetailsModal(
                                       id: widget.id,
                                     ));
                           },
@@ -178,7 +175,7 @@ class _HotelMapPageState extends State<HotelMapPage> {
         });
       }
     } catch (error) {
-      print('Error fetching hotels: $error');
+      print('Error fetching festivals: $error');
     }
   }
 
@@ -199,7 +196,7 @@ class _HotelMapPageState extends State<HotelMapPage> {
   Future<void> detailsModal(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
-        builder: (context) => HotelDetailsModal(
+        builder: (context) => FestivalsDetailsModal(
               id: widget.id,
             ));
   }
@@ -293,7 +290,8 @@ class _HotelMapPageState extends State<HotelMapPage> {
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold),
                     )),
-              )
+              ),
+              SizedBox(height: 10.h),
             ],
           ),
         ),

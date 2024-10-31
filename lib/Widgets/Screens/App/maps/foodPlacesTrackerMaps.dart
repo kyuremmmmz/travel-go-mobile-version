@@ -111,17 +111,6 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
       located = data?['located'];
       description = data?['description'];
       id = data?['id'];
-      for (var i = 1; i <= 20; i++) {
-        final dineT = 'dine$i';
-        final dineImg = 'dineUrl$i';
-        final img = data?[dineT];
-        final imgUrl = data?[dineImg];
-        if (img != null) {
-          dine[dineT] = img;
-          imageUrlForDine[dineT] = imgUrl;
-          print(imageUrlForDine);
-        }
-      }
     });
   }
 
@@ -135,12 +124,10 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
         for (var foodArea in foodAreas) {
           var foodAreaName = foodArea['img'];
           var foodAreaPrice = foodArea['price'];
-          var des = foodArea['description'];
           var numberFormat = NumberFormat('#,###');
           var finalPrice = numberFormat.format(foodAreaPrice);
           foodArea['price'] = finalPrice;
           foodArea['img'] = foodAreaName;
-          foodArea['description'] = des;
           List<Location> locations = await locationFromAddress(foodArea['img']);
           if (locations.isNotEmpty) {
             double lat = locations[0].latitude;
@@ -189,7 +176,7 @@ class _FoodPlaceMapPageState extends State<FoodPlaceMapPage> {
         });
       }
     } catch (error) {
-      print('Error fetching places: $error');
+      print('Error fetching food places: $error');
     }
   }
 

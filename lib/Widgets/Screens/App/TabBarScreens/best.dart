@@ -36,7 +36,7 @@ class _BestState extends State<Best> {
     return SafeArea(
         child: Scrollbar(
       child: SingleChildScrollView(
-        child: Stack(
+        child: Column(
             children: imgUrl.map((data) {
           return Center(
             child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -69,7 +69,7 @@ class _BestState extends State<Best> {
                               width: 10.w,
                             ),
                             Text(
-                              'Best',
+                              data['ticket_type'],
                               style: TextStyle(
                                   fontSize: 16.sp,
                                   color: Colors.blue,

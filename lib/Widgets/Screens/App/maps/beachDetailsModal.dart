@@ -1,5 +1,4 @@
 import 'package:TravelGo/Controllers/NetworkImages/beach_images.dart';
-import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -29,8 +28,8 @@ class _BeachDetailsModalState extends State<BeachDetailsModal> {
       located = data?['locatedIn'];
       id = data?['id'];
       for (var i = 1; i <= 20; i++) {
-        final key = 'amenity$i';
-        final keyUrl = 'amenity${i}Url';
+        final key = 'dine$i';
+        final keyUrl = 'dine${i}Url';
         final value = data?[key];
         final imageUrlValue = data?[keyUrl];
         if (value != null) {
@@ -163,40 +162,6 @@ class _BeachDetailsModalState extends State<BeachDetailsModal> {
                     ],
                   );
                 }).toList()),
-                SizedBox(height: 30.h),
-                Row(
-                  children: [
-                    SizedBox(width: 10.w),
-                    RichText(
-                        text: TextSpan(children: [
-                      TextSpan(
-                          text: 'PHP ${price.toString()} - 6,000',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 21.sp,
-                              fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: '\nEstimated Expenses',
-                          style: TextStyle(color: Colors.blue, fontSize: 13.sp))
-                    ])),
-                    SizedBox(width: 20.w),
-                    SizedBox(
-                      width: 150.h,
-                      child: BlueButtonWithoutFunction(
-                          text: Text(
-                            'Place Booking',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                          ),
-                          oppressed: () {}),
-                    )
-                  ],
-                ),
                 SizedBox(height: 10.h)
               ],
             ),

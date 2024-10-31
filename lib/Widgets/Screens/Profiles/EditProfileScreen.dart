@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -33,9 +34,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future<void> _updateProfile() async {
     final userId = Supabase.instance.client.auth.currentUser!.id;
-    await supabase.from('profiles').update({
-      'full_name': _nameController.text
-    }).eq('id', userId);
+    await supabase
+        .from('profiles')
+        .update({'full_name': _nameController.text}).eq('id', userId);
     final response = await supabase.auth.updateUser(
       UserAttributes(email: _emailController.text),
     );
@@ -62,8 +63,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text('Edit Profile',
-            style: TextStyle(fontSize: 24,)),
+        title: const Text('Edit Profile', style: TextStyle(fontSize: 24)),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -74,93 +74,89 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             GestureDetector(
               onTap: () {},
               child: CircleAvatar(
-                radius: 70,
+                radius: 70.sp,
                 backgroundImage: _avatarUrl != null
                     ? NetworkImage(_avatarUrl!)
                     : const AssetImage('assets/default_avatar.png')
                         as ImageProvider<Object>,
                 child: _avatarUrl == null
-                    ? const Icon(Icons.camera_alt,
-                        size: 40, color: Colors.white)
+                    ? Icon(Icons.camera_alt, size: 40.sp, color: Colors.white)
                     : null,
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             TextField(
-              controller: _nameController,
-              decoration: InputDecoration(
-                labelText: 'Full Name',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.blueAccent),
+                controller: _nameController,
+                decoration: InputDecoration(
+                  labelText: 'Full Name',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(color: Colors.blueAccent),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2),
+                  ),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.blue, width: 2),
-                ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                filled: true,
-                fillColor: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 16),
+                style: TextStyle(fontSize: 15.sp)),
+            SizedBox(height: 20.h),
             TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.blueAccent),
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(color: Colors.blueAccent),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2),
+                  ),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Colors.blue, width: 2),
-                ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                filled: true,
-                fillColor: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 20),
+                style: TextStyle(fontSize: 15.sp)),
+            SizedBox(height: 20.h),
             SizedBox(
-              width: 200,
-              child: ElevatedButton(
-              onPressed: _updateProfile,
-              style: ElevatedButton.styleFrom(
-                textStyle:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                backgroundColor: Colors.blueAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: const Text(
-                'Save Changes',
-                style: TextStyle(color: Colors.white),
-              ),
-            )
-            ),
-            const SizedBox(height: 20),
+                width: 200.w,
+                child: ElevatedButton(
+                  onPressed: _updateProfile,
+                  style: ElevatedButton.styleFrom(
+                    textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                    backgroundColor: Colors.blueAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Text(
+                    'Save Changes',
+                    style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                  ),
+                )),
+            SizedBox(height: 20.h),
             SizedBox(
-              width: 200,
+              width: 200.w,
               child: TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.red,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)
-                )
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'Cancel',
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10))),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                ),
               ),
             ),
-            )
+            SizedBox(height: 20.h)
           ],
         ),
       ),

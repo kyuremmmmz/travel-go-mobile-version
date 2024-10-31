@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
-import 'package:TravelGo/Widgets/Screens/App/comments.dart';
+import 'package:TravelGo/Widgets/Screens/App/comments/hotelComments.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../ResponsiveScreen/ResponsiveScreen.dart';
@@ -383,7 +383,7 @@ class _HotelsInfoState extends State<HotelsInfo> {
                                 Column(
                                   children: [
                                     SizedBox(height: 10.h),
-                                    Comments(text: widget.text),
+                                    HotelComments(text: widget.text),
                                     SizedBox(height: 20.h),
                                     Container(
                                       alignment: Alignment.centerLeft,

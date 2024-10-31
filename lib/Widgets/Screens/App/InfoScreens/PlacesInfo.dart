@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:TravelGo/Widgets/Screens/App/ResponsiveScreen/ResponsiveScreen.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
-import 'package:TravelGo/Widgets/Screens/App/comments.dart';
+import 'package:TravelGo/Widgets/Screens/App/comments/comments.dart';
 import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/vehicleAvailability.dart';
@@ -260,7 +260,7 @@ class _PlacesInfoState extends State<PlacesInfo> {
                                                 Responsive().aboutFontSize())),
                                   ),
                                   SizedBox(height: 20.h),
-                                  VehicleAvailability(text: widget.text),
+                                  VehicleAvailability(text: widget.text, name: located,),
                                   Container(
                                       alignment: Alignment.centerLeft,
                                       padding: EdgeInsets.only(left: 30.w),

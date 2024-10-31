@@ -35,7 +35,8 @@ class RatingsAndComments {
     final response = await supabase
         .from("ratings_and_comments")
         .select("*")
-        .eq('comment_id_places', commentType).eq('comment_type', comment);
+        .eq('comment_id_places', commentType)
+        .eq('comment_type', comment);
     if (response.isEmpty) {
       return [];
     } else {

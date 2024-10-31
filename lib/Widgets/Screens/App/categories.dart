@@ -1,4 +1,4 @@
-import 'package:TravelGo/Routes/Routes.dart';
+  import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/GreyedListButton.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:flutter/material.dart';
@@ -178,7 +178,6 @@ class CategorySelect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 30.h),
         Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: 9.0), // Add padding to left and right

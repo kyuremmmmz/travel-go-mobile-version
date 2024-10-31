@@ -49,6 +49,7 @@ class _HotelCommentsState extends State<HotelComments> {
   late RatingsAndComments rating = RatingsAndComments();
   final String avatarDefaultIcon = "assets/images/icon/user.png";
   bool _isRedirecting = false;
+  int total = 0;
   final vouchers = Vouchers();
   final supabase = Supabase.instance.client;
   Future<void> commentInserttion() async {
@@ -85,11 +86,7 @@ class _HotelCommentsState extends State<HotelComments> {
     try {
       final data = await rating.fetchComments(widget.text, 'hotel');
       final totalRatings = await rating.fetchRatingsAsSum();
-      final img = await users.fetchUser();
-      final images = img[0]['full_name'];
-      final imgUrl = await users.fetchImageForComments(images);
       final records = data.length;
-
       if (records > 0) {
         final count = totalRatings / records;
         final validCount = count > 5.0 ? 5.0 : count;
@@ -205,7 +202,9 @@ class _HotelCommentsState extends State<HotelComments> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return _isRedirecting == true ? const Center(
+      child: CircularProgressIndicator(),
+    )  : Column(
       children: [
         Row(children: [
           Container(
@@ -221,10 +220,10 @@ class _HotelCommentsState extends State<HotelComments> {
                   ),
                   SizedBox(width: 5.w),
                   Text(
-                    'OUT OF 5',
+                    '( $userRatings )',
                     style: TextStyle(
                         color: const Color.fromARGB(255, 49, 49, 49),
-                        fontSize: 12.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold),
                   ),
                 ],

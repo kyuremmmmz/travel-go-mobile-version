@@ -232,10 +232,11 @@ class _FestivalsInfoState extends State<FestivalsInfo> {
                                                 Responsive().headerFontSize()),
                                         GestureDetector(
                                             onTap: () {
-                                              AppRoutes.navigateToTesting(
-                                                  context,
-                                                  name: '$located',
-                                                  id: id);
+                                              AppRoutes
+                                                  .navigateToFestivalsMapPage(
+                                                      context,
+                                                      name: '$located',
+                                                      id: id);
                                             },
                                             child: Row(
                                               crossAxisAlignment:

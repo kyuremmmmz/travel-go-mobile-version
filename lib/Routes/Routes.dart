@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:TravelGo/Widgets/Screens/App/Transactions.dart';
 import 'package:TravelGo/Widgets/Screens/App/allFlights.dart';
 import 'package:TravelGo/Widgets/Screens/App/bookingHistory.dart';
 import 'package:TravelGo/Widgets/Screens/App/booking_area.dart';
@@ -7,6 +8,7 @@ import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotel_booking.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/beachTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/exploreTrackerMaps.dart';
+import 'package:TravelGo/Widgets/Screens/App/maps/festivalTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/foodPlacesTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/hotelTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/notPaid.dart';
@@ -22,6 +24,7 @@ import 'package:TravelGo/Widgets/Screens/Stateless/forgot.dart';
 import 'package:TravelGo/Widgets/Screens/Stateless/hotel_stateless.dart';
 import 'package:TravelGo/Widgets/Screens/Stateless/reset.dart';
 import 'package:TravelGo/Widgets/Screens/WidgetTestingScreen/testWidget.dart';
+import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import '../Widgets/Screens/App/InfoScreens/FoodAreaInfo.dart';
 import '../Widgets/Screens/App/mainmenu.dart';
@@ -46,6 +49,14 @@ class AppRoutes {
         route,
         MaterialPageRoute(
           builder: (context) => const LoginScreen(),
+        ));
+  }
+
+  static void navigateToWelcomePage(BuildContext route) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+          builder: (context) => const WelcomePage(),
         ));
   }
 
@@ -146,6 +157,14 @@ class AppRoutes {
         route,
         MaterialPageRoute(
             builder: (context) => BeachMapPage(location: name, id: id)));
+  }
+
+  static void navigateToFestivalsMapPage(BuildContext route,
+      {required String name, required int id}) {
+    Navigator.push(
+        route,
+        MaterialPageRoute(
+            builder: (context) => FestivalsMapPage(location: name, id: id)));
   }
 
   static void navigateToTesting(BuildContext route,
@@ -299,5 +318,10 @@ class AppRoutes {
   static void navigateToBookingHistory(BuildContext context) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const BookingHistory()));
+  }
+
+  static void navigateToTransactionsScreen(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Transactions()));
   }
 }

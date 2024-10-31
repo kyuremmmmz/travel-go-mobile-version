@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Controllers/Auth/signup.dart';
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Textfield/passwordField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness
@@ -87,44 +88,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFDEEFFC),
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0.h,
-            right: -30,
-            left: -30,
-            child: Stack(children: <Widget>[
-              Align(
-                child: Image.asset(
-                  'assets/images/icon/newlogo2.png',
-                  fit: BoxFit.cover,
-                  height: 300.h,
-                  width: 200.w,
-                ),
+        backgroundColor: const Color(0xFFDEEFFC),
+        resizeToAvoidBottomInset: false,
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 50.h),
+                child: Align(
+                    child: Image.asset('assets/images/icon/newlogo-crop.png',
+                        fit: BoxFit.cover, height: 120.sp)),
               ),
-            ]),
-          ),
-          Positioned(
-            top: 220.h,
-            right: 0,
-            left: 0,
-            height: MediaQuery.of(context).size.height,
-            child: Container(
-              padding: EdgeInsets.only(
-                top: 0.w,
-                left: 0.h,
-                bottom: 0.w,
-                right: 0.h,
-              ),
-              child: SingleChildScrollView(
-                  child: Form(
+              Form(
                 key: _formKey,
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(right: 100.w),
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.only(left: 20.w),
                       child: Text(
                         'Create Account',
                         style: TextStyle(
@@ -135,16 +116,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     Container(
-                        padding: EdgeInsets.only(right: 170.w, bottom: 20.w),
-                        child: const Text(
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.only(left: 30.w),
+                        child: Text(
                           'Please Sign Up to continue.',
                           style: TextStyle(
-                            color: Color(0xFF3564C0),
+                            fontSize: 13.sp,
+                            color: const Color(0xFF3564C0),
                           ),
                         )),
-                    SizedBox(
-                      height: 70,
-                      width: MediaQuery.of(context).size.width - 30.w,
+                    SizedBox(height: 15.h),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: TextFormField(
                         controller: _emailController,
                         validator: (value) {
@@ -157,30 +140,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }
                           return null;
                         },
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                             labelText: 'Email',
                             alignLabelWithHint: true,
                             contentPadding:
-                                EdgeInsets.symmetric(horizontal: 5.0),
+                                EdgeInsets.symmetric(horizontal: 5.w),
                             labelStyle:
-                                TextStyle(fontSize: 15, color: Colors.black),
-                            border: UnderlineInputBorder(
+                                TextStyle(fontSize: 15.sp, color: Colors.black),
+                            border: const UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black)),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Colors.black,
-                            ))),
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Color.fromARGB(255, 0, 0, 0),
-                        ),
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black))),
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            color: const Color.fromARGB(255, 0, 0, 0)),
                         keyboardType: TextInputType.emailAddress,
                       ),
                     ),
-                    SizedBox(
-                      height: 70,
-                      width: MediaQuery.of(context).size.width -
-                          30.w, // password line area
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.w), // password line area
                       child: passwordTextField(
                         controller: _passwordController,
                         validator: (value) {
@@ -196,9 +175,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         password: _passwordController,
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width -
-                          30.w, // password line area
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.w), // password line area
                       child: passwordTextField(
                         controller: _passwordController,
                         validator: (value) {
@@ -218,12 +197,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         password: _confirmPasswordController,
                       ),
                     ),
-                    SizedBox(
-                      height: 50.h,
-                    ),
+                    SizedBox(height: 50.h),
                     Container(
-                        padding: null,
-                        width: MediaQuery.of(context).size.width - 100.w,
+                        width: 250.w,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             boxShadow: [
@@ -260,19 +236,58 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 context,
                                 _emailController.text,
                               );
+                              showAdaptiveDialog(
+                                  // ignore: use_build_context_synchronously
+                                  context: context,
+                                  builder: (context) {
+                                    return StatefulBuilder(
+                                        builder: (context, setState) {
+                                      return AlertDialog(
+                                        title: Text('Create Account',
+                                            style: TextStyle(fontSize: 20.sp)),
+                                        content: SingleChildScrollView(
+                                            child: ListBody(children: <Widget>[
+                                          Text(
+                                              'Signed Up successfully! \nCheck your email for confirmation.\n',
+                                              style:
+                                                  TextStyle(fontSize: 12.sp)),
+                                          Text('Full name: ${widget.fullName}',
+                                              style:
+                                                  TextStyle(fontSize: 12.sp)),
+                                          Text('User name: ${widget.userName}',
+                                              style:
+                                                  TextStyle(fontSize: 12.sp)),
+                                          Text(
+                                              'Phone Number: ${widget.phoneNumber}',
+                                              style:
+                                                  TextStyle(fontSize: 12.sp)),
+                                          Text(
+                                              'Email: ${_emailController.text}',
+                                              style: TextStyle(fontSize: 12.sp))
+                                        ])),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: Text('Back to Main',
+                                                style:
+                                                    TextStyle(fontSize: 16.sp)),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              AppRoutes.navigateToWelcomePage(
+                                                  context);
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    });
+                                  });
                             }
-                            print(widget.fullName);
-                            print(widget.phoneNumber);
-                            print(widget.userName);
                           },
                         ))
                   ],
                 ),
-              )),
-            ),
-          )
-        ],
-      ),
-    );
+              ),
+            ],
+          ),
+        ));
   }
 }

@@ -1,40 +1,38 @@
-import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
-import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
-import 'package:TravelGo/Routes/Routes.dart';
-import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
-import 'package:TravelGo/Widgets/Screens/App/ResponsiveScreen/ResponsiveScreen.dart';
+import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HotelDetailsModal extends StatefulWidget {
+class FestivalsDetailsModal extends StatefulWidget {
   final int id;
   final String? price;
-  const HotelDetailsModal({super.key, required this.id, this.price});
+  const FestivalsDetailsModal({super.key, required this.id, this.price});
 
   @override
-  State<HotelDetailsModal> createState() => _HotelDetailsModalState();
+  State<FestivalsDetailsModal> createState() => _FestivalsDetailsModalState();
 }
 
-class _HotelDetailsModalState extends State<HotelDetailsModal> {
-  late HotelImages images = HotelImages();
-  String? placeName;
+class _FestivalsDetailsModalState extends State<FestivalsDetailsModal> {
+  late FestivalsImages images = FestivalsImages();
+  String? festivalName;
   var price;
   String? located;
   String? description;
+  String? menu;
   var amenities = <String, dynamic>{};
   var imageUrlForAmenities = <String, dynamic>{};
 
   Future<void> places(int id) async {
-    final data = await images.fetchDataInSingle(id);
+    final data = await images.getSpecificData(id);
     setState(() {
-      placeName = data?['hotel_name'];
-      price = data?['hotel_price'];
-      located = data?['hotel_located'];
-      description = data?['hotel_description'];
+      festivalName = data?['img'];
+      price = data?['price'];
+      located = data?['Located'];
       id = data?['id'];
+      description = data?['Description'];
+      menu = data?['TipsForVisitors'];
       for (var i = 1; i <= 20; i++) {
-        final key = 'amenity$i';
-        final keyUrl = 'amenity${i}Url';
+        final key = 'Dine$i';
+        final keyUrl = 'DineUrl$i';
         final value = data?[key];
         final imageUrlValue = data?[keyUrl];
         if (value != null) {
@@ -72,17 +70,15 @@ class _HotelDetailsModalState extends State<HotelDetailsModal> {
             child: Column(
               children: [
                 Text(
-                  'Booking Details',
+                  'Festivals & Events Details',
                   style: TextStyle(fontSize: 20.sp),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
+                SizedBox(height: 10.h),
                 Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Text(
-                    placeName ?? 'No data available',
+                    festivalName ?? 'No data available',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Colors.black,
@@ -115,7 +111,7 @@ class _HotelDetailsModalState extends State<HotelDetailsModal> {
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(left: 10.w),
                   child: Text(
-                    'Amenities',
+                    'Accomodations',
                     style:
                         TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                   ),
@@ -171,43 +167,25 @@ class _HotelDetailsModalState extends State<HotelDetailsModal> {
                 }).toList()),
                 SizedBox(height: 30.h),
                 Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RichText(
-                            text: TextSpan(children: [
-                          TextSpan(
-                              text: 'PHP ${price.toString()} - 6,000',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: Responsive().headerFontSize(),
-                                  fontWeight: FontWeight.bold)),
-                          TextSpan(
-                              text: '\nEstimated Expenses',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: Responsive().aboutFontSize()))
-                        ])),
-                        BlueButtonWithoutFunction(
-                            text: Text(
-                              'Place Booking',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: Responsive().aboutFontSize(),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue,
-                            ),
-                            oppressed: () {
-                              HotelBooking().passTheHotelData(widget.id);
-                              AppRoutes.navigateToHotelBookingScreen(context,
-                                  id: widget.id, price: price);
-                            })
-                      ],
-                    )),
-                SizedBox(height: 10.h)
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10.w),
+                  child: Text(
+                    'Tips for the Visitors',
+                    style:
+                        TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                  child: Text(
+                    menu ?? 'No Tips',
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.h),
               ],
             ),
           ),

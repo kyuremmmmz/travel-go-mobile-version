@@ -35,17 +35,17 @@ class _AllflightsState extends State<Allflights> {
 
   @override
   Widget build(BuildContext context) {
-    return _isRedirecting
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Colors.blue,
-            ),
-          )
-        : Scaffold(
+    return  Scaffold(
             appBar: AppBar(
               title: const Text('All Flights'),
             ),
-            body: SafeArea(
+            body: _isRedirecting
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              )
+            : SafeArea(
               child: SingleChildScrollView(
                   child: Column(
                 children: [
@@ -79,6 +79,8 @@ class _AllflightsState extends State<Allflights> {
                   ),
                   Column(
                       children: imgUrl.map((data) {
+                    final textt = data['ticket_type'];
+                    final text2 = textt[0].toUpperCase() + textt.substring(1);
                     return Center(
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
                         SizedBox(height: 20.h),
@@ -104,7 +106,7 @@ class _AllflightsState extends State<Allflights> {
                                         width: 10.w,
                                       ),
                                       Text(
-                                        data['ticket_type'],
+                                        text2,
                                         style: TextStyle(
                                             fontSize: 16.sp,
                                             color: Colors.blue,
@@ -387,7 +389,31 @@ class _AllflightsState extends State<Allflights> {
                                                 ),
                                               ],
                                             ),
-                                            SizedBox(height: 30.h),
+                                            Container(
+                                                padding: EdgeInsets.only(
+                                                    top: 10.w, left: 20.w),
+                                                child: Row(
+                                                  children: [
+                                                    data['cancelled'] == true
+                                                        ? const Text(
+                                                            'Cancelled',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.red),
+                                                          )
+                                                        : const Text(
+                                                            'On Board',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.blue,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 20),
+                                                          )
+                                                  ],
+                                                )),
+                                            SizedBox(height: 10.h),
                                             Container(
                                               padding:
                                                   EdgeInsets.only(left: 10.w),
