@@ -63,10 +63,9 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   }
 
   Future<void> update() async {
-    final response = await tr.updatePointsToMoney(context);
     setState(() {
+      tr.updatePointsToMoney(context);
       _isRedirecting = false;
-      TrgoPoints = response!['points'];
     });
   }
 
