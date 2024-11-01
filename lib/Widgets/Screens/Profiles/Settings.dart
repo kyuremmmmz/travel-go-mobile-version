@@ -32,6 +32,21 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   final data = Data();
   late bool isPaymentSuccess = false;
   final supabase = Supabase.instance.client;
+  bool _isRedirecting = false;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    emailFetching();
+    fetchImage();
+    _isRedirecting = true;
+  }
 
   Future<void> emailFetching() async {
     try {
@@ -48,12 +63,14 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
           img = useremail.isNotEmpty
               ? useremail[0]['avatar_url'].toString()
               : "Anonymous User";
+          _isRedirecting = false;
         });
       }
     } catch (e) {
       if (mounted) {
         setState(() {
           email = "error: $e";
+          _isRedirecting = false;
         });
       }
     }
@@ -74,19 +91,6 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   }
 
   @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    emailFetching();
-    fetchImage();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -102,109 +106,116 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
         ),
       ),
       drawer: const DrawerMenuWidget(),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  const TitleMenu(),
-                  Padding(
-                    padding: const
-                        EdgeInsets.only(top: 20.0), // Adjust padding as needed
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          insert('$uid');
-                        },
-                        child: Container(
-                          width:
-                              180, // CircleAvatar diameter (2 * radius) + border width
-                          height: 180,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: const Color(
-                                  0xFF44CAF9), // Set your desired border color
-                              width: 4.0, // Set your desired border width
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFF44CAF9).withOpacity(
-                                    0.2), // Shadow color and opacity
-                                spreadRadius: 4, // Spread of the shadow
-                                blurRadius: 10, // Softness of the shadow
-                                offset: const Offset(
-                                    0, 4), // Positioning the shadow (x, y)
+      body: _isRedirecting
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Stack(
+              children: [
+                Positioned.fill(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        const TitleMenu(),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 20.h), // Adjust padding as needed
+                          child: Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                insert('$uid');
+                              },
+                              child: Container(
+                                width: 180
+                                    .sp, // CircleAvatar diameter (2 * radius) + border width
+                                height: 180.sp,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: const Color(
+                                        0xFF44CAF9), // Set your desired border color
+                                    width: 4.0, // Set your desired border width
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFF44CAF9)
+                                          .withOpacity(
+                                              0.2), // Shadow color and opacity
+                                      spreadRadius: 4, // Spread of the shadow
+                                      blurRadius: 10, // Softness of the shadow
+                                      offset: const Offset(0,
+                                          4), // Positioning the shadow (x, y)
+                                    ),
+                                  ],
+                                ),
+                                child: CircleAvatar(
+                                  radius: 85
+                                      .sp, // Adjust radius to fit within the border
+                                  backgroundColor: Colors.grey[400],
+                                  backgroundImage: _profileImage != null
+                                      ? FileImage(_profileImage!)
+                                      : (img == null
+                                              ? const AssetImage(
+                                                  'assets/images/icon/user.png')
+                                              : NetworkImage('$img'))
+                                          as ImageProvider,
+                                  child: _profileImage == null
+                                      ? Icon(Icons.add_a_photo,
+                                          size: 30.sp, color: Colors.white)
+                                      : null,
+                                ),
                               ),
-                            ],
-                          ),
-                          child: CircleAvatar(
-                            radius:
-                                85, // Adjust radius to fit within the border
-                            backgroundColor: Colors.grey[400],
-                            backgroundImage: _profileImage != null
-                                ? FileImage(_profileImage!)
-                                : (img == null
-                                    ? const AssetImage(
-                                        'assets/images/icon/user.png')
-                                    : NetworkImage('$img')) as ImageProvider,
-                            child: _profileImage == null
-                                ? const Icon(Icons.add_a_photo,
-                                    size: 30, color: Colors.white)
-                                : null,
+                            ),
                           ),
                         ),
-                      ),
+                        SizedBox(height: 30.h),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              right: 50.w), // Apply only right margin
+                          child: buildSectionTitle(context, 'Account Settings'),
+                        ),
+                        buildAccountDetails(),
+                        SizedBox(height: 30.h),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              right: 50.w), // Apply only right margin
+                          child: buildSectionTitle(
+                              context, 'Notification Settings'),
+                        ),
+                        buildNotificationSettings(),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 30.h), // Apply the desired right margin
+                          child: SizedBox(
+                            width: 140.sp, // Set your desired width here
+                            height: 40.sp, // Set your desired height here
+                            child: BlueButtonWithoutFunction(
+                              text: Text(
+                                'Back',
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              style: const ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                  Color(0xFF44CAF9),
+                                ),
+                              ),
+                              oppressed: () {
+                                Navigator.pop(context);
+                                AppRoutes.navigateToMainMenu(context);
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 50.h),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 30.h),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        right: 50.0.w), // Apply only right margin
-                    child: buildSectionTitle(context, 'Account Settings'),
-                  ),
-                  buildAccountDetails(),
-                  SizedBox(height: 30.h),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        right: 50.0.w), // Apply only right margin
-                    child: buildSectionTitle(context, 'Notification Settings'),
-                  ),
-                  buildNotificationSettings(),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 30.h), // Apply the desired right margin
-                    child: Container(
-                      width: 140.w, // Set your desired width here
-                      height: 40.h, // Set your desired height here
-                      child: BlueButtonWithoutFunction(
-                        text: Text(
-                          'Back',
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            color: Colors.white,
-                          ),
-                        ),
-                        style: const ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                            Color(0xFF44CAF9),
-                          ),
-                        ),
-                        oppressed: () {
-                          Navigator.pop(context);
-                          AppRoutes.navigateToMainMenu(context);
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 50.h),
-                ],
-              ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -212,8 +223,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     // DESIGN ARE OF THE ACCOUNT AND NOTIFICATION TEXT
     return Container(
       padding: EdgeInsets.all(15.w),
-      width: 330,
-      height: 50,
+      width: 330.sp,
+      height: 50.sp,
       //decoration: BoxDecoration(
       //color: Color(0xFF44CAF9),
       // borderRadius: BorderRadius.circular(30),
@@ -221,11 +232,11 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       child: Text(
         title,
         textAlign: TextAlign.left,
-        style: const TextStyle(
+        style: TextStyle(
           height: 1,
           color: Color(0xFF44CAF9),
           fontWeight: FontWeight.w800,
-          fontSize: 18,
+          fontSize: 18.sp,
         ),
       ),
     );
@@ -235,14 +246,14 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     // ACCOUNT SETTINGS INFO AREA
     return Container(
       width: 390.w,
-      height: 220.h,
-      margin: EdgeInsets.only(right: 15.h, left: 15.h),
-      padding: const EdgeInsets.only(bottom: 10),
+      height: 200.sp,
+      margin: EdgeInsets.symmetric(horizontal: 15.w),
+      padding: EdgeInsets.only(bottom: 10.h),
       decoration: BoxDecoration(
         color: const Color(0xFFF1F1F1),
         border: Border.all(
           color: Colors.black,
-          width: 0.5,
+          width: 0.5.w,
         ),
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
@@ -258,7 +269,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: 16.0.w), // Apply left and right padding to all children
+            horizontal: 16.w), // Apply left and right padding to all children
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -266,22 +277,35 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Padding(
-                  padding:  EdgeInsets.only(
-                      top: 10, bottom: 0), // Adjust top and bottom padding here
-                  child: Text(
-                    'Name: ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: 10.h,
+                      bottom: 0), // Adjust top and bottom padding here
+                  child: Text('Name: ',
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.bold)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10, bottom: 0), // Adjust top and bottom padding here
-                  child: Text(email ?? 'Unknown'),
+                  padding: EdgeInsets.only(
+                      top: 10.h,
+                      bottom: 0), // Adjust top and bottom padding here
+                  child: Text(email ?? 'Unknown',
+                      style: TextStyle(fontSize: 12.sp)),
                 ),
               ],
             ),
-            const Divider(color: Color(0xFF929292), thickness: 0.5),
+            Divider(color: const Color(0xFF929292), thickness: 0.5.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Email: ',
+                    style: TextStyle(
+                        fontSize: 12.sp, fontWeight: FontWeight.bold)),
+                Text(gmail ?? 'Unknown', style: TextStyle(fontSize: 12.sp)),
+              ],
+            ),
+            Divider(color: const Color(0xFF929292), thickness: 0.5.h),
             InkWell(
               onTap: () => {
                 Navigator.push(
@@ -295,35 +319,60 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   ),
                 )
               },
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Text('Edit Profile',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
-            const Divider(color: Color(0xFF929292), thickness: 0.5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text('Email: ', style: TextStyle(fontWeight: FontWeight.bold)),
-                Text(gmail ?? 'Unknown'),
-              ],
-            ),
-            const Divider(color: Color(0xFF929292), thickness: 0.5),
+            Divider(color: const Color(0xFF929292), thickness: 0.5.h),
             InkWell(
-              onTap: () => 'test',
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Text('Change Password',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                children: [
+                  Text('Reset Password',
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.bold)),
                 ],
               ),
+              onTap: () => showAdaptiveDialog(
+                  context: context,
+                  builder: (context) {
+                    return StatefulBuilder(builder: (context, setState) {
+                      return AlertDialog(
+                        title: Text('Reset Password',
+                            style: TextStyle(fontSize: 20.sp)),
+                        content: SingleChildScrollView(
+                            child: ListBody(children: <Widget>[
+                          Text('You need to log out to reset your password.',
+                              style: TextStyle(fontSize: 16.sp))
+                        ])),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('Log Out',
+                                style: TextStyle(fontSize: 16.sp)),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              AppRoutes.navigateToForgotPassword(context);
+                              Usersss().signout(context);
+                            },
+                          ),
+                          TextButton(
+                            child: Text('Cancel',
+                                style: TextStyle(fontSize: 16.sp)),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      );
+                    });
+                  }),
             ),
           ],
         ),
@@ -331,31 +380,31 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     );
   }
 
-  Widget buildAccountInfoRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label),
-          Text(value),
-        ],
-      ),
-    );
-  }
+  // Widget buildAccountInfoRow(String label, String value) {
+  //   return Padding(
+  //     padding: EdgeInsets.symmetric(horizontal: 15.w),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(label),
+  //         Text(value),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget buildNotificationSettings() {
     // NOTIFICATION SETTINGS INFO AREA
     return Container(
       width: 390.w,
-      height: 220.h,
-      margin: EdgeInsets.only(right: 15.h, left: 15.h),
-      padding: const EdgeInsets.only(bottom: 10),
+      height: 200.sp,
+      margin: EdgeInsets.symmetric(horizontal: 15.w),
+      padding: EdgeInsets.only(bottom: 10.h),
       decoration: BoxDecoration(
         color: const Color(0xFFF1F1F1),
         border: Border.all(
           color: Colors.black,
-          width: 0.5,
+          width: 0.5.w,
         ),
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
@@ -370,58 +419,62 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 16.0), // Apply left and right padding to all children
+        padding: EdgeInsets.symmetric(
+            horizontal: 16.w), // Apply left and right padding to all children
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InkWell(
               onTap: () => 'test',
-              child: const Padding(
+              child: Padding(
                 // Add padding only around "About"
-                padding: const EdgeInsets.only(top: 10, bottom: 0),
+                padding: EdgeInsets.only(top: 10.h, bottom: 0),
                 child: Row(
                   children: [
                     Text(
                       'About',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
               ),
             ),
-            const Divider(color: Colors.black, thickness: 0.5),
+            Divider(color: Colors.black, thickness: 0.5.h),
             InkWell(
               onTap: () => 'test',
-              child: const Row(
+              child: Row(
                 children: [
                   Text(
-                    'Rate My App',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    'Rate Our App',
+                    style:
+                        TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-            const Divider(color: Colors.black, thickness: 0.5),
+            Divider(color: Colors.black, thickness: 0.5.h),
             InkWell(
               onTap: () => 'test',
-              child: const Row(
+              child: Row(
                 children: [
                   Text(
                     'Contact',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-            const Divider(color: Colors.black, thickness: 0.5),
+            Divider(color: Colors.black, thickness: 0.5.h),
             InkWell(
               onTap: () => 'test',
-              child: const Row(
+              child: Row(
                 children: [
                   Text(
                     'Share with Friends',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

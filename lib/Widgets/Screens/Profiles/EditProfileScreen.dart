@@ -1,3 +1,4 @@
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -42,12 +43,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
 
     if (response.user?.newEmail != null) {
-      print('Error updating email: $response');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $response')),
+        SnackBar(content: Text('Error updating email: $response')),
       );
     } else {
-      Navigator.pop(context, true);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Changes saved successfully!')),
+      );
+      Navigator.pop(context);
+      AppRoutes.navigateToAccountSettings(context);
     }
   }
 
@@ -125,6 +129,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             SizedBox(height: 20.h),
             SizedBox(
                 width: 200.w,
+                height: 40.sp,
                 child: ElevatedButton(
                   onPressed: _updateProfile,
                   style: ElevatedButton.styleFrom(
