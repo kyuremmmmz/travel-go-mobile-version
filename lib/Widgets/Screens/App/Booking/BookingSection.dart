@@ -1,4 +1,5 @@
 import 'package:TravelGo/Controllers/NetworkImages/bookingHistory.dart';
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:postgrest/src/types.dart';
@@ -61,9 +62,9 @@ class _BookingSectionState extends State<BookingSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 20, bottom: 20.0),
+      padding: EdgeInsets.symmetric(vertical: 20.h),
       width: 330.w,
-      height: 580.h,
+      height: 600.sp,
       child: list.isEmpty
           ? const Center(
               child: Text('No Booking History'),
@@ -132,19 +133,19 @@ class _BookingSectionState extends State<BookingSection> {
                       final located =
                           snapshot.data!['hotel_located'] ?? 'Unknown location';
                       return SizedBox(
-                        height: 280.h,
+                        height: 300.sp,
                         child: Stack(
                           children: [
                             Positioned(
-                              top: 20.w,
+                              top: 20.h,
                               child: Container(
-                                padding: EdgeInsets.only(top: 35.h, left: 15.h),
-                                width: 330.w,
-                                height: 250.h,
+                                padding:
+                                    EdgeInsets.only(top: 35.sp, left: 15.w),
+                                width: 330.sp,
                                 decoration: BoxDecoration(
-                                    color: Color(0xFFF1FCFF),
-                                    border:
-                                        Border.all(color: Color(0xFFE1F2FA))),
+                                    color: const Color(0xFFF1FCFF),
+                                    border: Border.all(
+                                        color: const Color(0xFFE1F2FA))),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -195,9 +196,9 @@ class _BookingSectionState extends State<BookingSection> {
                                               child: Text(
                                                 'PHP $priceFormatted',
                                                 textAlign: TextAlign.center,
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 14,
+                                                  fontSize: 14.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -232,14 +233,15 @@ class _BookingSectionState extends State<BookingSection> {
                                         alignment: Alignment.bottomRight,
                                         child: InkWell(
                                           onTap: () {
-                                            print('hello');
+                                            AppRoutes.navigateToHotelScreen(
+                                                context);
                                           },
                                           child: Container(
                                             // New container for width and height
                                             width:
                                                 100.w, // Set responsive width
                                             height:
-                                                20.h, // Set responsive height
+                                                20.sp, // Set responsive height
                                             alignment: Alignment
                                                 .center, // Center the text within the container
                                             child: Text(
@@ -254,17 +256,20 @@ class _BookingSectionState extends State<BookingSection> {
                                         ),
                                       ),
                                     ),
+                                    SizedBox(
+                                        height: 10
+                                            .h), // Space after BOOK AGAIN button
                                   ],
                                 ),
                               ),
                             ),
                             Positioned(
                               top: 0.h,
-                              left: 125.h,
+                              left: 130.w,
                               child: Container(
-                                padding: EdgeInsets.all(15.h),
-                                height: 75.h,
-                                width: 75.w,
+                                padding: EdgeInsets.all(15.sp),
+                                height: 75.sp,
+                                width: 75.sp,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: const Color.fromARGB(
