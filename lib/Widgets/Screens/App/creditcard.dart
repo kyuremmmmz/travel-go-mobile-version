@@ -126,7 +126,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
               // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
               onCreditCardWidgetChange: (CreditCardBrand) {},
               enableFloatingCard: true,
-              bankName: 'BDO',
+              bankName: 'Credit Card',
               obscureCardNumber: true,
               obscureInitialCardNumber: false,
               obscureCardCvv: true,
