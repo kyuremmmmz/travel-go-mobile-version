@@ -930,7 +930,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   ),
                                 ),
                                 Container(
-                                  height: 90.sp,
                                   width:
                                       double.infinity, // Adjust width as needed
                                   decoration: const BoxDecoration(
@@ -941,7 +940,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                     ),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.only(top: 25.h),
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 20.h),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -1004,7 +1004,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                         Column(
                                           children: [
                                             SizedBox(
-                                              height: 40.sp,
+                                              height: 50.sp,
                                               width: 130.sp,
                                               child: ElevatedButton(
                                                   style:
@@ -1100,12 +1100,12 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 12.sp),
+                                                        fontSize: 13.sp),
                                                   )),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(width: 10.h),
+                                        SizedBox(height: 10.w)
                                       ],
                                     ),
                                   ),
