@@ -89,6 +89,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   String? amountDisplay;
   String? discountAmount;
   HotelBooking booking = HotelBooking();
+  bool _isRedirecting = false;
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -115,6 +117,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     getPoints();
     fetchHotel(widget.id);
     fetchLocated(widget.id);
+    _isRedirecting = true;
   }
 
   Future<void> emailFetching() async {
@@ -171,29 +174,12 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     );
   }
 
-  Future<void> bookingHistory() async {
-    BookinghistoryBackend().insertBooking(
-      _nameController.text.trim(),
-      _emailController.text.trim(),
-      int.parse(_numberController.text.trim()),
-      _hotel.text.trim(),
-      _checkInController.text.trim(),
-      _checkOutController.text.trim(),
-      _paymentMethodController.text.trim(),
-      _isWaiting ? "Not Paid" : "Paid",
-      int.parse(_number_of_adult.text.trim()),
-      int.parse(_number_of_children.text.trim()),
-      _vehicleTypeController.text.trim(),
-      int.parse(_age.text.trim()),
-      amount,
-    );
-  }
-
   Future<void> fetchInt(int id) async {
     final data = await booking.passTheHotelData(id);
     if (data == null) {
       setState(() {
         amount = 0;
+        _isRedirecting = false;
       });
     } else {
       double basePrice =
@@ -222,22 +208,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         final numberFormat = NumberFormat('#,##0.##');
         final numbers = numberFormat.format(total);
         strAmount = numbers;
-      });
-    }
-  }
-
-  Future<void> getPoints() async {
-    final response = await trgo.getThePointsOfMine();
-    if (response == null) {
-      setState(() {
-        amount = 0;
-      });
-    } else {
-      setState(() {
-        trgopoint = response['points'];
-        final numberFormat = NumberFormat('#,##0.##');
-        final numbers = numberFormat.format(discountTotal);
-        discountAmount = numbers;
         _pointsController.text == "Travel Go Points Used"
             ? (
                 amountDisplay = discountAmount, //this is String
@@ -247,6 +217,25 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                 amountDisplay = strAmount, // String
                 amountNumber = amount // number
               );
+        _isRedirecting = false;
+      });
+    }
+  }
+
+  Future<void> getPoints() async {
+    final response = await trgo.getThePointsOfMine();
+    if (response == null) {
+      setState(() {
+        amount = 0;
+        _isRedirecting = false;
+      });
+    } else {
+      setState(() {
+        trgopoint = response['points'];
+        final numberFormat = NumberFormat('#,##0.##');
+        final numbers = numberFormat.format(discountTotal);
+        discountAmount = numbers;
+        _isRedirecting = false;
       });
     }
   }
@@ -364,9 +353,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           style: TextStyle(fontSize: 16.sp)),
                       onTap: () {
                         setState(() {
+                          fetchInt(widget.id);
                           getPoints();
                           _vehicleTypeController.text = "Deluxe Suite";
-                          fetchInt(widget.id);
                           Navigator.pop(context);
                         });
                       },
@@ -378,9 +367,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           style: TextStyle(fontSize: 16.sp)),
                       onTap: () {
                         setState(() {
+                          fetchInt(widget.id);
                           getPoints();
                           _vehicleTypeController.text = "Premiere Suite ";
-                          fetchInt(widget.id);
                           Navigator.pop(context);
                         });
                       },
@@ -392,9 +381,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           style: TextStyle(fontSize: 16.sp)),
                       onTap: () {
                         setState(() {
+                          fetchInt(widget.id);
                           getPoints();
                           _vehicleTypeController.text = "Executive Suite ";
-                          fetchInt(widget.id);
                           Navigator.pop(context);
                         });
                       },
@@ -406,9 +395,9 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                           style: TextStyle(fontSize: 16.sp)),
                       onTap: () {
                         setState(() {
+                          fetchInt(widget.id);
                           getPoints();
                           _vehicleTypeController.text = "Presidential Suite";
-                          fetchInt(widget.id);
                           Navigator.pop(context);
                         });
                       },
@@ -434,660 +423,701 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
           ),
         ),
         drawer: const DrawerMenuWidget(),
-        body: Form(
-          key: _validator,
-          child: Column(
-            children: <Widget>[
-              const TitleMenu(),
-              Expanded(
-                child: Scrollbar(
-                  thumbVisibility: true,
-                  child: SingleChildScrollView(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(226, 63, 176, 241),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 8.h, right: 10.w),
-                              child: IconButton(
-                                iconSize: 20.sp,
-                                icon: SizedBox(
-                                  height: 20.sp,
-                                  width: 20.sp,
-                                  child: Image.asset(xButtonIcon),
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  AppRoutes.navigateToMainMenu(context);
-                                }, // change routes to InformationScreen later
-                              ),
-                            ),
-                          ),
-                          Text(
-                            'Hotel Booking Form',
-                            style: TextStyle(
-                              fontSize: 28.sp,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 13.sp,
-                              color: const Color.fromARGB(255, 82, 79, 79),
-                            ),
-                          ),
-                          SizedBox(height: 30.h),
-                          // ignore: sized_box_for_whitespace
-                          Container(
-                            width: 350.w,
+        body: _isRedirecting
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Form(
+                key: _validator,
+                child: Column(
+                  children: <Widget>[
+                    const TitleMenu(),
+                    Expanded(
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        child: SingleChildScrollView(
+                          child: Container(
+                            width: double.infinity,
                             decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: inputTextField(
-                              validator: (value) {
-                                if (value == null || value.toString().isEmpty) {
-                                  return 'Please enter your name';
-                                }
-                                return null;
-                              },
-                              icon: const Icon(FontAwesomeIcons.person),
-                              colorr: Colors.black,
-                              text: 'Full Name:',
-                              controller: _nameController,
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          Container(
-                            width: 350.w,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: inputTextField(
-                              validator: (value) {
-                                if (value == null || value.toString().isEmpty) {
-                                  return 'Please enter a valid email address';
-                                }
-                                return null;
-                              },
-                              icon: const Icon(FontAwesomeIcons.envelope),
-                              colorr: Colors.black,
-                              text: 'Email Address:',
-                              controller: _emailController,
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          Container(
-                            width: 350.w,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: PhonenumberTextField(
-                              validator: (value) {
-                                if (value == null || value.toString().isEmpty) {
-                                  return 'Please enter your phone number';
-                                }
-                                return null;
-                              },
-                              text: 'Phone Number:',
-                              controller: _numberController,
-                              icon: const Icon(FontAwesomeIcons.phone),
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          Container(
-                            width: 350.w,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: PhonenumberTextField(
-                              text: 'Age:',
-                              controller: _age,
-                              icon: const Icon(FontAwesomeIcons.personCane),
-                              validator: (value) {
-                                if (value == null || value.toString().isEmpty) {
-                                  return 'Enter your age';
-                                } else if (int.parse(value) <= 17) {
-                                  return 'You are $value, you must be 18 years or above';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          Container(
-                            width: 350.w,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: PhonenumberTextField(
-                              icon: const Icon(FontAwesomeIcons.children),
-                              controller: _number_of_children,
-                              text: 'Number of children:',
-                              validator: (value) {
-                                if (value == null || value.toString().isEmpty) {
-                                  return 'Please enter a number';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          Container(
-                            width: 350.w,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: PhonenumberTextField(
-                              icon: const Icon(FontAwesomeIcons.peopleGroup),
-                              controller: _number_of_adult,
-                              text: 'Number of Adults:',
-                              validator: (value) {
-                                if (value == null || value.toString().isEmpty) {
-                                  return 'Please enter a number';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          Container(
-                              width: 350.w,
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null ||
-                                      value.toString().isEmpty ||
-                                      value.length <= 5) {
-                                    return 'Please select Check-In Date';
-                                  }
-                                  return null;
-                                },
-                                style: TextStyle(
-                                    fontSize: 12.sp, color: Colors.black),
-                                controller: _checkInController,
-                                decoration: InputDecoration(
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Check In Date',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(fontSize: 12.sp),
-                                  prefixIcon:
-                                      const Icon(Icons.calendar_today_outlined),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  setter();
-                                },
-                              )),
-                          SizedBox(height: 10.h),
-                          Container(
-                              width: 350.w,
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null ||
-                                      value.toString().isEmpty ||
-                                      value.length <= 5) {
-                                    return 'Please select Check-Out Date';
-                                  }
-                                  return null;
-                                },
-                                style: TextStyle(
-                                    fontSize: 12.sp, color: Colors.black),
-                                controller: _checkOutController,
-                                decoration: InputDecoration(
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Check Out Date',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(fontSize: 12.sp),
-                                  prefixIcon:
-                                      const Icon(Icons.calendar_today_outlined),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  checkout();
-                                },
-                              )),
-                          SizedBox(height: 10.h),
-                          Container(
-                              width: 350.w,
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value.toString().isEmpty) {
-                                    return 'Payment method is required';
-                                  }
-                                  return null;
-                                },
-                                style: TextStyle(
-                                    fontSize: 12.sp, color: Colors.black),
-                                controller: _paymentMethodController,
-                                decoration: InputDecoration(
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Payment Method [Click to Select]',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(fontSize: 12.sp),
-                                  prefixIcon: const Icon(Icons.payment_rounded),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  hotelBookModal(context);
-                                },
-                              )),
-                          SizedBox(height: 10.h),
-                          Container(
-                              width: 350.w,
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null ||
-                                      value.toString().isEmpty) {
-                                    return 'Please select a Room Type';
-                                  }
-                                  return null;
-                                },
-                                style: TextStyle(
-                                    fontSize: 12.sp, color: Colors.black),
-                                controller: _vehicleTypeController,
-                                decoration: InputDecoration(
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText: 'Room Type [Click to Select]',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(fontSize: 12.sp),
-                                  prefixIcon: const Icon(Icons.room_outlined),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  hotelBookModalRoomType(context);
-                                },
-                              )),
-                          SizedBox(height: 10.h),
-                          Container(
-                            width: 350.w,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: inputTextField(
-                              colorr: Colors.black,
-                              text: 'Special Requests: (Optional)',
-                              controller: _originController,
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          Container(
-                              width: 350.w,
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                              child: TextFormField(
-                                validator: (value) {
-                                  return null;
-                                },
-                                style: TextStyle(
-                                    fontSize: 12.sp, color: Colors.black),
-                                controller: _pointsController,
-                                decoration: InputDecoration(
-                                  border: const OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  hintText:
-                                      'Use my Travel Go Points (Available $trgopoint)',
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TextStyle(fontSize: 12.sp),
-                                  prefixIcon:
-                                      const Icon(FontAwesomeIcons.coins),
-                                ),
-                                readOnly: true,
-                                onTap: () {
-                                  showAdaptiveDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return StatefulBuilder(
-                                        builder: (context, setState) {
-                                          return AlertDialog(
-                                            title: Text(
-                                                'Available Travel Go Points:\n$trgopoint',
-                                                style:
-                                                    TextStyle(fontSize: 20.sp)),
-                                            content: SingleChildScrollView(
-                                                child:
-                                                    ListBody(children: <Widget>[
-                                              if (trgopoint < 1) ...[
-                                                Text('Insufficient Points!',
-                                                    style: TextStyle(
-                                                        fontSize: 16.sp))
-                                              ] else ...[
-                                                Text(
-                                                    'Total Price: \nPHP $strAmount\n',
-                                                    style: TextStyle(
-                                                        fontSize: 16.sp)),
-                                                Text(
-                                                    'Discounted Price: \nPHP $discountAmount',
-                                                    style: TextStyle(
-                                                        fontSize: 16.sp))
-                                              ]
-                                            ])),
-                                            actions: <Widget>[
-                                              if (trgopoint < 1) ...[
-                                                TextButton(
-                                                  child: Text('Back',
-                                                      style: TextStyle(
-                                                          fontSize: 16.sp)),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                ),
-                                              ] else ...[
-                                                TextButton(
-                                                  child: Text('Use',
-                                                      style: TextStyle(
-                                                          fontSize: 16.sp)),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      getPoints();
-                                                      fetchInt(widget.id);
-                                                      _pointsController.text =
-                                                          "Travel Go Points Used";
-                                                    });
-                                                    Navigator.pop(context);
-                                                    // FUNCTION
-                                                  },
-                                                ),
-                                                TextButton(
-                                                  child: Text('Cancel',
-                                                      style: TextStyle(
-                                                          fontSize: 16.sp)),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                ),
-                                              ]
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                  );
-                                },
-                              )),
-                          Theme(
-                            data: ThemeData(
-                              checkboxTheme: const CheckboxThemeData(
-                                  shape: CircleBorder()),
-                            ),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: ListTileTheme(
-                                contentPadding:
-                                    EdgeInsets.only(left: 20.w, right: 10.w),
-                                horizontalTitleGap: 0,
-                                child: Transform.scale(
-                                  scale: 1.1,
-                                  child: CheckboxListTile(
-                                    activeColor: Colors.green,
-                                    title: RichText(
-                                      text: TextSpan(children: <TextSpan>[
-                                        TextSpan(
-                                          text:
-                                              "I have reviewed my booking details and agree to the ",
-                                          style: TextStyle(
-                                              fontSize: 12.sp,
-                                              color: Colors.black),
-                                        ),
-                                        TextSpan(
-                                          text: "Terms of Service.",
-                                          style: TextStyle(
-                                              fontSize: 13.sp,
-                                              color: Colors.white),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () => AppRoutes
-                                                .navigateToForgotPassword(
-                                                    context),
-                                        ),
-                                      ]),
-                                    ),
-                                    value: _value,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        _value = value ?? false;
-                                      });
-                                    },
-                                    controlAffinity:
-                                        ListTileControlAffinity.leading,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 90.sp,
-                            width: double.infinity, // Adjust width as needed
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
+                              color: Color.fromARGB(226, 63, 176, 241),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 topRight: Radius.circular(50),
                               ),
                             ),
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 25.h),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  SizedBox(width: 10.w),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 50.sp,
-                                        child: Image.asset(adventureIcon),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20.sp,
-                                        child: Image.asset(suitcaseIcon),
-                                      ),
-                                      SizedBox(
-                                        height: 30.sp,
-                                        child: Image.asset(planeTicketIcon),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Padding(
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 5.w),
-                                    child: Column(
+                                        EdgeInsets.only(top: 8.h, right: 10.w),
+                                    child: IconButton(
+                                      iconSize: 20.sp,
+                                      icon: SizedBox(
+                                        height: 20.sp,
+                                        width: 20.sp,
+                                        child: Image.asset(xButtonIcon),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        AppRoutes.navigateToMainMenu(context);
+                                      }, // change routes to InformationScreen later
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Hotel Booking Form',
+                                  style: TextStyle(
+                                    fontSize: 28.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 13.sp,
+                                    color:
+                                        const Color.fromARGB(255, 82, 79, 79),
+                                  ),
+                                ),
+                                SizedBox(height: 30.h),
+                                // ignore: sized_box_for_whitespace
+                                Container(
+                                  width: 350.w,
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                  child: inputTextField(
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.toString().isEmpty) {
+                                        return 'Please enter your name';
+                                      }
+                                      return null;
+                                    },
+                                    icon: const Icon(FontAwesomeIcons.person),
+                                    colorr: Colors.black,
+                                    text: 'Full Name:',
+                                    controller: _nameController,
+                                  ),
+                                ),
+                                SizedBox(height: 10.h),
+                                Container(
+                                  width: 350.w,
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                  child: inputTextField(
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.toString().isEmpty) {
+                                        return 'Please enter a valid email address';
+                                      }
+                                      return null;
+                                    },
+                                    icon: const Icon(FontAwesomeIcons.envelope),
+                                    colorr: Colors.black,
+                                    text: 'Email Address:',
+                                    controller: _emailController,
+                                  ),
+                                ),
+                                SizedBox(height: 10.h),
+                                Container(
+                                  width: 350.w,
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                  child: PhonenumberTextField(
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.toString().isEmpty) {
+                                        return 'Please enter your phone number';
+                                      }
+                                      return null;
+                                    },
+                                    text: 'Phone Number:',
+                                    controller: _numberController,
+                                    icon: const Icon(FontAwesomeIcons.phone),
+                                  ),
+                                ),
+                                SizedBox(height: 10.h),
+                                Container(
+                                  width: 350.w,
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                  child: PhonenumberTextField(
+                                    text: 'Age:',
+                                    controller: _age,
+                                    icon:
+                                        const Icon(FontAwesomeIcons.personCane),
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.toString().isEmpty) {
+                                        return 'Enter your age';
+                                      } else if (int.parse(value) <= 17) {
+                                        return 'You are $value, you must be 18 years or above';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: 10.h),
+                                Container(
+                                  width: 350.w,
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                  child: PhonenumberTextField(
+                                    icon: const Icon(FontAwesomeIcons.children),
+                                    controller: _number_of_children,
+                                    text: 'Number of children:',
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.toString().isEmpty) {
+                                        return 'Please enter a number';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: 10.h),
+                                Container(
+                                  width: 350.w,
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                  child: PhonenumberTextField(
+                                    icon: const Icon(
+                                        FontAwesomeIcons.peopleGroup),
+                                    controller: _number_of_adult,
+                                    text: 'Number of Adults:',
+                                    validator: (value) {
+                                      if (value == null ||
+                                          value.toString().isEmpty) {
+                                        return 'Please enter a number';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                SizedBox(height: 10.h),
+                                Container(
+                                    width: 350.w,
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                    ),
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value == null ||
+                                            value.toString().isEmpty ||
+                                            value.length <= 5) {
+                                          return 'Please select Check-In Date';
+                                        }
+                                        return null;
+                                      },
+                                      style: TextStyle(
+                                          fontSize: 12.sp, color: Colors.black),
+                                      controller: _checkInController,
+                                      decoration: InputDecoration(
+                                        border: const OutlineInputBorder(
+                                            borderSide: BorderSide.none),
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.blue)),
+                                        hintText: 'Check In Date',
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintStyle: TextStyle(fontSize: 12.sp),
+                                        prefixIcon: const Icon(
+                                            Icons.calendar_today_outlined),
+                                      ),
+                                      readOnly: true,
+                                      onTap: () {
+                                        setter();
+                                      },
+                                    )),
+                                SizedBox(height: 10.h),
+                                Container(
+                                    width: 350.w,
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                    ),
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value == null ||
+                                            value.toString().isEmpty ||
+                                            value.length <= 5) {
+                                          return 'Please select Check-Out Date';
+                                        }
+                                        return null;
+                                      },
+                                      style: TextStyle(
+                                          fontSize: 12.sp, color: Colors.black),
+                                      controller: _checkOutController,
+                                      decoration: InputDecoration(
+                                        border: const OutlineInputBorder(
+                                            borderSide: BorderSide.none),
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.blue)),
+                                        hintText: 'Check Out Date',
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintStyle: TextStyle(fontSize: 12.sp),
+                                        prefixIcon: const Icon(
+                                            Icons.calendar_today_outlined),
+                                      ),
+                                      readOnly: true,
+                                      onTap: () {
+                                        checkout();
+                                      },
+                                    )),
+                                SizedBox(height: 10.h),
+                                Container(
+                                    width: 350.w,
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                    ),
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value.toString().isEmpty) {
+                                          return 'Payment method is required';
+                                        }
+                                        return null;
+                                      },
+                                      style: TextStyle(
+                                          fontSize: 12.sp, color: Colors.black),
+                                      controller: _paymentMethodController,
+                                      decoration: InputDecoration(
+                                        border: const OutlineInputBorder(
+                                            borderSide: BorderSide.none),
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.blue)),
+                                        hintText:
+                                            'Payment Method [Click to Select]',
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintStyle: TextStyle(fontSize: 12.sp),
+                                        prefixIcon:
+                                            const Icon(Icons.payment_rounded),
+                                      ),
+                                      readOnly: true,
+                                      onTap: () {
+                                        hotelBookModal(context);
+                                      },
+                                    )),
+                                SizedBox(height: 10.h),
+                                Container(
+                                    width: 350.w,
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                    ),
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value == null ||
+                                            value.toString().isEmpty) {
+                                          return 'Please select a Room Type';
+                                        }
+                                        return null;
+                                      },
+                                      style: TextStyle(
+                                          fontSize: 12.sp, color: Colors.black),
+                                      controller: _vehicleTypeController,
+                                      decoration: InputDecoration(
+                                        border: const OutlineInputBorder(
+                                            borderSide: BorderSide.none),
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.blue)),
+                                        hintText: 'Room Type [Click to Select]',
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintStyle: TextStyle(fontSize: 12.sp),
+                                        prefixIcon:
+                                            const Icon(Icons.room_outlined),
+                                      ),
+                                      readOnly: true,
+                                      onTap: () {
+                                        hotelBookModalRoomType(context);
+                                      },
+                                    )),
+                                SizedBox(height: 10.h),
+                                Container(
+                                  width: 350.w,
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                  child: inputTextField(
+                                    colorr: Colors.black,
+                                    text: 'Special Requests: (Optional)',
+                                    controller: _originController,
+                                  ),
+                                ),
+                                SizedBox(height: 10.h),
+                                Container(
+                                    width: 350.w,
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(50)),
+                                    ),
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        return null;
+                                      },
+                                      style: TextStyle(
+                                          fontSize: 12.sp, color: Colors.black),
+                                      controller: _pointsController,
+                                      decoration: InputDecoration(
+                                        border: const OutlineInputBorder(
+                                            borderSide: BorderSide.none),
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.blue)),
+                                        hintText:
+                                            'Use my Travel Go Points (Available $trgopoint)',
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        hintStyle: TextStyle(fontSize: 12.sp),
+                                        prefixIcon:
+                                            const Icon(FontAwesomeIcons.coins),
+                                      ),
+                                      readOnly: true,
+                                      onTap: () {
+                                        showAdaptiveDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return StatefulBuilder(
+                                              builder: (context, setState) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      'Available Travel Go Points:\n$trgopoint',
+                                                      style: TextStyle(
+                                                          fontSize: 20.sp)),
+                                                  content:
+                                                      SingleChildScrollView(
+                                                          child: ListBody(
+                                                              children: <Widget>[
+                                                        if (trgopoint < 1) ...[
+                                                          Text(
+                                                              'Insufficient Points!',
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      16.sp))
+                                                        ] else ...[
+                                                          Text(
+                                                              'Total Price: \nPHP $strAmount\n',
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      16.sp)),
+                                                          Text(
+                                                              'Discounted Price: \nPHP $discountAmount',
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      16.sp))
+                                                        ]
+                                                      ])),
+                                                  actions: <Widget>[
+                                                    if (trgopoint < 1) ...[
+                                                      TextButton(
+                                                        child: Text('Back',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    16.sp)),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
+                                                    ] else ...[
+                                                      TextButton(
+                                                        child: Text('Use',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    16.sp)),
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            fetchInt(widget.id);
+                                                            getPoints();
+                                                            _pointsController
+                                                                    .text =
+                                                                "Travel Go Points Used";
+                                                          });
+                                                          Navigator.pop(
+                                                              context);
+                                                          // FUNCTION
+                                                        },
+                                                      ),
+                                                      TextButton(
+                                                        child: Text('Cancel',
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    16.sp)),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
+                                                    ]
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                        );
+                                      },
+                                    )),
+                                Theme(
+                                  data: ThemeData(
+                                    checkboxTheme: const CheckboxThemeData(
+                                        shape: CircleBorder()),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: ListTileTheme(
+                                      contentPadding: EdgeInsets.only(
+                                          left: 20.w, right: 10.w),
+                                      horizontalTitleGap: 0,
+                                      child: Transform.scale(
+                                        scale: 1.1,
+                                        child: CheckboxListTile(
+                                          activeColor: Colors.green,
+                                          title: RichText(
+                                            text: TextSpan(children: <TextSpan>[
+                                              TextSpan(
+                                                text:
+                                                    "I have reviewed my booking details and agree to the ",
+                                                style: TextStyle(
+                                                    fontSize: 12.sp,
+                                                    color: Colors.black),
+                                              ),
+                                              TextSpan(
+                                                text: "Terms of Service.",
+                                                style: TextStyle(
+                                                    fontSize: 13.sp,
+                                                    color: Colors.white),
+                                                recognizer: TapGestureRecognizer()
+                                                  ..onTap = () => AppRoutes
+                                                      .navigateToForgotPassword(
+                                                          context),
+                                              ),
+                                            ]),
+                                          ),
+                                          value: _value,
+                                          onChanged: (bool? value) {
+                                            setState(() {
+                                              _value = value ?? false;
+                                            });
+                                          },
+                                          controlAffinity:
+                                              ListTileControlAffinity.leading,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 90.sp,
+                                  width:
+                                      double.infinity, // Adjust width as needed
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      topRight: Radius.circular(50),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 25.h),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Row(
+                                        SizedBox(width: 10.w),
+                                        Column(
                                           children: [
-                                            Text(
-                                              "Total Amount",
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                  fontSize: 16.sp,
-                                                  color: const Color.fromARGB(
-                                                      255, 26, 169, 235),
-                                                  fontWeight: FontWeight.w700),
+                                            SizedBox(
+                                              height: 50.sp,
+                                              child: Image.asset(adventureIcon),
                                             ),
                                           ],
                                         ),
-                                        Row(children: [
-                                          Text(
-                                            'PHP $amountDisplay',
-                                            style: TextStyle(
-                                              fontSize: 18.sp,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 20.sp,
+                                              child: Image.asset(suitcaseIcon),
                                             ),
+                                            SizedBox(
+                                              height: 30.sp,
+                                              child:
+                                                  Image.asset(planeTicketIcon),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5.w),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    "Total Amount",
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                        fontSize: 16.sp,
+                                                        color: const Color
+                                                            .fromARGB(
+                                                            255, 26, 169, 235),
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(children: [
+                                                Text(
+                                                  'PHP $amountDisplay',
+                                                  style: TextStyle(
+                                                    fontSize: 18.sp,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ])
+                                            ],
                                           ),
-                                        ])
+                                        ),
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 40.sp,
+                                              width: 130.sp,
+                                              child: ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                              Colors.blue),
+                                                  onPressed: _value
+                                                      ? () {
+                                                          if (_validator
+                                                              .currentState!
+                                                              .validate()) {
+                                                            if (_paymentMethodController
+                                                                    .text
+                                                                    .trim() ==
+                                                                "Pay Online") {
+                                                              if (_pointsController
+                                                                      .text ==
+                                                                  "Travel Go Points Used") {
+                                                                trgo.spendPoints(
+                                                                    context);
+                                                              }
+                                                              BookinghistoryBackend()
+                                                                  .insertBooking(
+                                                                _nameController
+                                                                    .text
+                                                                    .trim(),
+                                                                _emailController
+                                                                    .text
+                                                                    .trim(),
+                                                                int.parse(
+                                                                    _numberController
+                                                                        .text
+                                                                        .trim()),
+                                                                _hotel.text
+                                                                    .trim(),
+                                                                _checkInController
+                                                                    .text
+                                                                    .trim(),
+                                                                _checkOutController
+                                                                    .text
+                                                                    .trim(),
+                                                                _paymentMethodController
+                                                                    .text
+                                                                    .trim(),
+                                                                _isWaiting
+                                                                    ? "Not Paid"
+                                                                    : "Paid",
+                                                                int.parse(
+                                                                    _number_of_adult
+                                                                        .text
+                                                                        .trim()),
+                                                                int.parse(
+                                                                    _number_of_children
+                                                                        .text
+                                                                        .trim()),
+                                                                _vehicleTypeController
+                                                                    .text
+                                                                    .trim(),
+                                                                int.parse(_age
+                                                                    .text
+                                                                    .trim()),
+                                                                amountNumber,
+                                                              );
+                                                              insert();
+                                                            } else if (_paymentMethodController
+                                                                    .text
+                                                                    .trim() ==
+                                                                "Pay Upon Arrival") {
+                                                              ScaffoldMessenger
+                                                                      .of(
+                                                                          context)
+                                                                  .showSnackBar(
+                                                                      const SnackBar(
+                                                                content: Text(
+                                                                    'Pay Upon Arrival is currently unavailable.'),
+                                                              ));
+                                                            }
+                                                          } else {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                                    const SnackBar(
+                                                              content: Text(
+                                                                  'Please fill up the required fields.'),
+                                                            ));
+                                                          }
+                                                        }
+                                                      : null,
+                                                  child: Text(
+                                                    'Place Booking',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 12.sp),
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(width: 10.h),
                                       ],
                                     ),
                                   ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 40.sp,
-                                        width: 130.sp,
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.blue),
-                                            onPressed: _value
-                                                ? () {
-                                                    if (_validator.currentState!
-                                                        .validate()) {
-                                                      if (_paymentMethodController
-                                                              .text
-                                                              .trim() ==
-                                                          "Pay Online") {
-<<<<<<< HEAD
-=======
-                                                        trgo.spendPoints(
-                                                            context);
-                                                        BookinghistoryBackend()
-                                                            .insertBooking(
-                                                          _nameController.text
-                                                              .trim(),
-                                                          _emailController.text
-                                                              .trim(),
-                                                          int.parse(
-                                                              _numberController
-                                                                  .text
-                                                                  .trim()),
-                                                          _hotel.text.trim(),
-                                                          _checkInController
-                                                              .text
-                                                              .trim(),
-                                                          _checkOutController
-                                                              .text
-                                                              .trim(),
-                                                          _paymentMethodController
-                                                              .text
-                                                              .trim(),
-                                                          _isWaiting
-                                                              ? "Not Paid"
-                                                              : "Paid",
-                                                          int.parse(
-                                                              _number_of_adult
-                                                                  .text
-                                                                  .trim()),
-                                                          int.parse(
-                                                              _number_of_children
-                                                                  .text
-                                                                  .trim()),
-                                                          _vehicleTypeController
-                                                              .text
-                                                              .trim(),
-                                                          int.parse(
-                                                              _age.text.trim()),
-                                                          amount,
-                                                        );
->>>>>>> 1591fb060f9e4440632f98f1394383d140006b23
-                                                        insert();
-                                                        bookingHistory();
-                                                      } else if (_paymentMethodController
-                                                              .text
-                                                              .trim() ==
-                                                          "Pay Upon Arrival") {
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(
-                                                                const SnackBar(
-                                                          content: Text(
-                                                              'Pay Upon Arrival is currently unavailable.'),
-                                                        ));
-                                                      }
-                                                    } else {
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                              const SnackBar(
-                                                        content: Text(
-                                                            'Please fill up the required fields.'),
-                                                      ));
-                                                    }
-                                                  }
-                                                : null,
-                                            child: Text(
-                                              'Place Booking',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12.sp),
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(width: 10.h),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ));
+              ));
   }
 }

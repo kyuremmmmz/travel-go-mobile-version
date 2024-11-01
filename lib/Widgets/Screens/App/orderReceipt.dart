@@ -68,12 +68,14 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   String account = "loading";
   late Usersss users = Usersss();
   late HotelBooking book = HotelBooking();
+  bool _isRedirecting = false;
 
   @override
   void initState() {
     super.initState();
     emailFetching();
     finalReceipt('${widget.bookingId}');
+    _isRedirecting = true;
   }
 
   void main() async {
@@ -135,6 +137,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
             date = data['date_of_payment'] ?? 'Unknown Date';
             account = data['name'] ?? 'Unknown Account';
             gmail = data['gmail'] ?? 'Unknown';
+            _isRedirecting = false;
           });
         }
       } else {
@@ -148,242 +151,267 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Column(
-              children: <Widget>[
-                const TitleMenu(),
-                SizedBox(height: 10.h),
-                Expanded(
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(horizontal: 25.w),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: Image.asset(receiptBackground).image,
-                                  fit: BoxFit.fill),
-                            ),
-                            padding: const EdgeInsets.all(20),
+      body: _isRedirecting
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Stack(
+              children: [
+                Positioned.fill(
+                  child: Column(
+                    children: <Widget>[
+                      const TitleMenu(),
+                      SizedBox(height: 10.h),
+                      Expanded(
+                        child: Scrollbar(
+                          thumbVisibility: true,
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.symmetric(horizontal: 25.w),
                             child: Column(
                               children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Booking Confirmed!',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: const Color.fromRGBO(
-                                                0, 107, 146, 1),
-                                          ),
-                                        ),
-                                        Text(
-                                          '$date',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontSize: 10.sp,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    IconButton(
-                                        alignment: Alignment.topRight,
-                                        iconSize: 20.sp,
-                                        icon: SizedBox(
-                                          height: 20.sp,
-                                          width: 20.sp,
-                                          child: Image.asset(xButtonIcon),
-                                        ),
-                                        onPressed: () => {
-                                              Navigator.pop(context),
-                                              AppRoutes.navigateToMainMenu(
-                                                  context)
-                                            }),
-                                  ],
-                                ),
-                                SizedBox(height: 30.h),
-                                Text(
-                                  'Thank You for Booking!',
-                                  style: TextStyle(
-                                    color: const Color.fromRGBO(8, 44, 72, 1),
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 150.sp,
-                                  child: Image.asset(logoIcon),
-                                ),
-                                SizedBox(height: 10.h),
                                 Container(
-                                  width: 260.sp,
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(color: Colors.black)),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(10.sp),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'BILLER',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13.sp,
-                                              ),
-                                            ),
-                                            Text(
-                                              'Travel Go',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13.sp,
-                                                color: const Color.fromRGBO(
-                                                    5, 103, 180, 1),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Divider(
-                                        height: 1.h,
-                                        color: Colors.black,
-                                        thickness: 1,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.all(10.sp),
-                                        child: Column(
-                                          children: [
-                                            RowDetails(
-                                              row1: 'ACCOUNT',
-                                              row2: (account).toUpperCase(),
-                                            ),
-                                            RowDetails(
-                                              row1: 'CONTACT NUMBER',
-                                              row2: '+63 0$phone',
-                                            ),
-                                            RowDetails(
-                                              row1: 'EMAIL',
-                                              row2: '$gmail',
-                                            ),
-                                            RowDetails(
-                                              row1: 'AMOUNT',
-                                              row2: amount,
-                                            ),
-                                            SizedBox(height: 5.h)
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                    image: DecorationImage(
+                                        image: Image.asset(receiptBackground)
+                                            .image,
+                                        fit: BoxFit.fill),
                                   ),
-                                ),
-                                SizedBox(height: 10.h),
-                                Container(
-                                  padding: EdgeInsets.all(10.sp),
-                                  width: 260.sp,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(color: Colors.black)),
+                                  padding: const EdgeInsets.all(20),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
+                                    children: <Widget>[
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
-                                        children: [
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: <Widget>[
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'TOTAL AMOUNT:',
+                                                'Booking Confirmed!',
+                                                textAlign: TextAlign.left,
                                                 style: TextStyle(
+                                                  fontSize: 15.sp,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 10.sp,
+                                                  color: const Color.fromRGBO(
+                                                      0, 107, 146, 1),
                                                 ),
                                               ),
                                               Text(
-                                                'Paid using $paid_via',
-                                                textAlign: TextAlign.start,
+                                                '$date',
+                                                textAlign: TextAlign.left,
                                                 style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 6.sp,
-                                                  color: const Color.fromRGBO(
-                                                      5, 103, 180, 1),
+                                                  fontSize: 10.sp,
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          Text(
-                                            'PHP $amount',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12.sp,
-                                              color: const Color.fromRGBO(
-                                                  5, 103, 180, 1),
-                                            ),
-                                          )
+                                          IconButton(
+                                              alignment: Alignment.topRight,
+                                              iconSize: 20.sp,
+                                              icon: SizedBox(
+                                                height: 20.sp,
+                                                width: 20.sp,
+                                                child: Image.asset(xButtonIcon),
+                                              ),
+                                              onPressed: () => {
+                                                    Navigator.pop(context),
+                                                    AppRoutes
+                                                        .navigateToMainMenu(
+                                                            context)
+                                                  }),
                                         ],
                                       ),
-                                      SizedBox(height: 5.h),
-                                      RowDetails(
-                                          row1: 'Date paid', row2: '$date'),
-                                      SizedBox(height: 5.h),
-                                      RowDetails(
-                                          row1: 'Reference no.', row2: ref),
+                                      SizedBox(height: 30.h),
+                                      Text(
+                                        'Thank You for Booking!',
+                                        style: TextStyle(
+                                          color: const Color.fromRGBO(
+                                              8, 44, 72, 1),
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 150.sp,
+                                        child: Image.asset(logoIcon),
+                                      ),
+                                      SizedBox(height: 10.h),
+                                      Container(
+                                        width: 260.sp,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border: Border.all(
+                                                color: Colors.black)),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.all(10.sp),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    'BILLER',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 13.sp,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'Travel Go',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 13.sp,
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              5, 103, 180, 1),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Divider(
+                                              height: 1.h,
+                                              color: Colors.black,
+                                              thickness: 1,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.all(10.sp),
+                                              child: Column(
+                                                children: [
+                                                  RowDetails(
+                                                    row1: 'ACCOUNT',
+                                                    row2:
+                                                        (account).toUpperCase(),
+                                                  ),
+                                                  RowDetails(
+                                                    row1: 'CONTACT NUMBER',
+                                                    row2: '+63 0$phone',
+                                                  ),
+                                                  RowDetails(
+                                                    row1: 'EMAIL',
+                                                    row2: '$gmail',
+                                                  ),
+                                                  RowDetails(
+                                                    row1: 'AMOUNT',
+                                                    row2: amount,
+                                                  ),
+                                                  SizedBox(height: 5.h)
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 10.h),
+                                      Container(
+                                        padding: EdgeInsets.all(10.sp),
+                                        width: 260.sp,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border: Border.all(
+                                                color: Colors.black)),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'TOTAL AMOUNT:',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 10.sp,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Paid using $paid_via',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 6.sp,
+                                                        color: const Color
+                                                            .fromRGBO(
+                                                            5, 103, 180, 1),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Text(
+                                                  'PHP $amount',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12.sp,
+                                                    color: const Color.fromRGBO(
+                                                        5, 103, 180, 1),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(height: 5.h),
+                                            RowDetails(
+                                                row1: 'Date paid',
+                                                row2: '$date'),
+                                            SizedBox(height: 5.h),
+                                            RowDetails(
+                                                row1: 'Reference no.',
+                                                row2: ref),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 20.h),
+                                      BlueButtonWithoutFunction(
+                                        text: Text(
+                                          'Email My Receipt',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15.sp,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        style: const ButtonStyle(
+                                          backgroundColor:
+                                              WidgetStatePropertyAll(
+                                                  Colors.white),
+                                        ),
+                                        oppressed: () async {
+                                          main();
+                                        },
+                                      ),
+                                      SizedBox(height: 20.h)
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 20.h),
-                                BlueButtonWithoutFunction(
-                                  text: Text(
-                                    'Email My Receipt',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15.sp,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  style: const ButtonStyle(
-                                    backgroundColor:
-                                        WidgetStatePropertyAll(Colors.white),
-                                  ),
-                                  oppressed: () async {
-                                    main();
-                                  },
-                                ),
-                                SizedBox(height: 20.h)
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
