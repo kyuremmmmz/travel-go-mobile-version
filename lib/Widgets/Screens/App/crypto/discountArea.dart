@@ -52,7 +52,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   String formattedDate = '';
   double TrgoPoints = 0.0;
   bool _isRedirecting = false;
-  // 1000 is full progress bar
+  // 100 is full progress bar
   // value of points and progress bar, except the decimal point
   Future<void> gett() async {
     final response = await tr.getThePointsOfMine();
@@ -378,7 +378,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
       padding: EdgeInsets.only(
           top: 5.w, right: 15.h), // Add padding above the info text
       child: Text(
-        'Earn 1,000 points and enjoy PHP100 discount on your next booking! \nStart collecting points now and save big!',
+        'Earn points and enjoy discounts on your next booking! \nStart collecting points now and save big!',
         style: TextStyle(
           fontSize: 8.sp,
           color: const Color(0xFF0567B4),

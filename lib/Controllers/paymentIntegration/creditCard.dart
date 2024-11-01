@@ -4,8 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CreditcardBackend {
   final supabase = Supabase.instance.client;
-  Future<void> payViaCredit(
-      int payment, int price, String gmail, String name, int phone, String? bookingId) async {
+  Future<void> payViaCredit(double payment, double price, String gmail,
+      String name, int phone, String? bookingId) async {
     final response = await supabase.from('payment_table').insert({
       'payment': payment,
       'price': price,
@@ -15,7 +15,7 @@ class CreditcardBackend {
       'name': name,
       'phone': phone,
       'pay_via': 'Credit card',
-      'booking_id' : bookingId
+      'booking_id': bookingId
     });
     await supabase.from('hotel_booking').update({
       'paymet_status': 'Paid',

@@ -99,7 +99,7 @@ class Booking {
       String arrivalTime,
       String arrivalDate,
       String destination,
-      int payment,
+      double payment,
       String paymentMethod,
       String plane,
       String airPort,

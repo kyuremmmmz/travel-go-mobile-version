@@ -10,8 +10,8 @@ class Creditcard extends StatelessWidget {
   final int phone;
   final String hotelorplace;
   final String nameoftheplace;
-  final int price;
-  final int payment;
+  final double price;
+  final double payment;
   final String booking_id;
   const Creditcard({
     super.key,
@@ -52,8 +52,8 @@ class CreditCardFormScreen extends StatefulWidget {
   final int phone;
   final String hotelorplace;
   final String nameoftheplace;
-  final int price;
-  final int payment;
+  final double price;
+  final double payment;
   final String booking_id;
   const CreditCardFormScreen({
     super.key,
