@@ -41,7 +41,8 @@ class Trgo {
             .eq('uid', user)
             .select();
 
-        if (response != null && response.isNotEmpty) {
+        if (response.isNotEmpty) {
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(
               'Points added successfully! Current points: $updatedPoints',
@@ -49,6 +50,7 @@ class Trgo {
           ));
           return response;
         } else {
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Failed to update points. Please try again.'),
           ));
@@ -63,7 +65,6 @@ class Trgo {
       return null;
     }
   }
-
 
   Future<Map<String, dynamic>?> createPoints(BuildContext context) async {
     try {

@@ -204,7 +204,7 @@ class _HotelCommentsState extends State<HotelComments> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: [
         Row(children: [
           Container(
@@ -432,63 +432,70 @@ class _HotelCommentsState extends State<HotelComments> {
                 final String imgUrl = place['avatar_url'];
                 final String date = place['created_at'];
                 final DateTime parsedDate = DateTime.parse(date);
-                final String formattedDate = DateFormat('MMM d, yyyy').format(parsedDate);
-                return  Container(
-                    child: Card(
-                      color: const Color.fromARGB(255, 230, 240, 250),
-                      elevation: 6.0,
-                      margin: EdgeInsets.only(right: 25.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(width: 20.w),
-                          Container(
-                            padding: EdgeInsets.only(top: 20.h),
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 20),
-                                CircleAvatar(
-                                  backgroundImage: imgUrl == "null" || imgUrl.contains('null') || imgUrl.isEmpty
-                                      ? AssetImage(avatarDefaultIcon) as ImageProvider
-                                      : NetworkImage(imgUrl),
-                                  radius: 20.sp,
-                                ),
-                                SizedBox(width: 10.w),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.only(right: 10.w),
-                                      child: Text(
-                                        name,
-                                        style: TextStyle(
-                                          color: Color.fromARGB(255, 53, 52, 52),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16.sp,
-                                        ),
+                final String formattedDate =
+                    DateFormat('MMM d, yyyy').format(parsedDate);
+                return Container(
+                  child: Card(
+                    color: const Color.fromARGB(255, 230, 240, 250),
+                    elevation: 6.0,
+                    margin: EdgeInsets.only(right: 25.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 20.w),
+                        Container(
+                          padding: EdgeInsets.only(top: 20.h),
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 20),
+                              CircleAvatar(
+                                backgroundImage: imgUrl == "null" ||
+                                        imgUrl.contains('null') ||
+                                        imgUrl.isEmpty
+                                    ? AssetImage(avatarDefaultIcon)
+                                        as ImageProvider
+                                    : NetworkImage(imgUrl),
+                                radius: 20.sp,
+                              ),
+                              SizedBox(width: 10.w),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(right: 10.w),
+                                    child: Text(
+                                      name,
+                                      style: TextStyle(
+                                        color: const Color.fromARGB(
+                                            255, 53, 52, 52),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.sp,
                                       ),
                                     ),
-                                    Row(
-                                      children: [
-                                        ...List.generate(5, (index) {
-                                          return Icon(
-                                            index < ratings ? Icons.star : Icons.star_border_outlined,
-                                            color: Colors.yellow,
-                                            size: 25.sp,
-                                          );
-                                        }),
-                                        Text(
-                                          ' $ratings OUT OF 5, $formattedDate',
-                                          style: TextStyle(fontSize: 12.sp),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      ...List.generate(5, (index) {
+                                        return Icon(
+                                          index < ratings
+                                              ? Icons.star
+                                              : Icons.star_border_outlined,
+                                          color: Colors.yellow,
+                                          size: 25.sp,
+                                        );
+                                      }),
+                                      Text(
+                                        ' $ratings OUT OF 5, $formattedDate',
+                                        style: TextStyle(fontSize: 12.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          Container(
+                        ),
+                        Container(
                           margin: EdgeInsets.only(left: 35.w),
                           width: 500,
                           padding: EdgeInsets.symmetric(
@@ -503,10 +510,10 @@ class _HotelCommentsState extends State<HotelComments> {
                             animation: true,
                           ),
                         ),
-                        ],
-                      ),
+                      ],
                     ),
-                  );
+                  ),
+                );
               }).toList(),
             ),
           ),
