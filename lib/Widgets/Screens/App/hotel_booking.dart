@@ -85,7 +85,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final trgo = Trgo();
   double trgopoint = 0;
   double discountSaved = 1000;
-  get discountTotal => amount - discountSaved;
+  double discountTotal = 0;
   String? amountDisplay;
   String? discountAmount;
   HotelBooking booking = HotelBooking();
@@ -142,9 +142,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   Future<void> insert() async {
     final hotel = await booking.bookingIDgenerator();
     idCast = hotel;
-    _pointsController.text == "Travel Go Points Used"
-        ? amountNumber = discountTotal
-        : amountNumber;
     booking.insertBooking(
         _nameController.text.trim(),
         _emailController.text.trim(),
@@ -179,7 +176,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     if (data == null) {
       setState(() {
         amount = 0;
-        _isRedirecting = false;
       });
     } else {
       double basePrice =
@@ -208,15 +204,6 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
         final numberFormat = NumberFormat('#,##0.##');
         final numbers = numberFormat.format(total);
         strAmount = numbers;
-        _pointsController.text == "Travel Go Points Used"
-            ? (
-                amountDisplay = discountAmount, //this is String
-                amountNumber = discountTotal // this is number
-              )
-            : (
-                amountDisplay = strAmount, // String
-                amountNumber = amount // number
-              );
         _isRedirecting = false;
       });
     }
@@ -227,14 +214,23 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     if (response == null) {
       setState(() {
         amount = 0;
-        _isRedirecting = false;
       });
     } else {
       setState(() {
         trgopoint = response['points'];
+        discountTotal = amount - discountSaved;
         final numberFormat = NumberFormat('#,##0.##');
         final numbers = numberFormat.format(discountTotal);
         discountAmount = numbers;
+        _pointsController.text == "Travel Go Points Used"
+            ? (
+                amountDisplay = discountAmount, //this is String
+                amountNumber = discountTotal // this is number
+              )
+            : (
+                amountDisplay = strAmount, // String
+                amountNumber = amount // number
+              );
         _isRedirecting = false;
       });
     }
@@ -799,6 +795,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                       ),
                                       readOnly: true,
                                       onTap: () {
+                                        fetchInt(widget.id);
+                                        getPoints();
                                         showAdaptiveDialog(
                                           context: context,
                                           builder: (context) {
@@ -1027,6 +1025,8 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                                                   "Travel Go Points Used") {
                                                                 trgo.spendPoints(
                                                                     context);
+                                                                amountNumber =
+                                                                    discountTotal;
                                                               }
                                                               BookinghistoryBackend()
                                                                   .insertBooking(

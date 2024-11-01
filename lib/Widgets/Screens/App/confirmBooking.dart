@@ -20,7 +20,7 @@ class Confirmbooking extends StatelessWidget {
   final int numberOfAdults;
   final String paymentMethod;
   final String? specialReq;
-  final int price;
+  final double price;
   final String last;
   final String bookingId;
 
@@ -75,7 +75,7 @@ class ConfirmBookingAreaScreen extends StatefulWidget {
   final int numberOfAdults;
   final String paymentMethod;
   final String? specialReq;
-  final int price;
+  final double price;
   final String bookingId;
   const ConfirmBookingAreaScreen({
     super.key,
@@ -118,6 +118,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   String? place;
   final supabase = Supabase.instance.client;
   double amount = 0;
+  double amountNumber = 0;
   String? strAmount;
   String? origin;
   String? destination;
@@ -139,6 +140,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   bool _value = false;
   Booking booking = Booking();
   double updatePoint = 0;
+  bool _isRedirecting = false;
 
   @override
   void dispose() {
@@ -160,7 +162,8 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
   void initState() {
     super.initState();
     emailFetching();
-    fethHotel(widget.id);
+    fetchFlight(widget.id);
+    _isRedirecting = true;
   }
 
   Future<void> emailFetching() async {
@@ -189,8 +192,8 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
         name: widget.name,
         phone: widget.phone,
         nameoftheplace: widget.email,
-        price: amount,
-        payment: amount,
+        price: amountNumber,
+        payment: amountNumber,
         hotelorplace: widget.country,
         age: widget.age,
         bookingId: confirm,
@@ -217,15 +220,13 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
         confirmId);
   }
 
-  Future<void> fethHotel(
-    int id,
-  ) async {
+  Future<void> fetchFlight(int id) async {
     final data = await booking.passTheDate(id);
-    final format = NumberFormat('#,###');
-    final finalFormat = format.format(data!['price']);
+    final format = NumberFormat('#,###.##');
+    final finalFormat = format.format(widget.price);
     setState(() {
-      amount = data['price'];
-      origin = data['airplane'];
+      amountNumber = widget.price;
+      origin = data!['airplane'];
       destination = data['place'];
       departure = data['date'];
       arrival = data['date_departure'];
@@ -235,6 +236,7 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
       arrivalTime = data['arrival'];
       returnTime = data['return'];
       airPort = data['airPort'];
+      _isRedirecting = false;
     });
   }
 
@@ -301,353 +303,368 @@ class _ConfirmBookingAreaScreen extends State<ConfirmBookingAreaScreen> {
           ),
         ),
         drawer: const DrawerMenuWidget(),
-        body: Form(
-          key: _validator,
-          child: Column(
-            children: <Widget>[
-              const Text(
-                'TRAVEL GO',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Text(
-                "Northwestern part of Luzon Island, Philippines",
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 30),
-              Expanded(
-                child: Scrollbar(
-                  thumbVisibility: true,
-                  child: SingleChildScrollView(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(226, 63, 176, 241),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50),
-                        ),
+        body: _isRedirecting
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Form(
+                key: _validator,
+                child: Column(
+                  children: <Widget>[
+                    const Text(
+                      'TRAVEL GO',
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
                       ),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 8, right: 10),
-                              child: IconButton(
-                                iconSize: 20,
-                                icon: SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: Image.asset(xButtonIcon),
-                                ),
-                                onPressed:
-                                    () {}, // change routes to InformationScreen later
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            'Travel Confirmation',
-                            style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Text(
-                            "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Color.fromARGB(255, 82, 79, 79),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          // ignore: sized_box_for_whitespace
-                          Container(
-                              width: 380,
-                              child: Text(
-                                'Origin :  $origin',
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                              width: 380,
-                              child: Text(
-                                'Destination :  $destination',
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: 380,
-                            child: Text(
-                              'Departure Date:  $departure',
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: 380,
-                            child: Text(
-                              'Arrival Date:  $arrival',
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: 380,
-                            child: Text(
-                              'Return Date:  $returnDate',
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: 380,
-                            child: Text(
-                              'Departure Time :  $departureTime',
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-
-                          SizedBox(
-                            width: 380,
-                            child: Text(
-                              'Arrival Time :  $arrivalTime',
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: 380,
-                            child: Text(
-                              'Return Time :  $returnTime',
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            width: 380,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 1,
-                                    blurRadius: 5,
-                                    offset: const Offset(0, 5),
-                                  )
-                                ]),
-                            child: inputTextField(
-                              colorr: Colors.black,
-                              text: 'Special Requests: (Optional)',
-                              controller: _originController,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 0,
-                          ),
-                          Theme(
-                            data: ThemeData(
-                              checkboxTheme: const CheckboxThemeData(
-                                shape: CircleBorder(),
-                              ),
-                            ),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: ListTileTheme(
-                                horizontalTitleGap: 0.0,
-                                child: CheckboxListTile(
-                                  activeColor: Colors.green,
-                                  title: RichText(
-                                    text: TextSpan(children: <TextSpan>[
-                                      const TextSpan(
-                                        text:
-                                            "I have reviewed my booking details and agree to the ",
-                                        style: TextStyle(
-                                            fontSize: 12, color: Colors.black),
-                                      ),
-                                      TextSpan(
-                                        text: "Terms of Service.",
-                                        style: const TextStyle(
-                                            fontSize: 12, color: Colors.white),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () => AppRoutes
-                                              .navigateToForgotPassword(
-                                                  context),
-                                      ),
-                                    ]),
-                                  ),
-                                  value: _value,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      _value = value ?? false;
-                                    });
-                                  },
-                                  controlAffinity:
-                                      ListTileControlAffinity.leading,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 200,
-                            width: double.infinity, // Adjust width as needed
+                    ),
+                    const Text(
+                      "Northwestern part of Luzon Island, Philippines",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 30),
+                    Expanded(
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        child: SingleChildScrollView(
+                          child: Container(
+                            width: double.infinity,
                             decoration: const BoxDecoration(
-                              color: Colors.white,
+                              color: Color.fromARGB(226, 63, 176, 241),
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(50),
                                 topRight: Radius.circular(50),
                               ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10, top: 30),
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 30,
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 50,
-                                        child: Image.asset(adventureIcon),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 20,
-                                        child: Image.asset(suitcaseIcon),
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                        child: Image.asset(planeTicketIcon),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: Column(
-                                      children: [
-                                        const Row(
-                                          children: [
-                                            Text(
-                                              "Total Amount",
-                                              textAlign: TextAlign.right,
+                                        top: 8, right: 10),
+                                    child: IconButton(
+                                      iconSize: 20,
+                                      icon: SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: Image.asset(xButtonIcon),
+                                      ),
+                                      onPressed:
+                                          () {}, // change routes to InformationScreen later
+                                    ),
+                                  ),
+                                ),
+                                const Text(
+                                  'Travel Confirmation',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Text(
+                                  "Simply enter your travel details, choose your preferred flight, and secure your seat to start your journey.",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Color.fromARGB(255, 82, 79, 79),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                // ignore: sized_box_for_whitespace
+                                Container(
+                                    width: 380,
+                                    child: Text(
+                                      'Origin :  $origin',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                SizedBox(
+                                    width: 380,
+                                    child: Text(
+                                      'Destination :  $destination',
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                SizedBox(
+                                  width: 380,
+                                  child: Text(
+                                    'Departure Date:  $departure',
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                SizedBox(
+                                  width: 380,
+                                  child: Text(
+                                    'Arrival Date:  $arrival',
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                SizedBox(
+                                  width: 380,
+                                  child: Text(
+                                    'Return Date:  $returnDate',
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                SizedBox(
+                                  width: 380,
+                                  child: Text(
+                                    'Departure Time :  $departureTime',
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+
+                                SizedBox(
+                                  width: 380,
+                                  child: Text(
+                                    'Arrival Time :  $arrivalTime',
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                SizedBox(
+                                  width: 380,
+                                  child: Text(
+                                    'Return Time :  $returnTime',
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  width: 380,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(50)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.2),
+                                          spreadRadius: 1,
+                                          blurRadius: 5,
+                                          offset: const Offset(0, 5),
+                                        )
+                                      ]),
+                                  child: inputTextField(
+                                    colorr: Colors.black,
+                                    text: 'Special Requests: (Optional)',
+                                    controller: _originController,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 0,
+                                ),
+                                Theme(
+                                  data: ThemeData(
+                                    checkboxTheme: const CheckboxThemeData(
+                                      shape: CircleBorder(),
+                                    ),
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: ListTileTheme(
+                                      horizontalTitleGap: 0.0,
+                                      child: CheckboxListTile(
+                                        activeColor: Colors.green,
+                                        title: RichText(
+                                          text: TextSpan(children: <TextSpan>[
+                                            const TextSpan(
+                                              text:
+                                                  "I have reviewed my booking details and agree to the ",
                                               style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Color.fromARGB(
-                                                      255, 26, 169, 235),
-                                                  fontWeight: FontWeight.w700),
+                                                  fontSize: 12,
+                                                  color: Colors.black),
+                                            ),
+                                            TextSpan(
+                                              text: "Terms of Service.",
+                                              style: const TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.white),
+                                              recognizer: TapGestureRecognizer()
+                                                ..onTap = () => AppRoutes
+                                                    .navigateToForgotPassword(
+                                                        context),
+                                            ),
+                                          ]),
+                                        ),
+                                        value: _value,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            _value = value ?? false;
+                                          });
+                                        },
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 200,
+                                  width:
+                                      double.infinity, // Adjust width as needed
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(50),
+                                      topRight: Radius.circular(50),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, top: 30),
+                                    child: Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 30,
+                                        ),
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 50,
+                                              child: Image.asset(adventureIcon),
                                             ),
                                           ],
                                         ),
-                                        Row(
+                                        Column(
                                           children: [
-                                            Text(
-                                              'PHP $strAmount',
-                                              style: const TextStyle(
-                                                fontSize: 20,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
+                                            SizedBox(
+                                              height: 20,
+                                              child: Image.asset(suitcaseIcon),
+                                            ),
+                                            SizedBox(
+                                              height: 30,
+                                              child:
+                                                  Image.asset(planeTicketIcon),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, right: 10),
+                                          child: Column(
+                                            children: [
+                                              const Row(
+                                                children: [
+                                                  Text(
+                                                    "Total Amount",
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        color: Color.fromARGB(
+                                                            255, 26, 169, 235),
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                  ),
+                                                ],
                                               ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    'PHP $strAmount',
+                                                    style: const TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              width: 150,
+                                              child: ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                              Colors.blue),
+                                                  onPressed: _value
+                                                      ? () {
+                                                          if (_validator
+                                                                  .currentState!
+                                                                  .validate() ||
+                                                              widget.paymentMethod ==
+                                                                  "Pay Online") {
+                                                            insert();
+                                                          } else {
+                                                            debugPrint('nigga');
+                                                          }
+                                                        }
+                                                      : null,
+                                                  child: const Text(
+                                                    'Place Booking',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 12),
+                                                  )),
                                             ),
                                           ],
                                         ),
                                       ],
                                     ),
                                   ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        width: 150,
-                                        child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.blue),
-                                            onPressed: _value
-                                                ? () {
-                                                    if (_validator.currentState!
-                                                            .validate() ||
-                                                        widget.paymentMethod ==
-                                                            "Pay Online") {
-                                                      insert();
-                                                    } else {
-                                                      debugPrint('nigga');
-                                                    }
-                                                  }
-                                                : null,
-                                            child: const Text(
-                                              'Place Booking',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12),
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ));
+              ));
   }
 }
