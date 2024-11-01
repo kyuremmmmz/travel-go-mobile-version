@@ -42,6 +42,7 @@ class Trgo {
             .select();
 
         if (response.isNotEmpty) {
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(
               'Points added successfully! Current points: $updatedPoints',
@@ -49,6 +50,7 @@ class Trgo {
           ));
           return response;
         } else {
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text('Failed to update points. Please try again.'),
           ));
@@ -135,8 +137,10 @@ class Trgo {
       if (query == null || query['points'] == null) {
         return null;
       } else {
-        final data = double.parse(query['points'].toString());
-        if (data == 1.0) {
+        final data = query;
+        if (data.containsValue(1.0)) {
+          final money = data['money'];
+          data['money'] = money;
           final response = await supabase.from('TRGO_POINTS').update({
             'uid': user,
             'points': 0.01,
