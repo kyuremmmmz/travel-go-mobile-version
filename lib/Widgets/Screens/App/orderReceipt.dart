@@ -8,6 +8,7 @@ import 'package:TravelGo/Controllers/mail/Mailer.dart';
 import 'package:TravelGo/Widgets/Buttons/DefaultButtons/BlueButton.dart';
 import 'package:TravelGo/Widgets/TextWidgets/rowDetails.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main(phone) async {
@@ -68,6 +69,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
   String account = "loading";
   late Usersss users = Usersss();
   late HotelBooking book = HotelBooking();
+  String dateFormatted = "";
   bool _isRedirecting = false;
 
   @override
@@ -137,6 +139,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
             date = data['date_of_payment'] ?? 'Unknown Date';
             account = data['name'] ?? 'Unknown Account';
             gmail = data['gmail'] ?? 'Unknown';
+            dateFormatted = DateFormat("MMM dd, yyyy - h:mm a").format(date);
             _isRedirecting = false;
           });
         }
@@ -200,7 +203,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                                 ),
                                               ),
                                               Text(
-                                                '$date',
+                                                '$dateFormatted',
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                   fontSize: 10.sp,
@@ -371,7 +374,7 @@ class _OrderReceiptScreenState extends State<OrderReceiptScreen> {
                                             SizedBox(height: 5.h),
                                             RowDetails(
                                                 row1: 'Date paid',
-                                                row2: '$date'),
+                                                row2: '$dateFormatted'),
                                             SizedBox(height: 5.h),
                                             RowDetails(
                                                 row1: 'Reference no.',
