@@ -93,14 +93,8 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
   }
 
   Future<void> creditCard() async {
-    await CreditcardBackend().payViaCredit(
-      widget.price,
-      widget.price,
-      widget.nameoftheplace,
-      widget.name,
-      widget.phone,
-      widget.booking_id
-    );
+    await CreditcardBackend().payViaCredit(widget.price, widget.price,
+        widget.nameoftheplace, widget.name, widget.phone, widget.booking_id);
     if (mounted) {
       setState(() {
         isPaymentSuccess = true;
@@ -132,7 +126,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
               // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
               onCreditCardWidgetChange: (CreditCardBrand) {},
               enableFloatingCard: true,
-              bankName: 'BDO',
+              bankName: 'Credit Card',
               obscureCardNumber: true,
               obscureInitialCardNumber: false,
               obscureCardCvv: true,
@@ -319,8 +313,8 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    OrderReceipt(bookingId: widget.booking_id)));
+                                builder: (context) => OrderReceipt(
+                                    bookingId: widget.booking_id)));
                       }
                     : null,
                 child: const Text(
