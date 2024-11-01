@@ -41,7 +41,7 @@ class _CategoriesState extends State<Categories> {
             padding: EdgeInsets.symmetric(vertical: 5.h),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(25.sp)),
-              color: Colors.grey[100],
+              //color: Colors.grey[100],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
