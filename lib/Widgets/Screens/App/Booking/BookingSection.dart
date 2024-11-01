@@ -8,7 +8,7 @@ class BookingSection extends StatefulWidget {
   final String departureDay;
   final String departureDate;
   final String checkedInDate;
-  final int price;
+  final double price;
   final String locationName;
   final String locationAddress;
   final VoidCallback oppressed;
@@ -21,7 +21,7 @@ class BookingSection extends StatefulWidget {
     required this.locationName,
     required this.locationAddress,
     required this.oppressed,
-    });
+  });
 
   @override
   State<BookingSection> createState() => _BookingSectionState();
@@ -83,11 +83,9 @@ class _BookingSectionState extends State<BookingSection> {
                 if (checkIn != null) {
                   try {
                     String cleanedCheckIn = checkIn
-                        .replaceAll(
-                            '-', '-') 
+                        .replaceAll('-', '-')
                         .replaceAll('T', ' ')
-                        .replaceAll(
-                            RegExp(r'\.\d+'), '');
+                        .replaceAll(RegExp(r'\.\d+'), '');
                     final date = DateTime.parse(cleanedCheckIn);
                     formattedCheckInDate =
                         DateFormat('MMMM dd, yyyy, h:mm a').format(date);
@@ -100,11 +98,9 @@ class _BookingSectionState extends State<BookingSection> {
                   try {
                     String cleanedCheckOut = checkOut
                         .replaceAll('T', ' ')
-                        .replaceAll(
-                            RegExp(r'\.\d+'), '');
+                        .replaceAll(RegExp(r'\.\d+'), '');
                     final date = DateTime.parse(cleanedCheckOut);
-                    formattedCheckOutDate =
-                        DateFormat('dd').format(date);
+                    formattedCheckOutDate = DateFormat('dd').format(date);
                   } catch (e) {
                     formattedCheckOutDate = 'Invalid date format: $e';
                   }
@@ -114,13 +110,12 @@ class _BookingSectionState extends State<BookingSection> {
                   try {
                     String cleanedCheckOut = checkOut
                         .replaceAll('T', ' ')
-                        .replaceAll(
-                            RegExp(r'\.\d+'), ''); 
+                        .replaceAll(RegExp(r'\.\d+'), '');
                     final date = DateTime.parse(cleanedCheckOut);
 
                     final nextDate = date.add(const Duration(days: 0));
-                    formattedNexttDate = DateFormat('MMMM yyyy, EEEE')
-                        .format(nextDate); 
+                    formattedNexttDate =
+                        DateFormat('MMMM yyyy, EEEE').format(nextDate);
                   } catch (e) {
                     formattedCheckOutDate = 'Invalid date format: $e';
                   }
@@ -134,7 +129,8 @@ class _BookingSectionState extends State<BookingSection> {
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      final located = snapshot.data!['hotel_located'] ?? 'Unknown location';
+                      final located =
+                          snapshot.data!['hotel_located'] ?? 'Unknown location';
                       return SizedBox(
                         height: 280.h,
                         child: Stack(
@@ -142,14 +138,13 @@ class _BookingSectionState extends State<BookingSection> {
                             Positioned(
                               top: 20.w,
                               child: Container(
-                                padding:
-                                    EdgeInsets.only(top: 35.h, left: 15.h),
+                                padding: EdgeInsets.only(top: 35.h, left: 15.h),
                                 width: 330.w,
                                 height: 250.h,
                                 decoration: BoxDecoration(
                                     color: Color(0xFFF1FCFF),
-                                    border: Border.all(
-                                        color: Color(0xFFE1F2FA))),
+                                    border:
+                                        Border.all(color: Color(0xFFE1F2FA))),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -189,9 +184,10 @@ class _BookingSectionState extends State<BookingSection> {
                                                 ),
                                               ),
                                             ),
-                                            Container( //Arrow area
-                                              padding: EdgeInsets.only(
-                                                  right: 5.w),
+                                            Container(
+                                              //Arrow area
+                                              padding:
+                                                  EdgeInsets.only(right: 5.w),
                                               alignment: Alignment.center,
                                               width: 98.w,
                                               height: 48.h,
@@ -229,30 +225,35 @@ class _BookingSectionState extends State<BookingSection> {
                                         fontSize: 11.sp,
                                       ),
                                     ),
-                                SizedBox(height: 20.h),
-                                Container(
-                                  padding: EdgeInsets.only(right: 10.w),
-                                  child: Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: InkWell(
-                                      onTap: () {
-                                        print('hello');
-                                      },
-                                      child: Container( // New container for width and height
-                                        width: 100.w,   // Set responsive width
-                                        height: 20.h,   // Set responsive height
-                                        alignment: Alignment.center, // Center the text within the container
-                                        child: Text(
-                                          'BOOK AGAIN',
-                                          style: TextStyle(
-                                            fontSize: 15.sp, // Responsive font size
-                                            color: Colors.blue,
+                                    SizedBox(height: 20.h),
+                                    Container(
+                                      padding: EdgeInsets.only(right: 10.w),
+                                      child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: InkWell(
+                                          onTap: () {
+                                            print('hello');
+                                          },
+                                          child: Container(
+                                            // New container for width and height
+                                            width:
+                                                100.w, // Set responsive width
+                                            height:
+                                                20.h, // Set responsive height
+                                            alignment: Alignment
+                                                .center, // Center the text within the container
+                                            child: Text(
+                                              'BOOK AGAIN',
+                                              style: TextStyle(
+                                                fontSize: 15
+                                                    .sp, // Responsive font size
+                                                color: Colors.blue,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ),
                                   ],
                                 ),
                               ),
@@ -270,11 +271,9 @@ class _BookingSectionState extends State<BookingSection> {
                                         255, 225, 242, 250),
                                     border: Border.all(
                                         color: const Color.fromRGBO(
-                                            176, 234, 253, 100
-                                            )
-                                          )
-                                        ),
-                                child: Image.asset("assets/images/icon/plane.png"),
+                                            176, 234, 253, 100))),
+                                child:
+                                    Image.asset("assets/images/icon/plane.png"),
                               ),
                             ),
                           ],

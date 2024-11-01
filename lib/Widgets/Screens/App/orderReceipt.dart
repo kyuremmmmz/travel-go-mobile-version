@@ -1,4 +1,5 @@
 import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
@@ -25,8 +26,18 @@ class OrderReceipt extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 40.h,
+        leading: Builder(
+          builder: (BuildContext context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
         title: const Text('Order Receipt'),
       ),
+      drawer: const DrawerMenuWidget(),
       body: OrderReceiptScreen(bookingId: bookingId),
     );
   }
