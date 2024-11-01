@@ -137,8 +137,10 @@ class Trgo {
       if (query == null || query['points'] == null) {
         return null;
       } else {
-        final data = double.parse(query['points'].toString());
-        if (data == 1.0) {
+        final data = query;
+        if (data.containsValue(1.0)) {
+          final money = data['money'];
+          data['money'] = money;
           final response = await supabase.from('TRGO_POINTS').update({
             'uid': user,
             'points': 0.01,
