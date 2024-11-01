@@ -660,7 +660,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   focusedBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.blue)),
-                                  hintText: 'Payment Method',
+                                  hintText: 'Payment Method (Click to Select)',
                                   filled: true,
                                   fillColor: Colors.white,
                                   hintStyle: TextStyle(fontSize: 12.sp),
@@ -695,7 +695,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
                                   focusedBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.blue)),
-                                  hintText: 'Room Type',
+                                  hintText: 'Room Type (Click to Select)',
                                   filled: true,
                                   fillColor: Colors.white,
                                   hintStyle: TextStyle(fontSize: 12.sp),
