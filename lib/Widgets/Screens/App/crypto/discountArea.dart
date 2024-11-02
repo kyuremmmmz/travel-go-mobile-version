@@ -194,7 +194,8 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     );
   }
 
-  Widget transactionHistory() { // Availble Flight Vouchers Area
+  Widget transactionHistory() {
+    // Availble Flight Vouchers Area
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -202,7 +203,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
           final date = calculateRemainingTime(items['expiry']);
           return Container(
             padding: const EdgeInsets.all(20),
-            width: 400,
+            width: 380.w,
             child: VoucherButton(
               voucherTitle:
                   'Enjoy up to ${items['discount']}% off at ${items['hotelName']}!',
@@ -388,7 +389,8 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     );
   }
 
-  Widget buildDiscountList() { // Available Vouchers Area
+  Widget buildDiscountList() {
+    // Available Vouchers Area
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -396,7 +398,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
           final date = calculateRemainingTime(items['expiry']);
           return Container(
             padding: const EdgeInsets.all(20),
-            width: 400.w,
+            width: 380.w,
             child: VoucherButton(
               voucherTitle:
                   'Enjoy up to ${items['discount']}% off at ${items['hotelName']}!',
