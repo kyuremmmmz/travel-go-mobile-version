@@ -143,6 +143,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
     final hotel = await booking.bookingIDgenerator();
     idCast = hotel;
     booking.insertBooking(
+        context,
         _nameController.text.trim(),
         _emailController.text.trim(),
         int.parse(_numberController.text.trim()),

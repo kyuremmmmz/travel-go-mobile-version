@@ -58,6 +58,7 @@ class HotelBooking {
   }
 
   Future<PostgrestResponse<dynamic>?> insertBooking(
+      BuildContext context,
       String fullname,
       String emailAddress,
       int phoneNumber,
@@ -76,7 +77,7 @@ class HotelBooking {
       if (age < 18) {
         throw Exception("tangina mo gago");
       } else {
-        final user = supabase.auth.currentUser;
+        final user = supabase.auth.currentUser!.id;
         final response = await supabase.from('hotel_booking').insert({
           'name': fullname,
           'gmail': emailAddress,
@@ -84,7 +85,7 @@ class HotelBooking {
           'price': price,
           'paymet_status': paymentStatus,
           'hotel': hotel,
-          'booking_uid': user!.id,
+          'booking_uid': user,
           'checkin': checkIn,
           'checkout': checkOut,
           'number_of_adults': numberOfAdult,
@@ -93,10 +94,14 @@ class HotelBooking {
           'age': age,
           'booking_id': bookingId
         });
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(response)));
+        print(response);
         return response;
       }
     } catch (e) {
-      SnackBar(content: Text('error: $e'));
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
     }
     return null;
   }
