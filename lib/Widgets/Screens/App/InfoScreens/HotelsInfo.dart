@@ -171,8 +171,7 @@ class _HotelsInfoState extends State<HotelsInfo> {
   }
 
   Future<void> fetchDiscounts(List<Map<String, dynamic>> name) async {
-    final data =
-        await vouchers.getTheDiscountsAsListOfLikeReal(name, '${widget.name}');
+    final data = await vouchers.getTheDiscountsAsListOfLikeReal(name, '$text');
     setState(() {
       vouchersList = data;
       print(data);

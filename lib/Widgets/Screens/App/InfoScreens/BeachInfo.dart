@@ -287,7 +287,7 @@ class _BeachInfoState extends State<BeachInfo> {
                                       alignment: Alignment.centerLeft,
                                       padding: EdgeInsets.only(left: 30.w),
                                       child: Text(
-                                        'Accomodations',
+                                        'Activities',
                                         style: TextStyle(
                                             fontSize:
                                                 Responsive().headerFontSize(),
