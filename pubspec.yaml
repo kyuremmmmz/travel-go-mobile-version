@@ -85,5 +85,10 @@ flutter:
     - assets/images/icon/airplanelogo-crop.png
     - assets/images/icon/newlogo2.png
     - assets/images/icon/credentials.png
-    - assets/images/Icon/coin.png
     - assets/images/icon/newlogo-crop.png
+    - assets/images/icon/gift.png
+    - assets/images/icon/coin-stack.png
+    - assets/images/icon/silver.png
+    - assets/images/icon/gold.png
+    - assets/images/icon/platinum.png
+    - assets/images/icon/diamond.png

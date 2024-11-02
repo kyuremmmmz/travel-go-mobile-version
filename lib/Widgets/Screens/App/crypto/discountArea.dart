@@ -8,7 +8,6 @@ import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -326,10 +325,8 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
       child: Row(
         children: [
           SizedBox(
-              width: 30.w,
-              child:
-                  const FaIcon(FontAwesomeIcons.coins, // THE ICON OF THE COINS
-                      color: Color(0xFFFFD989))),
+              width: 30.sp,
+              child: Image.asset("assets/images/icon/coin-stack.png")),
           Expanded(
             child: Column(
               children: [
