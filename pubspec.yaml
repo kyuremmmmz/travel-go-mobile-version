@@ -40,6 +40,9 @@ dependencies:
   flutter_web3: ^2.1.9
   coupon_uikit: ^0.2.1
   rename_app: ^1.6.1
+  flutter_smartcar_auth: ^1.0.6
+  expandable_text: 2.3.0
+  google_sign_in: ^6.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
