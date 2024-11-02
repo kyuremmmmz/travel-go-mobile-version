@@ -1,3 +1,4 @@
+import 'package:TravelGo/Controllers/Auth/OAuth.dart';
 import 'package:TravelGo/Controllers/Auth/login.dart'; // Import login logic
 import 'package:TravelGo/Routes/Routes.dart'; // Import routes for navigation
 import 'package:TravelGo/Widgets/Textfield/passwordField.dart'; // import passowrd widget
@@ -185,7 +186,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       )),
                   SizedBox(height: 70.h // Space below the Log-in button
-                      )
+                      ),
+                  BlueButtonWithoutFunction(
+                    text: Text('Sign in With Google',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp) // Style for the button text
+                        ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 50, 190, 255),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    oppressed: () async {
+                      Oauth().nativeGoogleSignIn();
+                    },
+                  )
                 ],
               ),
             ),
