@@ -24,7 +24,7 @@ class _ExplorenowState extends State<Explorenow> {
   final String hotelIcon = "assets/images/icon/hotel.png";
   late String hundredIsland = "assets/images/places/HundredIsland.jpeg";
   late String manaoag = "assets/images/places/Manaoag.jpg";
-  final _searchController = TextEditingController();
+  final _searchController = TextEditingController(); // AREA FOR SEARCHING
   String? email;
   late Usersss users = Usersss();
   late Data data = Data();

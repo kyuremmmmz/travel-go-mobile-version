@@ -1,20 +1,21 @@
-import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pdf/widgets.dart' as pw;
-class Mailer {
+import 'dart:io'; // Import Dart's IO library for file handling
+import 'package:flutter/material.dart'; // for UI components 
+import 'package:flutter/services.dart'; // services for accessing native functionality 
+import 'package:mailer/mailer.dart'; // package fir sending emails 
+import 'package:mailer/smtp_server.dart'; // Import SMTP server package for email functionality 
+import 'package:path_provider/path_provider.dart'; // to access the file system 
+import 'package:pdf/pdf.dart'; // pdf document creation 
+import 'package:permission_handler/permission_handler.dart'; /// for managing permissions 
+import 'package:pdf/widgets.dart' as pw; // alias pw for PDF content creation
+
+class Mailer { // this method from the user 
   Future<void> requestPermission() async {
     final status = await Permission.storage.request();
     if (!status.isGranted) {
-      throw Exception('Storage permission not granted');
+      throw Exception('Storage permission not granted'); // this throw an exception if permission is not granted 
     }
   }
-
+  // Method to generate a PDF receipt 
   Future<String> generatePdfReceipt({
     required String amount,
     required int phone,
@@ -23,31 +24,32 @@ class Mailer {
     required String account,
     required String gmail,
   }) async {
-    await requestPermission();
-
+    await requestPermission(); // this request a permission to write to storage 
+    // create a new pdf document 
     final pdf = pw.Document();
-
+    // load a background image for the receipt 
     final ByteData receiptBackgroundData =
         await rootBundle.load('assets/images/backgrounds/Receipt.png');
     final Uint8List receiptBackgroundBytes =
-        receiptBackgroundData.buffer.asUint8List();
+        receiptBackgroundData.buffer.asUint8List(); // convert byte data to UintBlist
     final pdfImage = pw.MemoryImage(receiptBackgroundBytes);
-
+    // logo image for the receipt 
     final ByteData logoData =
         await rootBundle.load('assets/images/icon/ButtonX.png');
     final Uint8List logoBytes = logoData.buffer.asUint8List();
-    final pdfLogo = pw.MemoryImage(logoBytes);
+    final pdfLogo = pw.MemoryImage(logoBytes); // creatae an image from byte data
 
+    // Add a page to the PDF Document 
     pdf.addPage(
       pw.Page(
         build: (pw.Context context) {
-          return pw.Stack(
+          return pw.Stack( // Create a stack to overlay images and text
             children: [
-              pw.Image(pdfImage, fit: pw.BoxFit.fill),
+              pw.Image(pdfImage, fit: pw.BoxFit.fill), // Set the background image
               pw.Padding(
                 padding: const pw.EdgeInsets.all(20),
                 child: pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  crossAxisAlignment: pw.CrossAxisAlignment.start, // Align content to the start
                   children: [
                     pw.Container(
                       alignment: pw.Alignment.center,
@@ -96,9 +98,9 @@ class Mailer {
                                       color: PdfColor.fromHex("#0567B4"))),
                             ],
                           ),
-                          pw.Divider(color: PdfColor.fromHex("#000000")),
-                          pw.Text('ACCOUNT: ${account.toUpperCase()}'),
-                          pw.Text('CONTACT NUMBER: $phone'),
+                          pw.Divider(color: PdfColor.fromHex("#000000")),  // Add a divider line
+                          pw.Text('ACCOUNT: ${account.toUpperCase()}'), // Display account details
+                          pw.Text('CONTACT NUMBER: $phone'), // DISPLAY
                           pw.Text('EMAIL: $gmail'),
                           pw.Text('AMOUNT: PHP $amount'),
                         ],
@@ -138,47 +140,50 @@ class Mailer {
       ),
     );
 
-    // Save the PDF file
-    final output = await getTemporaryDirectory();
-    final filePath = '${output.path}/BookingReceipt.pdf';
-    final file = File(filePath);
-    await file.writeAsBytes(await pdf.save());
+    // Save the PDF file in the temporary directory
+    final output = await getTemporaryDirectory(); // Get the temporary directory path
+    final filePath = '${output.path}/BookingReceipt.pdf'; // Create the full file path
+    final file = File(filePath); // Create a File object
+    await file.writeAsBytes(await pdf.save()); // Save the PDF document to the file
 
-    return filePath;
+    return filePath; // Return the path of the saved PDF
   }
 
+  // Method to send an email with the generated PDF attached
   Future<void> sendEmailWithAttachment(BuildContext context,{
     required String subject,
     required String body,
     required String recipientEmail,
     required String filePath,
   }) async {
-    final file = File(filePath);
+    final file = File(filePath);  // Create a File object for the PDF file
 
+    // Check if the file exists before attempting to send it
     if (await file.exists()) {
-      const smtpServerAddress = 'smtp.gmail.com';
+      const smtpServerAddress = 'smtp.gmail.com';  // Gmail SMTP server
       const smtpUsername = 'kurosawataki84@gmail.com';
       const smtpPassword = 'fwie bneh yhuf pkkf';
-
+       // Create an SMTP server object using the defined settings
       final smtpServer = SmtpServer(smtpServerAddress,
           username: smtpUsername, password: smtpPassword);
-
+      // Create an email message with the necessary details
       final message = Message()
         ..from = const Address(smtpUsername, 'Travel Go')
         ..recipients.add(recipientEmail)
         ..subject = subject
         ..text = body
-        ..attachments.add(FileAttachment(file));
+        ..attachments.add(FileAttachment(file));  // Attach the PDF file
 
       try {
-        final sendReport = await send(message, smtpServer);
+        // Attempt to send the email
+        final sendReport = await send(message, smtpServer); 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content:  Text(
-            'Email sent successfully!',
+            'Email sent successfully!', // Show a success message upon successful email sending
             
           ))
         );
-        debugPrint('Email sent: $sendReport');
+        debugPrint('Email sent: $sendReport'); // Log the send report
       } catch (e) {
         debugPrint('Error sending email: $e');
       }
