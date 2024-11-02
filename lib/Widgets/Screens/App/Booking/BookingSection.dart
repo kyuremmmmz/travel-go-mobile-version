@@ -1,4 +1,5 @@
 import 'package:TravelGo/Controllers/NetworkImages/bookingHistory.dart';
+import 'package:TravelGo/Routes/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:postgrest/src/types.dart';
@@ -8,7 +9,7 @@ class BookingSection extends StatefulWidget {
   final String departureDay;
   final String departureDate;
   final String checkedInDate;
-  final int price;
+  final double price;
   final String locationName;
   final String locationAddress;
   final VoidCallback oppressed;
@@ -21,7 +22,7 @@ class BookingSection extends StatefulWidget {
     required this.locationName,
     required this.locationAddress,
     required this.oppressed,
-    });
+  });
 
   @override
   State<BookingSection> createState() => _BookingSectionState();
@@ -61,9 +62,9 @@ class _BookingSectionState extends State<BookingSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 20, bottom: 20.0),
+      padding: EdgeInsets.symmetric(vertical: 20.h),
       width: 330.w,
-      height: 580.h,
+      height: 600.sp,
       child: list.isEmpty
           ? const Center(
               child: Text('No Booking History'),
@@ -83,11 +84,9 @@ class _BookingSectionState extends State<BookingSection> {
                 if (checkIn != null) {
                   try {
                     String cleanedCheckIn = checkIn
-                        .replaceAll(
-                            '-', '-') 
+                        .replaceAll('-', '-')
                         .replaceAll('T', ' ')
-                        .replaceAll(
-                            RegExp(r'\.\d+'), '');
+                        .replaceAll(RegExp(r'\.\d+'), '');
                     final date = DateTime.parse(cleanedCheckIn);
                     formattedCheckInDate =
                         DateFormat('MMMM dd, yyyy, h:mm a').format(date);
@@ -100,11 +99,9 @@ class _BookingSectionState extends State<BookingSection> {
                   try {
                     String cleanedCheckOut = checkOut
                         .replaceAll('T', ' ')
-                        .replaceAll(
-                            RegExp(r'\.\d+'), '');
+                        .replaceAll(RegExp(r'\.\d+'), '');
                     final date = DateTime.parse(cleanedCheckOut);
-                    formattedCheckOutDate =
-                        DateFormat('dd').format(date);
+                    formattedCheckOutDate = DateFormat('dd').format(date);
                   } catch (e) {
                     formattedCheckOutDate = 'Invalid date format: $e';
                   }
@@ -114,13 +111,12 @@ class _BookingSectionState extends State<BookingSection> {
                   try {
                     String cleanedCheckOut = checkOut
                         .replaceAll('T', ' ')
-                        .replaceAll(
-                            RegExp(r'\.\d+'), ''); 
+                        .replaceAll(RegExp(r'\.\d+'), '');
                     final date = DateTime.parse(cleanedCheckOut);
 
                     final nextDate = date.add(const Duration(days: 0));
-                    formattedNexttDate = DateFormat('MMMM yyyy, EEEE')
-                        .format(nextDate); 
+                    formattedNexttDate =
+                        DateFormat('MMMM yyyy, EEEE').format(nextDate);
                   } catch (e) {
                     formattedCheckOutDate = 'Invalid date format: $e';
                   }
@@ -134,22 +130,22 @@ class _BookingSectionState extends State<BookingSection> {
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      final located = snapshot.data!['hotel_located'] ?? 'Unknown location';
+                      final located =
+                          snapshot.data!['hotel_located'] ?? 'Unknown location';
                       return SizedBox(
-                        height: 280.h,
+                        height: 300.sp,
                         child: Stack(
                           children: [
                             Positioned(
-                              top: 20.w,
+                              top: 20.h,
                               child: Container(
                                 padding:
-                                    EdgeInsets.only(top: 35.h, left: 15.h),
-                                width: 330.w,
-                                height: 250.h,
+                                    EdgeInsets.only(top: 35.sp, left: 15.w),
+                                width: 330.sp,
                                 decoration: BoxDecoration(
-                                    color: Color(0xFFF1FCFF),
+                                    color: const Color(0xFFF1FCFF),
                                     border: Border.all(
-                                        color: Color(0xFFE1F2FA))),
+                                        color: const Color(0xFFE1F2FA))),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -189,9 +185,10 @@ class _BookingSectionState extends State<BookingSection> {
                                                 ),
                                               ),
                                             ),
-                                            Container( //Arrow area
-                                              padding: EdgeInsets.only(
-                                                  right: 5.w),
+                                            Container(
+                                              //Arrow area
+                                              padding:
+                                                  EdgeInsets.only(right: 5.w),
                                               alignment: Alignment.center,
                                               width: 98.w,
                                               height: 48.h,
@@ -199,9 +196,9 @@ class _BookingSectionState extends State<BookingSection> {
                                               child: Text(
                                                 'PHP $priceFormatted',
                                                 textAlign: TextAlign.center,
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 14,
+                                                  fontSize: 14.sp,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -229,52 +226,59 @@ class _BookingSectionState extends State<BookingSection> {
                                         fontSize: 11.sp,
                                       ),
                                     ),
-                                SizedBox(height: 20.h),
-                                Container(
-                                  padding: EdgeInsets.only(right: 10.w),
-                                  child: Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: InkWell(
-                                      onTap: () {
-                                        print('hello');
-                                      },
-                                      child: Container( // New container for width and height
-                                        width: 100.w,   // Set responsive width
-                                        height: 20.h,   // Set responsive height
-                                        alignment: Alignment.center, // Center the text within the container
-                                        child: Text(
-                                          'BOOK AGAIN',
-                                          style: TextStyle(
-                                            fontSize: 15.sp, // Responsive font size
-                                            color: Colors.blue,
+                                    SizedBox(height: 20.h),
+                                    Container(
+                                      padding: EdgeInsets.only(right: 10.w),
+                                      child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: InkWell(
+                                          onTap: () {
+                                            AppRoutes.navigateToHotelScreen(
+                                                context);
+                                          },
+                                          child: Container(
+                                            // New container for width and height
+                                            width:
+                                                100.w, // Set responsive width
+                                            height:
+                                                20.sp, // Set responsive height
+                                            alignment: Alignment
+                                                .center, // Center the text within the container
+                                            child: Text(
+                                              'BOOK AGAIN',
+                                              style: TextStyle(
+                                                fontSize: 15
+                                                    .sp, // Responsive font size
+                                                color: Colors.blue,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ),
+                                    SizedBox(
+                                        height: 10
+                                            .h), // Space after BOOK AGAIN button
                                   ],
                                 ),
                               ),
                             ),
                             Positioned(
                               top: 0.h,
-                              left: 125.h,
+                              left: 130.w,
                               child: Container(
-                                padding: EdgeInsets.all(15.h),
-                                height: 75.h,
-                                width: 75.w,
+                                padding: EdgeInsets.all(15.sp),
+                                height: 75.sp,
+                                width: 75.sp,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: const Color.fromARGB(
                                         255, 225, 242, 250),
                                     border: Border.all(
                                         color: const Color.fromRGBO(
-                                            176, 234, 253, 100
-                                            )
-                                          )
-                                        ),
-                                child: Image.asset("assets/images/icon/plane.png"),
+                                            176, 234, 253, 100))),
+                                child:
+                                    Image.asset("assets/images/icon/plane.png"),
                               ),
                             ),
                           ],

@@ -9,6 +9,7 @@ import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/AccountButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/crypto/wallet.dart';
 import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
+import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -19,8 +20,8 @@ class LinkedBankScreen extends StatefulWidget {
   final String? bookingId;
   final String hotelorplace;
   final String nameoftheplace;
-  final int price;
-  final int payment;
+  final double price;
+  final double payment;
   final int age;
 
   const LinkedBankScreen({
@@ -35,6 +36,7 @@ class LinkedBankScreen extends StatefulWidget {
     required this.payment,
     required this.age,
     this.bookingId,
+    required points,
   });
 
   @override
@@ -136,39 +138,15 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
           Positioned.fill(
             child: Column(
               children: <Widget>[
-                const SizedBox(
-                  height: 30,
-                ),
+                const TitleMenu(),
                 Text(
-                  'TRAVEL GO',
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                    shadows: [
-                      Shadow(
-                        offset: const Offset(3.0, 3.0),
-                        blurRadius: 4.0,
-                        color: Colors.black.withOpacity(0.5),
-                      ),
-                    ],
-                  ),
-                ),
-                const Text(
-                  "Northwestern part of Luzon Island, Philippines",
-                  style: TextStyle(fontSize: 16), // Adjust text style as needed
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                const Text(
                   'Linked Bank Accounts',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                    fontSize: 25.sp,
                   ),
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.sp),
                 SizedBox(
                     height: 420.h,
                     child: SingleChildScrollView(

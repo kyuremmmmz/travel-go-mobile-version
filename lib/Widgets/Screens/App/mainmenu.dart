@@ -31,7 +31,8 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
+      theme: ThemeData.dark(useMaterial3: true),
       debugShowCheckedModeBanner: false,
       title: 'Travel',
       home: MainMenuScreen(),

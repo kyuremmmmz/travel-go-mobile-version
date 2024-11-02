@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
+import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Comments extends StatefulWidget {
@@ -233,244 +235,261 @@ class _CommentsState extends State<Comments> {
             }
           }))
         ]),
-        SizedBox(height: 10.h),
-        SingleChildScrollView(
-          child: Container(
-            width: 330.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: const Color.fromARGB(255, 203, 231, 255),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 20.w, top: 15.h),
-                      child: Text(
-                        '$userRatings Comments',
-                        style: TextStyle(
-                          fontSize: 20.sp,
-                          color: const Color.fromARGB(255, 44, 44, 44),
-                          fontWeight: FontWeight.bold,
-                        ),
+        Container(
+          width: 403,
+          child: Card(
+            color: const Color.fromARGB(255, 203, 231, 255),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding:
+                        EdgeInsets.only(left: 20.w, top: 15.h, bottom: 20.h),
+                    child: Text(
+                      'Thoughts & Reviews',
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        color: const Color.fromARGB(255, 44, 44, 44),
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(right: 20.w, top: 15.h),
-                      child: GestureDetector(
-                        onTap: () {
-                          showAdaptiveDialog(
-                            context: context,
-                            builder: (context) {
-                              return StatefulBuilder(
-                                builder: (context, setState) {
-                                  return AlertDialog(
-                                      title: Text(
-                                        'Rate and review',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 50, 148, 228),
-                                      content: SizedBox(
-                                          height: 250.sp,
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: Text(
-                                                    'Rating $ratings/5',
-                                                    style: TextStyle(
-                                                        fontSize: 13.sp,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                                Row(
-                                                    children: List.generate(5,
-                                                        (index) {
-                                                  return IconButton(
-                                                    icon: Icon(
-                                                        index < ratings
-                                                            ? Icons.star
-                                                            : Icons.star_border,
-                                                        color: Colors.yellow,
-                                                        size: 30.sp),
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        ratings = index + 1;
-                                                      });
-                                                    },
-                                                  );
-                                                })),
-                                                TextField(
-                                                    maxLines: 3,
-                                                    autocorrect: true,
-                                                    controller:
-                                                        _commentController,
-                                                    style: TextStyle(
-                                                        fontSize: 16.sp),
-                                                    decoration:
-                                                        const InputDecoration(
-                                                            hintText:
-                                                                'Write a comment...',
-                                                            filled: true,
-                                                            fillColor:
-                                                                Colors.white,
-                                                            border:
-                                                                OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  color: Colors
-                                                                      .black),
-                                                            ),
-                                                            focusedBorder: OutlineInputBorder(
-                                                                borderSide: BorderSide(
-                                                                    color: Colors
-                                                                        .blue)))),
-                                                SizedBox(height: 20.h),
-                                                Row(
-                                                  children: [
-                                                    ElevatedButton(
-                                                        style: ElevatedButton.styleFrom(
-                                                            backgroundColor:
-                                                                Colors.white,
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10))),
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: Text(
-                                                          'Cancel',
-                                                          style: TextStyle(
-                                                              fontSize: 16.sp,
-                                                              color:
-                                                                  Colors.black),
-                                                        )),
-                                                    SizedBox(width: 80.w),
-                                                    ElevatedButton(
-                                                        style: ElevatedButton.styleFrom(
-                                                            backgroundColor:
-                                                                Colors.white,
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10))),
-                                                        onPressed: () {
-                                                          commentInserttion();
-                                                          _commentController
-                                                              .clear();
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: Text(
-                                                          'Post',
-                                                          style: TextStyle(
-                                                              fontSize: 16.sp,
-                                                              color:
-                                                                  Colors.black),
-                                                        )),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          )));
-                                },
-                              );
-                            },
-                          );
-                        },
-                        child: Text(
-                          'Write a comment',
-                          style: TextStyle(
-                              fontSize: 13.sp,
-                              decoration: TextDecoration.underline,
-                              color: Colors.black),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: list.map((place) {
-                    final int ratings = place['rating'];
-                    final String name = place['full_name'];
-                    final String imgUrl = place['avatar_url'];
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(top: 20.h),
-                          child: Row(
-                            children: [
-                              SizedBox(width: 20.w),
-                              CircleAvatar(
-                                  backgroundImage: imgUrl == "null" ||
-                                          imgUrl.contains('null') ||
-                                          imgUrl.isEmpty
-                                      ? AssetImage(avatarDefaultIcon)
-                                      : NetworkImage(imgUrl),
-                                  radius: 20.sp),
-                              SizedBox(width: 10.w),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.only(right: 10.w),
-                                    child: Text(
-                                      name, // Using dynamic name here
+                  ),
+                  Container(
+                    padding:
+                        EdgeInsets.only(left: 20.w, top: 15.h, bottom: 20.h),
+                    child: GestureDetector(
+                      onTap: () {
+                        showAdaptiveDialog(
+                          context: context,
+                          builder: (context) {
+                            return StatefulBuilder(
+                              builder: (context, setState) {
+                                return AlertDialog(
+                                    title: Text(
+                                      'Rate and review',
                                       style: TextStyle(
-                                          color: const Color.fromARGB(
-                                              255, 53, 52, 52),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16.sp),
+                                          color: Colors.white,
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      ...List.generate(5, (index) {
-                                        return Icon(
-                                            index < ratings
-                                                ? Icons.star
-                                                : Icons.star_border_outlined,
-                                            color: Colors.yellow,
-                                            size: 25.sp);
-                                      }),
-                                      Text(
-                                        ' $ratings OUT OF 5',
-                                        style: TextStyle(fontSize: 12.sp),
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 50, 148, 228),
+                                    content: SizedBox(
+                                        height: 250.sp,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  'Rating $ratings/5',
+                                                  style: TextStyle(
+                                                      fontSize: 13.sp,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                              Row(
+                                                  children:
+                                                      List.generate(5, (index) {
+                                                return IconButton(
+                                                  icon: Icon(
+                                                      index < ratings
+                                                          ? Icons.star
+                                                          : Icons.star_border,
+                                                      color: Colors.yellow,
+                                                      size: 30.sp),
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      ratings = index + 1;
+                                                    });
+                                                  },
+                                                );
+                                              })),
+                                              TextField(
+                                                  maxLines: 3,
+                                                  autocorrect: true,
+                                                  controller:
+                                                      _commentController,
+                                                  style: TextStyle(
+                                                      fontSize: 16.sp),
+                                                  decoration:
+                                                      const InputDecoration(
+                                                          hintText:
+                                                              'Write a comment...',
+                                                          filled: true,
+                                                          fillColor:
+                                                              Colors.white,
+                                                          border:
+                                                              OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    color: Colors
+                                                                        .black),
+                                                          ),
+                                                          focusedBorder:
+                                                              OutlineInputBorder(
+                                                                  borderSide:
+                                                                      BorderSide(
+                                                                          color:
+                                                                              Colors.blue)))),
+                                              SizedBox(height: 20.h),
+                                              Row(
+                                                children: [
+                                                  ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10))),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text(
+                                                        'Cancel',
+                                                        style: TextStyle(
+                                                            fontSize: 16.sp,
+                                                            color:
+                                                                Colors.black),
+                                                      )),
+                                                  SizedBox(width: 80.w),
+                                                  ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10))),
+                                                      onPressed: () {
+                                                        commentInserttion();
+                                                        _commentController
+                                                            .clear();
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text(
+                                                        'Post',
+                                                        style: TextStyle(
+                                                            fontSize: 16.sp,
+                                                            color:
+                                                                Colors.black),
+                                                      )),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )));
+                              },
+                            );
+                          },
+                        );
+                      },
+                      child: Text(
+                        'Write a comment',
+                        style: TextStyle(
+                            fontSize: 13.sp,
+                            decoration: TextDecoration.underline,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ]),
+          ),
+        ),
+        const SizedBox(height: 0),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.w),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: list.map((place) {
+                final int ratings = place['rating'];
+                final String name = place['full_name'];
+                final String imgUrl = place['avatar_url'];
+                final String date = place['created_at'];
+                final DateTime parsedDate = DateTime.parse(date);
+                final String formattedDate = DateFormat('MMM d, yyyy').format(parsedDate);
+                return  Container(
+                    child: Card(
+                      color: const Color.fromARGB(255, 230, 240, 250),
+                      elevation: 6.0,
+                      margin: EdgeInsets.only(right: 25.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(width: 20.w),
+                          Container(
+                            padding: EdgeInsets.only(top: 20.h),
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 20),
+                                CircleAvatar(
+                                  backgroundImage: imgUrl == "null" || imgUrl.contains('null') || imgUrl.isEmpty
+                                      ? AssetImage(avatarDefaultIcon) as ImageProvider
+                                      : NetworkImage(imgUrl),
+                                  radius: 20.sp,
+                                ),
+                                SizedBox(width: 10.w),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(right: 10.w),
+                                      child: Text(
+                                        name,
+                                        style: TextStyle(
+                                          color: Color.fromARGB(255, 53, 52, 52),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.sp,
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        ...List.generate(5, (index) {
+                                          return Icon(
+                                            index < ratings ? Icons.star : Icons.star_border_outlined,
+                                            color: Colors.yellow,
+                                            size: 25.sp,
+                                          );
+                                        }),
+                                        Text(
+                                          ' $ratings OUT OF 5, $formattedDate',
+                                          style: TextStyle(fontSize: 12.sp),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                          margin: EdgeInsets.only(
+                            left: 35.w,
+                          ),
+                          width: 500,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 30.w),
+                          child: Text(
+                            '${place['comment']}',
+                            style: TextStyle(fontSize: 14.sp),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 20.w),
-                          child:
-                              Text('${place['comment']}', // Display the comment
-                                  style: TextStyle(fontSize: 14.sp),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 5),
-                        ),
-                      ],
-                    );
-                  }).toList(),
-                )
-              ],
+                        ],
+                      ),
+                    ),
+                  );
+              }).toList(),
             ),
           ),
         )

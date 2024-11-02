@@ -22,8 +22,8 @@ class _TransactionsState extends State<Transactions> {
     });
   }
 
-  String formatPrice(int price) {
-    final num = NumberFormat('#,###');
+  String formatPrice(price) {
+    final num = NumberFormat('#,###.#');
     final price2 = num.format(price);
     return price2;
   }

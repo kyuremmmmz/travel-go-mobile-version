@@ -1,6 +1,5 @@
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/Widgets/Screens/Profiles/EditProfileScreen.dart';
-import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -33,6 +32,21 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   final data = Data();
   late bool isPaymentSuccess = false;
   final supabase = Supabase.instance.client;
+  bool _isRedirecting = false;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    emailFetching();
+    fetchImage();
+    _isRedirecting = true;
+  }
 
   Future<void> emailFetching() async {
     try {
@@ -49,23 +63,24 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
           img = useremail.isNotEmpty
               ? useremail[0]['avatar_url'].toString()
               : "Anonymous User";
+          _isRedirecting = false;
         });
       }
     } catch (e) {
       if (mounted) {
         setState(() {
           email = "error: $e";
+          _isRedirecting = false;
         });
       }
     }
   }
 
-
   Future<Future<String?>> insert(String id) async {
     final response = users.editProfile(id);
     return response;
   }
-  
+
   Future<void> fetchImage() async {
     final datas = await data.fetchImageandText();
     if (mounted) {
@@ -73,21 +88,6 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
         place = datas;
       });
     }
-  }
-
-  
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    emailFetching();
-    fetchImage();
   }
 
   @override
@@ -196,13 +196,15 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                 ],
               ),
             ),
-          ),
-        ],
-      ),
+          )
+        ]
+        
+          )
     );
   }
 
-  Widget buildSectionTitle(BuildContext context, String title) { // DESIGN ARE OF THE ACCOUNT AND NOTIFICATION TEXT
+  Widget buildSectionTitle(BuildContext context, String title) {
+    // DESIGN ARE OF THE ACCOUNT AND NOTIFICATION TEXT
     return Container(
       padding: EdgeInsets.all(15.w),
       width: 330,
@@ -225,7 +227,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     );
   }
 
-  Widget buildAccountDetails() { // ACCOUNT SETTINGS INFO AREA
+  Widget buildAccountDetails() {
+    // ACCOUNT SETTINGS INFO AREA
     return Container(
       width: 390.w,
       height: 220.h,
@@ -247,70 +250,112 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
           ),
         ],
       ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0.w), // Apply left and right padding to all children
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: 16.w), // Apply left and right padding to all children
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 0), // Adjust top and bottom padding here
-              child: Text(
-                'Name: ',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: 10.h,
+                      bottom: 0), // Adjust top and bottom padding here
+                  child: Text('Name: ',
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: 10.h,
+                      bottom: 0), // Adjust top and bottom padding here
+                  child: Text(email ?? 'Unknown',
+                      style: TextStyle(fontSize: 12.sp)),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 0), // Adjust top and bottom padding here
-              child: Text(email ?? 'Unknown'),
+            Divider(color: const Color(0xFF929292), thickness: 0.5.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Email: ',
+                    style: TextStyle(
+                        fontSize: 12.sp, fontWeight: FontWeight.bold)),
+                Text(gmail ?? 'Unknown', style: TextStyle(fontSize: 12.sp)),
+              ],
             ),
-          ],
-        ),
-
-      const Divider(color: Color(0xFF929292), thickness: 0.5),
-      InkWell(
-        onTap: () => {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => EditProfileScreen(
-                currentAvatarUrl: img,
-                currentEmail: gmail,
-                currentName: email,
-              ),
-            ),
-          )
-        },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Text('Edit Profile', style: TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
-        ),
-        const Divider(color: Color(0xFF929292), thickness: 0.5),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text('Email: ', style: TextStyle(fontWeight: FontWeight.bold)),
-            Text(gmail ?? 'Unknown'),
-          ],
-        ),
-        const Divider(color: Color(0xFF929292), thickness: 0.5),
-        InkWell(
-          onTap: () => 'test',
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Text('Change Password', style: TextStyle(fontWeight: FontWeight.bold)),
+            Divider(color: const Color(0xFF929292), thickness: 0.5.h),
+            InkWell(
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditProfileScreen(
+                      currentAvatarUrl: img,
+                      currentEmail: gmail,
+                      currentName: email,
+                    ),
+                  ),
+                )
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Edit Profile',
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.bold)),
                 ],
               ),
+            ),
+            Divider(color: const Color(0xFF929292), thickness: 0.5.h),
+            InkWell(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Reset Password',
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.bold)),
+                ],
+              ),
+              onTap: () => showAdaptiveDialog(
+                  context: context,
+                  builder: (context) {
+                    return StatefulBuilder(builder: (context, setState) {
+                      return AlertDialog(
+                        title: Text('Reset Password',
+                            style: TextStyle(fontSize: 20.sp)),
+                        content: SingleChildScrollView(
+                            child: ListBody(children: <Widget>[
+                          Text('You need to log out to reset your password.',
+                              style: TextStyle(fontSize: 16.sp))
+                        ])),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('Log Out',
+                                style: TextStyle(fontSize: 16.sp)),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              AppRoutes.navigateToForgotPassword(context);
+                              Usersss().signout(context);
+                            },
+                          ),
+                          TextButton(
+                            child: Text('Cancel',
+                                style: TextStyle(fontSize: 16.sp)),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      );
+                    });
+                  }),
             ),
           ],
         ),
@@ -331,7 +376,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
     );
   }
 
-  Widget buildNotificationSettings() { // NOTIFICATION SETTINGS INFO AREA
+  Widget buildNotificationSettings() {
+    // NOTIFICATION SETTINGS INFO AREA
     return Container(
       width: 390.w,
       height: 220.h,

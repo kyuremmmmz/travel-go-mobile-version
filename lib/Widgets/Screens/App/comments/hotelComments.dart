@@ -204,9 +204,7 @@ class _HotelCommentsState extends State<HotelComments> {
 
   @override
   Widget build(BuildContext context) {
-    return _isRedirecting == true ? const Center(
-      child: CircularProgressIndicator(),
-    )  : Column(
+    return Column(
       children: [
         Row(children: [
           Container(
@@ -222,10 +220,10 @@ class _HotelCommentsState extends State<HotelComments> {
                   ),
                   SizedBox(width: 5.w),
                   Text(
-                    '( $userRatings )',
+                    'OUT OF 5',
                     style: TextStyle(
                         color: const Color.fromARGB(255, 49, 49, 49),
-                        fontSize: 16.sp,
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.bold),
                   ),
                 ],
