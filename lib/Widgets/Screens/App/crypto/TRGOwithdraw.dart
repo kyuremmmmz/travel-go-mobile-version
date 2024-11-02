@@ -1,5 +1,6 @@
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Trgowithdraw extends StatefulWidget {
   const Trgowithdraw({super.key});
@@ -93,19 +94,17 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
               ),
             Row(
               children: [
-                const SizedBox(
-                  width: 5,
-                ),
+                
                 Container(
                   height: 120,
                   width: 200,
                   child: Card(
-                    color: Colors.blue,
+                    color: const Color.fromARGB(252, 34, 90, 212),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(
+                    child: const Padding(
+                      padding:  EdgeInsets.all(
                           10.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment
@@ -113,34 +112,31 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                         children: [
                           Row(
                             children: [
-                              const SizedBox(width: 20),
-                              const Expanded(
+                              SizedBox(width: 20),
+                              Expanded(
                                 child: Text(
                                   'Browse All Rewards',
-                                  style: const TextStyle(
+                                  style:TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15,
                                     color: Colors.white,
                                   ),
                                 ),
                               ),
-                              const SizedBox(
+                            SizedBox(
                                   width: 10),
                               CircleAvatar(
                                 backgroundColor: Colors
-                                    .white, 
+                                    .white,
                                 child: ClipOval(
-                                  child: Image.asset(
-                                    'assets/images/icon/newlogo-crop.png',
-                                    width: 30,
-                                    height: 30, 
-                                    fit: BoxFit.cover, 
-                                  ),
+                                  child: FaIcon(
+                                    FontAwesomeIcons.gift
+                                  )
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(
+                          SizedBox(
                               height:
                                   10), 
                         ],
@@ -148,11 +144,14 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  width: 10,
+                ),
                 Container(
                   height: 120,
                   width: 200,
                   child: Card(
-                    color: Colors.blue,
+                    color: const Color.fromARGB(252, 34, 90, 212),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -166,7 +165,7 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                               const SizedBox(width: 20),
                               const Expanded(
                                 child: Text(
-                                  'Browse All Rewards',
+                                  'How to get Points?',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15,
@@ -177,14 +176,9 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                               const SizedBox(width: 10),
                               CircleAvatar(
                                 backgroundColor: Colors.white,
-                                child: ClipOval(
-                                  child: Image.asset(
-                                    'assets/images/icon/newlogo-crop.png',
-                                    width: 30,
-                                    height: 30,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                child: CircleAvatar(
+                                  child: Image.asset('assets/images/Icon/coin.png'),
+                                )
                               ),
                             ],
                           ),

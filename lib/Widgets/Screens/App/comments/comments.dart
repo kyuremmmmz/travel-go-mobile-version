@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:TravelGo/Controllers/NetworkImages/imageFromSupabaseApi.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Controllers/Ratings/ratingsBackend.dart';
-import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
