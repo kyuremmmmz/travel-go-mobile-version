@@ -64,10 +64,12 @@ class _LoginScreenState extends State<LoginScreen> {
         body: SingleChildScrollView(
           child: Column(children: <Widget>[
             Container(
-                padding: EdgeInsets.only(top: 30.h),
+                padding: EdgeInsets.only(top: 0.h),
                 child: Align(
-                  child: Image.asset('assets/images/icon/newlogo-crop.png',
-                      fit: BoxFit.cover, height: 100.sp),
+                  child: Image.asset('assets/images/icon/newlogo2.png',
+                      fit: BoxFit.cover, 
+                      height: 200.h,
+                      width: 200.w),
                 )),
             Positioned(
                 top: 0,
@@ -82,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.only(left: 20.w),
+                    padding: EdgeInsets.only(left: 20.w, top: 20.h),
                     child: Text(
                       'Welcome Traveler!',
                       style: TextStyle(
@@ -148,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 70.h // Space above the Log-in button
+                  SizedBox(height: 30.h // Space above the Log-in button
                       ),
                   Container(
                       width: 250.w,
@@ -166,6 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: BlueButtonWithoutFunction(
                         text: Text('Log In',
                             style: TextStyle(
+                                fontWeight: FontWeight.w400,
                                 color: Colors.white,
                                 fontSize: 18.sp) // Style for the button text
                             ),
@@ -185,24 +188,41 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                       )),
-                  SizedBox(height: 70.h // Space below the Log-in button
+                  SizedBox(height: 10.h // Space below the Log-in button
                       ),
-                  BlueButtonWithoutFunction(
-                    text: Text('Sign in With Google',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp) // Style for the button text
+                  Container(
+                    width: 250.w, // Button width
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30), // Rounded corners for the button
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(0, 5),
                         ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 50, 190, 255),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                      ],
                     ),
-                    oppressed: () async {
-                      Oauth().nativeGoogleSignIn();
-                    },
-                  )
+                    child: BlueButtonWithoutFunction(
+                      text: Text(
+                        'Sign in with Google',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 18.sp, // Font size for button text
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 255, 255, 255), // Button background color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      oppressed: () async {
+                        Oauth().nativeGoogleSignIn(); // Call the Google Sign-In function
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
