@@ -5,6 +5,7 @@ import 'package:TravelGo/Widgets/Screens/App/bookingHistory.dart';
 import 'package:TravelGo/Widgets/Screens/App/booking_area.dart';
 import 'package:TravelGo/Widgets/Screens/App/confirmBooking.dart';
 import 'package:TravelGo/Widgets/Screens/App/creditcard.dart';
+import 'package:TravelGo/Widgets/Screens/App/crypto/TRGOwithdraw.dart';
 import 'package:TravelGo/Widgets/Screens/App/hotel_booking.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/beachTrackerMaps.dart';
 import 'package:TravelGo/Widgets/Screens/App/maps/exploreTrackerMaps.dart';
@@ -226,6 +227,11 @@ class AppRoutes {
   static void navigateToAccountSettings(BuildContext route) {
     Navigator.push(route,
         MaterialPageRoute(builder: (context) => const AccountSettingsScreen()));
+  }
+
+  static void navigateToTRGOYALTYwallet(BuildContext route) {
+    Navigator.push(route,
+        MaterialPageRoute(builder: (context) => const Trgowithdraw()));
   }
 
   static void navigateToHotelBookingScreen(BuildContext route,
