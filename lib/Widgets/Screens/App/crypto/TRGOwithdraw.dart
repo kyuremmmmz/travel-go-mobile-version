@@ -82,14 +82,14 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              height: 120.h,
-                              width: 175.w,
+                              width: 175.sp,
                               child: Card(
                                 color: const Color.fromARGB(252, 34, 90, 212),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Padding(
-                                  padding: EdgeInsets.all(10.sp),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.w, vertical: 20.h),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -98,10 +98,10 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                                           SizedBox(width: 10.w),
                                           Expanded(
                                             child: Text(
-                                              'Browse All Rewards',
+                                              'Browse all Rewards',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15.sp,
+                                                fontSize: 16.sp,
                                                 color: Colors.white,
                                               ),
                                             ),
@@ -122,14 +122,14 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                               ),
                             ),
                             SizedBox(
-                              height: 120.h,
-                              width: 175.w,
+                              width: 175.sp,
                               child: Card(
                                 color: const Color.fromARGB(252, 34, 90, 212),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Padding(
-                                  padding: EdgeInsets.all(10.sp),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.w, vertical: 20.h),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -141,7 +141,7 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                                               'How to get Points?',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15.sp,
+                                                fontSize: 16.sp,
                                                 color: Colors.white,
                                               ),
                                             ),
