@@ -13,7 +13,8 @@ class Trgo {
           .select('points')
           .eq('uid', user)
           .maybeSingle();
-      double currentPoints = (query != null && query['points'] != null) ? query['points'] : 0;
+      double currentPoints =
+          (query != null && query['points'] != null) ? query['points'] : 0;
       double updatedPoints = currentPoints + points;
       final response = await supabase.from('TRGO_POINTS').update({
         'uid': user,
@@ -77,21 +78,73 @@ class Trgo {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getThePointsOfMine() async {
+  Future<Map<String, dynamic>?> fetchMoney() async {
+    try {
+      final user = supabase.auth.currentUser!.id;
+      final query = await supabase
+          .from('TRGO_POINTS')
+          .select('money')
+          .eq('uid', user)
+          .maybeSingle();
+      if (query == null || query['money'] == null) {
+        return null;
+      } else {
+        final result = query;
+        final money = result['money'];
+        result['money'] = money;
+        return result;
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<Map<String, dynamic>?> updatePointsToMoney(
+      BuildContext context) async {
+    try {
+      final user = supabase.auth.currentUser!.id;
+      final query = await supabase
+          .from('TRGO_POINTS')
+          .select('points')
+          .eq('uid', user)
+          .maybeSingle();
+      if (query == null || query['points'] == null) {
+        return null;
+      } else {
+        final data = double.parse(query['points'].toString());
+        if (data == 1.0) {
+          final response = await supabase.from('TRGO_POINTS').update({
+            'uid': user,
+            'points': 0.01,
+            'money': 1000,
+          }).eq('uid', user);
+          return response;
+        }
+        return null;
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('$e'),
+      ));
+      return null;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getThePointsOfMine() async {
     final user = supabase.auth.currentUser!.id;
-    final response =
-        await supabase.from('TRGO_POINTS').select('*').eq('uid', user);
+    final response = await supabase
+        .from('TRGO_POINTS')
+        .select('points')
+        .eq('uid', user)
+        .single();
     if (response.isEmpty) {
-      return [];
+      return null;
     } else {
       final data = response;
-
-      List<Map<String, dynamic>> result = List<Map<String, dynamic>>.from(data as List);
-      for (var datas in result) {
-        final points =  datas['points'];
-        datas['points'] = points;
-      }
-      return result;
+      final points = data['points'];
+      data['points'] = points;
+      return data;
     }
   }
 }

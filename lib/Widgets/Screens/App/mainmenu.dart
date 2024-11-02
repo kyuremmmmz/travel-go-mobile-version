@@ -261,7 +261,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(20.sp)),
-                                    color: Colors.grey[100],
+                                    //color: Colors.grey[100],
                                   ),
                                   child: Row(
                                       children: isLoading
@@ -311,7 +311,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(20.sp)),
-                                    color: Colors.grey[100],
+                                    //color: Colors.grey[100],
                                   ),
                                   child: Row(
                                       children: isLoading
@@ -362,7 +362,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(20.sp)),
-                                    color: Colors.grey[100],
+                                    //color: Colors.grey[100],
                                   ),
                                   child: Row(
                                       children: isLoading
@@ -410,7 +410,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(20.sp)),
-                                    color: Colors.grey[100],
+                                    //color: Colors.grey[100],
                                   ),
                                   child: Row(
                                       children: isLoading
@@ -461,7 +461,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(20.sp)),
-                                    color: Colors.grey[100],
+                                    //color: Colors.grey[100],
                                   ),
                                   child: Row(
                                       children: isLoading

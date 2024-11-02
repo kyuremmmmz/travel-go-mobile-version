@@ -7,6 +7,7 @@ import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class VehicleAvailability extends StatefulWidget {
   final int text;
   String? name;
