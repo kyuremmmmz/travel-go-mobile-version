@@ -57,7 +57,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   bool _isRedirecting = false;
   // 100 is full progress bar
   // value of points and progress bar, except the decimal point
-  Future<void> gett() async {
+  Stream<num> gett() async* {
     final response = await tr.getThePointsOfMine();
     setState(() {
       TrgoPoints = response!['withdrawablePoints'];
@@ -342,34 +342,48 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     );
   }
 
-  Widget buildPointsHeader() {
+ Widget buildPointsHeader() {
     return Padding(
-      padding: EdgeInsets.only(
-          bottom: 2.w, right: 5.h), // Add padding below the header
+      padding: EdgeInsets.only(bottom: 2.w, right: 5.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text('My Points',
               style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold)),
-          RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                text: '$TrgoPoints',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.sp,
-                    color: Colors.black),
-              ),
-              TextSpan(
-                text: ' as of $formattedDate',
-                style: TextStyle(fontSize: 11.sp, color: Colors.black),
-              ),
-            ]),
+          StreamBuilder<num>(
+            stream: gett(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator(); // Loading indicator
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                TrgoPoints = snapshot.data ?? 0.0;
+                formattedDate = DateFormat('yyyy-MM-dd')
+                    .format(dateNoww);
+                return RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: '$TrgoPoints',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                          color: Colors.black),
+                    ),
+                    TextSpan(
+                      text: ' as of $formattedDate',
+                      style: TextStyle(fontSize: 11.sp, color: Colors.black),
+                    ),
+                  ]),
+                );
+              }
+            },
           ),
         ],
       ),
     );
   }
+
 
   Widget buildPointsProgress() {
     // AREA OF YELLOW LINE

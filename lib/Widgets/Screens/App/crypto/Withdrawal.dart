@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class WithdrawScreen extends StatefulWidget {
-  final num initialBalance;
-
-  WithdrawScreen({
-    Key? key,
-    required this.initialBalance,
-  }) : super(key: key);
+  WithdrawScreen({Key? key}) : super(key: key);
 
   @override
   _WithdrawScreenState createState() => _WithdrawScreenState();
@@ -18,68 +13,68 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
   final TextEditingController amountController = TextEditingController();
   final List<String> transferOptions = ['Credit Card', 'PayPal'];
   final trgo = Trgo();
-  num? bal;
-  num? remainingBalance;
+  Stream<num>? balanceStream;
+
   @override
   void initState() {
     super.initState();
-    remainingBalance = widget.initialBalance;
+    balanceStream = getBalanceStream();
   }
 
-  Future<void> getBal() async {
-    final response = await trgo.getTheWithdrawPoints();
-    setState(() {
-      bal = response!['withdrawablePoints'] - amountController.text;
-    });
+  Stream<num> getBalanceStream() async* {
+    while (true) {
+      final response = await trgo.getTheWithdrawPoints();
+      yield response!['withdrawablePoints'];
+      await Future.delayed(const Duration(seconds: 5));
+    }
   }
 
   Future<void> withdraw(double amount, BuildContext context) async {
     await trgo.withDraw(amount, context);
   }
 
-  void _updateBalance() {
-    num amount = num.tryParse(amountController.text) ?? 0.0;
-    if (amount <= remainingBalance!) {
-      setState(() {
-        remainingBalance = widget.initialBalance - amount;
-      });
-    } else {
-      setState(() {
-        remainingBalance = 0.0;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Withdraw Funds'),
-        backgroundColor: Color(0xFF0E4DA4), // GCash-like blue color
+        title: const Text('Withdraw Funds'),
+        backgroundColor: Color(0xFF0E4DA4),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Current Balance',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
               ),
             ),
-            SizedBox(height: 5),
-            Text(
-              '${remainingBalance!.toStringAsFixed(2)} Points',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF0E4DA4), // GCash-like blue color
-              ),
+            const SizedBox(height: 5),
+            StreamBuilder<num>(
+              stream: balanceStream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  num remainingBalance = snapshot.data ?? 0.0;
+                  return Text(
+                    '${remainingBalance.toStringAsFixed(2)} Points',
+                    style: const TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF0E4DA4),
+                    ),
+                  );
+                }
+              },
             ),
-            SizedBox(height: 30),
-            Text(
+            const SizedBox(height: 30),
+            const Text(
               'Enter Amount to Withdraw',
               style: TextStyle(
                 fontSize: 24,
@@ -87,12 +82,12 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 8,
@@ -104,9 +99,6 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                 controller: amountController,
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                onChanged: (text) {
-                  _updateBalance(); // Update the balance in real-time
-                },
                 decoration: InputDecoration(
                   hintText: 'Enter amount',
                   hintStyle: TextStyle(color: Colors.grey),
@@ -122,14 +114,14 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
               ),
             ),
             SizedBox(height: 20),
-            Text(
+            const Text(
               'Select Transfer Method',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 filled: true,
@@ -145,9 +137,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                   child: Text(option),
                 );
               }).toList(),
-              onChanged: (String? newValue) {
-                
-              },
+              onChanged: (String? newValue) {},
               hint: const Text('Select Transfer Method'),
             ),
             const SizedBox(height: 30),
@@ -158,7 +148,8 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0E4DA4),
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -177,7 +168,6 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
 
 void main() {
   runApp(MaterialApp(
-    home: WithdrawScreen(
-        initialBalance: 100.0), // Set your initial user balance here
+    home: WithdrawScreen(),
   ));
 }
