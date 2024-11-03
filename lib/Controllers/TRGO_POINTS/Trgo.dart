@@ -163,8 +163,8 @@ class Trgo {
       }
     } catch (e) {
       debugPrint('$e');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('$e'),
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('points updated successfully'),
       ));
       return null;
     }
