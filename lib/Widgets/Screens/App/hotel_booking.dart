@@ -83,7 +83,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   final String planeTicketIcon = "assets/images/icon/plane-ticket.png";
   bool _value = false;
   final trgo = Trgo();
-  double trgopoint = 0;
+  num trgopoint = 0;
   double discountSaved = 1000;
   double discountTotal = 0;
   String? amountDisplay;

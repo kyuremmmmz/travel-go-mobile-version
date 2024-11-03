@@ -102,7 +102,7 @@ class AppRoutes {
       String? origin,
       String? destination,
       String? bookingId,
-      required double points}) {
+      required num points}) {
     try {
       if (age < 18) {
         throw Exception('You must be 18 years old or older');
