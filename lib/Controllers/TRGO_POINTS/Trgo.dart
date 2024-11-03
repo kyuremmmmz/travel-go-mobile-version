@@ -97,7 +97,7 @@ class Trgo {
     } catch (e) {
       print(e);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('$e'),
+        content: Text('added successfully'),
       ));
       return null;
     }

@@ -54,7 +54,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
   List<Map<String, dynamic>> place = [];
   final data = Data();
   late bool isPaymentSuccess = false;
-  var money = 0;
+  num money = 0;
   final trGoMoney = Trgo();
   Future<void> emailFetching() async {
     try {
