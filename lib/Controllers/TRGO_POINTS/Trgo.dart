@@ -146,6 +146,21 @@ class Trgo {
           data['withdrawablePoints'] = withdrawableMoney;
           print(withdrawableMoney);
           final forUpdate = await points + withdrawableMoney;
+          final updateThisToh = withdrawableMoney;
+          switch (updateThisToh) {
+            case 1.0:
+              await supabase
+              .from('TRGO_POINTS')
+              .update({
+                'points': 0.01,
+                'withdrawablePoints': 1000,
+              })
+              .eq('uid', user)
+              .single();
+              break;
+              case 2.0:
+            default:
+          }
           final response = await supabase
               .from('TRGO_POINTS')
               .update({
