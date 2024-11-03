@@ -1,3 +1,4 @@
+import 'package:TravelGo/Widgets/Screens/App/InfoScreens/HotelsInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/InfoScreens/PlacesInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -110,6 +111,47 @@ class Data {
                 builder: (context) => PlacesInfo(
                       text: id,
                       name: text,
+                    )));
+        return datas;
+      } else {
+        print('No data found for $name');
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching data in search: $e');
+      return null;
+    }
+  }
+
+  Future<Map<String, dynamic>?> fetchinSearchHotel(
+      String name, BuildContext context) async {
+    try {
+      final response = await supabase
+          .from('hotels')
+          .select('*')
+          .eq('hotel_name', name)
+          .single();
+      if (response.isNotEmpty) {
+        final datas = response;
+        var text = datas['hotel_name'];
+        var image = datas['image'];
+        var located = datas['hotel_located'];
+        var price = datas['hotel_price'];
+        var id = datas['id'];
+        var priceQ = NumberFormat('#,###');
+        final formattedPrice = priceQ.format(price);
+        final imageUrl = await getter(image);
+        datas['image'] = imageUrl;
+        datas['hotel_name'] = text;
+        datas['hotel_located'] = located;
+        datas['id'] = id;
+        datas['hotel_price'] = formattedPrice;
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HotelsInfo(
+                      text: id,
+                      name: text, id: id,
                     )));
         return datas;
       } else {
