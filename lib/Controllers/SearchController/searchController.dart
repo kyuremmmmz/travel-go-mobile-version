@@ -67,7 +67,7 @@ class Searchcontroller {
   }
 
   Future<String?> Hotelgetter(String imgUrl) async {
-    final response = supabase.storage.from('places_url').getPublicUrl(imgUrl);
+    final response = supabase.storage.from('hotel_amenities_url').getPublicUrl(imgUrl);
     if (response.isEmpty) {
       return null;
     } else {
