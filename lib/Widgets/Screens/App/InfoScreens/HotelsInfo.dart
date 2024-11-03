@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../ResponsiveScreen/ResponsiveScreen.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/hotelSearch.dart';
+import 'package:TravelGo/Widgets/Screens/App/Searches/hotelSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/BookingBackend/hotel_booking.dart';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';

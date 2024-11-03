@@ -1,5 +1,5 @@
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
-import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/Searches/searchMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';

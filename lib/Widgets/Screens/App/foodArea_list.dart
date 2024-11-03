@@ -1,4 +1,4 @@
-import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/Searches/searchMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/NetworkImages/food_area.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';

@@ -4,7 +4,7 @@ import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/InfoScreens/BeachInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/categories.dart';
-import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/Searches/searchMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness

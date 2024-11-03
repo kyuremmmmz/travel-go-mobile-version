@@ -3,7 +3,7 @@ import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
 import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Widgets/Screens/App/InfoScreens/BeachInfo.dart';
 import 'package:TravelGo/Widgets/Screens/App/InfoScreens/HotelsInfo.dart';
-import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/Searches/searchMenu.dart';
 import 'package:flutter/material.dart'; // The flutter material package for UI e stateless wdiget for festivals
 import 'package:supabase_flutter/supabase_flutter.dart'; // Importing the Supabase Flutter package for database functionality.
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // responsiveness // The flutter material package for UI

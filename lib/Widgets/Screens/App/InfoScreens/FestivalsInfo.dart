@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:TravelGo/Widgets/Screens/App/searchMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/Searches/searchMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/NetworkImages/festivals_images.dart';
 import 'package:TravelGo/Controllers/Profiles/ProfileController.dart';

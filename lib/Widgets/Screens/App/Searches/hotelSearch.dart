@@ -63,6 +63,12 @@ class _HotelSearchMenuState extends State<HotelSearchMenu> {
                 return ListTile(
                   title: Text(suggestion['hotel_name'] ?? 'No title'),
                   subtitle: Text(suggestion['hotel_located'] ?? 'No address'),
+                  leading: Image.network(
+                      suggestion['hotel_image'] ?? 'No image',
+                      fit: BoxFit.cover,
+                      width: 70.sp,
+                      height: 70.sp,
+                    )
                 );
               },
               onSuggestionSelected: (dynamic suggestion) {
