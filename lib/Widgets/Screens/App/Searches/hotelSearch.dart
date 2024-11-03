@@ -37,7 +37,7 @@ class _HotelSearchMenuState extends State<HotelSearchMenu> {
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                       onPressed: () async {
-                        await data.fetchinSearch(
+                        await data.fetchinSearchHotel(
                             _searchController.text.trim(), context);
                       },
                       icon: const Icon(

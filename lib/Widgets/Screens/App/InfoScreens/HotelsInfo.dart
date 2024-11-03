@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:TravelGo/Controllers/NetworkImages/vouchers.dart';
 import 'package:TravelGo/Widgets/Screens/App/comments/hotelComments.dart';
+import 'package:TravelGo/Widgets/Screens/App/vehicleAvailability.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../ResponsiveScreen/ResponsiveScreen.dart';
@@ -378,6 +379,8 @@ class _HotelsInfoState extends State<HotelsInfo> {
                                         );
                                       }).toList()),
                                     )),
+                                SizedBox(height: 30.h),
+                                VehicleAvailability(text: widget.text, name: located,),
                                 SizedBox(height: 30.h),
                                 Column(
                                   children: [
