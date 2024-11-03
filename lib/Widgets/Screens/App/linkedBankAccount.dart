@@ -204,11 +204,20 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => WalletPaymentScreen(
-                                        payments: widget.price,))),
-                          ),
-                        ],
-                      ),
-                    )),
+                                      hotelorplace: widget.hotelorplace,
+                                          name: widget.name,
+                                          phone: widget.phone,
+                                          nameoftheplace: widget.nameoftheplace,
+                                          price: widget.price,
+                                          payment: widget.price,
+                                          booking_id: '${widget.bookingId}',
+                                        )
+                                      )
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )),
                 const SizedBox(
                   height: 30,
                 ),

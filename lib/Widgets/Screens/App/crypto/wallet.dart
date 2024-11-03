@@ -1,11 +1,27 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Controllers/TRGO_POINTS/Trgo.dart';
+import 'package:TravelGo/Controllers/paymentIntegration/trgoIntegration.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class WalletPaymentScreen extends StatefulWidget {
-  final num payments;
-
-  WalletPaymentScreen({required this.payments});
+  final String name;
+  final int phone;
+  final String hotelorplace;
+  final String nameoftheplace;
+  final num price;
+  final double payment;
+  final String booking_id;
+  const WalletPaymentScreen({
+    Key? key,
+    required this.name,
+    required this.phone,
+    required this.hotelorplace,
+    required this.nameoftheplace,
+    required this.price,
+    required this.payment,
+    required this.booking_id,
+  }) : super(key: key);
 
   @override
   _WalletPaymentScreenState createState() => _WalletPaymentScreenState();
@@ -17,16 +33,16 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
   double? paymentAmount;
   String? errorMessage;
   final trGoMoney = Trgo();
-  double walletBalance = 0.0; // Store current wallet balance
+  double walletBalance = 0.0;
 
   Stream<int> get moneyStream async* {
     while (true) {
       final response = await trGoMoney.fetchMoney();
       if (response != null) {
-        walletBalance = response['money'].toDouble(); // Update wallet balance
+        walletBalance = response['money'].toDouble();
         yield response['money'];
       }
-      await Future.delayed(Duration(seconds: 5)); // Adjust the delay as needed
+      await Future.delayed(Duration(seconds: 5));
     }
   }
 
@@ -37,15 +53,22 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
   }
 
   void _onPay() {
+    Trgointegration().payViaTrgo(
+            widget.price,
+            widget.price,
+            widget.nameoftheplace,
+            widget.name,
+            widget.phone,
+            widget.booking_id);
     setState(() {
       paymentAmount = double.tryParse(_paymentController.text);
       if (paymentAmount == null) {
         errorMessage = "Please enter a valid amount.";
       } else if (paymentAmount! > walletBalance) {
         errorMessage = "Insufficient balance.";
-      } else if (paymentAmount! < widget.payments) {
+      } else if (paymentAmount! < widget.price) {
         errorMessage =
-            "Payment amount must be at least ${_currencyFormat.format(widget.payments)}.";
+            "Payment amount must be at least ${_currencyFormat.format(widget.price)}.";
       } else {
         errorMessage = null;
         // Update the wallet balance directly
@@ -105,7 +128,7 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
             Text("Transaction ID: ${DateTime.now().millisecondsSinceEpoch}"),
             SizedBox(height: 10),
             Text(
-                "Total Payments Made: ${_currencyFormat.format(widget.payments + paymentAmount!)}"),
+                "Total Payments Made: ${_currencyFormat.format(widget.price + paymentAmount!)}"),
           ],
         ),
         actions: [
@@ -134,20 +157,20 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
               stream: moneyStream,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text("Loading wallet balance...");
+                  return const Text("Loading wallet balance...");
                 } else if (snapshot.hasError) {
-                  return Text("Error loading wallet balance");
+                  return const Text("Error loading wallet balance");
                 } else {
                   return Column(
                     children: [
                       Text(
                         "Wallet Balance: ${_currencyFormat.format(snapshot.data?.toDouble() ?? 0.0)}",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "Price to pay: ${_currencyFormat.format(widget.payments)}",
-                        style: TextStyle(
+                        "Price to pay: ${_currencyFormat.format(widget.price)}",
+                        style: const TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       )
                     ],
