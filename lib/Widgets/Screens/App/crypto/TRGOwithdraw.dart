@@ -1,3 +1,4 @@
+import 'package:TravelGo/Controllers/TRGO_POINTS/Trgo.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
@@ -16,6 +17,20 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
   final String goldIcon = "assets/images/icon/gold.png";
   final String platinumIcon = "assets/images/icon/platinum.png";
   final String diamondIcon = "assets/images/icon/diamond.png";
+  double bal = 0.0;
+  final trgo = Trgo();
+  Future<void> getBal() async {
+    final response = await trgo.getTheWithdrawPoints();
+    setState(() {
+      bal = response!['withdrawablePoints'];
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getBal();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +59,7 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                         child: RichText(
                       text: TextSpan(children: [
                         TextSpan(
-                          text: '1260.00',
+                          text: '$bal',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 40.sp,

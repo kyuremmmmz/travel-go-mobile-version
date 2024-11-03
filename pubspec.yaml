@@ -43,6 +43,7 @@ dependencies:
   flutter_smartcar_auth: ^1.0.6
   expandable_text: 2.3.0
   google_sign_in: ^6.2.1
+  shimmer: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

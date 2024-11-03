@@ -132,7 +132,7 @@ class Trgo {
       if (user.isEmpty) return null;
       final query = await supabase
           .from('TRGO_POINTS')
-          .select('points, withdrawablePoints')
+          .select('points, withdrawablePoints, placeholder')
           .eq('uid', user)
           .maybeSingle();
       if (query == null || query['points'] == null) {
@@ -142,30 +142,18 @@ class Trgo {
         if (data.containsValue(1.0)) {
           final points = await data['points'];
           final withdrawableMoney = await data['withdrawablePoints'];
+          final placeHolder = data['placeholder'];
           data['points'] = points;
           data['withdrawablePoints'] = withdrawableMoney;
-          print(withdrawableMoney);
-          final forUpdate = await points + withdrawableMoney;
-          final updateThisToh = withdrawableMoney;
-          switch (updateThisToh) {
-            case 1.0:
-              await supabase
-              .from('TRGO_POINTS')
-              .update({
-                'points': 0.01,
-                'withdrawablePoints': 1000,
-              })
-              .eq('uid', user)
-              .single();
-              break;
-              case 2.0:
-            default:
-          }
+          data['placeholder'] = placeHolder;
+          final forUpdate = await points + placeHolder;
+          final convert = forUpdate * 100;
           final response = await supabase
               .from('TRGO_POINTS')
               .update({
                 'points': 0.01,
-                'withdrawablePoints': forUpdate,
+                'placeholder': forUpdate,
+                'withdrawablePoints' : convert,
               })
               .eq('uid', user)
               .single();
