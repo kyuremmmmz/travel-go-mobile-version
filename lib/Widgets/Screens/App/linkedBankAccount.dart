@@ -204,7 +204,7 @@ class _LinkedBankScreenState extends State<LinkedBankScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => WalletPaymentScreen(
-                                        walletBalance: double.parse(money.toString()), payments: widget.price,))),
+                                        payments: widget.price,))),
                           ),
                         ],
                       ),

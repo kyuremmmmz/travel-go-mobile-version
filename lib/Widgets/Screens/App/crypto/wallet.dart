@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class WalletPaymentScreen extends StatefulWidget {
-  final double walletBalance;
   final num payments;
 
-  WalletPaymentScreen({required this.walletBalance, required this.payments});
+  WalletPaymentScreen({required this.payments});
 
   @override
   _WalletPaymentScreenState createState() => _WalletPaymentScreenState();
@@ -18,11 +17,15 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
   double? paymentAmount;
   String? errorMessage;
   final trGoMoney = Trgo();
+  double walletBalance = 0.0; // Store current wallet balance
 
   Stream<int> get moneyStream async* {
     while (true) {
       final response = await trGoMoney.fetchMoney();
-      yield response!['money'];
+      if (response != null) {
+        walletBalance = response['money'].toDouble(); // Update wallet balance
+        yield response['money'];
+      }
       await Future.delayed(Duration(seconds: 5)); // Adjust the delay as needed
     }
   }
@@ -38,20 +41,20 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
       paymentAmount = double.tryParse(_paymentController.text);
       if (paymentAmount == null) {
         errorMessage = "Please enter a valid amount.";
-      } else if (paymentAmount! > widget.walletBalance) {
+      } else if (paymentAmount! > walletBalance) {
         errorMessage = "Insufficient balance.";
       } else if (paymentAmount! < widget.payments) {
         errorMessage =
             "Payment amount must be at least ${_currencyFormat.format(widget.payments)}.";
       } else {
         errorMessage = null;
-        final newBalance = widget.walletBalance - paymentAmount!;
+        // Update the wallet balance directly
+        final newBalance = walletBalance - paymentAmount!;
         _showTransactionDialog(newBalance);
         _paymentController.clear();
       }
     });
   }
-
 
   void _showTransactionDialog(double newBalance) {
     showDialog(
@@ -138,7 +141,7 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
                   return Column(
                     children: [
                       Text(
-                        "Wallet Balance: ${_currencyFormat.format(snapshot.data)}",
+                        "Wallet Balance: ${_currencyFormat.format(snapshot.data?.toDouble() ?? 0.0)}",
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),

@@ -18,7 +18,7 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
   final String goldIcon = "assets/images/icon/gold.png";
   final String platinumIcon = "assets/images/icon/platinum.png";
   final String diamondIcon = "assets/images/icon/diamond.png";
-  num bal = 0.0;
+  double bal = 0.0;
   final trgo = Trgo();
   Future<void> getBal() async {
     final response = await trgo.getTheWithdrawPoints();
@@ -84,7 +84,7 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () => {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => WithdrawScreen(initialBalance: bal,)))
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => WithdrawScreen(initialBalance: bal)))
                         },
                         child: Text(
                           'Withdraw Points',
