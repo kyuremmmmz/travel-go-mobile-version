@@ -153,7 +153,7 @@ class Trgo {
               .update({
                 'points': 0.01,
                 'placeholder': forUpdate,
-                'withdrawablePoints' : convert,
+                'withdrawablePoints': convert,
               })
               .eq('uid', user)
               .single();
@@ -203,6 +203,45 @@ class Trgo {
       return data;
     }
   }
+
+Future<void> withDraw(double amountToSpend) async {
+    final user = supabase.auth.currentUser!.id;
+    final data = await supabase.from('TRGO_POINTS').select().eq('uid', user).single();
+
+    if (data.isEmpty) {
+      print("User data not found");
+      return;
+    }
+
+    final double withdrawableMoney = data['withdrawablePoints'];
+    final double placeHolder = data['placeholder'];
+
+    if (amountToSpend > withdrawableMoney) {
+      print("Insufficient balance for this transaction.");
+      return;
+    }
+
+    final double updatedWithdrawableMoney = withdrawableMoney - amountToSpend;
+    final double updatedPlaceHolder = placeHolder - (amountToSpend / 100);
+    final double updatedPoints = data['points'];
+
+    final response = await supabase
+        .from('TRGO_POINTS')
+        .update({
+          'points': updatedPoints,
+          'placeholder': updatedPlaceHolder,
+          'withdrawablePoints': updatedWithdrawableMoney,
+          'money' : amountToSpend
+        })
+        .eq('uid', user)
+        .single();
+    if (response.isNotEmpty) {
+      print("Points spent successfully.");
+    } else {
+      print("Error updating points: $response");
+    }
+  }
+
 
   Future<Map<String, dynamic>?> spendPoints(BuildContext context) async {
     try {
