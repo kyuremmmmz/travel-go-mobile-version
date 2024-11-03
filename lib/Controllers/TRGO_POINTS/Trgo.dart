@@ -129,9 +129,10 @@ class Trgo {
       BuildContext context) async {
     try {
       final user = supabase.auth.currentUser!.id;
+      if (user.isEmpty) return null;
       final query = await supabase
           .from('TRGO_POINTS')
-          .select('money, points')
+          .select('points, withdrawablePoints')
           .eq('uid', user)
           .maybeSingle();
       if (query == null || query['points'] == null) {
@@ -139,18 +140,41 @@ class Trgo {
       } else {
         final data = query;
         if (data.containsValue(1.0)) {
-          final money = data['money'];
-          data['money'] = money;
-          final response = await supabase.from('TRGO_POINTS').update({
-            'uid': user,
-            'points': 0.01,
-            'money': 1000,
-          }).eq('uid', user);
+          final points = await data['points'];
+          final withdrawableMoney = await data['withdrawablePoints'];
+          data['points'] = points;
+          data['withdrawablePoints'] = withdrawableMoney;
+          print(withdrawableMoney);
+          final forUpdate = await points + withdrawableMoney;
+          final updateThisToh = withdrawableMoney;
+          switch (updateThisToh) {
+            case 1.0:
+              await supabase
+              .from('TRGO_POINTS')
+              .update({
+                'points': 0.01,
+                'withdrawablePoints': 1000,
+              })
+              .eq('uid', user)
+              .single();
+              break;
+              case 2.0:
+            default:
+          }
+          final response = await supabase
+              .from('TRGO_POINTS')
+              .update({
+                'points': 0.01,
+                'withdrawablePoints': forUpdate,
+              })
+              .eq('uid', user)
+              .single();
           return response;
         }
         return null;
       }
     } catch (e) {
+      debugPrint('$e');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('$e'),
       ));
@@ -171,6 +195,23 @@ class Trgo {
       final data = response;
       final points = data['points'];
       data['points'] = points;
+      return data;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getTheWithdrawPoints() async {
+    final user = supabase.auth.currentUser!.id;
+    final response = await supabase
+        .from('TRGO_POINTS')
+        .select('withdrawablePoints')
+        .eq('uid', user)
+        .single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      final data = response;
+      final points = data['withdrawablePoints'];
+      data['withdrawablePoints'] = points;
       return data;
     }
   }

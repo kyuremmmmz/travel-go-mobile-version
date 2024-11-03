@@ -75,7 +75,7 @@ class HotelBooking {
       String bookingId) async {
     try {
       if (age < 18) {
-        throw Exception("tangina mo gago");
+        throw Exception("You're to young, you must be 18 years old");
       } else {
         final user = supabase.auth.currentUser!.id;
         final response = await supabase.from('hotel_booking').insert({

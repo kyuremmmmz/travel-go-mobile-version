@@ -104,8 +104,7 @@ class Vouchers {
         .from('discounts')
         .select()
         .eq('uid', uid)
-        .gte(
-            'created_at', todayDateString) // Check if voucher was created today
+        .gte('created_at', todayDateString) // Check if voucher was created today
         .limit(1);
 
     if (response.isEmpty) {

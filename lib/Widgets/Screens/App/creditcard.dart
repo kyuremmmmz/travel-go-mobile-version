@@ -1,3 +1,4 @@
+import 'package:TravelGo/Controllers/TRGO_POINTS/Trgo.dart';
 import 'package:TravelGo/Controllers/paymentIntegration/creditCard.dart';
 import 'package:TravelGo/Routes/Routes.dart';
 import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
@@ -309,6 +310,7 @@ class _CreditCardFormScreenState extends State<CreditCardFormScreen> {
                 onPressed: _value
                     ? () {
                         creditCard();
+                        Trgo().trgoPoints(context);
                         print(widget.phone);
                         Navigator.push(
                             context,

@@ -63,6 +63,9 @@ class _LoginScreenState extends State<LoginScreen> {
             false, // this avoid resizing the body when the keyboard appears
         body: SingleChildScrollView(
           child: Column(children: <Widget>[
+            const SizedBox(
+              height: 20,
+            ),
             Container(
                 padding: EdgeInsets.only(top: 0.h),
                 child: Align(
@@ -71,13 +74,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 200.h,
                       width: 200.w),
                 )),
-            Positioned(
-                top: 0,
-                child: Image.asset(
-                    'assets/images/icon/airplanelogo-crop.png', // Replace with your image path
-                    fit: BoxFit.cover,
-                    height: 220.sp // Adjust the image size
-                    )),
             Form(
               key: _formKey,
               child: Column(
