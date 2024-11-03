@@ -13,19 +13,22 @@ class WalletPaymentScreen extends StatefulWidget {
   final String nameoftheplace;
   final num price;
   final double payment;
+  // ignore: non_constant_identifier_names
   final String booking_id;
   const WalletPaymentScreen({
-    Key? key,
+    super.key,
     required this.name,
     required this.phone,
     required this.hotelorplace,
     required this.nameoftheplace,
     required this.price,
     required this.payment,
+    // ignore: non_constant_identifier_names
     required this.booking_id,
-  }) : super(key: key);
+  });
 
   @override
+  // ignore: library_private_types_in_public_api
   _WalletPaymentScreenState createState() => _WalletPaymentScreenState();
 }
 
@@ -44,7 +47,7 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
         walletBalance = response['money'].toDouble();
         yield response['money'];
       }
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 5));
     }
   }
 
@@ -99,25 +102,25 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    Text("You have paid:",
+                    const Text("You have paid:",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold)),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
-                      "${_currencyFormat.format(paymentAmount)}",
-                      style: TextStyle(
+                      _currencyFormat.format(paymentAmount),
+                      style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: Colors.teal),
                     ),
-                    SizedBox(height: 10),
-                    Text("New Wallet Balance:",
+                    const SizedBox(height: 10),
+                    const Text("New Wallet Balance:",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold)),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
-                      "${_currencyFormat.format(newBalance)}",
-                      style: TextStyle(
+                      _currencyFormat.format(newBalance),
+                      style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: Colors.teal),
@@ -126,9 +129,9 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text("Transaction ID: ${DateTime.now().millisecondsSinceEpoch}"),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
                 "Total Payments Made: ${_currencyFormat.format(widget.price + paymentAmount!)}"),
           ],
@@ -188,31 +191,31 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
                 }
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: _paymentController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(
                 labelText: "Enter amount to pay",
-                prefixIcon: Icon(Icons.money),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.money),
+                border: const OutlineInputBorder(),
                 errorText: errorMessage,
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.teal, width: 2.0),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _onPay,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal,
-                padding: EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 "Pay Now",
                 style: TextStyle(fontSize: 18),
               ),
