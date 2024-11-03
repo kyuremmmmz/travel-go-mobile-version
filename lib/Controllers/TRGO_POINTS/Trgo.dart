@@ -125,7 +125,7 @@ class Trgo {
     }
   }
 
-  Future<Map<String, dynamic>?> updatePointsToMoney(
+  Future<Map<dynamic, dynamic>?> updatePointsToMoney(
       BuildContext context) async {
     try {
       final user = supabase.auth.currentUser!.id;

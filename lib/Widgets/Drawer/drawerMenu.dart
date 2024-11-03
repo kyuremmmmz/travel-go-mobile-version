@@ -32,9 +32,11 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
           img = useremail[0]['avatar_url'].toString();
         });
       } else {
-        setState(() {
-          email = "Anonymous User";
-        });
+        if (mounted) {
+          setState(() {
+            email = "Anonymous User";
+          });
+        }
       }
     } catch (e) {
       setState(() {
