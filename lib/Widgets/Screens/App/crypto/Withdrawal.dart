@@ -33,8 +33,8 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
     });
   }
 
-  Future<void> withdraw(double amount) async {
-    await trgo.withDraw(amount);
+  Future<void> withdraw(double amount, BuildContext context) async {
+    await trgo.withDraw(amount, context);
   }
 
   void _updateBalance() {
@@ -146,7 +146,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                 );
               }).toList(),
               onChanged: (String? newValue) {
-                // Handle transfer option selection
+                
               },
               hint: const Text('Select Transfer Method'),
             ),
@@ -154,11 +154,11 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
             ElevatedButton(
               onPressed: () {
                 double amount = double.tryParse(amountController.text) ?? 0.0;
-                withdraw(amount);
+                withdraw(amount, context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF0E4DA4), // GCash-like blue color
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                backgroundColor: const Color(0xFF0E4DA4),
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
