@@ -139,12 +139,15 @@ class Trgo {
       } else {
         final data = query;
         if (data.containsValue(1.0)) {
-          final money = data['money'];
-          data['money'] = money;
+          final points = await data['points'];
+          final withdrawableMoney = await data['withdrawablePoints'];
+          data['points'] = points;
+          data['withdrawablePoints'] = withdrawableMoney;
+          final forUpdate = await points + withdrawableMoney;
           final response = await supabase.from('TRGO_POINTS').update({
             'uid': user,
             'points': 0.01,
-            'money': 1000,
+            'withdrawablePoints': forUpdate,
           }).eq('uid', user);
           return response;
         }
