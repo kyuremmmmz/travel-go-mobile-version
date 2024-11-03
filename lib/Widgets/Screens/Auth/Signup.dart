@@ -243,26 +243,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     return StatefulBuilder(
                                         builder: (context, setState) {
                                       return AlertDialog(
-                                        title: Text('Create Account',
+                                        title: Text('Signed Up successfully!',
                                             style: TextStyle(fontSize: 20.sp)),
                                         content: SingleChildScrollView(
                                             child: ListBody(children: <Widget>[
                                           Text(
-                                              'Signed Up successfully! \nCheck your email for confirmation.\n',
-                                              style:
-                                                  TextStyle(fontSize: 12.sp)),
-                                          Text('Full name: ${widget.fullName}',
-                                              style:
-                                                  TextStyle(fontSize: 12.sp)),
-                                          Text('User name: ${widget.userName}',
+                                              'Check your email for confirmation.\n',
                                               style:
                                                   TextStyle(fontSize: 12.sp)),
                                           Text(
-                                              'Phone Number: ${widget.phoneNumber}',
+                                              'Full name: \n${widget.fullName}',
                                               style:
                                                   TextStyle(fontSize: 12.sp)),
                                           Text(
-                                              'Email: ${_emailController.text}',
+                                              'User name: \n${widget.userName}',
+                                              style:
+                                                  TextStyle(fontSize: 12.sp)),
+                                          Text(
+                                              'Phone Number: \n0${widget.phoneNumber}',
+                                              style:
+                                                  TextStyle(fontSize: 12.sp)),
+                                          Text(
+                                              'Email: \n${_emailController.text}',
                                               style: TextStyle(fontSize: 12.sp))
                                         ])),
                                         actions: <Widget>[

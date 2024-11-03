@@ -27,7 +27,6 @@ class DiscountArea extends StatelessWidget {
   }
 }
 
-
 class DiscountAreaScreen extends StatefulWidget {
   const DiscountAreaScreen({super.key});
 
@@ -60,13 +59,14 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   // value of points and progress bar, except the decimal point
   Stream<num> getPointsStream() async* {
     while (true) {
-      final response = await tr.getThePointsOfMine();
+      final response = await tr.getThePointsOfMine(context);
       yield response!['withdrawablePoints'];
       await Future.delayed(const Duration(seconds: 5));
     }
   }
+
   Future<void> gett() async {
-    final response = await tr.getThePointsOfMine();
+    final response = await tr.getThePointsOfMine(context);
     setState(() {
       TrgoPoints = response!['withdrawablePoints'];
       if (TrgoPoints >= 1) {
@@ -350,7 +350,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     );
   }
 
- Widget buildPointsHeader() {
+  Widget buildPointsHeader() {
     return Padding(
       padding: EdgeInsets.only(bottom: 2.w, right: 5.h),
       child: Row(
@@ -367,8 +367,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
                 return Text('Error: ${snapshot.error}');
               } else {
                 TrgoPoints = snapshot.data ?? 0.0;
-                formattedDate = DateFormat('MMMM dd yyyy')
-                    .format(dateNoww);
+                formattedDate = DateFormat('MMMM dd yyyy').format(dateNoww);
                 return RichText(
                   text: TextSpan(children: [
                     TextSpan(
@@ -391,7 +390,6 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
       ),
     );
   }
-
 
   Widget buildPointsProgress() {
     // AREA OF YELLOW LINE

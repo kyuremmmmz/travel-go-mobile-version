@@ -211,7 +211,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
   }
 
   Future<void> getPoints() async {
-    final response = await trgo.getThePointsOfMine();
+    final response = await trgo.getThePointsOfMine(context);
     if (response == null) {
       setState(() {
         amount = 0;

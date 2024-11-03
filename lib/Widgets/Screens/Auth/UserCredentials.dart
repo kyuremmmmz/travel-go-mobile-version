@@ -75,25 +75,10 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                 child: Image.asset(
                   'assets/images/icon/newlogo2.png',
                   fit: BoxFit.cover,
-                  height: 200.h,
-                  width: 200.w,
+                  height: 250.sp,
+                  width: 250.sp,
                 ),
               ),
-              Positioned(
-                top: 100,
-                bottom: 50, // Adjust the position of the second image
-                right: -30,
-                left: -30, // Change as needed
-                child: Image.asset(
-                  'assets/images/icon/pogi2.png', // Replace with your image path
-                  height: 450.h, // Adjust the size
-                  width: 350.w, // Adjust the size
-                ),
-              ),
-              SizedBox(
-                height: 470.h,
-                width: 510.w,
-              )
             ]),
           ),
           Positioned(

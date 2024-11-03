@@ -70,9 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: EdgeInsets.only(top: 0.h),
                 child: Align(
                   child: Image.asset('assets/images/icon/newlogo2.png',
-                      fit: BoxFit.cover, 
-                      height: 200.h,
-                      width: 200.w),
+                      fit: BoxFit.cover, height: 250.h, width: 250.w),
                 )),
             Form(
               key: _formKey,
@@ -189,7 +187,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     width: 250.w, // Button width
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30), // Rounded corners for the button
+                      borderRadius: BorderRadius.circular(
+                          30), // Rounded corners for the button
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.2),
@@ -209,13 +208,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 255, 255, 255), // Button background color
+                        backgroundColor: const Color.fromARGB(
+                            255, 255, 255, 255), // Button background color
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
                       oppressed: () async {
-                        Oauth().nativeGoogleSignIn(); // Call the Google Sign-In function
+                        Oauth()
+                            .nativeGoogleSignIn(); // Call the Google Sign-In function
                       },
                     ),
                   ),

@@ -170,20 +170,28 @@ class Trgo {
     }
   }
 
-  Future<Map<String, dynamic>?> getThePointsOfMine() async {
-    final user = supabase.auth.currentUser!.id;
-    final response = await supabase
-        .from('TRGO_POINTS')
-        .select('withdrawablePoints')
-        .eq('uid', user)
-        .single();
-    if (response.isEmpty) {
+  Future<Map<String, dynamic>?> getThePointsOfMine(context) async {
+    try {
+      final user = supabase.auth.currentUser!.id;
+      final response = await supabase
+          .from('TRGO_POINTS')
+          .select('withdrawablePoints')
+          .eq('uid', user)
+          .single();
+      if (response.isEmpty) {
+        return null;
+      } else {
+        final data = response;
+        final points = data['withdrawablePoints'];
+        data['withdrawablePoints'] = points;
+        return data;
+      }
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('$e'),
+      ));
       return null;
-    } else {
-      final data = response;
-      final points = data['withdrawablePoints'];
-      data['withdrawablePoints'] = points;
-      return data;
     }
   }
 
@@ -218,9 +226,9 @@ class Trgo {
       final points = data['money'];
       data['money'] = points;
       final minus = amount - points;
-      await supabase.from('TRGO_POINTS').update({
-        'money' : minus
-      }).eq('uid', user);
+      await supabase
+          .from('TRGO_POINTS')
+          .update({'money': minus}).eq('uid', user);
       return data;
     }
   }
