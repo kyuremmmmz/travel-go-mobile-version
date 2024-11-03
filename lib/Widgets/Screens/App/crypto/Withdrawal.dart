@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class WithdrawScreen extends StatefulWidget {
-  final double initialBalance;
+  final num initialBalance;
 
   WithdrawScreen({
     Key? key,
@@ -18,8 +18,8 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
   final TextEditingController amountController = TextEditingController();
   final List<String> transferOptions = ['Credit Card', 'PayPal'];
   final trgo = Trgo();
-  double? bal;
-  double? remainingBalance;
+  num? bal;
+  num? remainingBalance;
   @override
   void initState() {
     super.initState();
@@ -38,7 +38,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
   }
 
   void _updateBalance() {
-    double amount = double.tryParse(amountController.text) ?? 0.0;
+    num amount = num.tryParse(amountController.text) ?? 0.0;
     if (amount <= remainingBalance!) {
       setState(() {
         remainingBalance = widget.initialBalance - amount;
@@ -153,7 +153,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                double amount = double.parse(amountController.text);
+                double amount = double.tryParse(amountController.text) ?? 0.0;
                 withdraw(amount);
               },
               style: ElevatedButton.styleFrom(

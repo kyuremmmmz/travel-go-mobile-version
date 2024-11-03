@@ -55,7 +55,9 @@ class Signup {
             });
         await supabase.from('TRGO_POINTS').insert({
           'points' : 0.10,
-          'user_id': supabase.auth.currentUser!.id
+          'user_id': supabase.auth.currentUser!.id,
+          'withdrawablePoints' : 0.0,
+          'placeholder' : 0.0
         });
       }
       // ignore: use_build_context_synchronously
