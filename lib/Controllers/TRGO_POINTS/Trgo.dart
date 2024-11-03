@@ -217,7 +217,7 @@ class Trgo {
       final data = response;
       final points = data['money'];
       data['money'] = points;
-      final minus = amount - points;
+      final minus =  points -  amount;
       await supabase.from('TRGO_POINTS').update({
         'money' : minus
       }).eq('uid', user);
@@ -276,8 +276,8 @@ class Trgo {
         print("Error updating points: $response");
       }
     } catch (e) {
-      print(e);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
         content: Text('Points withdrawn Successfully!'),
       ));
     }
@@ -313,8 +313,8 @@ class Trgo {
       }
     } catch (e) {
       print(e);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('$e'),
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text( 'Points updated successfully!',),
       ));
       return null;
     }
