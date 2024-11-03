@@ -129,10 +129,10 @@ class Trgo {
       BuildContext context) async {
     try {
       final user = supabase.auth.currentUser!.id;
-      if (user == null) return null;
+      if (user.isEmpty) return null;
       final query = await supabase
           .from('TRGO_POINTS')
-          .select('points')
+          .select('points, withdrawablePoints')
           .eq('uid', user)
           .maybeSingle();
       if (query == null || query['points'] == null) {
@@ -141,7 +141,7 @@ class Trgo {
         final data = query;
         if (data.containsValue(1.0)) {
           final points = await data['points'];
-          final withdrawableMoney = await query['withdrawablePoints'];
+          final withdrawableMoney = await data['withdrawablePoints'];
           data['points'] = points;
           data['withdrawablePoints'] = withdrawableMoney;
           print(withdrawableMoney);
@@ -180,6 +180,23 @@ class Trgo {
       final data = response;
       final points = data['points'];
       data['points'] = points;
+      return data;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getTheWithdrawPoints() async {
+    final user = supabase.auth.currentUser!.id;
+    final response = await supabase
+        .from('TRGO_POINTS')
+        .select('withdrawablePoints')
+        .eq('uid', user)
+        .single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      final data = response;
+      final points = data['withdrawablePoints'];
+      data['withdrawablePoints'] = points;
       return data;
     }
   }
