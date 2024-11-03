@@ -8,7 +8,6 @@ import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:TravelGo/main.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -194,7 +193,8 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     );
   }
 
-  Widget transactionHistory() { // Availble Flight Vouchers Area
+  Widget transactionHistory() {
+    // Availble Flight Vouchers Area
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -202,7 +202,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
           final date = calculateRemainingTime(items['expiry']);
           return Container(
             padding: const EdgeInsets.all(20),
-            width: 400,
+            width: 380.w,
             child: VoucherButton(
               voucherTitle:
                   'Enjoy up to ${items['discount']}% off at ${items['hotelName']}!',
@@ -325,10 +325,8 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
       child: Row(
         children: [
           SizedBox(
-              width: 30.w,
-              child:
-                  const FaIcon(FontAwesomeIcons.coins, // THE ICON OF THE COINS
-                      color: Color(0xFFFFD989))),
+              width: 30.sp,
+              child: Image.asset("assets/images/icon/coin-stack.png")),
           Expanded(
             child: Column(
               children: [
@@ -388,7 +386,8 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
     );
   }
 
-  Widget buildDiscountList() { // Available Vouchers Area
+  Widget buildDiscountList() {
+    // Available Vouchers Area
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -396,7 +395,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
           final date = calculateRemainingTime(items['expiry']);
           return Container(
             padding: const EdgeInsets.all(20),
-            width: 400.w,
+            width: 380.w,
             child: VoucherButton(
               voucherTitle:
                   'Enjoy up to ${items['discount']}% off at ${items['hotelName']}!',
