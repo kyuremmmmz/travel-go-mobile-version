@@ -174,15 +174,15 @@ class Trgo {
     final user = supabase.auth.currentUser!.id;
     final response = await supabase
         .from('TRGO_POINTS')
-        .select('points')
+        .select('withdrawablePoints')
         .eq('uid', user)
         .single();
     if (response.isEmpty) {
       return null;
     } else {
       final data = response;
-      final points = data['points'];
-      data['points'] = points;
+      final points = data['withdrawablePoints'];
+      data['withdrawablePoints'] = points;
       return data;
     }
   }

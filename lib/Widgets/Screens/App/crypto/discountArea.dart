@@ -60,7 +60,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   Future<void> gett() async {
     final response = await tr.getThePointsOfMine();
     setState(() {
-      TrgoPoints = response!['points'];
+      TrgoPoints = response!['withdrawablePoints'];
       if (TrgoPoints >= 1) {
         percentprogress = TrgoPoints * 0.01; // Formula 100 points to full
         messageprogress =
@@ -210,49 +210,12 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.bold))),
                         buildDiscountList(),
-                        SizedBox(height: 10.h),
-                        Container(
-                            alignment: Alignment.centerLeft,
-                            padding: EdgeInsets.only(left: 20.w),
-                            child: Text('Available Flight Vouchers',
-                                style: TextStyle(
-                                    color: const Color(0xFF333131),
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold))),
-                        transactionHistory()
                       ],
                     ),
                   ]),
                 ))
               ],
             ),
-    );
-  }
-
-  Widget transactionHistory() {
-    // Availble Flight Vouchers Area
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: res.map((items) {
-          final date = calculateRemainingTime(items['expiry']);
-          return Container(
-            padding: const EdgeInsets.all(20),
-            width: 380.w,
-            child: VoucherButton(
-              voucherTitle:
-                  'Enjoy up to ${items['discount']}% off at ${items['hotelName']}!',
-              description:
-                  'Book now and experience luxury at a discounted rate',
-              expiring: date,
-              image: items['ishotel'] == true
-                  ? const AssetImage('assets/images/icon/hotel.png')
-                  : const AssetImage('assets/images/icon/beach.png'),
-              oppressed: () => 'Test',
-            ),
-          );
-        }).toList(),
-      ),
     );
   }
 
