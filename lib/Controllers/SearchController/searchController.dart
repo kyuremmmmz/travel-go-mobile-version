@@ -50,6 +50,9 @@ class Searchcontroller {
         List datas = List.from(data);
         for (var quesries in datas) {
           final place = quesries['hotel_name'];
+          final img = quesries['image'];
+          final imgUrl = await Hotelgetter(img);
+          quesries['image'] = imgUrl;
           quesries['hotel_name'] = place;
         }
         return datas;
@@ -60,6 +63,15 @@ class Searchcontroller {
       // ignore: avoid_print
       print('Error: $e');
       return [];
+    }
+  }
+
+  Future<String?> Hotelgetter(String imgUrl) async {
+    final response = supabase.storage.from('places_url').getPublicUrl(imgUrl);
+    if (response.isEmpty) {
+      return null;
+    } else {
+      return response;
     }
   }
 }

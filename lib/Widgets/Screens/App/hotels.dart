@@ -1,4 +1,5 @@
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/Searches/hotelSearch.dart';
 import 'package:TravelGo/Widgets/Screens/App/Searches/searchMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:TravelGo/Controllers/NetworkImages/hotel_images.dart';
@@ -88,7 +89,7 @@ class _HotelScreenState extends State<HotelScreen> {
                 Positioned.fill(
                     child: Column(children: <Widget>[
                   const TitleMenu(),
-                  const SearchMenu(),
+                  const HotelSearchMenu(),
                   SizedBox(height: 30.h),
                   Expanded(
                       child: Scrollbar(
