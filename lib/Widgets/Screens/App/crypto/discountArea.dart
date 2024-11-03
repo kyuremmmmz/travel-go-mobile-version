@@ -49,10 +49,10 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   late Usersss users = Usersss();
   var dateNoww = DateTime.now();
   String formattedDate = '';
-  double TrgoPoints = 0.0;
+  num TrgoPoints = 0.0;
   String messageprogress = '';
-  double percentprogress = 0.0;
-  double percentcompute = 0.0;
+  num percentprogress = 0.0;
+  num percentcompute = 0.0;
   int messagesize = 13; // resize for updated points
   bool _isRedirecting = false;
   // 100 is full progress bar
@@ -378,7 +378,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
             vertical: 2
                 .h), // Add vertical padding for space above and below the progress bar
         child: LinearProgressIndicator(
-            value: percentprogress,
+            value: double.parse('$percentprogress'),
             minHeight: 5.h, // Height of the progress bar
             backgroundColor: const Color(0xFFD9D9D9),
             borderRadius: BorderRadius.circular(5.sp),
