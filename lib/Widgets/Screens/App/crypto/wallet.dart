@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:TravelGo/Controllers/TRGO_POINTS/Trgo.dart';
 import 'package:TravelGo/Controllers/paymentIntegration/trgoIntegration.dart';
+import 'package:TravelGo/Routes/Routes.dart';
+import 'package:TravelGo/Widgets/Screens/App/orderReceipt.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -33,9 +35,9 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
   double? paymentAmount;
   String? errorMessage;
   final trGoMoney = Trgo();
-  double walletBalance = 0.0;
+  num walletBalance = 0.0;
 
-  Stream<int> get moneyStream async* {
+  Stream<num> get moneyStream async* {
     while (true) {
       final response = await trGoMoney.fetchMoney();
       if (response != null) {
@@ -133,7 +135,15 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => {
+              Navigator.push(context,MaterialPageRoute(
+                                builder: (context) => OrderReceipt(
+                                    bookingId: widget.booking_id
+                                    )
+                                  )
+                                ),
+              Navigator.pop(context)
+            },
             child: const Text("OK"),
           ),
         ],
@@ -153,7 +163,7 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            StreamBuilder<int>(
+            StreamBuilder<num>(
               stream: moneyStream,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {

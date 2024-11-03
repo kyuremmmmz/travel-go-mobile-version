@@ -218,7 +218,7 @@ class _HotelBookingAreaScreenState extends State<HotelBookingAreaScreen> {
       });
     } else {
       setState(() {
-        trgopoint = response['points'];
+        trgopoint = response['withdrawablePoints'];
         discountTotal = amount - discountSaved;
         final numberFormat = NumberFormat('#,##0.##');
         final numbers = numberFormat.format(discountTotal);

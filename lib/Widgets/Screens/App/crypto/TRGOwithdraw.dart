@@ -99,7 +99,7 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => WithdrawScreen( ),
+                        builder: (context) => WithdrawScreen(),
                       ),
                     )
                   },
