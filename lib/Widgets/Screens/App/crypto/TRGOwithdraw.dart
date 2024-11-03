@@ -18,7 +18,7 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
   final String goldIcon = "assets/images/icon/gold.png";
   final String platinumIcon = "assets/images/icon/platinum.png";
   final String diamondIcon = "assets/images/icon/diamond.png";
-  double bal = 0.0;
+  num bal = 0.0;
   final trgo = Trgo();
   Future<void> getBal() async {
     final response = await trgo.getTheWithdrawPoints();
