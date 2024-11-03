@@ -129,6 +129,7 @@ class Trgo {
       BuildContext context) async {
     try {
       final user = supabase.auth.currentUser!.id;
+      if (user == null) return null;
       final query = await supabase
           .from('TRGO_POINTS')
           .select('points')
@@ -140,14 +141,19 @@ class Trgo {
         final data = query;
         if (data.containsValue(1.0)) {
           final points = await data['points'];
-          final withdrawableMoney = await data['withdrawablePoints'];
+          final withdrawableMoney = await query['withdrawablePoints'];
           data['points'] = points;
           data['withdrawablePoints'] = withdrawableMoney;
+          print(withdrawableMoney);
           final forUpdate = await points + withdrawableMoney;
-          final response = await supabase.from('TRGO_POINTS').update({
-            'points': 0.01,
-            'withdrawablePoints': forUpdate,
-          }).eq('uid', user).single();
+          final response = await supabase
+              .from('TRGO_POINTS')
+              .update({
+                'points': 0.01,
+                'withdrawablePoints': forUpdate,
+              })
+              .eq('uid', user)
+              .single();
           return response;
         }
         return null;
