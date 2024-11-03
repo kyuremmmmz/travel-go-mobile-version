@@ -27,6 +27,7 @@ class DiscountArea extends StatelessWidget {
   }
 }
 
+
 class DiscountAreaScreen extends StatefulWidget {
   const DiscountAreaScreen({super.key});
 
@@ -57,7 +58,14 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   bool _isRedirecting = false;
   // 100 is full progress bar
   // value of points and progress bar, except the decimal point
-  Stream<num> gett() async* {
+  Stream<num> getPointsStream() async* {
+    while (true) {
+      final response = await tr.getThePointsOfMine();
+      yield response!['withdrawablePoints'];
+      await Future.delayed(const Duration(seconds: 5));
+    }
+  }
+  Future<void> gett() async {
     final response = await tr.getThePointsOfMine();
     setState(() {
       TrgoPoints = response!['withdrawablePoints'];
@@ -351,7 +359,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
           Text('My Points',
               style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold)),
           StreamBuilder<num>(
-            stream: gett(),
+            stream: getPointsStream(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const CircularProgressIndicator(); // Loading indicator
@@ -359,7 +367,7 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
                 return Text('Error: ${snapshot.error}');
               } else {
                 TrgoPoints = snapshot.data ?? 0.0;
-                formattedDate = DateFormat('yyyy-MM-dd')
+                formattedDate = DateFormat('MMMM dd yyyy')
                     .format(dateNoww);
                 return RichText(
                   text: TextSpan(children: [
