@@ -50,14 +50,50 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
   var dateNoww = DateTime.now();
   String formattedDate = '';
   double TrgoPoints = 0.0;
+  String messageprogress = '';
+  double percentprogress = 0.0;
+  double percentcompute = 0.0;
+  int messagesize = 13; // resize for updated points
   bool _isRedirecting = false;
   // 100 is full progress bar
   // value of points and progress bar, except the decimal point
   Future<void> gett() async {
     final response = await tr.getThePointsOfMine();
     setState(() {
-      _isRedirecting = false;
       TrgoPoints = response!['points'];
+      if (TrgoPoints >= 1) {
+        percentprogress = TrgoPoints * 0.01; // Formula 100 points to full
+        messageprogress =
+            "Feel free to use your points now! \nCollect more points and save big!";
+      } else {
+        percentprogress = TrgoPoints;
+        messagesize = 10; // small text size for less points
+        messageprogress =
+            "Earn points and enjoy discounts on your next booking! \nStart collecting points now and save big!";
+      }
+      if (TrgoPoints >= 100) {
+        percentprogress =
+            (TrgoPoints - 100) * 0.01; // Formula 200 points to full
+        messageprogress =
+            "Congratulations! \nYour points have reached Silver status!";
+      }
+      if (TrgoPoints >= 200) {
+        percentprogress =
+            (TrgoPoints - 200) * 0.01; // Formula 300 points to full
+        messageprogress =
+            "Congratulations! \nYour points have reached Gold status!";
+      }
+      if (TrgoPoints >= 300) {
+        percentprogress =
+            (TrgoPoints - 300) * 0.01; // Formula 400 points to full
+        messageprogress =
+            "Congratulations! \nYour points have reached Platinum status!";
+      }
+      if (TrgoPoints >= 400) {
+        messageprogress =
+            "Congratulations! \nYour points have reached Diamond status!";
+      }
+      _isRedirecting = false;
     });
   }
 
@@ -326,14 +362,15 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
         children: [
           SizedBox(
               width: 30.sp,
+              height: 30.sp,
               child: Image.asset("assets/images/icon/coin-stack.png")),
+          SizedBox(width: 5.w),
           Expanded(
             child: Column(
               children: [
                 buildPointsHeader(),
                 buildPointsProgress(),
-                const SizedBox(height: 5),
-                buildPointsInfoText(),
+                buildPointsInfoText()
               ],
             ),
           ),
@@ -349,10 +386,23 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Travel Go Points',
+          Text('My Points',
               style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold)),
-          Text('$TrgoPoints as of $formattedDate',
-              style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold))
+          RichText(
+            text: TextSpan(children: [
+              TextSpan(
+                text: '$TrgoPoints',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.sp,
+                    color: Colors.black),
+              ),
+              TextSpan(
+                text: ' as of $formattedDate',
+                style: TextStyle(fontSize: 11.sp, color: Colors.black),
+              ),
+            ]),
+          ),
         ],
       ),
     );
@@ -365,25 +415,28 @@ class _DiscountAreaScreenState extends State<DiscountAreaScreen> {
             vertical: 2
                 .h), // Add vertical padding for space above and below the progress bar
         child: LinearProgressIndicator(
-            value: TrgoPoints,
+            value: percentprogress,
+            minHeight: 5.h, // Height of the progress bar
             backgroundColor: const Color(0xFFD9D9D9),
-            borderRadius: BorderRadius.circular(5.w),
+            borderRadius: BorderRadius.circular(5.sp),
             color: const Color(0xFFFFD989)));
   }
 
   Widget buildPointsInfoText() {
-    return Padding(
-      padding: EdgeInsets.only(
-          top: 5.w, right: 15.h), // Add padding above the info text
-      child: Text(
-        'Earn points and enjoy discounts on your next booking! \nStart collecting points now and save big!',
-        style: TextStyle(
-          fontSize: 8.sp,
-          color: const Color(0xFF0567B4),
-        ),
-        textAlign: TextAlign.justify,
-      ),
-    );
+    return SizedBox(
+        width: 300.w,
+        child: Padding(
+          padding:
+              EdgeInsets.only(top: 10.h), // Add padding above the info text
+          child: Text(
+            messageprogress,
+            style: TextStyle(
+              fontSize: messagesize.sp,
+              color: const Color(0xFF0567B4),
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ));
   }
 
   Widget buildDiscountList() {
