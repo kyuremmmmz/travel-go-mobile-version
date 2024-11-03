@@ -1,6 +1,7 @@
 import 'package:TravelGo/Controllers/TRGO_POINTS/Trgo.dart';
 import 'package:TravelGo/Widgets/Buttons/WithMethodButtons/BlueIconButton.dart';
 import 'package:TravelGo/Widgets/Drawer/drawerMenu.dart';
+import 'package:TravelGo/Widgets/Screens/App/crypto/Withdrawal.dart';
 import 'package:TravelGo/Widgets/Screens/App/titleMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,7 +83,9 @@ class _TrgowithdrawState extends State<Trgowithdraw> {
                             backgroundColor: Colors.blue,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
-                        onPressed: () => debugPrint('test'),
+                        onPressed: () => {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => WithdrawScreen(initialBalance: bal)))
+                        },
                         child: Text(
                           'Withdraw Points',
                           style: TextStyle(
