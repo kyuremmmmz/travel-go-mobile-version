@@ -35,7 +35,7 @@ class WalletPaymentScreen extends StatefulWidget {
 class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
   final _paymentController = TextEditingController();
   final _currencyFormat = NumberFormat.currency(locale: 'en_US', symbol: '₱');
-  double? paymentAmount;
+  num? paymentAmount;
   String? errorMessage;
   final trGoMoney = Trgo();
   num walletBalance = 0.0;
@@ -80,7 +80,7 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
     });
   }
 
-  void _showTransactionDialog(double newBalance) {
+  void _showTransactionDialog(num newBalance) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -135,7 +135,7 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
         actions: [
           ElevatedButton(
             onPressed: () {
-              print(widget.booking_id);
+              trGoMoney.payment(paymentAmount ?? 0.0);
               Navigator.push(
                   context,
                   MaterialPageRoute(

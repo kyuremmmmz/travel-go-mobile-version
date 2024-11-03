@@ -140,7 +140,7 @@ class _BookingAreaScreenState extends State<BookingAreaScreen> {
       });
     } else {
       setState(() {
-        trgopoint = response['points'];
+        trgopoint = response['withdrawablePoints'];
         discountTotal = amount - discountSaved;
         final numberFormat = NumberFormat('#,##0.##');
         final numbers = numberFormat.format(discountTotal);

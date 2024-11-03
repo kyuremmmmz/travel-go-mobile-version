@@ -204,7 +204,28 @@ class Trgo {
     }
   }
 
-Future<void> withDraw(num amountToSpend, BuildContext context) async {
+  Future<Map<String, dynamic>?> payment(num amount) async {
+    final user = supabase.auth.currentUser!.id;
+    final response = await supabase
+        .from('TRGO_POINTS')
+        .select('money')
+        .eq('uid', user)
+        .single();
+    if (response.isEmpty) {
+      return null;
+    } else {
+      final data = response;
+      final points = data['money'];
+      data['money'] = points;
+      final minus = amount - points;
+      await supabase.from('TRGO_POINTS').update({
+        'money' : minus
+      }).eq('uid', user);
+      return data;
+    }
+  }
+
+  Future<void> withDraw(num amountToSpend, BuildContext context) async {
     try {
       final user = supabase.auth.currentUser?.id;
 
@@ -261,8 +282,6 @@ Future<void> withDraw(num amountToSpend, BuildContext context) async {
       ));
     }
   }
-
-
 
   Future<Map<String, dynamic>?> spendPoints(BuildContext context) async {
     try {
