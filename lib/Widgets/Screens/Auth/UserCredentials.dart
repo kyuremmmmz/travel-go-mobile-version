@@ -79,21 +79,6 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                   width: 200.w,
                 ),
               ),
-              Positioned(
-                top: 100,
-                bottom: 50, // Adjust the position of the second image
-                right: -30,
-                left: -30, // Change as needed
-                child: Image.asset(
-                  'assets/images/icon/pogi2.png', // Replace with your image path
-                  height: 450.h, // Adjust the size
-                  width: 350.w, // Adjust the size
-                ),
-              ),
-              SizedBox(
-                height: 470.h,
-                width: 510.w,
-              )
             ]),
           ),
           Positioned(
@@ -192,8 +177,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                       height: 10.h,
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width -
-                          30.w, // full name line area
+                      width: MediaQuery.of(context).size.width - 30.w,
                       padding: EdgeInsets.only(top: 0.w, left: 5, right: 5),
                       child: plainTextField(
                         controller: _userNameController,
@@ -218,8 +202,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                           top: 0.0,
                           left: 5.0,
                           right: 5.0), // Customize padding as needed
-                      width: MediaQuery.of(context).size.width -
-                          30.w, // password line area
+                      width: MediaQuery.of(context).size.width - 30.w,
                       child: TextFormField(
                         controller: _phoneController,
                         validator: (value) {
@@ -257,7 +240,7 @@ class _UserCredentialsScreenState extends State<UserCredentialsScreen> {
                         padding: EdgeInsets.only(
                             top: 0.w,
                             left: 5,
-                            right: 5), //container of Next button to
+                            right: 5),
                         width: MediaQuery.of(context).size.width - 100.w,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),

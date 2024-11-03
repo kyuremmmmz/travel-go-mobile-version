@@ -96,8 +96,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Container(
                 padding: EdgeInsets.symmetric(vertical: 50.h),
                 child: Align(
-                    child: Image.asset('assets/images/icon/newlogo-crop.png',
-                        fit: BoxFit.cover, height: 120.sp)),
+                    child: Image.asset('assets/images/icon/newlogo2.png',
+                        fit: BoxFit.cover, height: 200.h, width: 200.w,)),
               ),
               Form(
                 key: _formKey,
