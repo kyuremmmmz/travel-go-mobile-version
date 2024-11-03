@@ -131,7 +131,7 @@ class Trgo {
       final user = supabase.auth.currentUser!.id;
       final query = await supabase
           .from('TRGO_POINTS')
-          .select('money, points')
+          .select('points')
           .eq('uid', user)
           .maybeSingle();
       if (query == null || query['points'] == null) {
@@ -145,15 +145,15 @@ class Trgo {
           data['withdrawablePoints'] = withdrawableMoney;
           final forUpdate = await points + withdrawableMoney;
           final response = await supabase.from('TRGO_POINTS').update({
-            'uid': user,
             'points': 0.01,
             'withdrawablePoints': forUpdate,
-          }).eq('uid', user);
+          }).eq('uid', user).single();
           return response;
         }
         return null;
       }
     } catch (e) {
+      debugPrint('$e');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('$e'),
       ));
