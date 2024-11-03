@@ -58,13 +58,9 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
   }
 
   void _onPay() {
-    Trgointegration().payViaTrgo(
-            widget.price,
-            widget.price,
-            widget.nameoftheplace,
-            widget.name,
-            widget.phone,
-            widget.booking_id);
+    Trgointegration().payViaTrgo(widget.price, widget.price,
+        widget.nameoftheplace, widget.name, widget.phone, widget.booking_id);
+
     setState(() {
       paymentAmount = double.tryParse(_paymentController.text);
       if (paymentAmount == null) {
@@ -137,15 +133,14 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
           ],
         ),
         actions: [
-          TextButton(
-            onPressed: () => {
-              Navigator.push(context,MaterialPageRoute(
-                                builder: (context) => OrderReceipt(
-                                    bookingId: widget.booking_id
-                                    )
-                                  )
-                                ),
-              Navigator.pop(context)
+          ElevatedButton(
+            onPressed: () {
+              print(widget.booking_id);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          OrderReceipt(bookingId: widget.booking_id)));
             },
             child: const Text("OK"),
           ),
@@ -194,7 +189,8 @@ class _WalletPaymentScreenState extends State<WalletPaymentScreen> {
             const SizedBox(height: 20),
             TextField(
               controller: _paymentController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(
                 labelText: "Enter amount to pay",
                 prefixIcon: const Icon(Icons.money),
