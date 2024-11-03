@@ -108,7 +108,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget> {
           ),
           ListTile(
             leading: Icon(Icons.wallet_membership, size: 20.sp),
-            title: Text('TRGOYALTY WALLET', style: TextStyle(fontSize: 16.sp)),
+            title: Text('TRGOyalty Wallet', style: TextStyle(fontSize: 16.sp)),
             onTap: () {
               Navigator.pop(context);
               AppRoutes.navigateToTRGOYALTYwallet(context);
