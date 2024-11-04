@@ -53,12 +53,6 @@ class Signup {
               'phone_number': phoneNumber,
               'username': username
             });
-        await supabase.from('TRGO_POINTS').insert({
-          'points' : 0.01,
-          'uid': supabase.auth.currentUser!.id,
-          'withdrawablePoints' : 0.0,
-          'placeholder' : 0.0
-        });
       }
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

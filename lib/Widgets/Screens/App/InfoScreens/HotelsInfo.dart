@@ -380,7 +380,10 @@ class _HotelsInfoState extends State<HotelsInfo> {
                                       }).toList()),
                                     )),
                                 SizedBox(height: 30.h),
-                                VehicleAvailability(text: widget.text, name: located,),
+                                VehicleAvailability(
+                                  text: widget.text,
+                                  name: located,
+                                ),
                                 SizedBox(height: 30.h),
                                 Column(
                                   children: [
@@ -634,6 +637,8 @@ class _HotelsInfoState extends State<HotelsInfo> {
                                                   HotelBooking()
                                                       .passTheHotelData(
                                                           widget.text);
+                                                  Future.delayed(const Duration(
+                                                      seconds: 7));
                                                   AppRoutes
                                                       .navigateToHotelBookingScreen(
                                                           context,
