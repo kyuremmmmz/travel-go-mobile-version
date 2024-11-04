@@ -1,59 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acknowledgements</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        h1 {
-            color: #4a90e2;
-        }
-        h2 {
-            margin-top: 20px;
-            color: #333;
-        }
-        .acknowledgement {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #e8f4fc;
-        }
-    </style>
-</head>
-<body>
+# Acknowledgements
 
-    <h1>Acknowledgements</h1>
+## Crystal Sabado - UI/UX Designer
+Thank you, Crystal, for your exceptional creativity and dedication to creating an intuitive, user-friendly design. Your eye for detail and passion for a seamless user experience have been invaluable to the success of this app.
 
-    <div class="acknowledgement">
-        <h2>Crystal Sabado - UI/UX Designer</h2>
-        <p>Thank you, Crystal, for your exceptional creativity and dedication to creating an intuitive, user-friendly design. Your eye for detail and passion for a seamless user experience have been invaluable to the success of this app.</p>
-    </div>
+## Peter Pagasartonga - Assist Developer
+Thank you, Peter, for your tireless support and technical expertise throughout the development process. Your assistance and problem-solving skills helped ensure that our team stayed on track and met each milestone.
 
-    <div class="acknowledgement">
-        <h2>Peter Pagasartonga - Assist Developer</h2>
-        <p>Thank you, Peter, for your tireless support and technical expertise throughout the development process. Your assistance and problem-solving skills helped ensure that our team stayed on track and met each milestone.</p>
-    </div>
+## Brian Villegas - Frontend Developer
+Thank you, Brian, for bringing the app to life with your frontend development skills. Your dedication and attention to detail allowed us to achieve a polished and engaging user interface, which greatly enhances our users' experience.
 
-    <div class="acknowledgement">
-        <h2>Brian Villegas - Frontend Developer</h2>
-        <p>Thank you, Brian, for bringing the app to life with your frontend development skills. Your dedication and attention to detail allowed us to achieve a polished and engaging user interface, which greatly enhances our users' experience.</p>
-    </div>
+## Jefferson Almazan - Assist Developer
+Thank you, Jefferson, for your valuable support and technical contributions to the project. Your assistance in tackling challenging tasks was essential in making this app a success.
 
-    <div class="acknowledgement">
-        <h2>Jefferson Almazan - Assist Developer</h2>
-        <p>Thank you, Jefferson, for your valuable support and technical contributions to the project. Your assistance in tackling challenging tasks was essential in making this app a success.</p>
-    </div>
-
-    <div class="acknowledgement">
-        <h2>Mark Anthony Lafuente & Jerie Lacap - Researchers</h2>
-        <p>Thank you, Mark and Jerie, for your dedication to gathering and organizing essential research. Your efforts helped us understand our target audience and the travel industry better, enabling us to create a more impactful product.</p>
-    </div>
-
-</body>
-</html>
+## Researchers
+- **Mark Anthony Lafuente** - Thank you, Mark, for your dedication to gathering essential research, which has provided us with valuable insights into our target audience.
+- **Jerie Lacap** - Thank you, Jerie, for your commitment to organizing research data. Your work has been instrumental in helping us understand the travel industry better and build a more impactful product.
