@@ -14,4 +14,3 @@ Thank you, Jefferson, for your valuable support and technical contributions to t
 
 ## Researchers
 - **Mark Anthony Lafuente** - Thank you, Mark, for your dedication to gathering essential research, which has provided us with valuable insights into our target audience.
-- **Jerie Lacap** - Thank you, Jerie, for your commitment to organizing research data. Your work has been instrumental in helping us understand the travel industry better and build a more impactful product.
