@@ -4,7 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Oauth {
   Future<void> nativeGoogleSignIn() async {
-    const webClientId = '203263579620-p7g92bb8c8rdqltr88njobne96j31ob0.apps.googleusercontent.com';
+    const webClientId = 'WEB CLIENT ID';
     const iosClientId = 'IOS CLIENT ID';
 
     final GoogleSignIn googleSignIn = GoogleSignIn(
